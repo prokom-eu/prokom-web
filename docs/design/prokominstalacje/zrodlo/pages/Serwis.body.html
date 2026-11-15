@@ -1,0 +1,48 @@
+<!--@pheroA-->
+          <div id="zglos" class="card zp" style="box-shadow: inset 0 0 0 1px var(--line), var(--shadow); border-radius: 30px; scroll-margin-top: 90px" role="region" aria-label="Formularz zgłoszenia awarii">
+            <sc-if value="{{sv.form}}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap"><b class="h3">Zgłoś awarię</b><div class="seg"><sc-for list="{{sv.who}}" as="w" hint-placeholder-count="2"><button type="button" class="{{w.cls}}" aria-pressed="{{w.on}}" onClick="{{w.pick}}">{{w.n}}</button></sc-for></div></div>
+              <div class="zpq"><h3><em>1</em>Co nie działa?</h3><div class="zpc"><sc-for list="{{sv.sys}}" as="c" hint-placeholder-count="9"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><!--i:c.ic:15-->{{c.n}}</button></sc-for></div></div>
+              <div class="zpq"><h3><em>2</em>Co się dzieje?</h3><div class="zpc"><sc-for list="{{sv.sym}}" as="c" hint-placeholder-count="4"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.n}}</button></sc-for></div></div>
+              <div class="zpq"><h3><em>3</em>Jak pilne?</h3><div class="zpc"><sc-for list="{{sv.urg}}" as="c" hint-placeholder-count="3"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.n}}</button></sc-for></div></div>
+              <sc-if value="{{sv.urgent}}" hint-placeholder-val="{{ false }}"><div class="note xa-urg" role="status"><!--i:P.phone:18--><span><b>Pilne? Zadzwoń: <a href="{{K.telH}}" class="ph">{{K.tel}}</a></b> (w godzinach pracy). Formularz też wyślij, żeby zgłoszenie zostało zapisane.</span></div></sc-if>
+              <div class="g2" style="gap: 10px"><label class="fl">Telefon<input class="{{sv.phCls}}" type="tel" placeholder="np. 600 000 000" autocomplete="tel" value="{{sv.ph}}" onInput="{{sv.onPh}}"></label><label class="fl">Miejscowość<input class="zin" type="text" placeholder="np. Zakopane" autocomplete="address-level2" value="{{sv.town}}" onInput="{{sv.onTown}}"></label></div>
+              <sc-if value="{{sv.err}}" hint-placeholder-val="{{ false }}"><div class="zkerr" role="alert"><!--i:P.chat:16-->{{sv.errT}}</div></sc-if>
+              <button type="button" class="btn btn-p" onClick="{{sv.send}}">Wyślij zgłoszenie</button>
+              <span class="mut" style="font-size: 13px">Pilne sprawy w godzinach pracy: zadzwoń <a href="{{K.telH}}" class="ph">{{K.tel}}</a>. Po godzinach: <span class="ph">[SZEF: zasady]</span></span>
+            </sc-if>
+            <sc-if value="{{sv.track}}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap"><b class="h3" role="status">Dziękujemy, zgłoszenie przyjęte</b><button type="button" class="btn btn-g btn-s" onClick="{{sv.reset}}">Nowe zgłoszenie</button></div>
+              <p class="mut" style="margin: 0; font-size: 15px">Odpowiemy do 24 h w dni robocze: oddzwonimy albo odpiszemy. To czas na odpowiedź, termin ewentualnej wizyty ustalimy w rozmowie.</p>
+              <div class="zsl"><div><span>System</span><b>{{sv.sSys}}</b></div><div><span>Objaw</span><b>{{sv.sSym}}</b></div><div><span>Pilność</span><b>{{sv.sUrg}}</b></div></div>
+              <div class="trk"><sc-for list="{{sv.steps}}" as="s" hint-placeholder-count="4"><div class="{{s.cls}}"><em><!--i:s.ic:16:2.4--></em><span><b>{{s.t}}</b><span>{{s.d}}</span></span></div></sc-for></div>
+              <span class="mut" style="font-size: 12.5px">Tak zwykle przebiega zgłoszenie.</span>
+            </sc-if>
+          </div>
+<!--@pheroB-->
+
+  <section id="plany" class="{{rv.pl}}" data-rv="pl" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Opieka serwisowa</span><h2 class="h2">Instalacja ma działać w sezonie, a nie tylko w dniu odbioru.</h2></div><p class="lead" style="max-width: 440px">Wybierz poziom opieki. Zakres i terminy przyjazdu zapisujemy w umowie.</p></div>
+      <div class="plans" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px"><sc-for list="{{plans}}" as="p" hint-placeholder-count="3"><div class="{{p.cls}}"><sc-if value="{{p.hot}}" hint-placeholder-val="{{ false }}"><span class="tag a" style="align-self: flex-start">Najczęściej wybierany</span></sc-if><b class="h3">{{p.n}}</b><span class="mut">{{p.d}}</span><ul><sc-for list="{{p.f}}" as="f" hint-placeholder-count="4"><li><i><!--i:P.check:16:2.6--></i><span>{{f}}</span></li></sc-for></ul><span class="prc" style="font-size: 22px; margin-top: auto">{{p.pr}}</span></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="przejecie" class="{{rv.pz}}" data-rv="pz" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Instalacja od innej firmy</span><h2 class="h2">Przejmiemy serwis. Bez wymiany wszystkiego.</h2></div><p class="lead" style="max-width: 440px">Firma, która montowała, zniknęła albo nie odbiera? Zaczynamy od sprawdzenia, co jest, a dopiero potem proponujemy zmiany.</p></div>
+      <div class="steps" style="grid-template-columns: repeat(4, minmax(0, 1fr))"><sc-for list="{{pz}}" as="s" hint-placeholder-count="4"><div class="card step ri"><span class="stn">{{s.n}}</span><b class="h3" style="font-size: 18px">{{s.t}}</b><p>{{s.d}}</p></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="zdalnie" class="{{rv.zd}}" data-rv="zd" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="card dark ri" style="padding: 44px; border-radius: 30px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 36px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 14px"><span class="eye" style="color: #4CCBE6">Zdalnie i na miejscu</span><b class="h2" style="font-size: clamp(28px, 3vw, 42px)">Dużo naprawiamy, zanim ktokolwiek wsiądzie do auta.</b><p class="lead">Za Twoją zgodą łączymy się z urządzeniami zdalnie. Jeśli trzeba przyjechać, jedziemy z najbliższego salonu: z Rabki albo z Zakopanego.</p></div>
+        <div class="g2" style="gap: 12px"><sc-for list="{{zd}}" as="z" hint-placeholder-count="6"><div class="odi"><!--i:z.ic:20--><div><b style="display: block">{{z.t}}</b><span style="color: #B5C7CB; font-size: 14px">{{z.d}}</span></div></div></sc-for></div>
+      </div>
+    </div>
+  </section>
+
+<!--@faqsec-->
+<!--@relsec-->

@@ -1,0 +1,15 @@
+<!-- SITUATIONS -->
+<section id="sytuacje" class="au-sec">
+<div class="wrap">
+<div style="text-align:center;max-width:760px;margin:0 auto 44px"><div class="au-eb">Od czego zaczynasz</div><h2 class="au-h2">Z czym do nas przychodzisz?</h2><p class="au-lead" style="margin:14px 0 0">Wybierz swoją sytuację. Pokażemy rozwiązanie, cenę i czas.</p></div>
+<div class="au-sits">
+<sc-for list="{{pans}}" as="p" hint-placeholder-count="4">
+<div class="au-glass au-sit {{p.o}}" onMouseEnter="{{p.hover}}" onClick="{{p.pick}}">
+<div class="tx"><span class="n">{{p.n}} · {{p.short}}</span><h3>{{p.q}}</h3><p style="margin:0;color:var(--fg2);line-height:1.55">{{p.ans}}</p><div class="au-row" style="margin-top:4px"><b style="font:900 20px Archivo;color:var(--vt)">{{p.price}}</b><button class="au-link" onClick="{{p.open}}">Zobacz ofertę <span class="arr">→</span></button></div></div>
+<div class="au-scr"><div class="fit k-sit" style="--fw:640px;--fh:300px"><dc-import name="Vis" kind="{{p.kind}}" variant="{{p.variant}}" phone="{{p.phone}}" toast="{{p.toast}}" scale="0.68" h="300" hint-size="100%,100%"></dc-import></div></div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+

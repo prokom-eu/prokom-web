@@ -1,0 +1,169 @@
+import { describe, expect, it } from 'vitest'
+
+import { prepareSearch } from '../search'
+import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import {
+  FAMILY_LIMIT,
+  familyProducts,
+  recommendedProducts,
+  SUGGESTION_LIMIT,
+  suggestedProducts,
+} from './related'
+
+const product = (slug: string, fields: Partial<IndexProduct> = {}): IndexProduct => ({
+  slug,
+  name: slug.toUpperCase(),
+  brand: null,
+  kind: 'device',
+  categories: ['kasy'],
+  group: 'sprzedaz',
+  industries: [],
+  features: [],
+  isNew: false,
+  authorized: false,
+  popularity: 50,
+  registerTypes: [],
+  hay: slug,
+  ...fields,
+})
+
+/** Index order = popularity, as `getCatalogIndex` sorts it; only published products are in it. */
+const index = (products: IndexProduct[]): CatalogIndex => ({
+  products,
+  brands: [],
+  categories: [],
+  groups: [],
+  industries: [],
+  pages: [],
+  search: { synonyms: {}, stopWords: [], popular: [] },
+})
+
+describe('familyProducts', () => {
+  const lenovo = (slug: string, series: string | undefined, subcategory = 'Laptopy') =>
+    product(slug, { brand: 'lenovo', series, subcategory, categories: ['komputery'] })
+
+  it('takes the same brand and series first, then the same subcategory', () => {
+    const catalog = index([
+      lenovo('tb14', 'ThinkBook'),
+      lenovo('t14', 'ThinkPad T'),
+      lenovo('tb16', 'ThinkBook'),
+      product('dell', {
+        brand: 'dell',
+        series: 'ThinkBook',
+        subcategory: 'Laptopy',
+        categories: ['komputery'],
+      }),
+      lenovo('tbmon', 'ThinkBook', 'Monitory'),
+    ])
+    expect(familyProducts(catalog, 'tb14').map((item) => item.slug)).toEqual([
+      'tb16',
+      'tbmon',
+      't14',
+      'dell',
+    ])
+  })
+
+  it('takes the main category when a product of a series has no subcategory (K4 laptops)', () => {
+    const laptop = (slug: string, series: string, brand = 'lenovo') =>
+      product(slug, { brand, series, subcategory: undefined, categories: ['laptopy'] })
+    const catalog = index([
+      laptop('tb14', 'ThinkBook'),
+      laptop('tb16', 'ThinkBook'),
+      laptop('t14', 'ThinkPad T'),
+      product('mon', { brand: 'lenovo', series: 'ThinkVision', categories: ['monitory'] }),
+      laptop('xps', 'XPS', 'dell'),
+    ])
+    expect(familyProducts(catalog, 'tb14').map((item) => item.slug)).toEqual(['tb16', 't14', 'xps'])
+  })
+
+  it('shows at most 4, never the product itself, nothing for a product without either', () => {
+    const many = index(Array.from({ length: 7 }, (_, i) => lenovo(`m${i}`, 'ThinkBook')))
+    expect(familyProducts(many, 'm0')).toHaveLength(FAMILY_LIMIT)
+    expect(familyProducts(many, 'm0').map((item) => item.slug)).not.toContain('m0')
+    expect(familyProducts(index([product('a'), product('b')]), 'a')).toEqual([])
+    expect(familyProducts(many, 'brak')).toEqual([])
+  })
+})
+
+describe('suggestedProducts', () => {
+  const catalog = index([
+    product('ergo', { fits: ['szuflada', 'rolki', 'brak'] }),
+    product('szuflada', { name: 'Szuflada kasowa SK-500', hay: 'szuflada kasowa' }),
+    product('rolki', { name: 'Rolki termiczne 57 mm', hay: 'rolki papier' }),
+    product('czytnik', { name: 'Czytnik kodów', hay: 'czytnik kodow skaner' }),
+  ])
+  const prepared = prepareSearch(catalog)
+
+  it('matches phrases to cards, then adds „pasuje do”, without repeats', () => {
+    const { cards, chips } = suggestedProducts(catalog, prepared, 'ergo', [
+      'szuflada kasowa',
+      'czytnik kodów',
+      'terminal płatniczy',
+    ])
+    expect(cards.map(({ label, product }) => [label, product.slug])).toEqual([
+      ['szuflada kasowa', 'szuflada'],
+      ['czytnik kodów', 'czytnik'],
+      [null, 'rolki'],
+    ])
+    expect(chips).toEqual(['terminal płatniczy'])
+  })
+
+  it('prefers a hit of the same brand', () => {
+    const lenovo = index([
+      product('tb14', { brand: 'lenovo' }),
+      product('dell-dock', {
+        brand: 'dell',
+        name: 'Dell stacja dokująca',
+        hay: 'stacja dokujaca',
+        popularity: 90,
+      }),
+      product('lenovo-dock', {
+        brand: 'lenovo',
+        name: 'Lenovo stacja dokująca',
+        hay: 'stacja dokujaca',
+        popularity: 10,
+      }),
+    ])
+    const { cards } = suggestedProducts(lenovo, prepareSearch(lenovo), 'tb14', ['stacja dokująca'])
+    expect(cards.map((card) => card.product.slug)).toEqual(['lenovo-dock'])
+  })
+
+  it('never suggests the product itself', () => {
+    const { cards } = suggestedProducts(catalog, prepared, 'szuflada', ['szuflada kasowa'])
+    expect(cards).toEqual([])
+  })
+})
+
+describe('recommendedProducts (K4 `polecane`)', () => {
+  const catalog = index([
+    product('ergo', { fits: ['szuflada', 'papier'] }),
+    product('szuflada'),
+    product('skaner'),
+    product('papier'),
+  ])
+
+  it('cards from the panel with labels, once each, then „pasuje do” without repeats', () => {
+    const cards = recommendedProducts(catalog, 'ergo', [
+      { slug: 'skaner', label: 'Skaner kodów' },
+      { slug: 'szuflada', label: 'Szuflada' },
+      { slug: 'skaner', label: 'Znowu skaner' },
+      { slug: 'ergo', label: 'Ona sama' },
+      { slug: 'szkic', label: 'Nieopublikowana' },
+    ])
+    expect(cards.map(({ label, product: card }) => [card.slug, label])).toEqual([
+      ['skaner', 'Skaner kodów'],
+      ['szuflada', 'Szuflada'],
+      ['papier', null],
+    ])
+  })
+
+  it('nothing listed → empty (the page falls back to the phrases)', () => {
+    expect(recommendedProducts(catalog, 'ergo', [{ slug: 'szkic', label: 'X' }])).toEqual([])
+  })
+
+  it('at most one row and a half', () => {
+    const many = index([product('a'), ...Array.from({ length: 12 }, (_, i) => product(`p${i}`))])
+    const list = Array.from({ length: 12 }, (_, i) => ({ slug: `p${i}`, label: `P${i}` }))
+    expect(recommendedProducts(many, 'a', list)).toHaveLength(SUGGESTION_LIMIT)
+  })
+})

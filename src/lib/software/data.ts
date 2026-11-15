@@ -1,0 +1,594 @@
+import config from '@payload-config'
+import { cacheQuery } from '../cache'
+import { getPayload } from 'payload'
+import { cache } from 'react'
+
+import { getEnv } from '../env'
+import { log } from '../log'
+import { PAGE_CACHE_SECONDS } from '../pages/data'
+import { isIconName } from '../catalog/options'
+import { contactFacts, factsMap, fillDeep, fillText } from './facts'
+import { homeSchema, type SoftwareHome } from './home'
+import {
+  buildOfferView,
+  EMPTY_OFFER,
+  type FillText,
+  offerSolutionOf,
+  type OfferView,
+  priceLine,
+  careFromLine,
+  relatedCard,
+  softwareOfferSchema,
+} from './offer'
+import { buildCityView, type CityView } from './cities'
+import { notFoundSchema, thanksSchema, type SoftwareNotFound, type SoftwareThanks } from './pages'
+import type { PricingSolution } from './pricing'
+import { buildIndustryPage, type IndustryDoc, type IndustryPageView } from './industryPage'
+import { buildSolutionPage, type SolutionPageDoc, type SolutionPageView } from './solutionPage'
+import { buildSolutionsIndex, DEFAULT_PRICE_DISPLAY, type SolutionsIndex } from './solutionsIndex'
+import { solutionsTag } from './tags'
+import { type PriceDisplay, priceDisplaySchema } from './priceDisplay'
+import { readSoftwareWizard } from './wizard/read'
+import type { SoftwareWizard } from './wizard/schema'
+
+/**
+ * Facts [SZEF] of one Software tenant (`SiteSettings.software.facts`) — the tenant filter is
+ * mandatory, so facts of one site never fill texts of another. Deduplicated per request.
+ * Call it only for a tenant of the Software line (after `requireLine(…, 'software')`): the group
+ * is not validated on other lines (its `admin.condition` is false there), so their data is not
+ * to be trusted.
+ */
+export const getSoftwareFacts = cache(async (tenantId: number): Promise<Record<string, string>> => {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'site-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    depth: 0,
+    select: { phone: true, phone2: true, email: true, software: { facts: true } },
+    overrideAccess: true,
+  })
+  const doc = docs[0]
+  // The settings' own phones and e-mail win over a fact typed with the same key.
+  return { ...factsMap(doc?.software?.facts), ...(doc ? contactFacts(doc) : {}) }
+})
+
+/**
+ * Texts of `/dziekujemy` of one tenant (`SoftwareSettings.thanks`) — `null` until saved, or when
+ * they no longer match the schema (the page then answers 404 instead of rendering half of it).
+ */
+export async function getSoftwareThanks(tenantId: number): Promise<SoftwareThanks | null> {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'software-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    depth: 0,
+    select: { thanks: true },
+    overrideAccess: true,
+  })
+  const parsed = thanksSchema.safeParse(docs[0]?.thanks)
+  return parsed.success ? parsed.data : null
+}
+
+/**
+ * Texts of the Software 404 (`SoftwareSettings.notFound`), or `null` (then the generic 404).
+ * Cached under `tenant:<id>:solutions` (the settings hooks revalidate it): bots probing
+ * addresses hit the 404 often.
+ */
+export const getSoftwareNotFound = (tenantId: number): Promise<SoftwareNotFound | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'software-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        select: { notFound: true },
+        overrideAccess: true,
+      })
+      const parsed = notFoundSchema.safeParse(docs[0]?.notFound)
+      return parsed.success ? parsed.data : null
+    },
+    ['software-not-found', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/** Far above the 29 solutions of the package; the catalog is one page without paging. */
+const MAX_SOLUTIONS = 200
+
+/**
+ * Solutions index of one Software tenant (ADR-014 §4), cached under `tenant:<id>:solutions`
+ * (hooks of `Solutions` and `SoftwareSettings`) with the pages' TTL as a safety net. Only
+ * published solutions of this tenant; drafts never leave here. Call it only for a tenant of the
+ * Software line (the route checks the line).
+ */
+export const getSolutionsIndex = (tenantId: number): Promise<SolutionsIndex> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          // The order of the package (the seed creates them in it); later ones at the end. The
+          // serial id, not `createdAt`: two records of one seed run may share a millisecond.
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            label: true,
+            tag: true,
+            lead: true,
+            features: true,
+            forWhom: true,
+            situations: true,
+            industryGroups: true,
+            keywords: true,
+            hasLivePreview: true,
+            toast: true,
+            priceFrom: true,
+            leadTime: true,
+            priceNote: true,
+            priceMonthly: true,
+            thumbnail: true,
+            preview: true,
+            levels: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          // `wizard` is one JSON field: the price templates come with it.
+          select: { search: true, wizard: true },
+          ...read,
+        }),
+      ])
+      if (solutions.totalDocs > MAX_SOLUTIONS) {
+        log.warn(
+          { tenant: tenantId, total: solutions.totalDocs, limit: MAX_SOLUTIONS },
+          'Solutions index cut at its limit',
+        )
+      }
+      return buildSolutionsIndex({
+        solutions: solutions.docs,
+        search: settings.docs[0]?.search,
+        priceDisplay: (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null | undefined)
+          ?.priceDisplay,
+      })
+    },
+    ['solutions-index', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Valid wizard rules of one Software tenant (`SoftwareSettings.wizard`), or `null`; cached under
+ * `tenant:<id>:solutions` — the hooks of `SoftwareSettings` revalidate it with the index.
+ */
+export const getSoftwareWizard = (tenantId: number): Promise<SoftwareWizard | null> =>
+  cacheQuery(
+    async () => readSoftwareWizard(await getPayload({ config }), tenantId),
+    // The shape of the rules is part of the key: a schema change never serves a cached old shape.
+    ['software-wizard', 'v3', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Texts of the start page sections of one Software tenant (`SoftwareSettings.home`) — `null`
+ * until saved or when they no longer match the schema (the sections that need them are skipped).
+ * Cached under `tenant:<id>:solutions`: the hooks of `SoftwareSettings` revalidate it.
+ */
+export const getSoftwareHome = (tenantId: number): Promise<SoftwareHome | null> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'software-settings',
+        where: { tenant: { equals: tenantId } },
+        limit: 1,
+        depth: 0,
+        select: { home: true },
+        overrideAccess: true,
+      })
+      const parsed = homeSchema.safeParse(docs[0]?.home)
+      if (!parsed.success && docs[0]?.home) {
+        log.warn({ tenant: tenantId }, 'Software home texts do not match the schema')
+      }
+      return parsed.success ? parsed.data : null
+    },
+    // The shape of the texts is part of the key: a schema change never serves a cached old shape.
+    ['software-home', 'swv2', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * What the offer windows of one Software tenant read (SWR3): published solutions with the window
+ * fields and `related` ids, the shared texts and the price templates. Cached with the index (same
+ * tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
+ */
+const getOfferSource = (tenantId: number) =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            label: true,
+            tag: true,
+            lead: true,
+            features: true,
+            forWhom: true,
+            situations: true,
+            hasLivePreview: true,
+            toast: true,
+            thumbnail: true,
+            preview: true,
+            priceFrom: true,
+            priceMonthly: true,
+            leadTime: true,
+            levels: true,
+            levelRows: true,
+            included: true,
+            moreExamples: true,
+            example: true,
+            related: true,
+            benefits: true,
+            needs: true,
+            faq: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          select: { offer: true, wizard: true },
+          ...read,
+        }),
+      ])
+      return {
+        solutions: solutions.docs,
+        offer: settings.docs[0]?.offer ?? null,
+        priceDisplay: (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null | undefined)
+          ?.priceDisplay,
+      }
+    },
+    ['offer-source', 'v24', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * What the price list `/cennik` reads (SW11a, spec. §6.4): published solutions of one tenant with
+ * the price fields, „W cenie” and the levels, and the price templates. Cached with the index
+ * (same tag, revalidated by the hooks of `Solutions` and `SoftwareSettings`).
+ */
+export const getPricingSource = (
+  tenantId: number,
+): Promise<{ solutions: (PricingSolution & { id: number })[]; display: PriceDisplay }> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const read = { overrideAccess: true, depth: 0 } as const
+      const inTenant = { tenant: { equals: tenantId } }
+      const [solutions, settings] = await Promise.all([
+        payload.find({
+          collection: 'solutions',
+          where: { and: [inTenant, { _status: { equals: 'published' } }] },
+          draft: false,
+          limit: MAX_SOLUTIONS,
+          sort: 'id',
+          select: {
+            slug: true,
+            name: true,
+            category: true,
+            lead: true,
+            priceFrom: true,
+            leadTime: true,
+            priceMonthly: true,
+            priceNote: true,
+            included: true,
+            levels: true,
+            levelRows: true,
+          },
+          ...read,
+        }),
+        payload.find({
+          collection: 'software-settings',
+          where: inTenant,
+          limit: 1,
+          select: { wizard: true },
+          ...read,
+        }),
+      ])
+      const priceDisplay = (settings.docs[0]?.wizard as { priceDisplay?: unknown } | null)
+        ?.priceDisplay
+      return {
+        solutions: solutions.docs.map((doc) => ({
+          id: doc.id,
+          slug: doc.slug,
+          name: doc.name,
+          category: doc.category,
+          lead: doc.lead ?? null,
+          priceFrom: doc.priceFrom ?? null,
+          leadTime: doc.leadTime ?? null,
+          priceMonthly: doc.priceMonthly ?? false,
+          priceNote: doc.priceNote ?? null,
+          included: doc.included ?? [],
+          levels: doc.levels ?? [],
+          levelRows: doc.levelRows ?? [],
+        })),
+        display: priceDisplaySchema.safeParse(priceDisplay).data ?? DEFAULT_PRICE_DISPLAY,
+      }
+    },
+    ['pricing-source', String(tenantId)],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Offer windows of one Software tenant by slug (spec. §5.1): only published solutions, „Dobrze
+ * łączy się z” only to published solutions of the same tenant. Texts are filled per request
+ * (facts, `{cena:<slug>}`); on production a text with a missing value is left out. Call it only
+ * for a tenant of the Software line.
+ */
+export async function getOfferViews(tenantId: number): Promise<Record<string, OfferView>> {
+  const [source, facts] = await Promise.all([getOfferSource(tenantId), getSoftwareFacts(tenantId)])
+  const parsed = softwareOfferSchema.safeParse(source.offer)
+  if (!parsed.success && source.offer !== null) {
+    log.warn({ tenant: tenantId }, 'SoftwareSettings.offer does not match the schema')
+  }
+  const offer = parsed.data ?? EMPTY_OFFER
+  const display = priceDisplaySchema.safeParse(source.priceDisplay).data ?? DEFAULT_PRICE_DISPLAY
+  const entries = source.solutions.map((doc) => ({
+    id: doc.id,
+    related: (doc.related ?? []).map((item) => (typeof item === 'number' ? item : item.id)),
+    solution: offerSolutionOf(doc),
+  }))
+  const byId = new Map(entries.map(({ id, solution }) => [id, solution]))
+  const prices = Object.fromEntries(
+    entries.map(({ solution }) => [solution.slug, solution.priceFrom]),
+  )
+  const strict = getEnv().SITE_ENV === 'production'
+  const careFrom = careFromLine(
+    entries.map(({ solution }) => solution),
+    display,
+  )
+  return Object.fromEntries(
+    entries.map(({ id, related, solution }) => {
+      const fill: FillText = (text, term) =>
+        fillText(text, { tenantId, facts, prices, term, strict })
+      const cards = related.flatMap((relatedId) => {
+        const card = relatedId === id ? undefined : byId.get(relatedId)
+        return card ? [relatedCard(card, display)] : []
+      })
+      return [
+        solution.slug,
+        buildOfferView(solution, { offer, display, related: cards, fill, careFrom }),
+      ]
+    }),
+  )
+}
+
+/**
+ * Page `/rozwiazania/<slug>` of one Software tenant (spec. §6.1) — `null` when the solution is
+ * not published in this tenant. Its window view (`getOfferViews`, same tenant filter) is the
+ * base; the tab „Strona” adds the board's texts, filled with the facts like the window.
+ */
+/**
+ * The stored page fields of one published solution, cached with the index (same tag, revalidated
+ * by the hooks of `Solutions`); the facts are filled per request.
+ */
+const getSolutionPageDoc = (tenantId: number, slug: string) =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'solutions',
+        where: {
+          and: [
+            { tenant: { equals: tenantId } },
+            { slug: { equals: slug } },
+            { _status: { equals: 'published' } },
+          ],
+        },
+        draft: false,
+        limit: 1,
+        depth: 0,
+        select: {
+          page: true,
+          priceFrom: true,
+          priceMonthly: true,
+          leadTime: true,
+          moreExamples: true,
+        },
+        overrideAccess: true,
+      })
+      return docs[0] ?? null
+    },
+    ['solution-page', 'sw10', String(tenantId), slug],
+    { tags: [solutionsTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+export const getSolutionPage = cache(
+  async (tenantId: number, slug: string): Promise<SolutionPageView | null> => {
+    const [views, source, facts, doc] = await Promise.all([
+      getOfferViews(tenantId),
+      getOfferSource(tenantId),
+      getSoftwareFacts(tenantId),
+      getSolutionPageDoc(tenantId, slug),
+    ])
+    const view = views[slug]
+    if (!view) return null
+    if (!doc) return null
+    const display = priceDisplaySchema.safeParse(source.priceDisplay).data ?? DEFAULT_PRICE_DISPLAY
+    const strict = getEnv().SITE_ENV === 'production'
+    const prices = Object.fromEntries(
+      source.solutions.map((solution) => [solution.slug, solution.priceFrom ?? null]),
+    )
+    const fill = (text: string) =>
+      fillText(text, { tenantId, facts, prices, term: doc.leadTime ?? null, strict })
+    const priceFrom = doc.priceFrom ?? null
+    return buildSolutionPage({
+      view,
+      page: (doc.page ? fillDeep(doc.page, fill) : null) as SolutionPageDoc | null,
+      priceFrom,
+      price: priceLine(
+        { priceFrom, priceMonthly: doc.priceMonthly ?? false, leadTime: doc.leadTime ?? null },
+        display,
+      ),
+      moreExamples: (doc.moreExamples ?? []).flatMap((item) => fill(item) ?? []),
+      isIcon: isIconName,
+    })
+  },
+)
+
+/**
+ * Page `/dla-branz/<slug>` of one Software tenant (spec. §6.2) — `null` when the industry is not
+ * active here or has no text yet. Industry, solutions and facts are all read with the tenant
+ * filter; cards and problems point only to the tenant's published solutions.
+ */
+export const getIndustryPage = cache(
+  async (tenantId: number, slug: string): Promise<IndustryPageView | null> => {
+    const payload = await getPayload({ config })
+    const inTenant = { tenant: { equals: tenantId } }
+    const [industries, published, index, facts] = await Promise.all([
+      payload.find({
+        collection: 'industries',
+        where: { and: [inTenant, { slug: { equals: slug } }, { active: { equals: true } }] },
+        limit: 1,
+        depth: 0,
+        select: { name: true, slug: true, active: true, hero: true, faq: true, software: true },
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'solutions',
+        where: { and: [inTenant, { _status: { equals: 'published' } }] },
+        draft: false,
+        limit: MAX_SOLUTIONS,
+        depth: 0,
+        select: { slug: true },
+        overrideAccess: true,
+      }),
+      getSolutionsIndex(tenantId),
+      getSoftwareFacts(tenantId),
+    ])
+    const doc = industries.docs[0]
+    if (!doc) return null
+    const strict = getEnv().SITE_ENV === 'production'
+    const prices = Object.fromEntries(
+      index.solutions.map((solution) => [solution.slug, solution.priceFrom ?? null]),
+    )
+    const fill = (text: string) => fillText(text, { tenantId, facts, prices, strict })
+    return buildIndustryPage({
+      industry: fillDeep(doc, fill) as IndustryDoc,
+      solutions: index.solutions,
+      slugById: new Map(published.docs.map((solution) => [solution.id, solution.slug])),
+      isIcon: isIconName,
+    })
+  },
+)
+
+/**
+ * When each published solution last changed, by slug — `<lastmod>` of the sitemap (SEO etap 1).
+ * Separate from the index: the index goes to the browser, the dates are only for the maps.
+ */
+export const getSolutionDates = cache(
+  async (tenantId: number): Promise<ReadonlyMap<string, string>> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'solutions',
+      where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+      draft: false,
+      limit: MAX_SOLUTIONS,
+      depth: 0,
+      select: { slug: true, updatedAt: true },
+      overrideAccess: true,
+    })
+    return new Map(docs.map((doc) => [doc.slug, doc.updatedAt]))
+  },
+)
+
+/**
+ * Active Software industry pages of one tenant (name and address) for the site map — only those
+ * with a page (`buildIndustryPage` would build one).
+ */
+export const getIndustryPageList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'industries',
+      where: { and: [{ tenant: { equals: tenantId } }, { active: { equals: true } }] },
+      limit: 50,
+      depth: 0,
+      sort: 'order',
+      select: { name: true, slug: true, updatedAt: true, software: { problems: true } },
+      overrideAccess: true,
+    })
+    return docs
+      .filter((doc) => (doc.software?.problems?.length ?? 0) > 0)
+      .map(({ slug, name, updatedAt }) => ({ slug, name, updatedAt }))
+  },
+)
+
+/**
+ * One city page of a Software tenant (`/miejscowosci/[miasto]`, SW11b), or `null` when the city
+ * is unknown, of another tenant, inactive or without its own hero text. Deduplicated per request.
+ */
+export const getCityView = cache(
+  async (tenantId: number, slug: string): Promise<CityView | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'cities',
+      where: {
+        and: [
+          { tenant: { equals: tenantId } },
+          { slug: { equals: slug } },
+          { active: { equals: true } },
+        ],
+      },
+      limit: 1,
+      // 1: the solutions of the „Dla kogo” cards (slug and tenant only, re-checked in the view).
+      depth: 1,
+      populate: { solutions: { slug: true, tenant: true } },
+      overrideAccess: true,
+    })
+    return docs[0] ? buildCityView(docs[0], tenantId) : null
+  },
+)
+
+/** Active city pages of a Software tenant for the sitemaps (only those `getCityView` shows). */
+export const getCityList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'cities',
+      where: { and: [{ tenant: { equals: tenantId } }, { active: { equals: true } }] },
+      limit: 50,
+      depth: 0,
+      sort: 'name',
+      overrideAccess: true,
+    })
+    return docs.flatMap((doc) =>
+      buildCityView(doc, tenantId)
+        ? [{ slug: doc.slug, name: doc.name, updatedAt: doc.updatedAt }]
+        : [],
+    )
+  },
+)

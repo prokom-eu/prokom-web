@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Kasy fiskalne dla firm — PRO-KOM Biznes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.site{--bg:#FFFFFF;--bg2:#F3F5FA;--bg3:#E9EDF6;--ink:#0D1326;--ink2:#4A5470;--ink3:#6B7590;--line:#E2E6EF;--acc:#244FB0;--acc2:#4A7BE0;--accInk:#FFFFFF;--card:#FFFFFF;--glow:rgba(74,123,224,.22);--grid:rgba(36,79,176,.07);--shadow:0 30px 60px -30px rgba(13,19,38,.35);--hdr:rgba(255,255,255,.78);--dot:#45A02C;background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;transition:background .5s,color .5s;overflow-x:hidden}
+.site.dark{--bg:#060A15;--bg2:#0B1222;--bg3:#111A30;--ink:#EEF2FB;--ink2:#A6B1C9;--ink3:#7C88A4;--line:#1B2440;--acc:#4A7BE0;--acc2:#8FB0F4;--accInk:#06102A;--card:#0C1427;--glow:rgba(74,123,224,.42);--grid:rgba(143,176,244,.07);--shadow:0 40px 80px -30px rgba(0,0,0,.8);--hdr:rgba(6,10,21,.72);--dot:#4FB034}
+.site a{color:inherit;text-decoration:none}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.disp{font-family:'Archivo',sans-serif;font-stretch:118%;font-weight:800;letter-spacing:-.025em}
+.h2{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;letter-spacing:-.02em;font-size:clamp(30px,3.4vw,46px);line-height:1.04;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:14px;font-weight:800;font-size:16px;border:0;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s}
+.btn-p{background:var(--acc);color:var(--accInk);box-shadow:0 12px 30px -10px var(--glow)}
+.btn-p:hover{transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-g:hover{box-shadow:inset 0 0 0 1.5px var(--acc)}
+.chip{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:14.5px;color:var(--ink2);border:1.5px solid var(--line)}
+.navb{color:var(--ink2);font-weight:700;font-size:15px;padding:10px 4px}
+.navb:hover,.navb.on{color:var(--ink)}
+.iconb{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.logo-d{display:none}.site.dark .logo-l{display:none}.site.dark .logo-d{display:block}
+.pimg{filter:drop-shadow(0 24px 30px rgba(13,19,38,.22))}
+.site.dark .pimg{filter:drop-shadow(0 28px 40px rgba(0,0,0,.65)) drop-shadow(0 0 30px rgba(74,123,224,.18))}
+.badge{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:10px;background:var(--bg2);font-weight:700;font-size:14px;color:var(--ink)}
+.live{width:9px;height:9px;border-radius:50%;background:var(--dot);animation:ping 2.4s ease-out infinite}
+.gal{position:relative;border-radius:32px;background:radial-gradient(ellipse at 50% 75%,var(--glow),transparent 65%),var(--bg2);height:520px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gal img.main{max-width:78%;max-height:420px;object-fit:contain;animation:swap .6s cubic-bezier(.2,.7,.2,1)}
+.th{width:84px;height:72px;border-radius:14px;background:var(--bg2);border:2px solid transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:6px}
+.th.on{border-color:var(--acc);background:var(--card)}
+.th img{max-width:100%;max-height:100%;object-fit:contain}
+.card{background:var(--card);border-radius:22px;box-shadow:inset 0 0 0 1px var(--line);padding:24px}
+.mcard{background:var(--bg2);border-radius:26px;padding:22px;display:flex;flex-direction:column;gap:12px;transition:transform .3s}
+.mcard:hover{transform:translateY(-4px)}
+.sn{width:48px;height:48px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--acc);display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;color:var(--acc);background:var(--card)}
+.faq{width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:22px 0;color:var(--ink);font:inherit;font-weight:800;font-size:18px;display:flex;justify-content:space-between;gap:16px;cursor:pointer}
+.ans{margin:0 0 22px;color:var(--ink2);line-height:1.65;max-width:68ch;animation:swap .4s ease}
+.fld{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:700;color:var(--ink2)}
+.inp{min-height:50px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:0 14px;font:inherit;font-weight:500;font-size:16px;outline:none}
+.inp:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--glow)}
+textarea.inp{padding:12px 14px;min-height:96px}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:3px}
+.in{opacity:0;animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}.d1{animation-delay:.05s}.d2{animation-delay:.16s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}
+@supports (animation-timeline: view()){.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 26%}}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes swap{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes ping{0%{box-shadow:0 0 0 0 var(--dot)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}.in{opacity:1}}
+.mbar{display:none}
+@media (max-width:1080px){.desk{display:none !important}.cols{flex-direction:column}.aside{position:static !important}.gal{height:400px}}
+@media (max-width:640px){.wrap{padding:0 18px}.gal{height:320px}.g3{grid-template-columns:1fr !important}.mbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:80;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px 12px 14px;background:var(--hdr);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}}
+.wcena{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.wcena > div{padding:20px;border-radius:20px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:8px}
+.wcena b{font-size:16px}.wcena > div > span:not(.sn){font-size:13.5px;color:var(--ink2);line-height:1.45}
+@media (max-width:1080px){.wcena{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.wcena{grid-template-columns:1fr}}
+</style>
+</helmet>
+<div class="{{ siteCls }}" style="min-height:100vh">
+  <header style="position:sticky;top:0;z-index:60;background:var(--hdr);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)">
+    <div class="wrap" style="height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="Main.dc.html" aria-label="PRO-KOM Biznes — strona główna"><img class="logo-l" src="/_blob/37a93a84badabb9eec40370439029bc3" alt="PRO-KOM Biznes" style="height:38px;width:auto"><img class="logo-d" src="/_blob/e8c728817a2725b34aa8e774578a9497" alt="PRO-KOM Biznes" style="height:38px;width:auto"></a>
+      <nav aria-label="Główna" class="desk" style="display:flex;gap:26px"><a class="navb on" href="Main.dc.html#oferta">Oferta</a><a class="navb" href="Branza.dc.html">Dla Twojej firmy</a><a class="navb" href="OFirmie.dc.html">O firmie</a><a class="navb" href="Aktualnosci.dc.html">Aktualności</a><a class="navb" href="Kontakt.dc.html">Kontakt</a></nav>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button type="button" class="iconb" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}"><sc-if value="{{ dark }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path></svg></sc-if><sc-if value="{{ light }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z"></path></svg></sc-if></button>
+        <a href="#zapytanie" class="btn btn-p desk" style="min-height:46px;padding:0 20px;font-size:15px">Zapytaj o kasę</a>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding:28px 0 72px">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:28px">
+      <nav aria-label="Okruszki" style="display:flex;flex-wrap:wrap;gap:8px;font-size:14px;color:var(--ink3)"><a href="Main.dc.html#oferta">Oferta</a><span aria-hidden="true">/</span><a href="Main.dc.html#oferta">Urządzenia i oprogramowanie</a><span aria-hidden="true">/</span><span>Kasy i POS</span><span aria-hidden="true">/</span><span style="color:var(--ink);font-weight:700">Kasy fiskalne</span></nav>
+      <div class="cols" style="display:flex;gap:48px;align-items:center">
+        <div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:24px">
+          <h1 class="disp in d1" style="margin:0;font-size:clamp(44px,5.6vw,80px);line-height:.95">Kasy fiskalne dla&nbsp;firm</h1>
+          <p class="in d2" style="margin:0;font-size:19px;line-height:1.6;color:var(--ink2);max-width:56ch">Dobierzemy kasę Posnet lub Elzab do Twojej sprzedaży, zafiskalizujemy ją i zadbamy o przeglądy. Jako autoryzowany serwis obu marek jesteśmy z Tobą od zakupu do kolejnych lat pracy.</p>
+          <div class="in d3" style="display:flex;flex-wrap:wrap;gap:8px"><span class="badge"><span class="live"></span>Autoryzowany serwis Posnet</span><span class="badge"><span class="live"></span>Autoryzowany serwis Elzab</span><span class="badge">Fiskalizacja i szkolenie w cenie</span></div>
+          <div class="in d4" style="display:flex;flex-wrap:wrap;gap:12px"><a href="#zapytanie" class="btn btn-p">Zapytaj o kasę</a><a href="tel:+48889003889" class="btn btn-g">Zadzwoń: 889 003 889</a></div>
+        </div>
+        <div class="in d2" style="flex:1 1 560px;min-width:0;width:100%;display:flex;flex-direction:column;gap:14px">
+          <div class="gal"><sc-for list="{{ galMain }}" as="g" hint-placeholder-count="1"><img class="pimg main" src="{{ g.src }}" alt="{{ g.alt }}"></sc-for><span style="position:absolute;left:20px;top:20px" class="badge">{{ galLabel }}</span></div>
+          <div role="tablist" aria-label="Modele" style="display:flex;gap:10px;flex-wrap:wrap"><sc-for list="{{ gal }}" as="g" hint-placeholder-count="5"><button type="button" class="{{ g.cls }}" onClick="{{ g.pick }}" aria-label="{{ g.alt }}" aria-selected="{{ g.sel }}"><img src="{{ g.src }}" alt=""></button></sc-for></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section style="padding:8px 0 64px">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:28px">
+      <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px"><span class="eyebrow">Kasa fiskalna z pełną obsługą</span><h2 class="h2" style="max-width:20ch">Kupujesz kasę. My załatwiamy resztę — w cenie.</h2></div>
+        <p class="lead" style="max-width:44ch">U nas kasa nie jest pudełkiem. Wychodzi z Rabki zgłoszona, zafiskalizowana, zaprogramowana i z przeszkolonym zespołem.</p>
+      </div>
+      <div class="wcena">
+        <div class="rv"><span class="sn" style="width:44px;height:44px;font-size:16px">1</span><b>Zgłoszenie kasy</b><span>Kasa online zgłasza się do Centralnego Repozytorium Kas — my to przeprowadzamy i pilnujemy numeru ewidencyjnego.</span></div>
+        <div class="rv"><span class="sn" style="width:44px;height:44px;font-size:16px">2</span><b>Fiskalizacja</b><span>Wykonuje ją nasz serwisant z uprawnieniami Posnet lub Elzab. Zgodnie z przepisami, z protokołem.</span></div>
+        <div class="rv"><span class="sn" style="width:44px;height:44px;font-size:16px">3</span><b>Programowanie</b><span>Towary, stawki VAT, nagłówek, rabaty, kasjerzy — wgrane przed wydaniem kasy. Podłączasz i sprzedajesz.</span></div>
+        <div class="rv"><span class="sn" style="width:44px;height:44px;font-size:16px">4</span><b>Szkolenie</b><span>Pokazujemy zespołowi sprzedaż, raporty, zwroty i co robić, gdy skończy się papier. Na Waszej kasie.</span></div>
+        <div class="rv"><span class="sn" style="width:44px;height:44px;font-size:16px">5</span><b>Serwis i przeglądy</b><span>Obowiązkowy przegląd co 2 lata, naprawy, przypomnienie o terminie. Podpowiemy też, co przekazać księgowej do ulgi na kasę online.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:24px 0 96px">
+    <div class="wrap cols" style="display:flex;gap:48px;align-items:flex-start">
+      <div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column;gap:80px">
+
+        <div class="rv" style="display:flex;flex-direction:column;gap:22px">
+          <h2 class="h2">Kasy, które polecamy</h2>
+          <div class="g3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px">
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/4fd4e0b3342a51c726c7628d4f06ddc2" alt="Posnet Temo Online" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Posnet Temo Online</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/ab796a82cb0b16f2a664499f19e5a70e" alt="Posnet Trio Online" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Posnet Trio Online</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/19d0c8f71beb1fcc7c7cce96c30435a5" alt="Elzab K10" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Elzab K10</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/60b4909df1fada961d47110d05d0ab4a" alt="Posnet Neo Online" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Posnet Neo Online</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/157dce018b379a42b341c3e737f65d28" alt="Elzab — kasa z klawiaturą" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Elzab [model]</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+            <div class="mcard"><div style="height:170px;display:flex;align-items:center;justify-content:center"><img class="pimg" src="/_blob/5b4203dd86b4302ae17809ee5ae32e4b" alt="Fawag Box" style="max-width:90%;max-height:160px"></div><b style="font-size:17px">Fawag Box</b><a href="#zapytanie" style="color:var(--acc);font-weight:800;font-size:15px">Zapytaj o ten model</a></div>
+          </div>
+        </div>
+
+        <div class="rv" style="display:flex;flex-direction:column;gap:26px">
+          <h2 class="h2">Jak to wygląda</h2>
+          <div class="g3" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px">
+            <div style="display:flex;flex-direction:column;gap:12px"><div class="sn">1</div><b>Rozmowa</b><span style="color:var(--ink2);font-size:15px;line-height:1.5">co i ile sprzedajesz</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px"><div class="sn">2</div><b>Oferta</b><span style="color:var(--ink2);font-size:15px;line-height:1.5">model i finansowanie</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px"><div class="sn">3</div><b>Fiskalizacja</b><span style="color:var(--ink2);font-size:15px;line-height:1.5">kasa gotowa do pracy</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px"><div class="sn">4</div><b>Szkolenie</b><span style="color:var(--ink2);font-size:15px;line-height:1.5">na Twoich towarach</span></div>
+            <div style="display:flex;flex-direction:column;gap:12px"><div class="sn">5</div><b>Opieka</b><span style="color:var(--ink2);font-size:15px;line-height:1.5">przeglądy i serwis</span></div>
+          </div>
+        </div>
+
+        <div class="rv" style="border-radius:30px;background:#0A1430;color:#EEF2FB;padding:clamp(26px,4vw,44px);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+          <div style="max-width:46ch;display:flex;flex-direction:column;gap:10px"><b class="disp" style="font-size:30px">Kasa z pełną obsługą — w cenie</b><span style="color:#B8C3DD;line-height:1.6">Zgłoszenie kasy, fiskalizacja, programowanie towarów i stawek, szkolenie zespołu. Wychodzi z Rabki gotowa do sprzedaży. Przegląd co 2 lata — przypomnimy.</span></div>
+          <img class="pimg" src="/_blob/51057c93b1bed1a39c76e2cc032f557c" alt="" style="height:170px;object-fit:contain">
+        </div>
+
+        <div class="rv" style="display:flex;flex-direction:column">
+          <h2 class="h2" style="margin-bottom:12px">Najczęstsze pytania</h2>
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+            <div><button type="button" class="faq" onClick="{{ f.toggle }}" aria-expanded="{{ f.exp }}">{{ f.q }}<span aria-hidden="true" style="color:var(--acc);font-size:22px;line-height:1">{{ f.sign }}</span></button><sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p class="ans">{{ f.a }}</p></sc-if></div>
+          </sc-for>
+          <div style="border-top:1px solid var(--line)"></div>
+        </div>
+
+        <div class="rv" style="border-radius:26px;box-shadow:inset 0 0 0 1.5px var(--acc);padding:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end">
+          <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:6px"><b class="disp" style="font-size:22px">Przypomnij mi o przeglądzie kasy</b><span style="color:var(--ink2)">Podaj e-mail i miesiąc ostatniego przeglądu — damy znać przed terminem.</span></div>
+          <label class="fld" style="flex:1 1 200px">E-mail<input class="inp" type="email"></label>
+          <label class="fld" style="flex:0 1 170px">Ostatni przegląd<input class="inp" type="month"></label>
+          <button type="button" class="btn btn-p" style="min-height:50px">Przypominaj</button>
+        </div>
+
+        <div class="rv" style="display:flex;flex-direction:column;gap:16px">
+          <h2 class="h2" style="font-size:30px">Zobacz też</h2>
+          <div class="g3" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+            <a href="#" class="mcard"><img class="pimg" src="/_blob/b449b8405d472d19895be4c7cc51918b" alt="" style="height:110px;object-fit:contain;align-self:center"><b>Drukarki fiskalne</b></a>
+            <a href="#" class="mcard"><img class="pimg" src="/_blob/032fb62b0d47d7ad2ac9266a93fce04a" alt="" style="height:110px;object-fit:contain;align-self:center"><b>Terminale płatnicze</b></a>
+            <a href="#" class="mcard"><img class="pimg" src="/_blob/d79c53d7eaa1c804382b6ad93ed31541" alt="" style="height:110px;object-fit:contain;align-self:center"><b>Wagi z legalizacją</b></a>
+            <a href="#" class="mcard"><img class="pimg" src="/_blob/24dbaa701d86ba24ab2d5635b2a04f79" alt="" style="height:110px;object-fit:contain;align-self:center"><b>GoPOS dla gastronomii</b></a>
+          </div>
+        </div>
+      </div>
+
+      <aside id="zapytanie" class="aside" style="flex:1 1 360px;min-width:0;position:sticky;top:100px">
+        <form onSubmit="{{ onSubmit }}" style="background:var(--card);border-radius:28px;padding:28px;box-shadow:var(--shadow),inset 0 0 0 1px var(--line);display:flex;flex-direction:column;gap:14px">
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}"><div style="display:flex;flex-direction:column;gap:6px"><b class="disp" style="font-size:26px">Zapytaj o kasę</b><span style="color:var(--ink3);font-size:14px">Zwykle odpowiadamy w 1–2 godziny (pn–pt 9–17).</span></div></sc-if>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}"><div style="border-radius:16px;padding:18px;background:var(--bg2);display:flex;gap:12px;align-items:center"><span class="live"></span><span><b>Wysłane.</b> Odezwiemy się zwykle w 1–2 godziny.</span></div></sc-if>
+          <span class="badge" style="align-self:flex-start;background:var(--bg2)">Temat: Kasy fiskalne{{ modelSuffix }}</span>
+          <label class="fld">Imię *<input class="inp" type="text" autocomplete="name"></label>
+          <label class="fld">Telefon lub e-mail *<input class="inp" type="text"></label>
+          <label class="fld">Firma<input class="inp" type="text" autocomplete="organization"></label>
+          <label class="fld">Co sprzedajesz?<textarea class="inp" rows="3"></textarea></label>
+          <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--ink2)"><input type="checkbox" style="width:20px;height:20px;accent-color:var(--acc)">Zgadzam się na przetwarzanie danych w celu odpowiedzi. Polityka prywatności.</label>
+          <button type="submit" class="btn btn-p">Wyślij zapytanie</button>
+          <a href="tel:+48889003889" style="text-align:center;font-weight:800;font-size:15px;color:var(--acc)">albo zadzwoń: 889 003 889</a>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <footer style="background:#060A15;color:#A6B1C9;padding:48px 0 110px">
+    <div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px"><img src="/_blob/e8c728817a2725b34aa8e774578a9497" alt="PRO-KOM Biznes" style="height:34px;width:auto"><span style="font-size:14px">Oferty i serwis: 889 003 889 · biuro@pro-kom.eu · ul. Orkana 16B, Rabka-Zdrój · pn–pt 9:00–17:00</span></div>
+  </footer>
+  <div class="mbar"><a href="tel:+48889003889" class="btn btn-g" style="min-height:50px;background:var(--bg)">Zadzwoń</a><a href="#zapytanie" class="btn btn-p" style="min-height:50px">Zapytaj o kasę</a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var prefersDark = false;
+    try { prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+    try { var th = localStorage.getItem('pk-theme'); if (th) prefersDark = th === 'dark'; } catch (e) {}
+    var me = this; try { window.addEventListener('storage', function (ev) { if (ev.key === 'pk-theme') me.setState({ dark: ev.newValue === 'dark' }); }); } catch (e) {}
+    this.state = { dark: prefersDark, g: 0, faq: 0, sent: false };
+  }
+  renderVals() {
+    var s = this.state, self = this, B = '/_blob/';
+    var G = [
+      { src: B + '4fd4e0b3342a51c726c7628d4f06ddc2', alt: 'Posnet Temo Online' },
+      { src: B + 'ab796a82cb0b16f2a664499f19e5a70e', alt: 'Posnet Trio Online' },
+      { src: B + '19d0c8f71beb1fcc7c7cce96c30435a5', alt: 'Elzab K10' },
+      { src: B + '60b4909df1fada961d47110d05d0ab4a', alt: 'Posnet Neo Online' },
+      { src: B + '5b4203dd86b4302ae17809ee5ae32e4b', alt: 'Fawag Box' }
+    ];
+    var F = [
+      { q: 'Jak często trzeba robić przegląd kasy fiskalnej?', a: 'Co najmniej raz na 2 lata. Obowiązek ma właściciel kasy, a przegląd wykonuje serwisant upoważniony przez producenta — u nas dla kas Posnet i Elzab. Możemy przypominać o terminie.' },
+      { q: 'Kasa czy drukarka fiskalna — co wybrać?', a: 'Kasa działa samodzielnie i wystarcza większości sklepów i usług. Drukarka fiskalna współpracuje z programem sprzedaży lub systemem POS, np. Subiektem albo GoPOS. Doradzimy po krótkiej rozmowie o tym, jak sprzedajesz.' },
+      { q: 'Co jest w cenie kasy?', a: 'Zgłoszenie kasy, fiskalizacja przez serwisanta z uprawnieniami, zaprogramowanie towarów, stawek i nagłówka oraz szkolenie zespołu. Podpowiemy też, co przekazać księgowej do ulgi na kasę online.' },
+      { q: 'Co z kasą po wprowadzeniu KSeF?', a: 'Paragony z kasy nadal działają, ale faktury dla firm trafiają do KSeF. Od 1 stycznia 2027 obowiązek obejmuje także najmniejsze firmy. Sprawdzimy, jak połączyć kasę i fakturowanie w Twojej firmie.' }
+    ];
+    return {
+      siteCls: s.dark ? 'site dark' : 'site', dark: s.dark, light: !s.dark, themeLabel: s.dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw',
+      toggleTheme: function () { var v = !self.state.dark; try { localStorage.setItem('pk-theme', v ? 'dark' : 'light'); } catch (e) {} self.setState({ dark: v }); },
+      galMain: [G[s.g]], galLabel: G[s.g].alt, modelSuffix: s.g === 0 ? '' : ' · ' + G[s.g].alt,
+      gal: G.map(function (g, i) { return { src: g.src, alt: g.alt, sel: i === s.g ? 'true' : 'false', cls: i === s.g ? 'th on' : 'th', pick: function () { self.setState({ g: i }); } }; }),
+      faqs: F.map(function (f, i) { var o = s.faq === i; return { q: f.q, a: f.a, open: o, exp: o ? 'true' : 'false', sign: o ? '−' : '+', toggle: function () { self.setState({ faq: self.state.faq === i ? -1 : i }); } }; }),
+      sent: s.sent, notSent: !s.sent, onSubmit: function (e) { e.preventDefault(); self.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

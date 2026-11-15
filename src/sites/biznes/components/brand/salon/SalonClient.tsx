@@ -1,0 +1,384 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+
+import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
+import { productHref } from '@/lib/catalog/card'
+import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
+import type { SalonView } from '@/lib/catalog/salon'
+import { cartActions, openCartDrawer } from '@/lib/cart/store'
+import { plural } from '@/lib/plural'
+import { BZ_H2 } from '@/sites/biznes/typography'
+
+import { ProductCard } from '../../catalog/ProductCard'
+import { ProductStage, STAGE_SHADOW } from '../../ProductStage'
+
+/** Products of a kind shown on a phone before „Pokaż wszystkie”. */
+const PHONE_FIRST = 4
+
+export type AskItem = { id: string; note?: string }
+
+const toast = (added: number) =>
+  `${added} ${plural(added, ['pozycja', 'pozycje', 'pozycji'])} z salonu`
+
+/**
+ * „Zapytaj” of the salon: adds the items (with a note) to the inquiry and shows the toast; with
+ * no items it opens the inquiry drawer. Notes go to the item, as everywhere (ADR-012 §6.2).
+ */
+export function SalonAsk({
+  items,
+  className,
+  children,
+}: {
+  items: readonly AskItem[]
+  className: string
+  children: ReactNode
+}) {
+  const ask = () => {
+    if (items.length === 0) return openCartDrawer()
+    const result = cartActions.addItems(
+      items.map(({ id, note }) => ({ id, q: 1, ...(note ? { uwaga: note } : {}) })),
+      toast,
+    )
+    // Already listed (only a note, or nothing new): the drawer shows them.
+    if (result.added === 0) openCartDrawer()
+  }
+  return (
+    <button type="button" onClick={ask} className={className}>
+      {children}
+    </button>
+  )
+}
+
+/** Comparison table (`cmp`): open on a computer by default, closed on a phone (K4-FINAL §6). */
+export function SalonCompare({ compare }: { compare: NonNullable<SalonView['compare']> }) {
+  const [open, setOpen] = useState<boolean | null>(null)
+  const id = useId()
+  return (
+    <div className="flex flex-col gap-4">
+      <button
+        type="button"
+        aria-expanded={open ?? undefined}
+        aria-controls={id}
+        onClick={() =>
+          setOpen((value) => !(value ?? window.matchMedia('(min-width: 768px)').matches))
+        }
+        // Phone: a full-width row „Porównaj w tabeli” with a chevron (board App-Marka).
+        className="inline-flex min-h-11 items-center gap-2 self-start rounded-full bg-card px-5 text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:min-h-12 max-md:w-full max-md:justify-between max-md:self-stretch max-md:rounded-2xl"
+      >
+        {/* Before the first click the CSS decides (open from 768 px). */}
+        <span className={cx(open === null && 'max-md:hidden', open === false && 'hidden')}>
+          Zwiń tabelę
+        </span>
+        <span className={cx(open === null && 'min-[768px]:hidden', open === true && 'hidden')}>
+          <span className="max-md:hidden">Pokaż tabelę porównania</span>
+          <span className="min-[768px]:hidden">Porównaj w tabeli</span>
+        </span>
+        <Icon
+          name="arrow"
+          strokeWidth={2.4}
+          className={cx(
+            'size-4 transition-transform',
+            open === null && 'max-md:rotate-90 min-[768px]:-rotate-90',
+            open === true && '-rotate-90',
+            open === false && 'rotate-90',
+          )}
+        />
+      </button>
+      {/* A scrolling region the keyboard can reach (no focusable cell inside). */}
+      <div
+        id={id}
+        role="region"
+        aria-label={compare.title ?? 'Porównanie'}
+        tabIndex={0}
+        className={cx(
+          'overflow-x-auto rounded-3xl bg-card shadow-[inset_0_0_0_1px_var(--border)]',
+          open === null && 'max-md:hidden',
+          open === false && 'hidden',
+        )}
+      >
+        {/* Phone: the first column stays, the models scroll sideways at a readable width. */}
+        <table className="w-full min-w-[560px] border-collapse text-sm max-md:w-auto max-md:min-w-full max-md:text-[13px]">
+          <thead>
+            <tr className="bg-surface-2">
+              <th
+                scope="col"
+                className="px-5 py-4 text-left font-extrabold text-ink max-md:sticky max-md:left-0 max-md:z-[1] max-md:w-[118px] max-md:min-w-[118px] max-md:bg-surface-2 max-md:px-3"
+              >
+                {compare.title ?? 'Porównanie'}
+              </th>
+              {compare.columns.map((column) => (
+                <th
+                  key={column}
+                  scope="col"
+                  className="px-4 py-4 text-center font-extrabold text-ink max-md:min-w-[150px] max-md:px-3"
+                >
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {compare.rows.map((row) => (
+              <tr key={row.label} className="border-t border-border">
+                <th
+                  scope="row"
+                  className="px-5 py-3.5 text-left font-semibold text-ink max-md:sticky max-md:left-0 max-md:z-[1] max-md:w-[118px] max-md:min-w-[118px] max-md:bg-card max-md:px-3 max-md:shadow-[1px_0_0_var(--border)]"
+                >
+                  {row.label}
+                </th>
+                {compare.columns.map((column, i) => {
+                  const cell = row.cells[i]
+                  return (
+                    <td
+                      key={column}
+                      className="px-4 py-3.5 text-center font-semibold text-ink max-md:min-w-[150px] max-md:px-3"
+                    >
+                      {cell?.kind === 'yes' ? (
+                        <span className="inline-flex size-7 items-center justify-center rounded-lg bg-ok/15 text-ok-text">
+                          <Icon name="check" strokeWidth={3} className="size-3.5" />
+                          <span className="sr-only">tak</span>
+                        </span>
+                      ) : cell?.kind === 'text' ? (
+                        cell.text
+                      ) : (
+                        <span className="text-ink-3">
+                          <span aria-hidden="true">—</span>
+                          <span className="sr-only">nie</span>
+                        </span>
+                      )}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+/** Full offer (`fam`): tabs of kinds with their counts, the cards of the chosen one. */
+export function SalonFamily({
+  family,
+  index,
+}: {
+  family: SalonView['family']
+  index: CatalogIndex
+}) {
+  const [tab, setTab] = useState(0)
+  // Phone: the first four in two columns, the rest after „Pokaż wszystkie” (board App-Marka).
+  const [all, setAll] = useState(false)
+  const products = family[tab]?.products ?? []
+  const hidden = products.length - PHONE_FIRST
+  const list = useRef<HTMLUListElement>(null)
+  const revealed = useRef(false)
+  // The button disappears on click: focus goes to the first newly shown card, not to <body>.
+  useEffect(() => {
+    if (!all || !revealed.current) return
+    revealed.current = false
+    list.current?.children[PHONE_FIRST]?.querySelector<HTMLElement>('a, button')?.focus()
+  }, [all])
+  return (
+    <div className="flex flex-col gap-6">
+      {family.length > 1 && (
+        <div
+          role="group"
+          aria-label="Rodzaje"
+          // Rows on a computer (board: up to 14 tabs in Lenovo), a sideways strip on a phone.
+          className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 min-[768px]:flex-wrap min-[768px]:overflow-visible"
+        >
+          {family.map((item, i) => (
+            <button
+              key={item.title}
+              type="button"
+              aria-pressed={tab === i}
+              onClick={() => {
+                setTab(i)
+                setAll(false)
+              }}
+              className={cx(
+                'inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-full px-5 text-sm font-extrabold whitespace-nowrap transition-colors',
+                tab === i
+                  ? 'bg-ink text-surface'
+                  : 'bg-card text-ink shadow-[inset_0_0_0_1px_var(--border)] hover:bg-surface-2',
+              )}
+            >
+              {item.title}
+              <span
+                className={cx(
+                  'rounded-full px-2 py-0.5 text-xs',
+                  tab === i ? 'bg-accent text-white' : 'text-ink-2',
+                )}
+              >
+                {item.products.length}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+      <ul
+        ref={list}
+        data-salon-products
+        className="grid grid-cols-2 gap-x-4 gap-y-8 max-md:gap-x-3 max-md:gap-y-5 min-[900px]:grid-cols-3 min-[1200px]:grid-cols-4"
+      >
+        {products.map((product, position) => (
+          <li
+            key={product.slug}
+            className={cx('flex min-w-0', !all && position >= PHONE_FIRST && 'max-md:hidden')}
+          >
+            <ProductCard product={product} index={index} position={position} />
+          </li>
+        ))}
+      </ul>
+      {!all && hidden > 0 && (
+        <button
+          type="button"
+          onClick={() => {
+            revealed.current = true
+            setAll(true)
+          }}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-card text-sm font-extrabold text-ink shadow-[inset_0_0_0_1px_var(--border)] min-[768px]:hidden"
+        >
+          Pokaż wszystkie · {products.length}
+          <Icon name="arrow" strokeWidth={2.4} className="size-4 rotate-90" />
+        </button>
+      )}
+    </div>
+  )
+}
+
+/** „Pomóż mi wybrać” (`dob`, `#dobor`): one question, the answer shows the models and why. */
+export function SalonChooser({
+  chooser,
+  brand,
+}: {
+  chooser: NonNullable<SalonView['chooser']>
+  brand: string
+}) {
+  const [picked, setPicked] = useState(0)
+  const name = useId()
+  const option = chooser.options[picked] ?? chooser.options[0]!
+  return (
+    <section
+      id="dobor"
+      aria-labelledby="dobor-h"
+      // Phone: no panel, the question and the answers straight on the page (board App-Salon-*).
+      className="grid scroll-mt-28 gap-6 rounded-[32px] bg-surface-2 p-5 max-md:gap-3 max-md:rounded-none max-md:bg-transparent max-md:p-0 min-[768px]:p-8 min-[960px]:grid-cols-2 min-[960px]:gap-8"
+    >
+      <div className="flex flex-col gap-4 max-md:gap-3">
+        <div className="max-md:hidden">
+          <Eyebrow>Pomóż mi wybrać</Eyebrow>
+        </div>
+        <h2 id="dobor-h" className={`${BZ_H2} text-ink max-md:text-[22px] max-md:leading-[1.1]`}>
+          {chooser.question ?? 'Od czego zacząć?'}
+        </h2>
+        <p className="text-ink-2 max-md:hidden">
+          Jedno pytanie, a podpowiemy, od czego zacząć. Ostateczny model dobierzemy po krótkiej
+          rozmowie.
+        </p>
+        <fieldset className="flex min-w-0 flex-col gap-2.5 max-md:gap-2">
+          <legend className="sr-only">{chooser.question ?? 'Od czego zacząć?'}</legend>
+          {chooser.options.map((item, i) => (
+            <label
+              key={item.label}
+              className={cx(
+                'flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl bg-card px-5 font-extrabold text-ink transition-shadow max-md:min-h-12 max-md:px-4 max-md:text-sm',
+                picked === i
+                  ? 'shadow-[inset_0_0_0_1.5px_var(--accent-text)]'
+                  : 'shadow-[inset_0_0_0_1px_var(--border)] hover:shadow-[inset_0_0_0_1px_var(--ink-3)]',
+              )}
+            >
+              <input
+                type="radio"
+                name={name}
+                checked={picked === i}
+                onChange={() => setPicked(i)}
+                className="size-4 accent-[var(--accent-text)]"
+              />
+              {item.label}
+            </label>
+          ))}
+        </fieldset>
+      </div>
+      <div
+        aria-live="polite"
+        className="flex flex-col gap-4 self-start rounded-3xl bg-card p-5 shadow-[inset_0_0_0_1px_var(--border)] max-md:gap-3 max-md:p-3.5 min-[768px]:p-6"
+      >
+        <div className="max-md:hidden">
+          <Eyebrow>Podpowiadamy</Eyebrow>
+        </div>
+        {option.why && <p className="text-ink-2 max-md:text-sm">{option.why}</p>}
+        {option.products.length > 0 && (
+          <ul className="flex flex-col gap-2.5">
+            {option.products.map((product) => (
+              <li key={product.slug}>
+                <MiniModel product={product} />
+              </li>
+            ))}
+          </ul>
+        )}
+        <SalonAsk
+          items={option.products.map((product) => ({
+            id: product.slug,
+            note: `${brand} — ${option.label}`,
+          }))}
+          className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-accent-text px-6 font-extrabold text-accent-ink"
+        >
+          {option.products.length > 1 ? 'Zapytaj o te modele' : 'Zapytaj o ten model'}
+        </SalonAsk>
+      </div>
+    </section>
+  )
+}
+
+function MiniModel({ product }: { product: IndexProduct }) {
+  return (
+    <Link
+      href={productHref(product.slug)}
+      className="flex items-center gap-4 rounded-2xl bg-surface-2 p-2.5 pr-4 transition-colors hover:bg-surface-3"
+    >
+      <ProductStage as="span" className="h-[60px] w-[76px] shrink-0 rounded-xl">
+        {product.image && (
+          <Image
+            src={product.image.url}
+            alt={product.image.alt}
+            // The name is in the text next to it: the alt serves search engines only.
+            aria-hidden
+            width={product.image.width}
+            height={product.image.height}
+            unoptimized
+            className={cx('relative max-h-[78%] w-auto max-w-[80%] object-contain', STAGE_SHADOW)}
+          />
+        )}
+      </ProductStage>
+      <span className="flex min-w-0 flex-1 flex-col">
+        <b className="font-extrabold text-ink">{product.name}</b>
+        {product.benefit && (
+          <small className="text-sm leading-snug text-ink-2 max-md:line-clamp-2 max-md:text-xs">
+            {product.benefit}
+          </small>
+        )}
+      </span>
+      <Icon name="arrow" strokeWidth={2.4} className="size-4 shrink-0 text-accent-text" />
+    </Link>
+  )
+}
+
+export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+  return (
+    <p
+      className={cx(
+        'flex items-center gap-2 text-xs font-black tracking-[0.12em] uppercase',
+        dark ? 'text-accent-on-dark' : 'text-accent-text',
+      )}
+    >
+      <span aria-hidden="true" className="h-px w-4 bg-current" />
+      {children}
+    </p>
+  )
+}

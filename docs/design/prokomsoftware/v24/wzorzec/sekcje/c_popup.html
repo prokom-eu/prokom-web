@@ -1,0 +1,38 @@
+<!-- OFFER DIALOG / SHEET -->
+<sc-if value="{{popOpen}}" hint-placeholder-val="{{ false }}">
+<div class="au-ov" role="dialog" aria-modal="true" aria-label="{{po.name}}">
+<div class="bd" onClick="{{closePop}}"></div>
+<div class="au-dlg">
+<div class="au-grab"></div>
+<div class="top">
+<div style="display:flex;align-items:center;gap:10px;min-width:0"><span style="background:var(--vs);color:var(--vt);border-radius:99px;padding:7px 12px;font:800 12px Manrope;white-space:nowrap">{{po.cat}}</span><b class="nm" style="font:900 17px Archivo;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{po.name}}</b><span style="font-size:12px;color:var(--fg3);white-space:nowrap">{{po.pos}}</span></div>
+<div class="prevnext" style="display:flex;gap:6px"><button class="au-ib" onClick="{{prevPop}}" aria-label="Poprzednia oferta">← <b>{{po.prevName}}</b></button><button class="au-ib" onClick="{{nextPop}}" aria-label="Następna oferta"><b>{{po.nextName}}</b> →</button><button class="au-ib" onClick="{{closePop}}" aria-label="Zamknij" style="font-size:18px">×</button></div>
+</div>
+<div class="body" onScroll="{{onScr}}">
+<div class="ent" key="{{po.key}}">
+<div class="grid1">
+<div class="au-gal"><div class="gv" key="{{galKey}}"><div class="fit k-gal" style="--fw:680px;--fh:420px"><dc-import name="Vis" kind="{{gv.kind}}" variant="{{gv.variant}}" phone="{{gv.phone}}" toast="{{gv.toast}}" scale="0.95" h="420" hint-size="100%,100%"></dc-import></div></div><div class="au-gtabs" role="tablist" aria-label="Widok"><sc-for list="{{gtabs}}" as="g" hint-placeholder-count="3"><button role="tab" aria-selected="{{g.sel}}" class="{{g.cls}}" onClick="{{g.pick}}">{{g.l}}</button></sc-for></div><span class="au-badge">Przykładowy projekt</span></div>
+<div style="display:flex;flex-direction:column;gap:14px;padding:4px 0">
+<span class="au-eb">{{po.cat}} · {{po.time}}</span>
+<h2 style="margin:0;font:900 40px/1.02 Archivo;letter-spacing:-.03em">{{po.name}}</h2>
+<p style="margin:0;font-size:17px;line-height:1.55;color:var(--fg2)">{{po.effect}}</p>
+<div><sc-for list="{{po.short}}" as="x" hint-placeholder-count="3"><div class="au-li"><i>✓</i>{{x}}</div></sc-for></div>
+<div style="margin-top:auto;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font:900 36px Archivo;letter-spacing:-.02em">{{po.price}}</span><span style="font-size:13px;color:var(--fg3)">netto · stała cena za zakres</span></div>
+<div style="display:flex;gap:10px"><button class="au-btn" onClick="{{addPop}}" style="flex:1">{{addTxt}}</button><a class="au-btn gh" href="#kontakt" onClick="{{closePop}}">Rozmowa</a></div>
+</div>
+</div>
+<div class="au-kv"><div><span>Cena</span><b>{{po.price}}</b></div><div><span>Termin</span><b>{{po.time}}</b></div><div><span>Płatność</span><b>{{po.pay}}</b></div><div><span>Po starcie</span><b>{{po.after}}</b></div></div>
+<div class="au-cols">
+<div class="au-box"><div class="au-eb" style="margin-bottom:8px">Co dostajesz</div><sc-for list="{{po.get}}" as="x" hint-placeholder-count="6"><div class="au-li"><i>✓</i>{{x}}</div></sc-for></div>
+<div class="au-box"><div class="au-eb" style="margin-bottom:8px">Dla kogo</div><sc-for list="{{po.who}}" as="x" hint-placeholder-count="3"><div class="au-li"><i>●</i>{{x}}</div></sc-for><div class="au-eb" style="margin:16px 0 8px;color:var(--fg3)">Nie dla Ciebie, jeśli</div><sc-for list="{{po.not}}" as="x" hint-placeholder-count="2"><div class="au-li" style="color:var(--fg2)"><i style="background:var(--g2);color:var(--fg3)">–</i>{{x}}</div></sc-for></div>
+<div class="au-box"><div class="au-eb" style="margin-bottom:14px">Jak to przebiega</div><sc-for list="{{po.flow}}" as="f" hint-placeholder-count="4"><div style="display:flex;gap:14px;position:relative;padding-bottom:16px"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:{{f.bg}};color:{{f.c}};display:grid;place-items:center;font:900 12px Archivo;position:relative;z-index:1">{{f.n}}</span><span style="{{f.line}}"></span><div><b style="display:block;font-size:14px">{{f.t}}</b><span style="font-size:13px;color:var(--fg3)">{{f.d}}</span></div></div></sc-for></div>
+</div>
+<div class="au-ex"><div><span class="au-eb">Przykładowy scenariusz</span><p style="margin:10px 0 0;font:700 21px/1.4 Archivo">{{po.ex}}</p><span style="display:block;margin-top:10px;font-size:12px;color:var(--fg3)">Zakres dla Twojej firmy ustalamy na rozmowie.</span></div><div style="display:flex;flex-direction:column;gap:14px"><span class="au-eb">Pytania o tę ofertę</span><sc-for list="{{po.q}}" as="q" hint-placeholder-count="2"><div><b style="display:block;font-size:15px">{{q.q}}</b><span style="font-size:14px;color:var(--fg2);line-height:1.5">{{q.a}}</span></div></sc-for></div></div>
+<div style="padding:24px 28px 0"><b style="font:900 20px Archivo">Podobne rozwiązania</b></div>
+<div class="au-sim"><sc-for list="{{po.sim}}" as="m" hint-placeholder-count="3"><button class="au-simc" onClick="{{m.open}}"><div class="au-scr" style="height:140px"><div class="fit" style="--fw:360px;--fh:140px"><dc-import name="Vis" kind="{{m.kind}}" variant="{{m.variant}}" scale="0.33" h="140" hint-size="100%,100%"></dc-import></div></div><div style="padding:12px 14px;display:flex;justify-content:space-between;gap:10px"><b style="font-size:14px">{{m.name}}</b><span style="font:800 13px Archivo;color:var(--vt);white-space:nowrap">{{m.price}}</span></div></button></sc-for></div>
+</div>
+</div>
+<div class="au-sf {{sfCls}}"><div class="meta" style="display:flex;align-items:baseline;gap:12px;min-width:0"><b style="font:900 16px Archivo;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{po.name}}</b><span style="font:900 17px Archivo;color:var(--vt);white-space:nowrap">{{po.price}}</span></div><div class="acts" style="display:flex;gap:8px"><a class="au-btn gh" href="#kontakt" onClick="{{closePop}}" style="min-height:46px">Rozmowa</a><button class="au-btn" onClick="{{addPop}}" style="min-height:46px">{{addTxt}}</button></div></div>
+</div>
+</div>
+</sc-if>

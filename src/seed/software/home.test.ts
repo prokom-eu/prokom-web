@@ -1,0 +1,100 @@
+import { describe, expect, it } from 'vitest'
+
+import { resolveText } from '../../lib/software/facts'
+import { mergeSoftwareHome, softwareHomeLayout } from './home'
+import { solutionsToImport } from './map'
+
+const ids = (layout: readonly { blockType: string; section?: string | null }[] | null) =>
+  layout?.map((block) => (block.blockType === 'swHomeSection' ? block.section : block.blockType))
+
+describe('Software start page of the seed', () => {
+  it('puts the sections in the v24 order (ZMIANY-v24 §4)', () => {
+    expect(ids(softwareHomeLayout())).toEqual([
+      'swHero',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
+      'tech',
+      'wizard',
+      'pricing',
+      'process',
+      'faq',
+      'swContact',
+    ])
+  })
+
+  it('takes the 6 questions of the start page FAQ from the package', () => {
+    const faq = softwareHomeLayout().find((block) => block.blockType === 'faq')
+    expect(faq).toMatchObject({ eyebrow: 'Pytania', heading: 'Zanim **napiszesz**' })
+    expect(faq && 'items' in faq ? faq.items : []).toHaveLength(6)
+  })
+
+  it('fills the prices and terms of the FAQ from the solutions (decyzja 10)', () => {
+    const solutions = solutionsToImport()
+    const context = {
+      tenantId: 1,
+      facts: {},
+      prices: Object.fromEntries(solutions.map((s) => [s.slug, s.priceFrom])),
+      terms: Object.fromEntries(solutions.map((s) => [s.slug, s.leadTime])),
+      strict: true,
+    }
+    const faq = softwareHomeLayout().find((block) => block.blockType === 'faq')
+    const items = faq && 'items' in faq ? (faq.items ?? []) : []
+    const time = items.find((item) => item.question === 'Ile to trwa?')
+    expect(resolveText(time?.answer ?? '', context)).toEqual({
+      text: expect.stringMatching(
+        /^Wizytówka i landing od 1 tygodnia, strona firmowa od 2 tygodni, system od 2 tygodni \(pierwszy moduł\), rozbudowana strona i sklep od 5 tygodni\./,
+      ),
+      missing: [],
+    })
+    for (const item of items) {
+      const missing = resolveText(item.answer, context).missing.filter((t) => t.startsWith('{'))
+      expect(missing, item.question).toEqual([])
+    }
+  })
+
+  it('adds a section of a later session in its place', () => {
+    const layout = softwareHomeLayout(undefined, ['promises', 'bento', 'wizard'])
+    expect(ids(layout)).toEqual(['swHero', 'promises', 'bento', 'wizard', 'faq', 'swContact'])
+  })
+
+  it('replaces the sample page (no Software block yet)', () => {
+    const seed = softwareHomeLayout()
+    const sample = [{ blockType: 'hero' }, { blockType: 'partners' }]
+    expect(mergeSoftwareHome(sample as Parameters<typeof mergeSoftwareHome>[0], seed)).toEqual(seed)
+  })
+
+  it('inserts only the missing section after its predecessor, keeping panel edits', () => {
+    const edited = [
+      { blockType: 'swHomeSection' as const, section: 'process' as const },
+      { blockType: 'swHero' as const, title: 'Mój tytuł' },
+      { blockType: 'faq' as const },
+    ]
+    const merged = mergeSoftwareHome(
+      edited as Parameters<typeof mergeSoftwareHome>[0],
+      softwareHomeLayout(),
+    )
+    // A section moved in the panel stays where it is; the missing ones come in after their
+    // predecessors.
+    expect(ids(merged)).toEqual([
+      'process',
+      'swHero',
+      'promises',
+      'situations',
+      'bento',
+      'showroom',
+      'tech',
+      'wizard',
+      'pricing',
+      'faq',
+      'swContact',
+    ])
+    expect(merged?.[1]).toMatchObject({ title: 'Mój tytuł' })
+  })
+
+  it('changes nothing when every block is there', () => {
+    const seed = softwareHomeLayout()
+    expect(mergeSoftwareHome(seed, seed)).toBeNull()
+  })
+})

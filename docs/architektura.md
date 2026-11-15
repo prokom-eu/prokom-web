@@ -7,11 +7,17 @@ Jedna aplikacja Next.js z wbudowanym Payload CMS 3 obsługuje wiele domen PRO-KO
 ```
 przeglądarka → Nginx (SSL) → kontener app (Next.js + Payload) → PostgreSQL
                                    │
-          middleware: host → tenant (prokombiznes.pl → "biznes"; nieznany host → 404)
+          src/proxy.ts (lib/tenant/routing): PANEL_HOST → /admin, /api; inne domeny:
+          /admin, /api → 404, /brand/* (public/) bez zmian, reszta → rewrite na /<host>/<ścieżka>
                                    │
-          app/(sites)/[tenant]/... → Payload Local API (zawsze filtr: tenant)
+          app/(sites)/[domain]/layout: host → tenant (lib/tenant/byHost: baza, cache 60 s,
+          czyszczony po zapisie w Tenants; nieznana / nieaktywna domena → 404)
+                                   │
+          strony → Payload Local API (zawsze filtr: tenant)
 ```
-Panel `/admin` i zapisujące API — tylko na domenie panelu.
+Panel `/admin` i całe API Payload — tylko na domenie panelu (`PANEL_HOST`). Proxy nie łączy się z bazą: tylko dzieli ruch po hoście; tenanta rozpoznaje layout (Node, Local API), który dodatkowo wymaga, by segment `[domain]` był równy nagłówkowi `Host` — ścieżka `/<inna domena>` nigdy nie pokaże innego tenanta. Foldery z `public/` są jawną listą w `lib/tenant/routing.ts`. Tenanta się nie usuwa, tylko wyłącza (`Aktywna`); usunięcie z przypisanymi użytkownikami jest odrzucane. Host bierzemy z nagłówka `Host` — Nginx musi go przekazywać bez zmian (S10).
+
+Domeny tenanta (`Tenants.domains`): jedna lista wpisów `{ host, environment: production | staging | local }`; host jest unikalny w całej bazie (walidacja w panelu + unikalny indeks).
 
 ## Domeny i tenanci
 | Domena | Tenant / linia | Status |
@@ -20,7 +26,7 @@ Panel `/admin` i zapisujące API — tylko na domenie panelu.
 | prokominstalacje.pl | `instalacje` | październik 2026 |
 | prokomsoftware.pl | `software` | październik 2026 |
 | pro-kom.eu (nowa, hub) | `prokom` | do 20.12.2026 |
-| panel.pro-kom.eu | panel Payload | z fundamentem (rekord DNS) |
+| panel.prokombiznes.pl | panel Payload (produkcja; staging: `panel.staging.prokombiznes.pl`) | rekord DNS przed pierwszym wdrożeniem produkcji (ADR-006 „Rozstrzygnięcie 09.11”) |
 | `staging.<domena>` | jak wyżej | wersja testowa: hasło, `noindex`, osobna baza |
 | lokalnie | `biznes.localhost`, `instalacje.localhost`, `software.localhost`, `panel.localhost` | dev |
 
@@ -37,11 +43,11 @@ Formularze → `POST /api/inquiry` → `submitInquiry()` (Zod, honeypot, czas, l
 - prokomserwis.pl (Django) — odczyt `CompanyData` przez REST API z kluczem.
 - PRO-KOM System (2027) — przyjmuje zapytania; pulpit szefa czyta analitykę stron.
 
-## Infrastruktura (ADR-002, ADR-004)
-- VPS Seohost 4 vCPU / 8 GB: Docker Compose — `app`, `postgres`, `nginx` (+ certbot), kopie; staging i produkcja jako osobne stosy z osobnymi bazami.
+## Infrastruktura (ADR-019, ADR-004)
+- VPS webh.pl 4 vCPU / 16 GB / 100 GB NVMe, Ubuntu 24.04 (ADR-019): Docker Compose — `app`, `postgres`, `nginx` (+ certbot), kopie; staging i produkcja jako osobne stosy z osobnymi bazami.
 - Obrazy budowane w GitHub Actions → GHCR (prywatnie).
 - Kopie: `pg_dump` co noc + media → poza serwer; próbne odtworzenie raz w miesiącu.
-- Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies) — po uruchomieniu serwera.
+- Monitoring: Sentry (błędy), zewnętrzny monitoring dostępności; analityka Umami (bez cookies, ADR-020): skrypt i zdarzenia przez tę samą domenę (`/_s/*` → kontener w `proxy.ts`), zmienne `UMAMI_URL` i `UMAMI_WEBSITES`; kontener — S10b/S10c.
 
 ## Czego świadomie NIE robimy (na teraz)
-Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu.
+Sklepu B2B (faza 2), mikroserwisów, Kubernetes, płatnych CMS-ów w chmurze, osobnych repozytoriów na każdą stronę, osobnej aplikacji panelu. Świadomy wyjątek: PRO-KOM Gaming (`prokomgaming.pl`) ma własne repo `prokom-gaming` (sklep z cenami liczonymi z kosztów, konfiguratorem i kontami — inny cykl życia, ADR-G001 tam); dzieli z nami tylko serwer i stos `prokom-proxy` (szablony `gaming-*.conf.template`). Tak samo PRO-KOM Tech (`prokomserwis.pl`, serwis — Django + Next w repo `prokom-system`): współdzieli tylko serwer i stos `prokom-proxy` (szablony `tech-*.conf.template` → router `gateway` stosu Tech); żadnego kodu, bazy ani zależności z prokom-web.

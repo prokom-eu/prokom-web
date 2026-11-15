@@ -1,0 +1,114 @@
+/* Tokeny huba pro-kom.eu — wyciąg 1:1 z wizualizacji (Main.dc.html, blok PKTHEME). Domyślnie ciemny; jasny przez html[data-theme="light"]. */
+:root {
+  --k-bg:#0A0D0B;
+  --k-bg2:#0E1210;
+  --k-card:#131815;
+  --k-card2:#111613;
+  --k-foot:#060807;
+  --k-bgp:#0C0F0D;
+  --k-cardp:#171C18;
+  --k-dim:#050706;
+  --k-ink:#F4F5F1;
+  --k-ink1:#DDE1DB;
+  --k-ink2:#C9CEC8;
+  --k-ink3:#A9AFA9;
+  --k-ink4:#B9BDB6;
+  --k-ink5:#7E857E;
+  --k-gt:#8FE07A;
+  --k-gd:#7BD36A;
+  --k-g:#4FB034;
+  --k-g1:#5BC23E;
+  --k-g2:#43A02B;
+  --k-g3:#2E7A1E;
+  --k-gi:#07140A;
+  --k-b:#4A7BE0;
+  --k-bt:#8DADF0;
+  --k-bd:#0A1430;
+  --k-bi:#06102A;
+  --k-i:#12B6D8;
+  --k-it:#4CCBE6;
+  --k-id:#071214;
+  --k-ii:#06181C;
+  --k-s:#9670EE;
+  --k-st:#B49BF5;
+  --k-sd:#15131F;
+  --k-si:#120A26;
+  --k-t:#E2483A;
+  --k-tt:#F29185;
+  --k-td:#1A1312;
+  --k-ti:#1A0806;
+  --k-y:#F2C230;
+  --k-yd:#080C0B;
+  --k-yi:#1A1400;
+  --r-w:255,255,255;
+  --r-gl:22,28,24;
+  --r-gl2:19,24,21;
+  --r-gl3:20,25,21;
+  --r-gl4:10,13,11;
+  --r-gl5:17,22,19;
+  --k-white:#FFFFFF;
+}
+
+html[data-theme="light"] {
+  --k-bg:#F4F5F1;
+  --k-bg2:#ECEEE8;
+  --k-card:#FFFFFF;
+  --k-card2:#FFFFFF;
+  --k-foot:#E4E7E0;
+  --k-bgp:#F4F5F1;
+  --k-cardp:#FFFFFF;
+  --k-dim:#D9DCD5;
+  --k-ink:#121613;
+  --k-ink1:#2A302B;
+  --k-ink2:#3A413B;
+  --k-ink3:#4F5650;
+  --k-ink4:#4F5650;
+  --k-ink5:#8A918A;
+  --k-gt:#2E7A1E;
+  --k-gd:#2E7A1E;
+  --k-g:#2E7A1E;
+  --k-g1:#358F27;
+  --k-g2:#286F18;
+  --k-g3:#1F5A12;
+  --k-gi:#FFFFFF;
+  --k-b:#244FB0;
+  --k-bt:#244FB0;
+  --k-bd:#E6ECFB;
+  --k-bi:#FFFFFF;
+  --k-i:#007A96;
+  --k-it:#006A82;
+  --k-id:#DDF1F5;
+  --k-ii:#FFFFFF;
+  --k-s:#6E45D4;
+  --k-st:#5B33C4;
+  --k-sd:#ECE7FB;
+  --k-si:#FFFFFF;
+  --k-t:#C4362B;
+  --k-tt:#B3301F;
+  --k-td:#FBE8E5;
+  --k-ti:#FFFFFF;
+  --k-y:#9A7000;
+  --k-yd:#FBF2D2;
+  --k-yi:#FFFFFF;
+  --r-w:18,22,19;
+  --r-gl:255,255,255;
+  --r-gl2:255,255,255;
+  --r-gl3:255,255,255;
+  --r-gl4:255,255,255;
+  --r-gl5:255,255,255;
+  --k-white:#121613;
+}
+
+/* Ruch i przejścia wspólne (z wizualizacji) */
+@keyframes pkrise{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:none}}
+@keyframes pkpop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){
+section{animation:pkrise linear both;animation-timeline:view();animation-range:entry 0% cover 14%}
+section a[class~="lift"],section details,section figure{animation:pkpop linear both;animation-timeline:view();animation-range:entry 0% cover 18%}
+}
+a,button,details,summary{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background-color .3s,border-color .3s,color .3s}
+button:hover{transform:translateY(-2px)}
+a[style*="border-radius: 16px"]:hover,a[style*="border-radius: 18px"]:hover,a[style*="border-radius: 15px"]:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+html{scroll-behavior:smooth;transition:background-color .4s}
+body,body *{transition-property:background-color,border-color,color,transform,box-shadow,opacity,flex;transition-duration:.3s}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}

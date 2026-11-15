@@ -1,0 +1,58 @@
+import { headers } from 'next/headers'
+import React from 'react'
+
+import { defaultTheme, hasDarkTheme, themeScript } from '@/lib/brand/theme'
+import { getTenantByHost } from '@/lib/tenant/byHost'
+import { normalizeHost } from '@/lib/tenant/host'
+
+import { fontVariables } from './fonts'
+import { LineSheet } from './LineSheet'
+
+/**
+ * Root shell for all public sites; the tenant is resolved one level down, in `[domain]`.
+ * The line colour still has to be set here, on `<html>` (ADR-007): the same cached lookup by
+ * `Host` gives the tenant's line. Unknown host → no attribute → the main PRO-KOM colour.
+ */
+export default async function SitesRootLayout({ children }: { children: React.ReactNode }) {
+  const host = normalizeHost((await headers()).get('host'))
+  const line = host ? await lineFor(host) : undefined
+  return (
+    // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
+    // A line with a default theme (Biznes light, Software dark) gets it from the server too, so
+    // the page is right without JavaScript; the script only swaps it for a stored choice.
+    // `data-scroll-behavior`: Software and Biznes (R2) scroll smoothly to anchors; the attribute tells
+    // Next.js 16 to jump instantly on a route change instead of gliding to the top.
+    <html
+      lang="pl"
+      data-line={line}
+      data-theme={line ? (defaultTheme(line) ?? undefined) : undefined}
+      data-scroll-behavior={line === 'software' || line === 'biznes' ? 'smooth' : undefined}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      {line && hasDarkTheme(line) && (
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />
+        </head>
+      )}
+      <body>
+        {/* The line's stylesheet (ADR-023): no global CSS import here, see `LineSheet`. */}
+        <LineSheet line={line} />
+        {children}
+      </body>
+    </html>
+  )
+}
+
+/**
+ * Line of the tenant, or `undefined` when the lookup fails (e.g. database down). The root
+ * layout must not throw: an error here would bypass every error and not-found page below it.
+ * The `[domain]` layout runs the same lookup and surfaces the failure there.
+ */
+async function lineFor(host: string) {
+  try {
+    return (await getTenantByHost(host))?.line
+  } catch {
+    return undefined
+  }
+}

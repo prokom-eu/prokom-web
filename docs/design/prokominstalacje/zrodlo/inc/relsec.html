@@ -1,0 +1,7 @@
+  <section id="powiazane" class="{{rv.rel}}" data-rv="rel" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Zwykle idzie w parze</span><h2 class="h2">{{sx.relH}}</h2></div></div>
+      <div class="rel"><sc-for list="{{rel}}" as="r" hint-placeholder-count="4"><a href="{{r.href}}" class="relc ri"><span class="ico s"><!--i:r.ic--></span><b>{{r.n}}</b><span>{{r.s}}</span><span style="color: var(--accentText); font-weight: 800">Zobacz →</span></a></sc-for></div>
+      <sc-if value="{{hasSegRel}}" hint-placeholder-val="{{ true }}"><div class="relseg ri"><span class="usl" style="width: auto">{{segRelH}}</span><div class="relsegl"><sc-for list="{{segRel}}" as="g" hint-placeholder-count="4"><a href="{{g.href}}" class="relsegc" style="{{g.hs}}"><span class="relsegi"><!--i:g.ic:18--></span><b>{{g.n}}</b><span>{{g.s}}</span></a></sc-for></div></div></sc-if>
+    </div>
+  </section>

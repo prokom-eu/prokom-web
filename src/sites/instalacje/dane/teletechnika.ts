@@ -1,0 +1,419 @@
+import type { Feature, SectionHead } from './anteny'
+
+/**
+ * Fixed texts of the Teletechnika page (ADR-I002 §1): the sections that are not in
+ * `InstServices`, the building widget and the quote form. Transcribed from
+ * `zrodlo/pages/Teletechnika.js` + `Teletechnika.body.html` (v4.2) the way `cleanPrototype`
+ * cleans a snapshot: without UI keys and without the source list (`src`) — spec §2. The form has
+ * no file upload in v1 (ADR-I002 §4): the bill of quantities goes by e-mail after the inquiry.
+ * Edited by hand from now on.
+ */
+
+export type TeleLayer = 'fib' | 'lan' | 'rtv' | 'dom'
+export type QuoteScope = 'lan' | 'fib' | 'rtv' | 'dom' | 'cam' | 'kd'
+
+export const teletechnika = {
+  /** Building cross-section in the hero (`tt`). */
+  building: {
+    label: 'Przekrój budynku wielorodzinnego z instalacjami teletechnicznymi',
+    layersLabel: 'Instalacje w przekroju',
+    hint: 'Kliknij numer na rysunku',
+    numbersLabel: 'Elementy instalacji na rysunku',
+    stage: 'Etap:',
+    layers: [
+      { key: 'fib', label: 'Światłowód', hue: 'var(--inst-promo-warm)' },
+      { key: 'lan', label: 'Sieć LAN', hue: 'var(--inst-plan-send-to)' },
+      { key: 'rtv', label: 'RTV/SAT', hue: 'var(--inst-hue-violet)' },
+      { key: 'dom', label: 'Domofon', hue: 'var(--inst-scene-beam-ok)' },
+    ] as { key: TeleLayer; label: string; hue: string }[],
+    steps: [
+      {
+        title: 'Przedmiar',
+        text: 'Czytamy projekt i przedmiar. Zaznaczamy braki i kolizje z innymi branżami, zanim zrobi się z nich problem na budowie.',
+      },
+      {
+        title: 'Oferta',
+        text: 'Trasy rozrysowane na projekcie, wycena i harmonogram dopasowany do etapów budowy.',
+      },
+      {
+        title: 'Trasy',
+        text: 'Stan surowy: peszle, korytka, pion, puszki i skrzynki. Kable wejdą później, po tynkach.',
+      },
+      {
+        title: 'Montaż',
+        text: 'Światłowód, skrętka, RTV/SAT i domofon. Szafy, gniazda, osprzęt w każdym lokalu.',
+      },
+      {
+        title: 'Pomiary',
+        text: 'Każde gniazdo i włókno zmierzone i opisane. Protokół dla każdego lokalu.',
+      },
+      {
+        title: 'Odbiór',
+        text: 'Dokumentacja powykonawcza, protokoły pomiarów i odbiór z inspektorem.',
+      },
+    ],
+    elements: [
+      {
+        title: 'Studnia i przyłącze operatora',
+        text: 'Operator wprowadza swój kabel kanalizacją do budynku. My przygotowujemy przepust i trasę do pomieszczenia teletechnicznego.',
+      },
+      {
+        title: 'Punkt styku',
+        text: 'Granica między siecią operatora a instalacją budynku. Tu podłącza się każdy operator, który chce świadczyć usługi lokatorom.',
+      },
+      {
+        title: 'Szafa główna',
+        text: 'Przełącznice światłowodowe i panele krosowe. Każde włókno i każdy port opisane tak, jak w dokumentacji.',
+      },
+      {
+        title: 'Pion teletechniczny',
+        text: 'Szacht przez wszystkie kondygnacje. Zostawiamy w nim zapas miejsca na instalacje, które dojdą za kilka lat.',
+      },
+      {
+        title: 'Skrzynka piętrowa',
+        text: 'Rozdział włókien i przewodów na lokale danego piętra. Serwis bez wchodzenia do mieszkań.',
+      },
+      {
+        title: 'Skrzynka mieszkaniowa',
+        text: 'Tu kończy się instalacja budynku, a zaczyna sieć w mieszkaniu. Miejsce na router operatora.',
+      },
+      {
+        title: 'Gniazda w pokojach',
+        text: 'Skrętka do pokoi, gniazdo RTV przy telewizorze, unifon przy drzwiach. Wszystko opisane.',
+      },
+      {
+        title: 'Antena, SAT i multiswitch',
+        text: 'Wspólna antena naziemna i satelitarna na dachu. Multiswitch rozdziela sygnał do gniazd w lokalach.',
+      },
+      {
+        title: 'Panel domofonu',
+        text: 'Panel przy wejściu, unifon lub monitor w każdym lokalu. Można dodać otwieranie z aplikacji.',
+      },
+    ],
+  },
+
+  scope: {
+    head: {
+      eyebrow: 'Zakres prac',
+      heading: 'Jakie instalacje teletechniczne wykonujemy w budynku',
+      lead: 'Wchodzimy na budowę w stanie surowym i zostajemy aż do odbioru. Całą teletechnikę budynku, od tras po pomiary i dokumentację, masz u jednego podwykonawcy.',
+    } satisfies SectionHead,
+    items: [
+      {
+        icon: 'net',
+        title: 'Okablowanie strukturalne',
+        text: 'Skrętka w mieszkaniach i lokalach, gniazda, szafy, panele krosowe, opis i pomiary.',
+      },
+      {
+        icon: 'fiber',
+        title: 'Światłowód do lokali',
+        text: 'Instalacja światłowodowa od punktu styku do skrzynek mieszkaniowych, gotowa dla operatorów.',
+      },
+      {
+        icon: 'dish',
+        title: 'RTV/SAT zbiorcza',
+        text: 'Antena naziemna i satelitarna, multiswitche, rozprowadzenie do gniazd w lokalach.',
+      },
+      {
+        icon: 'phone',
+        title: 'Domofony i wideodomofony',
+        text: 'Panele przy wejściach i bramie, unifony lub monitory w lokalach, otwieranie z aplikacji.',
+      },
+      {
+        icon: 'cam',
+        title: 'Monitoring części wspólnych',
+        text: 'Garaż podziemny, wejścia, śmietnik, plac zabaw. Zakres dokumentacji ustalamy w ofercie.',
+      },
+      {
+        icon: 'lock',
+        title: 'Kontrola dostępu',
+        text: 'Breloki do klatek, garażu i komórek lokatorskich, szlaban na wjeździe.',
+      },
+    ] satisfies Feature[],
+  },
+
+  /*
+   * RUNDA-V5 §10 — more content between the scope and the quote form. Only general, checkable facts,
+   * no new numbers without a source. Sentences that name a standard carry a TODO for the check
+   * at the editing stage.
+   */
+
+  /** „Na każdym etapie budowy” (`#etapy`): the axis of the home process (`ProcessAxis`). */
+  stages: {
+    head: {
+      eyebrow: 'Etapy budowy',
+      heading: 'Co robimy na każdym etapie budowy',
+      lead: 'Najlepiej zacząć przy projekcie albo w stanie surowym, zanim wejdą tynkarze. Przy każdym etapie mówimy, co robimy i co sprawdzamy.',
+    } satisfies SectionHead,
+    getLabel: 'Sprawdzamy',
+    steps: [
+      {
+        icon: 'doc',
+        title: 'Projekt i uzgodnienia',
+        text: 'Czytamy projekt teletechniki, trasy i miejsca na szafy.',
+        get: 'punkt styku dla operatorów i miejsce na szafy',
+      },
+      {
+        icon: 'build',
+        title: 'Stan surowy',
+        text: 'Piony, przepusty i rury z zapasem i pilotem.',
+        get: 'drożność rur, zanim wejdą tynkarze',
+      },
+      {
+        icon: 'net',
+        title: 'Przed tynkami',
+        text: 'Okablowanie lokali i skrzynki mieszkaniowe.',
+        get: 'opis każdego przewodu na obu końcach',
+      },
+      {
+        icon: 'tool',
+        title: 'Montaż osprzętu',
+        text: 'Gniazda, panele, szafy, multiswitche i domofony po wykończeniu.',
+        get: 'zgodność gniazd z rzutami',
+      },
+      {
+        icon: 'sliders',
+        title: 'Pomiary',
+        text: 'Mierzymy każdy tor, miedziany i światłowodowy.',
+        get: 'wynik każdego toru w raporcie',
+      },
+      {
+        icon: 'file',
+        title: 'Dokumentacja',
+        text: 'Dokumentacja powykonawcza zgodna z tym, co jest w ścianach.',
+        get: 'schematy pionów i opisy paneli',
+      },
+      {
+        icon: 'users',
+        title: 'Przekazanie',
+        text: 'Pokazujemy szafy, punkty styku i dokumenty wspólnocie lub zarządcy.',
+        get: 'komplet dokumentów u odbierającego',
+      },
+    ],
+  },
+
+  /** „Co dostajesz przy odbiorze” + „W jakich standardach pracujemy” (`#przy-odbiorze`). */
+  handover: {
+    head: {
+      eyebrow: 'Przy odbiorze',
+      heading: 'Jakie dokumenty dostajesz przy odbiorze',
+      lead: 'Wspólnota albo zarządca znajdzie w nich każdy przewód i każde gniazdo. Przydadzą się też za kilka lat, gdy trzeba będzie coś zmienić.',
+    } satisfies SectionHead,
+    items: [
+      'Raport z pomiarów każdego toru, miedzianego i światłowodowego',
+      'Opis gniazd i paneli zgodny z dokumentacją',
+      'Schematy pionów',
+      'Dokumentację powykonawczą w PDF i na papierze',
+      'Listę sprzętu z numerami seryjnymi tam, gdzie to ma znaczenie',
+    ],
+  },
+  // Runda v6 §1.8 (audit 08.11): „W jakich standardach pracujemy” is gone — its commitments (norm
+  // wording, the fibre type, the measurement report) were not confirmed by the boss.
+  // TODO(krystian): bring it back with the boss's confirmed wording, if he wants it.
+
+  /** „Błędy, które zatrzymują odbiór” (`#bledy`): four cards, each with how we avoid it. */
+  mistakes: {
+    head: {
+      eyebrow: 'Częste błędy',
+      heading: 'Błędy, przez które odbiór teletechniki się przesuwa',
+      lead: 'Te cztery widzimy na budowach najczęściej. Każdego da się uniknąć, jeśli pomyśli się o nim wcześniej.',
+    } satisfies SectionHead,
+    avoidLabel: 'Jak tego unikamy',
+    items: [
+      {
+        icon: 'fiber',
+        title: 'Rury bez zapasu i pilota',
+        text: 'Przewodu nie da się przeciągnąć, a ściana jest już otynkowana.',
+        avoid: 'Rury z zapasem średnicy i pilotem, drożność sprawdzona przed tynkami.',
+      },
+      {
+        icon: 'bolt',
+        title: 'Zasilanie i teletechnika w jednej rurze',
+        text: 'Zakłócenia sygnału i problem przy odbiorze.',
+        avoid: 'Osobne trasy i rury, uzgodnione z elektrykiem na etapie projektu.',
+      },
+      {
+        icon: 'doc',
+        title: 'Brak opisów na panelach i gniazdach',
+        text: 'Nikt nie wie, który kabel idzie do którego mieszkania.',
+        avoid: 'Opis na obu końcach każdego przewodu, zgodny z dokumentacją.',
+      },
+      {
+        icon: 'grid',
+        title: 'Za mała skrzynka mieszkaniowa',
+        text: 'Router, terminal operatora i zasilacz się nie mieszczą, drzwiczki się nie zamykają.',
+        avoid: 'Skrzynka dobrana do sprzętu operatora, z zapasem na przyszłość.',
+      },
+    ],
+  },
+
+  /** „Także w częściach wspólnych” (`#czesci-wspolne`), with links to the service pages. */
+  common: {
+    head: {
+      eyebrow: 'Części wspólne',
+      heading: 'Instalacje w częściach wspólnych budynku',
+      lead: 'Robimy je w tym samym zakresie co okablowanie lokali, więc trasy i szafy planujemy raz.',
+    } satisfies SectionHead,
+    items: [
+      {
+        icon: 'phone',
+        title: 'Domofony i wideodomofony',
+        text: 'Panele przy wejściach i bramie, monitory w lokalach.',
+        href: '/alarmy#domofony',
+      },
+      {
+        icon: 'lock',
+        title: 'Dostęp do klatek i garażu',
+        text: 'Breloki, czytniki i szlaban na wjeździe.',
+        href: '/kontrola-dostepu',
+      },
+      {
+        icon: 'cam',
+        title: 'Monitoring garażu i wejść',
+        text: 'Kamery w częściach wspólnych, nagrania w budynku.',
+        href: '/monitoring',
+      },
+      {
+        icon: 'dish',
+        title: 'RTV/SAT zbiorcza',
+        text: 'Jedna antena i multiswitch zamiast anten na balkonach.',
+        href: '/anteny',
+      },
+    ],
+  },
+
+  /** „Jak liczymy ofertę” (`#jak-liczymy`): four steps; the bill of quantities by e-mail. */
+  pricing: {
+    head: {
+      eyebrow: 'Jak liczymy ofertę',
+      heading: 'Wycena pozycja po pozycji i termin wejścia ekipy',
+      lead: 'Od przedmiaru do terminu na budowie w czterech krokach.',
+    } satisfies SectionHead,
+    steps: [
+      {
+        icon: 'file',
+        title: 'Przedmiar albo projekt',
+        text: 'Przesyłasz go mailem po pierwszym kontakcie — bez wysyłania plików na stronie.',
+      },
+      {
+        icon: 'chat',
+        title: 'Pytania o budowę',
+        text: 'Pytamy o etap budowy, harmonogram i to, czego w przedmiarze brakuje.',
+      },
+      {
+        icon: 'doc',
+        title: 'Wycena pozycja po pozycji',
+        text: 'Każda pozycja przedmiaru osobno, bez jednej kwoty za całość.',
+      },
+      {
+        icon: 'cal',
+        title: 'Termin wejścia ekipy',
+        text: 'Ustalamy, kiedy wchodzimy na budowę i ile to potrwa.',
+      },
+    ],
+  },
+
+  forWhom: {
+    head: { eyebrow: 'Dla kogo', heading: 'Z kim pracujemy przy teletechnice budynków' },
+    items: [
+      {
+        icon: 'apt',
+        title: 'Deweloperzy',
+        text: 'Teletechnika budynków wielorodzinnych i osiedli domów, od projektu do odbioru.',
+      },
+      {
+        icon: 'crane',
+        title: 'Generalni wykonawcy',
+        text: 'Podwykonawstwo branży teletechnicznej zgodnie z harmonogramem budowy.',
+      },
+      {
+        icon: 'users',
+        title: 'Wspólnoty i zarządcy',
+        text: 'Modernizacja domofonów, RTV/SAT, monitoringu i dostępu w istniejących budynkach.',
+      },
+      {
+        icon: 'hotel',
+        title: 'Hotele i obiekty publiczne',
+        text: 'Okablowanie, sieci, TV hotelowa, nagłośnienie i ekrany w jednym zakresie.',
+      },
+    ] satisfies Feature[],
+    note: 'Na Podhalu wciąż dużo się buduje: w 2024 roku w powiatach nowotarskim i tatrzańskim oddano łącznie ok. 1170 mieszkań, także w domach jednorodzinnych (dane GUS). Okablowanie najlepiej zaplanować, zanim wejdą tynkarze.',
+  },
+
+  /** Quote form (`rfq`): a contact inquiry „Teletechnika — przedmiar” (ADR-I002 §4). */
+  quote: {
+    head: {
+      eyebrow: 'Zapytanie ofertowe',
+      heading: 'Opisz inwestycję, a przygotujemy wycenę',
+      lead: 'Wystarczy przedmiar, projekt albo choćby rzuty z opisem. Im więcej szczegółów, tym dokładniejsza oferta.',
+    } satisfies SectionHead,
+    category: 'Teletechnika — przedmiar',
+    typeTitle: 'Rodzaj inwestycji',
+    types: [
+      'Budynek wielorodzinny',
+      'Osiedle domów',
+      'Hotel lub pensjonat',
+      'Obiekt komercyjny',
+      'Modernizacja',
+    ],
+    scopeTitle: 'Zakres',
+    scopes: [
+      { key: 'lan', label: 'Okablowanie LAN' },
+      { key: 'fib', label: 'Światłowód' },
+      { key: 'rtv', label: 'RTV/SAT' },
+      { key: 'dom', label: 'Domofony' },
+      { key: 'cam', label: 'Monitoring' },
+      { key: 'kd', label: 'Kontrola dostępu' },
+    ] as { key: QuoteScope; label: string }[],
+    fields: {
+      units: { label: 'Liczba lokali', placeholder: 'np. 24' },
+      place: { label: 'Lokalizacja', placeholder: 'np. Nowy Targ' },
+      stage: { label: 'Etap budowy', placeholder: 'np. stan surowy otwarty' },
+      term: { label: 'Planowany termin', placeholder: 'np. II kwartał 2027' },
+      name: {
+        label: 'Imię i nazwisko lub firma',
+        placeholder: 'np. Anna Nowak lub nazwa firmy',
+      },
+      phone: { label: 'Telefon', placeholder: 'np. 600 000 000' },
+      email: { label: 'E-mail', placeholder: 'np. biuro@firma.pl' },
+    },
+    // Prototype: a file field (PDF, DWG, XLS, ZIP) — no upload in v1 (ADR-I002 §4, I0).
+    files: {
+      title: 'Przedmiar, projekt lub rzuty',
+      text: 'Przedmiar prześlij mailem po zgłoszeniu — w odpowiedzi podamy adres. PDF, DWG, XLS, ZIP.',
+    },
+    contactTitle: 'Dane do kontaktu',
+    summary: {
+      eyebrow: 'Twoje zapytanie',
+      type: 'Inwestycja',
+      scope: 'Zakres',
+      units: 'Lokale',
+      empty: '—',
+    },
+    send: 'Wyślij zapytanie',
+    sending: 'Wysyłamy…',
+    errors: {
+      prefix: 'Uzupełnij:',
+      name: 'imię i nazwisko lub firmę',
+      phone: 'numer telefonu',
+      consent: 'zgodę na kontakt',
+      phoneFormat: 'Sprawdź numer telefonu, np. 600 100 200.',
+      emailFormat: 'Sprawdź adres e-mail.',
+      placeLong: 'Skróć lokalizację (najwyżej 100 znaków).',
+      termLong: 'Skróć planowany termin (najwyżej 100 znaków).',
+      stageLong: 'Skróć etap budowy.',
+      failed: 'Nie udało się wysłać. Spróbuj ponownie albo zadzwoń.',
+      limit: 'Za dużo zgłoszeń z tego adresu. Spróbuj za chwilę albo zadzwoń.',
+    },
+    thanks: {
+      title: 'Dziękujemy. Zapytanie przyjęte.',
+      text: 'Odezwiemy się w sprawie wyceny. Przedmiar albo projekt prześlij w odpowiedzi na naszą wiadomość.',
+      number: 'Numer zgłoszenia:',
+    },
+    // TODO(krystian): prototyp — „Kontakt dla firm budowlanych: [SZEF: osoba, telefon, e-mail]”;
+    // dopiszemy, gdy szef poda osobę (spec §12).
+  },
+
+  /** Button of the CTA band on this page (the prototype's `ctaBtn`). */
+  bandButton: { label: 'Wyślij przedmiar →', href: '#zapytanie' },
+}

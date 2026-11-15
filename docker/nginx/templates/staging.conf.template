@@ -1,0 +1,29 @@
+# Staging stack (docker/compose.prod.yml + compose.staging.yml, project `prokom-staging`):
+# the same blocks as production plus a password and noindex (snippets/staging.conf).
+
+server {
+  listen 80;
+  server_name ${STAGING_SITE_HOSTS} ${STAGING_PANEL_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${STAGING_SITE_HOSTS};
+  ssl_certificate /etc/letsencrypt/live/prokom-staging/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-staging/privkey.pem;
+  set $app prokom-staging-app-1:3000;
+  set $panel_origin https://${STAGING_PANEL_HOST};
+  include /etc/nginx/snippets/staging.conf;
+  include /etc/nginx/snippets/site.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${STAGING_PANEL_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-staging/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-staging/privkey.pem;
+  set $app prokom-staging-app-1:3000;
+  include /etc/nginx/snippets/staging.conf;
+  include /etc/nginx/snippets/panel.conf;
+}

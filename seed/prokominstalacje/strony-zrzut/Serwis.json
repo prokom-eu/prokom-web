@@ -1,0 +1,425 @@
+{
+ "_strona": "Serwis",
+ "_title": "Serwis instalacji na Podhalu: kamery, alarmy | PRO-KOM",
+ "_description": "Serwis i przeglądy monitoringu, alarmów, sieci i smart home na Podhalu. Przejmujemy instalacje po innych firmach. Odpowiedź do 24 h w dni robocze.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Serwis instalacji",
+  "ctaH": "Coś nie działa albo zbliża się sezon?",
+  "ctaP": "Zgłoś usterkę w formularzu albo umów przegląd przed sezonem. Odpowiadamy do 24 h w dni robocze.",
+  "hero": {
+   "mid": false,
+   "midT": "Usługi",
+   "midH": "Main.dc.html#uslugi",
+   "cta": "Umów przegląd",
+   "ctaHref": "#plany",
+   "crumb": "Serwis i przeglądy",
+   "eye": "Serwis instalacji · Rabka-Zdrój, Zakopane, Podhale",
+   "h1a": "Coś nie działa?",
+   "h1b": "Zgłoś. Sprawdzimy zdalnie albo przyjedziemy.",
+   "lead": "Serwisujemy kamery, alarmy, sieci, zamki, smart home, nagłośnienie, ekrany i ładowarki. Także instalacje, które montowała inna firma. Przed sezonem robimy przeglądy, żeby awarie nie trafiały się w pełnym obłożeniu.",
+   "kv": [
+    {
+     "b": "2 salony",
+     "s": "Rabka-Zdrój i Zakopane"
+    },
+    {
+     "b": "zdalnie",
+     "s": "diagnoza wielu usterek"
+    },
+    {
+     "b": "od 2004",
+     "s": "PRO-KOM na Podhalu"
+    }
+   ],
+   "tags": [
+    {
+     "n": "Awarie"
+    },
+    {
+     "n": "Przeglądy sezonowe"
+    },
+    {
+     "n": "Przejęcie instalacji"
+    },
+    {
+     "n": "Umowy serwisowe"
+    }
+   ]
+  },
+  "anc": [
+   {
+    "href": "#plany",
+    "n": "Opieka serwisowa"
+   },
+   {
+    "href": "#przejecie",
+    "n": "Przejęcie instalacji"
+   },
+   {
+    "href": "#zdalnie",
+    "n": "Zdalnie i na miejscu"
+   },
+   {
+    "href": "#faq",
+    "n": "Pytania"
+   }
+  ],
+  "pkgs": [],
+  "cena": [],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Ile kosztuje przyjazd serwisu?",
+    "a": "Zależy od miejscowości i tego, czy masz umowę serwisową. [SZEF: zasady dojazdu i stawki]. Wiele usterek sprawdzamy najpierw zdalnie, bez kosztów dojazdu.",
+    "open": true
+   },
+   {
+    "n": "02",
+    "q": "Czy naprawicie instalację po innej firmie?",
+    "a": "Tak. Zaczynamy od inwentaryzacji i pomocy w odzyskaniu dostępu do urządzeń, a potem proponujemy naprawę albo rozsądną rozbudowę.",
+    "open": false
+   },
+   {
+    "n": "03",
+    "q": "Co, jeśli nie znam haseł do rejestratora?",
+    "a": "Często da się odzyskać dostęp procedurą producenta. Zawsze potwierdzamy, że jesteś właścicielem albo zarządcą obiektu.",
+    "open": false
+   },
+   {
+    "n": "04",
+    "q": "Czy robicie przeglądy przed sezonem?",
+    "a": "Tak. To najczęstsza usługa dla pensjonatów: kamery, dyski, Wi-Fi, zamki, ładowarka i ekrany sprawdzone, zanim przyjadą goście.",
+    "open": false
+   },
+   {
+    "n": "05",
+    "q": "Jak szybko reagujecie?",
+    "a": "Na każde zgłoszenie odpowiadamy do 24 h w dni robocze: oddzwonimy albo odpiszemy. To czas na odpowiedź, a nie na przyjazd technika. Część usterek da się rozwiązać zdalnie, a gdy potrzebny jest przyjazd, termin ustalamy w rozmowie. Przy umowie serwisowej masz pierwszeństwo.",
+    "open": false
+   },
+   {
+    "n": "06",
+    "q": "Czy naprawy w gwarancji są bezpłatne?",
+    "a": "Usterki montażu przez 24 miesiące usuwamy w ramach gwarancji PRO-KOM. Wady sprzętu zgłaszamy razem z Tobą do producenta w ramach jego gwarancji. Nie ogranicza to Twoich uprawnień ustawowych, np. z tytułu niezgodności towaru z umową.",
+    "open": false
+   },
+   {
+    "n": "07",
+    "q": "Czy umowa serwisowa jest obowiązkowa?",
+    "a": "Nie. Usterki możesz zgłaszać jednorazowo. Umowa daje stałe przeglądy, pierwszeństwo w sezonie i kogoś, kto zna Twoją instalację.",
+    "open": false
+   },
+   {
+    "n": "08",
+    "q": "Co przygotować przed przyjazdem serwisu?",
+    "a": "Opis objawów, zdjęcie urządzenia i komunikatu błędu, dostęp do rejestratora albo szafy i dane logowania, jeśli je masz. Często to wystarczy, żeby rozwiązać problem zdalnie.",
+    "open": false
+   }
+  ],
+  "rel": [
+   {
+    "k": "kam",
+    "n": "Monitoring i kamery",
+    "g": "Bezpieczeństwo",
+    "href": "Monitoring.dc.html",
+    "ic": "ikona:cam",
+    "s": "Kompletny system: kamery, rejestrator, dyski, PoE"
+   },
+   {
+    "k": "alarm",
+    "n": "Alarmy i wideodomofony",
+    "g": "Bezpieczeństwo",
+    "href": "Alarmy.dc.html",
+    "ic": "ikona:bell",
+    "s": "Czujki, syreny, domofon z aplikacją"
+   },
+   {
+    "k": "wifi",
+    "n": "Sieci i Wi-Fi",
+    "g": "Sieci i technika",
+    "href": "Sieci.dc.html",
+    "ic": "ikona:wifi",
+    "s": "Okablowanie, światłowód, Wi-Fi gości"
+   },
+   {
+    "k": "smart",
+    "n": "Smart home Ampio",
+    "g": "Komfort i obraz",
+    "href": "SmartHome.dc.html",
+    "ic": "ikona:home",
+    "s": "Polski system, działa bez internetu"
+   }
+  ],
+  "segRel": [],
+  "hasSegRel": false,
+  "segRelH": "Dla kogo robimy tę instalację",
+  "sx": {
+   "faqA": {
+    "t": "Coś nie działa?",
+    "d": "Opisz usterkę w formularzu. Odpowiemy do 24 h w dni robocze: oddzwonimy albo odpiszemy.",
+    "cta": "Zgłoś usterkę",
+    "href": "#zglos"
+   },
+   "faqH": "Pytania o serwis.",
+   "relH": "Serwisujemy wszystko, co montujemy.",
+   "pkg": {
+    "eye": "Przykładowe zestawy",
+    "h": "Od czego zwykle zaczynamy.",
+    "p": "",
+    "note": "To przykłady. Ostateczny zakres i cenę ustalamy po wizji lokalnej i podajemy na piśmie."
+   },
+   "cena": {
+    "btn": "Wyślij zdjęcia do wyceny",
+    "eye": "Wycena",
+    "h": "Co wpływa na cenę.",
+    "p": ""
+   }
+  },
+  "sv": {
+   "form": true,
+   "track": false,
+   "who": [
+    {
+     "n": "Montowaliście u mnie",
+     "on": "true",
+     "cls": "on"
+    },
+    {
+     "n": "Inna firma",
+     "on": "false",
+     "cls": ""
+    }
+   ],
+   "sys": [
+    {
+     "n": "Kamery",
+     "ic": "ikona:cam",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Alarm",
+     "ic": "ikona:bell",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Wi-Fi i sieć",
+     "ic": "ikona:wifi",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Zamki",
+     "ic": "ikona:lock",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Smart home",
+     "ic": "ikona:home",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Nagłośnienie",
+     "ic": "ikona:spk",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Ekrany",
+     "ic": "ikona:scr",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Ładowarka",
+     "ic": "ikona:bolt",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Antena i TV",
+     "ic": "ikona:dish",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Inne",
+     "ic": "ikona:wrench",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "sym": [
+    {
+     "n": "Brak obrazu",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Nie nagrywa",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Brak podglądu w telefonie",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Inne",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "urg": [
+    {
+     "n": "Pilne: obiekt bez zabezpieczenia",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "W ciągu kilku dni",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Przy najbliższym przeglądzie",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "ph": "",
+   "town": "",
+   "phCls": "zin",
+   "err": false,
+   "errT": "",
+   "urgent": false,
+   "sSys": "Kamery",
+   "sSym": "Brak obrazu",
+   "sUrg": "W ciągu kilku dni",
+   "steps": [
+    {
+     "t": "Przyjęte",
+     "d": "Zgłoszenie jest u nas",
+     "ic": "ikona:check",
+     "cls": "trs"
+    },
+    {
+     "t": "Odpowiedź",
+     "d": "Do 24 h w dni robocze oddzwonimy albo odpiszemy",
+     "ic": "ikona:phone",
+     "cls": "trs"
+    },
+    {
+     "t": "Diagnoza lub wizyta",
+     "d": "Najpierw zdalnie, za Twoją zgodą. Jeśli trzeba, ustalamy termin przyjazdu",
+     "ic": "ikona:cal",
+     "cls": "trs"
+    },
+    {
+     "t": "Naprawione",
+     "d": "Potwierdzamy zakres wykonanych prac",
+     "ic": "ikona:star",
+     "cls": "trs"
+    }
+   ]
+  },
+  "plans": [
+   {
+    "n": "Przegląd",
+    "d": "Dla domów i małych instalacji.",
+    "f": [
+     "Przegląd raz w roku, przed zimą",
+     "Czyszczenie kamer i test nagrywania",
+     "Zdalna pomoc w godzinach pracy"
+    ],
+    "pr": "Cena po rozmowie",
+    "hot": false,
+    "cls": "card plan ri"
+   },
+   {
+    "n": "Sezon",
+    "d": "Dla pensjonatów, restauracji i sklepów.",
+    "hot": true,
+    "f": [
+     "Dwa przeglądy: przed zimą i przed latem",
+     "Zdalne sprawdzanie nagrywania i dysków [SZEF: jak często]",
+     "Pierwszeństwo w terminach w sezonie"
+    ],
+    "pr": "Cena po rozmowie",
+    "cls": "card plan ri hot"
+   },
+   {
+    "n": "Pełna opieka",
+    "d": "Dla hoteli, firm i instytucji.",
+    "f": [
+     "Przeglądy według ustaleń",
+     "Stały opiekun i raport po wizycie",
+     "Naprawy w pierwszej kolejności",
+     "Odpowiedź do 24 h w dni robocze, przyjazd w terminie z umowy"
+    ],
+    "pr": "Cena po rozmowie",
+    "hot": false,
+    "cls": "card plan ri"
+   }
+  ],
+  "pz": [
+   {
+    "n": "01",
+    "t": "Inwentaryzacja",
+    "d": "Spisujemy, co jest zamontowane: urządzenia, modele, okablowanie, stan."
+   },
+   {
+    "n": "02",
+    "t": "Dostęp",
+    "d": "Pomagamy odzyskać dostęp do rejestratorów, routerów i central: za zgodą właściciela, także procedurą producenta."
+   },
+   {
+    "n": "03",
+    "t": "Raport",
+    "d": "Co działa, co trzeba naprawić od razu, a co może poczekać."
+   },
+   {
+    "n": "04",
+    "t": "Propozycja",
+    "d": "Naprawa, rozbudowa albo wymiana tylko tego, co faktycznie trzeba."
+   }
+  ],
+  "zd": [
+   {
+    "ic": "ikona:cam",
+    "t": "Kamery",
+    "d": "Ustawienia, nagrywanie, aplikacja."
+   },
+   {
+    "ic": "ikona:wifi",
+    "t": "Sieć i Wi-Fi",
+    "d": "Punkty dostępowe, vouchery, aktualizacje."
+   },
+   {
+    "ic": "ikona:home",
+    "t": "Smart home",
+    "d": "Sceny, harmonogramy, zmiany ustawień."
+   },
+   {
+    "ic": "ikona:scr",
+    "t": "Ekrany",
+    "d": "Treści i harmonogramy."
+   },
+   {
+    "ic": "ikona:lock",
+    "t": "Zamki",
+    "d": "Kody, integracje, historia."
+   },
+   {
+    "ic": "ikona:bolt",
+    "t": "Ładowarki",
+    "d": "Karty RFID i konfiguracja (modele online)."
+   }
+  ]
+ }
+}

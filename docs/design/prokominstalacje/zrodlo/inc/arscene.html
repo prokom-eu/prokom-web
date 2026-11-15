@@ -1,0 +1,121 @@
+            <div class="{{arsc.cls}}">
+              <div class="arcore"><div class="arsvgw">
+              <div class="arbar">
+                <div class="armodes" role="tablist" aria-label="Widok przekroju"><sc-for list="{{arsc.modes}}" as="m" hint-placeholder-count="3"><button type="button" role="tab" class="{{m.cls}}" aria-selected="{{m.on}}" onClick="{{m.go}}"><!--i:m.ic:15-->{{m.n}}</button></sc-for></div>
+                <span class="arlbl"><i></i>{{arsc.lbl}}</span>
+              </div>
+              <svg viewBox="0 70 1000 530" class="arsvg" role="img" aria-label="Przekrój domu z instalacjami: kamery, alarm, wideodomofon, kontrola dostępu, sieć i Wi-Fi, smart home, dźwięk, telewizor, antena, ładowarka samochodu i przyłącze światłowodu">
+                <defs>
+                  <linearGradient id="arsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="arsk1"></stop><stop offset="1" class="arsk2"></stop></linearGradient>
+                  <pattern id="arhatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" class="arhl"></path></pattern>
+                  <pattern id="arsoil" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.1" class="arsd"></circle><circle cx="10" cy="10" r="1" class="arsd"></circle></pattern>
+                  <pattern id="arbp" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" class="arbpl"></path></pattern>
+                </defs>
+                <!-- niebo, Tatry -->
+                <rect width="1000" height="600" fill="url(#arsky)"></rect>
+                <path d="M0 330 L70 270 L120 296 L190 214 L240 252 L300 196 L360 246 L420 210 L470 238 L540 176 L600 230 L660 204 L720 246 L790 198 L850 238 L920 214 L1000 252 V520 H0 Z" class="armt"></path>
+                <path d="M182 220 L190 214 L198 222 Z M292 202 L300 196 L309 205 Z M532 183 L540 176 L549 186 Z M782 205 L790 198 L798 206 Z" class="arsnow"></path>
+                <!-- grunt -->
+                <rect x="0" y="520" width="1000" height="80" class="arsoilb"></rect><rect x="0" y="520" width="1000" height="80" fill="url(#arsoil)"></rect><rect x="0" y="514" width="1000" height="8" class="argrass"></rect>
+                <!-- ogród: drzewo, ogrodzenie, furtka -->
+                <g class="fin"><circle cx="118" cy="430" r="36" class="artree"></circle><circle cx="96" cy="452" r="26" class="artree2"></circle><rect x="113" y="460" width="8" height="56" rx="2" class="artrunk"></rect></g>
+                <path d="M14 470 H66 M14 490 H66" class="arfence"></path><rect x="28" y="452" width="10" height="64" rx="2" class="arpost"></rect><rect x="30" y="466" width="6" height="12" rx="1.5" class="ardev2"></rect>
+                <!-- taras + głośnik ogrodowy (kamień) -->
+                <rect x="140" y="510" width="40" height="6" class="arterr"></rect><path d="M150 514 q8 -16 22 0 z" class="arrock"></path>
+                <!-- dach -->
+                <path d="M156 236 L494 88 L832 236 Z" class="arroof"></path><path d="M180 232 L494 102 L808 232 Z" class="arattic"></path>
+                <!-- antena na dachu -->
+                <path d="M690 172 V128" class="armast"></path><path d="M676 128 a16 16 0 0 0 26 -16 z" class="ardish"></path><path d="M690 128 l10 -12" class="armast"></path>
+                <!-- ściany i stropy -->
+                <rect x="180" y="232" width="628" height="288" class="arin"></rect>
+                <rect x="168" y="232" width="12" height="288" class="arwall"></rect><rect x="808" y="232" width="12" height="288" class="arwall"></rect>
+                <rect x="168" y="226" width="652" height="10" class="arslab"></rect><rect x="168" y="372" width="652" height="12" class="arslab"></rect><rect x="168" y="512" width="652" height="10" class="arslab"></rect>
+                <rect x="420" y="236" width="8" height="136" class="arwall2"></rect><rect x="572" y="236" width="8" height="136" class="arwall2"></rect>
+                <rect x="290" y="384" width="8" height="128" class="arwall2"></rect><rect x="640" y="384" width="8" height="128" class="arwall2"></rect>
+                <rect x="180" y="236" width="628" height="276" class="arxonly arblue"></rect>
+                <!-- sufit podwieszany w salonie -->
+                <rect x="298" y="390" width="342" height="3" class="arceil fin2"></rect>
+                <!-- okna -->
+                <g><rect x="214" y="262" width="96" height="70" rx="2" class="arwin"></rect><path d="M262 262 V332" class="arfrm"></path><rect x="214" y="262" width="96" height="70" rx="2" class="arfrm"></rect></g>
+                <g><rect x="612" y="262" width="112" height="70" rx="2" class="arwin"></rect><path d="M668 262 V332" class="arfrm"></path><rect x="612" y="262" width="112" height="70" rx="2" class="arfrm"></rect></g>
+                <g><rect x="308" y="408" width="60" height="92" rx="2" class="arwin"></rect><rect x="308" y="408" width="60" height="92" rx="2" class="arfrm"></rect></g>
+                <!-- drzwi wejściowe -->
+                <rect x="168" y="430" width="12" height="82" class="ardoor"></rect>
+                <!-- garaż -->
+                <rect x="820" y="368" width="152" height="10" class="arslab"></rect><rect x="960" y="378" width="12" height="142" class="arwall"></rect><rect x="820" y="378" width="140" height="134" class="arin"></rect><rect x="820" y="512" width="152" height="10" class="arslab"></rect>
+                <g class="fin"><path d="M842 500 l8 -22 q6 -12 20 -12 h34 q14 0 22 12 l14 22 z" class="arcar"></path><circle cx="862" cy="502" r="9" class="arwheel"></circle><circle cx="924" cy="502" r="9" class="arwheel"></circle></g>
+                <!-- WYPOSAŻENIE (widok gotowego domu) -->
+                <g class="fin">
+                  <!-- sypialnia -->
+                  <rect x="196" y="338" width="150" height="26" rx="6" class="arsofa"></rect><rect x="196" y="326" width="40" height="18" rx="5" class="arsofa2"></rect>
+                  <!-- łazienka -->
+                  <path d="M436 346 h118 v18 a8 8 0 0 1 -8 8 h-102 a8 8 0 0 1 -8 -8 z" class="arbath"></path><rect x="520" y="296" width="30" height="40" rx="4" class="armirror"></rect>
+                  <!-- gabinet -->
+                  <rect x="606" y="344" width="120" height="6" class="arwood2"></rect><rect x="612" y="350" width="6" height="22" class="arwood2"></rect><rect x="714" y="350" width="6" height="22" class="arwood2"></rect><rect x="636" y="324" width="34" height="22" rx="2" class="artv"></rect>
+                  <!-- hall -->
+                  <rect x="206" y="420" width="70" height="8" class="arwood2"></rect><circle cx="226" cy="436" r="4" class="arwood2"></circle><circle cx="256" cy="436" r="4" class="arwood2"></circle>
+                  <!-- salon -->
+                  <rect x="408" y="412" width="140" height="98" class="arwood"></rect><path d="M418 412V510M428 412V510M438 412V510M448 412V510M458 412V510M468 412V510M478 412V510M488 412V510M498 412V510M508 412V510M518 412V510M528 412V510M538 412V510" class="arlam"></path>
+                  <rect x="566" y="470" width="66" height="34" rx="8" class="arsofa"></rect><rect x="572" y="458" width="54" height="18" rx="6" class="arsofa2"></rect>
+                  <path d="M600 393 V420" class="arcord"></path><path d="M588 420 h24 l-5 10 h-14 z" class="arlamp"></path><ellipse cx="600" cy="446" rx="30" ry="8" class="arglow"></ellipse>
+                  <circle cx="384" cy="488" r="11" class="arplant"></circle><rect x="380" y="496" width="8" height="14" rx="2" class="arsofa2"></rect>
+                  <!-- techniczne -->
+                  <rect x="660" y="404" width="38" height="56" rx="3" class="arbox2"></rect><path d="M666 416h26M666 428h26M666 440h26" class="arboxl"></path>
+                </g>
+                <!-- telewizor -->
+                <rect x="428" y="440" width="100" height="56" rx="3" class="artv"></rect><path d="M440 448 L470 448 L448 482 Z" class="artvr"></path>
+                <!-- urządzenia (w gotowym domu ledwo widoczne) -->
+                <g class="ardevs">
+                  <rect x="186" y="244" width="16" height="9" rx="2" class="ardev2"></rect>
+                  <rect x="156" y="462" width="9" height="15" rx="2" class="ardev2"></rect>
+                  <rect x="272" y="444" width="10" height="14" rx="2" class="ardev"></rect>
+                  <rect x="626" y="444" width="10" height="14" rx="2" class="arpanel"></rect>
+                  <ellipse cx="430" cy="393" rx="13" ry="2.6" class="ardev"></ellipse><ellipse cx="534" cy="393" rx="13" ry="2.6" class="ardev"></ellipse>
+                  <ellipse cx="352" cy="393" rx="9" ry="2.6" class="ardev"></ellipse>
+                  <ellipse cx="490" cy="238" rx="10" ry="2.4" class="ardev"></ellipse>
+                  <rect x="940" y="440" width="12" height="22" rx="3" class="arev"></rect>
+                  <rect x="936" y="380" width="14" height="8" rx="2" class="ardev2"></rect>
+                </g>
+                <!-- PRZED TYNKAMI: puszki, ramki, wnęki -->
+                <g class="arbox">
+                  <rect x="415" y="384" width="30" height="8" rx="2" class="arring"></rect><rect x="519" y="384" width="30" height="8" rx="2" class="arring"></rect>
+                  <circle cx="631" cy="451" r="8" class="arring"></circle><circle cx="277" cy="451" r="8" class="arring"></circle>
+                  <rect x="182" y="240" width="24" height="16" rx="3" class="arring"></rect>
+                  <rect x="214" y="246" width="96" height="14" rx="2" class="arring"></rect>
+                  <rect x="420" y="434" width="116" height="68" rx="3" class="arring"></rect>
+                  <rect x="700" y="420" width="56" height="94" rx="3" class="arring"></rect>
+                </g>
+                <!-- KABLE do szafy rack -->
+                <g class="arcabs">
+                  <path d="M0 566 H754 V512" class="arpipe"></path><path d="M0 566 H754 V512" class="arfib"></path>
+                  <path d="M194 246 V240 H782 V430 H756" class="arw L-kam"></path>
+                  <path d="M943 384 V420 H820 M808 424 H756" class="arw L-kam"></path>
+                  <path d="M262 258 V243 H786 V436 H756" class="arw L-smart"></path>
+                  <path d="M631 444 V386 H760 V420" class="arw L-smart"></path>
+                  <path d="M490 240 V246 H790 V442 H756" class="arw L-snd"></path>
+                  <path d="M430 392 V388 H748 V420 M534 392 V388" class="arw L-snd"></path>
+                  <path d="M352 392 V384 H744 V420" class="arw L-wifi"></path>
+                  <path d="M690 172 V249 H794 V448 H756" class="arw L-ant"></path>
+                  <path d="M277 444 V381 H740 V420" class="arw L-alarm"></path>
+                  <path d="M33 478 V556 H740 V512" class="arw L-alarm"></path>
+                  <path d="M160 470 H184 V378 H736 V420" class="arw L-kd"></path>
+                  <path d="M478 496 V508 H730 V514" class="arw L-scr"></path>
+                  <path d="M946 440 V398 H820 M808 400 H770 V420" class="arw L-ev"></path>
+                  <path d="M162 514 V548 H726 V514" class="arw L-snd"></path>
+                  <path d="M190 516 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" class="arheat L-smart"></path>
+                </g>
+                <!-- szafa rack -->
+                <g class="arrackg"><rect x="704" y="424" width="48" height="88" rx="4" class="arrack"></rect><path d="M710 438h36M710 452h36M710 466h36M710 480h36M710 494h36" class="arrackl"></path><circle cx="742" cy="432" r="2" class="arled"></circle><circle cx="735" cy="432" r="2" class="arled b"></circle></g>
+                <!-- podpisy pomieszczeń -->
+                <g class="arrn"><text x="200" y="252" dx="40">Sypialnia</text><text x="512" y="252">Łazienka</text><text x="588" y="252" dx="60">Gabinet</text><text x="190" y="404">Wejście</text><text x="390" y="404" dx="20">Salon</text><text x="654" y="398">Techniczne</text><text x="834" y="396">Garaż</text><text x="10" y="590">Ulica · przyłącze</text></g>
+                <!-- znaczniki -->
+                <g class="arhsg"><sc-for list="{{arsc.hs}}" as="h" hint-placeholder-count="17"><g class="{{h.cls}}" transform="{{h.tr}}" style="{{h.st}}" onClick="{{h.go}}" role="button" tabindex="0" aria-label="{{h.t}}"><circle r="17" class="arhsr"></circle><circle r="11.5" class="arhsc"></circle><text y="4" text-anchor="middle" class="arhst">{{h.n}}</text></g></sc-for></g>
+              </svg>
+              </div>
+              <div class="arinfo" style="{{arsc.cur.st}}">
+                <div class="arinfoh"><span class="arnum">{{arsc.cur.n}}</span><div class="arinfot"><b>{{arsc.cur.t}}</b><span><em class="arsvt2">{{arsc.cur.svc}}</em><em class="arstg">{{arsc.cur.etap}}</em></span></div><span class="arinfon"><button type="button" class="arnav" onClick="{{arsc.prev}}" aria-label="Poprzedni punkt"><!--i:P.arrowL:16:2.4--></button><button type="button" class="arnav" onClick="{{arsc.next}}" aria-label="Następny punkt"><!--i:P.arrow:16:2.4--></button></span></div>
+                <div class="arinfog"><div><em>Klient widzi</em><span>{{arsc.cur.v}}</span></div><div><em>W projekcie zaplanuj</em><span>{{arsc.cur.p}}</span></div><div class="arspec"><em>Liczby do projektu</em><span>{{arsc.cur.s}}</span></div></div>
+              </div>
+              </div>
+              <div class="arlayers" aria-label="Warstwy instalacji"><span>Warstwy</span><sc-for list="{{arsc.layers}}" as="l" hint-placeholder-count="10"><button type="button" class="{{l.cls}}" style="{{l.st}}" aria-pressed="{{l.on}}" onClick="{{l.go}}"><i></i>{{l.n}}</button></sc-for><button type="button" class="arlall" onClick="{{arsc.allL}}">Wszystkie</button></div>
+            </div>

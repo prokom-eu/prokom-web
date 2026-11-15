@@ -3,12 +3,18 @@
 | Plik | Co zawiera | Kiedy czytać |
 |---|---|---|
 | `STAN.md` | co zrobione, w toku, następne kroki | na początku każdej sesji |
+| `sposob-pracy.md` | praca na jednym komputerze, rytm dnia, skrypty start/koniec, konfiguracja komputera | przy konfiguracji komputera i gdy coś się rozjedzie |
 | `zadania/fundament.md` | plan fundamentu: sesje S1–S10 z zakresem i warunkami odbioru | przy pracy nad fundamentem |
 | `architektura.md` | jak działa aplikacja: domeny, tenanci, panel, dane, serwer | przed zmianą struktury |
 | `jakosc.md` | Definition of Done, testy, wydajność, dostępność | przed PR |
 | `wdrozenia.md` | środowiska, pipeline, kopie, cofanie | przed wdrożeniem |
+| `dns.md` | domeny, rejestrator, rekordy DNS, poczta (SPF/DKIM/DMARC) | przed każdą zmianą DNS i przy problemach z pocztą |
 | `marka.md` | kolory, fonty, logo — tokeny dla kodu | przy pracy nad UI |
 | `strony/<domena>.md` | specyfikacja strony: zakres, mapa, treści, SEO | przy pracy nad daną stroną |
+| `strony/<domena>-design.md` | brief wizualny strony: odczucie, zamknięty motyw, zakazy | przy pracy nad wyglądem danej strony |
+| `design/wspolne/` | elementy wspólne linii: spec `WSPOLNE-ELEMENTY.md`, plansze, `MAPA-DZIS.md` (stan przed zmianami) | przy pasku marki, nagłówku, stopce, formularzach, Kontakcie i O firmie dowolnej linii |
+| `zadania/wspolne-elementy.md` | plan elementów wspólnych: fundament F0–F4 i sesje linii L1–L2 (ADR-022) | przed sesją F lub L |
+| `zadania/prokomeu.md` | plan budowy nowej pro-kom.eu (hub): sesje H0–H7 z promptami, kolejność cięcia; spec `strony/prokomeu.md`, wzorzec `design/prokomeu/`, ADR-H001/H002 | przed sesją H |
 | `decyzje/ADR-*.md` | decyzje architektoniczne z uzasadnieniem | gdy decyzja dotyczy zadania |
 | `runbook.md` | co robić, gdy coś nie działa (powstaje w S9–S10) | przy awarii |
 

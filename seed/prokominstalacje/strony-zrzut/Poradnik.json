@@ -1,0 +1,118 @@
+{
+ "_strona": "Poradnik",
+ "_title": "Poradnik: monitoring, RODO, Wi-Fi, ładowarki, anteny | PRO-KOM Instalacje",
+ "_description": "Poradnik PRO-KOM Instalacje: monitoring a RODO, Wi-Fi w pensjonacie, alarm w domu letniskowym, anteny po halnym i więcej.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Poradnik",
+  "ctaH": "Nie znalazłeś odpowiedzi? Zapytaj nas wprost.",
+  "ctaP": "Wyślij zdjęcie obiektu albo opisz sytuację. Odpowiemy po ludzku, bez lania wody.",
+  "pr": {
+   "cats": [
+    {
+     "n": "Wszystkie",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Przepisy",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Monitoring",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Obiekty noclegowe",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Energia",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Dźwięk i obraz",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "list": [
+    {
+     "c": "Monitoring",
+     "t": "Ile dni nagrań potrzebujesz i jaki dysk dobrać",
+     "d": "Kalkulator i wzór: liczba kamer, strumień, pojemność dysku. Do tego limity z Kodeksu pracy.",
+     "href": "Monitoring.dc.html#nagrania",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Monitoring",
+     "t": "Twarz czy sylwetka? Jak dobrać kamerę do odległości",
+     "d": "Progi DORI z normy PN-EN 62676-4 i kalkulator pikseli na metr.",
+     "href": "Monitoring.dc.html#ile-widac",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Energia",
+     "t": "Ładowarka dla gości pensjonatu: moc, UDT i formalności",
+     "d": "Co mówi ustawa o elektromobilności i kiedy ładowarka dla gości może być już stacją ogólnodostępną.",
+     "href": "Ladowarki.dc.html#formalnosci",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Przepisy",
+     "t": "Wi-Fi dla gości: czy trzeba zgłaszać do UKE?",
+     "d": "Prawo komunikacji elektronicznej o Wi-Fi jako dodatku do noclegu.",
+     "href": "Sieci.dc.html#portal",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Obiekty noclegowe",
+     "t": "Zamek z kodem i system rezerwacji: co z czym działa",
+     "d": "Smoobu, Beds24, Hotres i zamki, które obsługują.",
+     "href": "Dostep.dc.html#apartamenty",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Przepisy",
+     "t": "DSO czy zwykłe nagłośnienie? Kiedy przepisy wymagają systemu ostrzegawczego",
+     "d": "§ 29 rozporządzenia MSWiA w praktyce: pensjonat, hotel, hala. DSO wykonują firmy z odpowiednimi uprawnieniami, my montujemy nagłośnienie użytkowe.",
+     "href": "Naglosnienie.dc.html#dso",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Dźwięk i obraz",
+     "t": "DVB-T2 i anteny w górach",
+     "d": "Od kiedy Małopolska nadaje w DVB-T2 i co zrobić, gdy stok zasłania nadajnik.",
+     "href": "Anteny.dc.html#multipleksy",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Przepisy",
+     "t": "Uchwała krajobrazowa w Zakopanem a ekrany i szyldy",
+     "d": "Terminy dostosowania i co sprawdzić przed montażem ekranu w witrynie.",
+     "href": "Multimedia.dc.html#zewnatrz",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Obiekty noclegowe",
+     "t": "Przegląd przed sezonem: co sprawdzamy",
+     "d": "Kamery, dyski, Wi-Fi, zamki, ładowarka i ekrany przed feriami i wakacjami.",
+     "href": "Serwis.dc.html#plany",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    },
+    {
+     "c": "Przepisy",
+     "t": "Odcisk palca w firmie: kiedy wolno",
+     "d": "Kodeks pracy i stanowisko UODO o biometrii przy rejestracji czasu pracy.",
+     "href": "Dostep.dc.html#firma",
+     "m": "Krótka odpowiedź na stronie usługi →"
+    }
+   ],
+   "empty": false
+  }
+ }
+}

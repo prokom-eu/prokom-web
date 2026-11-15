@@ -1,0 +1,60 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3000,
+      "url": "http://biznes.localhost:3000"
+    },
+    {
+      "name": "dev-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3001,
+      "url": "http://software.localhost:3001"
+    },
+    {
+      "name": "software-3003",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3003,
+      "url": "http://software.localhost:3003"
+    },
+    {
+      "name": "dev-3002",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3002,
+      "url": "http://instalacje.localhost:3002"
+    },
+    {
+      "name": "biznes-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "cross-env", "PORT=3001", "node", "scripts/dev.mjs"],
+      "port": 3001,
+      "url": "http://biznes.localhost:3001"
+    },
+    {
+      "name": "biznes-start-3001",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "cross-env", "NODE_OPTIONS=--no-deprecation", "next", "start", "-p", "3001"],
+      "port": 3001,
+      "url": "http://biznes.localhost:3001"
+    },
+    {
+      "name": "plansze-biznes",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "docs/design/prokombiznes/k4/boards"],
+      "port": 8765
+    },
+    {
+      "name": "hub-3004",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 3004,
+      "url": "http://prokom.localhost:3004"
+    }
+  ]
+}

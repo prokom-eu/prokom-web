@@ -1,0 +1,112 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Symulator ustawiania anteny z miernikiem sygnału">
+            <div class="illbar">
+              <div class="seg" role="tablist" aria-label="Rodzaj anteny"><sc-for list="{{an.modes}}" as="m" hint-placeholder-count="2"><button type="button" role="tab" class="{{m.cls}}" aria-selected="{{m.on}}" onClick="{{m.pick}}"><!--i:m.ic:15-->{{m.n}}</button></sc-for></div>
+              <span class="tag a">{{an.tag}}</span>
+            </div>
+            <svg class="ans" viewBox="0 0 640 330" aria-hidden="true">
+              <defs><linearGradient id="ansky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ask1)"></stop><stop offset="1" stop-color="var(--ask2)"></stop></linearGradient></defs>
+              <rect width="640" height="330" fill="url(#ansky)"></rect>
+              <path d="{{an.ridge}}" class="anmt"></path>
+              <path d="M150 250 L230 214 L300 236 Z M560 240 L600 222 L640 232 V250 Z" class="ansn"></path>
+              <rect y="292" width="640" height="38" class="angd"></rect>
+              <path d="M330 292 V226 L430 176 L530 226 V292 Z" class="anwall"></path><path d="M314 230 L430 168 L546 230 L538 236 L430 180 L322 236 Z" class="anroof"></path>
+              <rect x="366" y="244" width="30" height="28" class="anwin"></rect><rect x="464" y="244" width="30" height="28" class="anwin"></rect>
+              <line x1="{{an.ox}}" y1="{{an.oy}}" x2="{{an.tx}}" y2="{{an.ty}}" class="antgt"></line>
+              <line x1="{{an.ox}}" y1="{{an.oy}}" x2="{{an.bx}}" y2="{{an.by}}" class="{{an.beamCls}}"></line>
+              <rect x="{{an.mx}}" y="{{an.my}}" width="5" height="{{an.mh}}" class="anmast"></rect>
+              <sc-if value="{{an.sat}}" hint-placeholder-val="{{ true }}"><g transform="{{an.dishTr}}"><path d="M-6 -22 A24 24 0 0 0 -6 22 Z" class="andish"></path><path d="M-6 0 L22 0" class="anarm"></path><circle cx="24" cy="0" r="4" class="anlnb"></circle></g>
+                <g transform="{{an.satTr}}"><rect x="-10" y="-7" width="20" height="14" rx="2" class="ansat"></rect><rect x="-34" y="-5" width="20" height="10" class="anpan"></rect><rect x="14" y="-5" width="20" height="10" class="anpan"></rect><text x="0" y="-16" class="anlbl">Hot Bird 13°E</text></g></sc-if>
+              <sc-if value="{{an.dvb}}" hint-placeholder-val="{{ false }}"><g transform="{{an.yagiTr}}"><path d="M-26 0 H26 M-20 -10 V10 M-10 -12 V12 M0 -12 V12 M10 -11 V11 M20 -9 V9" class="anyagi"></path></g>
+                <g transform="translate(70 222)"><path d="M0 0 L-10 34 H10 Z M-6 16 H6" class="antow"></path><circle cx="0" cy="-4" r="4" class="anlnb"></circle><text x="0" y="-14" class="anlbl">nadajnik (przykład)</text></g></sc-if>
+              <g transform="translate(64 64)"><circle r="44" class="ancmp"></circle><text y="-31" class="ancd">N</text><text y="40" class="ancd">S</text><text x="-36" y="4" class="ancd">W</text><text x="36" y="4" class="ancd">E</text><line x1="0" y1="0" x2="{{an.tcx}}" y2="{{an.tcy}}" class="antgt"></line><line x1="0" y1="0" x2="{{an.ncx}}" y2="{{an.ncy}}" class="anneedle"></line><circle r="4" class="anlnb"></circle></g>
+            </svg>
+            <div class="anpanel">
+              <div class="anmeter {{an.lockCls}}">
+                <div class="anmh"><b>Miernik</b><span class="anlock">{{an.lockTxt}}</span></div>
+                <div class="anrow"><span>Poziom</span><div class="evbar"><i style="{{an.lvSt}}"></i></div><b>{{an.lv}}%</b></div>
+                <div class="anrow"><span>Jakość</span><div class="evbar"><i style="{{an.qSt}}"></i></div><b>{{an.q}}%</b></div>
+              </div>
+              <div class="anctl">
+                <div class="anc"><span>Azymut {{an.az}}°</span><div class="stepper"><button type="button" onClick="{{an.azm}}" aria-label="Azymut: obróć w lewo">−</button><b>{{an.az}}°</b><button type="button" onClick="{{an.azp}}" aria-label="Azymut: obróć w prawo">+</button></div></div>
+                <sc-if value="{{an.sat}}" hint-placeholder-val="{{ true }}"><div class="anc"><span>Elewacja {{an.el}}°</span><div class="stepper"><button type="button" onClick="{{an.elm}}" aria-label="Elewacja: niżej o stopień">−</button><b>{{an.el}}°</b><button type="button" onClick="{{an.elp}}" aria-label="Elewacja: wyżej o stopień">+</button></div></div></sc-if>
+                <sc-if value="{{an.dvb}}" hint-placeholder-val="{{ false }}"><button type="button" class="{{an.mastCls}}" aria-pressed="{{an.mastOn}}" onClick="{{an.tMast}}"><i></i>Wyższy maszt</button></sc-if>
+                <button type="button" class="btn btn-p btn-s" onClick="{{an.auto}}">Ustaw jak instalator</button>
+              </div>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 0 16px 16px; font-size: 13.5px" aria-live="polite">{{an.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <section id="co-robimy" class="{{rv.cr}}" data-rv="cr" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Instalacje antenowe</span><h2 class="h2">Od jednej anteny na domu po instalację dla całego bloku.</h2></div><p class="lead" style="max-width: 460px">Antenę satelitarną trzeba wycelować z dokładnością do pojedynczych stopni. Dlatego ustawiamy ją miernikiem, a nie „na oko”, i używamy przewodów, wtyków i anten dobrej klasy.</p></div>
+      <div class="g3"><sc-for list="{{cr}}" as="c" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:c.ic:22--></span><b class="h3">{{c.t}}</b><p>{{c.d}}</p></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="gory" class="{{rv.gr}}" data-rv="gr" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Anteny w górach</span><h2 class="h2">Stok zasłania nadajnik, halny szarpie masztem.</h2></div><p class="lead" style="max-width: 460px">Na Podhalu antena ma trudniej niż na nizinach. Dobieramy jej typ, wysokość i mocowanie do miejsca, a nie do katalogu.</p></div>
+      <div class="g4"><sc-for list="{{gr}}" as="g" hint-placeholder-count="4"><div class="card feat ri"><span class="ico"><!--i:g.ic:22--></span><b class="h3">{{g.t}}</b><p>{{g.d}}</p><sc-if value="{{g.s}}" hint-placeholder-val="{{ false }}"></sc-if></div></sc-for></div>
+    </div>
+  </section>
+
+  <!-- ANT2 -->
+  <section id="multipleksy" class="{{rv.mx}}" data-rv="mx" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Telewizja naziemna, stan na październik 2026</span><h2 class="h2">Pięć multipleksów w DVB-T2. <span class="acc">Jeden jeszcze czeka.</span></h2></div><p class="lead" style="max-width: 460px">MUX-8 nadaje jeszcze w starym DVB-T i w paśmie VHF. Termin zmiany jego standardu nie był ogłoszony (stan na październik 2026).</p></div>
+      <div class="mxs ri"><sc-for list="{{am.mux}}" as="m" hint-placeholder-count="6"><div class="{{m.cls}}"><b>{{m.n}}</b><span class="mxstd">{{m.std}}</span><span>{{m.d}}</span></div></sc-for></div>
+      <div class="card tvc ri">
+        <div><span class="eye">Czy mój telewizor jest gotowy?</span><b class="h3" style="font-size: 24px">Sprawdź w 30 sekund.</b><p class="mut">Przepisy wymagają od odbiorników DVB-T2 dekodowania HEVC (H.265). Telewizory sprzedawane od 1.12.2019 powinny to mieć. Od 2023 r. TVP1 i Polsat nadają z anteny w DVB-T2/HEVC, więc ich odbiór to najprostszy test.</p></div>
+        <div class="tvq"><div class="tvqi"><span class="usl">Kiedy kupiony telewizor?</span><div class="zkseg"><sc-for list="{{am.q1}}" as="b" hint-placeholder-count="3"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}"><b>{{b.n}}</b></button></sc-for></div></div>
+          <div class="tvqi"><span class="usl">Czy z anteny odbierasz TVP1 i Polsat?</span><div class="zkseg"><sc-for list="{{am.q2}}" as="b" hint-placeholder-count="3"><button type="button" class="{{b.cls}}" aria-pressed="{{b.on}}" onClick="{{b.pick}}"><b>{{b.n}}</b></button></sc-for></div></div>
+          <div class="{{am.resCls}}" aria-live="polite"><span class="ico s"><!--i:P.tv:18--></span><div><b>{{am.resT}}</b><span>{{am.resD}}</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="filtr-5g" class="{{rv.flt}}" data-rv="flt" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Telewizja a 5G i LTE</span><h2 class="h2">Obraz się zacina, gdy obok stoi maszt telefonii?</h2></div><p class="lead" style="max-width: 460px">Telewizja zajmuje dziś pasmo 470–694 MHz. Tuż nad nią pracują sieci LTE i 5G na 700 i 800 MHz. Silny sygnał komórkowy potrafi przesterować wzmacniacz antenowy.</p></div>
+      <div class="card spw ri">
+        <div class="spbar"><button type="button" class="{{am.fCls}}" onClick="{{am.tF}}" aria-pressed="{{am.fOn}}"><i></i><b>{{am.fT}}</b></button><span class="mut" style="font-size: 13.5px">{{am.fD}}</span></div>
+        <div class="{{am.specCls}}">
+          <div class="spax"><span>470 MHz</span><span>694 MHz</span><span>862 MHz</span></div>
+          <div class="sptrack"><div class="sptv"><b>Telewizja naziemna</b><span>kanały 21–48 · DVB-T2</span><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="splte"><b>LTE i 5G</b><span>700 / 800 MHz</span></div></div>
+          <div class="spfil" aria-hidden="true"></div>
+        </div>
+        <p class="src" style="margin: 0">Filtr przepuszcza 470–694 MHz i tłumi 694–862 MHz. Czy jest potrzebny, pokazuje pomiar jakości sygnału (MER), bo w wielu instalacjach wcale nie trzeba go zakładać.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="satelita" class="{{rv.sat}}" data-rv="sat" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Telewizja satelitarna</span><h2 class="h2">Ile telewizorów, <span class="acc">taki konwerter i taka instalacja.</span></h2></div><p class="lead" style="max-width: 460px">Polsat Box i CANAL+ nadają z satelitów Hot Bird 13°E. Od liczby odbiorników zależy, czy wystarczy konwerter, czy potrzebny jest multiswitch albo instalacja jednoprzewodowa.</p></div>
+      <div class="g3"><sc-for list="{{am.sat}}" as="s" hint-placeholder-count="3"><div class="card satc ri" style="{{s.st}}"><div class="satv"><svg viewBox="0 0 200 90" aria-hidden="true"><path d="M24 20 Q14 52 44 66 Q58 46 24 20Z" class="satd"></path><circle cx="44" cy="40" r="4" class="satl"></circle><path d="{{s.p}}" class="satc2"></path><sc-for list="{{s.tv}}" as="t" hint-placeholder-count="4"><rect x="{{t}}" y="62" width="22" height="16" rx="2" class="sattv"></rect></sc-for></svg></div><span class="wfg">{{s.k}}</span><b class="h3">{{s.t}}</b><p>{{s.d}}</p><span class="wfn">{{s.n}}</span></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="pensjonat-tv" class="{{rv.htv}}" data-rv="htv" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="g2" style="gap: 18px; align-items: stretch">
+        <div class="card kdk ri">
+          <span class="eye">Telewizja w pensjonacie i hotelu</span><h2 class="h3" style="font-size: 26px; margin: 0">Te same kanały w każdym pokoju, z jednej szafki.</h2>
+          <div class="kdl"><sc-for list="{{am.htv}}" as="a" hint-placeholder-count="3"><div><span class="ico s"><!--i:a.ic:18--></span><span><b>{{a.t}}</b><span>{{a.d}}</span></span></div></sc-for></div>
+        </div>
+        <div class="card dark kdk ri">
+          <span class="eye" style="color: #4CCBE6">Zanim powiesisz telewizory w pokojach</span><b class="h3" style="font-size: 26px">Dwie opłaty, o których warto wiedzieć.</b>
+          <div class="kdl dk"><div><span class="ico s"><!--i:P.doc:18--></span><span><b>Abonament RTV za każdy telewizor</b><span>Firma płaci za każdy odbiornik osobno. W 2026 r. to 30,50 zł miesięcznie za telewizor. Sądy uznają, że telewizor gotowy do odbioru w pokoju hotelowym podlega opłacie.</span></span></div>
+          <div><span class="ico s"><!--i:P.music:18--></span><span><b>Licencje organizacji zbiorowego zarządzania</b><span>TSUE (C-306/05) uznał telewizję w pokojach hotelowych za publiczne udostępnianie utworów. Licencje rozlicza się z kilkoma organizacjami, m.in. ZAiKS i STOART. Przykład: STOART za audio w pokojach od 1,10 do 5,00 zł netto za pokój miesięcznie (tabela od 1.04.2026). Dla telewizorów STOART ma osobną tabelę.</span></span></div></div>
+          <span style="color: #9FB0B4; font-size: 13.5px">To obowiązki obiektu, nie instalatora. Informujemy o nich przy projekcie, ale nie zastępujemy porady prawnej.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

@@ -1,0 +1,194 @@
+{
+ "_uwaga": "Dane przekroju domu (ArchHouseScene). x,y w układzie viewBox 0 70 1000 530; k = usługa (kolor), e = etap, s = klucz do \"liczby\". Rysunek: zrodlo/inc/arscene.html.",
+ "punkty": [
+  {
+   "x": 194,
+   "y": 250,
+   "k": "kam",
+   "e": "Projekt",
+   "t": "Kamera pod okapem",
+   "v": "Mała kamera w kolorze elewacji. Bez kabla na wierzchu i bez puszki na ociepleniu.",
+   "p": "Miejsce uzgodnione z detalem okapu i element montażowy w warstwie ocieplenia. Kabel sieciowy do szafy rack.",
+   "s": "kam"
+  },
+  {
+   "x": 33,
+   "y": 472,
+   "k": "alarm",
+   "e": "Projekt",
+   "t": "Wideodomofon przy furtce",
+   "v": "Panel w słupku ogrodzenia. Gość dzwoni, Ty odbierasz w telefonie.",
+   "p": "Rura osłonowa w ziemi od furtki do budynku, wnęka w słupku na panel.",
+   "s": "dom"
+  },
+  {
+   "x": 158,
+   "y": 470,
+   "k": "kd",
+   "e": "Przed tynkami",
+   "t": "Zamek z kodem przy drzwiach",
+   "v": "Drzwi otwierane kodem, kartą albo telefonem. Bez szukania kluczy.",
+   "p": "Przewód do ościeżnicy (elektrozaczep albo zamek silnikowy) i zasilanie z szafy.",
+   "s": "kd"
+  },
+  {
+   "x": 277,
+   "y": 451,
+   "k": "alarm",
+   "e": "Przed tynkami",
+   "t": "Manipulator alarmu",
+   "v": "Płaska klawiatura przy wejściu, w linii z włącznikami.",
+   "p": "Puszka na wysokości włączników przy drzwiach i przewód do centrali w pomieszczeniu technicznym.",
+   "s": "alm"
+  },
+  {
+   "x": 631,
+   "y": 451,
+   "k": "smart",
+   "e": "Przed tynkami",
+   "t": "Szklany panel Ampio",
+   "v": "Jeden szklany panel zamiast rzędu włączników: światło, rolety, ogrzewanie, sceny.",
+   "p": "Głęboka puszka przy drzwiach. Kolor szkła i ikony dobrane do wnętrza.",
+   "s": "panel"
+  },
+  {
+   "x": 482,
+   "y": 404,
+   "k": "snd",
+   "e": "Projekt",
+   "t": "Głośniki w suficie",
+   "v": "Maskownice w kolorze sufitu albo głośniki całkiem pod gładzią. Muzyka bez kolumn na podłodze.",
+   "p": "Sufit podwieszany z miejscem na korpus, ramki montażowe przed płytą g-k, przewód do wzmacniacza.",
+   "s": "spk"
+  },
+  {
+   "x": 352,
+   "y": 406,
+   "k": "wifi",
+   "e": "Przed tynkami",
+   "t": "Punkt Wi-Fi w suficie",
+   "v": "Płaski krążek na suficie. Zasięg w całym domu bez routerów na półce.",
+   "p": "Kabel sieciowy z każdego punktu do szafy, zasilanie przez ten sam kabel (PoE).",
+   "s": "ap"
+  },
+  {
+   "x": 478,
+   "y": 468,
+   "k": "scr",
+   "e": "Projekt",
+   "t": "Telewizor w zabudowie",
+   "v": "Ekran w lamelach, bez kabli pod spodem. Sprzęt schowany w szafce albo w szafie rack.",
+   "p": "Wnęka z wentylacją, rura pod przewody za ekranem, gniazdo zasilania i sieci.",
+   "s": "tv"
+  },
+  {
+   "x": 560,
+   "y": 518,
+   "k": "smart",
+   "e": "Przed tynkami",
+   "t": "Ogrzewanie strefowe",
+   "v": "Każdy pokój ma swoją temperaturę, ustawianą z panelu albo telefonu.",
+   "p": "Czujnik temperatury w każdej strefie i przewody do siłowników przy rozdzielaczu.",
+   "s": "heat"
+  },
+  {
+   "x": 262,
+   "y": 254,
+   "k": "smart",
+   "e": "Projekt",
+   "t": "Roleta w nadprożu",
+   "v": "Nie widać kasety. Roleta zjeżdża sama, gdy słońce grzeje albo gdy wyjeżdżasz.",
+   "p": "Wnęka w nadprożu na kasetę i przewód do sterowania przed tynkami.",
+   "s": "rol"
+  },
+  {
+   "x": 490,
+   "y": 254,
+   "k": "snd",
+   "e": "Projekt",
+   "t": "Głośnik w łazience",
+   "v": "Głośnik w suficie odporny na wilgoć. Muzyka albo radio rano.",
+   "p": "Model do wilgotnych pomieszczeń i przewód do wzmacniacza strefy.",
+   "s": "bath"
+  },
+  {
+   "x": 728,
+   "y": 470,
+   "k": "wifi",
+   "e": "Projekt",
+   "t": "Szafa rack",
+   "v": "Klient jej nie widzi. Wszystkie kable kończą się w jednym, opisanym miejscu.",
+   "p": "Miejsce w pomieszczeniu technicznym: wentylacja, osobny obwód zasilania, dostęp z przodu.",
+   "s": "rack"
+  },
+  {
+   "x": 946,
+   "y": 451,
+   "k": "ev",
+   "e": "Projekt",
+   "t": "Ładowarka w garażu",
+   "v": "Ładowarka na ścianie garażu. Auto ładuje się w nocy.",
+   "p": "Moc przyłącza z zapasem i przewód zasilający do garażu, uzgodnione z projektantem elektrycznym.",
+   "s": "ev"
+  },
+  {
+   "x": 943,
+   "y": 394,
+   "k": "kam",
+   "e": "Projekt",
+   "t": "Kamera wjazdu",
+   "v": "Widać podjazd i bramę, także w nocy.",
+   "p": "Miejsce nad bramą garażową i kabel do szafy przez ścianę garażu.",
+   "s": "kam2"
+  },
+  {
+   "x": 690,
+   "y": 118,
+   "k": "ant",
+   "e": "Projekt",
+   "t": "Antena na dachu",
+   "v": "Antena od strony ogrodu, nie na głównej elewacji.",
+   "p": "Miejsce na maszt, przepust przez dach, uziemienie i przewód do szafy.",
+   "s": "ant"
+  },
+  {
+   "x": 161,
+   "y": 498,
+   "k": "snd",
+   "e": "Projekt",
+   "t": "Głośnik ogrodowy",
+   "v": "Głośnik udający kamień albo schowany w zieleni. Muzyka na tarasie.",
+   "p": "Przewód w rurze w ziemi od tarasu do budynku.",
+   "s": "gard"
+  },
+  {
+   "x": 92,
+   "y": 566,
+   "k": "tel",
+   "e": "Projekt",
+   "t": "Rura pod światłowód",
+   "v": "Niewidoczna. Internet światłowodowy bez kopania podjazdu.",
+   "p": "Rura osłonowa od granicy działki do pomieszczenia technicznego, z pilotem do przeciągnięcia.",
+   "s": "fib"
+  }
+ ],
+ "liczby": {
+  "kam": "Kamera IP pobiera zwykle ok. 6–12 W (np. Hikvision ColorVu 8 MP: maks. 6,5 W). Mieści się w PoE 802.3af (13 W dla urządzenia). Kabel do 90 m od szafy.",
+  "dom": "Panel furtki i monitor zasilane zwykle z PoE. Rura w ziemi z zapasem, bez łączenia kabli po drodze.",
+  "kd": "Zamek albo elektrozaczep zasilany z szafy, przewód do ościeżnicy przed montażem drzwi. Model zamka dobieramy z producentem drzwi.",
+  "alm": "Manipulator i czujki na przewodzie albo bezprzewodowe. Przewód do centrali w szafie lub obok niej.",
+  "panel": "Panele Ampio M-DOT: 90×90 albo 90×160 mm, od 2 do 18 pól. Puszka osadzona głębiej niż standardowo. Szkło, ikony i podpisy ustawiasz w kreatorze Ampio.",
+  "spk": "Głośnik 6–6,5\": otwór ok. 200–210 mm, głębokość 92–120 mm. 8\": otwór ok. 257 mm, głębokość ok. 135 mm. Para stereo w odstępie 1,8–3 m.",
+  "ap": "Punkt Wi-Fi na środku sufitu, kolejne co 10–12 m (wytyczne TP-Link Omada). Zasilanie PoE+ do 25,5 W (np. UniFi U7 Pro maks. 21 W).",
+  "tv": "Kąt widzenia 30–40°: z 2,1 m to ekran ok. 55–70\". Środek ekranu na wysokości oczu: dla 65\" ok. 100–120 cm od podłogi.",
+  "heat": "Czujnik temperatury w każdej strefie i przewód do siłownika przy rozdzielaczu. Strefy ustalamy z projektantem instalacji grzewczej.",
+  "rol": "Napęd sterowany z modułu Ampio. Przewód do każdej rolety i wnęka w nadprożu na kasetę.",
+  "bath": "Głośnik do wilgotnych pomieszczeń (model łazienkowy), przewód do wzmacniacza strefy.",
+  "rack": "19\": 1U = 44,45 mm. Szafa wisząca 600×450 mm daje ok. 39 cm użytecznej głębokości. Wentylacja, osobny obwód zasilania i dostęp z przodu.",
+  "ev": "Elzab CC Home: 3,7 kW (1 faza 16 A), 7,4 kW (1 faza 32 A) albo 11 kW (3 fazy 16 A). 22 kW wymaga 3 faz 32 A.",
+  "kam2": "Ta sama zasada co przy elewacji: kabel PoE do szafy (do 90 m), uchwyt nad bramą, bez mostka termicznego w ociepleniu.",
+  "ant": "Satelita Hot Bird 13°E. Przewód 75 Ω z ekranowaniem klasy A, osobny do każdego odbiornika z multiswitcha.",
+  "gard": "Przewód głośnikowy w rurze w ziemi. Głośniki zewnętrzne odporne na wodę i mróz.",
+  "fib": "Rura osłonowa od granicy działki do szafy. W budynkach wielorodzinnych: punkt styku, skrzynka w każdym lokalu, światłowód jednomodowy."
+ }
+}

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Telefon: dolny pasek, menu i stopka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+</style>
+</helmet>
+<div style="width: 1920px; height: 1040px; box-sizing: border-box; background: #E3E6DF; color: #121613; font-family: Manrope, system-ui, sans-serif; padding: 44px 70px 0; display: flex; flex-direction: column; gap: 26px">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #367E23">06 · Telefon</span>
+      <h2 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -0.02em">Jedna zasada dolnego paska</h2>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-radius: 14px; background: #FFFFFF; font-size: 14px; font-weight: 700">
+      <span>Start</span><span style="color: #767C74">·</span><span>Oferta / Usługi</span><span style="color: #767C74">·</span>
+      <span style="padding: 3px 9px; border-radius: 999px; background: #121613; color: #F4F5F1">akcja linii</span>
+      <span style="color: #767C74">·</span><span>Kontakt</span><span style="color: #767C74">·</span><span>Menu</span>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between">
+
+    <!-- Telefon 1: Biznes, Kontakt -->
+    <div style="display: flex; flex-direction: column; gap: 14px; width: 390px">
+      <div style="position: relative; width: 390px; height: 790px; border-radius: 40px; overflow: hidden; background: #FFFFFF; box-shadow: 0 0 0 10px #121613, 0 30px 60px -20px rgba(18,22,19,0.5)">
+        <div style="height: 58px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2E6EF; background: rgba(255,255,255,0.95)">
+          <dc-import name="Logo" label="BIZNES" accent="#244FB0" dark="{{false}}" size="{{21}}" hint-size="120px,26px"></dc-import>
+          <div style="display: flex; gap: 8px">
+            <button type="button" aria-label="Szukaj" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #E2E6EF; background: #F3F5FA; color: #0D1326; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+            <button type="button" aria-label="Tryb ciemny" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #E2E6EF; background: #FFFFFF; color: #0D1326; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+          </div>
+        </div>
+        <div style="padding: 22px 18px; display: flex; flex-direction: column; gap: 16px; color: #0D1326">
+          <span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; padding: 6px 11px; border-radius: 999px; background: #EAF5E6; color: #1F5C14; font-size: 13px; font-weight: 800"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2E7A1E"></span>Otwarte · do 17:00</span>
+          <h3 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 106%; font-weight: 800; font-size: 31px; line-height: 1.02; letter-spacing: -0.02em">Zadzwoń, napisz albo wpadnij do Rabki.</h3>
+          <a href="#" style="display: flex; align-items: center; justify-content: space-between; padding: 18px; border-radius: 20px; background: #244FB0; color: #FFFFFF; box-shadow: 0 14px 30px -16px #244FB0">
+            <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85">Najszybciej</span><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 28px">889 003 889</span></span>
+            <span style="width: 48px; height: 48px; border-radius: 16px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          </a>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+            <a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 16px; background: #F3F5FA; border: 1px solid #E2E6EF"><span style="font-weight: 800">Stacjonarny</span><span style="font-size: 13px; color: #4A5470">18 267 65 11</span></a>
+            <a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 16px; background: #F3F5FA; border: 1px solid #E2E6EF"><span style="font-weight: 800">E-mail</span><span style="font-size: 13px; color: #4A5470">biznes@pro-kom.eu</span></a>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 14px; border-radius: 18px; border: 1px solid #E2E6EF">
+            <dc-import name="Mapa" accent="#244FB0" dark="{{false}}" label="{{false}}" h="{{112}}" radius="{{12}}" hint-size="100%,112px"></dc-import>
+            <span style="font-weight: 800; padding: 4px 4px 0">Salon Rabka-Zdrój</span>
+            <span style="font-size: 13.5px; color: #4A5470">ul. Orkana 16B · pn–pt 9:00–17:00</span>
+            <a href="#" style="align-self: flex-start; font-size: 14px; font-weight: 800; color: #244FB0">Wyznacz trasę →</a>
+          </div>
+        </div>
+        <nav aria-label="Pasek aplikacji" style="position: absolute; left: 0; right: 0; bottom: 0; height: 82px; padding-bottom: 16px; box-sizing: border-box; background: rgba(255,255,255,0.97); border-top: 1px solid #E2E6EF; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end">
+          <sc-for list="{{tabsB}}" as="t" hint-placeholder-count="5">
+            <a href="#" aria-current="{{t.aria}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: {{t.c}}; padding-bottom: 2px">
+              <span style="width: {{t.size}}; height: {{t.size}}; margin-top: {{t.lift}}; border-radius: 18px; background: {{t.bg}}; color: {{t.ic}}; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: {{t.shadow}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"/></svg><sc-if value="{{t.count}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; border-radius: 999px; background: #FFFFFF; color: #244FB0; border: 2px solid #244FB0; font-size: 10px; display: flex; align-items: center; justify-content: center">3</span></sc-if></span>
+              {{t.l}}
+            </a>
+          </sc-for>
+        </nav>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 17px">Biznes · Kontakt</span>
+        <span style="font-size: 13.5px; line-height: 1.5; color: #4F5650">Środek: Zapytanie z licznikiem. Szukaj zostaje lupą w nagłówku.</span>
+      </div>
+    </div>
+
+    <!-- Telefon 2: Instalacje, menu -->
+    <div style="display: flex; flex-direction: column; gap: 14px; width: 390px">
+      <div style="position: relative; width: 390px; height: 790px; border-radius: 40px; overflow: hidden; background: #0E1A1D; box-shadow: 0 0 0 10px #121613, 0 30px 60px -20px rgba(18,22,19,0.5)">
+        <div style="padding: 80px 18px 0; color: #F4F5F1; display: flex; flex-direction: column; gap: 12px; opacity: 0.35">
+          <span style="font-family: Archivo, sans-serif; font-weight: 900; font-size: 40px; line-height: 0.95">Twój obiekt<br>na żywo.</span>
+          <span style="height: 220px; border-radius: 22px; background: #13292E"></span>
+        </div>
+        <div style="position: absolute; inset: 0; background: rgba(5,11,13,0.55)"></div>
+        <div role="dialog" aria-label="Menu" style="position: absolute; left: 0; right: 0; bottom: 82px; max-height: 640px; border-radius: 26px 26px 0 0; background: #F4F5F1; color: #121613; padding: 10px 18px 18px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 -20px 40px -20px rgba(0,0,0,0.5)">
+          <span style="align-self: center; width: 44px; height: 5px; border-radius: 3px; background: #C9CDC5"></span>
+          <div style="display: flex; justify-content: space-between; align-items: center">
+            <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Menu</span>
+            <button type="button" aria-label="Zamknij menu" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #DCDFD8; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#121613" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          </div>
+          <div style="display: flex; flex-direction: column; border-radius: 16px; background: #FFFFFF; border: 1px dashed #9AA19A">
+            <sc-for list="{{instMenu}}" as="m" hint-placeholder-count="6">
+              <a href="#" style="height: 46px; padding: 0 14px; display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 15px; border-top: 1px solid {{m.bt}}">{{m.t}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F5650" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+            </sc-for>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-radius: 16px; background: #121613; color: #F4F5F1">
+            <span style="display: flex; flex-direction: column; gap: 3px"><span style="display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800"><span style="width: 7px; height: 7px; border-radius: 50%; background: #7BD36A"></span>Otwarte · do 17:00</span><span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 19px">889 003 889</span></span>
+            <a href="#" style="height: 44px; padding: 0 16px; border-radius: 14px; background: #12B6D8; color: #06181C; font-weight: 800; display: flex; align-items: center">Zadzwoń</a>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #4F5650">Linie PRO-KOM</span>
+            <div style="display: flex; gap: 8px; overflow: hidden">
+              <sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+                <a href="#" style="flex-shrink: 0; height: 36px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DCDFD8; display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700"><span style="width: 12px; height: 3px; border-radius: 2px; background: {{c.c}}"></span>{{c.n}}</a>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 700">
+            <span>Motyw</span>
+            <span style="display: flex; padding: 3px; border-radius: 12px; background: #ECEEE8"><span style="padding: 7px 12px; border-radius: 9px; background: #FFFFFF">Jasny</span><span style="padding: 7px 12px; color: #4F5650">Ciemny</span><span style="padding: 7px 12px; color: #4F5650">Auto</span></span>
+          </div>
+        </div>
+        <nav aria-label="Pasek aplikacji" style="position: absolute; left: 0; right: 0; bottom: 0; height: 82px; padding-bottom: 16px; box-sizing: border-box; background: #F4F5F1; border-top: 1px solid #DCDFD8; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end">
+          <sc-for list="{{tabsI}}" as="t" hint-placeholder-count="5">
+            <a href="#" aria-current="{{t.aria}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: {{t.c}}; padding-bottom: 2px">
+              <span style="width: {{t.size}}; height: {{t.size}}; margin-top: {{t.lift}}; border-radius: 18px; background: {{t.bg}}; color: {{t.ic}}; display: flex; align-items: center; justify-content: center; box-shadow: {{t.shadow}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"/></svg></span>
+              {{t.l}}
+            </a>
+          </sc-for>
+        </nav>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 17px">Instalacje · arkusz Menu</span>
+        <span style="font-size: 13.5px; line-height: 1.5; color: #4F5650">Linia podaje listę (ramka). Kontakt, linie PRO-KOM i motyw są wspólne. „Dla kogo” idzie do Menu.</span>
+      </div>
+    </div>
+
+    <!-- Telefon 3: Software, stopka -->
+    <div style="display: flex; flex-direction: column; gap: 14px; width: 390px">
+      <div style="position: relative; width: 390px; height: 790px; border-radius: 40px; overflow: hidden; background: #161A17; color: #A9AFA9; box-shadow: 0 0 0 10px #121613, 0 30px 60px -20px rgba(18,22,19,0.5)">
+        <div style="padding: 34px 18px 0; display: flex; flex-direction: column; gap: 16px; font-size: 14px">
+          <dc-import name="Logo" label="SOFTWARE" accent="#9670EE" dark="{{true}}" size="{{24}}" hint-size="140px,30px"></dc-import>
+          <p style="margin: 0; line-height: 1.55">Strony, systemy, aplikacje i automatyzacje dla firm. Zobaczysz, zanim zapłacisz.</p>
+          <div style="display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.1)">
+            <sc-for list="{{acc}}" as="a" hint-placeholder-count="3">
+              <button type="button" aria-expanded="false" style="height: 50px; padding: 0; background: none; border: 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; color: #F4F5F1; font: 800 12px Manrope, sans-serif; letter-spacing: 0.12em; text-transform: uppercase">{{a}}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px; color: #F4F5F1">883 200 151</span>
+            <span style="color: #B49BF5; font-weight: 700">kontakt@prokomsoftware.pl</span>
+            <span>ul. Orkana 16B, Rabka-Zdrój · pn–pt 9–17</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #F4F5F1">Jedna firma — linie PRO-KOM</span>
+            <div style="display: flex; gap: 10px; overflow: hidden; margin-right: -18px">
+              <sc-for list="{{softBand}}" as="b" hint-placeholder-count="3">
+                <a href="#" style="flex-shrink: 0; width: 150px; height: 96px; box-sizing: border-box; padding: 12px; border-radius: 14px; background: {{b.bg}}; border: 1px solid {{b.border}}; display: flex; flex-direction: column; gap: 8px">
+                  <dc-import name="Logo" label="{{b.label}}" accent="{{b.c}}" dark="{{true}}" size="{{14}}" hint-size="86px,20px"></dc-import>
+                  <span style="font-size: 12px; line-height: 1.35">{{b.d}}</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px">
+            <span style="color: #F4F5F1">© 2026 PRO-KOM Tadeusz Wójciak · NIP 7352511447</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 4px 14px; color: #F4F5F1"><a href="#" style="padding: 4px 0">Polityka prywatności</a><a href="#" style="padding: 4px 0">Cookies</a><a href="#" style="padding: 4px 0">Dostępność</a><a href="#" style="padding: 4px 0">Mapa strony</a></span>
+          </div>
+        </div>
+        <nav aria-label="Pasek aplikacji" style="position: absolute; left: 0; right: 0; bottom: 0; height: 82px; padding-bottom: 16px; box-sizing: border-box; background: #F4F5F1; border-top: 1px solid #E3E6DF; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end">
+          <sc-for list="{{tabsS}}" as="t" hint-placeholder-count="5">
+            <a href="#" aria-current="{{t.aria}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: {{t.c}}; padding-bottom: 2px">
+              <span style="width: {{t.size}}; height: {{t.size}}; margin-top: {{t.lift}}; border-radius: 18px; background: {{t.bg}}; color: {{t.ic}}; display: flex; align-items: center; justify-content: center; box-shadow: {{t.shadow}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"/></svg></span>
+              {{t.l}}
+            </a>
+          </sc-for>
+        </nav>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 17px">Software · stopka na telefonie</span>
+        <span style="font-size: 13.5px; line-height: 1.5; color: #4F5650">Kolumny zwijane, pas linii jako przewijany rząd, pasek prawny jak na komputerze.</span>
+      </div>
+    </div>
+
+    <!-- Telefon 4: Tech, strona główna -->
+    <div style="display: flex; flex-direction: column; gap: 14px; width: 390px">
+      <div style="position: relative; width: 390px; height: 790px; border-radius: 40px; overflow: hidden; background: #F4F5F1; box-shadow: 0 0 0 10px #121613, 0 30px 60px -20px rgba(18,22,19,0.5)">
+        <div style="height: 58px; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E3E6DF; background: rgba(244,245,241,0.95)">
+          <dc-import name="Logo" label="TECH" accent="#D13A2E" dark="{{false}}" size="{{21}}" hint-size="110px,26px"></dc-import>
+          <div style="display: flex; gap: 8px">
+            <button type="button" aria-label="Konto klienta" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #E3E6DF; background: #FFFFFF; color: #121613; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+            <button type="button" aria-label="Tryb ciemny" style="width: 40px; height: 40px; border-radius: 12px; border: 1px solid #E3E6DF; background: #FFFFFF; color: #121613; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
+          </div>
+        </div>
+        <div style="padding: 22px 18px; display: flex; flex-direction: column; gap: 16px; color: #121613">
+          <span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; padding: 6px 11px; border-radius: 999px; background: #EAF5E6; color: #1F5C14; font-size: 13px; font-weight: 800"><span style="width: 8px; height: 8px; border-radius: 50%; background: #2E7A1E"></span>Otwarte · sob 9:00–14:00</span>
+          <h3 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 106%; font-weight: 800; font-size: 31px; line-height: 1.02; letter-spacing: -0.02em">Zepsuło się? Wycena przed naprawą.</h3>
+          <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #B3301F">Co naprawiamy?</span>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{devices}}" as="d" hint-placeholder-count="8">
+              <a href="#" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; height: 76px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF; font-size: 11.5px; font-weight: 800; text-align: center">
+                <span style="width: 26px; height: 26px; border-radius: 8px; background: #FBE9E6; color: #B3301F; display: flex; align-items: center; justify-content: center; font-family: Archivo, sans-serif; font-size: 12px">{{d.i}}</span>{{d.t}}
+              </a>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 14px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E3E6DF">
+            <dc-import name="Mapa" accent="#C4362B" dark="{{false}}" label="{{false}}" h="{{100}}" radius="{{12}}" hint-size="100%,100px"></dc-import>
+            <span style="font-weight: 800; padding: 4px 4px 0">Serwis · ul. Orkana 16B</span>
+            <span style="font-size: 13px; color: #4F5650; padding: 0 4px">pn–pt 9–17 · sob 9–14 · 883 200 151</span>
+          </div>
+        </div>
+        <nav aria-label="Pasek aplikacji" style="position: absolute; left: 0; right: 0; bottom: 0; height: 82px; padding-bottom: 16px; box-sizing: border-box; background: rgba(244,245,241,0.97); border-top: 1px solid #E3E6DF; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end">
+          <sc-for list="{{tabsT}}" as="t" hint-placeholder-count="5">
+            <a href="#" aria-current="{{t.aria}}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: {{t.c}}; padding-bottom: 2px">
+              <span style="width: {{t.size}}; height: {{t.size}}; margin-top: {{t.lift}}; border-radius: 18px; background: {{t.bg}}; color: {{t.ic}}; display: flex; align-items: center; justify-content: center; box-shadow: {{t.shadow}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"/></svg></span>
+              {{t.l}}
+            </a>
+          </sc-for>
+        </nav>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 17px">Tech · strona główna</span>
+        <span style="font-size: 13.5px; line-height: 1.5; color: #4F5650">Środek: Zgłoś naprawę. „Zaloguj się” jako ikona konta w nagłówku. Dziś: Start · Zgłoś · Usługi · Więcej.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1920,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const I = {
+      home: 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z',
+      grid: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z',
+      list: 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+      cal: 'M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM16 2v4M8 2v4M3 10h18',
+      wand: 'M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8 19 13M17.8 6.2 19 5M3 21l9-9M12.2 6.2 11 5',
+      phone: 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z',
+      menu: 'M4 6h16M4 12h16M4 18h16',
+      wrench: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z'
+    };
+    const tabs = (accent, ink, muted, second, mid, midIcon, active, count) => {
+      const raw = [
+        { l: 'Start', d: I.home }, { l: second, d: I.grid }, { l: mid, d: midIcon, center: true },
+        { l: 'Kontakt', d: I.phone }, { l: 'Menu', d: I.menu }
+      ];
+      return raw.map((t) => {
+        const act = t.l === active;
+        return {
+          ...t, aria: act ? 'page' : 'false', count: !!(t.center && count),
+          size: t.center ? '52px' : '30px', lift: t.center ? '-22px' : '0px',
+          bg: t.center ? accent : 'transparent', ic: t.center ? '#FFFFFF' : (act ? accent : muted),
+          c: act || t.center ? ink : muted,
+          shadow: t.center ? '0 10px 22px -10px ' + accent : 'none'
+        };
+      });
+    };
+    return {
+      tabsB: tabs('#244FB0', '#0D1326', '#4A5470', 'Oferta', 'Zapytanie', I.list, 'Kontakt', true),
+      tabsI: tabs('#007A96', '#121613', '#4F5650', 'Usługi', 'Zaplanuj', I.cal, 'Menu', false),
+      tabsS: tabs('#6E45D4', '#121613', '#4F5650', 'Oferta', 'Kreator', I.wand, 'Start', false),
+      tabsT: tabs('#C4362B', '#121613', '#4F5650', 'Usługi', 'Zgłoś', I.wrench, 'Start', false),
+      devices: [
+        { t: 'Telefon', i: 'T' }, { t: 'Tablet', i: 'Tb' }, { t: 'Laptop', i: 'L' }, { t: 'Komputer', i: 'K' },
+        { t: 'Zegarek', i: 'Z' }, { t: 'Drukarka', i: 'D' }, { t: 'Konsola', i: 'Ko' }, { t: 'Inne', i: '+' }
+      ],
+      instMenu: [
+        { t: 'Usługi', bt: 'transparent' }, { t: 'Dla kogo', bt: '#ECEEE8' }, { t: 'Dla architektów', bt: '#ECEEE8' },
+        { t: 'Realizacje', bt: '#ECEEE8' }, { t: 'Poradnik', bt: '#ECEEE8' }, { t: 'O firmie', bt: '#ECEEE8' }
+      ],
+      chips: [
+        { n: 'PRO-KOM', c: '#45A02C' }, { n: 'Biznes', c: '#244FB0' }, { n: 'Software', c: '#8B61E3' }, { n: 'Tech', c: '#D13A2E' }, { n: 'Gaming', c: '#D9A400' }
+      ],
+      acc: ['Oferta', 'Firma'],
+      softBand: [
+        { label: 'SOFTWARE', c: '#9670EE', d: 'Jesteś tutaj', bg: 'rgba(255,255,255,0.08)', border: '#9670EE' },
+        { label: 'BIZNES', c: '#4A7BE0', d: 'Kasy, komputery, opieka IT', bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.1)' },
+        { label: 'INSTALACJE', c: '#12B6D8', d: 'Monitoring, sieci, smart home', bg: 'rgba(255,255,255,0.035)', border: 'rgba(255,255,255,0.1)' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

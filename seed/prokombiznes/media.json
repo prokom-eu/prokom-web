@@ -1,0 +1,656 @@
+{
+ "uwaga": "Pliki z wizualizacji. Zdjęcia produktów i logo pochodzą z materiałów producentów/partnerów; przed publikacją potwierdzić prawo użycia (materiały partnerskie/prasowe). Logo klientów tylko za pisemną zgodą klienta.",
+ "pliki": [
+  {
+   "plik": "p-stormshield-urzadzenie.webp",
+   "rola": "produkt",
+   "klucz": "fwDev",
+   "bajty": 35500,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-comarch.webp",
+   "rola": "logo marki",
+   "klucz": "Comarch",
+   "bajty": 16908,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "ekran-subiekt-nexo-zlecenie.webp",
+   "rola": "zrzut programu InsERT",
+   "klucz": "",
+   "bajty": 65100,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-slaskie-centrum-rehabilitacyjno-uzdrowis.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Śląskie Centrum Rehabilitacyjno-Uzdrowiskowe w Rabce-Zdroju",
+   "bajty": 17896,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-ubiquiti-unifi.webp",
+   "rola": "produkt",
+   "klucz": "ubnt",
+   "bajty": 3358,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-dell-poweredge-rack.webp",
+   "rola": "produkt",
+   "klucz": "srvR",
+   "bajty": 84674,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-qnap.webp",
+   "rola": "logo marki",
+   "klucz": "QNAP",
+   "bajty": 7360,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-rabplast.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Rabplast",
+   "bajty": 6446,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-kyocera-mfp.webp",
+   "rola": "produkt",
+   "klucz": "kyo",
+   "bajty": 44094,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-ksef.webp",
+   "rola": "produkt",
+   "klucz": "ksef",
+   "bajty": 5064,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-posnet.webp",
+   "rola": "logo marki",
+   "klucz": "Posnet",
+   "bajty": 6982,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-ubiquiti-u7.webp",
+   "rola": "produkt",
+   "klucz": "u7",
+   "bajty": 37812,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-elzab-k10.webp",
+   "rola": "produkt",
+   "klucz": "k10",
+   "bajty": 12332,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-konica-minolta-mfp.webp",
+   "rola": "produkt",
+   "klucz": "mfp",
+   "bajty": 37272,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-apc-ups.webp",
+   "rola": "produkt",
+   "klucz": "ups",
+   "bajty": 73070,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "ekran-subiekt-nexo-faktura.webp",
+   "rola": "zrzut programu InsERT",
+   "klucz": "",
+   "bajty": 29066,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-d3-pro.webp",
+   "rola": "produkt",
+   "klucz": "d3",
+   "bajty": 39850,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-lenovo-laptop.webp",
+   "rola": "produkt",
+   "klucz": "laptop",
+   "bajty": 22162,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "foto-gopos-lokal.webp",
+   "rola": "zdjęcie GoPOS (materiały partnera)",
+   "klucz": "",
+   "bajty": 79196,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-digital-signage.webp",
+   "rola": "produkt",
+   "klucz": "ds",
+   "bajty": 15334,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-szuflada-kasowa.webp",
+   "rola": "produkt",
+   "klucz": "szuf",
+   "bajty": 10626,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "brand-prokom-biznes-jasne.svg",
+   "rola": "znak PRO-KOM Biznes (tło jasne)",
+   "klucz": "",
+   "bajty": 5718,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-gopos.webp",
+   "rola": "logo marki",
+   "klucz": "GoPOS",
+   "bajty": 7846,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-eurocert-podpis.webp",
+   "rola": "produkt",
+   "klucz": "euro",
+   "bajty": 20514,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-avtek-monitor-interaktywny.webp",
+   "rola": "produkt",
+   "klucz": "avtek",
+   "bajty": 80242,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-eset.webp",
+   "rola": "produkt",
+   "klucz": "eset",
+   "bajty": 48352,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-elzab-zeta.webp",
+   "rola": "produkt",
+   "klucz": "zeta",
+   "bajty": 7074,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-mobile.webp",
+   "rola": "produkt",
+   "klucz": "mobile",
+   "bajty": 26368,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-gopos-zestaw.webp",
+   "rola": "produkt",
+   "klucz": "goposSet",
+   "bajty": 85390,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-kiosk.webp",
+   "rola": "produkt",
+   "klucz": "kiosk",
+   "bajty": 66412,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-eurocert.webp",
+   "rola": "logo marki",
+   "klucz": "EuroCert",
+   "bajty": 7398,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-projektor.webp",
+   "rola": "produkt",
+   "klucz": "proj",
+   "bajty": 9318,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-temo.webp",
+   "rola": "produkt",
+   "klucz": "temo",
+   "bajty": 31568,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-sharp-nec.webp",
+   "rola": "logo marki",
+   "klucz": "Sharp/NEC",
+   "bajty": 20730,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-trio-triotab.webp",
+   "rola": "produkt",
+   "klucz": "triotab",
+   "bajty": 31940,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-ergo.webp",
+   "rola": "produkt",
+   "klucz": "ergo",
+   "bajty": 57904,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-barracuda.webp",
+   "rola": "logo marki",
+   "klucz": "Barracuda",
+   "bajty": 8336,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-terminal-polcard.webp",
+   "rola": "produkt",
+   "klucz": "pol",
+   "bajty": 71632,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-fawag-box.webp",
+   "rola": "produkt",
+   "klucz": "fawag",
+   "bajty": 25346,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-dell.webp",
+   "rola": "logo marki",
+   "klucz": "Dell",
+   "bajty": 5244,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-neo.webp",
+   "rola": "produkt",
+   "klucz": "neo",
+   "bajty": 16342,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-gopos-ekosystem.webp",
+   "rola": "produkt",
+   "klucz": "goposEco",
+   "bajty": 80584,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-siwy-dym.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Siwy Dym",
+   "bajty": 27872,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-sunmi-all-in-one.webp",
+   "rola": "produkt",
+   "klucz": "aio",
+   "bajty": 51908,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-eset.webp",
+   "rola": "logo marki",
+   "klucz": "ESET",
+   "bajty": 6756,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-insoft.webp",
+   "rola": "logo marki",
+   "klucz": "Insoft",
+   "bajty": 3986,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-kyocera.webp",
+   "rola": "logo marki",
+   "klucz": "Kyocera",
+   "bajty": 4508,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-insert-subiekt-nexo.webp",
+   "rola": "produkt",
+   "klucz": "nexo",
+   "bajty": 10260,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-lenovo-thinkpad.webp",
+   "rola": "produkt",
+   "klucz": "tp",
+   "bajty": 25570,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-stormshield-firewall.webp",
+   "rola": "produkt",
+   "klucz": "fw",
+   "bajty": 93942,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-gopos-ekran.webp",
+   "rola": "produkt",
+   "klucz": "goposScr",
+   "bajty": 31188,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-dachy-nuciak.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Dachy Nuciak",
+   "bajty": 4574,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "logo-synology.webp",
+   "rola": "logo marki",
+   "klucz": "Synology",
+   "bajty": 4528,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-ubiquiti.webp",
+   "rola": "logo marki",
+   "klucz": "Ubiquiti",
+   "bajty": 4038,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-v3.webp",
+   "rola": "produkt",
+   "klucz": "v3",
+   "bajty": 13786,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-elzab-mini.webp",
+   "rola": "produkt",
+   "klucz": "mini",
+   "bajty": 54684,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-avtek.webp",
+   "rola": "logo marki",
+   "klucz": "Avtek",
+   "bajty": 7006,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-parafia.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Parafia",
+   "bajty": 29710,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-gopos-ekrany.webp",
+   "rola": "produkt",
+   "klucz": "gopos",
+   "bajty": 37672,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-sielska-chata.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Sielska Chata",
+   "bajty": 24770,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-lenovo-monitor.webp",
+   "rola": "produkt",
+   "klucz": "mon",
+   "bajty": 116960,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-skaner.webp",
+   "rola": "produkt",
+   "klucz": "skaner",
+   "bajty": 17618,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-drukarka-bonow.webp",
+   "rola": "produkt",
+   "klucz": "drukS",
+   "bajty": 13930,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-konica-minolta.webp",
+   "rola": "logo marki",
+   "klucz": "Konica Minolta",
+   "bajty": 14380,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-elzab.webp",
+   "rola": "logo marki",
+   "klucz": "Elzab",
+   "bajty": 4874,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-trio.webp",
+   "rola": "produkt",
+   "klucz": "trio",
+   "bajty": 17714,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sunmi-kds.webp",
+   "rola": "produkt",
+   "klucz": "kds",
+   "bajty": 57154,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-blachotrapez.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Blachotrapez",
+   "bajty": 14594,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "p-sunmi-v3-mix.webp",
+   "rola": "produkt",
+   "klucz": "v3mix",
+   "bajty": 72500,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-thermal-hx.webp",
+   "rola": "produkt",
+   "klucz": "hx",
+   "bajty": 11694,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-sharp-nec-monitor.webp",
+   "rola": "produkt",
+   "klucz": "nec",
+   "bajty": 11826,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-fawag.webp",
+   "rola": "logo marki",
+   "klucz": "Fawag",
+   "bajty": 6168,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-insert-subiekt-123.webp",
+   "rola": "produkt",
+   "klucz": "s123",
+   "bajty": 42762,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-dell-poweredge-tower.webp",
+   "rola": "produkt",
+   "klucz": "srvT",
+   "bajty": 25248,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-dell-komputer.webp",
+   "rola": "produkt",
+   "klucz": "dell",
+   "bajty": 11860,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-storagecraft.webp",
+   "rola": "logo marki",
+   "klucz": "StorageCraft",
+   "bajty": 17212,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-synology-nas.webp",
+   "rola": "produkt",
+   "klucz": "nas",
+   "bajty": 82780,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-nfhotel.webp",
+   "rola": "produkt",
+   "klucz": "nfh",
+   "bajty": 58364,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-waga.webp",
+   "rola": "produkt",
+   "klucz": "waga",
+   "bajty": 11352,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-comarch-optima.webp",
+   "rola": "produkt",
+   "klucz": "optima",
+   "bajty": 13920,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-posnet-vero.webp",
+   "rola": "produkt",
+   "klucz": "vero",
+   "bajty": 24498,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-qnap-nas.webp",
+   "rola": "produkt",
+   "klucz": "qnap",
+   "bajty": 44324,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-stormshield.webp",
+   "rola": "logo marki",
+   "klucz": "Stormshield",
+   "bajty": 11378,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-lenovo-thinkcentre.webp",
+   "rola": "produkt",
+   "klucz": "tc",
+   "bajty": 10372,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "p-microsoft-365.webp",
+   "rola": "produkt",
+   "klucz": "m365",
+   "bajty": 41904,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-lenovo.webp",
+   "rola": "logo marki",
+   "klucz": "Lenovo",
+   "bajty": 6518,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "brand-prokom-biznes-ciemne.svg",
+   "rola": "znak PRO-KOM Biznes (tło ciemne)",
+   "klucz": "",
+   "bajty": 5718,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-polcard.webp",
+   "rola": "logo marki",
+   "klucz": "PolCard",
+   "bajty": 4564,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "klient-polskie-towarzystwo-walki-z-mukowiscydoz.webp",
+   "rola": "logo klienta (wymaga zgody)",
+   "klucz": "Polskie Towarzystwo Walki z Mukowiscydozą",
+   "bajty": 35688,
+   "wymagaZgody": true
+  },
+  {
+   "plik": "logo-microsoft.webp",
+   "rola": "logo marki",
+   "klucz": "Microsoft",
+   "bajty": 3640,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-sunmi.webp",
+   "rola": "logo marki",
+   "klucz": "Sunmi",
+   "bajty": 3188,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-insert.webp",
+   "rola": "logo marki",
+   "klucz": "InsERT",
+   "bajty": 11050,
+   "wymagaZgody": false
+  },
+  {
+   "plik": "logo-nfhotel.webp",
+   "rola": "logo marki",
+   "klucz": "NFHotel",
+   "bajty": 3660,
+   "wymagaZgody": false
+  }
+ ]
+}

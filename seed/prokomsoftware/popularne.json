@@ -1,0 +1,39 @@
+{
+  "_info": "12 kart sekcji „12 rzeczy” na stronie głównej, w tej kolejności. v22 (SWR5, plansza Main): wszystkie karty to rozwiązania — pozycje 11–12 to „Aplikacja dla ekip w terenie” i „Powiadomienia SMS i e-mail” (zamiast kart ogólnych). Nazwa, opis, cena i termin z rozwiązania; klik otwiera okno oferty.",
+  "order": [
+    "strona-wizytowka",
+    "strona-firmowa-z-panelem",
+    "rozbudowana-strona-firmowa",
+    "landing-page",
+    "strona-dla-restauracji-lub-baru",
+    "strona-dla-hotelu-lub-pensjonatu",
+    "crm-dla-malej-i-sredniej-firmy",
+    "z-excela-do-systemu",
+    "system-zlecen-i-grafik-ekip",
+    "czas-pracy-i-rozliczenia",
+    "aplikacja-dla-ekip-w-terenie",
+    "powiadomienia-sms-i-e-mail"
+  ],
+  "tabs": [
+    [
+      "all",
+      "Wszystko"
+    ],
+    [
+      "www",
+      "Strony"
+    ],
+    [
+      "sys",
+      "Systemy"
+    ],
+    [
+      "app",
+      "Aplikacje"
+    ],
+    [
+      "auto",
+      "Automatyzacje"
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+/*
+ * Tailwind sheet of the Instalacje line (ADR-023 „CSS per linia”): the shared styles, the line's
+ * tokens and the classes of `src/sites/instalacje` only. Its own stylesheets (frame, blocks…) come
+ * through the other style modules of `LineStyles.tsx`.
+ */
+@import 'tailwindcss' source(none);
+@import '../../../styles/site.css';
+@import '../../../styles/tokens-instalacje.css';
+
+@source '..';

@@ -1,0 +1,182 @@
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test, type Page } from '@playwright/test'
+
+import { hydrated, setTheme, site } from './helpers'
+
+// ADR-007 / ADR-013 / ADR-015: every line passes axe (WCAG 2.1 A/AA) in each of its themes, the layout
+// holds at 360 px and the dark theme switch works. Seed pages: `home` and `kontakt` (and the Biznes
+// subpages from blocks, B9; the category page, B10a; an industry page, B10b; the wizard, B10c; a
+// brand and a subcategory page, K3b′).
+// `themeSwitch: false`: the line has a dark theme (from the system) but no switch yet — Instalacje
+// until its header (I3).
+const SITES: {
+  host: string
+  line: string
+  dark: boolean
+  themeSwitch?: boolean
+  extra?: string[]
+}[] = [
+  {
+    host: 'biznes.localhost',
+    line: 'biznes',
+    dark: true,
+    extra: [
+      '/opieka-it',
+      '/gopos',
+      '/insert',
+      '/oferta/kasy-fiskalne',
+      '/branze/gastronomia',
+      '/konfigurator',
+      '/plan-firmy',
+      '/aktualnosci',
+      '/aktualnosci/ksef-od-1-stycznia-2027',
+      '/polityka-prywatnosci',
+      '/mapa-strony',
+      '/o-firmie',
+      '/oferta',
+      '/produkt/posnet-ergo-online',
+      '/zapytanie',
+      '/cookies',
+      '/dostepnosc',
+      '/marki',
+      '/marki/dibal',
+      '/marki/lenovo',
+      '/marki/dell',
+      '/oferta/serwery-nas-ups/ups',
+      // K4j
+      '/automaty-vendingowe',
+      '/ksef',
+      '/ulga-na-kase-fiskalna',
+    ],
+  },
+  { host: 'instalacje.localhost', line: 'instalacje', dark: true, themeSwitch: false },
+  {
+    host: 'software.localhost',
+    line: 'software',
+    dark: true,
+    extra: [
+      '/dobierz',
+      '/audyt',
+      '/cennik',
+      '/dziekujemy?nr=PKS-2026-0145',
+      '/nie-ma-takiej-strony',
+      '/polityka-prywatnosci',
+      '/mapa-strony',
+      // `/jedna-firma` is a 301 to `/o-firmie#linie` since SWA5b (software-about).
+      '/o-firmie',
+      '/aktualnosci',
+      '/miejscowosci/rabka-zdroj',
+    ],
+  },
+]
+const PATHS = ['/', '/kontakt']
+const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
+
+async function expectNoViolations(page: Page) {
+  // Software mock-ups (`data-mockup`) are decorative pictures of sample firms in their own brand
+  // colours (ADR-015 v24 pkt 4, `aria-hidden`); axe still measures text inside them.
+  const { violations } = await new AxeBuilder({ page })
+    .exclude('[data-mockup]')
+    .withTags(WCAG)
+    .analyze()
+  // Rule ids and targets only, so a failure reads well in the CI log.
+  expect(violations.map((v) => ({ rule: v.id, targets: v.nodes.map((n) => n.target) }))).toEqual([])
+}
+
+test.describe('accessibility (axe)', () => {
+  for (const { host, line, dark, extra = [] } of SITES) {
+    for (const path of [...PATHS, ...extra]) {
+      for (const colorScheme of dark ? (['light', 'dark'] as const) : (['light'] as const)) {
+        test(`${host}${path} — ${colorScheme}`, async ({ page }) => {
+          // Reduced motion: axe measures contrast of the final state, not of an element
+          // fading in (`motion-safe:` entrance animations, e.g. the /opieka-it audit badges).
+          await setTheme(page, colorScheme, { reducedMotion: 'reduce' })
+          await page.goto(site(host, path))
+          await expect(page.locator('html')).toHaveAttribute('data-line', line)
+          await expectNoViolations(page)
+        })
+      }
+    }
+  }
+})
+
+test.describe('line colours', () => {
+  test('each domain resolves its own accent', async ({ page }) => {
+    const accents = new Set<string>()
+    for (const { host } of SITES) {
+      await page.goto(site(host))
+      accents.add(
+        await page.evaluate(() =>
+          getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),
+        ),
+      )
+    }
+    expect(accents.size).toBe(SITES.length)
+  })
+})
+
+test.describe('phone width (360 px)', () => {
+  test.use({ viewport: { width: 360, height: 740 } })
+
+  for (const { host, extra = [] } of SITES) {
+    for (const path of [...PATHS, ...extra]) {
+      test(`${host}${path} has no horizontal scroll`, async ({ page }) => {
+        await page.goto(site(host, path))
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        )
+        expect(overflow).toBeLessThanOrEqual(0)
+      })
+    }
+  }
+})
+
+test.describe('dark theme switch', () => {
+  for (const { host } of SITES.filter(({ dark, themeSwitch = true }) => dark && themeSwitch)) {
+    test(`toggles, is announced and survives a reload (${host})`, async ({ page }) => {
+      // A stored light choice, written once: Software starts dark without one (ADR-015 v24).
+      // Not `setTheme`: its init script would write „light” again on the reload below.
+      await page.emulateMedia({ colorScheme: 'light' })
+      await page.goto(site(host))
+      await page.evaluate(() => localStorage.setItem('pk-theme', 'light'))
+      await page.reload()
+      const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
+      await expect(toggle).toHaveAttribute('aria-pressed', 'false')
+
+      // Clicked again only while still off: right after hydration the stored choice is read and
+      // could undo a click that came first (flaky in CI on Software).
+      await hydrated(toggle)
+      await expect(async () => {
+        if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
+        await expect(toggle).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+      }).toPass()
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+
+      await page.reload()
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      // The button shows the stored choice once hydrated (slow on a busy CI runner).
+      await hydrated(page.getByRole('button', { name: 'Tryb ciemny' }))
+      await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      )
+    })
+  }
+})
+
+test.describe('main navigation', () => {
+  // `usePathname` behind the host rewrite (proxy.ts) must match the browser address, both on
+  // the server and after hydration — otherwise the marker is missing or React reports a mismatch.
+  test('marks the current page and hydrates cleanly', async ({ page }) => {
+    const hydrationErrors: string[] = []
+    page.on('console', (message) => {
+      if (/hydrat/i.test(message.text())) hydrationErrors.push(message.text())
+    })
+    await page.goto(site('biznes.localhost', '/kontakt'))
+    // The shared header capsule (D3-B): „Menu główne”.
+    const nav = page.getByRole('navigation', { name: 'Menu główne' })
+    await expect(nav.getByRole('link', { name: 'Kontakt' })).toHaveAttribute('aria-current', 'page')
+    await page.waitForLoadState('networkidle')
+    expect(hydrationErrors).toEqual([])
+  })
+})

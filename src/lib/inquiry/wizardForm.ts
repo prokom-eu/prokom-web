@@ -1,0 +1,112 @@
+import type { Cart } from '../cart/cart'
+import { CONSENT_CLAUSE } from './consent'
+import type { WizardAnswers as SoftwareAnswers } from '../software/wizard/flow'
+import { BIZNES_FIELD_MESSAGES, sourceFromHref, splitEmailOrPhone } from './form'
+import { HONEYPOT_FIELD } from './honeypot'
+
+// Browser side of Konfigurator 3.0 (`/konfigurator`, K35 §1, K4-FINAL §5): the form on the
+// result sends the `?kr=` link and the items the customer chose; the server names the profile.
+
+export type WizardContact = {
+  name: string
+  phone: string
+  email: string
+  /** „Dodatkowe informacje” (board: e.g. opening date, number of rooms). */
+  message: string
+  consent: boolean
+  /** Honeypot: hidden from people, filled in by bots. */
+  website: string
+}
+
+export type WizardFieldName =
+  'name' | 'phone' | 'email' | 'message' | 'consent' | 'wizard' | 'items'
+
+export const WIZARD_FIELD_MESSAGES: Record<WizardFieldName, string> = {
+  name: BIZNES_FIELD_MESSAGES.name,
+  phone: BIZNES_FIELD_MESSAGES.phone,
+  email: 'Podaj poprawny adres e-mail.',
+  message: 'Wiadomość jest za długa.',
+  consent: BIZNES_FIELD_MESSAGES.consent,
+  // The rules changed in the panel while the page was open.
+  wizard: 'Konfigurator się zmienił — odśwież stronę i wybierz jeszcze raz.',
+  items: 'Lista się zmieniła — odśwież stronę i sprawdź pozycje.',
+}
+
+/** Required: the name, a phone or an e-mail (K4-FINAL §5), the consent. */
+export function checkWizardRequired(
+  values: WizardContact,
+): Partial<Record<WizardFieldName, string>> {
+  const errors: Partial<Record<WizardFieldName, string>> = {}
+  if (!values.name.trim()) errors.name = WIZARD_FIELD_MESSAGES.name
+  if (!values.phone.trim() && !values.email.trim()) errors.phone = WIZARD_FIELD_MESSAGES.phone
+  if (!values.consent) errors.consent = WIZARD_FIELD_MESSAGES.consent
+  return errors
+}
+
+export function buildWizardInquiryBody(
+  values: WizardContact,
+  { href, formToken, kr, cart }: { href: string; formToken: string; kr: string; cart: Cart },
+) {
+  return {
+    type: 'wizard',
+    source: sourceFromHref(href),
+    name: values.name,
+    phone: values.phone,
+    email: values.email,
+    // An e-mail only: the answer goes by e-mail (like the drawer, K4-FINAL §5).
+    preferredContact: values.phone.trim() ? 'phone' : 'email',
+    message: values.message,
+    wizard: { kr },
+    // Only the slug, quantity and note: the server takes the name from the catalog.
+    items: cart.map((item) => ({
+      slug: item.id,
+      quantity: item.q,
+      ...(item.uwaga ? { note: item.uwaga } : {}),
+    })),
+    consent: { accepted: values.consent, clauseVersion: CONSENT_CLAUSE.version },
+    [HONEYPOT_FIELD]: values.website,
+    formToken,
+  }
+}
+
+/** Result of the Software wizard v3 (`/dobierz`): name and company, one contact field, consent. */
+export type SoftwareWizardContact = {
+  name: string
+  /** „E-mail albo telefon”. */
+  contact: string
+  consent: boolean
+  website: string
+}
+
+/** Errors of the board: no e-mail or phone (`send.contact.error`), no consent. */
+export function checkSoftwareWizardRequired(
+  values: SoftwareWizardContact,
+): Partial<Record<'contact' | 'consent', true>> {
+  const errors: Partial<Record<'contact' | 'consent', true>> = {}
+  if (!splitEmailOrPhone(values.contact)) errors.contact = true
+  if (!values.consent) errors.consent = true
+  return errors
+}
+
+/**
+ * Body of `POST /api/inquiry`: the answers only — the server checks them against its rules and
+ * writes the message. Without a name the office reads
+ * „Klient kreatora” (the board's name field is optional; the schema needs one).
+ */
+export function buildSoftwareWizardBody(
+  values: SoftwareWizardContact,
+  { href, formToken, answers }: { href: string; formToken: string; answers: SoftwareAnswers },
+) {
+  return {
+    type: 'wizard',
+    source: sourceFromHref(href),
+    name: values.name.trim() || ANONYMOUS_WIZARD_NAME,
+    ...splitEmailOrPhone(values.contact),
+    wizard: answers,
+    consent: { accepted: values.consent, clauseVersion: CONSENT_CLAUSE.version },
+    [HONEYPOT_FIELD]: values.website,
+    formToken,
+  }
+}
+
+export const ANONYMOUS_WIZARD_NAME = 'Klient kreatora'

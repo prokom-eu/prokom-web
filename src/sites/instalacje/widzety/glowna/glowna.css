@@ -1,0 +1,2152 @@
+/*
+ * Home hero „Twój obiekt na żywo” (I5). Rules of `pk.css` v4.2 (lines 131–284, 536–566,
+ * 608–612, 1167–1179, 2328–2332, 3030) copied 1:1 with the prototype's class names; colours only
+ * through the `--hx-*` tokens, which follow the scene's time of day (`data-hx-time`), not the page
+ * theme (ADR-I003 §6) — so the prototype's `.day`/`.night` colour overrides live in the tokens.
+ * Differences: the time buttons are 44 px high (MOBILE §10, prototype 40 px); keyframes are
+ * prefixed `inst-hx-`; the scene keeps its height by `aspect-ratio` below 1024 px (no layout
+ * shift when the viewBox changes).
+ *
+ * Round v5 (RUNDA-V5 §1, before the prototype): from 1024 px the hero fits the first screen
+ * (height from the window, not 1000 px); the backdrop fills the section and the building has its
+ * own SVG in a safe zone right of the text, above the dock and below the tabs; the camera preview
+ * stands by the right edge only with room for it; the „Na żywo” panel and the chips are one dock
+ * at the bottom. Text colour and sky change together (`--hx-t`).
+ */
+[data-line='instalacje'] {
+  & .hx {
+    /* One time for the time of day: the text colour, the sky and the light move together, so the
+       text never stays light on a light sky for a moment (RUNDA-V5 §1.5). */
+    --hx-t: 400ms;
+    --hx-zone-top: 160px;
+    --hx-dock-room: 132px;
+    --hx-pip-w: clamp(220px, 18vw, 300px);
+    position: relative;
+    overflow: hidden;
+    /* P2-11: a minimum, not a fixed height — with text zoomed to 200% the hero grows instead of
+       cutting the text (the inner box takes the same minimum). */
+    min-block-size: clamp(640px, calc(100svh - var(--inst-hdr-h)), 920px);
+    color: var(--hx-ink);
+    transition: color var(--hx-t) var(--ease-out);
+  }
+  & .hx button {
+    line-height: normal;
+    font-family: inherit;
+  }
+  & .hxsvg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  & .hxin {
+    position: relative;
+    z-index: 2;
+    max-width: 1440px;
+    margin: 0 auto;
+    /* Room for the dock pinned to the bottom, growing with the text (zoom 200%: the text column
+       never runs under the dock; at 100% the minimum height is larger anyway). */
+    padding: 32px 48px max(var(--hx-dock-room), 9em);
+    min-block-size: inherit;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  & .hxin > * {
+    pointer-events: auto;
+  }
+  & .hxt {
+    position: relative;
+    z-index: 3;
+    width: min(660px, 44vw);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 8px;
+  }
+  & .hxt h1 {
+    margin: 0;
+    /* Two lines „Twój inteligentny / obiekt na żywo.”: the longer line is ~10.5 em, so the size
+       follows the column width (44vw, up to 660 px) and the window height. */
+    font-size: clamp(44px, min(4.15vw, 7.4svh), 62px);
+    line-height: 0.94;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px var(--hx-h1-shadow);
+  }
+  & .hxt h1 .hxs {
+    text-wrap: wrap;
+  }
+  & .hx .disp {
+    font-family: var(--font-display);
+    font-stretch: 122%;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+  }
+  & .hxs {
+    display: block;
+    font-family: var(--font-sans);
+    font-stretch: 100%;
+    font-size: 17px;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    font-weight: 800;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    text-shadow: none;
+  }
+  & .hxt .lead {
+    color: inherit;
+    opacity: 0.85;
+    font-size: 18px;
+    max-width: 520px;
+  }
+  /* Runda v6 §1.4: the H1 in one colour (the second half is not tinted). */
+  & .hxk {
+    color: inherit;
+  }
+  & .hpill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--hx-pill-bg);
+    color: var(--hx-pill-ink);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-self: flex-start;
+    box-shadow: inset 0 0 0 1px var(--hx-pill-ring);
+  }
+  & .hpill .live {
+    margin-right: 0;
+  }
+  & .hxcta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  & .hx .hbtn-g {
+    background: var(--hx-ghost-bg);
+    color: var(--hx-pill-ink);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1.5px var(--hx-ghost-ring);
+  }
+  & .hx .hbtn-p {
+    background: var(--hx-accent);
+    color: var(--hx-accent-ink);
+    box-shadow: 0 16px 36px -12px var(--hx-accent-glow);
+  }
+  & .htrust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  & .htrust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  & .htrust i {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--hx-trust-bg);
+    color: var(--hx-trust-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & .hx .glass {
+    background: var(--hx-glass);
+    color: var(--hx-glass-ink);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow:
+      inset 0 0 0 1px var(--hx-glass-ring),
+      0 30px 70px -30px var(--hx-glass-shadow);
+    border-radius: 22px;
+  }
+  & .hxbar {
+    position: absolute;
+    right: 48px;
+    top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 3;
+  }
+  & .hotabs {
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+  }
+  & .hotab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 0;
+    background: transparent;
+    color: var(--hx-tab-ink);
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  & .hotab {
+    position: relative;
+  }
+  & .hotab.on {
+    background: var(--hx-accent);
+    color: var(--hx-accent-ink);
+  }
+  /* Autoplay progress under the chosen object: grows to the next step in one autoplay interval. */
+  & .hoprog {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 5px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.55;
+    transform-origin: left;
+    transform: scaleX(var(--p));
+    transition: transform 2.3s linear;
+  }
+  & .hx:hover .hoprog,
+  & .hx:focus-within .hoprog {
+    opacity: 0.25;
+  }
+  /* P2-11: paused — the bar stands where it was. */
+  & .hoprog.stop {
+    transition: none;
+  }
+  /* P2-11 (WCAG 2.2.2): „Wstrzymaj animację” — every animation of the hero stands (snow, REC,
+     beams, the walker, the preview's sweep); the autoplay and the scene clock stop in JS. */
+  & .hx.still *,
+  & .hx.still *::before,
+  & .hx.still *::after {
+    animation-play-state: paused !important;
+  }
+  & .hmrow {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+  & .hxpause {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 16px;
+    color: var(--hx-tab-ink);
+    font-weight: 800;
+    font-size: 13.5px;
+    cursor: pointer;
+  }
+  & .hxpause svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex: none;
+  }
+  & .hxpause[aria-pressed='true'] {
+    color: var(--hx-tab-hover-ink);
+  }
+  & .hxpause:focus-visible {
+    outline: 2px solid var(--hx-accent);
+    outline-offset: 2px;
+  }
+  & .hmodes {
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+  }
+  & .hmode {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 0 13px;
+    border-radius: 12px;
+    border: 0;
+    background: transparent;
+    color: var(--hx-tab-ink);
+    font-weight: 800;
+    font-size: 13.5px;
+    cursor: pointer;
+  }
+  & .hmode.on {
+    background: var(--hx-mode-on-bg);
+    color: var(--hx-tab-hover-ink);
+  }
+  /* The phone card „Na żywo” (below 1024 px); from 1024 px its status is the dock's first line. */
+  & .hxstat {
+    display: none;
+    padding: 18px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  /* The building in its safe zone: right of the text, below the tabs, above the dock, left of
+     the camera preview. The SVG fits it (`xMaxYMax meet`) and may draw a little outside. */
+  & .hxstage {
+    position: absolute;
+    z-index: 1;
+    left: 42%;
+    right: calc(48px + var(--hx-pip-w) + 20px);
+    top: var(--hx-zone-top);
+    bottom: var(--hx-dock-room);
+    pointer-events: none;
+  }
+  & .hxbld {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  & .hxbld .dv {
+    pointer-events: auto;
+  }
+  & .hxbld .dv[role='button'] {
+    cursor: pointer;
+    outline: none;
+  }
+  & .hxbld .dv[role='button']:focus-visible .dvb {
+    stroke-width: 3;
+    stroke: var(--hx-tab-hover-ink);
+  }
+  /* The dock: status line over the chips and „Zaplanuj taki zestaw”. */
+  & .hxdock {
+    position: absolute;
+    z-index: 3;
+    left: 48px;
+    right: 48px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px 10px 14px;
+    border-radius: 20px;
+  }
+  & .hxdst {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+    margin: 0;
+    padding: 0 2px;
+    white-space: nowrap;
+    font-size: 13.5px;
+    line-height: 22px;
+  }
+  & .hxdst b {
+    flex: none;
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 15px;
+  }
+  & .hxdtx {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--hx-sub);
+    animation: inst-hx-fadein 0.3s var(--ease-out);
+  }
+  & .hxdst em {
+    flex: none;
+    margin-left: 8px;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--hx-accent-2);
+  }
+  & .hxsh {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  & .hxsh b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 18px;
+  }
+  & .hxsh span {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--hx-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  & .hxl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-height: 62px;
+  }
+  & .hxempty {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    color: var(--hx-sub);
+    padding: 12px;
+    border-radius: 13px;
+    border: 1.5px dashed var(--hx-empty-line);
+  }
+  & .hxmore {
+    font-size: 12.5px;
+    color: var(--hx-sub);
+    padding: 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .hxmore b {
+    color: var(--hx-accent-2);
+    font-family: var(--font-display);
+    font-size: 14px;
+  }
+  & .hxli {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 10px;
+    border-radius: 13px;
+    background: var(--hx-item-bg);
+    box-shadow: inset 0 0 0 1px var(--hx-item-ring);
+    animation: inst-hx-fadein 0.35s var(--ease-out);
+  }
+  & .hxli i {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--hx-accent-tint);
+    color: var(--hx-accent-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  & .hxli i.arm {
+    background: var(--hx-amber-tint);
+    color: var(--hx-amber);
+  }
+  & .hxli b {
+    display: block;
+    font-size: 13px;
+  }
+  & .hxli span {
+    display: block;
+    font-size: 12.3px;
+    color: var(--hx-sub);
+    line-height: 1.38;
+  }
+  & .hxchips {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    min-width: 0;
+  }
+  /* One row; scrolls sideways (with snap) when the window is too narrow for all eight. */
+  & .hxcrow {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  & .hxcrow::-webkit-scrollbar {
+    display: none;
+  }
+  & .hchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    flex: none;
+    scroll-snap-align: start;
+    padding: 0 11px 0 9px;
+    border-radius: 13px;
+    border: 0;
+    background: var(--hx-chip-bg);
+    color: var(--hx-chip-ink);
+    font-weight: 800;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      box-shadow 0.2s;
+  }
+  & .hchip em {
+    font-style: normal;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--hx-chip-mark);
+    font-size: 13px;
+    line-height: 1;
+  }
+  & .hchip.on {
+    background: var(--hx-accent-tint);
+    color: var(--hx-tab-hover-ink);
+    box-shadow: inset 0 0 0 1.5px var(--hx-accent);
+  }
+  & .hchip.on em {
+    background: var(--hx-accent);
+    color: var(--hx-accent-ink);
+  }
+  /* The ✓ draws itself when a chip turns on (RUNDA-V5 §1.5). */
+  & .hchk {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .hchk path {
+    stroke-dasharray: 12;
+    animation: inst-hx-draw 0.32s var(--ease-out) both;
+  }
+  & .hchipx {
+    flex: none;
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  /* „Pokaż wszystko” stays in the phone layout only (the dock of RUNDA-V5 has the chips). */
+  & .hchipx .hall {
+    display: none;
+  }
+  /* Short chip names in the dock (RUNDA-V5 §1.3); the full name stays for screen readers. */
+  & .hcl {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  & .hchipx button {
+    min-height: 44px;
+    border: 0;
+    background: none;
+    color: var(--hx-accent-2);
+    font-weight: 800;
+    font-size: 13.5px;
+    cursor: pointer;
+    padding: 0 8px;
+  }
+  & .pip {
+    position: absolute;
+    right: 48px;
+    top: var(--hx-zone-top);
+    width: var(--hx-pip-w);
+    overflow: hidden;
+    z-index: 3;
+    animation: inst-hx-fadein 0.4s var(--ease-out);
+  }
+  & .piph {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+  & .piph .rec {
+    color: var(--hx-rec);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  & .piph .rec::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hx-rec);
+    animation: inst-hx-blink 1.2s infinite;
+  }
+  & .pipv {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  & .pipv.ir {
+    filter: grayscale(0.85) brightness(1.05) contrast(1.25) sepia(0.15) hue-rotate(140deg);
+  }
+  & .pipf {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 8px 12px 10px;
+    font-size: 11.5px;
+    color: var(--hx-muted);
+    font-weight: 700;
+  }
+  & .pipf span:last-child {
+    flex: none;
+    white-space: nowrap;
+  }
+  & .pipsweep {
+    animation: inst-hx-pipsw 3.2s linear infinite;
+  }
+  /* Camera preview drawing (the prototype's inline fills). */
+  & .pps {
+    fill: var(--hx-pip-sky);
+  }
+  & .ppg {
+    fill: var(--hx-pip-ground);
+  }
+  & .ppw {
+    fill: var(--hx-pip-wall);
+  }
+  & .ppwin {
+    fill: var(--hx-pip-win);
+  }
+  & .ppl {
+    stroke: var(--hx-pip-line);
+  }
+  & .ppc1 {
+    fill: var(--hx-pip-car-1);
+  }
+  & .ppc2 {
+    fill: var(--hx-pip-car-2);
+  }
+  & .ppcr {
+    fill: var(--hx-pip-car-roof);
+  }
+  & .ppsh {
+    fill: var(--hx-pip-shadow);
+  }
+  & .ppp {
+    fill: var(--hx-pip-person);
+  }
+  & .pph {
+    fill: var(--hx-pip-head);
+  }
+  & .ppdb {
+    stroke: var(--hx-pip-ok);
+  }
+  & .ppdl {
+    fill: var(--hx-pip-ok);
+  }
+  & .ppdt {
+    fill: var(--hx-detect-ink);
+    font: 800 9px var(--font-sans);
+  }
+  & .ppscan {
+    fill: var(--hx-pip-scan);
+  }
+  & .ppv0 {
+    stop-color: var(--hx-pip-vignette);
+    stop-opacity: 0;
+  }
+  & .ppv1 {
+    stop-color: var(--hx-pip-vignette);
+    stop-opacity: 0.55;
+  }
+  & .ppsw {
+    fill: var(--hx-pip-sweep);
+  }
+  & .ppr {
+    stroke: var(--hx-pip-reticle);
+  }
+
+  /* Scene: fills follow the time-of-day tokens. */
+  & .scene polygon {
+    stroke: var(--hx-edge);
+    stroke-width: 0.6;
+    stroke-linejoin: round;
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .gnd {
+    fill: var(--hx-gnd);
+  }
+  & .scene .gEL {
+    fill: var(--hx-g-el);
+  }
+  & .scene .gER {
+    fill: var(--hx-g-er);
+  }
+  & .scene .pav {
+    fill: var(--hx-pav);
+  }
+  & .scene .pline {
+    fill: var(--hx-pline);
+    stroke: none !important;
+  }
+  & .scene .deck {
+    fill: var(--hx-deck);
+  }
+  & .scene .fL.wood {
+    fill: var(--hx-wood-l);
+  }
+  & .scene .fR.wood {
+    fill: var(--hx-wood-r);
+  }
+  & .scene .fL.plas {
+    fill: var(--hx-plas-l);
+  }
+  & .scene .fR.plas {
+    fill: var(--hx-plas-r);
+  }
+  & .scene .fL.met {
+    fill: var(--hx-met-l);
+  }
+  & .scene .fR.met {
+    fill: var(--hx-met-r);
+  }
+  & .scene .fL.gla {
+    fill: var(--hx-gla-l);
+  }
+  & .scene .fR.gla {
+    fill: var(--hx-gla-r);
+  }
+  & .scene .fL.chim {
+    fill: var(--hx-chim);
+  }
+  & .scene .fR.chim,
+  & .scene .top.chim {
+    fill: var(--hx-roof-e);
+  }
+  & .scene .top {
+    fill: var(--hx-top);
+  }
+  & .scene .topIn {
+    fill: var(--hx-top-in);
+  }
+  & .scene .rF {
+    fill: var(--hx-roof-f);
+  }
+  & .scene .rB {
+    fill: var(--hx-roof-b);
+  }
+  & .scene .rE {
+    fill: var(--hx-roof-e);
+  }
+  & .scene .rE2 {
+    fill: var(--hx-roof-e2);
+  }
+  & .scene .win {
+    fill: var(--hx-win);
+  }
+  & .scene .win.lit {
+    fill: var(--hx-lit);
+  }
+  & .scene .win.big {
+    fill: var(--hx-gla-l);
+  }
+  & .scene .win.big.lit {
+    fill: var(--hx-win-glow);
+  }
+  & .scene .door {
+    fill: var(--hx-door);
+  }
+  & .scene .gdoor,
+  & .scene .gate {
+    fill: var(--hx-gdoor);
+  }
+  & .scene .balk {
+    fill: var(--hx-balk);
+  }
+  & .scene .balkT {
+    fill: var(--hx-balk-t);
+  }
+  & .scene .fL.car.k1 {
+    fill: var(--hx-car-1-l);
+  }
+  & .scene .fR.car.k1 {
+    fill: var(--hx-car-1-r);
+  }
+  & .scene .top.car.k1,
+  & .scene .topIn.car.k1 {
+    fill: var(--hx-car-1-t);
+  }
+  & .scene .fL.car.k2 {
+    fill: var(--hx-car-2-l);
+  }
+  & .scene .fR.car.k2 {
+    fill: var(--hx-car-2-r);
+  }
+  & .scene .top.car.k2,
+  & .scene .topIn.car.k2 {
+    fill: var(--hx-car-2-t);
+  }
+  & .scene .fL.car.k3 {
+    fill: var(--hx-car-3-l);
+  }
+  & .scene .fR.car.k3 {
+    fill: var(--hx-car-3-r);
+  }
+  & .scene .top.car.k3,
+  & .scene .topIn.car.k3 {
+    fill: var(--hx-car-3-t);
+  }
+  & .scene .fL.car.k4 {
+    fill: var(--hx-car-4-l);
+  }
+  & .scene .fR.car.k4 {
+    fill: var(--hx-car-4-r);
+  }
+  & .scene .top.car.k4,
+  & .scene .topIn.car.k4 {
+    fill: var(--hx-car-4-t);
+  }
+  & .scene .fL.car.tr {
+    fill: var(--hx-truck-l);
+  }
+  & .scene .fR.car.tr {
+    fill: var(--hx-truck-r);
+  }
+  & .scene .top.car.tr,
+  & .scene .topIn.car.tr {
+    fill: var(--hx-truck-t);
+  }
+  & .scene .fL.cab {
+    fill: var(--hx-cab-l);
+  }
+  & .scene .fR.cab {
+    fill: var(--hx-cab-r);
+  }
+  & .scene .top.cab,
+  & .scene .topIn.cab {
+    fill: var(--hx-cab-t);
+  }
+  & .scene .fL.post {
+    fill: var(--hx-post-l);
+  }
+  & .scene .fR.post {
+    fill: var(--hx-post-r);
+  }
+  & .scene .top.post,
+  & .scene .topIn.post {
+    fill: var(--hx-post-t);
+  }
+  & .scene.night .car {
+    filter: brightness(0.55);
+  }
+  & .scene .tre {
+    fill: var(--hx-tree);
+  }
+  & .scene .tre2 {
+    fill: var(--hx-tree2);
+  }
+  & .scene .trk {
+    fill: var(--hx-trk);
+  }
+  & .scene .tcap {
+    fill: var(--hx-white);
+    opacity: 0;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.winter .tcap {
+    opacity: 0.95;
+  }
+  & .scene .mnt0 {
+    fill: var(--hx-mnt0);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .mnt1 {
+    fill: var(--hx-mnt1);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .mnt2 {
+    fill: var(--hx-mnt2);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .cap {
+    fill: var(--hx-cap);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .skyS {
+    stop-color: var(--hx-sky1);
+  }
+  & .scene .skyM {
+    stop-color: var(--hx-sky-m);
+  }
+  & .scene .skyE {
+    stop-color: var(--hx-sky2);
+  }
+  & .scene .glw0 {
+    stop-color: var(--hx-accent);
+    stop-opacity: 0.35;
+  }
+  & .scene .glw1 {
+    stop-color: var(--hx-accent);
+    stop-opacity: 0;
+  }
+  & .scene .sun {
+    fill: var(--hx-sun);
+    opacity: 0.9;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene .sunh {
+    fill: var(--hx-sun);
+    opacity: 0.18;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .sun,
+  & .scene.winter .sun,
+  & .scene.night .sunh,
+  & .scene.winter .sunh {
+    opacity: 0;
+  }
+  & .scene .moon {
+    fill: var(--hx-moon);
+    opacity: 0;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .moon {
+    opacity: 0.95;
+  }
+  & .scene .star {
+    fill: var(--hx-white);
+    opacity: 0;
+  }
+  & .scene.night .star {
+    opacity: 1;
+  }
+  & .scene .cloud {
+    fill: var(--hx-cloud);
+    opacity: 0.85;
+    animation: inst-hx-drift 28s ease-in-out infinite alternate;
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .cloud {
+    opacity: 0.5;
+  }
+  & .scene .c2 {
+    animation-duration: 36s;
+    animation-delay: -8s;
+  }
+  & .scene .c3 {
+    animation-duration: 44s;
+    animation-delay: -20s;
+  }
+  & .scene .flk {
+    fill: var(--hx-white);
+    opacity: 0;
+  }
+  & .scene.winter .flk {
+    opacity: 0.92;
+    animation-name: inst-hx-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  & .scene .l0t {
+    stop-color: var(--hx-l0t);
+  }
+  & .scene .l0b {
+    stop-color: var(--hx-l0b);
+  }
+  & .scene .l1t {
+    stop-color: var(--hx-l1t);
+  }
+  & .scene .l1b {
+    stop-color: var(--hx-l1b);
+  }
+  & .scene .l2t {
+    stop-color: var(--hx-l2t);
+  }
+  & .scene .l2b {
+    stop-color: var(--hx-l2b);
+  }
+  & .scene .l3t {
+    stop-color: var(--hx-l3t);
+  }
+  & .scene .l3b {
+    stop-color: var(--hx-l3b);
+  }
+  & .scene .mst0 {
+    stop-color: var(--hx-mist);
+    stop-opacity: 0;
+  }
+  & .scene .mst1 {
+    stop-color: var(--hx-mist);
+    stop-opacity: var(--hx-mist-a);
+  }
+  & .scene .mw1 {
+    stop-color: var(--hx-moon-halo);
+    stop-opacity: var(--hx-mw-a);
+  }
+  & .scene .mw0 {
+    stop-color: var(--hx-moon-halo);
+    stop-opacity: 0;
+  }
+  & .scene .au0 {
+    stop-color: var(--hx-aur);
+    stop-opacity: 0;
+  }
+  & .scene .au1 {
+    stop-color: var(--hx-aur);
+    stop-opacity: var(--hx-aur-a);
+  }
+  & .scene .ry1 {
+    stop-color: var(--hx-ray);
+    stop-opacity: var(--hx-ray-a);
+  }
+  & .scene .ry0 {
+    stop-color: var(--hx-ray);
+    stop-opacity: 0;
+  }
+  & .scene .fd1 {
+    stop-color: var(--hx-fade);
+    stop-opacity: var(--hx-fade-a);
+  }
+  & .scene .fdm {
+    stop-color: var(--hx-fade);
+    stop-opacity: var(--hx-fade-m);
+  }
+  & .scene .fd0 {
+    stop-color: var(--hx-fade);
+    stop-opacity: 0;
+  }
+  & .scene .mf {
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .rim {
+    fill: none;
+    stroke: var(--hx-rim);
+    stroke-width: 1.2;
+    stroke-linejoin: round;
+    opacity: 0.9;
+  }
+  & .scene .rim.r2 {
+    opacity: 0.35;
+  }
+  & .scene .crs {
+    fill: none;
+    stroke: var(--hx-rim);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+  & .scene .fst {
+    fill: var(--hx-fst);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .fst2 {
+    fill: var(--hx-fst2);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .fgh {
+    fill: var(--hx-fg-hill);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .fgt {
+    fill: var(--hx-fg-tree);
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .fgt2 {
+    fill: var(--hx-fg-tree2);
+    opacity: 0.9;
+    transition: fill var(--hx-t) var(--ease-out);
+  }
+  & .scene .mist {
+    animation: inst-hx-mist 34s ease-in-out infinite alternate;
+  }
+  & .scene .mist.m2 {
+    animation-duration: 46s;
+    animation-delay: -12s;
+  }
+  & .scene .mist.m3 {
+    animation-duration: 28s;
+    animation-delay: -6s;
+  }
+  & .scene .aur {
+    opacity: 0.9;
+    transform-box: view-box;
+    transform-origin: 720px 240px;
+    animation: inst-hx-aur 16s ease-in-out infinite alternate;
+  }
+  & .scene .aur.a2 {
+    animation-duration: 22s;
+    animation-delay: -7s;
+    opacity: 0.6;
+  }
+  & .scene .mws {
+    fill: var(--hx-white);
+    opacity: 0;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .mws {
+    opacity: 1;
+  }
+  & .scene .vl {
+    fill: var(--hx-lamp);
+    opacity: 0;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .vl {
+    opacity: 1;
+  }
+  /* Twinkling (report 11.11.2026): the lights twinkle as 3 groups per kind (`twinkle.ts`), one
+     opacity animation per group instead of one per light; the group carries the light's opacity
+     (with reduced motion it stays there), the circles only fade in at night. Phase shift between
+     the groups instead of the old per-light delay. */
+  & .scene .tw-star {
+    --tw-dur: 3.2s;
+    opacity: 0.8;
+  }
+  & .scene .tw-mws {
+    --tw-dur: 4s;
+    opacity: 0.55;
+  }
+  & .scene .tw-vl {
+    --tw-dur: 3.6s;
+    opacity: 0.85;
+  }
+  & .scene.night .twg {
+    animation: inst-hx-tw var(--tw-dur) ease-in-out infinite alternate;
+  }
+  & .scene.night .tw2 {
+    animation-delay: calc(var(--tw-dur) * -0.67);
+  }
+  & .scene.night .tw3 {
+    animation-delay: calc(var(--tw-dur) * -1.33);
+  }
+  & .scene .moonh {
+    fill: var(--hx-moon-halo);
+    opacity: 0;
+    transition: opacity var(--hx-t) var(--ease-out);
+  }
+  & .scene.night .moonh {
+    opacity: 0.12;
+  }
+  & .scene .rays {
+    opacity: 1;
+    transform-box: view-box;
+    transform-origin: 830px 150px;
+    animation: inst-hx-rays 24s ease-in-out infinite alternate;
+  }
+  & .scene.night .rays,
+  & .scene.winter .rays {
+    opacity: 0;
+  }
+  & .scene .shoot {
+    opacity: 0;
+  }
+  & .scene.night .shoot {
+    animation: inst-hx-shoot 12s linear infinite;
+    animation-delay: 3s;
+  }
+  & .scene .shl {
+    fill: none;
+    stroke: var(--hx-white);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-dasharray: 120;
+    opacity: 0.9;
+  }
+  & .scene .smk {
+    fill: var(--hx-smoke);
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-hx-smoke 4.5s ease-out infinite;
+  }
+  & .scene .sm2 {
+    animation-delay: 1.5s;
+  }
+  & .scene .sm3 {
+    animation-delay: 3s;
+  }
+  & .scene .zone {
+    fill: none;
+    stroke: var(--hx-zone) !important;
+    stroke-width: 1.6 !important;
+    stroke-dasharray: 6 5;
+  }
+  & .scene .zone.arm {
+    stroke: var(--hx-amber) !important;
+    animation: inst-hx-march 1s linear infinite;
+  }
+  & .scene .cone {
+    fill: var(--hx-accent);
+    fill-opacity: 0.2;
+    stroke: var(--hx-accent) !important;
+    stroke-opacity: 0.6;
+    stroke-width: 0.8 !important;
+    /* RUNDA-V5 §1.5: the beam grows from its camera (--ox/--oy, `beam.ts`), then breathes. */
+    animation:
+      inst-hx-beam 0.52s var(--ease-out) both,
+      inst-hx-cone 3s ease-in-out 0.52s infinite;
+  }
+  & .scene .cone.ir {
+    fill: var(--hx-cone-ir);
+    fill-opacity: 0.16;
+  }
+  & .scene .cov {
+    fill: var(--hx-accent);
+    fill-opacity: 0.07;
+    stroke: none;
+  }
+  & .scene .ring {
+    fill: none;
+    stroke: var(--hx-accent);
+    stroke-width: 1.5;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-hx-ring 2.7s ease-out infinite;
+  }
+  & .scene .ring.r2 {
+    animation-delay: 0.9s;
+  }
+  & .scene .ring.r3 {
+    animation-delay: 1.8s;
+  }
+  & .scene .arc {
+    fill: none;
+    stroke: var(--hx-accent);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    opacity: 0;
+    animation: inst-hx-arc 1.8s ease-out infinite;
+  }
+  & .scene .arc.a2 {
+    animation-delay: 0.3s;
+  }
+  & .scene .arc.a3 {
+    animation-delay: 0.6s;
+  }
+  & .scene .scrn {
+    fill: var(--hx-screen);
+    stroke: var(--hx-accent) !important;
+    stroke-width: 1 !important;
+  }
+  & .scene .scrc {
+    fill: var(--hx-screen-1);
+    opacity: 0.85;
+    transition: opacity 0.5s;
+  }
+  & .scene .scrc.s1 {
+    fill: var(--hx-screen-2);
+  }
+  & .scene .scrc.s2 {
+    fill: var(--hx-screen-3);
+  }
+  & .scene .dv {
+    animation: inst-hx-pop 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  & .scene .dvb {
+    fill: var(--hx-device);
+    stroke: var(--hx-accent);
+    stroke-width: 1.6;
+  }
+  & .scene .dvi {
+    fill: none;
+    stroke: var(--hx-device-icon);
+    stroke-width: 3.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .scene .dvp {
+    fill: none;
+    stroke: var(--hx-accent);
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-hx-dvp 2.4s ease-out infinite;
+  }
+  & .scene .dv.arm .dvb,
+  & .scene .dv.arm .dvp {
+    stroke: var(--hx-amber);
+  }
+  & .scene .dv.arm .dvi {
+    stroke: var(--hx-amber-2);
+  }
+  & .scene .ttag rect {
+    fill: var(--hx-device);
+    stroke: var(--hx-amber);
+    stroke-width: 1;
+  }
+  & .scene .fo {
+    overflow: visible;
+  }
+  /* Scene labels („Osoba 97%”, „21°”): one size and one capsule (RUNDA-V5 §1.3). */
+  & .scene .hxlab {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(11px, 0.8vw, 13px);
+    text-anchor: middle;
+  }
+  & .scene .ttag2 {
+    fill: var(--hx-amber-2);
+  }
+  /* Start position also without the animation (reduced motion): the building scene is cropped,
+     so (0, 0) would be outside it. */
+  & .scene .walker,
+  & .pip .walker {
+    transform: translate(var(--x0), var(--y0));
+    animation: inst-hx-walk 14s ease-in-out infinite;
+  }
+  & .scene .wkb {
+    fill: var(--hx-walker-body);
+  }
+  & .scene .wkh {
+    fill: var(--hx-walker-head);
+  }
+  & .scene .wks {
+    fill: var(--hx-walker-shadow);
+  }
+  & .scene .detb {
+    fill: none;
+    stroke: var(--hx-detect);
+    stroke-width: 1.4;
+  }
+  & .scene .detl {
+    fill: var(--hx-detect);
+  }
+  & .scene .dett {
+    fill: var(--hx-detect-ink);
+  }
+}
+
+/* Short windows (RUNDA-V5 §1.6: 1366 × 768, 1536 × 864): a tighter text column. */
+@media (min-width: 1024px) and (max-height: 880px) {
+  [data-line='instalacje'] {
+    & .hxt {
+      gap: 14px;
+      padding-top: 0;
+    }
+    & .hxs {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    & .hxt .lead {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    & .htrust {
+      font-size: 13px;
+    }
+  }
+}
+
+/* No room for the camera preview (RUNDA-V5 §1.3): it opens from a camera point; the building
+   takes the free width. 1024–1279 px: object tabs as icons (names stay for screen readers). */
+@media (min-width: 1024px) and (max-width: 1279px), (min-width: 1024px) and (max-height: 809px) {
+  [data-line='instalacje'] {
+    & .hxstage {
+      right: 48px;
+    }
+    & .pip:not(.open) {
+      display: none;
+    }
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  [data-line='instalacje'] {
+    & .hx {
+      --hx-dock-room: 170px;
+    }
+    & .hotab {
+      padding: 0 13px;
+    }
+    & .hotl {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    /* Dock in two rows: the chips scroll sideways, „Zaplanuj taki zestaw” below them on the right. */
+    & .hxchips {
+      flex-wrap: wrap;
+    }
+    & .hxcrow {
+      flex-basis: 100%;
+    }
+  }
+}
+
+/* Below 1024 px: the phone and tablet layout as before v5 — scene on top, then the text, the
+   tabs, the camera, the „Na żywo” card and the chips (RUNDA-V5 §1.4). */
+@media (max-width: 1023px) {
+  [data-line='instalacje'] {
+    /* The text column has no sky behind it below 1024 px: the background follows the time of
+       day like the text colour (was only ≤ 760 px — on a tablet night text sat on the light page,
+       1.1:1). */
+    & .hx {
+      min-block-size: 0;
+      background: var(--hx-phone-bg);
+    }
+    /* On the light phone background (day, winter) the 50–55% glass of the pill and the ghost
+       button left white text at 3.4–4.0:1 — the denser glass of the hero cards (P1-4). */
+    & .hpill,
+    & .hx .hbtn-g {
+      background: var(--hx-glass);
+    }
+    /* Not `display: none`: the building scene draws this backdrop through <use>, and gradients
+       inside a hidden SVG do not paint. */
+    & .hxsvg {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    /* Here the building scene holds the backdrop (`LiveObjectHero`); it stands at rest — the
+       reduced-motion look — as it always did on a phone: its loops in the scene would cost ~20 %
+       CPU with the hero in view (report 11.11.2026, part 2). */
+    & .hxbld #hx-bd *,
+    & .hxbld #hx-bd *::before,
+    & .hxbld #hx-bd *::after {
+      animation: none !important;
+    }
+    & .hxin {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      padding-bottom: 40px;
+    }
+    & .hxt {
+      width: auto;
+      max-width: 640px;
+    }
+    & .hxt h1 {
+      font-size: clamp(50px, 5.3vw, 78px);
+    }
+    & .hxbar {
+      position: relative;
+      right: auto;
+      top: auto;
+      align-items: flex-start;
+      margin-top: 24px;
+    }
+    /* The cropped scene keeps its height (viewBox 650 × 600) before the client draws it. */
+    & .hxstage {
+      position: relative;
+      order: -1;
+      inset: auto;
+      aspect-ratio: 650 / 600;
+      margin: -14px -48px 32px;
+    }
+    & .hxbld {
+      overflow: hidden;
+    }
+    & .hxstat {
+      display: flex;
+      margin-top: 16px;
+    }
+    & .hxdock {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 22px;
+    }
+    & .hxdst {
+      display: none;
+    }
+    & .hxchips,
+    & .hxcrow {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+    & .hxcrow {
+      gap: 8px;
+    }
+    & .hchip {
+      font-size: 13.5px;
+      padding: 0 13px 0 11px;
+    }
+    & .hchipx .hall {
+      display: inline-block;
+    }
+    & .hcl {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+    }
+    & .hcs {
+      display: none;
+    }
+    & .pip {
+      position: relative;
+      right: auto;
+      top: auto;
+      width: auto;
+      margin-top: 16px;
+    }
+  }
+}
+
+/* Tablet portrait (audit 09.11): the full-width scene on top pushed the H1 and „Zaplanuj
+   instalację” below the first screen of an iPad. Text first, as on the phone, and the scene under
+   the object tabs in a box capped at ~45% of the screen (cropped with `slice`). */
+@media (min-width: 761px) and (max-width: 1023px) {
+  [data-line='instalacje'] {
+    & .hxstage {
+      order: 0;
+      aspect-ratio: auto;
+      block-size: min(45vh, 520px);
+      margin: 20px -48px 8px;
+    }
+    & .hxstage .hxbld {
+      position: absolute;
+      inset: 0;
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .hxstage {
+      margin: -2px -16px 20px;
+    }
+    & .hxin {
+      padding: 20px 16px 32px;
+    }
+    & .hxt {
+      gap: 16px;
+      padding-top: 4px;
+    }
+    /* „inteligentny” (~6.4 em) fits 360 px. */
+    & .hxt h1 {
+      font-size: clamp(40px, 12.4vw, 52px);
+    }
+    & .hxs {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    & .hxt .lead {
+      font-size: 16.5px;
+    }
+    & .hxt .btn {
+      width: 100%;
+    }
+    & .htrust {
+      font-size: 13px;
+      gap: 8px 14px;
+    }
+    & .hotabs {
+      overflow-x: auto;
+      max-width: 100%;
+      scrollbar-width: none;
+    }
+    & .hotabs::-webkit-scrollbar {
+      display: none;
+    }
+    & .hxbar {
+      width: 100%;
+    }
+    & .hmodes {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    /* The pause button next to the times of day: icon only, the name stays for screen readers. */
+    & .hmrow {
+      width: 100%;
+    }
+    & .hmrow .hmodes {
+      flex: 1;
+      min-width: 0;
+      width: auto;
+    }
+    & .hxpause {
+      padding: 0;
+      width: 54px;
+    }
+    & .hxpause .hxpl {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    & .hmode {
+      flex: 1;
+      justify-content: center;
+    }
+    & .hxl {
+      grid-template-columns: 1fr;
+    }
+    & .hchip {
+      font-size: 13px;
+    }
+    & .hchipx {
+      margin-left: 0;
+      width: 100%;
+    }
+    /* P2-12 (audit 06.11): the first screen is the H1, the lead and the buttons; the scene comes
+       under the object tabs, the chips scroll in one row and the camera preview stays for wider
+       screens (the dock's status line reads the state). The hero is ~1.65 screens instead of 2.5. */
+    & .hxstage {
+      order: 0;
+      aspect-ratio: 650 / 520;
+      margin: 4px -16px 12px;
+    }
+    /* The scene fills the shorter box and is cropped (`slice`), not sized by its viewBox. */
+    & .hxstage .hxbld {
+      position: absolute;
+      inset: 0;
+    }
+    & .pip,
+    & .hxstat {
+      display: none;
+    }
+    /* The one-line status of the dock instead of the „Na żywo” card. */
+    & .hxdock .hxdst {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+    /* Audit 10.11: the layer list was cut after one line („· Tryb…”). Two lines, always taking
+       their room, so the dock does not jump while the autoplay changes the text. */
+    & .hxdock .hxdtx {
+      flex: 1 0 100%;
+      /* After the „+N” of more layers, which stays in the first line (no third line, no jump). */
+      order: 1;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      white-space: normal;
+      min-height: 44px;
+    }
+    & .hxchips {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    & .hxcrow {
+      min-width: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      margin: 0 -10px;
+      padding: 0 10px 2px;
+    }
+    & .hxcrow::-webkit-scrollbar {
+      display: none;
+    }
+    & .hxcrow .hchip {
+      flex: none;
+      scroll-snap-align: start;
+    }
+  }
+}
+
+/* Entrance and object change (RUNDA-V5 §1.5): text in 60 ms steps, the scene fades and grows
+   from .98, its points pop one by one (40 ms), the dock rises 12 px. A new object fades in. */
+[data-line='instalacje'] {
+  & .hxt .in.d1 {
+    animation-delay: 0s;
+  }
+  & .hxt .in.d2 {
+    animation-delay: 0.06s;
+  }
+  & .hxt .in.d3 {
+    animation-delay: 0.12s;
+  }
+  & .hxt .in.d4 {
+    animation-delay: 0.18s;
+  }
+  & .hxt .in.d5 {
+    animation-delay: 0.24s;
+  }
+  & .hxbld {
+    animation: inst-hx-enter var(--dur-enter) var(--ease-out) both;
+    transform-origin: 70% 80%;
+  }
+  & .hxobj {
+    animation: inst-hx-swap 0.3s var(--ease-out);
+  }
+  /* `scale`, not `transform`: the point's position is its `transform` attribute. */
+  & .hxbld .dv {
+    animation: inst-hx-dvin 0.36s var(--ease-spring) both;
+    animation-delay: calc(0.3s + var(--i, 0) * 40ms);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  & .hxdock.in {
+    animation-name: inst-hx-dock;
+  }
+  & .scene stop {
+    transition: stop-color var(--hx-t) var(--ease-out);
+  }
+}
+
+@media (hover: hover) {
+  [data-line='instalacje'] {
+    & .hx .hbtn-g:hover {
+      box-shadow: inset 0 0 0 1.5px var(--hx-accent);
+    }
+    & .hx .hbtn-p:hover {
+      transform: translateY(-2px);
+    }
+    & .hotab:not(.on):hover {
+      color: var(--hx-tab-hover-ink);
+      background: var(--hx-tab-hover-bg);
+    }
+    & .hchip:hover {
+      box-shadow: inset 0 0 0 1.5px var(--hx-accent);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .hx *,
+    & .hx *::before,
+    & .hx *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    & .scene.winter .flk,
+    & .scene .smk {
+      opacity: 0 !important;
+    }
+    & .hoprog {
+      display: none;
+    }
+  }
+}
+
+@keyframes inst-hx-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-hx-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-hx-swap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes inst-hx-dock {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes inst-hx-dvin {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes inst-hx-draw {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes inst-hx-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.15;
+  }
+}
+@keyframes inst-hx-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes inst-hx-drift {
+  from {
+    transform: translateX(-60px);
+  }
+  to {
+    transform: translateX(60px);
+  }
+}
+@keyframes inst-hx-smoke {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(14px, -46px) scale(1.8);
+  }
+}
+@keyframes inst-hx-tw {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+@keyframes inst-hx-mist {
+  from {
+    transform: translateX(-70px);
+  }
+  to {
+    transform: translateX(70px);
+  }
+}
+@keyframes inst-hx-aur {
+  from {
+    transform: translateX(-50px) scaleY(0.85);
+  }
+  to {
+    transform: translateX(50px) scaleY(1.15);
+  }
+}
+@keyframes inst-hx-rays {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+@keyframes inst-hx-shoot {
+  0% {
+    opacity: 0;
+    transform: translate(1180px, 30px) rotate(160deg);
+  }
+  1% {
+    opacity: 1;
+  }
+  7% {
+    opacity: 0;
+    transform: translate(780px, 170px) rotate(160deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(780px, 170px) rotate(160deg);
+  }
+}
+@keyframes inst-hx-fall {
+  from {
+    transform: translate(0, -40px);
+  }
+  to {
+    transform: translate(-30px, 900px);
+  }
+}
+@keyframes inst-hx-march {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+@keyframes inst-hx-beam {
+  from {
+    opacity: 0;
+    clip-path: circle(0 at var(--ox, 50%) var(--oy, 0));
+  }
+  to {
+    opacity: 1;
+    clip-path: circle(150% at var(--ox, 50%) var(--oy, 0));
+  }
+}
+@keyframes inst-hx-cone {
+  0%,
+  100% {
+    fill-opacity: 0.12;
+  }
+  50% {
+    fill-opacity: 0.26;
+  }
+}
+@keyframes inst-hx-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes inst-hx-arc {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes inst-hx-dvp {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+@keyframes inst-hx-walk {
+  0%,
+  8% {
+    transform: translate(var(--x0), var(--y0));
+  }
+  46%,
+  54% {
+    transform: translate(var(--x1), var(--y1));
+  }
+  92%,
+  100% {
+    transform: translate(var(--x0), var(--y0));
+  }
+}
+@keyframes inst-hx-pipsw {
+  from {
+    transform: translateY(-24px);
+  }
+  to {
+    transform: translateY(168px);
+  }
+}
+
+/* Low phone screens (audit 10.11: iPhone SE 1st gen 320×568 had „Zaplanuj instalację” under the
+   bottom bar): a smaller H1 (4 lines instead of 6 at 320 px), the kicker in one line and tighter
+   gaps, so the first screen ends with the buttons as on taller phones. */
+@media (max-width: 767px) and (max-height: 700px) {
+  [data-line='instalacje'] {
+    & .hxt {
+      gap: 10px;
+    }
+    & .hxt h1 {
+      font-size: clamp(30px, 9.4vw, 40px);
+    }
+    & .hxs {
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+/* --- Hero motion, premium pass (15.11, after the pro-kom.eu hub H10) ----------------------------
+   The live scene stays the star (RUNDA-V5 §0: transform, opacity, filter only; reduced motion =
+   nothing moves): the mouse lights the glass panel under it and its 1 px rim in the scene's
+   accent, and moves the building a few pixels against the sky (`followPointer` in
+   `LiveObjectHero`); a new object comes in out of a blur, the chosen tab gets one sheen, a layer
+   turning on sends one ring. The heavier parts (blur, depth) only from 1024 px, where the scene
+   loops anyway; the phone keeps its resting scene (report 11.11, part 2) and its H1 (LCP). */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* The tabs and the times already stand relative (`ruch.css`). */
+    & .hxpause {
+      position: relative;
+    }
+    & .hx .glass {
+      isolation: isolate;
+    }
+    & .hx .glass::before,
+    & .hx .glass::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease-out);
+    }
+    & .hx .glass::before {
+      z-index: -1;
+      background: radial-gradient(
+        240px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--hx-accent-tint),
+        transparent 65%
+      );
+    }
+    & .hx .glass::after {
+      z-index: 4;
+      padding: 1px;
+      background: radial-gradient(
+        180px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--hx-accent-2),
+        transparent 70%
+      );
+      -webkit-mask:
+        linear-gradient(var(--hx-accent) 0 0) content-box,
+        linear-gradient(var(--hx-accent) 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(var(--hx-accent) 0 0) content-box exclude,
+        linear-gradient(var(--hx-accent) 0 0);
+    }
+    & .hx .glass:hover::before,
+    & .hx .glass:hover::after {
+      opacity: 1;
+    }
+    /* Depth: the building drifts against the cursor, the sky stays (a pause stops it too). */
+    & .hxstage {
+      translate: calc(var(--px, 0) * -10px) calc(var(--py, 0) * -6px);
+      transition: translate 0.9s var(--ease-out);
+    }
+    & .hx.still .hxstage {
+      translate: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* The chosen object tab: one band of light across it (also on each step of the autoplay). */
+    & .hotab {
+      overflow: hidden;
+    }
+    & .hotab.on::after {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 45%;
+      background: linear-gradient(100deg, transparent, var(--hx-accent-glow), transparent);
+      content: '';
+      pointer-events: none;
+      transform: translateX(-120%) skewX(-18deg);
+      animation: inst-hx-sheen 0.9s var(--ease-out) 0.1s;
+    }
+    /* A layer turning on: one ring opens around its chip. */
+    & .hchip {
+      position: relative;
+    }
+    & .hchip.on::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: 0 0 0 2px var(--hx-accent);
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      animation: inst-hx-ping 0.9s var(--ease-out);
+    }
+  }
+}
+/* The visitor's pause (`.hx.still` pauses every animation): what comes in while paused shows
+   at once instead of standing on its first frame (invisible object, a ring left on a chip). */
+[data-line='instalacje'] {
+  & .hx.still :is(.hxobj, .hxdtx, .hxli, .pip, .hchk path),
+  & .hx.still .hotab.on::after,
+  & .hx.still .hchip.on::after {
+    animation: none !important;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* A new object (or the first one) comes in out of a soft blur, from just below its place. */
+    & .hxobj {
+      animation: inst-hx-swap-blur 0.55s var(--ease-out);
+    }
+    /* The dock's status line: the new text rises out of a blur. */
+    & .hxdock .hxdtx {
+      animation: inst-hx-rise-blur 0.45s var(--ease-out);
+    }
+  }
+}
+
+@keyframes inst-hx-sheen {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(300%) skewX(-18deg);
+  }
+}
+@keyframes inst-hx-ping {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1, 1.12);
+  }
+}
+@keyframes inst-hx-swap-blur {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+@keyframes inst-hx-rise-blur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,475 @@
+'use client'
+
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+
+import { cx } from '@/components/ui/cx'
+import { Icon } from '@/components/ui/Icon'
+import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
+import {
+  activeFilters,
+  CATALOG_PAGE_SIZE,
+  CATALOG_PAGE_SIZE_PHONE,
+  catalogHref,
+  clearFilters,
+  parseCatalogState,
+  runCatalog,
+  SORTS,
+  updateState,
+  type CatalogState,
+} from '@/lib/catalog/filters'
+import { emptySuggestions } from '@/lib/catalog/listing'
+import { primeCatalogIndex } from '@/lib/catalog/useCatalogIndex'
+import { plural } from '@/lib/plural'
+import { prepareSearch } from '@/lib/search'
+
+import { QuickView } from '../QuickView'
+import { SearchIcon } from '../SearchIcon'
+import { CatalogFilters } from './CatalogFilters'
+import { EmptyResult } from './EmptyResult'
+import { FilterSheet } from './FilterSheet'
+import { FIRST_ROW, ProductCard } from './ProductCard'
+import { usePhone } from '../mobile/usePhone'
+
+/** The URL follows the search box after a short pause, not on every key. */
+const QUERY_DELAY_MS = 300
+
+const positions = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozycji'])}`
+
+/**
+ * The catalog island (spec. §5, §8.3): search box, group tiles, filters, results. The view is
+ * read from the URL only; every change writes the URL (`history.pushState`, which the Next
+ * router follows), so Back, a refresh and a shared link show the same list. The server renders
+ * the first view from the same URL and the same index.
+ */
+export function Catalog({ index }: { index: CatalogIndex }) {
+  const searchParams = useSearchParams()
+  const state = useMemo(() => parseCatalogState(searchParams, index), [searchParams, index])
+  const search = useMemo(() => prepareSearch(index), [index])
+  // A layout effect runs before the header's effects: the search and the drawer reuse this
+  // index instead of fetching it. Not in render — that also runs on the server.
+  useLayoutEffect(() => primeCatalogIndex(index), [index])
+
+  // The box shows what is typed at once; the URL catches up after a pause.
+  const [draft, setDraft] = useState(state.query)
+  const [syncedQuery, setSyncedQuery] = useState(state.query)
+  /** The phrase the box last wrote to the URL. */
+  const [written, setWritten] = useState<string | null>(null)
+  /** Quick preview of the grid (board „Podgląd”): position in `visible`, `null` = closed. */
+  const [preview, setPreview] = useState<number | null>(null)
+  if (syncedQuery !== state.query) {
+    // The URL changed elsewhere (chip ×, Back): the box follows it — but not when the URL only
+    // caught up with the box, or what was typed meanwhile (a space, a letter) would vanish.
+    setSyncedQuery(state.query)
+    if (state.query !== written) setDraft(state.query)
+  }
+  const typing = draft.trim() !== state.query
+  const view = useMemo(
+    () => (typing ? updateState(state, { query: draft.trim() }) : state),
+    [typing, state, draft],
+  )
+  // Rows of 3 at every width (the server's order): re-ordering after hydration on a phone moved
+  // every card (layout shift) — the 2-column grid there keeps the departments in turns of 3.
+  // A page is 24 cards, 10 on a phone (board App-Kategoria). The address keeps the page number,
+  // so `?strona=3` is 30 cards on a phone and 72 elsewhere; crawlers and the canonical count 24.
+  const pageSize = usePhone() ? CATALOG_PAGE_SIZE_PHONE : CATALOG_PAGE_SIZE
+  const { results, visible, facets } = useMemo(
+    () => runCatalog(index, search, view, { pageSize }),
+    [index, search, view, pageSize],
+  )
+  const chips = activeFilters(view, index)
+
+  const countRef = useRef<HTMLParagraphElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+  const focusCard = useRef<number | null>(null)
+  const sheetTitle = useRef<HTMLSpanElement>(null)
+
+  const write = (next: CatalogState, mode: 'push' | 'replace' = 'push') => {
+    const href = catalogHref(next)
+    if (mode === 'push') window.history.pushState(null, '', href)
+    else window.history.replaceState(null, '', href)
+  }
+  const change = (patch: Partial<CatalogState>) => write(updateState(view, patch))
+
+  useEffect(() => {
+    if (!typing) return
+    const timer = window.setTimeout(() => {
+      setWritten(view.query)
+      write(view, 'replace')
+    }, QUERY_DELAY_MS)
+    return () => window.clearTimeout(timer)
+  })
+
+  // After „Pokaż kolejne”: focus the first new card, so the keyboard continues there.
+  useEffect(() => {
+    if (focusCard.current === null) return
+    const card = listRef.current?.querySelector<HTMLAnchorElement>(
+      `[data-card-index="${focusCard.current}"] h3 a`,
+    )
+    focusCard.current = null
+    card?.focus()
+  }, [visible.length])
+
+  /** A chip or „Wyczyść” removes the focused button: focus goes to the result count. */
+  const changeAndFocusCount = (next: CatalogState) => {
+    write(next)
+    setDraft(next.query)
+    countRef.current?.focus()
+  }
+
+  const activeCount = chips.filter((chip) => chip.key !== 'query').length
+  /**
+   * „Wyczyść (N)” disappears with the filters it cleared. In the sheet focus goes to its
+   * title — the count is outside the modal, where focus cannot go.
+   */
+  const clearPanel = (inSheet: boolean) => {
+    const next = clearFilters(view, { keepQuery: true })
+    if (!inSheet) return changeAndFocusCount(next)
+    write(next)
+    sheetTitle.current?.focus()
+  }
+  const filters = (inSheet: boolean) => (
+    <CatalogFilters
+      index={index}
+      state={view}
+      facets={facets}
+      onChange={change}
+      onClear={() => clearPanel(inSheet)}
+      activeCount={activeCount}
+      heading={!inSheet}
+    />
+  )
+  const list = view.view === 'list'
+
+  const more = results.length - visible.length
+  const next = updateState(view, { page: view.page + 1 })
+
+  return (
+    <>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <form
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault()
+            write(view, 'replace')
+          }}
+        >
+          <label htmlFor="catalog-search" className="sr-only">
+            Szukaj w katalogu
+          </label>
+          <div className="relative">
+            <span className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-accent-text">
+              <SearchIcon size={24} />
+            </span>
+            <input
+              id="catalog-search"
+              type="search"
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt"
+              autoComplete="off"
+              enterKeyHint="search"
+              className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 max-md:h-[52px] max-md:text-[15px] md:h-[66px] md:text-lg"
+            />
+          </div>
+        </form>
+        {index.search.popular.length > 0 && (
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-sm font-bold text-ink-3 [scrollbar-width:none] max-md:-mx-4 max-md:flex-nowrap max-md:overflow-x-auto max-md:px-4">
+            <span className="shrink-0">Popularne:</span>
+            {index.search.popular.map((phrase) => (
+              <button
+                key={phrase}
+                type="button"
+                onClick={() => {
+                  setDraft(phrase)
+                  change({ query: phrase })
+                }}
+                className="min-h-9 shrink-0 whitespace-nowrap rounded-full max-md:min-h-11 bg-surface-2 px-3.5 text-[0.85rem] font-bold text-ink hover:bg-surface-3"
+              >
+                {phrase}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <ul className="-mx-4 mt-6 flex snap-x scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6">
+          {[
+            { slug: null, name: 'Wszystkie działy', count: facets.groups.all ?? 0, group: null },
+            ...index.groups.map((group) => ({
+              slug: group.slug,
+              name: group.name,
+              count: facets.groups[group.slug] ?? 0,
+              group,
+            })),
+          ].map((tile) => {
+            const on = view.group === tile.slug
+            return (
+              <li key={tile.name} className="w-[136px] shrink-0 snap-start sm:w-auto">
+                <button
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() =>
+                    change({ group: on || tile.slug === null ? null : tile.slug, categories: [] })
+                  }
+                  className={cx(
+                    'flex h-full w-full flex-col items-start gap-2.5 rounded-[20px] bg-card p-3.5 text-left transition-shadow',
+                    on
+                      ? 'shadow-[inset_0_0_0_2px_var(--accent-text),0_18px_36px_-22px_var(--glow)]'
+                      : 'shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--border-input)]',
+                  )}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={cx(
+                      'flex size-10 items-center justify-center rounded-xl text-white',
+                      !tile.group && 'bg-surface-dark',
+                    )}
+                    style={
+                      tile.group
+                        ? {
+                            backgroundImage: `linear-gradient(145deg, ${tile.group.gradient[0]}, ${tile.group.gradient[1]})`,
+                          }
+                        : undefined
+                    }
+                  >
+                    {tile.group ? (
+                      <Icon name={tile.group.icon} className="size-5" strokeWidth={2} />
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                        <path
+                          d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </span>
+                  <span className="text-[0.92rem] font-bold leading-tight text-ink">
+                    {tile.name}
+                  </span>
+                  <span className="text-xs font-extrabold text-ink-3">{positions(tile.count)}</span>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+
+      <div className="mx-auto grid w-full max-w-7xl items-start gap-7 px-4 pb-16 pt-6 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
+        <FilterSheet activeCount={activeCount} resultCount={results.length} titleRef={sheetTitle}>
+          {filters(true)}
+        </FilterSheet>
+        <aside
+          aria-label="Filtry katalogu"
+          className="hidden lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-110px)] lg:overflow-y-auto lg:pr-1.5"
+        >
+          {filters(false)}
+        </aside>
+
+        <section aria-labelledby="catalog-results" className="min-w-0">
+          <h2 id="catalog-results" className="sr-only">
+            Produkty i usługi
+          </h2>
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div className="flex flex-col gap-2">
+              <p
+                ref={countRef}
+                tabIndex={-1}
+                aria-live="polite"
+                className="text-[0.95rem] text-ink-2 outline-none"
+              >
+                <b className="mr-1 font-display text-[1.375rem] text-ink">{results.length}</b>{' '}
+                {plural(results.length, ['pozycja', 'pozycje', 'pozycji'])}
+                {view.query && <span className="ml-1.5">dla „{view.query}”</span>}
+              </p>
+              {chips.length > 0 && (
+                <ul className="flex flex-wrap items-center gap-1.5">
+                  {chips.map((chip) => (
+                    <li key={chip.key}>
+                      <button
+                        type="button"
+                        onClick={() => changeAndFocusCount(updateState(view, chip.remove))}
+                        className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-accent-text py-1.5 pl-3 pr-2.5 text-[0.82rem] font-extrabold text-accent-ink"
+                      >
+                        {chip.label}
+                        <span className="sr-only">— usuń filtr</span>
+                        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                          <path
+                            d="M6 6l12 12M18 6L6 18"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2.8"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </button>
+                    </li>
+                  ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => changeAndFocusCount(clearFilters(view))}
+                      className="min-h-9 px-2 text-[0.82rem] font-extrabold text-ink-2 underline hover:text-ink"
+                    >
+                      Wyczyść wszystko
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
+            <label className="ml-auto inline-flex min-h-10 items-center gap-2 rounded-[13px] bg-surface-2 pl-3 pr-1 text-[0.82rem] font-bold text-ink-2">
+              Sortuj:
+              <select
+                value={view.sort}
+                onChange={(event) =>
+                  change({ sort: SORTS.find((s) => s.value === event.target.value)!.value })
+                }
+                className="min-h-9 rounded-[10px] bg-card px-2 font-extrabold text-ink shadow-sm"
+              >
+                {SORTS.map((sort) => (
+                  <option key={sort.value} value={sort.value}>
+                    {/* With a phrase „Polecane” keeps the search's order (K33 §4). */}
+                    {sort.value === 'popular' && view.query ? 'Najtrafniejsze' : sort.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div
+              role="group"
+              aria-label="Widok"
+              className="hidden gap-0.5 rounded-[13px] bg-surface-2 p-1 sm:inline-flex"
+            >
+              {(
+                [
+                  {
+                    value: 'grid',
+                    label: 'Siatka',
+                    icon: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+                  },
+                  { value: 'list', label: 'Lista', icon: 'M4 5h16v5H4zM4 14h16v5H4z' },
+                ] as const
+              ).map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  aria-pressed={view.view === option.value}
+                  aria-label={option.label}
+                  onClick={() => change({ view: option.value })}
+                  className={cx(
+                    'inline-flex min-h-9 min-w-10 items-center justify-center rounded-[10px]',
+                    view.view === option.value
+                      ? 'bg-card text-ink shadow-sm'
+                      : 'text-ink-2 hover:text-ink',
+                  )}
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <path
+                      d={option.icon}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {results.length === 0 ? (
+            <EmptyResult
+              query={view.query}
+              suggestions={emptySuggestions(index, search, view.query)}
+              index={index}
+              onClear={() => changeAndFocusCount(clearFilters(view))}
+            />
+          ) : (
+            <ul
+              ref={listRef}
+              data-catalog-grid
+              className={cx(
+                'grid gap-2.5 sm:gap-3.5',
+                // 3 per row above 1100 px, 2 below (K36 §10).
+                list ? 'grid-cols-1' : 'grid-cols-2 min-[1101px]:grid-cols-3',
+              )}
+            >
+              {visible.map((product, position) => (
+                <li key={product.slug} className="flex">
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    position={position}
+                    layout={view.view}
+                    onPreview={() => setPreview(position)}
+                    // The first card is the largest paint of `/oferta` (Lighthouse LCP, ADR-025).
+                    picture={position === 0 ? 'priority' : position < FIRST_ROW ? 'eager' : 'lazy'}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+          <QuickView products={visible} current={preview} index={index} onMove={setPreview} />
+
+          {more > 0 && (
+            <div className="mt-6 flex flex-col items-center gap-2.5">
+              <p className="text-sm font-bold text-ink-3">
+                Widzisz {visible.length} z {results.length}
+              </p>
+              <span
+                aria-hidden="true"
+                className="h-[5px] w-60 overflow-hidden rounded-full bg-surface-2"
+              >
+                <span
+                  className="block h-full rounded-full bg-accent-text"
+                  style={{ width: `${Math.round((visible.length / results.length) * 100)}%` }}
+                />
+              </span>
+              {/* A real link (`?strona=N`) for crawlers and without JavaScript (spec. §5.3). */}
+              <a
+                href={catalogHref(next)}
+                onClick={(event) => {
+                  // Ctrl/⌘/Shift-click and the middle button keep the browser's new tab.
+                  if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) {
+                    return
+                  }
+                  event.preventDefault()
+                  focusCard.current = visible.length
+                  write(next, 'replace')
+                }}
+                className="inline-flex min-h-[50px] items-center gap-2 rounded-xl border-2 border-border-input px-6 font-bold text-ink hover:bg-surface-2"
+              >
+                Pokaż kolejne
+                <span className="text-sm font-extrabold text-ink-3">
+                  {Math.min(more, pageSize)}
+                </span>
+              </a>
+            </div>
+          )}
+
+          <div className="mt-8 flex flex-col gap-4 rounded-[22px] bg-surface-2 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div>
+              <p className="font-display text-lg font-extrabold text-ink">
+                Nie widzisz tego, czego szukasz?
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-2">
+                Dostarczamy też sprzęt i programy spoza listy. Sprawdzimy u dystrybutorów i
+                odezwiemy się z ofertą.
+              </p>
+            </div>
+            <Link
+              href={
+                view.query ? `/zapytanie?fraza=${encodeURIComponent(view.query)}` : '/zapytanie'
+              }
+              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-xl bg-accent-text px-5 font-bold text-accent-ink hover:bg-ink hover:text-surface"
+            >
+              Opisz, czego potrzebujesz
+            </Link>
+          </div>
+        </section>
+      </div>
+    </>
+  )
+}

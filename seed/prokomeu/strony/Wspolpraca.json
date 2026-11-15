@@ -1,0 +1,1666 @@
+{
+ "_zrodlo": "Wspolpraca.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "roles": [
+   {
+    "name": "Architekt",
+    "sub": "projekt budynku",
+    "c": "var(--k-i)",
+    "sel": "true",
+    "bd": "var(--k-i)",
+    "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+   },
+   {
+    "name": "Projektant wnętrz",
+    "sub": "wnętrza i wykończenie",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Deweloper",
+    "sub": "budynki i osiedla",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Wykonawca",
+    "sub": "generalny i branżowy",
+    "c": "var(--k-i)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Instytucja",
+    "sub": "szkoła, urząd, większy zakup",
+    "c": "var(--k-b)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Dostawca",
+    "sub": "producent, dystrybutor",
+    "c": "var(--k-g)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.12)",
+    "bg": "transparent"
+   }
+  ],
+  "role": {
+   "name": "Architekt",
+   "sub": "projekt budynku",
+   "L": [
+    "var(--k-i)",
+    "var(--k-it)",
+    "var(--k-id)"
+   ],
+   "phone": "889 003 889",
+   "lines": "PRO-KOM Instalacje",
+   "eb": "Dla architekta",
+   "h": "Instalacje zaplanowane w projekcie, a nie dorabiane na budowie.",
+   "start": "rzuty — nawet wstępne",
+   "items": [
+    {
+     "t": "Konsultacja na etapie projektu",
+     "d": "Mówimy, gdzie potrzebne są trasy kabli, puszki i szafa."
+    },
+    {
+     "t": "Punkty naniesione na rzuty",
+     "d": "Kamery, czujki, gniazda sieci, głośniki, panele sterowania."
+    },
+    {
+     "t": "Lista dla branżystów",
+     "d": "Co musi przygotować elektryk i wykonawca przed tynkami."
+    },
+    {
+     "t": "Jeden kontakt do końca budowy",
+     "d": "Ta sama ekipa projektuje, montuje i serwisuje."
+    }
+   ],
+   "formH": "Wyślij rzuty do konsultacji",
+   "linkL": "Link do rzutów",
+   "linkP": "np. link do pliku PDF albo DWG",
+   "descP": "Np. dom jednorodzinny 180 m², etap projektu budowlanego, inwestor chce monitoring i smart home",
+   "c": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "telHref": "tel:+48889003889",
+   "cls": "sw sb"
+  },
+  "stages": [
+   {
+    "n": "01",
+    "t": "Koncepcja",
+    "when": "najlepszy moment",
+    "sel": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))"
+   },
+   {
+    "n": "02",
+    "t": "Projekt",
+    "when": "jeszcze na papierze",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)"
+   },
+   {
+    "n": "03",
+    "t": "Przed tynkami",
+    "when": "ostatni dobry moment",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)"
+   },
+   {
+    "n": "04",
+    "t": "Wykończenie",
+    "when": "montaż urządzeń",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)"
+   },
+   {
+    "n": "05",
+    "t": "Odbiór i opieka",
+    "when": "po zakończeniu",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)"
+   }
+  ],
+  "stage": {
+   "t": "Koncepcja",
+   "lead": "Ustalamy, co ma działać w budynku i ile miejsca potrzebuje technika.",
+   "we": "Rozmawiamy o potrzebach inwestora i podpowiadamy, które instalacje warto przewidzieć od razu.",
+   "you": "Wstępne rzuty i krótki opis: dom, obiekt noclegowy, lokal czy budynek wielorodzinny.",
+   "pos": "Etap 1 z 5",
+   "pct": "20%",
+   "cls": "sw sb"
+  },
+  "scopes": [
+   {
+    "name": "Instalacje",
+    "c": "var(--k-i)",
+    "sel": "true",
+    "bd": "var(--k-i)",
+    "bg": "color-mix(in srgb, var(--k-i) 16%, transparent)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Sprzęt i IT",
+    "c": "var(--k-b)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Oprogramowanie",
+    "c": "var(--k-s)",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.16)",
+    "bg": "transparent",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "scope": {
+   "c": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "tag": "W projekcie:",
+   "items": [
+    {
+     "t": "Monitoring",
+     "d": "Kamery z nagrywaniem i podglądem w telefonie.",
+     "p": "kabel do każdej kamery i miejsce na rejestrator."
+    },
+    {
+     "t": "Alarm",
+     "d": "Czujki i centrala z powiadomieniem w telefonie.",
+     "p": "trasy do czujek i manipulatora przy wejściu."
+    },
+    {
+     "t": "Wideodomofon i kontrola dostępu",
+     "d": "Furtka, brama, wejścia i klatki.",
+     "p": "przewody do furtki, bramy i każdego wejścia."
+    },
+    {
+     "t": "Sieć i Wi-Fi",
+     "d": "Okablowanie i punkty dostępowe na kablu.",
+     "p": "gniazda sieci w pokojach i punkty na sufitach."
+    },
+    {
+     "t": "Światłowód i teletechnika",
+     "d": "Instalacja w budynku wielorodzinnym i obiekcie.",
+     "p": "piony, szachty i pomieszczenie techniczne."
+    },
+    {
+     "t": "Smart home Ampio",
+     "d": "Światło, rolety i ogrzewanie w jednej aplikacji.",
+     "p": "rozdzielnica z zapasem miejsca i przewody do paneli."
+    },
+    {
+     "t": "Nagłośnienie",
+     "d": "Sale, lokale, obiekty i domy.",
+     "p": "przewody głośnikowe przed sufitami."
+    },
+    {
+     "t": "Ekrany informacyjne",
+     "d": "Ekrany z ofertą i informacją w lokalu albo obiekcie.",
+     "p": "zasilanie i sieć za każdym ekranem."
+    },
+    {
+     "t": "Ładowarki do aut",
+     "d": "Elzab EcoPower do domu, firmy i garażu.",
+     "p": "przewód zasilający do miejsca postojowego."
+    },
+    {
+     "t": "Telewizja i anteny",
+     "d": "Telewizja w pokojach obiektu noclegowego.",
+     "p": "okablowanie do każdego pokoju."
+    }
+   ],
+   "cls": "sw sb"
+  },
+  "facts": [
+   {
+    "v": "Od 2004 roku",
+    "l": "działamy w Rabce-Zdroju",
+    "d": "M4 7h16v13H4zM4 11h16M8 4v4M16 4v4",
+    "c": "var(--k-g)"
+   },
+   {
+    "v": "24 miesiące",
+    "l": "gwarancji na montaż instalacji",
+    "d": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+    "c": "var(--k-i)"
+   },
+   {
+    "v": "24 godziny",
+    "l": "na odpowiedź w dni robocze",
+    "d": "M12 7v5l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    "c": "var(--k-i)"
+   },
+   {
+    "v": "Jedna firma",
+    "l": "instalacje, sprzęt i oprogramowanie",
+    "d": "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5",
+    "c": "var(--k-g)"
+   }
+  ],
+  "deliv": [
+   {
+    "t": "Komputery i laptopy",
+    "d": "Pracownie, biura i urzędy. Konfiguracja na życzenie.",
+    "ic": "M4 5h16v11H4zM2 20h20"
+   },
+   {
+    "t": "Serwery i sieć",
+    "d": "Serwery, przełączniki, Wi-Fi i kopie zapasowe — z wdrożeniem.",
+    "ic": "M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01"
+   },
+   {
+    "t": "Drukarki i urządzenia biurowe",
+    "d": "Drukarki, urządzenia wielofunkcyjne, niszczarki.",
+    "ic": "M7 8V4h10v4M5 8h14v8H5zM8 14h8v6H8z"
+   },
+   {
+    "t": "RTV i AGD dla firm",
+    "d": "Telewizory i AGD do pokoi, kuchni i biur — dostawa pod adres, bez montażu.",
+    "ic": "M3 5h18v12H3zM8 21h8M12 17v4"
+   },
+   {
+    "t": "Monitoring i nagłośnienie",
+    "d": "Z montażem albo bez — robi to PRO-KOM Instalacje.",
+    "ic": "M3 8l12-3v10L3 12zM15 9l6-2v10l-6-2"
+   },
+   {
+    "t": "Montaż, szkolenie, serwis",
+    "d": "Zakres ustalamy z Tobą. Po dostawie zostajemy jako serwis.",
+    "ic": "M14 6l4 4-9 9H5v-4zM13 7l4 4"
+   }
+  ],
+  "supp": [
+   {
+    "n": "01",
+    "t": "Co nas interesuje",
+    "d": "Sprzęt dla firm, urządzenia do instalacji, części serwisowe i podzespoły."
+   },
+   {
+    "n": "02",
+    "t": "Co wysłać",
+    "d": "Ofertę, warunki współpracy i informację o dostępności oraz gwarancji."
+   },
+   {
+    "n": "03",
+    "t": "Na co patrzymy",
+    "d": "Jakość, serwis producenta i dostępność części — bo ręczymy za sprzęt."
+   },
+   {
+    "n": "04",
+    "t": "Co dalej",
+    "d": "Odpisujemy na konkretne propozycje. Decyzję podejmuje właściciel firmy."
+   }
+  ],
+  "rules": [
+   {
+    "n": "01",
+    "t": "Jeden kontakt",
+    "d": "Rozmawiasz z jedną firmą — od rzutów do odbioru i serwisu."
+   },
+   {
+    "n": "02",
+    "t": "Wycena na piśmie",
+    "d": "Z zakresem i terminem. Cen nie podajemy na stronie, bo każdy obiekt jest inny."
+   },
+   {
+    "n": "03",
+    "t": "Odpowiedź w 24 godziny",
+    "d": "W dni robocze oddzwaniamy albo odpisujemy na każde zgłoszenie."
+   },
+   {
+    "n": "04",
+    "t": "24 miesiące gwarancji na montaż",
+    "d": "Po odbiorze zostajemy jako serwis — przeglądy i naprawy u tej samej firmy."
+   },
+   {
+    "n": "05",
+    "t": "Warunki dla pracowni",
+    "d": "Ustalamy indywidualnie i na piśmie, przed pierwszym wspólnym projektem."
+   },
+   {
+    "n": "06",
+    "t": "Spotkanie w salonie",
+    "d": "Ul. Orkana 16B w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu."
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Na jakim etapie najlepiej się odezwać?",
+    "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+    "sel": "true",
+    "rows": "1fr",
+    "rot": "rotate(180deg)"
+   },
+   {
+    "n": "02",
+    "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+    "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "03",
+    "q": "W jakim formacie wysłać rzuty?",
+    "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "04",
+    "q": "Gdzie pracujecie?",
+    "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "05",
+    "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+    "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "06",
+    "q": "Czy podajecie ceny na stronie?",
+    "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   }
+  ],
+  "next": [
+   {
+    "eb": "Oferta",
+    "t": "Cała oferta PRO-KOM",
+    "d": "Wszystkie usługi pięciu linii w jednym miejscu.",
+    "url": "Linie.dc.html",
+    "c": "var(--k-g)"
+   },
+   {
+    "eb": "Dla firm",
+    "t": "Plan dla Twojej branży",
+    "d": "Kasa, IT, obiekt i strona złożone w jeden plan.",
+    "url": "DlaFirm.dc.html",
+    "c": "var(--k-b)"
+   },
+   {
+    "eb": "Marki",
+    "t": "Marki i autoryzacje",
+    "d": "Na czym pracujemy i do czego tego używamy.",
+    "url": "Partnerzy.dc.html",
+    "c": "var(--k-b)"
+   },
+   {
+    "eb": "Kontakt",
+    "t": "Zadzwoń albo przyjdź",
+    "d": "Salon i biuro: ul. Orkana 16B, Rabka-Zdrój.",
+    "url": "Kontakt.dc.html",
+    "c": "var(--k-g)"
+   }
+  ]
+ },
+ "stany": {
+  "r": {
+   "1": {
+    "roles": [
+     {
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "role": {
+     "name": "Projektant wnętrz",
+     "sub": "wnętrza i wykończenie",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "phone": "889 003 889",
+     "lines": "PRO-KOM Instalacje",
+     "eb": "Dla projektanta wnętrz",
+     "h": "Technika, której nie widać — i panele tam, gdzie pasują do wnętrza.",
+     "start": "rzuty i układ mebli",
+     "items": [
+      {
+       "t": "Smart home Ampio",
+       "d": "Światło, rolety i ogrzewanie z paneli dobranych do projektu."
+      },
+      {
+       "t": "Nagłośnienie w zabudowie",
+       "d": "Głośniki sufitowe i ścienne zaplanowane przed sufitami."
+      },
+      {
+       "t": "Wi-Fi bez routera na szafce",
+       "d": "Punkty dostępowe na kablu, w miejscach ustalonych z Tobą."
+      },
+      {
+       "t": "Ekrany i telewizory",
+       "d": "Przepusty i zasilanie ukryte w ścianie."
+      }
+     ],
+     "formH": "Wyślij projekt wnętrza",
+     "linkL": "Link do rzutów lub wizualizacji",
+     "linkP": "np. link do pliku PDF",
+     "descP": "Np. apartament 90 m², klient chce sterowanie światłem i nagłośnienie w salonie",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "telHref": "tel:+48889003889",
+     "cls": "sw sb"
+    }
+   },
+   "2": {
+    "roles": [
+     {
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "role": {
+     "name": "Deweloper",
+     "sub": "budynki i osiedla",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "phone": "889 003 889",
+     "lines": "PRO-KOM Instalacje · Biznes · Software",
+     "eb": "Dla dewelopera i inwestora",
+     "h": "Cały zakres niskoprądowy inwestycji u jednego wykonawcy.",
+     "start": "projekt i harmonogram inwestycji",
+     "items": [
+      {
+       "t": "Lokale",
+       "d": "Okablowanie sieci, wideodomofon i przygotowanie pod smart home."
+      },
+      {
+       "t": "Części wspólne",
+       "d": "Monitoring, kontrola dostępu, domofony i światłowód w budynku."
+      },
+      {
+       "t": "Garaż",
+       "d": "Ładowarki Elzab EcoPower i przygotowanie miejsc pod kolejne."
+      },
+      {
+       "t": "Strona inwestycji",
+       "d": "Strona z lokalami i formularzem — robi ją PRO-KOM Software."
+      }
+     ],
+     "formH": "Opisz inwestycję",
+     "linkL": "Link do dokumentacji",
+     "linkP": "np. link do projektu albo przedmiaru",
+     "descP": "Np. budynek wielorodzinny, 24 lokale, garaż podziemny, termin stanu surowego — wiosna",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "telHref": "tel:+48889003889",
+     "cls": "sw sb"
+    }
+   },
+   "3": {
+    "roles": [
+     {
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "c": "var(--k-i)",
+      "sel": "true",
+      "bd": "var(--k-i)",
+      "bg": "color-mix(in srgb, var(--k-i) 14%, transparent)"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "role": {
+     "name": "Wykonawca",
+     "sub": "generalny i branżowy",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "phone": "889 003 889",
+     "lines": "PRO-KOM Instalacje",
+     "eb": "Dla wykonawcy",
+     "h": "Bierzemy instalacje niskoprądowe jako podwykonawca.",
+     "start": "przedmiar albo projekt branżowy",
+     "items": [
+      {
+       "t": "Wycena z przedmiaru",
+       "d": "Na piśmie, z zakresem i terminem."
+      },
+      {
+       "t": "Jedna ekipa na cały zakres",
+       "d": "Monitoring, alarm, sieć, domofony, nagłośnienie."
+      },
+      {
+       "t": "Praca według harmonogramu budowy",
+       "d": "Wchodzimy w ustalonym oknie, przed tynkami i po nich."
+      },
+      {
+       "t": "24 miesiące gwarancji na montaż",
+       "d": "I serwis po odbiorze — u tej samej firmy."
+      }
+     ],
+     "formH": "Wyślij przedmiar",
+     "linkL": "Link do przedmiaru lub projektu",
+     "linkP": "np. link do pliku PDF albo arkusza",
+     "descP": "Np. pensjonat 30 pokoi, monitoring i sieć Wi-Fi, wejście na budowę w marcu",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "telHref": "tel:+48889003889",
+     "cls": "sw sb"
+    }
+   },
+   "4": {
+    "roles": [
+     {
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "c": "var(--k-b)",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 14%, transparent)"
+     },
+     {
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "c": "var(--k-g)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     }
+    ],
+    "role": {
+     "name": "Instytucja",
+     "sub": "szkoła, urząd, większy zakup",
+     "L": [
+      "var(--k-b)",
+      "var(--k-bt)",
+      "var(--k-bd)"
+     ],
+     "phone": "889 003 889",
+     "lines": "PRO-KOM Biznes · Instalacje",
+     "eb": "Dla instytucji i większych zamówień",
+     "h": "Większe dostawy sprzętu IT oraz RTV i AGD dla obiektów i instytucji.",
+     "start": "specyfikacja albo lista potrzeb",
+     "items": [
+      {
+       "t": "Dostawy sprzętu IT",
+       "d": "Komputery, laptopy, serwery, drukarki i sieć — na życzenie z konfiguracją."
+      },
+      {
+       "t": "RTV i AGD dla obiektów",
+       "d": "Telewizory i AGD do pokoi, biur i kuchni — z dostawą pod adres."
+      },
+      {
+       "t": "Oferty w postępowaniach",
+       "d": "Odpowiadamy na zapytania ofertowe i przetargi."
+      },
+      {
+       "t": "Wdrożenie IT na miejscu",
+       "d": "Uruchomienie i szkolenie — jeśli ich potrzebujesz. Serwis po dostawie."
+      }
+     ],
+     "formH": "Wyślij zapytanie ofertowe",
+     "linkL": "Link do specyfikacji",
+     "linkP": "np. link do opisu przedmiotu zamówienia",
+     "descP": "Np. 30 komputerów do pracowni szkolnej z montażem i konfiguracją, termin do końca czerwca",
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "telHref": "tel:+48889003889",
+     "cls": "sw sb"
+    }
+   },
+   "5": {
+    "roles": [
+     {
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.12)",
+      "bg": "transparent"
+     },
+     {
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "c": "var(--k-g)",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 14%, transparent)"
+     }
+    ],
+    "role": {
+     "name": "Dostawca",
+     "sub": "producent, dystrybutor",
+     "L": [
+      "var(--k-g)",
+      "var(--k-gt)",
+      "var(--k-card2)"
+     ],
+     "phone": "883 200 151",
+     "lines": "biuro PRO-KOM",
+     "eb": "Dla dostawcy i producenta",
+     "h": "Szukamy sprzętu, za który możemy ręczyć przed klientem.",
+     "start": "oferta dystrybucyjna",
+     "items": [
+      {
+       "t": "Sprzęt dla firm",
+       "d": "Kasy, komputery, drukarki, sieć, akcesoria."
+      },
+      {
+       "t": "Instalacje",
+       "d": "Kamery, alarmy, smart home, nagłośnienie, ekrany."
+      },
+      {
+       "t": "Serwis i akcesoria",
+       "d": "Części, folie ochronne, akcesoria GSM."
+      },
+      {
+       "t": "Komputery do gier",
+       "d": "Podzespoły do zestawów składanych w Rabce-Zdroju."
+      }
+     ],
+     "formH": "Przedstaw swoją ofertę",
+     "linkL": "Link do oferty lub katalogu",
+     "linkP": "np. link do katalogu produktów",
+     "descP": "Np. jesteśmy dystrybutorem kamer IP, oferujemy szkolenia i wsparcie techniczne",
+     "c": "var(--k-g)",
+     "ct": "var(--k-gt)",
+     "dark": "var(--k-card2)",
+     "telHref": "tel:+48883200151",
+     "cls": "sw sb"
+    }
+   }
+  },
+  "rn": {
+   "1": {
+    "role": {
+     "name": "Architekt",
+     "sub": "projekt budynku",
+     "L": [
+      "var(--k-i)",
+      "var(--k-it)",
+      "var(--k-id)"
+     ],
+     "phone": "889 003 889",
+     "lines": "PRO-KOM Instalacje",
+     "eb": "Dla architekta",
+     "h": "Instalacje zaplanowane w projekcie, a nie dorabiane na budowie.",
+     "start": "rzuty — nawet wstępne",
+     "items": [
+      {
+       "t": "Konsultacja na etapie projektu",
+       "d": "Mówimy, gdzie potrzebne są trasy kabli, puszki i szafa."
+      },
+      {
+       "t": "Punkty naniesione na rzuty",
+       "d": "Kamery, czujki, gniazda sieci, głośniki, panele sterowania."
+      },
+      {
+       "t": "Lista dla branżystów",
+       "d": "Co musi przygotować elektryk i wykonawca przed tynkami."
+      },
+      {
+       "t": "Jeden kontakt do końca budowy",
+       "d": "Ta sama ekipa projektuje, montuje i serwisuje."
+      }
+     ],
+     "formH": "Wyślij rzuty do konsultacji",
+     "linkL": "Link do rzutów",
+     "linkP": "np. link do pliku PDF albo DWG",
+     "descP": "Np. dom jednorodzinny 180 m², etap projektu budowlanego, inwestor chce monitoring i smart home",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "telHref": "tel:+48889003889",
+     "cls": "sw sa"
+    }
+   }
+  },
+  "s": {
+   "1": {
+    "stages": [
+     {
+      "n": "01",
+      "t": "Koncepcja",
+      "when": "najlepszy moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "02",
+      "t": "Projekt",
+      "when": "jeszcze na papierze",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))"
+     },
+     {
+      "n": "03",
+      "t": "Przed tynkami",
+      "when": "ostatni dobry moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "04",
+      "t": "Wykończenie",
+      "when": "montaż urządzeń",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "05",
+      "t": "Odbiór i opieka",
+      "when": "po zakończeniu",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     }
+    ],
+    "stage": {
+     "t": "Projekt",
+     "lead": "Nanosimy punkty i trasy na rzuty, zanim powstanie projekt wykonawczy.",
+     "we": "Rozmieszczamy kamery, czujki, gniazda sieci, głośniki i panele. Wskazujemy miejsce na szafę.",
+     "you": "Rzuty w PDF albo DWG i informacja, kto prowadzi branżę elektryczną.",
+     "pos": "Etap 2 z 5",
+     "pct": "40%",
+     "cls": "sw sb"
+    }
+   },
+   "2": {
+    "stages": [
+     {
+      "n": "01",
+      "t": "Koncepcja",
+      "when": "najlepszy moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "02",
+      "t": "Projekt",
+      "when": "jeszcze na papierze",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "03",
+      "t": "Przed tynkami",
+      "when": "ostatni dobry moment",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))"
+     },
+     {
+      "n": "04",
+      "t": "Wykończenie",
+      "when": "montaż urządzeń",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "05",
+      "t": "Odbiór i opieka",
+      "when": "po zakończeniu",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     }
+    ],
+    "stage": {
+     "t": "Przed tynkami",
+     "lead": "Kładziemy kable i puszki. Po tynkach każda zmiana to kucie.",
+     "we": "Układamy okablowanie wszystkich instalacji w jednym wejściu na budowę.",
+     "you": "Termin wejścia w harmonogramie i dostęp do budynku.",
+     "pos": "Etap 3 z 5",
+     "pct": "60%",
+     "cls": "sw sb"
+    }
+   },
+   "3": {
+    "stages": [
+     {
+      "n": "01",
+      "t": "Koncepcja",
+      "when": "najlepszy moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "02",
+      "t": "Projekt",
+      "when": "jeszcze na papierze",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "03",
+      "t": "Przed tynkami",
+      "when": "ostatni dobry moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "04",
+      "t": "Wykończenie",
+      "when": "montaż urządzeń",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))"
+     },
+     {
+      "n": "05",
+      "t": "Odbiór i opieka",
+      "when": "po zakończeniu",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     }
+    ],
+    "stage": {
+     "t": "Wykończenie",
+     "lead": "Montujemy urządzenia, uruchamiamy systemy i łączymy je ze sobą.",
+     "we": "Montaż, konfiguracja, podgląd w telefonie, test każdego punktu.",
+     "you": "Zasilanie i internet w budynku oraz ustalenie, kto ma mieć dostęp.",
+     "pos": "Etap 4 z 5",
+     "pct": "80%",
+     "cls": "sw sb"
+    }
+   },
+   "4": {
+    "stages": [
+     {
+      "n": "01",
+      "t": "Koncepcja",
+      "when": "najlepszy moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "02",
+      "t": "Projekt",
+      "when": "jeszcze na papierze",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "03",
+      "t": "Przed tynkami",
+      "when": "ostatni dobry moment",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "04",
+      "t": "Wykończenie",
+      "when": "montaż urządzeń",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.1)",
+      "bg": "var(--k-card)"
+     },
+     {
+      "n": "05",
+      "t": "Odbiór i opieka",
+      "when": "po zakończeniu",
+      "sel": "true",
+      "bd": "var(--k-g)",
+      "bg": "color-mix(in srgb, var(--k-g) 10%, var(--k-card))"
+     }
+    ],
+    "stage": {
+     "t": "Odbiór i opieka",
+     "lead": "Przekazujemy instalację inwestorowi i zostajemy jako serwis.",
+     "we": "Szkolimy użytkowników i przekazujemy dostępy. Montaż ma 24 miesiące gwarancji.",
+     "you": "Osoby do przeszkolenia i kontakt do zarządcy albo właściciela.",
+     "pos": "Etap 5 z 5",
+     "pct": "100%",
+     "cls": "sw sb"
+    }
+   }
+  },
+  "sn": {
+   "1": {
+    "stage": {
+     "t": "Koncepcja",
+     "lead": "Ustalamy, co ma działać w budynku i ile miejsca potrzebuje technika.",
+     "we": "Rozmawiamy o potrzebach inwestora i podpowiadamy, które instalacje warto przewidzieć od razu.",
+     "you": "Wstępne rzuty i krótki opis: dom, obiekt noclegowy, lokal czy budynek wielorodzinny.",
+     "pos": "Etap 1 z 5",
+     "pct": "20%",
+     "cls": "sw sa"
+    }
+   }
+  },
+  "c": {
+   "1": {
+    "scopes": [
+     {
+      "name": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.16)",
+      "bg": "transparent",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "name": "Sprzęt i IT",
+      "c": "var(--k-b)",
+      "sel": "true",
+      "bd": "var(--k-b)",
+      "bg": "color-mix(in srgb, var(--k-b) 16%, transparent)",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "name": "Oprogramowanie",
+      "c": "var(--k-s)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.16)",
+      "bg": "transparent",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "scope": {
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "tag": "Dla obiektu:",
+     "items": [
+      {
+       "t": "Kasy i sprzedaż",
+       "d": "Kasy fiskalne Posnet i Elzab, GoPOS, terminale PolCard.",
+       "p": "lokale usługowe i gastronomia w inwestycji."
+      },
+      {
+       "t": "Komputery i serwery",
+       "d": "Lenovo i Dell — z konfiguracją i wdrożeniem.",
+       "p": "biura, recepcje i administracja."
+      },
+      {
+       "t": "Większe dostawy IT",
+       "d": "Sprzęt w większych ilościach — konfiguracja na życzenie.",
+       "p": "szkoły, urzędy, hotele i firmy."
+      },
+      {
+       "t": "RTV i AGD",
+       "d": "Wyposażenie pokoi, biur i części wspólnych.",
+       "p": "obiekty noclegowe i instytucje."
+      },
+      {
+       "t": "Drukarki i niszczarki",
+       "d": "Urządzenia biurowe z serwisem.",
+       "p": "biura i sekretariaty."
+      },
+      {
+       "t": "Opieka IT",
+       "d": "Pomoc zdalna i na miejscu, kopie zapasowe.",
+       "p": "gotowy obiekt po uruchomieniu."
+      }
+     ],
+     "cls": "sw sb"
+    }
+   },
+   "2": {
+    "scopes": [
+     {
+      "name": "Instalacje",
+      "c": "var(--k-i)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.16)",
+      "bg": "transparent",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "name": "Sprzęt i IT",
+      "c": "var(--k-b)",
+      "sel": "false",
+      "bd": "rgba(var(--r-w),.16)",
+      "bg": "transparent",
+      "ink": "var(--k-ink)"
+     },
+     {
+      "name": "Oprogramowanie",
+      "c": "var(--k-s)",
+      "sel": "true",
+      "bd": "var(--k-s)",
+      "bg": "color-mix(in srgb, var(--k-s) 16%, transparent)",
+      "ink": "var(--k-ink)"
+     }
+    ],
+    "scope": {
+     "c": "var(--k-s)",
+     "ct": "var(--k-st)",
+     "tag": "Przydaje się, gdy:",
+     "items": [
+      {
+       "t": "Strona inwestycji",
+       "d": "Strona z lokalami, rzutami i formularzem.",
+       "p": "sprzedajesz albo wynajmujesz lokale."
+      },
+      {
+       "t": "Strona obiektu",
+       "d": "Strona pensjonatu, hotelu albo lokalu.",
+       "p": "obiekt ma przyjmować gości od pierwszego dnia."
+      },
+      {
+       "t": "Panel dla ekipy",
+       "d": "Zlecenia, czas pracy i protokoły w telefonie.",
+       "p": "masz ekipy w terenie i papierowe karty pracy."
+      },
+      {
+       "t": "Automatyzacje",
+       "d": "Dane przechodzą między programami bez przepisywania.",
+       "p": "te same dane wpisujesz w kilku miejscach."
+      }
+     ],
+     "cls": "sw sb"
+    }
+   }
+  },
+  "cn": {
+   "1": {
+    "scope": {
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "tag": "W projekcie:",
+     "items": [
+      {
+       "t": "Monitoring",
+       "d": "Kamery z nagrywaniem i podglądem w telefonie.",
+       "p": "kabel do każdej kamery i miejsce na rejestrator."
+      },
+      {
+       "t": "Alarm",
+       "d": "Czujki i centrala z powiadomieniem w telefonie.",
+       "p": "trasy do czujek i manipulatora przy wejściu."
+      },
+      {
+       "t": "Wideodomofon i kontrola dostępu",
+       "d": "Furtka, brama, wejścia i klatki.",
+       "p": "przewody do furtki, bramy i każdego wejścia."
+      },
+      {
+       "t": "Sieć i Wi-Fi",
+       "d": "Okablowanie i punkty dostępowe na kablu.",
+       "p": "gniazda sieci w pokojach i punkty na sufitach."
+      },
+      {
+       "t": "Światłowód i teletechnika",
+       "d": "Instalacja w budynku wielorodzinnym i obiekcie.",
+       "p": "piony, szachty i pomieszczenie techniczne."
+      },
+      {
+       "t": "Smart home Ampio",
+       "d": "Światło, rolety i ogrzewanie w jednej aplikacji.",
+       "p": "rozdzielnica z zapasem miejsca i przewody do paneli."
+      },
+      {
+       "t": "Nagłośnienie",
+       "d": "Sale, lokale, obiekty i domy.",
+       "p": "przewody głośnikowe przed sufitami."
+      },
+      {
+       "t": "Ekrany informacyjne",
+       "d": "Ekrany z ofertą i informacją w lokalu albo obiekcie.",
+       "p": "zasilanie i sieć za każdym ekranem."
+      },
+      {
+       "t": "Ładowarki do aut",
+       "d": "Elzab EcoPower do domu, firmy i garażu.",
+       "p": "przewód zasilający do miejsca postojowego."
+      },
+      {
+       "t": "Telewizja i anteny",
+       "d": "Telewizja w pokojach obiektu noclegowego.",
+       "p": "okablowanie do każdego pokoju."
+      }
+     ],
+     "cls": "sw sa"
+    }
+   }
+  },
+  "fq": {
+   "1": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "2": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "3": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "4": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   },
+   "5": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "true",
+      "rows": "1fr",
+      "rot": "rotate(180deg)"
+     }
+    ]
+   },
+   "6": {
+    "faq": [
+     {
+      "n": "01",
+      "q": "Na jakim etapie najlepiej się odezwać?",
+      "a": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "02",
+      "q": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "a": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "03",
+      "q": "W jakim formacie wysłać rzuty?",
+      "a": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "04",
+      "q": "Gdzie pracujecie?",
+      "a": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "05",
+      "q": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "a": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     },
+     {
+      "n": "06",
+      "q": "Czy podajecie ceny na stronie?",
+      "a": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu.",
+      "sel": "false",
+      "rows": "0fr",
+      "rot": "none"
+     }
+    ]
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

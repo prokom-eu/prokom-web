@@ -14,15 +14,16 @@
 |---|---|---|---|
 | `--c-prokom` (Zieleń Dioda) | `#45A02C` | `#4FB034` | marka główna, hub pro-kom.eu |
 | `--c-biznes` (Granat) | `#244FB0` | `#4A7BE0` | prokombiznes.pl |
-| `--c-instalacje` (Turkus Morskiego Oka) | `#0093B3` | `#12B6D8` | prokominstalacje.pl |
+| `--c-instalacje` (Turkus Instalacji) | `#0093B3` | `#12B6D8` | prokominstalacje.pl |
 | `--c-software` (Fiolet Kodu) | `#8B61E3` | `#9670EE` | prokomsoftware.pl |
 | `--c-tech` (Czerwień) | `#D13A2E` | `#E2483A` | PRO-KOM Tech (prokomserwis.pl) |
-| `--c-zakopane` (Bursztyn) | `#DD8600` | `#F29A00` | PRO-KOM Zakopane |
+| `--c-zakopane` (Bursztyn Podhala) | `#DD8600` | `#F29A00` | PRO-KOM Zakopane |
 | `--c-grafit` | `#121613` | — | tekst, napis PRO-KOM, ciemne tła |
 | `--c-papier` | `#F4F5F1` | — | jasne tła sekcji |
 | `--c-white` | `#FFFFFF` | — | tło |
 
-**W kodzie:** layout tenanta ustawia atrybut `data-line="biznes"` na `<html>`; CSS mapuje go na `--accent`, `--accent-on-dark`, `--accent-text`. Komponenty używają wyłącznie `--accent*`, nigdy konkretnego koloru linii.
+**W kodzie:** layout tenanta ustawia atrybut `data-line="biznes"` na `<html>`; CSS mapuje go na `--accent`, `--accent-on-dark`, `--accent-text`. Komponenty używają wyłącznie `--accent*`, nigdy konkretnego koloru linii — wyjątek: karty linii PRO-KOM w stopce Software („Jedna firma, sześć adresów”) pokazują każdą linię jej kolorem `--c-<linia>-on-dark` (tylko kreska i myślnik znaku, ADR-015 v22 pkt 1).
+Pliki: tokeny `src/styles/tokens.css` i `tokens-instalacje.css` (jedyne miejsca z wartościami kolorów), Tailwind: style wspólne `src/styles/site.css` + arkusz linii `src/sites/<linia>/style/` (ADR-023 „CSS per linia”) — zna tylko tokeny (`bg-accent-text`, `text-grafit`, `bg-papier`, `border-border`…; domyślna paleta Tailwinda jest wyłączona). Ciemna sekcja ma `data-surface="dark"` — linki i obrys fokusu przechodzą wtedy na `--accent-on-dark`. Brak `data-line` (nieznana domena) = zieleń PRO-KOM.
 
 ### Kontrast — ważne (WCAG AA)
 Policzone dla kolorów „na jasne tło” (14.10.2026):
@@ -38,19 +39,48 @@ Policzone dla kolorów „na jasne tło” (14.10.2026):
 
 Zasada: kolory z księgi stosujemy do **logo, kresek, ikon, dużych nagłówków (≥ 24 px lub ≥ 19 px pogrubione) i elementów graficznych** (próg 3:1). Do **zwykłego tekstu, linków i przycisków z białym napisem** każda linia ma token `--accent-text` — przyciemniony odcień tego samego koloru z kontrastem ≥ 4,5:1 na białym i papierze (wyliczany w S6, zapisany tutaj w tabeli i sprawdzany testem).
 
+### `--accent-text` — tekst, linki, przyciski z białym napisem (S6, 17.10.2026)
+Ten sam odcień co kolor z księgi, przyciemniony do ≥ 4,5:1 na białym **i** papierze. Wartości w `src/styles/tokens.css` (`--c-<linia>-text`), sprawdzane przez `src/styles/tokens.test.ts`.
+
+| Linia | Kolor z księgi | `--accent-text` | na białym | na papierze |
+|---|---|---|---|---|
+| PRO-KOM | `#45A02C` | `#367E23` | 5,04 | 4,60 |
+| Biznes | `#244FB0` | `#244FB0` (bez zmian) | 7,45 | 6,80 |
+| Instalacje | `#0093B3` | `#007994` | 5,04 | 4,61 |
+| Software | `#8B61E3` | `#5B33C4` (ADR-015, 22.10.2026; wcześniej `#7E58CD`) | 7,73 | 7,06 |
+| Tech | `#D13A2E` | `#CB382D` | 5,07 | 4,63 |
+| Zakopane | `#DD8600` | `#9F6000` | 5,06 | 4,62 |
+
+- **Interfejs prokomsoftware.pl (ADR-015):** przyciski `#6E45D4` (biały napis 6,06:1), tekst w akcencie `#5B33C4`. To kolor interfejsu, nie znaku — znak i pliki w `public/brand/` zostają w `#8B61E3` z księgi (biały na `#8B61E3` ma tylko 4,27:1, za mało na napis przycisku).
+- Kolory „na ciemne tło” mają ≥ 4,5:1 na grafitowym (Biznes 4,52 i Tech 4,54 — na granicy, ale OK), więc nadają się do linków w ciemnych sekcjach i stopce.
+- ⚠️ **Zakopane:** bursztyn z księgi ma 2,81:1 na białym — nie spełnia nawet progu 3:1 dla dużych elementów. Gdy powstanie strona Zakopanego, także duże nagłówki w kolorze linii muszą używać `--accent-text`.
+
+### Kolory pomocnicze
+| Token | Wartość | Użycie |
+|---|---|---|
+| `--c-border` | `#E3E6DF` | obramowania kart (1,5 px), tylko dekoracyjne — z briefu `strony/prokombiznes-design.md` |
+| `--c-input-border` | `#767C74` | obramowanie pól formularzy linii bez wizualizacji (≥ 3:1 na bieli i papierze, WCAG 1.4.11; S8b). Biznes: `--ink-3` swojego motywu. Token semantyczny `--border-input`, test w `themes.test.ts` |
+
+### Linie z własną wizualizacją (ADR-013, przyjęta 17.10.2026)
+Linia z zaakceptowaną wizualizacją może mieć własne kolory neutralne (tła, tekst, ciemne bloki) i motyw ciemny — dziś Biznes (`docs/design/prokombiznes/tokens.css`). Kolor linii z księgi i znak bez zmian. Szczegóły i ograniczenia kontrastu: `docs/decyzje/ADR-013-wyglad-linii-z-wizualizacji.md`.
+
+**W kodzie (S6b-1):** tokeny semantyczne w `src/styles/tokens.css` — `--surface`, `--surface-2`, `--surface-3`, `--card`, `--surface-dark`, `--ink`, `--ink-2`, `--ink-3`, `--border`, `--accent-2`, `--accent-ink`, `--glow`, `--grid` (obok `--accent*`). Linie bez wizualizacji: biel / papier / grafit (`--ink-2` i `--ink-3` = grafit, bo księga nie ma odcieni tekstu — `TODO(krystian):` jeśli mają powstać, z wizualizacją linii). Tryb ciemny: `data-theme` na `<html>` (wybór w `localStorage` pod kluczem `pk-theme`, skrypt w `<head>` — `src/lib/brand/theme.ts`; przełącznik `ThemeToggle` w nagłówku) albo `prefers-color-scheme`; tylko linie z `DARK_THEME_LINES`. Tailwind: `bg-surface-2`, `text-ink-2`, `bg-accent-text text-accent-ink` — klas `grafit`/`papier` już nie ma. Kontrast par tekst/tło w obu motywach: `src/styles/themes.test.ts`.
+
 ## Kroje pisma
 - **Archivo** — logo, nagłówki. **Manrope** — teksty. Licencja SIL OFL (bezpłatnie, także komercyjnie).
 - Hostowane **z naszego serwera** (`next/font/local` lub `next/font/google` w trybie self-host przy buildzie) — żadnych zapytań do Google Fonts z przeglądarki klienta (RODO).
+- **Wybrane w S6:** `next/font/google` (`src/app/(sites)/fonts.ts`) — Next pobiera pliki przy buildzie i serwuje je z `/_next/static/media`; podzbiory `latin` + `latin-ext` (polskie znaki), Archivo z osią szerokości (`font-stretch-112%`). Build wymaga dostępu do sieci.
 
 ## Pliki znaku (`public/brand/`)
 Nazwy jak w paczce: `prokom-<linia>_<układ>_<wersja>.svg`
-- linie: `prokom`, `biznes`, `instalacje`, `software`, `tech`, `zakopane`
+- linie: `glowna` (w kodzie linia `prokom`), `biznes`, `instalacje`, `software`, `tech`, `zakopane` — mapowanie w `src/lib/brand/lines.ts`
+- w repo (S6, 17.10.2026): dla `glowna`, `biznes`, `instalacje`, `software` — `poziome_kolor`, `poziome_negatyw`, `sygnet_kolor` (SVG) oraz `favicon.svg`, `favicon.ico`, `apple-touch-icon-180.png`, `icon-192.png`, `icon-512.png`; kreska Instalacji sprawdzona (turkus `#0093B3`)
 - układy: `poziome`, `pionowe`, `sygnet`, `sygnet-bez-tla`, `slogan`
 - wersje: `kolor`, `negatyw`, `czarny`, `bialy`, `mono`
 
 Do repo trafiają tylko potrzebne SVG (poziome + negatyw dla aktywnych linii, sygnety) oraz favicony i ikony (`favicon.ico`, `favicon.svg`, 180/192/512 px). Rastrów, PDF, EPS i plików źródłowych **nie** trzymamy w repo.
 
-> ⚠️ **Przed użyciem logotypów Instalacje i Zakopane:** pliki w paczce mają kolory sprzed zamiany (Instalacje bursztyn, Zakopane turkus) — trzeba je wygenerować ponownie (Instalacje → turkus, Zakopane → bursztyn). Logotypy PRO-KOM, Biznes, Software i Tech są aktualne.
+> Paczka plików i księga zostały przegenerowane po zamianie kolorów Instalacje ↔ Zakopane (14.10.2026) — przed skopiowaniem SVG do repo sprawdź, czy kreska Instalacji jest turkusowa, a Zakopanego bursztynowa.
 
 ## Zasady znaku
 - Pole ochronne: 0,5 H (H = wysokość napisu PRO-KOM).

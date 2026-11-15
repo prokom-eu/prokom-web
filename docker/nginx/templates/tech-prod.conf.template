@@ -1,0 +1,19 @@
+# PRO-KOM Tech production (stack `prokom-tech-prod` from the prokom-system repo). Added by the
+# overlay compose.proxy.tech-prod.yml at the switch from Hetzner, when DNS points here and the
+# `prokom-tech-prod` certificate (domain + www) exists.
+# The domain and www are served the same way, without a 301 — 1:1 with the old Hetzner server.
+
+server {
+  listen 80;
+  server_name ${TECH_PROD_HOST} www.${TECH_PROD_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${TECH_PROD_HOST} www.${TECH_PROD_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-tech-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-tech-prod/privkey.pem;
+  set $app prokom-tech-prod-gateway-1:80;
+  include /etc/nginx/snippets/tech.conf;
+}

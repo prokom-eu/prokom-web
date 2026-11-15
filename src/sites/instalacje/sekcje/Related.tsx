@@ -1,0 +1,132 @@
+import Link from 'next/link'
+import type { CSSProperties } from 'react'
+
+import { SERVICE_KEYS } from '@/lib/instalacje/options'
+import { isServiceKey } from '@/lib/instalacje/plan'
+import { tenantIdOf } from '@/lib/tenant/id'
+import type { ObjectCard, ServiceCard } from '@/lib/instalacje/data'
+
+import { hue } from '../hue'
+import { InstIcon } from '../InstIcon'
+import { InstSection } from './InstSectionLazy'
+import { SERVICE_SCENES } from './glowna/sceny'
+import { Arrow } from '../Arrow'
+
+type Props = {
+  tenantId: number
+  heading: string | null | undefined
+  /** Populated services; only their card fields are used (`/serwis` passes `getInstalacjeCards`). */
+  services: (number | ServiceCard)[] | null | undefined
+  /** Populated objects; only their card fields are used (object pages pass `getInstalacjeCards`). */
+  objects: (number | ObjectCard)[] | null | undefined
+  /** Heading of the „Podobne obiekty” strip (prototype `segRelH`). */
+  objectsHeading?: string
+  /** One more link under the cards (I16c: „Projektujesz? Współpraca dla architektów →”). */
+  extraLink?: { label: string; href: string }
+}
+
+const ORDER: readonly string[] = SERVICE_KEYS.map(({ value }) => value)
+
+type Entry = { _status?: 'draft' | 'published' | null; tenant?: unknown }
+
+/**
+ * Related entries the page may show: populated, published and of this tenant — a draft or
+ * another site's entry never leaks (the panel already limits the choice; defence in depth).
+ */
+function shown<T extends Entry>(list: (number | T)[] | null | undefined, tenantId: number): T[] {
+  return (list ?? []).filter(
+    (entry): entry is T =>
+      typeof entry === 'object' &&
+      entry._status === 'published' &&
+      tenantIdOf(entry.tenant) === tenantId,
+  )
+}
+
+/**
+ * „Zwykle idzie w parze” (`zrodlo/inc/relsec.html`): related services in menu order, then the
+ * objects this installation is made for. Cards scroll sideways on a phone. Round v5 (RUNDA-V5
+ * §11): each service card shows the small scene of its home card instead of the icon (still).
+ */
+export function Related({
+  tenantId,
+  heading,
+  services,
+  objects,
+  objectsHeading,
+  extraLink,
+}: Props) {
+  const cards = shown<ServiceCard>(services, tenantId)
+    .filter((service) => service.slug)
+    .sort((a, b) => ORDER.indexOf(a.key) - ORDER.indexOf(b.key))
+  const chips = shown<ObjectCard>(objects, tenantId).filter((object) => object.slug)
+  if (cards.length === 0 && chips.length === 0 && !extraLink) return null
+  return (
+    <InstSection id="powiazane" style={{ padding: '0 0 104px' }}>
+      <div className="wrap">
+        <div className="shead ri">
+          <div>
+            <span className="eye">Zwykle idzie w parze</span>
+            <h2 className="h2">{heading || 'Połącz w jeden system.'}</h2>
+          </div>
+        </div>
+        {cards.length > 0 && (
+          <div className="rel">
+            {cards.map((service) => (
+              <Link key={service.id} href={`/${service.slug}`} className="relc ri">
+                {isServiceKey(service.key) ? (
+                  <span
+                    className="relsc"
+                    aria-hidden="true"
+                    data-inst-sx=""
+                    style={{ '--h': service.color ?? undefined } as CSSProperties}
+                  >
+                    <svg
+                      viewBox="0 0 400 220"
+                      preserveAspectRatio="xMidYMid slice"
+                      dangerouslySetInnerHTML={{ __html: SERVICE_SCENES[service.key] }}
+                    />
+                  </span>
+                ) : (
+                  <span className="ico s">
+                    <InstIcon name={service.icon} />
+                  </span>
+                )}
+                <b>{service.name}</b>
+                {service.menuCaption && <span>{service.menuCaption}</span>}
+                <span className="relgo">
+                  Zobacz <Arrow />
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
+        {chips.length > 0 && (
+          <div className="relseg ri">
+            <span className="usl">{objectsHeading || 'Dla kogo robimy tę instalację'}</span>
+            <div className="relsegl">
+              {chips.map((object) => (
+                <Link
+                  key={object.id}
+                  href={`/dla-kogo/${object.slug}`}
+                  className="relsegc"
+                  style={hue(object.color)}
+                >
+                  <span className="relsegi">
+                    <InstIcon name={object.icon} />
+                  </span>
+                  <b>{object.name}</b>
+                  {object.menuCaption && <span>{object.menuCaption}</span>}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {extraLink && (
+          <Link href={extraLink.href} className="relx ri">
+            {extraLink.label}
+          </Link>
+        )}
+      </div>
+    </InstSection>
+  )
+}

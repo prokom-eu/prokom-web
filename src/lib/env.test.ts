@@ -1,0 +1,180 @@
+import { describe, expect, it } from 'vitest'
+
+import { parseEnv } from './env'
+
+const valid = {
+  NODE_ENV: 'test',
+  DATABASE_URL: 'postgresql://prokom:prokom@127.0.0.1:54320/prokom_web',
+  PAYLOAD_SECRET: 'a'.repeat(32),
+  PANEL_HOST: 'panel.localhost',
+  SMTP_HOST: '127.0.0.1',
+  SMTP_PORT: '1025',
+  MAIL_FROM_ADDRESS: 'formularz@example.test',
+}
+
+const defaults = {
+  MEDIA_DIR: 'media',
+  SITE_ENV: 'local',
+  SMTP_PORT: 1025,
+  SMTP_SECURE: false,
+  MAIL_FROM_NAME: 'PRO-KOM',
+  MAIL_LOGO_FROM_SITE: false,
+  INQUIRY_RETENTION_MONTHS: 24,
+  UMAMI_WEBSITES: {},
+  MAIL_SENDERS: {},
+}
+
+describe('parseEnv', () => {
+  it('accepts a valid environment', () => {
+    expect(parseEnv(valid)).toEqual({ ...valid, ...defaults })
+  })
+
+  it('requires the SMTP server and the sender address (ADR-003)', () => {
+    expect(() => parseEnv({ ...valid, SMTP_HOST: undefined })).toThrow(/SMTP_HOST/)
+    expect(() => parseEnv({ ...valid, SMTP_PORT: undefined })).toThrow(/SMTP_PORT/)
+    expect(() => parseEnv({ ...valid, MAIL_FROM_ADDRESS: undefined })).toThrow(/MAIL_FROM_ADDRESS/)
+  })
+
+  it('reads SMTP credentials and TLS', () => {
+    const env = parseEnv({
+      ...valid,
+      SMTP_PORT: '465',
+      SMTP_SECURE: 'true',
+      SMTP_USER: 'formularz',
+      SMTP_PASS: 'x'.repeat(16),
+    })
+    expect(env).toMatchObject({ SMTP_PORT: 465, SMTP_SECURE: true, SMTP_USER: 'formularz' })
+  })
+
+  it('requires SMTP_USER and SMTP_PASS together', () => {
+    expect(() => parseEnv({ ...valid, SMTP_USER: 'formularz' })).toThrow(/SMTP_PASS/)
+    expect(() => parseEnv({ ...valid, SMTP_PASS: 'x'.repeat(16) })).toThrow(/SMTP_PASS/)
+  })
+
+  it('rejects an invalid SMTP_PORT or SMTP_SECURE', () => {
+    expect(() => parseEnv({ ...valid, SMTP_PORT: 'smtp' })).toThrow(/SMTP_PORT/)
+    expect(() => parseEnv({ ...valid, SMTP_SECURE: 'yes' })).toThrow(/SMTP_SECURE/)
+  })
+
+  it('rejects an invalid MAIL_FROM_ADDRESS', () => {
+    expect(() => parseEnv({ ...valid, MAIL_FROM_ADDRESS: 'PRO-KOM <a@b.pl>' })).toThrow(
+      /MAIL_FROM_ADDRESS/,
+    )
+  })
+
+  it('reads the inquiry retention in months', () => {
+    expect(parseEnv({ ...valid, INQUIRY_RETENTION_MONTHS: '12' }).INQUIRY_RETENTION_MONTHS).toBe(12)
+    expect(() => parseEnv({ ...valid, INQUIRY_RETENTION_MONTHS: '0' })).toThrow(
+      /INQUIRY_RETENTION_MONTHS/,
+    )
+  })
+
+  it('accepts staging as SITE_ENV', () => {
+    expect(parseEnv({ ...valid, SITE_ENV: 'staging' }).SITE_ENV).toBe('staging')
+  })
+
+  it('rejects an unknown SITE_ENV', () => {
+    expect(() => parseEnv({ ...valid, SITE_ENV: 'prod' })).toThrow(/SITE_ENV/)
+  })
+
+  it('accepts a custom MEDIA_DIR', () => {
+    expect(parseEnv({ ...valid, MEDIA_DIR: '/data/media' }).MEDIA_DIR).toBe('/data/media')
+  })
+
+  it('defaults NODE_ENV to development', () => {
+    expect(parseEnv({ ...valid, NODE_ENV: undefined }).NODE_ENV).toBe('development')
+  })
+
+  it('rejects a missing DATABASE_URL', () => {
+    expect(() => parseEnv({ ...valid, DATABASE_URL: undefined })).toThrow(/DATABASE_URL/)
+  })
+
+  it('rejects a non-postgres DATABASE_URL', () => {
+    expect(() => parseEnv({ ...valid, DATABASE_URL: 'mongodb://127.0.0.1/db' })).toThrow(
+      /DATABASE_URL/,
+    )
+  })
+
+  it('rejects a too short PAYLOAD_SECRET without printing its value', () => {
+    const secret = 'too-short-secret'
+    expect(() => parseEnv({ ...valid, PAYLOAD_SECRET: secret })).toThrow(/PAYLOAD_SECRET/)
+    expect(() => parseEnv({ ...valid, PAYLOAD_SECRET: secret })).not.toThrow(secret)
+  })
+
+  it('normalizes PANEL_HOST', () => {
+    expect(parseEnv({ ...valid, PANEL_HOST: 'Panel.Localhost:3000' }).PANEL_HOST).toBe(
+      'panel.localhost',
+    )
+  })
+
+  it('rejects a missing or invalid PANEL_HOST', () => {
+    expect(() => parseEnv({ ...valid, PANEL_HOST: undefined })).toThrow(/PANEL_HOST/)
+    expect(() => parseEnv({ ...valid, PANEL_HOST: 'https://panel.pro-kom.eu/' })).toThrow(
+      /PANEL_HOST/,
+    )
+  })
+  describe('Umami (ADR-020)', () => {
+    const SITE_ID = '7f3c2a1e-0b4d-4c6e-9a8f-1d2e3f4a5b6c'
+
+    it('is off by default: no address and no websites', () => {
+      const env = parseEnv(valid)
+      expect(env.UMAMI_URL).toBeUndefined()
+      expect(env.UMAMI_WEBSITES).toEqual({})
+    })
+
+    it('reads the address without a trailing slash', () => {
+      expect(parseEnv({ ...valid, UMAMI_URL: 'http://umami:3000/' }).UMAMI_URL).toBe(
+        'http://umami:3000',
+      )
+    })
+
+    it('rejects an address that is not http(s) or has a path', () => {
+      expect(() => parseEnv({ ...valid, UMAMI_URL: 'ftp://umami' })).toThrow(/UMAMI_URL/)
+      expect(() => parseEnv({ ...valid, UMAMI_URL: 'http://umami:3000/stats' })).toThrow(
+        /UMAMI_URL/,
+      )
+    })
+
+    it('maps lines to website ids', () => {
+      const env = parseEnv({ ...valid, UMAMI_WEBSITES: ` software=${SITE_ID} ` })
+      expect(env.UMAMI_WEBSITES).toEqual({ software: SITE_ID })
+    })
+
+    it('rejects an unknown line, a bad id or a repeated line', () => {
+      expect(() => parseEnv({ ...valid, UMAMI_WEBSITES: `sklep=${SITE_ID}` })).toThrow(
+        /UMAMI_WEBSITES/,
+      )
+      expect(() => parseEnv({ ...valid, UMAMI_WEBSITES: 'software=abc' })).toThrow(/UMAMI_WEBSITES/)
+      expect(() =>
+        parseEnv({ ...valid, UMAMI_WEBSITES: `software=${SITE_ID},software=${SITE_ID}` }),
+      ).toThrow(/UMAMI_WEBSITES/)
+    })
+  })
+})
+
+describe('per-line SMTP passwords (S10d)', () => {
+  it('reads SMTP_PASS_<LINE> for a line with a sender', () => {
+    const env = parseEnv({
+      ...valid,
+      MAIL_SENDERS: 'software=kontakt@prokomsoftware.pl',
+      SMTP_PASS_SOFTWARE: 'secret',
+    })
+    expect(env.SMTP_PASS_SOFTWARE).toBe('secret')
+    expect(env.SMTP_PASS_BIZNES).toBeUndefined()
+  })
+
+  it('treats an empty password as unset', () => {
+    expect(parseEnv({ ...valid, SMTP_PASS_INSTALACJE: '' }).SMTP_PASS_INSTALACJE).toBeUndefined()
+  })
+
+  it('rejects a password for a line without a sender, without printing it', () => {
+    expect(() => parseEnv({ ...valid, SMTP_PASS_INSTALACJE: 'top-secret-value' })).toThrow(
+      /SMTP_PASS_INSTALACJE: set MAIL_SENDERS for instalacje/,
+    )
+    try {
+      parseEnv({ ...valid, SMTP_PASS_INSTALACJE: 'top-secret-value' })
+    } catch (error) {
+      expect(String(error)).not.toContain('top-secret-value')
+    }
+  })
+})

@@ -1,0 +1,2818 @@
+{
+ "opis": "Uzupełnienia treści kart (v124, 25.10.2026): FAQ (dopisywane do istniejących), nowe opisy (3 akapity, zastępują stare), parametry_dodaj (wstaw przed kluczem „przed” albo na koniec), zrodla_dodaj. FAQ i opisy napisane wyłącznie z danych kart (każda liczba sprawdzona skryptem); jasność ThinkVision z PSREF, waga XPS 16 ze specyfikacji Dell. Import w K31a jako nadpisanie seed (patrz K31-ZMIANY §13.6).",
+ "karty": {
+  "elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka": {
+   "opis": [
+    "ELZAB BS80 2D USB KIT to ręczny czytnik kodów w zestawie z podstawką – do sklepu, apteki, kawiarni, punktu usługowego i biura. Podłączasz go przez USB do kasy, terminala POS lub komputera i skanujesz towary, karty lojalnościowe czy kupony. Jest niewielki, lekki i ma ergonomiczny kształt, a zasilanie (5 V) bierze prosto z portu USB.",
+    "Czyta kody kreskowe (1D) i kody 2D: QR, Data Matrix, PDF417 i inne, także wyświetlane na ekranie telefonu klienta. Kod EAN-13 odczyta z odległości 3–20 cm, a kod QR z 2–15 cm. Ma białe podświetlenie i czerwony celownik, który pomaga trafić w kod, a każdy udany odczyt potwierdza sygnałem dźwiękowym i świetlnym.",
+    "Możesz skanować, naciskając spust, albo – po zaprogramowaniu kodem konfiguracyjnym – zostawić czytnik na podstawce i tylko przesuwać pod nim towar. Podstawka jest w zestawie, więc nic nie dokupujesz. Czytnik wytrzymuje upadek z 1,2 m i pracuje w temperaturze od -20 do 50 °C. Gwarancja producenta wynosi 12 miesięcy."
+   ]
+  },
+  "tp": {
+   "faq": [
+    {
+     "q": "Czy da się później dołożyć pamięć RAM?",
+     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB w wersjach Intel i AMD, a w wersji Snapdragon 16 lub 32 GB. Dlatego dobierz ją od razu z zapasem na kolejne lata pracy."
+    },
+    {
+     "q": "Czy wersja ze Snapdragonem uruchomi wszystkie moje programy?",
+     "a": "Niekoniecznie. Snapdragon X2 to procesor typu ARM – daje bardzo długą pracę na baterii, ale niektóre starsze programy i sterowniki mogą na nim nie działać. Sprawdź to przed zakupem albo wybierz wersję Intel lub AMD."
+    },
+    {
+     "q": "Jak podłączę laptop do sieci kablowej i monitora w biurze?",
+     "a": "Laptop nie ma portu RJ-45, więc do sieci przewodowej potrzebna jest przejściówka lub stacja dokująca. Monitor podłączysz przez HDMI 2.1 albo USB-C – wersja Intel ma 3× Thunderbolt 4, AMD 2× Thunderbolt 4 i USB-C, a Snapdragon 2× USB4."
+    },
+    {
+     "q": "Jaką gwarancję można wybrać?",
+     "a": "Do wyboru jest gwarancja na 1 rok albo 3 lata (bateria 1 rok), z odbiorem kurierem lub dostarczeniem do serwisu albo z naprawą u klienta (on-site), a także 3 lata Premier Support. Dostępne warianty zależą od konkretnego modelu – dobierzemy je przy konfiguracji."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu – Intel), bez systemu"
+    }
+   ]
+  },
+  "s123": {
+   "faq": [
+    {
+     "q": "Czy za wysyłkę faktur do KSeF trzeba dokupować InsPunkty?",
+     "a": "Przy licencji firmowej nie. KSeF działa w ramach limitu dokumentów licencji: 10 000 przy rocznej, 2 500 przy 3-miesięcznej i 850 przy miesięcznej. Niewykorzystany limit nie przechodzi na kolejny okres."
+    },
+    {
+     "q": "Czy wydrukuję w nim paragon z drukarki fiskalnej?",
+     "a": "Tak, po dokupieniu modułu fiskalizacji. Program współpracuje z drukarkami fiskalnymi m.in. Elzab, Posnet i Upos, więc paragony i faktury wystawisz w jednym miejscu."
+    },
+    {
+     "q": "Ilu pracowników może korzystać z programu?",
+     "a": "W licencji pracuje właściciel. Moduł Użytkownik+ dodaje 3 kolejnych pracowników i pozwala nadać im uprawnienia w KSeF. Program działa w przeglądarce, więc liczy się liczba użytkowników, a nie komputerów."
+    },
+    {
+     "q": "Czym różni się licencja firmowa od Subiekta 123 od biura rachunkowego?",
+     "a": "Licencję firmową kupujesz sam na 1, 3 lub 12 miesięcy i masz KSeF w limicie dokumentów. Wersję od biura na InsERT nexo dostajesz w ramach licencji biura – bez magazynu, a KSeF opłaca biuro InsPunktami."
+    }
+   ]
+  },
+  "gt": {
+   "faq": [
+    {
+     "q": "Czy Subiekt GT wyśle faktury do KSeF?",
+     "a": "Tak. E-faktury wysyłasz ręcznie albo automatycznie po zapisaniu, a faktury od dostawców program pobiera sam. Od 1.04.2026 potrzebny jest aktywny Abonament i InsPunkty – każda wysyłka i każde pobranie e-faktury to 1 InsPunkt."
+    },
+    {
+     "q": "Na ilu komputerach mogę pracować i jaki sprzęt jest potrzebny?",
+     "a": "Licencja obejmuje 3 stanowiska, a kolejne dokładasz pakietami po 3. Program działa na Windows 10/11 lub Windows Server 2019/2022/2025, wymaga procesora x64 z min. 4 rdzeniami i 2 GB RAM; baza SQL Server Express jest w zestawie."
+    },
+    {
+     "q": "Czy Subiekt GT współpracuje z kasą fiskalną i wagą?",
+     "a": "Tak. Obsługuje kasy i drukarki fiskalne, wagi etykietujące oraz czytniki kodów kreskowych, więc sprzedaż w sklepie i magazyn masz w jednym programie. Połączysz go też z Rachmistrzem GT lub Rewizorem GT, sklepem vendero i Sello."
+    },
+    {
+     "q": "Przy nowym wdrożeniu lepiej wybrać Subiekta GT czy nexo?",
+     "a": "GT wybierają najczęściej firmy, które znają ten program i chcą przy nim zostać. InsERT rozwija teraz głównie linię nexo PRO i zachęca do przejścia z GT, dlatego przy nowym wdrożeniu porównamy z Tobą obie opcje."
+    }
+   ]
+  },
+  "nexo": {
+   "faq": [
+    {
+     "q": "Czym różni się Subiekt nexo od nexo PRO?",
+     "a": "Nexo PRO jest dla większych firm i oddziałów: dodaje oddziały z własnymi cennikami, role i uprawnienia do magazynów, pełną historię zmian, partie towaru, zamienniki, kosztorysowanie usług, raporty własne (także SQL), INTRASTAT i VAT OSS."
+    },
+    {
+     "q": "Jaki komputer jest potrzebny do Subiekta nexo?",
+     "a": "Program działa lokalnie na Windows 10 (64-bit, 1809+) lub 11 albo na Windows Server 2019/2022/2025. Potrzebny jest procesor x64 z min. 4 rdzeniami, min. 8 GB RAM i najlepiej dysk SSD; Microsoft SQL Server Express 2025 jest w zestawie."
+    },
+    {
+     "q": "Czy paragony też trafiają do KSeF?",
+     "a": "Nie. Do KSeF trafiają faktury, a paragony obsługuje drukarka fiskalna. Subiekt nexo przekazuje zmiany w kartotece towarów do kas, drukarek fiskalnych i wag, więc sprzedaż na kasie i w programie jest spójna."
+    },
+    {
+     "q": "Czy sprzedawca może obsługiwać sprzedaż na ekranie dotykowym?",
+     "a": "Tak. Do sklepu dokupisz interfejs dotykowy POS – licencja jest na stanowisko i na rok. Pomożemy dobrać liczbę stanowisk i skonfigurować je razem z drukarką fiskalną."
+    }
+   ]
+  },
+  "biuro": {
+   "faq": [
+    {
+     "q": "Czy Biuro zastąpi program księgowy?",
+     "a": "Nie. Biuro porządkuje pracę biura rachunkowego, a księgowanie i kadry robisz dalej w Rachmistrzu, Rewizorze i Gratyfikancie z tej samej linii – nexo albo GT. Biuro działa razem z nimi."
+    },
+    {
+     "q": "Czym różni się Biuro nexo od Biuro GT?",
+     "a": "Biuro nexo jest dla biur na programach nexo: ma wspólną bazę z Rachmistrzem, Rewizorem i Gratyfikantem, portal do komunikacji z klientem i licencję nieograniczoną. Biuro GT robi seryjne deklaracje podatkowe i ZUS (eksport do Płatnika) oraz seryjną archiwizację baz."
+    },
+    {
+     "q": "Jak biuro opłaca KSeF klientów pracujących w Subiekcie 123?",
+     "a": "Z własnego Portfela InsERT. Na start biuro dostaje jednorazowo 400 InsPunktów, a z każdym Abonamentem do Subiekta, Rachmistrza lub Rewizora kolejne 100. Z tego portfela opłaca KSeF w licencjach Subiekta 123 udostępnianych klientom."
+    },
+    {
+     "q": "Czy bazy danych klientów biura są zabezpieczone kopią?",
+     "a": "Tak, w ramach opieki posprzedażnej lub Abonamentu działa e-Archiwizacja: szyfrowana kopia w chmurze Microsoft Azure o pojemności 10 GB. Biuro zbiorczo archiwizuje też bazy wielu podmiotów naraz."
+    }
+   ]
+  },
+  "gestor": {
+   "faq": [
+    {
+     "q": "Czy Gestor wystawi fakturę i wyśle ją do KSeF?",
+     "a": "Nie. E-faktury wysyła Subiekt z tej samej linii. Gestor ma z nim wspólną kartotekę klientów i towarów, a z oferty od razu zrobisz dokument sprzedaży – wymaga to jednak licencji Subiekta."
+    },
+    {
+     "q": "Czy obsłużę w nim naprawy i reklamacje?",
+     "a": "Tak, w wersjach nexo i nexo PRO jest moduł zleceń serwisowych. Zlecenia mają powiadomienia e-mail i SMS, a program pokazuje potrzebne części i opłacalność każdego zlecenia."
+    },
+    {
+     "q": "Czym różnią się wersje nexo, nexo PRO i GT?",
+     "a": "Nexo ma oferty, zlecenia serwisowe, SMS-y i rezerwację zasobów, np. aut. Nexo PRO dokłada moduł umów, oferty wielowariantowe, oddziały i role użytkowników. Gestor GT jest dla użytkowników Subiekta GT: lejek sprzedaży, prognozy i skuteczność handlowców."
+    },
+    {
+     "q": "Czy handlowiec sprawdzi swoje zadania w telefonie?",
+     "a": "Tak, przez osobną aplikację InsERT mobile z modułem Kalendarz, którą dokupuje się do programu. W samym Gestorze kalendarz ma widok dzienny, tygodniowy i miesięczny."
+    }
+   ]
+  },
+  "gratyfikant": {
+   "faq": [
+    {
+     "q": "Ilu pracowników obsłuży jedna licencja?",
+     "a": "Gratyfikant nexo i GT obsługują do 30 pracowników, a nexo PRO do 50 – w Abonamencie dokładasz kolejne bloki po 50, nawet do 1000. Biuro rachunkowe kupuje nexo PRO na 5 podmiotów, bez limitu pracowników."
+    },
+    {
+     "q": "Jakie deklaracje PIT przygotuje program?",
+     "a": "Wylicza, drukuje i wysyła elektronicznie m.in. PIT-2, PIT-4R, PIT-8AR, PIT-8C, PIT-11, PIT-12 i PIT-40. Deklaracje ZUS przygotuje do programu Płatnik, a do PPK – raporty zgłoszeniowe i raporty składek."
+    },
+    {
+     "q": "Czy pracownik może sam sprawdzić swoje dane?",
+     "a": "Tak, w wersjach nexo i nexo PRO jest portal pracownika. Pracownik zagląda w nim w swoje dane przez przeglądarkę, bez instalowania programu na swoim komputerze."
+    },
+    {
+     "q": "Co ma wersja Gratyfikant GT?",
+     "a": "Linia GT prowadzi w aktach ZFŚS, badania lekarskie i szkolenia BHP. Współpracuje z Rachmistrzem GT i Rewizorem GT, licencja obejmuje 30 pracowników. Dostępna jest też wersja Gratyfikant GT Sfera."
+    }
+   ]
+  },
+  "rachmistrz": {
+   "faq": [
+    {
+     "q": "Czy Rachmistrz obsłuży ryczałt, czy tylko KPiR?",
+     "a": "Obie formy: księgę przychodów i rozchodów oraz ryczałt ewidencjonowany. W linii nexo zmiana formy opodatkowania jest płynna. Program prowadzi też rejestry VAT, w tym marżę i metodę kasową."
+    },
+    {
+     "q": "Czy faktury zakupowe z KSeF trzeba przepisywać?",
+     "a": "Nie. Rachmistrz pobiera je sam – co ustalony czas, przy starcie albo na żądanie – dopasowuje kontrahenta po NIP (GUS/CEIDG) i księguje według schematów. Każde pobranie to 1 InsPunkt i wymaga aktywnego Abonamentu."
+    },
+    {
+     "q": "Ile firm może prowadzić w nim biuro rachunkowe?",
+     "a": "Wersja nexo PRO dla biur działa bez limitu stanowisk i obejmuje 20 podmiotów, a kolejne dokładasz blokami po 50, do 500. Biuro może dodać Portal Dokumentów, żeby opisywać i akceptować e-faktury przed zaksięgowaniem."
+    },
+    {
+     "q": "Czy rozliczę w nim składki ZUS właściciela?",
+     "a": "Tak. Program przygotuje deklaracje DRA, RCA i RZA z eksportem do Płatnika oraz deklaracje PIT. Obsługuje też proste wynagrodzenia, środki trwałe z amortyzacją i samochody w firmie."
+    }
+   ]
+  },
+  "rewizor": {
+   "faq": [
+    {
+     "q": "Czym różnią się wersje nexo, nexo PRO i GT?",
+     "a": "Nexo ma deklaracje CIT i ZUS oraz kontrolę statusu kontrahentów. Nexo PRO dokłada m.in. wielopoziomowe konta kartotekowe, magazyn walut i warunkowe schematy dekretacji, także w wersji dla biur. GT współpracuje z Subiektem GT i ma licencję wielostanowiskową."
+    },
+    {
+     "q": "Czy Rewizor sam pobierze faktury zakupowe z KSeF?",
+     "a": "Tak – cyklicznie, przy starcie lub na żądanie. Dopasuje kontrahenta po NIP (GUS/CEIDG) i zadekretuje fakturę według schematów. Od 1.04.2026 każde pobranie to 1 InsPunkt i potrzebny jest aktywny Abonament."
+    },
+    {
+     "q": "Ile firm obsłuży biuro rachunkowe na jednej licencji?",
+     "a": "Rewizor nexo PRO dla biur działa bez limitu stanowisk i obejmuje 10 podmiotów. Kolejne dokładasz blokami po 50, maksymalnie do 500. Do pracy z e-fakturami klientów biuro może dodać Portal Dokumentów."
+    },
+    {
+     "q": "Czy w Rewizorze policzę też płace?",
+     "a": "Rewizor GT ma w zestawie mikroGratyfikant GT do prostych płac. Do pełnych kadr i płac dobierzemy Gratyfikanta z tej samej linii, a deklaracje ZUS (RCA, RZA, DRA) Rewizor przekaże do Płatnika."
+    }
+   ],
+   "opis": [
+    "Rewizor to program do pełnej księgowości (księgi handlowe) dla spółek, małych i średnich firm oraz biur rachunkowych. Pracuje lokalnie na Windows, jedno- lub wielostanowiskowo. Firma wybiera licencję nexo lub nexo PRO na 1 albo 3 stanowiska (GT jest wielostanowiskowy), a biuro – nexo PRO bez limitu stanowisk na 10 podmiotów.",
+    "Na start wygeneruje wzorcowy plan kont, a dokumenty zaksięguje automatycznie według schematów. Prowadzi rejestry VAT, w tym transakcje unijne i eksport, pliki JPK oraz księgi w formacie JPK do kontroli. Obsługuje rozrachunki, kasę i bank (także bankowość elektroniczną), środki trwałe z amortyzacją, deklaracje PIT, CIT i VAT oraz ZUS z eksportem do Płatnika.",
+    "E-faktury zakupowe pobiera z KSeF sam (cyklicznie, przy starcie lub na żądanie), dopasowuje kontrahenta po NIP i dekretuje według schematów; faktury sprzedaży wysyła do KSeF Subiekt z tej samej linii. Od 1 kwietnia 2026 każde pobranie e-faktury to 1 InsPunkt, a KSeF wymaga aktywnego Abonamentu – w nim masz też e-Sprawozdania finansowe."
+   ]
+  },
+  "gopos": {
+   "faq": [
+    {
+     "q": "Czym różni się pakiet Basic od Pro?",
+     "a": "Basic jest dla małego lokalu: bez limitu zamówień, ale z limitami, m.in. 3 konta pracowników, 20 stolików, 50 rezerwacji i 1 kierunek rozchodu (np. tylko kuchnia). Pro znosi te limity – możesz mieć osobno kuchnię, bar i pizzę oraz wiele punktów sprzedaży."
+    },
+    {
+     "q": "Co się dzieje, gdy w lokalu chwilowo zniknie internet?",
+     "a": "Sprzedaż działa dalej – GoPOS pracuje w chmurze, ale chwilowy brak internetu nie zatrzymuje kasy. Raporty sprzedaży, produktów i pracowników sprawdzasz na bieżąco w przeglądarce albo w aplikacji GoPOS Now."
+    },
+    {
+     "q": "Z jakimi drukarkami fiskalnymi współpracuje GoPOS?",
+     "a": "Z drukarkami online Posnet (Thermal XL, Thermal HD, Trio, Temo, Vero) i Elzab (Cube, Mera, Zeta, T10), połączonymi przez USB, LAN lub Bluetooth. Zamiast drukarki możesz użyć wirtualnej kasy fiskalnej GoPOS."
+    },
+    {
+     "q": "Jak działa płatność kartą?",
+     "a": "Przez terminal płatniczy rozliczany przez eService (polecane Ingenico Lane 3000, PAX A35/A920) albo SoftPOS na urządzeniu z Androidem. Kwota z rachunku sama trafia na terminal, więc obsługa nie wpisuje jej ręcznie."
+    }
+   ]
+  },
+  "emenu": {
+   "faq": [
+    {
+     "q": "Czym różni się E-Menu do przeglądania od wersji z zamawianiem?",
+     "a": "Wersja do przeglądania to sama karta ze zdjęciami, składnikami i alergenami. W wersji z zamawianiem gość składa zamówienie i płaci z telefonu – działa ona w pakiecie GoOrder Basic, Pro lub Unlimited (50, 200 lub bez limitu zamówień)."
+    },
+    {
+     "q": "Skąd wezmę kody QR na stoliki?",
+     "a": "Kody generujesz w module GoOrder i drukujesz sam albo zamawiasz gotowe naklejki u producenta. W pakietach GoOrder jest 50 lub 100 kodów QR, a do stolików możesz dobrać też naklejki lub stojaki."
+    },
+    {
+     "q": "Ile wersji językowych może mieć menu?",
+     "a": "Dowolnie dużo, więc menu sprawdzi się tam, gdzie goście mówią w różnych językach. Zmianę dania wprowadzoną w GoPOS gość od razu widzi w telefonie, bez drukowania nowych kart."
+    },
+    {
+     "q": "Czy zamówienie z telefonu gościa trafia od razu na kuchnię?",
+     "a": "Zamówienie trafia do GoPOS, a na kuchnię – po akceptacji obsługi. Najlepiej kierować je na ekran kuchenny GoKDS, żeby kucharz widział je bez papierowych bonów."
+    }
+   ]
+  },
+  "gohub": {
+   "faq": [
+    {
+     "q": "Z jakimi portalami dostaw połączy się GoHub?",
+     "a": "Z Uber Eats, Glovo, Pyszne.pl, Wolt i Bolt Food, a także z Twoim sklepem GoOrder. Potrzebujesz systemu GoPOS i własnych umów z portalami – GoHub łączy je w jednym ekranie."
+    },
+    {
+     "q": "Czy mogę mieć inne menu na jednym z portali?",
+     "a": "Tak. Jedno menu ze zdjęciami i opisami wysyłasz na wszystkie portale naraz, ale dla wybranego portalu możesz ustawić osobne menu. Gdy skończy się składnik, wyłączysz danie wszędzie jednym kliknięciem."
+    },
+    {
+     "q": "Czym różnią się pakiety Basic, Pro i Unlimited?",
+     "a": "Liczbą zamówień z portali w abonamencie: Basic ma 50, Pro 200, a w obu kolejne zamówienia rozliczane są za sztukę. Unlimited nie ma limitu zamówień, więc pasuje do lokalu z dużą sprzedażą z dowozem."
+    },
+    {
+     "q": "Czy zamówienie z portalu od razu trafi na kuchnię?",
+     "a": "Tak. Zamówienia wpadają automatycznie do GoPOS i na ekran kuchenny GoKDS, bez przepisywania. Dostawę możesz też zlecić kurierom Wolt Drive lub Stava prosto z ekranu POS."
+    }
+   ]
+  },
+  "gokiosk": {
+   "faq": [
+    {
+     "q": "Na jakich kioskach działa GoKiosk?",
+     "a": "Na kioskach polecanych przez GoPOS: iMin Crane 21,5\" (stojący lub na blat), Sunmi Flex 3 18,5\" lub 22\" na blat i 27\" stojący oraz M4B JOY M 21,5\" i 27\" stojące. Wersja na blat zajmuje mniej miejsca, stojąca ma większy ekran."
+    },
+    {
+     "q": "Jak gość zapłaci w kiosku i dostanie paragon?",
+     "a": "Płaci kartą na kiosku. Modele iMin Crane i Sunmi Flex 3 22\"/27\" mają drukarkę fiskalną, a M4B JOY M – terminal płatniczy. Numer zamówienia jest na paragonie i może pojawić się na ekranie systemu numerkowego."
+    },
+    {
+     "q": "Czy kiosk nadaje się do sprzedaży biletów?",
+     "a": "Tak. Oprócz zamówień w gastronomii GoKiosk obsługuje sprzedaż biletów wstępu, więc sprawdzi się w siłowni, kinie czy parku rozrywki – wszędzie tam, gdzie w szczycie tworzy się kolejka."
+    },
+    {
+     "q": "Jak wygląda licencja na kiosk?",
+     "a": "Licencja jest za każde stanowisko kiosk, miesięczna lub roczna, z 14 dniami okresu próbnego. Kiosk wymaga aktywnego GoPOS w pakiecie Basic albo Pro, a liczbę kiosków dobierasz do ruchu w lokalu."
+    }
+   ]
+  },
+  "goorder": {
+   "faq": [
+    {
+     "q": "Czy producent pobiera prowizję od zamówień?",
+     "a": "Według producenta nie – zamiast prowizji płacisz abonament z limitem zamówień w pakiecie. Zamówienia ze strony trafiają prosto do kasy GoPOS i na ekran kuchenny GoKDS, więc nikt ich nie przepisuje."
+    },
+    {
+     "q": "Czym różnią się pakiety GoOrder?",
+     "a": "Basic ma 50 zamówień w abonamencie i 50 kodów QR, Pro – 200 zamówień i 100 kodów QR, a Unlimited – bez limitu zamówień i 100 kodów QR. Do każdego pakietu dokupisz Room Service dla hotelu."
+    },
+    {
+     "q": "Jak klient może zapłacić za zamówienie?",
+     "a": "Przelewem, BLIK-iem, kartą, gotówką albo voucherem. Klient może też założyć konto z historią zamówień i zbierać punkty, cashback i kody rabatowe, a hotel przyjmie zamówienia z pokoju przez Room Service."
+    },
+    {
+     "q": "Czy ustawię strefy dostaw i minimalne zamówienie?",
+     "a": "Tak. Ustawisz własne strefy dostaw z osobnymi opłatami, minimalną wartość zamówienia i zamówienia na wybraną datę. Sieć lokali dostaje stronę główną z wyborem lokalizacji."
+    }
+   ]
+  },
+  "gostock": {
+   "faq": [
+    {
+     "q": "Czy sprzedaż sama zdejmuje składniki ze stanu?",
+     "a": "Tak, po powiązaniu dań z recepturami każda sprzedaż w GoPOS zdejmuje składniki ze stanu. Raport pokazuje food cost, czyli koszt surowców jako procent wartości sprzedaży dania."
+    },
+    {
+     "q": "Czy podzielę magazyn na kuchnię, bar i chłodnię?",
+     "a": "Tak. Lokal podzielisz na podmagazyny, np. kuchnia, bar, chłodnia i suchy magazyn, i przesuniesz towar między nimi. Kolejne podmagazyny dokupujesz osobno."
+    },
+    {
+     "q": "Jak zrobię inwentaryzację?",
+     "a": "Telefonem, z wagą i kodami kreskowymi, w kilku magazynach naraz. Do tego dokupisz aplikację do inwentaryzacji, a raport pokaże różnice inwentaryzacyjne wraz z ich wartością."
+    },
+    {
+     "q": "Czy zaimportuję zakupy od dostawców?",
+     "a": "Tak, dodatek „import zakupów z XML” wczytuje zakupy bez ręcznego przepisywania. GoStock działa w przeglądarce na komputerze lub telefonie, wymaga GoPOS i ma 14 dni okresu próbnego."
+    }
+   ]
+  },
+  "gokds": {
+   "faq": [
+    {
+     "q": "Czy mogę mieć osobny ekran dla kuchni i baru?",
+     "a": "Tak, ale pakiet GoPOS Basic ma limit 1 kierunku rozchodu – przy osobnym ekranie dla baru potrzebny jest Pro. Można też pokazać kilka kierunków na jednym monitorze."
+    },
+    {
+     "q": "Jakie ekrany poleca producent?",
+     "a": "iMin Crane 1 21,5\" (Android 13), iMin Swan 1K 15,6\" (Android 11) i Sunmi Flex 3 22\" (Android 13). Mniejszy ekran 15,6\" pasuje na bar lub małą kuchnię, większy na główną kuchnię."
+    },
+    {
+     "q": "Skąd ekran kuchenny dostaje zamówienia?",
+     "a": "Z kasy GoPOS, z terminali kelnerów (Mobilny Kelner), z kiosku GoKiosk, ze sklepu GoOrder i z portali dostaw przez GoHub. Wszystko trafia na jeden ekran w kolejności zamówień."
+    },
+    {
+     "q": "Czy zobaczę, ile trwa przygotowanie dań?",
+     "a": "Tak. Raporty pokazują czas przygotowania dań i poszczególnych etapów, obciążenie kuchni, wydajność według pory dnia i opóźnienia. Licencja jest za każde stanowisko KDS."
+    }
+   ]
+  },
+  "numerki": {
+   "faq": [
+    {
+     "q": "Czy ekran do wyświetlania numerów jest w zestawie?",
+     "a": "Nie, ekran kupujesz osobno. Może to być Twój telewizor lub monitor, a producent nie podaje wymagań sprzętowych – pomożemy dobrać ekran i uchwyt ścienny."
+    },
+    {
+     "q": "Czy potrzebuję ekranu kuchennego GoKDS?",
+     "a": "Jest zalecany, bo to na GoKDS kucharz zmienia status zamówienia na „gotowe”. Wtedy numer sam przechodzi na ekranie na sali do gotowych do odbioru, a obsługa nie musi wołać gości."
+    },
+    {
+     "q": "Jak zamówienie dostaje numer?",
+     "a": "Numer nadaje się automatycznie przy kasie GoPOS albo w kiosku GoKiosk. Obsługa może też nadać numer ręcznie, a ekran na sali pokazuje osobno zamówienia w przygotowaniu i gotowe do odbioru."
+    },
+    {
+     "q": "Ile ekranów mogę podłączyć?",
+     "a": "Licencja obejmuje jedno urządzenie wyświetlające, więc przy kilku ekranach każdy ma swoją licencję. Licencja jest miesięczna lub roczna, z 14 dniami okresu próbnego."
+    }
+   ]
+  },
+  "zmiana": {
+   "opis": [
+    "Masz kasę lub drukarkę fiskalną Posnet albo Elzab, ale dotychczasowy serwis jest daleko, na wizytę czeka się długo albo nikt nie odbiera telefonu? Serwis kasy możesz zmienić. Przepisy nie wymagają do tego zgody serwisu głównego (§ 9 ust. 3 rozporządzenia MF w sprawie kas rejestrujących), a zmiana nie oznacza kupowania nowej kasy.",
+    "Warunki są dwa: nowy serwis musi widnieć w wykazie serwisantów (§ 9 ust. 4), a o zmianie trzeba w ciągu 5 dni powiadomić serwis główny producenta (§ 9 ust. 3). Jako autoryzowany serwis Posnet i Elzab przygotujemy dokumenty, w tym to powiadomienie, i przeprowadzimy Cię przez formalności, żebyś nie musiał szukać przepisów.",
+    "Po zmianie pracujesz dalej na tej samej kasie, a my zajmujemy się jej przeglądami technicznymi, naprawami i programowaniem. Przypominamy też o terminie kolejnego przeglądu, żeby nic Ci nie umknęło. Mamy siedzibę w Rabce-Zdroju i dojeżdżamy do klientów na terenie całej Małopolski."
+   ]
+  },
+  "dof": {
+   "opis": [
+    "Szkoły, gminy i urzędy, przychodnie oraz firmy realizujące projekty z dofinansowaniem potrzebują dostawcy, który dobierze sprzęt do wymagań projektu i przygotuje dokumenty potrzebne do jego rozliczenia. Bez tego łatwo o kłopot przy kontroli albo rozliczeniu – dlatego bierzemy na siebie i dostawę, i dokumenty.",
+    "Pomagamy dobrać sprzęt i programy do zapisów projektu: komputery i monitory, ekrany interaktywne, sieć i Wi-Fi, programy i licencje. Przygotowujemy kosztorys i ofertę, a po zakupie dokumenty do rozliczenia dofinansowania. Sprzęt dostarczamy, instalujemy i uruchamiamy na miejscu – w szkole, urzędzie, przychodni czy firmie.",
+    "Na koniec szkolimy użytkowników, np. nauczycieli, pracowników urzędu czy personel przychodni, żeby wiedzieli, jak korzystać z nowego sprzętu. Potem dalej zajmujemy się jego serwisem, więc masz jednego dostawcę od doboru po opiekę. Mamy siedzibę w Rabce-Zdroju i działamy na terenie całej Małopolski."
+   ]
+  },
+  "gopos-hotel": {
+   "faq": [
+    {
+     "q": "Z jakimi systemami hotelowymi współpracuje GoPOS?",
+     "a": "Producent wymienia integracje z NfHotel, KWHotel, Hotres, Mews, Previo (Hotelgram), mHotel i Hotellion. Dla innych systemów hotelowych proponuje rozwiązanie indywidualne."
+    },
+    {
+     "q": "Jak działa Room Service z kodem QR?",
+     "a": "Gość skanuje kod QR w pokoju i zamawia w przeglądarce telefonu, bez aplikacji. Płaci online albo dopisuje zamówienie do pokoju, a zamówienie trafia ze statusem na ekran kuchenny GoKDS. Room Service wymaga pakietu GoOrder."
+    },
+    {
+     "q": "Wybrać GoPOS Basic czy Pro dla hotelu?",
+     "a": "Według producenta Basic pasuje do małych obiektów, a Pro do średnich i dużych. Integrację hotelową dokładasz do każdego z tych pakietów – pomożemy dobrać wersję do liczby punktów sprzedaży w obiekcie."
+    },
+    {
+     "q": "Czy obsłużę restaurację, bar i imprezy w jednym systemie?",
+     "a": "Tak. System obsłuży kilka punktów w obiekcie: restaurację, bar, room service i imprezy. Raporty pokazują sprzedaż na żywo i porównanie punktów oraz obiektów."
+    }
+   ]
+  },
+  "gopos-gocrm": {
+   "faq": [
+    {
+     "q": "Czym różnią się pakiety GoCRM?",
+     "a": "Liczbą aktywnych klientów w abonamencie: Basic obejmuje do 200, Pro do 1000, a Unlimited nie ma limitu. Pakiet możesz dobrać do liczby stałych gości lokalu albo sieci lokali."
+    },
+    {
+     "q": "Jak gość pokazuje kartę stałego klienta lub voucher?",
+     "a": "Jako kod QR w aplikacji. Karty i vouchery skanuje kasa GoPOS oraz Mobilny Kelner; przy kasie przyda się skaner kodów 2D. Można też użyć kart NFC Mifare."
+    },
+    {
+     "q": "Czy punkty działają też przy zamówieniach online?",
+     "a": "Tak. Gość zbiera punkty za zakupy w lokalu i online i wymienia je na nagrody, a w sklepie GoOrder widzi swoje punkty i cashback w podsumowaniu zamówienia."
+    },
+    {
+     "q": "Jak dotrę do stałych gości z ofertą?",
+     "a": "Klientów podzielisz według aktywności i zakupów, zobaczysz, które kody rabatowe i vouchery działają, i wyślesz wybranej grupie wiadomość e-mailem lub telefonicznie."
+    }
+   ]
+  },
+  "konica-minolta-bizhub-4221i": {
+   "faq": [
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Producent zaleca do 5 000 stron miesięcznie, przy maksymalnym obciążeniu 100 000 stron. To urządzenie dla biura, gabinetu czy recepcji, w których drukuje kilka osób."
+    },
+    {
+     "q": "Czy zeskanuje dwustronną umowę za jednym razem?",
+     "a": "Tak. Podajnik Dualscan na 50 oryginałów skanuje obie strony kartki w jednym przebiegu: do 56 obrazów/min w czerni i 40 w kolorze. Jednostronnie to 28/20 obrazów/min."
+    },
+    {
+     "q": "Jak podłączę urządzenie do sieci i telefonów?",
+     "a": "Ma LAN 10/100, USB 2.0 oraz Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct w standardzie. Z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+    },
+    {
+     "q": "Czy da się ograniczyć, kto odbiera wydruki?",
+     "a": "Tak. Urządzenie obsługuje czytnik kart do logowania – przy większej liczbie użytkowników wydruk odbiera tylko jego właściciel. Dobierzemy czytnik i skonfigurujemy logowanie."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub 4221i to małe, czarno-białe urządzenie wielofunkcyjne A4 dla biura, gabinetu czy recepcji, w których dokumenty drukuje kilka osób. Drukuje, kopiuje, skanuje w kolorze i faksuje (faks Super G3 w standardzie), a przy wymiarach 417 x 461 x 448 mm i wadze ok. 16,4 kg zajmuje niewiele miejsca na biurku.",
+    "Drukuje do 42 stron A4 na minutę w rozdzielczości 1200 x 1200 dpi. Podajnik Dualscan na 50 kartek skanuje obie strony w jednym przebiegu, więc dwustronne umowy i faktury digitalizujesz szybko. Wi-Fi, Wi-Fi Direct i druk z telefonu (AirPrint, Mopria) są w standardzie, obok LAN i USB. Obsługa odbywa się z panelu 3,5\".",
+    "Producent zaleca do 5 000 stron miesięcznie. W standardzie urządzenie mieści 350 arkuszy, a dodatkowymi kasetami rozbudujesz to do 1390; można też dobrać podstawę. Producent wymienia druk kodów kreskowych i obsługę czytnika kart – przy większej liczbie użytkowników logowanie kartą sprawi, że wydruk odbierze tylko właściciel."
+   ]
+  },
+  "konica-minolta-bizhub-5021i": {
+   "faq": [
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Producent zaleca do 10 000 stron miesięcznie, przy maksymalnym obciążeniu 150 000 stron. Przy prędkości do 50 stron A4 na minutę sprawdzi się w biurze, w którym drukuje kilka osób."
+    },
+    {
+     "q": "Jak szybko skanuje dokumenty?",
+     "a": "Podajnik Dualscan mieści 80 oryginałów i skanuje obie strony w jednym przebiegu: do 100 obrazów/min w czerni i 60 w kolorze. Jednostronnie to 50/30 obrazów/min."
+    },
+    {
+     "q": "Ile papieru mieści i czy można to zwiększyć?",
+     "a": "W standardzie mieści 620 arkuszy. Dodatkowymi kasetami rozbudujesz pojemność do 1660 arkuszy, żeby rzadziej dokładać papier przy dużych wydrukach. Obsługuje formaty od A6 do A4 i niestandardowe."
+    },
+    {
+     "q": "Jak podłączę urządzenie do sieci i telefonów?",
+     "a": "Ma gigabitowy LAN 10/100/1000, USB 2.0 oraz Wi-Fi 802.11 a/b/g/n i Wi-Fi Direct w standardzie. Z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub 5021i to szybkie, czarno-białe urządzenie wielofunkcyjne A4 dla biura, kancelarii czy gabinetu, w których drukuje i skanuje kilka osób. Drukuje, kopiuje, skanuje w kolorze i faksuje (faks Super G3 w standardzie). Obsługujesz je z 7-calowego panelu, a całość ma 495 x 495 x 518 mm i waży ok. 19,6 kg.",
+    "Drukuje do 50 stron A4 na minutę w rozdzielczości 1200 x 1200 dpi. Podajnik Dualscan na 80 kartek skanuje obie strony w jednym przebiegu – do 100 obrazów na minutę w czerni. Gigabitowy LAN, Wi-Fi, Wi-Fi Direct i druk z telefonu (AirPrint, Mopria) są w standardzie. Producent wymienia też druk kodów kreskowych i obsługę czytnika kart do logowania.",
+    "Producent zaleca do 10 000 stron miesięcznie (maksymalnie 150 000). W standardzie urządzenie mieści 620 arkuszy, a dodatkowymi kasetami rozbudujesz pojemność papieru do 1660 arkuszy. Obsługuje formaty od A6 do A4 i niestandardowe, więc wydrukujesz też mniejsze dokumenty."
+   ]
+  },
+  "konica-minolta-bizhub-4051i": {
+   "faq": [
+    {
+     "q": "Czy urządzenie ma Wi-Fi w standardzie?",
+     "a": "Nie, Wi-Fi 802.11 b/g/n/ac i Wi-Fi Direct są opcjonalne. W standardzie ma gigabitowy LAN i USB 2.0, a z telefonu wydrukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+    },
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 120 000 stron. Drukuje do 40 stron A4 na minutę, automatycznie dwustronnie, więc nadaje się dla biura, w którym drukuje kilka osób."
+    },
+    {
+     "q": "Ile papieru mieści i czy można to zwiększyć?",
+     "a": "W standardzie mieści 600 arkuszy, a po rozbudowie do 2100 arkuszy, więc przy większych wydrukach rzadziej dokładasz papier. Jako opcję można też dobrać zszywacz offline."
+    },
+    {
+     "q": "Jak szybko skanuje dwustronne dokumenty?",
+     "a": "Podajnik Dualscan na 80 oryginałów skanuje obie strony kartki w jednym przebiegu, do 90 obrazów na minutę. Skanowanie jest w kolorze, a dokumenty możesz też faksować – faks Super G3 jest w standardzie."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub 4051i to czarno-białe urządzenie wielofunkcyjne A4 z rodziny bizhub i-Series dla biura, kancelarii lub gabinetu, w których drukuje kilka osób. Drukuje, kopiuje, skanuje w kolorze i faksuje – faks Super G3 jest w standardzie. Urządzenie ma 420 x 528 x 572 mm i waży ok. 39 kg.",
+    "Drukuje do 40 stron A4 na minutę, automatycznie dwustronnie, w rozdzielczości 1200 x 1200 dpi. Podajnik Dualscan na 80 kartek skanuje obie strony w jednym przebiegu (do 90 obrazów/min). Obsługujesz je z kolorowego, 10,1-calowego panelu dotykowego, który działa jak tablet. Ma dysk SSD 256 GB, gigabitowy LAN i druk z telefonu przez AirPrint i Mopria.",
+    "Producent zaleca do 6 500 stron miesięcznie (maksymalnie 120 000). W standardzie urządzenie mieści 600 arkuszy, a pojemność papieru rozbudujesz do 2100 arkuszy. Wi-Fi, Wi-Fi Direct i zszywacz offline są dostępne jako opcja – warto zdecydować o nich przy zamówieniu, jeśli drukujesz z laptopów i telefonów."
+   ]
+  },
+  "konica-minolta-bizhub-c3301i": {
+   "faq": [
+    {
+     "q": "Czy C3301i skanuje i kopiuje?",
+     "a": "Nie. To sama drukarka kolorowa – bez kopiowania, skanowania i faksu. Jeśli potrzebujesz też kopiowania i skanowania, w tej samej klasie jest urządzenie wielofunkcyjne bizhub C3321i."
+    },
+    {
+     "q": "Czy wydrukuję plik PDF bez instalowania sterownika?",
+     "a": "Tak. Drukarka obsługuje druk plików PDF i Office bez sterownika, a z telefonu drukujesz przez AirPrint (iOS), Mopria (Android) i Konica Minolta Mobile Print."
+    },
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 96 000 stron. Drukuje do 33 stron A4 na minutę, tak samo w kolorze i w czerni."
+    },
+    {
+     "q": "Czy drukarka ma Wi-Fi?",
+     "a": "Wi-Fi 802.11 b/g/n/ac i Wi-Fi Direct są opcjonalne. W standardzie drukarka ma gigabitowy LAN i USB 2.0, więc w biurze podłączysz ją po prostu do sieci."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C3301i to kolorowa drukarka laserowa A4 z rodziny bizhub i-Series dla biura, które potrzebuje druku w kolorze, ale nie kopiowania ani skanowania. To sama drukarka – bez skanera i faksu. Ma 420 x 528 x 473 mm, waży ok. 33,2 kg i obsługuje formaty od A6 do A4 oraz niestandardowe.",
+    "Drukuje do 33 stron A4 na minutę w kolorze i w czerni, automatycznie dwustronnie, w rozdzielczości 1200 x 1200 dpi. Ma 7-calowy, kolorowy panel dotykowy, druk bez sterownika plików PDF czy Office oraz druk z telefonu przez AirPrint i Mopria. W standardzie podłączysz ją przez gigabitowy LAN lub USB 2.0.",
+    "Producent zaleca do 6 500 stron miesięcznie. W standardzie mieści 600 arkuszy, a pojemność papieru rozbudujesz do 2100 arkuszy; Wi-Fi i Wi-Fi Direct są dostępne jako opcja. Gdy potrzebujesz też kopiowania i skanowania, w tej samej klasie jest urządzenie wielofunkcyjne bizhub C3321i."
+   ]
+  },
+  "konica-minolta-bizhub-c3321i": {
+   "faq": [
+    {
+     "q": "Czy urządzenie ma faks?",
+     "a": "Nie w standardzie – faks Super G3 można dołożyć jako opcjonalny moduł. Urządzenie drukuje, kopiuje i skanuje, a moduł faksu dobierzesz, jeśli wciąż wysyłasz dokumenty tą drogą."
+    },
+    {
+     "q": "Ile papieru mieści i czy można to zwiększyć?",
+     "a": "W standardzie mieści 600 arkuszy. Z dodatkową kasetą pojemność rośnie do 1600 arkuszy, więc rzadziej dokładasz papier przy większych wydrukach. Obsługuje formaty od A6 do A4 i niestandardowe."
+    },
+    {
+     "q": "Czy połączę urządzenie przez Wi-Fi?",
+     "a": "Wi-Fi 802.11 b/g/n/ac i Wi-Fi Direct są opcjonalne. W standardzie ma gigabitowy LAN i USB 2.0, a z telefonu drukujesz przez AirPrint, Mopria i Konica Minolta Mobile Print."
+    },
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Producent zaleca do 6 500 stron miesięcznie, przy maksymalnym obciążeniu 96 000 stron. Drukuje do 33 stron A4 na minutę w kolorze i w czerni, automatycznie dwustronnie."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C3321i to kolorowe urządzenie wielofunkcyjne A4 z rodziny bizhub i-Series dla małego biura, sklepu czy gabinetu. Drukuje, kopiuje i skanuje, a faks Super G3 można dołożyć jako opcję. Ma 420 x 528 x 572 mm, waży ok. 38,4 kg i obsługuje formaty od A6 do A4 oraz niestandardowe.",
+    "Drukuje do 33 stron A4 na minutę w kolorze i w czerni, automatycznie dwustronnie, w rozdzielczości 1200 x 1200 dpi. Podajnik Dualscan na 80 kartek skanuje obie strony w jednym przebiegu. Obsługa odbywa się przez 7-calowy, kolorowy panel dotykowy, a z telefonu drukujesz przez AirPrint i Mopria.",
+    "Producent zaleca do 6 500 stron miesięcznie (maksymalnie 96 000). W standardzie mieści 600 arkuszy, a z dodatkową kasetą do 1600. Do urządzenia dobierzesz też moduł faksu i Wi-Fi – w standardzie łączy się przez gigabitowy LAN i USB 2.0. Pomożemy dobrać opcje do tego, jak pracuje Twoje biuro."
+   ]
+  },
+  "konica-minolta-bizhub-c3351i": {
+   "faq": [
+    {
+     "q": "Do jakiego biura nadaje się bizhub C3351i?",
+     "a": "Do biura, w którym dużo się skanuje i drukuje w kolorze na formacie A4. Zalecane obciążenie to 6 500 stron miesięcznie, a maksymalne 96 000 stron, więc urządzenie spokojnie obsłuży codzienną pracę zespołu."
+    },
+    {
+     "q": "Jak szybko skanuje dokumenty dwustronne?",
+     "a": "Podajnik Dualscan na 80 oryginałów skanuje obie strony kartki w jednym przebiegu: do 45 obrazów na minutę jednostronnie i do 90 dwustronnie. Nie trzeba ręcznie odwracać kartek."
+    },
+    {
+     "q": "Czy drukuje w formacie A3?",
+     "a": "Nie. To urządzenie A4 i obsługuje papier w formatach od A6 do A4. Jeśli w firmie potrzebne są wydruki lub kopie A3, PRO-KOM dobierze model z obsługą tego formatu."
+    },
+    {
+     "q": "Czy mogę dołożyć faks, Wi-Fi i więcej papieru?",
+     "a": "Tak. Moduł faksu Super G3 i Wi-Fi 802.11 b/g/n to opcje. Standardowo urządzenie mieści 600 arkuszy, a z dodatkowymi podajnikami do 1600 arkuszy. W standardzie ma LAN 10/100/1000 i USB 2.0."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C3351i to kolorowe urządzenie wielofunkcyjne A4 z rodziny bizhub i-Series, przeznaczone dla biura, w którym dużo się skanuje. Drukuje, kopiuje i skanuje, a faks jest opcją. Zalecane obciążenie to 6 500 stron miesięcznie (maksymalnie 96 000), więc sprawdzi się przy codziennej pracy całego zespołu.",
+    "Drukuje do 33 stron A4 na minutę, w kolorze i w czerni z tą samą prędkością. Podajnik Dualscan na 80 kartek skanuje obie strony w jednym przebiegu i jest szybszy niż w C3321i: do 45 obrazów na minutę jednostronnie i 90 dwustronnie. Obsługujesz je z 10,1-calowego panelu dotykowego, ma dysk 256 GB i pozwala drukować z telefonu.",
+    "W standardzie mieści 600 arkuszy papieru, a pojemność rozbudujesz do 1600 arkuszy. Moduł faksu i Wi-Fi dołożysz jako opcje, a z telefonu drukujesz przez AirPrint, Mopria lub Konica Minolta Mobile Print. To urządzenie formatu A4 (od A6 do A4). PRO-KOM dobierze konfigurację, podłączy urządzenie do sieci i przeszkoli pracowników."
+   ]
+  },
+  "konica-minolta-bizhub-c251i": {
+   "faq": [
+    {
+     "q": "Czy bizhub C251i skanuje od razu po zakupie?",
+     "a": "Skanowanie wymaga podajnika dokumentów, który w tym modelu jest opcją do wyboru. Dlatego przy zamówieniu warto od razu zdecydować, czy urządzenie ma tylko drukować i kopiować, czy także skanować."
+    },
+    {
+     "q": "Który podajnik dokumentów wybrać: RADF czy Dualscan?",
+     "a": "Oba przyjmują do 100 oryginałów w formatach A6–A3. RADF odwraca kartkę, żeby zeskanować drugą stronę, a Dualscan skanuje obie strony w jednym przebiegu, więc jest szybszy przy dużej liczbie dokumentów dwustronnych."
+    },
+    {
+     "q": "Na jakim papierze i w jakich formatach drukuje?",
+     "a": "Obsługuje formaty od A6 do SRA3, formaty niestandardowe i banery do 1200 x 297 mm. W standardzie mieści 1150 arkuszy papieru, a z opcjami do 6650 arkuszy."
+    },
+    {
+     "q": "Ile stron miesięcznie może drukować?",
+     "a": "Zalecane obciążenie to 16 000 stron miesięcznie, a maksymalne 130 000 stron. Drukuje do 25 stron A4 na minutę w kolorze i w czerni oraz 15 stron A3, więc sprawdzi się tam, gdzie z jednego urządzenia korzysta cały zespół."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C251i to kolorowe urządzenie wielofunkcyjne A3 z rodziny bizhub i-Series dla biura, szkoły lub instytucji, w której z jednego urządzenia korzysta cały zespół. Drukuje i kopiuje do formatu SRA3 oraz banery do 1,2 m. Skanowanie i faks zależą od opcji wybranych przy zamówieniu.",
+    "Drukuje do 25 stron A4 na minutę w kolorze i w czerni oraz 15 stron A3. Obsługujesz je z 10,1-calowego panelu dotykowego, podobnie jak tablet. Ma dysk SSD 256 GB i w standardzie mieści 1150 arkuszy papieru, a pojemność rozbudujesz do 6650 arkuszy. Zalecane obciążenie to 16 000 stron miesięcznie.",
+    "Podajnik dokumentów jest opcją do wyboru: odwracający (RADF) albo szybszy Dualscan, który skanuje obie strony w jednym przebiegu. Możesz dołożyć finiszer ze zszywaniem, dziurkaczem i broszurowaniem, moduł faksu oraz Wi-Fi. PRO-KOM pomoże dobrać opcje do sposobu pracy biura, zainstaluje urządzenie i przeszkoli zespół."
+   ]
+  },
+  "konica-minolta-bizhub-c301i": {
+   "faq": [
+    {
+     "q": "Dla jak dużego biura jest bizhub C301i?",
+     "a": "Dla biura z większym zespołem, które drukuje dużo w kolorze. Drukuje do 30 stron A4 na minutę (15 stron A3), a zalecane obciążenie to 25 000 stron miesięcznie przy maksymalnym 150 000 stron."
+    },
+    {
+     "q": "Czy skanowanie jest w standardzie?",
+     "a": "Nie. Do skanowania potrzebny jest opcjonalny podajnik dokumentów: odwracający RADF albo szybszy Dualscan, który skanuje obie strony w jednym przebiegu. Oba przyjmują do 100 oryginałów w formatach A6–A3."
+    },
+    {
+     "q": "Czy urządzenie zszywa dokumenty i robi broszury?",
+     "a": "Tak, po dołożeniu opcjonalnego finiszera. Finiszer zszywa, dziurkuje i składa broszury, więc gotowe materiały wychodzą prosto z urządzenia, bez ręcznego składania."
+    },
+    {
+     "q": "Jak podłączyć je do sieci i drukować z telefonu?",
+     "a": "W standardzie ma LAN 10/100/1000 i USB 2.0, a Wi-Fi 802.11 b/g/n/ac oraz Wi-Fi Direct to opcje. Z telefonu drukujesz przez AirPrint (iOS), Mopria (Android) lub Konica Minolta Mobile Print."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C301i to kolorowe urządzenie wielofunkcyjne A3 z rodziny bizhub i-Series dla biura, szkoły lub instytucji, w której z jednego urządzenia korzysta cały zespół. Drukuje i kopiuje do formatu SRA3 oraz banery do 1,2 m. Skanowanie i faks zależą od opcji wybranych przy zamówieniu.",
+    "Drukuje do 30 stron A4 na minutę w kolorze i w czerni oraz 15 stron A3. Obsługujesz je z 10,1-calowego panelu dotykowego, podobnie jak tablet. Ma dysk SSD 256 GB i w standardzie mieści 1150 arkuszy papieru, a pojemność rozbudujesz do 6650 arkuszy. Zalecane obciążenie to 25 000 stron miesięcznie.",
+    "Podajnik dokumentów jest opcją do wyboru: odwracający (RADF) albo szybszy Dualscan, który skanuje obie strony w jednym przebiegu. Możesz dołożyć finiszer ze zszywaniem, dziurkaczem i broszurowaniem, moduł faksu oraz Wi-Fi. PRO-KOM pomoże dobrać opcje do sposobu pracy biura, zainstaluje urządzenie i przeszkoli zespół."
+   ]
+  },
+  "konica-minolta-bizhub-c268i": {
+   "faq": [
+    {
+     "q": "Czy podajnik dokumentów jest w zestawie?",
+     "a": "Tak. W standardzie bizhub C268i ma odwracający podajnik RADF na 130 oryginałów w formatach A5–A3. Skanuje do 70 obrazów na minutę jednostronnie i do 24 dwustronnie, w czerni i w kolorze."
+    },
+    {
+     "q": "Czy wydrukuję na grubszym papierze lub baner?",
+     "a": "Tak. Urządzenie obsługuje papier do 300 g/m², formaty od A6 do SRA3, formaty niestandardowe i banery do 1200 x 297 mm. Drukuje w rozdzielczości 1200 x 1200 dpi, z prędkością do 15 stron A3 na minutę."
+    },
+    {
+     "q": "Ile papieru mieści i czy można to rozbudować?",
+     "a": "W standardzie mieści 1150 arkuszy, a z dodatkowymi podajnikami do 3650 arkuszy. Zalecane obciążenie to 16 000 stron miesięcznie, maksymalne 130 000 stron."
+    },
+    {
+     "q": "Jakie opcje można dołożyć?",
+     "a": "Do wyboru są moduł faksu Super G3, Wi-Fi 802.11 b/g/n/ac z Wi-Fi Direct oraz większy dysk SSD. W standardzie urządzenie ma LAN 10/100/1000 i USB 2.0, a z telefonu drukujesz przez AirPrint, Mopria lub Konica Minolta Mobile Print."
+    }
+   ],
+   "opis": [
+    "Konica Minolta bizhub C268i to kolorowe urządzenie wielofunkcyjne A3 dla biura, szkoły lub instytucji, która chce drukować i kopiować w kolorze do formatu SRA3. Drukuje, kopiuje i skanuje, a faks jest opcją. Zalecane obciążenie to 16 000 stron miesięcznie (maksymalnie 130 000), więc sprawdzi się przy codziennej pracy zespołu.",
+    "Drukuje do 26 stron A4 na minutę w kolorze i w czerni oraz 15 stron A3. W standardzie ma odwracający podajnik dokumentów na 130 kartek, który skanuje do 70 obrazów na minutę. Panel dotykowy 7\" ma regulowany kąt, a urządzenie drukuje na papierze do 300 g/m² i banery do 1,2 m.",
+    "W standardzie mieści 1150 arkuszy papieru, z możliwością rozbudowy do 3650. Do wyboru jest moduł faksu, Wi-Fi i większy dysk SSD. Z telefonu drukujesz przez AirPrint, Mopria lub Konica Minolta Mobile Print. PRO-KOM dobierze opcje, zainstaluje urządzenie w sieci i pokaże pracownikom, jak z niego korzystać."
+   ]
+  },
+  "kyocera-ecosys-ma4000x-fx-wifx": {
+   "faq": [
+    {
+     "q": "Czym różnią się wersje MA4000x, MA4000fx i MA4000wifx?",
+     "a": "MA4000x drukuje, kopiuje i skanuje, bez faksu i Wi-Fi. MA4000fx dokłada faks. MA4000wifx ma faks, Wi-Fi z Wi-Fi Direct, dotykowy ekran 4,3\" i obsługę opcjonalnej platformy aplikacji HyPAS."
+    },
+    {
+     "q": "Czy urządzenie drukuje w kolorze?",
+     "a": "Nie. Drukuje czarno-biało, do 40 stron A4 na minutę, w rozdzielczości 1200 x 1200 dpi. W kolorze skanuje i kopiuje, w rozdzielczości 600 x 600 dpi, więc zeskanujesz np. kolorowe pieczątki i podpisy."
+    },
+    {
+     "q": "Jak szybko skanuje dokumenty dwustronne?",
+     "a": "Podajnik DualScan na 50 arkuszy skanuje obie strony kartki za jednym przejściem: do 40 obrazów na minutę jednostronnie i do 80 dwustronnie (mono, 300 dpi)."
+    },
+    {
+     "q": "Ile papieru mieści i czy da się to rozbudować?",
+     "a": "W standardzie 350 arkuszy: kaseta na 250 i taca boczna na 100. Z dwoma dodatkowymi podajnikami pojemność rośnie do 850 arkuszy, co ogranicza dokładanie papieru w ciągu dnia w małym biurze."
+    }
+   ]
+  },
+  "kyocera-ecosys-ma4500x-fx-ifx": {
+   "faq": [
+    {
+     "q": "Czym różnią się wersje MA4500x, MA4500fx i MA4500ifx?",
+     "a": "MA4500x drukuje, kopiuje i skanuje, bez faksu. MA4500fx dokłada faks. MA4500ifx ma faks, kolorowy ekran dotykowy 7\" i platformę aplikacji HyPAS. Wszystkie drukują do 45 stron na minutę i mają druk dwustronny."
+    },
+    {
+     "q": "Do czego przyda się platforma HyPAS?",
+     "a": "HyPAS, dostępna w wersji MA4500ifx, pozwala uruchomić na urządzeniu dodatkowe programy, np. do skanowania dokumentów od razu do konkretnych folderów. Obsługujesz je z kolorowego ekranu dotykowego 7\"."
+    },
+    {
+     "q": "Jak urządzenie chroni dane firmy?",
+     "a": "Ma rozbudowane zabezpieczenia danych: szyfrowanie, nadpisywanie danych i moduł TPM. Opcjonalnie dobierzesz czytnik kart, dzięki któremu pracownicy logują się do urządzenia kartą, a także dysk SSD i Wi-Fi."
+    },
+    {
+     "q": "Jak szybko skanuje i ile mieści papieru?",
+     "a": "Podajnik rewersyjny na 75 arkuszy skanuje do 60 obrazów na minutę jednostronnie i 26 dwustronnie (mono, 300 dpi). W standardzie mieści 600 arkuszy (kaseta 500 i taca boczna 100), a z opcjami do 2600."
+    }
+   ]
+  },
+  "kyocera-ecosys-ma5500ifx-ma6000ifx": {
+   "faq": [
+    {
+     "q": "Czym różni się MA5500ifx od MA6000ifx?",
+     "a": "MA5500ifx drukuje do 55 stron na minutę (dwustronnie 39,5), a MA6000ifx do 60 (dwustronnie 43). MA6000ifx ma nieco wyższą obudowę: 610 zamiast 590 mm. Pozostałe funkcje, w tym faks, ekran 7\" i HyPAS, są takie same."
+    },
+    {
+     "q": "Jak szybko skanuje dokumenty?",
+     "a": "Podajnik DualScan na 100 arkuszy skanuje obie strony kartki za jednym przejściem: do 60 obrazów na minutę jednostronnie i do 120 dwustronnie (mono, 300 dpi). Skanuje także w kolorze."
+    },
+    {
+     "q": "Ile papieru mieści?",
+     "a": "W standardzie 600 arkuszy: kaseta na 500 i taca boczna na 100. Z opcjonalnymi podajnikami pojemność rośnie do 2600 arkuszy, a odbiór wydruków mieści do 500 arkuszy."
+    },
+    {
+     "q": "Czy urządzenie działa przez Wi-Fi?",
+     "a": "W standardzie ma Gigabit Ethernet, USB 2.0 i USB host, więc najprościej podłączyć je kablem do firmowej sieci. Wi-Fi jest opcją, podobnie jak dysk SSD i czytnik kart."
+    }
+   ],
+   "opis": [
+    "Kyocera ECOSYS MA5500ifx i MA6000ifx to najszybsze czarno-białe urządzenia wielofunkcyjne A4 w tej rodzinie: drukują 55 albo 60 stron na minutę. Są przeznaczone dla biura lub działu, w którym kilka–kilkanaście osób drukuje i skanuje cały dzień, np. kancelarii, urzędu, przychodni czy biura rachunkowego.",
+    "Oba modele mają faks, kolorowy ekran dotykowy 7 cali i platformę aplikacji HyPAS. Podajnik DualScan na 100 kartek skanuje obie strony za jednym przejściem, do 120 obrazów na minutę. Druk dwustronny jest prawie tak szybki jak jednostronny: 39,5 strony na minutę w MA5500ifx i 43 w MA6000ifx.",
+    "Papier: kaseta na 500 kartek i taca boczna na 100 w standardzie, do 2600 kartek z opcjami, a odbiór do 500 kartek. Opcjonalnie dobierzesz dysk SSD, Wi-Fi i czytnik kart. Modele różnią się prędkością i wysokością obudowy (590 lub 610 mm). PRO-KOM dobierze wersję i opcje, zainstaluje urządzenie i przeszkoli pracowników."
+   ]
+  },
+  "kyocera-ecosys-ma3500cix-cifx-ma4000cix": {
+   "faq": [
+    {
+     "q": "Czym różnią się MA3500cix, MA3500cifx i MA4000cix?",
+     "a": "MA3500cix drukuje 35 stron na minutę, kopiuje i skanuje, bez faksu. MA3500cifx ma to samo plus faks. MA4000cix jest szybszy: 40 stron na minutę i skan do 120 obrazów na minutę, ale bez faksu."
+    },
+    {
+     "q": "Ile papieru mieści?",
+     "a": "W standardzie 350 arkuszy: kaseta na 250 i taca boczna na 100. Z opcjonalnymi podajnikami pojemność rośnie do 2210 arkuszy, a odbiór wydruków mieści 250 arkuszy."
+    },
+    {
+     "q": "Jak podłączyć urządzenie do sieci?",
+     "a": "W standardzie ma Gigabit Ethernet, USB 2.0 i dwa porty USB host, więc podłączysz je kablem do sieci i całe biuro drukuje z jednego urządzenia. Wi-Fi jest dostępne jako opcja."
+    },
+    {
+     "q": "Ile miejsca potrzeba na to urządzenie?",
+     "a": "Wymiary to 480 x 577,5 x 571,5 mm, a waga ok. 39 kg. Najlepiej postawić je na szafce lub podstawie, a nie na zwykłym biurku. Wymiary i waga są takie same we wszystkich trzech wersjach."
+    }
+   ],
+   "opis": [
+    "Kyocera ECOSYS MA3500cix, MA3500cifx i MA4000cix to kolorowe urządzenia laserowe A4 dla biura, które drukuje oferty, cenniki, ulotki i dokumenty z logo, a do tego kopiuje i skanuje. Drukują w kolorze i w czerni z tą samą prędkością: 35 lub 40 stron na minutę.",
+    "Wszystkie mają druk dwustronny, podajnik DualScan na 100 kartek, który skanuje obie strony za jednym przejściem, oraz platformę aplikacji HyPAS. MA3500cix to druk, kopia i skan, MA3500cifx dokłada faks, a MA4000cix jest szybszy (40 stron na minutę i skan do 120 obrazów na minutę), ale bez faksu.",
+    "W standardzie kaseta na 250 kartek i taca boczna na 100, z opcjami do 2210 kartek. Wi-Fi jest opcją. Urządzenie jest duże (ok. 39 kg), dlatego najlepiej postawić je na szafce lub podstawie. Przy wyborze zdecyduj, czy potrzebujesz faksu, czy szybszego druku i skanu. PRO-KOM dobierze wersję, zainstaluje ją i przeszkoli zespół."
+   ]
+  },
+  "kyocera-taskalfa-ma3500ci-ma4500ci": {
+   "faq": [
+    {
+     "q": "Czym różni się TASKalfa MA3500ci od MA4500ci?",
+     "a": "MA3500ci drukuje 35 stron na minutę, ma kasetę na 250 arkuszy, odbiór na 250 i rozbudowę do 2210 arkuszy. MA4500ci drukuje 45 stron na minutę, ma kasetę na 550, odbiór na 500, rozbudowę do 2850 arkuszy i szybszy skan (do 120 obrazów na minutę)."
+    },
+    {
+     "q": "Czy faks jest w standardzie?",
+     "a": "Tak. Oba modele drukują, kopiują, skanują i faksują bez dokupowania modułów. Mają też kolorowy ekran dotykowy 7\", druk dwustronny i podajnik DualScan na 100 kartek w standardzie."
+    },
+    {
+     "q": "Jak urządzenie zabezpiecza dane?",
+     "a": "Ma szyfrowanie, nadpisywanie danych i obsługę TLS 1.3. Obsługuje też Microsoft Universal Print. W standardzie ma druk dwustronny i podajnik DualScan na 100 kartek."
+    },
+    {
+     "q": "Jak podłączyć je do sieci?",
+     "a": "W standardzie ma Gigabit Ethernet, USB 2.0 i dwa porty USB host, więc podłączysz je kablem do firmowej sieci. Wi-Fi jest dostępne jako opcja. PRO-KOM zainstaluje urządzenie i skonfiguruje druk na komputerach."
+    }
+   ],
+   "opis": [
+    "Kyocera TASKalfa MA3500ci i MA4500ci to kolorowe urządzenia wielofunkcyjne A4 z linii TASKalfa dla większego biura lub działu. Drukują, kopiują, skanują i faksują, a faks jest w standardzie. Kolor i czerń drukują z tą samą prędkością: 35 albo 45 stron na minutę.",
+    "Oba modele mają kolorowy ekran dotykowy 7 cali, podajnik DualScan na 100 kartek, który skanuje obie strony za jednym przejściem, oraz druk dwustronny. MA4500ci jest szybszy (skan do 120 obrazów na minutę), ma większą kasetę na 550 kartek, odbiór na 500 kartek i rozbudowę do 2850 kartek.",
+    "Urządzenia mają zabezpieczenia danych (szyfrowanie, nadpisywanie, TLS 1.3) i obsługują Microsoft Universal Print. Ważą ok. 39–40 kg, więc warto dobrać podstawę lub szafkę. MA3500ci mieści do 2210 kartek z opcjami. PRO-KOM pomoże wybrać model do liczby wydruków w biurze, zainstaluje go i przeszkoli pracowników."
+   ]
+  },
+  "lenovo-thinkbook-14-g8-g9": {
+   "faq": [
+    {
+     "q": "Czy pamięć RAM i dysk da się później rozbudować?",
+     "a": "Tak. Pamięć DDR5 siedzi w dwóch gniazdach SODIMM (nie jest wlutowana), więc rozbudujesz ją do 64 GB. W środku jest też drugie, wolne gniazdo M.2 na dodatkowy dysk SSD do 2 TB."
+    },
+    {
+     "q": "Czy podłączę sieć kablową i monitor bez przejściówek?",
+     "a": "Tak. Laptop ma gniazdo RJ-45 1 Gb/s, HDMI 2.1 (4K 60 Hz), dwa USB-A, dwa USB-C z ładowaniem i wyjściem obrazu oraz czytnik kart SD. Przy biurku wygodna jest stacja dokująca USB-C."
+    },
+    {
+     "q": "Czym różni się generacja G8 od G9?",
+     "a": "G9 ma jaśniejszy ekran (400 zamiast 300 nitów), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 64 Wh i osobny układ TPM. Wersje G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) mają też opcję ekranu 2.8K 120 Hz."
+    },
+    {
+     "q": "Jaką gwarancję ma ThinkBook 14?",
+     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. W wybranych konfiguracjach dostępne są 3 lata z naprawą u klienta (on-site)."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Procesor",
+     "v": "do wyboru: Intel Core 5 210H, Intel Core 7 240H, Intel Core i5-13420H, Intel Core Ultra 5 225U, Intel Core Ultra 7 255H, Intel Core Ultra 5 325, Intel Core Ultra 7 355, AMD Ryzen 5 220, AMD Ryzen 7 250",
+     "przed": "Ekran"
+    }
+   ]
+  },
+  "lenovo-thinkbook-16-g8-g9": {
+   "faq": [
+    {
+     "q": "Czy ThinkBook 16 ma klawiaturę numeryczną?",
+     "a": "Tak, ma pełną klawiaturę z blokiem numerycznym, która przyspiesza wpisywanie kwot i kodów. Klawiatura jest odporna na zalanie i ma klawisz Copilot, a duży ekran 16\" 16:10 mieści więcej wierszy arkusza."
+    },
+    {
+     "q": "Czy da się dołożyć pamięć RAM i drugi dysk?",
+     "a": "Tak. Pamięć DDR5 jest w dwóch gniazdach SODIMM (nie jest wlutowana) i rozbudujesz ją do 64 GB. Drugie gniazdo M.2 jest wolne na dodatkowy dysk SSD do 2 TB."
+    },
+    {
+     "q": "Czym różni się generacja G8 od G9?",
+     "a": "G9 ma ekran 400 nitów (wersja dotykowa 120 Hz), Wi-Fi do 7, kamerę 5 Mpix, baterię 48 lub 71 Wh i osobny układ TPM. W G9 IPL (Intel Core Ultra seria 3) i G9 AHP (AMD Ryzen) możesz wybrać ekran 2560×1600 120 Hz."
+    },
+    {
+     "q": "Jaką gwarancję ma ThinkBook 16?",
+     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. W wybranych konfiguracjach dostępne są 3 lata z naprawą u klienta (on-site)."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Procesor",
+     "v": "do wyboru: Intel Core 5 210H, Intel Core 7 240H, Intel Core Ultra 5 135H, Intel Core Ultra 5 225U, Intel Core Ultra 7 255H, Intel Core Ultra 5 325, Intel Core Ultra 7 355, AMD Ryzen 5 220, AMD Ryzen 7 250",
+     "przed": "Ekran"
+    }
+   ]
+  },
+  "lenovo-thinkpad-e14-gen8-e16-gen4": {
+   "faq": [
+    {
+     "q": "Którą wersję wybrać: E14 Gen 8 czy E16 Gen 4?",
+     "a": "E14 ma ekran 14\", waży od 1,34 kg i ma opcję ekranu 2.8K 120 Hz, więc łatwiej go nosić. E16 ma ekran 16\" (opcja 2560×1600 120 Hz), klawiaturę numeryczną i waży od 1,65 kg, więc lepiej sprawdzi się przy biurku."
+    },
+    {
+     "q": "Czy pamięć RAM i dysk da się rozbudować?",
+     "a": "Zależy od platformy. Z procesorami Core Ultra i Ryzen AI masz dwa gniazda RAM (do 64 GB) i drugie wolne gniazdo M.2 na dysk. Z procesorami Core 3/5/7 jest jedno gniazdo RAM (do 32 GB) i jedno gniazdo dysku."
+    },
+    {
+     "q": "Ile monitorów mogę podłączyć?",
+     "a": "Wersje z Intel Core 3/5/7 obsługują do 3 ekranów naraz, a wersje z Core Ultra i Ryzen AI do 4. Do monitora służą HDMI 2.1 (4K 60 Hz) i dwa porty USB-C z wyjściem obrazu (Thunderbolt 4 w Intel, USB4 w AMD)."
+    },
+    {
+     "q": "Jaką gwarancję można wybrać?",
+     "a": "Do wyboru są 3 lata z naprawą u klienta (on-site), przedłużenie do 4 lub 5 lat i opcjonalna ochrona przed przypadkowymi uszkodzeniami. Bazowa gwarancja w PSREF zależy od kraju (1–3 lata), dlatego PRO-KOM dobierze pakiet do konfiguracji."
+    }
+   ]
+  },
+  "lenovo-thinkpad-l14-gen7-l16-gen3": {
+   "faq": [
+    {
+     "q": "Czy jest wersja z internetem LTE?",
+     "a": "Tak. Do wyboru jest modem 4G LTE CAT6 lub CAT12 z eSIM, a wersje z modemem mają gniazdo nano-SIM. Możesz też zamówić laptop przygotowany pod 4G (z antenami), z rozbudową później."
+    },
+    {
+     "q": "Czy obsłuży podpis kwalifikowany na karcie?",
+     "a": "Tak, jeśli wybierzesz opcjonalny czytnik kart inteligentnych, np. do podpisu kwalifikowanego. Opcjonalnie dostępne jest też NFC oraz czytnik linii papilarnych w przycisku zasilania i kamera IR do logowania twarzą."
+    },
+    {
+     "q": "Czy pamięć RAM i dysk można wymienić?",
+     "a": "Tak. Pamięć DDR5-5600 jest w dwóch gniazdach SODIMM (do 64 GB), a dysk M.2 2280 można wymienić. Laptop ma jedno gniazdo dysku, w konfiguracji do 2 TB (PCIe 5.0)."
+    },
+    {
+     "q": "Intel czy AMD — czym różnią się wersje?",
+     "a": "Wersja Intel ma procesory Core Ultra seria 3 z opcją vPro (zdalne zarządzanie), a wersja AMD procesory Ryzen AI seria 400, także w wersjach PRO. Porty i obudowa są w obu wersjach takie same."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Ubuntu Linux, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-x13-gen7": {
+   "faq": [
+    {
+     "q": "Czy pamięć RAM można później rozbudować?",
+     "a": "Nie. Pamięć LPDDR5X jest wlutowana: 16 lub 32 GB, a w wersji Intel także 64 GB. Wybierz od razu tyle, ile będzie potrzebne przez cały okres używania laptopa."
+    },
+    {
+     "q": "Jak podłączę sieć kablową i monitor?",
+     "a": "X13 nie ma portu RJ-45, więc do sieci kablowej potrzebna jest przejściówka USB-C albo stacja dokująca. Monitor podłączysz przez HDMI 2.1 (4K 60 Hz) lub jeden z dwóch portów Thunderbolt 4. Jest też jedno USB-A."
+    },
+    {
+     "q": "Na jak długo starcza bateria?",
+     "a": "Do wyboru jest bateria 41 Wh lub 54,7 Wh. Według testu MobileMark 30 najkorzystniejsza konfiguracja Intel pracuje do ok. 15,6 h, a zasilacz USB-C 65 W ładuje baterię do 80% w godzinę."
+    },
+    {
+     "q": "Jak działa internet komórkowy w X13?",
+     "a": "Możesz wybrać modem 4G LTE CAT6 albo 5G Sub-6 z eSIM; wersje z modemem mają też gniazdo nano-SIM. Jest również opcja przygotowania pod 4G (anteny), z rozbudową później."
+    }
+   ]
+  },
+  "lenovo-thinkpad-t14-gen7": {
+   "faq": [
+    {
+     "q": "Intel czy AMD — czym różnią się wersje T14 Gen 7?",
+     "a": "Intel ma procesory Core Ultra seria 3 (do X7 z grafiką Arc B390), pamięć w wymiennym module LPCAMM2 do 64 GB i opcję vPro. AMD ma Ryzen AI PRO 400 lub Ryzen 200 i dwa gniazda DDR5 do 96 GB (z Ryzen 200 do 64 GB)."
+    },
+    {
+     "q": "Czy modem 4G/5G można dołożyć później?",
+     "a": "Wybór trzeba zrobić przy zamówieniu: bez modemu, przygotowanie pod 4G/5G (anteny, bez modemu), modem 4G LTE (Snapdragon X12) albo 5G (Snapdragon X61). Modemy obsługują eSIM i nano-SIM."
+    },
+    {
+     "q": "Jaki ekran wybrać?",
+     "a": "Do wyboru są: matowy WUXGA IPS 400 nitów, dotykowy WUXGA 500 nitów o niskim poborze energii, dotykowy z filtrem prywatyzującym Privacy Guard oraz 2,8K OLED 120 Hz 500 nitów. Wszystkie mają 14\" i format 16:10."
+    },
+    {
+     "q": "Jaką gwarancję ma T14 Gen 7?",
+     "a": "Według PSREF bazowa gwarancja to 1 rok albo 3 lata (bateria 1 rok), w trybie kurier / dostarczenie do serwisu lub z naprawą u klienta (on-site). Konfiguracje oferowane w Polsce mają też 3 lata Premier Support."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu / Fedora – wybrane modele), bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-t16-gen5": {
+   "faq": [
+    {
+     "q": "Intel czy AMD — czym różnią się wersje T16 Gen 5?",
+     "a": "Intel ma Core Ultra seria 3 (do X7 z Arc B390), moduł LPCAMM2 do 64 GB, opcję ekranu OLED 2,8K i waży od 1,63 kg. AMD ma Ryzen AI PRO 400 lub Ryzen 200, dwa gniazda DDR5 do 96 GB, tylko ekrany WUXGA i waży od 1,74 kg."
+    },
+    {
+     "q": "Czy T16 zastąpi komputer przy biurku?",
+     "a": "Tak, do tego jest projektowany. Ma RJ-45, HDMI 2.1, dwa Thunderbolt 4 i dwa USB-A. Przy pracy stacjonarnej warto dodać stację dokującą i drugi monitor."
+    },
+    {
+     "q": "Czy ekran może chronić przed podglądaniem?",
+     "a": "Tak. Do wyboru jest dotykowy ekran WUXGA z filtrem Privacy Guard. Pozostałe opcje to matowy WUXGA IPS 400 nitów, dotykowy WUXGA 500 nitów oraz 2,8K OLED 120 Hz (tylko Intel)."
+    },
+    {
+     "q": "Jaką gwarancję ma T16 Gen 5?",
+     "a": "Według PSREF bazowa gwarancja to 1 rok albo 3 lata (bateria 1 rok), w trybie kurier / dostarczenie do serwisu lub on-site. Konfiguracje oferowane w Polsce mają też 3 lata Premier Support."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu / Fedora – wybrane modele), bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-p14s-p16s-gen7": {
+   "faq": [
+    {
+     "q": "Czy będzie stabilnie działał z AutoCAD, Revit czy SolidWorks?",
+     "a": "Lenovo testuje te laptopy z programami inżynierskimi i nadaje im certyfikaty ISV. Listę certyfikatów sprawdzamy dla konkretnego programu i konfiguracji, zanim złożysz zamówienie."
+    },
+    {
+     "q": "Którą kartę graficzną wybrać?",
+     "a": "W wersjach Intel do wyboru jest grafika zintegrowana (Arc B390 w X9) albo NVIDIA RTX PRO 500 (6 GB) lub 1000 (8 GB), a w P16s także RTX PRO 2000 (8 GB). P14s AMD nie ma opcji karty NVIDIA; ma grafikę Radeon 840M, 860M lub 890M."
+    },
+    {
+     "q": "Czy pamięć RAM da się wymienić?",
+     "a": "Tak. Pamięć do 96 GB nie jest lutowana: w P14s Intel i P16s to jeden moduł LPCAMM2, a w P14s AMD dwa gniazda DDR5. Dysk SSD M.2 2280 ma do 2 TB (PCIe 5.0)."
+    },
+    {
+     "q": "P14s czy P16s — co wybrać?",
+     "a": "P14s Intel ma ekran 14,5\" (do 3K 120 Hz) i waży od 1,63 kg, a P14s AMD ma 14\" (do 2,8K OLED) i waży od 1,29 kg. P16s ma ekran 16\", baterię do 90 Wh i opcję RTX PRO 2000, waży od 1,75 kg."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu / Fedora – wybrane modele), bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-p16-gen3": {
+   "faq": [
+    {
+     "q": "Ile pamięci i dysków można zamontować?",
+     "a": "Pamięć DDR5 siedzi w czterech gniazdach: do 192 GB bez ECC albo do 128 GB z ECC. Laptop mieści do trzech dysków SSD PCIe 5.0, łącznie do 12 TB, z obsługą RAID 0/1/5."
+    },
+    {
+     "q": "Którą kartę graficzną wybrać?",
+     "a": "Do wyboru są karty NVIDIA RTX PRO Blackwell: 1000 (8 GB), 2000 (8 GB), 3000 (12 GB ECC), 4000 (16 GB ECC) i 5000 (24 GB ECC). Modele 3000–5000 mają pamięć ECC, odporną na błędy."
+    },
+    {
+     "q": "Czy podłączę dwa monitory i sieć przy biurku?",
+     "a": "Tak. Laptop ma dwa Thunderbolt 5, jeden Thunderbolt 4, dwa USB-A 10 Gb/s, HDMI 2.1 (8K), RJ-45 2,5 Gb/s i czytnik SD Express. W biurze najlepiej pracuje ze stacją dokującą Thunderbolt i dwoma monitorami."
+    },
+    {
+     "q": "Czy da się z nim pracować poza biurem?",
+     "a": "Tak, ale to ciężki sprzęt: od 2,54 kg. Ma baterię 99,9 Wh z szybkim ładowaniem do 80% w godzinę, ładowanie USB-C do 180 W, testy MIL-STD-810H i opcjonalny modem 5G z eSIM."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Pro for Workstations / Linux, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-x1-carbon-gen14": {
+   "faq": [
+    {
+     "q": "Czy pamięć RAM można rozbudować?",
+     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB, bez możliwości rozbudowy. Dlatego dobieramy ją od razu przy zamówieniu, z zapasem na kolejne lata. Dysk SSD M.2 2280 możesz wybrać do 2 TB."
+    },
+    {
+     "q": "Jak podłączę sieć kablową i monitor?",
+     "a": "X1 Carbon nie ma portu RJ-45. Ma trzy porty Thunderbolt 4 z ładowaniem i obrazem, HDMI 2.1 i USB-A 5 Gb/s. Przy biurku warto dodać stację dokującą Thunderbolt."
+    },
+    {
+     "q": "Którą kamerę wybrać do wideokonferencji?",
+     "a": "Do wyboru jest kamera 5 Mpix z IR albo 10 Mpix UHD z IR i czujnikiem ToF. Obie mają zasłonkę i podczerwień, dzięki czemu logowanie twarzą jest w standardzie."
+    },
+    {
+     "q": "Czy jest wersja z internetem komórkowym?",
+     "a": "Tak. Możesz wybrać modem 4G LTE (Snapdragon X12) albo 5G (Snapdragon X61) z eSIM i gniazdem nano-SIM, albo wersję przygotowaną pod 4G/5G. Dzięki temu masz internet bez szukania Wi-Fi."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu / Fedora – wybrane modele), bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkpad-x1-2in1-gen11": {
+   "faq": [
+    {
+     "q": "Czy rysik jest w zestawie?",
+     "a": "Zależy od konfiguracji. Rysik Lenovo Slim Pen 2 chowa się i ładuje w obudowie, ale w części konfiguracji kupuje się go osobno. Przy zamówieniu sprawdzimy, czy wybrana wersja go zawiera."
+    },
+    {
+     "q": "W jakich trybach można pracować?",
+     "a": "Ekran dotykowy obraca się o 360°, więc urządzenie działa jak laptop, tablet albo „namiot” do prezentacji. Do wyboru jest 14\" WUXGA IPS 500 nitów (także z Privacy Guard) lub OLED 2,8K 120 Hz."
+    },
+    {
+     "q": "Czy pamięć RAM można rozbudować?",
+     "a": "Nie. Pamięć jest wlutowana: 16, 24, 32 lub 64 GB, bez możliwości rozbudowy. Wybierz ilość od razu, z zapasem na kolejne lata. Dysk SSD M.2 2280 możesz wybrać do 2 TB."
+    },
+    {
+     "q": "Jak podłączyć go przy biurku?",
+     "a": "Nie ma portu RJ-45, więc przy biurku przydaje się stacja dokująca. Ma trzy porty Thunderbolt 4, HDMI 2.1 i USB-A 5 Gb/s. Opcjonalnie możesz wybrać modem 4G LTE lub 5G z eSIM."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, Linux (Ubuntu / Fedora – wybrane modele), bez systemu"
+    }
+   ]
+  },
+  "lenovo-v15": {
+   "faq": [
+    {
+     "q": "Ekran TN czy IPS — co wybrać?",
+     "a": "Najczęściej wybierane konfiguracje mają matrycę TN o jasności 250–300 nitów, która ma gorsze kąty widzenia. Opcjonalny ekran IPS 300 nitów jest wygodniejszy, gdy na ekran patrzy kilka osób albo pracujesz pod różnym kątem."
+    },
+    {
+     "q": "Czy pamięć RAM da się rozbudować?",
+     "a": "W G5 i G6 tak: DDR5 w dwóch gniazdach, do 32 GB. W G4 AMN pamięć jest wlutowana (8 lub 16 GB), a w G4 IRU część jest wlutowana i jest jedno gniazdo (maks. 24 GB). Dysk ma jedno gniazdo M.2 2242, do 1 TB."
+    },
+    {
+     "q": "Jakie ma porty?",
+     "a": "Gniazdo sieciowe RJ-45 1 Gb/s, HDMI 1.4b, dwa USB-A 5 Gb/s i USB-C z ładowaniem i wyjściem obrazu (10 Gb/s w G6, 5 Gb/s w G4/G5), a do tego osobne gniazdo zasilacza i gniazdo słuchawkowo-mikrofonowe."
+    },
+    {
+     "q": "Jaką gwarancję ma V15?",
+     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. Można ją przedłużyć do 3 lat z naprawą u klienta (on-site)."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-v17": {
+   "faq": [
+    {
+     "q": "Którą generację wybrać: G4 czy G7?",
+     "a": "G7 to nowa platforma z 2026 r.: Intel Core seria 3 z układem AI (NPU), DDR5 do 32 GB, RJ-45, dwa USB-C i Wi-Fi do 7. Starsza G4 ma DDR4 do 16 GB, czytnik kart SD i jeden USB-C, ale nie ma gniazda RJ-45."
+    },
+    {
+     "q": "Czy pamięć RAM i dysk da się rozbudować?",
+     "a": "W G7 pamięć DDR5 jest w gnieździe SODIMM, maks. 32 GB. W G4 część pamięci jest wlutowana i jest jedno gniazdo, maks. 16 GB. Dysk SSD M.2 ma jedno gniazdo, do 512 GB."
+    },
+    {
+     "q": "Czy V17 nadaje się do noszenia?",
+     "a": "Raczej nie na co dzień. Waży od 1,99 kg (G7) lub 2,02 kg (G4) i ma wymiary 399 × 274 mm, więc lepiej sprawdza się na biurku. Bateria ma 47 Wh w G7 i 45 Wh w G4."
+    },
+    {
+     "q": "Jaką gwarancję ma V17?",
+     "a": "Bazowa gwarancja producenta według PSREF to 1 lub 2 lata w trybie kurier / dostarczenie do serwisu. Można ją przedłużyć do 3 lat z naprawą u klienta (on-site)."
+    }
+   ],
+   "opis": [
+    "Lenovo V17 to laptop dla osób, które większość dnia siedzą przy biurku i chcą dużego ekranu bez dokupowania monitora: w księgowości, kadrach, sklepie czy biurze magazynu. Ekran 17,3 cala Full HD w technologii IPS ma dobre kąty widzenia, a pełna klawiatura z blokiem numerycznym ułatwia pracę na tabelkach.",
+    "Nowsza generacja G7 ma procesory Intel Core seria 3, pamięć DDR5 w gnieździe (rozbudowa do 32 GB), gniazdo sieciowe RJ-45, dwa USB-A i dwa USB-C z ładowaniem i wyjściem obrazu oraz Wi-Fi 6 lub 7. Starsza G4 nie ma gniazda RJ-45, za to ma czytnik kart SD. Obie przeszły testy wytrzymałości MIL-STD-810H.",
+    "To laptop ciężki (ok. 2 kg), raczej na biurko niż do noszenia. Jeśli potrzebujesz kabla sieciowego i większej pamięci, wybierz G7; G4 to starsza platforma z DDR4 do 16 GB. Do V17 warto dobrać mysz, podkładkę lub podstawkę pod laptopa i torbę na 17 cali. PRO-KOM dobierze konfigurację i przygotuje laptop do pracy."
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-ideapad-slim-3-15": {
+   "faq": [
+    {
+     "q": "Jak podłączę laptop do sieci kablowej?",
+     "a": "IdeaPad Slim 3 nie ma gniazda RJ-45, więc do kabla potrzebna jest przejściówka USB-C z RJ-45. Jeśli laptop ma stale pracować w firmowej sieci kablowej, zobacz serię V lub ThinkBook."
+    },
+    {
+     "q": "Czy pamięć RAM i dysk da się rozbudować?",
+     "a": "W 15IWC11 pamięć DDR5 jest w jednym gnieździe, do 32 GB. Pozostałe wersje Intel/AMD mają jedno gniazdo albo 8 GB wlutowane i gniazdo (16–24 GB), a Snapdragon pamięć wlutowaną. W 15IPH11 i Gen 10 jest drugie wolne gniazdo M.2 na dysk."
+    },
+    {
+     "q": "Czy wersja ze Snapdragonem uruchomi moje programy?",
+     "a": "Nie zawsze. To procesor ARM z Windows 11 na ARM: długo pracuje na baterii, ale część starszych programów i sterowników (np. drukarek fiskalnych) może nie działać. Trzeba to sprawdzić przed zakupem."
+    },
+    {
+     "q": "Windows 11 Home czy Pro?",
+     "a": "Do pracy w firmie, np. w domenie, z szyfrowaniem BitLocker czy zdalnym pulpitem, zalecamy Windows 11 Pro. W sklepach Slim 3 jest głównie z wersją Home."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Home, Windows 11 Pro, bez systemu"
+    }
+   ]
+  },
+  "lenovo-ideapad-slim-3-16-17": {
+   "faq": [
+    {
+     "q": "Wersja 16 czy 17,3 cala?",
+     "a": "16\" ma ekran 16:10 (1920×1200, IPS do 400 nitów), waży od 1,58–1,68 kg i przeszedł test MIL-STD-810H. 17,3\" (17IWC11) ma klasyczny Full HD IPS 300 nitów, obudowę z tworzywa, Wi-Fi 6 i waży od 2,03 kg."
+    },
+    {
+     "q": "Czy pamięć RAM i dysk da się rozbudować?",
+     "a": "W 16IWC11 i 17IWC11 pamięć DDR5 jest w jednym gnieździe, do 32 GB. 16IPH11 i 16ARP10 mają jedno gniazdo albo 8 GB wlutowane i gniazdo (do 24 GB) oraz drugie wolne gniazdo M.2 na dysk."
+    },
+    {
+     "q": "Jak podłączę sieć kablową i monitor?",
+     "a": "Laptop nie ma gniazda RJ-45, więc do sieci kablowej potrzebna jest przejściówka USB-C z RJ-45. Monitor podłączysz przez HDMI 1.4 albo USB-C z wyjściem obrazu."
+    },
+    {
+     "q": "Jaką gwarancję ma ten laptop?",
+     "a": "Producent przewiduje 1 lub 2 lata w trybie kurier / dostarczenie do serwisu, a 3 lata tylko w 16IPH11. Jeśli potrzebujesz gwarancji on-site i RJ-45 w laptopie, zobacz Lenovo V17 lub ThinkBook 16."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Home, Windows 11 Pro, bez systemu"
+    }
+   ]
+  },
+  "lenovo-ideapad-slim-5-16": {
+   "faq": [
+    {
+     "q": "Czym Slim 5 różni się od Slim 3?",
+     "a": "Slim 5 ma całą obudowę z aluminium, pamięć w dwóch gniazdach (do 32 GB), dwa gniazda na dyski, dwa porty USB-C 10 Gb/s z ładowaniem i obrazem, HDMI 2.1 (4K 60 Hz) oraz czytnik kart microSD."
+    },
+    {
+     "q": "Którą wersję wybrać?",
+     "a": "Gen 11 to 16AGP11 z AMD Ryzen AI 400 (Copilot+ PC) i 16IPH11 z Intel Core Ultra seria 3, obie z układem AI do 50 TOPS i ekranem 400 nitów. Gen 10 ma ekran 300 nitów, a 16IRH10 wolniejsze USB-C 5 Gb/s i HDMI 1.4b."
+    },
+    {
+     "q": "Jak podłączę sieć kablową i monitor?",
+     "a": "Slim 5 nie ma gniazda RJ-45. Przy biurku dobierz stację dokującą USB-C i monitor; laptop ładuje się przez USB-C (Power Delivery 65–100 W). Monitor 4K 60 Hz podłączysz też bezpośrednio przez HDMI 2.1 (w 16IRH10 HDMI 1.4b)."
+    },
+    {
+     "q": "Jaką gwarancję ma Slim 5?",
+     "a": "Producent przewiduje 1, 2 lub 3 lata gwarancji w trybie kurier / dostarczenie do serwisu; zwykle są to 2 lata. Wariant gwarancji dobierzemy przy zamówieniu."
+    }
+   ]
+  },
+  "lenovo-yoga-7-2w1": {
+   "faq": [
+    {
+     "q": "Czy rysik jest w zestawie?",
+     "a": "Konfiguracje dostępne w Polsce mają w zestawie rysik Lenovo Yoga Pen i etui na laptopa. Przy zamówieniu można też wybrać wariant bez rysika, jeśli nie planujesz notatek ani podpisów na ekranie."
+    },
+    {
+     "q": "Wersja 14 czy 16 cali?",
+     "a": "14\" waży od 1,38 kg, a w Gen 11 ma wyłącznie ekrany OLED. 16\" ma ekran IPS lub OLED, klawiaturę numeryczną i opcję procesora Ryzen AI 9 465, ale waży od 1,74 kg."
+    },
+    {
+     "q": "Ile pamięci RAM wybrać?",
+     "a": "Pamięć jest wlutowana (16, 24 lub 32 GB) i nie da się jej rozbudować. Do pracy biurowej wystarczy 16 GB, a do wielu programów naraz wybierz 24–32 GB. Później zmiana nie będzie możliwa."
+    },
+    {
+     "q": "Jak podłączę monitor i sieć kablową?",
+     "a": "Laptop nie ma gniazda RJ-45. Ma dwa USB-C z ładowaniem i wyjściem obrazu (Thunderbolt 4 w Intel, 10 Gb/s w AMD), HDMI (2.1, w 14ILL10 1.4b) i USB-A, więc przy biurku najwygodniej podłączyć stację dokującą USB-C."
+    }
+   ]
+  },
+  "lenovo-yoga-slim-7": {
+   "faq": [
+    {
+     "q": "Jak podłączę projektor, monitor albo pendrive?",
+     "a": "Laptop ma wyłącznie porty USB-C z ładowaniem i wyjściem obrazu, bez HDMI, USB-A, RJ-45 i czytnika kart. Do projektora, monitora czy pendrive’a potrzebna jest przejściówka albo stacja dokująca USB-C."
+    },
+    {
+     "q": "Czy ekran składa się w tablet i działa z rysikiem?",
+     "a": "Nie. Yoga Slim 7 to zwykły laptop: ekran nie składa się w tablet i nie obsługuje rysika. Możesz natomiast wybrać wersję z ekranem dotykowym, WUXGA lub 2.8K OLED."
+    },
+    {
+     "q": "Czy pamięć RAM można rozbudować?",
+     "a": "Nie. Pamięć LPDDR5X jest wlutowana, 16 lub 32 GB, dlatego jej ilość wybierasz przy zakupie. Najczęściej wybierane jest 16 GB. Dysk SSD M.2 2242 to 512 GB lub 1 TB (w 14AGP11 także 2 TB)."
+    },
+    {
+     "q": "AMD czy Intel — czym różnią się wersje?",
+     "a": "14AGP11 ma AMD Ryzen AI 5 430 lub AI 7 445, dwa porty USB4 40 Gb/s i opcję dysku 2 TB. 14ILL11 ma Intel Core Ultra 5 226V lub Ultra 7 256V–266V i trzy porty USB-C 10 Gb/s."
+    }
+   ]
+  },
+  "lenovo-yoga-9-2w1": {
+   "faq": [
+    {
+     "q": "Czy rysik jest w zestawie i jak go wykorzystam?",
+     "a": "Typowe konfiguracje w Polsce mają w zestawie rysik Lenovo Yoga Pen Gen 2 z etui. Ekran jest dotykowy i obraca się o 360°, więc u klienta przełączasz laptop w tryb namiotu do prezentacji albo w tablet i pracujesz rysikiem."
+    },
+    {
+     "q": "Czy da się później rozbudować pamięć RAM lub dysk?",
+     "a": "Pamięć 32 GB LPDDR5X jest wlutowana i nie da się jej rozbudować, ale to dużo jak na laptop biurowy. Dysk SSD M.2 wybierasz przy zamówieniu: 512 GB, 1 TB lub 2 TB — najczęściej wybierane jest 512 GB."
+    },
+    {
+     "q": "Jakie ma złącza i czy podłączę monitor oraz stację dokującą?",
+     "a": "Masz dwa porty Thunderbolt 4 (ładowanie, obraz, stacja dokująca), USB-A 10 Gb/s, HDMI 2.1 i gniazdo słuchawkowe. Nie ma czytnika kart pamięci ani gniazda sieciowego RJ-45 — łączność zapewniają Wi-Fi 7 i Bluetooth 5.4."
+    },
+    {
+     "q": "Wybrać wersję z Windows 11 Home czy Pro?",
+     "a": "Sprzęt w obu wersjach 14IPH11 jest ten sam. Windows 11 Pro wybierz, gdy laptop ma działać w domenie firmowej, szyfrować dysk funkcją BitLocker i być zarządzany centralnie. Home wystarczy do pracy bez domeny firmowej."
+    }
+   ]
+  },
+  "lenovo-yoga-pro": {
+   "faq": [
+    {
+     "q": "Czym różni się Yoga Pro 7 od Yoga Pro 9?",
+     "a": "Pro 7 ma ekran 15,3\" 2.5K OLED do 165 Hz, waży od 1,59 kg, a karta RTX pracuje z mocą 85 W. Pro 9 ma dotykowy ekran 16\" 2.8K OLED (opcja 3.2K tandem OLED), kartę z mocą 100 W, baterię 92,5 Wh i typowo rysik w zestawie, ale waży ok. 1,90 kg."
+    },
+    {
+     "q": "Jaką kartę graficzną i ile pamięci można wybrać?",
+     "a": "Do wyboru są karty NVIDIA GeForce RTX 5050 8 GB, RTX 5060 8 GB lub RTX 5070 12 GB oraz 32 lub 64 GB pamięci RAM. Najczęściej wybierane są RTX 5050 (Pro 7 i Pro 9), RTX 5060 (Pro 9) i 32 GB pamięci."
+    },
+    {
+     "q": "Czy dołożę później pamięć albo drugi dysk?",
+     "a": "Pamięć RAM jest wlutowana, więc jej ilość wybierasz przy zakupie. Dysk możesz za to rozbudować: laptop ma dwa gniazda M.2, a drugie, wolne, służy do dołożenia dodatkowego dysku SSD."
+    },
+    {
+     "q": "Czy ekran nadaje się do pracy nad materiałami do druku i obróbki zdjęć?",
+     "a": "Ekran OLED pokrywa 100% przestrzeni barw DCI-P3, co ma znaczenie przy druku i reklamie, a jasność HDR sięga 1100 nitów (w 3.2K do 1600). Czytnik kart SD UHS-II przyda się przy pracy ze zdjęciami z aparatu."
+    }
+   ]
+  },
+  "lenovo-thinkcentre-neo-50t": {
+   "faq": [
+    {
+     "q": "Ile pamięci i dysków mogę dołożyć w przyszłości?",
+     "a": "Komputer ma dwa gniazda DDR5 i obsługuje do 64 GB pamięci. Gen 5 ma gniazdo SSD M.2 oraz miejsce na dysk 3,5\" i 2,5\", a Gen 6 dwa gniazda SSD M.2 (do 1 TB każdy) i miejsce na dysk 3,5\" (do 2 TB). Obudowę otworzysz bez narzędzi."
+    },
+    {
+     "q": "Czy mogę zamontować kartę graficzną do grafiki lub kilku monitorów?",
+     "a": "Tak, w środku jest pełnowymiarowe złącze PCIe x16 (w Gen 6 PCIe 4.0). Fabrycznie możesz zamówić kartę Intel Arc A310 LP 4 GB (Gen 5 i Gen 6) albo NVIDIA GeForce RTX 3050 6 GB (tylko Gen 6)."
+    },
+    {
+     "q": "Czym różni się generacja Gen 5 od Gen 6?",
+     "a": "Gen 5 to procesory Intel Core 13. i 14. generacji, jedno gniazdo SSD i Wi-Fi 6. Gen 6 ma procesory Intel Core Ultra (seria 2), pamięć DDR5-5600, dwa gniazda SSD, opcję karty RTX 3050 i Wi-Fi 7 oraz zasilacz do 400 W."
+    },
+    {
+     "q": "Czy podłączę starszy monitor i urządzenia na port szeregowy?",
+     "a": "Tak. Z tyłu są HDMI 2.1, DisplayPort 1.4 i VGA, więc podłączysz też starszy monitor. Opcjonalnie komputer może mieć port szeregowy, równoległy i PS/2 dla starszych drukarek czy czytników."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-neo-50s-55s": {
+   "faq": [
+    {
+     "q": "Czym różni się neo 50s od neo 55s?",
+     "a": "neo 50s pracuje na procesorach Intel (Gen 5: Core 13./14. generacji, Gen 6: Core Ultra seria 2) i może mieć napęd DVD. neo 55s Gen 6 ma procesory AMD Ryzen 200 lub Ryzen AI 300 z układem AI, opcję kart RX 6400 lub RTX 3050, ale nie ma napędu DVD ani czytnika kart."
+    },
+    {
+     "q": "Czy włożę do niego kartę graficzną?",
+     "a": "Tylko niskoprofilową: Intel Arc A310 LP 4 GB w 50s albo AMD Radeon RX 6400 4 GB lub NVIDIA RTX 3050 6 GB w 55s. Pełnowymiarowa karta się nie zmieści — jeśli jej potrzebujesz, wybierz wieżę neo 50t."
+    },
+    {
+     "q": "Ile monitorów podłączę bez dodatkowej karty?",
+     "a": "Z tyłu masz HDMI 2.1 i DisplayPort 1.4, więc od razu podłączysz dwa monitory. Wersja 50s Gen 5 ma dodatkowo złącze VGA do starszego monitora; w 50s Gen 6 VGA nie ma w standardzie."
+    },
+    {
+     "q": "Jak rozbudować pamięć i dyski?",
+     "a": "Są dwa gniazda DDR5 do 64 GB (w 50s moduły UDIMM, w 55s SODIMM). 50s Gen 6 i 55s mają dwa gniazda SSD M.2 (do 1 TB każdy), 50s Gen 5 jedno, a wszystkie wersje mają miejsce na dysk 3,5\"."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-neo-30s": {
+   "opis": [
+    "ThinkCentre neo 30s Gen 5 to podstawowy komputer w smukłej obudowie SFF (mała obudowa, 8,2 litra) do codziennej pracy biurowej: poczta, przeglądarka, program sprzedażowy, faktury. Sprawdzi się w sekretariacie, recepcji, sklepie i szkole, czyli wszędzie tam, gdzie potrzebujesz prostego i niewielkiego komputera do typowych zadań.",
+    "W środku pracują energooszczędne procesory Intel znane z laptopów (Core i3-1315U, i5-13420H lub i7-13620H), więc komputer jest cichy i pobiera mało prądu. Pamięć DDR5 ma dwa gniazda (do 64 GB), a obok dysku SSD jest drugie gniazdo M.2 i miejsce na dysk 3,5 cala. Z tyłu są HDMI i VGA (podłączysz też starszy monitor) oraz RJ-45, z przodu USB-C.",
+    "Wersja 13DH z Core i3 ma typowo nagrywarkę DVD±RW i jako jedyna dodatkowe złącze PCIe x1, a 13DK z procesorami serii H jest typowo bez napędu. Opcjonalnie dostępne są Wi-Fi 6 i niskoprofilowa karta Intel Arc A310 LP. Gdy potrzebujesz więcej mocy albo złącza DisplayPort, wybierz neo 50s. Do zestawu warto dobrać monitor i UPS — PRO-KOM pomoże dobrać konfigurację."
+   ],
+   "faq": [
+    {
+     "q": "Czy podłączę do niego starszy monitor?",
+     "a": "Tak, z tyłu masz HDMI 2.1 i VGA, więc podłączysz zarówno nowy monitor, jak i starszy na VGA. Złącza DisplayPort tu nie ma — jeśli go potrzebujesz, wybierz neo 50s."
+    },
+    {
+     "q": "Czym różni się wersja 13DH od 13DK?",
+     "a": "13DH to podstawowa wersja z Intel Core i3-1315U, typowo z nagrywarką DVD±RW i jako jedyna z dodatkowym złączem PCIe x1. 13DK ma mocniejsze procesory serii H (Core i5-13420H lub i7-13620H) i typowo jest bez napędu DVD."
+    },
+    {
+     "q": "Czy można później dołożyć pamięć i dysk?",
+     "a": "Tak. Pamięć DDR5 ma dwa gniazda SODIMM i obsługuje do 64 GB. Na dyski są dwa gniazda SSD M.2 PCIe NVMe (do 1 TB każdy) oraz miejsce na klasyczny dysk 3,5\"."
+    },
+    {
+     "q": "Czy zamówię go z Wi-Fi i napędem DVD?",
+     "a": "Wi-Fi 6 z Bluetooth 5.2 jest opcją — bez niej komputer łączy się kablem przez Ethernet 1 Gb/s. Cienki napęd DVD-ROM lub nagrywarkę DVD±RW mają wybrane modele, typowo wersja z Core i3."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-neo-50q-55q": {
+   "faq": [
+    {
+     "q": "Czy przykręcę go za monitorem albo pod blatem?",
+     "a": "Tak, na opcjonalnym uchwycie VESA 100 mm zamontujesz komputer z tyłu monitora albo pod blatem. Przy zakupie dobierz monitor z miejscem na uchwyt VESA. Sam komputer ma 179 × 182,9 × 34,5 mm i waży ok. 0,9–1,1 kg."
+    },
+    {
+     "q": "Ile monitorów podłączę i czy obsłuży starsze urządzenia kasowe?",
+     "a": "Standardowo masz z tyłu HDMI 2.1 i DisplayPort, a trzeci monitor podłączysz przez dodatkowy port zamawiany fabrycznie (VGA, HDMI lub DisplayPort), do 4K 60 Hz. Zamiast złącza obrazu możesz wybrać port szeregowy (COM) dla starszych urządzeń kasowych albo LAN 2,5 Gb/s."
+    },
+    {
+     "q": "Którą wersję wybrać, jeśli chcę później dołożyć pamięć?",
+     "a": "neo 50q Gen 5 i 55q Gen 6 mają dwa gniazda SODIMM do 64 GB i dwa gniazda SSD. 50q Gen 7 ma jedno gniazdo pamięci (do 32 GB), a 50q Gen 6 ma 16 GB wlutowane bez rozbudowy i jedno gniazdo SSD."
+    },
+    {
+     "q": "Czy da się w nim zamontować kartę graficzną lub napęd DVD?",
+     "a": "Nie, w obudowie Tiny nie ma na nie miejsca — grafika jest zintegrowana (Intel lub AMD Radeon). Jeśli potrzebujesz karty graficznej lub DVD, lepszy będzie komputer w większej obudowie. Zasilacz jest zewnętrzny, jak w laptopie."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-neo-50a-55a": {
+   "faq": [
+    {
+     "q": "Czy mogę podłączyć do niego laptop albo drugi monitor?",
+     "a": "Tak. Z tyłu jest wejście HDMI 1.4, więc ekranu użyjesz też jako monitora dla laptopa, oraz wyjście HDMI 2.1 na drugi monitor. Z boku masz USB-C 10 Gb/s i gniazdo słuchawkowo-mikrofonowe."
+    },
+    {
+     "q": "Czy da się później rozbudować pamięć?",
+     "a": "W neo 50a Gen 5 i 55a pamięć DDR5 siedzi w dwóch gniazdach SODIMM i można ją rozbudować do 32 GB. Wersja 50a Gen 6 ma 16 GB LPDDR5X wlutowane, bez możliwości rozbudowy — dysk SSD jest do 1 TB, a 55a ma dwa gniazda SSD."
+    },
+    {
+     "q": "Wybrać ekran 24\" czy 27\"?",
+     "a": "Oba ekrany są Full HD, matowe, 100 Hz. Wersja 27\" jest jaśniejsza (300 zamiast 250 nitów), szersza i cięższa o ok. 1 kg (ok. 7,1 kg). AMD neo 55a występuje tylko z ekranem 23,8\"."
+    },
+    {
+     "q": "Czy nadaje się do wideorozmów bez dodatkowego sprzętu?",
+     "a": "Tak, w ramce jest kamera 5 Mpix z mechaniczną zasłonką, dwa mikrofony i głośniki stereo 2 × 3 W. W wybranych wersjach dochodzi kamera IR do logowania twarzą — to zależy od konfiguracji."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home, bez systemu"
+    }
+   ]
+  },
+  "lenovo-thinkvision-e": {
+   "faq": [
+    {
+     "q": "Czy podłączę go do starszego komputera?",
+     "a": "Modele Full HD (E22-40, E24-40, E27-40) mają HDMI 1.4, DisplayPort 1.2 i VGA, więc podłączysz też starszy komputer. Modele QHD (E24q-30, E27Q-40) mają HDMI 2.1 i DisplayPort, ale nie mają VGA."
+    },
+    {
+     "q": "Wybrać Full HD czy QHD?",
+     "a": "QHD 2560×1440 w modelach E24q-30 i E27Q-40 daje więcej miejsca na tabelki i okna obok siebie. Do kasy czy recepcji zwykle wystarczy Full HD 1920×1080, dostępne w przekątnych 21,5\", 23,8\" i 27\"."
+    },
+    {
+     "q": "Czy podłączę laptop jednym kablem USB-C?",
+     "a": "Nie — żaden model serii E nie ma USB-C ani portów USB. Jeśli chcesz podłączać i ładować laptop jednym kablem, wybierz monitory serii T w wersjach „D”."
+    },
+    {
+     "q": "Czy mogę ustawić ekran pionowo i wyregulować jego wysokość?",
+     "a": "Tak, stopa obraca ekran do pionu (±90°), pozwala go podnieść o 155 mm, pochylić od -5° do +22° i obrócić o 360°. Monitor ma też mocowanie VESA 100×100 mm."
+    }
+   ]
+  },
+  "lenovo-thinkvision-t": {
+   "faq": [
+    {
+     "q": "Które modele naładują laptop jednym kablem USB-C?",
+     "a": "Modele z literą D: T24D-40, T27QD-40, T27UD-40, T32UD-40 i T34WD-40. Ich USB-C przesyła obraz i dane oraz ładuje laptop mocą do 100 W, a gniazdo RJ-45 daje internet po kablu. W T24-40, T27-40 i T27Q-40 USB-C służy tylko do danych (15 W)."
+    },
+    {
+     "q": "Czy monitor ma głośniki i kamerę do wideorozmów?",
+     "a": "Głośniki 2× 2 W ma tylko T24D-40; do pozostałych modeli możesz dobrać soundbar MS30. Wybrane modele (m.in. T27Q-40, T27QD-40, T27UD-40, T32UD-40, T34WD-40) są dostępne w zestawie z kamerą ThinkVision MC60."
+    },
+    {
+     "q": "Czy mogę podłączyć dwa monitory do jednego laptopa?",
+     "a": "T24D-40 i T27QD-40 mają wyjście DisplayPort, przez które podłączysz drugi monitor do pierwszego. Wszystkie modele mają też złącza HDMI i DisplayPort, a T24-40 i T27-40 dodatkowo VGA."
+    },
+    {
+     "q": "Czym różni się 34\" T34WD-40 od pozostałych?",
+     "a": "T34WD-40 ma zakrzywioną matrycę VA 1500R o proporcjach 21:9 (3440×1440), 120 Hz, USB-C z ładowaniem 100 W i RJ-45. W przeciwieństwie do płaskich modeli nie da się go obrócić do pionu."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Jasność",
+     "v": "250 cd/m² (T24-40, T24D-40), 300 cd/m² (T27-40, T34WD-40), 350 cd/m² (T27Q-40, T27QD-40, T27UD-40, T32UD-40)",
+     "przed": "Odświeżanie"
+    }
+   ]
+  },
+  "lenovo-thinkvision-p-24-27": {
+   "faq": [
+    {
+     "q": "Czy kolory na ekranie będą zgodne z wydrukiem bez ustawiania?",
+     "a": "Każdy egzemplarz poza P25i-30 jest kalibrowany fabrycznie z dokładnością ΔE<2, a P27u-20 nawet ΔE<1. Dzięki temu kolor na ekranie zgadza się z wydrukiem bez dodatkowego ustawiania."
+    },
+    {
+     "q": "Który model wybrać do studia graficznego lub fotograficznego?",
+     "a": "P27Q-40 i P27QD-40 pokrywają 98% DCI-P3, szerszą paletę niż zwykłe sRGB. Do pracy studyjnej przeznaczony jest P27u-20: 4K, 99,5% Adobe RGB, kalibracja ΔE<1 i DisplayHDR 400."
+    },
+    {
+     "q": "Jak działa przełącznik KVM i które modele go mają?",
+     "a": "KVM pozwala obsługiwać dwa komputery jedną klawiaturą i myszą. Mają go P24QD-40 i P27QD-40 (razem z USB-C 140 W i RJ-45 2,5 Gb/s) oraz P27u-20 (z Thunderbolt 4 i RJ-45 1 Gb/s)."
+    },
+    {
+     "q": "Czy mogę podłączyć kolejny monitor do pierwszego?",
+     "a": "Tak, modele mają wyjście DisplayPort do podłączenia kolejnego monitora, a P27u-20 wyjście Thunderbolt 4 Out. Wejścia obrazu to HDMI 2.1 i DisplayPort 1.4."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Jasność",
+     "v": "300 cd/m² (P24Q-40, P24QD-40), 350 cd/m² (P27Q-40, P27QD-40), 250 cd/m² (P25i-30), 400 cd/m² typowo i 450 szczytowo (P27u-20)",
+     "przed": "Odświeżanie"
+    }
+   ]
+  },
+  "lenovo-thinkvision-p-32-49-ultrawide": {
+   "faq": [
+    {
+     "q": "Czy jeden 49\" monitor zastąpi dwa zwykłe?",
+     "a": "P49w-30 ma rozdzielczość 5120×1440 (32:9), czyli tyle, co dwa monitory 27\" QHD obok siebie, ale bez ramki pośrodku obrazu. Odświeża z częstotliwością 60 Hz i ładuje laptop przez Thunderbolt 4 mocą do 100 W."
+    },
+    {
+     "q": "Czym różnią się P34WD-40 i P40WD-40?",
+     "a": "P34WD-40 to 34\" 3440×1440 (21:9), 350 cd/m², USB-C z ładowaniem 140 W i głośniki 2× 3 W. P40WD-40 ma 39,7\" 5120×2160 (21:9), 400 cd/m², Thunderbolt 4 140 W z wyjściem TB4 i głośniki 2× 5 W. Oba mają 120 Hz, RJ-45 2,5 Gb/s i KVM."
+    },
+    {
+     "q": "Czy mogę podłączyć dwa komputery do jednego monitora?",
+     "a": "Tak, każdy model ma wbudowany przełącznik KVM — jedną klawiaturą i myszą obsłużysz np. firmowy laptop i komputer stacjonarny. Do dyspozycji masz też HDMI 2.1, DisplayPort 1.4 i hub USB (do 5× USB-A i 2× USB-C)."
+    },
+    {
+     "q": "Na co zwrócić uwagę przy ustawieniu na biurku?",
+     "a": "Monitory są duże i ciężkie: od 8,1 kg (P32UD-40) do 15,8 kg (P49w-30), więc przed zakupem sprawdź głębokość biurka. Stopa ma regulację wysokości do 155 mm, pochylenia i obrotu; do pionu obrócisz tylko płaski P32UD-40."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Jasność",
+     "v": "350 cd/m² (P32UD-40, P34WD-40, P49w-30), 400 cd/m² (P40WD-40)",
+     "przed": "Odświeżanie"
+    }
+   ]
+  },
+  "dell-14": {
+   "faq": [
+    {
+     "q": "Czy mogę później dołożyć pamięć RAM?",
+     "a": "W Dell 14 tak: pamięć DDR5 siedzi w dwóch gniazdach SO-DIMM i rozbudujesz ją do 32 GB (w konfiguracji 1×16 GB jedno gniazdo zostaje wolne). W Dell 14S pamięć jest wlutowana, więc od razu wybierz 16 lub 32 GB."
+    },
+    {
+     "q": "Czym różni się Dell 14 od Dell 14S?",
+     "a": "Dell 14S jest smuklejszy i lżejszy (1,49 kg), ma Wi-Fi 7, dwa porty Thunderbolt 4, HDMI 2.1, baterię 70 Wh i kamerę z podczerwienią do logowania twarzą. Dell 14 ma za to wymienną pamięć RAM i czytnik kart SD, którego w 14S nie ma."
+    },
+    {
+     "q": "Jaki monitor podłączę przez HDMI?",
+     "a": "W Dell 14 złącze HDMI 1.4 obsługuje maks. 1920×1080 przy 60 Hz. Monitor o wyższej rozdzielczości podłączysz przez USB-C 10 Gb/s z DisplayPort 1.4. Dell 14S ma HDMI 2.1 i dwa porty Thunderbolt 4."
+    },
+    {
+     "q": "Czy nadaje się dla firmy, która ma kilka laptopów do zarządzania?",
+     "a": "Dell 14 to sprzęt z linii konsumenckiej — do pracy biurowej w zupełności wystarczy, ale nie ma funkcji zarządzania flotą i zabezpieczeń z serii Dell Pro. Jeśli zależy Ci na centralnym zarządzaniu, wybierz serię Dell Pro."
+    }
+   ]
+  },
+  "dell-16": {
+   "faq": [
+    {
+     "q": "Czy da się rozbudować pamięć RAM?",
+     "a": "W Dell 16 pamięć jest w dwóch gniazdach SO-DIMM, z rozbudową do 32 GB. Sprawdź układ przy zakupie: konfiguracja 2×8 GB nie ma wolnego gniazda. W Dell 16S pamięć jest wlutowana (16 lub 32 GB)."
+    },
+    {
+     "q": "Jakie ma złącza i czy jest czytnik kart SD?",
+     "a": "Wersja Intel DC16250 ma 2× USB-A 5 Gb/s, USB-C 10 Gb/s z ładowaniem i DisplayPort 1.4, HDMI 1.4 oraz gniazdo słuchawkowe, ale nie ma czytnika kart SD. Dell 16S ma dwa porty Thunderbolt 4, HDMI 2.1 i dwa USB-A."
+    },
+    {
+     "q": "Czym różnią się wersje DC16250, DC16251 i DC16255/DC16256?",
+     "a": "DC16250 to czarna wersja Intel z kamerą HD i plastikową obudową. DC16251 ma te same procesory Intel, kamerę Full HD i opcję 32 GB RAM. DC16255/DC16256 to wersje AMD Ryzen z pamięcią DDR5-5600, kamerą Full HD i baterią do 64 Wh."
+    },
+    {
+     "q": "Czy mogę wybrać ekran dotykowy albo ostrzejszy?",
+     "a": "Dell 16 DC16250 ma matowy ekran FHD+ 1920×1200, opcjonalnie dotykowy. Ostrzejszy obraz daje Dell 16S z ekranem 2.5K 2560×1600 i odświeżaniem 120 Hz."
+    }
+   ]
+  },
+  "dell-pro-essential-14-15": {
+   "faq": [
+    {
+     "q": "Jaki system i gwarancję ma ten laptop?",
+     "a": "Typowe konfiguracje mają Windows 11 Pro i 3 lata gwarancji ProSupport. To laptop do poczty, programu do faktur, przeglądarki i pakietu biurowego."
+    },
+    {
+     "q": "Wybrać Pro 14 Essential czy Pro 15 Essential?",
+     "a": "Pro 14 Essential ma matowy ekran 14\" 16:10, nowsze procesory Intel (PV14250) lub AMD (PV14255), kamerę Full HD i czytnik kart SD. Pro 15 Essential (PV15250) ma ekran 15,6\" Full HD i procesory Intel 13. generacji — to wybór, gdy liczy się przede wszystkim duży ekran."
+    },
+    {
+     "q": "Czy mogę później dołożyć pamięć RAM?",
+     "a": "W Pro 14 Essential tak: pamięć DDR5 siedzi w dwóch gniazdach SO-DIMM i rozbudujesz ją do 32 GB. Możliwości rozbudowy Pro 15 Essential sprawdzimy dla konkretnej konfiguracji."
+    },
+    {
+     "q": "Czy podłączę laptop do sieci kablem i stacji Thunderbolt?",
+     "a": "Nie, seria Essential nie ma złącza RJ-45 ani Thunderbolt, a także rozbudowanych zabezpieczeń, np. czytnika kart inteligentnych. Jeśli tego potrzebujesz albo zarządzasz kilkoma lub kilkunastoma laptopami, rozważ wyższą serię Dell Pro."
+    }
+   ]
+  },
+  "dell-pro-14-16": {
+   "faq": [
+    {
+     "q": "Czy podłączę go do sieci kablem i do stacji dokującej?",
+     "a": "Tak. Dell Pro 14 ma gniazdo RJ-45 1 Gb/s, HDMI 2.1, port Thunderbolt 4 40 Gb/s do stacji dokującej, USB-C 10 Gb/s i dwa USB-A. Dell Pro 3 ma RJ-45, HDMI 2.1 i dwa porty Thunderbolt 4."
+    },
+    {
+     "q": "Do ilu GB można rozbudować pamięć?",
+     "a": "Dell Pro 14 i Pro 16 mają dwa gniazda SO-DIMM i rozbudowę do 64 GB. W Dell Pro 3 część konfiguracji ma tylko jedno gniazdo (maks. 48 GB), dlatego liczbę gniazd sprawdzamy dla konkretnej konfiguracji."
+    },
+    {
+     "q": "Jakie zabezpieczenia ma ta seria?",
+     "a": "Osobny układ TPM 2.0 z certyfikatem FIPS, czytnik linii papilarnych, wykrywanie otwarcia obudowy i mechaniczną zasłonkę kamery. Opcjonalnie dochodzi czytnik kart inteligentnych i moduł ControlVault 3 Plus, a w Pro 3 także Dell SafeBIOS."
+    },
+    {
+     "q": "Czym różni się nowy Dell Pro 3 od Pro 14/16?",
+     "a": "Dell Pro 3 14 / 16 (2026) ma procesory Intel Core seria 3 lub AMD Ryzen AI Pro 435/450, dwa porty Thunderbolt 4, Wi-Fi 7, ekran do 500 nitów, baterię do 70 Wh i opcjonalny modem 5G na kartę nano-SIM."
+    }
+   ]
+  },
+  "dell-pro-precision-5": {
+   "faq": [
+    {
+     "q": "Którą kartę graficzną wybrać do programów CAD?",
+     "a": "Do wyboru są profesjonalne karty NVIDIA RTX PRO Blackwell: RTX PRO 500 6 GB w wersji 14\" i 16\" oraz RTX PRO 1000 lub 2000 8 GB GDDR7 tylko w 16\". Wersje 14S i 16S nie mają osobnej karty — wystarczą do lżejszego CAD 2D."
+    },
+    {
+     "q": "Czy pamięć da się wymienić albo rozbudować?",
+     "a": "W wersjach z Intel pamięć to wymienny moduł LPCAMM2 — szybki jak pamięć wlutowana, ale można go wymienić — o pojemności 16, 32 lub 64 GB. W wersjach AMD 14S i 16S pamięć jest wlutowana (16 lub 32 GB)."
+    },
+    {
+     "q": "Czym różnią się wersje 14 / 16 od 14S / 16S?",
+     "a": "14 i 16 mają procesory Intel Core Ultra H, opcję karty NVIDIA RTX PRO i RJ-45 10 Gb/s. 14S i 16S są lżejsze (14S 1,42 kg), bez osobnej karty, z Intel Core Ultra vPro z grafiką Arc Pro albo AMD Ryzen AI Pro i RJ-45 1 Gb/s; Intel 14S ma opcję ekranu OLED."
+    },
+    {
+     "q": "Jakie złącza ma do pracy w biurze projektowym?",
+     "a": "Masz dwa porty Thunderbolt 4 40 Gb/s z ładowaniem i DisplayPort, HDMI 2.1, dwa USB-A, gniazdo RJ-45 oraz opcjonalny czytnik kart inteligentnych. Wersja 16\" ma czytnik microSD, a opcjonalnie można dodać modem WWAN z kartą nano-SIM."
+    }
+   ]
+  },
+  "dell-xps-13-14": {
+   "faq": [
+    {
+     "q": "Czym różni się XPS 13 od XPS 14?",
+     "a": "XPS 13 waży od 1 kg, ma Intel Core 5 320, 8 lub 16 GB RAM, dotykowy ekran 13,4\" 2560×1600 i dwa porty Thunderbolt 4. XPS 14 jest mocniejszy: Intel Core Ultra X7 / X9 z grafiką Arc B390, 32 lub 64 GB RAM, trzy porty Thunderbolt 4, kamera 8 Mpix, bateria 70 Wh i opcja ekranu OLED 2,8K."
+    },
+    {
+     "q": "Czy da się później dołożyć pamięć RAM?",
+     "a": "Nie, w obu modelach pamięć LPDDR5X jest wlutowana. Wybierz ją od razu z zapasem: XPS 13 ma 8 lub 16 GB, a XPS 14 16 GB albo 32 / 64 GB w wersjach z Core Ultra X7/X9."
+    },
+    {
+     "q": "Jak podłączę monitor i internet po kablu w biurze?",
+     "a": "XPS nie ma złącza HDMI, RJ-45 ani czytnika kart. Monitor i sieć podłączysz przez porty Thunderbolt 4 (z DisplayPort 2.1 i ładowaniem) — do biura dobierz stację dokującą lub przejściówkę USB-C."
+    },
+    {
+     "q": "Czy ma logowanie twarzą i kamerę do spotkań online?",
+     "a": "Tak, oba modele mają kamerę z podczerwienią do logowania twarzą. W XPS 13 to kamera Full HD, a w XPS 14 kamera 8 Mpix, która nagrywa w rozdzielczości 2560×1440."
+    }
+   ]
+  },
+  "dell-xps-16": {
+   "faq": [
+    {
+     "q": "Czy da się później rozbudować pamięć RAM?",
+     "a": "Nie, pamięć LPDDR5X jest wlutowana. Przy zakupie wybierz ją z zapasem: z procesorami Ultra X7 358H i X9 388H dostępne są 32 lub 64 GB, a z Ultra 5/7 — 16 GB."
+    },
+    {
+     "q": "Wybrać ekran matowy Full HD+ czy OLED?",
+     "a": "Do wyboru jest matowy ekran 16\" FHD+ 1920×1200 albo dotykowy OLED 3200×2000 o bardzo szerokiej palecie barw, który przyda się przy obróbce zdjęć i prezentacjach u klienta. Oba mają obniżoną emisję światła niebieskiego."
+    },
+    {
+     "q": "Jak podłączę monitor, sieć i inne urządzenia przy biurku?",
+     "a": "XPS 16 ma trzy porty Thunderbolt 4 (z DisplayPort 2.1 i ładowaniem) oraz gniazdo słuchawkowe; nie ma HDMI, RJ-45 ani czytnika kart. Do biurka warto dobrać stację dokującą Thunderbolt."
+    },
+    {
+     "q": "Czy nadaje się do programów CAD?",
+     "a": "XPS 16 ma grafikę zintegrowaną Intel albo Intel Arc B390 w wersjach z Ultra X7/X9, bez profesjonalnej karty graficznej. Do CAD i obliczeń lepszy będzie Dell Pro Precision 5 16 z kartą NVIDIA RTX PRO."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "Waga",
+     "v": "od 1,65 kg (OLED 3.2K) / od 1,74 kg (ekran LCD) — zależnie od konfiguracji",
+     "przed": "Wymiary"
+    }
+   ],
+   "zrodla_dodaj": [
+    {
+     "typ": "specyfikacja",
+     "url": "https://www.delltechnologies.com/asset/pt-pt/products/laptops-and-2-in-1s/technical-support/xps-16-da16260-spec-sheet.pdf.external"
+    }
+   ]
+  },
+  "dell-pro-e-monitor": {
+   "faq": [
+    {
+     "q": "Czym różnią się modele z literą H od modeli HS i DS?",
+     "a": "Modele H (E2226H, E2426H, E2726H) mają stałą stopę tylko z pochyleniem i nie mają głośników — wystarczą na ladę. Modele HS i DS mają regulację wysokości do 130 mm, obrót, ustawienie w pion oraz dwa głośniki 2 W."
+    },
+    {
+     "q": "Czy podłączę go do starszego komputera?",
+     "a": "Tak, modele Full HD mają HDMI 1.4, DisplayPort 1.4 i VGA. Wyjątkiem jest E2726DS (QHD), który ma HDMI 2.1 i DisplayPort 1.4, ale bez VGA."
+    },
+    {
+     "q": "Czy podłączę laptop jednym kablem USB-C?",
+     "a": "Nie, żaden model serii E nie ma USB-C ani portów USB. Jeśli chcesz podłączać laptop jednym kablem, wybierz monitor Dell Pro z hubem USB-C."
+    },
+    {
+     "q": "Jak wygląda gwarancja na te monitory?",
+     "a": "Dell daje 3 lata gwarancji z usługą Advanced Exchange, czyli wymianą monitora na sprawny. Model E2726H ma dodatkowo Premium Panel Exchange."
+    }
+   ]
+  },
+  "dell-pro-monitor": {
+   "faq": [
+    {
+     "q": "Czy podłączę laptop jednym kablem USB-C?",
+     "a": "Nie — porty USB-C w tych modelach służą tylko do danych i ładowania akcesoriów (15 W), nie przesyłają obrazu. Obraz idzie przez HDMI albo DisplayPort 1.4. Do laptopa na jeden kabel wybierz Dell Pro z hubem USB-C."
+    },
+    {
+     "q": "Do czego służy wbudowany hub USB?",
+     "a": "Podłączasz monitor do komputera kablem USB-B 5 Gb/s i masz na biurku 2–3 porty USB-A 5 Gb/s na mysz czy pendrive oraz 1–2 porty USB-C z ładowaniem do 15 W, np. telefonu."
+    },
+    {
+     "q": "Wybrać Full HD, 16:10 czy QHD?",
+     "a": "P2426 ma format 16:10 (1920×1200) — wyższy ekran mieści więcej wierszy tabeli. QHD 2560×1440 w P2425D i P2725D daje najwięcej miejsca na okna i jasność 350 cd/m². Modele Full HD P2426H i P2726H odświeżają z częstotliwością 120 Hz."
+    },
+    {
+     "q": "Czy monitor ma głośniki i złącze VGA?",
+     "a": "Nie ma ani wbudowanych głośników, ani VGA. Monitor ma 2 sloty na dokupywany soundbar Dell, a komputer podłączysz przez HDMI lub DisplayPort."
+    }
+   ]
+  },
+  "dell-pro-usb-c-hub": {
+   "faq": [
+    {
+     "q": "Jaką moc ładowania laptopa daje USB-C?",
+     "a": "Modele serii P 2026 (P2426HE, P2426E, P2726HE) ładują laptop mocą do 100 W, a modele Pro Plus do 90 W. Tym samym kablem USB-C monitor przesyła obraz i dane 5 Gb/s."
+    },
+    {
+     "q": "Czy podłączę drugi monitor łańcuchowo?",
+     "a": "Tak, przez wyjście DisplayPort 1.4 z MST w modelach P2426HE, P2426E, P2726HE, P2425E, P2425DE, P2725DE i P3225DE. W P2725QE, P3225QE i P3425WE Dell nie podaje takiej możliwości."
+    },
+    {
+     "q": "Czy podłączę też komputer stacjonarny?",
+     "a": "Tak, komputer stacjonarny podłączysz zwykłym kablem HDMI lub DisplayPort 1.4. Do dyspozycji masz też USB-B, 3× USB-A 5 Gb/s i USB-C z ładowaniem 15 W na akcesoria."
+    },
+    {
+     "q": "Czy 34-calowy model zastąpi dwa monitory?",
+     "a": "P3425WE ma zakrzywiony ekran 34,1\" 3440×1440 (100 Hz), który zastępuje dwa monitory. Ma USB-C 90 W i RJ45, ale nie da się go obrócić do pionu, a obrót na boki to ±30°."
+    }
+   ]
+  },
+  "dell-ultrasharp": {
+   "faq": [
+    {
+     "q": "Czy kolory są skalibrowane fabrycznie?",
+     "a": "Tak, każdy egzemplarz jest kalibrowany fabrycznie średnio do ΔE < 2 (U2725QE i U3225QE do ΔE < 1,5), a raport jest w pudełku. Monitory pokrywają 100% sRGB, modele 27\" i większe 98–99% DCI-P3, a U3425WE także 100% Adobe RGB."
+    },
+    {
+     "q": "Które modele naładują laptop jednym kablem?",
+     "a": "U2424HE ma USB-C 90 W, U2724DE i U3425WE Thunderbolt 4 90 W, a U2725QE, U3225QE i U4025QW Thunderbolt 4 140 W. Modele z hubem dają też sieć RJ45 2,5 Gb/s. U2424H i U2724D nie zasilają laptopa przez USB-C."
+    },
+    {
+     "q": "Co daje matryca IPS Black?",
+     "a": "Od 27 cali UltraSharp ma matrycę IPS Black o kontraście 2000:1–3000:1, czyli dwa–trzy razy wyższym niż zwykłe IPS (1000:1 w modelach 24\"). Modele te pokrywają też 98–99% przestrzeni DCI-P3."
+    },
+    {
+     "q": "Czy mogę połączyć kilka monitorów ze sobą?",
+     "a": "Tak, monitory mają wyjście DisplayPort out lub Thunderbolt 4 out do łączenia kolejnych ekranów — np. U2724DE łączy się łańcuchowo przez Thunderbolt 4, a U2424H ma wyjście DP."
+    }
+   ]
+  },
+  "dell-monitor-wideokonferencje": {
+   "faq": [
+    {
+     "q": "Czym różnią się wersje z literą B od wersji z literą V?",
+     "a": "Wersje B (P2426HEB, P2726DEB, P3426WEB) mają kamerę z automatycznym kadrowaniem AI, dwa mikrofony kierunkowe z redukcją szumów i głośniki 2× 5 W. Wersje V (P2426HEV, P2726DEV) mają kamerę, ale nie mają głośników."
+    },
+    {
+     "q": "Czy monitor działa z Teams i Zoom?",
+     "a": "Modele serii P mają certyfikat Microsoft Teams i Zoom. Kamera QHD z HDR ma mechaniczną przesłonę, którą zasłaniasz obiektyw, gdy nie rozmawiasz, i obsługuje logowanie twarzą Windows Hello."
+    },
+    {
+     "q": "Jak podłączę laptop do takiego monitora?",
+     "a": "Modele serii P podłączasz jednym kablem USB-C, który przesyła obraz i dane, ładuje laptop mocą do 90 W i daje sieć przez gniazdo RJ45 1 Gb/s. Do dyspozycji masz też HDMI 2.1 i DisplayPort 1.4."
+    },
+    {
+     "q": "Który model wybrać do komputera stacjonarnego?",
+     "a": "Dell Pro 24 E2426HB: 23,8\" Full HD 120 Hz, kamera 5 MP z ręczną przesłoną, mikrofon z podwójną redukcją szumów, głośniki 2× 3 W i hub USB (4× USB-A). Nie ma USB-C — komputer podłączasz przez HDMI lub DisplayPort."
+    }
+   ]
+  },
+  "dell-poweredge-t160-t360": {
+   "faq": [
+    {
+     "q": "Wybrać T160 czy T360?",
+     "a": "T160 jest najmniejszy: 3 dyski 3,5\" i 2 dyski 2,5\" na kablach (wymiana po wyłączeniu), jeden zasilacz i 2 gniazda PCIe. T360 mieści do 8 dysków 3,5\" hot-plug, ma 4 gniazda PCIe i opcję dwóch zasilaczy redundantnych."
+    },
+    {
+     "q": "Co się stanie z danymi, gdy padnie dysk?",
+     "a": "Kontroler RAID PERC zapisuje dane na dwóch lub więcej dyskach naraz, więc awaria jednego dysku nie zatrzymuje pracy. Dla danych firmy zalecamy co najmniej 2 dyski w RAID 1 (lustro); w T160 kontroler RAID jest opcjonalny. Kopię warto trzymać też na drugim nośniku poza serwerem."
+    },
+    {
+     "q": "Jaki system operacyjny można zainstalować?",
+     "a": "Typowe konfiguracje są bez systemu, a licencja Microsoft Windows Server jest opcją. Dell potwierdza zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
+    },
+    {
+     "q": "Czy serwis może sprawdzić serwer zdalnie?",
+     "a": "Tak, moduł iDRAC9 (w typowych konfiguracjach z licencją Enterprise) ma osobny port sieciowy i pozwala sprawdzić oraz uruchomić serwer zdalnie, nawet gdy system nie wstaje. Z przodu jest też złącze iDRAC Direct."
+    }
+   ]
+  },
+  "dell-poweredge-t560": {
+   "faq": [
+    {
+     "q": "Kiedy wybrać T560 zamiast T160 lub T360?",
+     "a": "Gdy na jednym serwerze ma działać kilka programów lub serwerów wirtualnych, pracuje kilkanaście lub więcej stanowisk albo potrzebujesz serwera plików na dużą ilość danych. Jeśli chodzi tylko o pliki i jeden program dla kilku osób, wystarczy T160 lub T360."
+    },
+    {
+     "q": "Ile dysków zmieści serwer?",
+     "a": "Do 12 dysków 3,5\" lub 24 dysków 2,5\" SAS/SATA, albo 8× 3,5\" i 8× 2,5\" NVMe. W typowych konfiguracjach obudowa ma 8 zatok 3,5\" hot-plug, a dyski obsługuje kontroler RAID PERC, np. H755 lub H965i."
+    },
+    {
+     "q": "Czy serwer obsłuży dwa procesory i ile pamięci?",
+     "a": "Tak, mieści do dwóch procesorów Intel Xeon Scalable — typowo ma jeden Xeon Silver 4510, a wersja z dwoma procesorami jest na zamówienie. Pamięć DDR5 ECC RDIMM ma 16 gniazd, maks. 1,5 TB."
+    },
+    {
+     "q": "Co się stanie przy awarii zasilacza?",
+     "a": "W typowych konfiguracjach serwer ma dwa zasilacze 1100 W hot-swap, które zastępują się nawzajem — awaria jednego nie wyłącza serwera, a uszkodzony wymienisz bez wyłączania. Stan serwera można sprawdzić zdalnie przez iDRAC9."
+    }
+   ]
+  },
+  "dell-poweredge-r360": {
+   "opis": [
+    "PowerEdge R360 to odpowiednik małego serwera wieżowego, ale w płaskiej obudowie do szafy serwerowej 19\" (wysokość 1U, ok. 4,3 cm). Sprawdzi się, gdy masz szafę z routerem i przełącznikami, np. w hotelu, przychodni, szkole lub magazynie, i chcesz trzymać serwer w tym samym, zamkniętym miejscu co resztę sieci.",
+    "Ma te same zabezpieczenia co serwery wieżowe: pamięć ECC (do 128 GB w 4 gniazdach), kontroler RAID PERC, dyski wymieniane bez wyłączania (hot-plug) i zdalny dostęp iDRAC9, także przez osobny port. W wersjach z dwoma zasilaczami 700 W awaria jednego nie wyłącza serwera. W typowym zestawie są szyny montażowe i ramka przednia.",
+    "Do wyboru są dwie obudowy: 4 dyski 3,5\" dają więcej miejsca na dane i kopie, a 8 dysków 2,5\" (głównie SSD) to szybsze bazy danych i więcej dysków w RAID. Serwer rack jest głośniejszy od wieży i nie nadaje się do pokoju, w którym ktoś pracuje. Jeśli nie masz szafy, wybierz T160 lub T360."
+   ],
+   "faq": [
+    {
+     "q": "Wybrać wersję na 4 dyski 3,5\" czy 8 dysków 2,5\"?",
+     "a": "Cztery dyski 3,5\" dają więcej miejsca na dane i kopie. Osiem mniejszych dysków 2,5\" (głównie SSD) to szybsze bazy danych i więcej dysków w RAID. W obu wersjach dyski są hot-plug, a dla danych firmy zalecamy co najmniej 2 dyski w RAID 1."
+    },
+    {
+     "q": "Czy mogę postawić go w biurze bez szafy?",
+     "a": "Nie jest do tego przeznaczony: to płaska obudowa 1U do szafy 19\", głośniejsza od wieży i nienadająca się do pokoju, w którym ktoś pracuje. W typowym zestawie są szyny i ramka. Bez szafy wybierz serwer wieżowy T160 lub T360."
+    },
+    {
+     "q": "Jeden zasilacz czy dwa?",
+     "a": "Typowo do wyboru jest 1× 700 W albo 2× 700 W redundantne hot-swap. Przy dwóch zasilaczach awaria jednego nie wyłącza serwera, a uszkodzony wymienisz bez wyłączania."
+    },
+    {
+     "q": "Jaki system operacyjny można zainstalować?",
+     "a": "Typowe konfiguracje są bez systemu, a licencja Microsoft Windows Server jest opcją. Dell potwierdza zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
+    }
+   ]
+  },
+  "dell-poweredge-r660-r570": {
+   "faq": [
+    {
+     "q": "Czym różni się R660 od R570?",
+     "a": "R660 to obudowa 1U na dwa procesory Intel Xeon Scalable 4./5. gen., z 32 gniazdami RAM (do 8 TB) i 8–10 dyskami 2,5\". R570 to obudowa 2U na jeden procesor Intel Xeon 6, z 16 gniazdami RAM, miejscem na 12 dysków 3,5\" lub 24× 2,5\", modułem iDRAC10 i większą liczbą gniazd PCIe."
+    },
+    {
+     "q": "Ile pamięci potrzebuję do wirtualizacji?",
+     "a": "Do wirtualizacji zwykle wybiera się 64 GB i więcej pamięci DDR5 ECC RDIMM. R660 ma 32 gniazda i obsługuje do 8 TB, a R570 16 gniazd i maks. 1 TB (procesory E-core) lub 4 TB (P-core)."
+    },
+    {
+     "q": "Na jakim systemie uruchomię serwery wirtualne?",
+     "a": "Typowe konfiguracje są bez systemu, a licencja Microsoft Windows Server jest opcją. Dell potwierdza zgodność z Windows Server z Hyper-V, VMware ESXi, Ubuntu Server, RHEL i SLES."
+    },
+    {
+     "q": "Co jeszcze zaplanować razem z takim serwerem?",
+     "a": "Zwykle planuje się UPS z zarządzaniem, szybszy przełącznik sieciowy i system kopii zapasowych maszyn wirtualnych. Do zdalnego zarządzania serwerem służy iDRAC9 (R660) lub iDRAC10 (R570)."
+    }
+   ]
+  },
+  "dell-poweredge-r760xs": {
+   "faq": [
+    {
+     "q": "Czy R760xs nie jest za dużym serwerem dla mojej firmy?",
+     "a": "To serwer dla firm, które na jednej maszynie łączą kilka zadań: serwery wirtualne, bazę danych programu, pliki i archiwum dokumentów. Jeśli masz kilka stanowisk i potrzebujesz tylko miejsca na pliki, to zbyt duży sprzęt."
+    },
+    {
+     "q": "Ile dysków zmieszczę w tym serwerze?",
+     "a": "Z przodu mieści 8 lub 12 dysków 3,5\" SAS/SATA albo 8 lub 16 dysków 2,5\" (także NVMe), opcjonalnie 2 dyski 2,5\" z tyłu. Dyski są hot-plug, a system można trzymać osobno na module BOSS-N1 z 2 dyskami M.2 NVMe."
+    },
+    {
+     "q": "Czy wybrać jeden czy dwa procesory i ile pamięci?",
+     "a": "Typowe konfiguracje mają 1× Xeon Silver 4510 lub 4514Y albo 2× Silver 4410Y lub 4416+ oraz 32 lub 64 GB RAM. Z dwoma procesorami masz do 6 gniazd PCIe zamiast 4, a pamięć rozbudujesz w 16 gniazdach DDR5 ECC do 1,5 TB."
+    },
+    {
+     "q": "Z jakim systemem operacyjnym przychodzi serwer?",
+     "a": "Typowe konfiguracje są bez systemu, a licencję Microsoft Windows Server możesz dobrać jako opcję. Dell potwierdza zgodność z Windows Server z Hyper-V, Ubuntu Server, RHEL, SLES i VMware ESXi."
+    }
+   ],
+   "opis": [
+    "PowerEdge R760xs to serwer 2U do szafy rack dla firm, które łączą kilka zadań na jednej maszynie: serwery wirtualne, bazę danych programu, pliki i archiwum dokumentów. To wersja z serii 760 zoptymalizowana pod typowe zastosowania firmowe. Przy kilku stanowiskach i samych plikach to zbyt duży sprzęt.",
+    "Mieści jeden lub dwa procesory Intel Xeon Scalable, 16 gniazd pamięci DDR5 ECC RDIMM (do 1,5 TB) i do 12 dysków 3,5\" (np. duże dyski na dane i kopie) albo do 24 dysków 2,5\". Kontroler RAID PERC, dyski hot-plug, dwa zasilacze hot-swap i zdalny dostęp iDRAC9 pozwalają serwisować serwer bez przerw w pracy.",
+    "Od R760 różni się mniejszą liczbą opcji GPU i chłodzenia cieczą. Typowe konfiguracje mają 1× Xeon Silver 4510 lub 4514Y albo 2× Silver 4410Y lub 4416+, 32 lub 64 GB RAM i dwa zasilacze 700 W lub 1100 W. Serwer przychodzi standardowo bez systemu — Windows Server dobierzesz jako opcję, a PRO-KOM dobierze dyski pod Twoje dane."
+   ]
+  },
+  "dell-poweredge-r7625": {
+   "faq": [
+    {
+     "q": "Do jakich zadań jest R7625, a kiedy to przesada?",
+     "a": "R7625 jest do dużych wdrożeń: wielu maszyn wirtualnych, ciężkich baz danych i serwera terminali dla wielu użytkowników. W małej firmie z kilkoma stanowiskami jego możliwości nie zostaną wykorzystane."
+    },
+    {
+     "q": "Czy mogę zacząć od jednego procesora i dołożyć drugi?",
+     "a": "Typowe konfiguracje mają jeden procesor: AMD EPYC 9124, 9224, 9334 lub 9354. Drugi procesor można dołożyć przy zamówieniu, gdy rośnie liczba maszyn wirtualnych. Pamięć rozbudujesz w 24 gniazdach DDR5 ECC RDIMM do 6 TB."
+    },
+    {
+     "q": "Czy zmieszczę w nim kartę graficzną albo dodatkową kartę sieciową?",
+     "a": "Serwer ma do 8 gniazd PCIe (4× Gen5 i 4× Gen4) i przyjmie do 2 kart GPU 300 W lub 6 kart 75 W. Sieć to opcjonalnie 2 porty 1 Gb/s LOM oraz gniazdo na kartę OCP 3.0."
+    },
+    {
+     "q": "Z jakimi dyskami i systemem przychodzi serwer?",
+     "a": "Typowa obudowa ma 12 zatok 3,5\" hot-plug, a dyski dobierasz z opcji 1,2 TB HDD, 480 GB SSD, 960 GB SSD lub 2× 960 GB SSD w RAID 1. Typowe konfiguracje są bez systemu; Windows Server jest dostępny jako opcja licencji."
+    }
+   ],
+   "opis": [
+    "PowerEdge R7625 to serwer 2U do szafy rack na procesorach AMD EPYC, przeznaczony do dużych wdrożeń: wiele maszyn wirtualnych, ciężkie bazy danych, serwer terminali dla wielu użytkowników. W małej firmie z kilkoma stanowiskami jego możliwości nie zostaną wykorzystane.",
+    "Pracuje na jednym lub dwóch procesorach AMD EPYC 4. generacji (do 128 rdzeni każdy), ma 24 gniazda pamięci DDR5 ECC RDIMM (do 6 TB) i do 12 dysków 3,5\" albo 24 dysków 2,5\" NVMe/SAS/SATA. Kontroler RAID PERC, dyski hot-plug, dwa zasilacze hot-swap i zdalny dostęp iDRAC9 ułatwiają utrzymanie serwera w ciągłej pracy.",
+    "Typowe konfiguracje mają 12 zatok 3,5\" i jeden procesor (EPYC 9124, 9224, 9334 lub 9354) — drugi można dołożyć przy zamówieniu, gdy rośnie liczba maszyn wirtualnych. Do 8 gniazd PCIe pozwala dołożyć m.in. karty GPU. Serwer przychodzi standardowo bez systemu, a gwarancja producenta w typowych konfiguracjach to 3 lata Basic Next Business Day."
+   ]
+  },
+  "dell-pro-tower-slim": {
+   "faq": [
+    {
+     "q": "Wybrać obudowę Tower czy Slim?",
+     "a": "Obie mają ten sam środek. Tower ma pełnowymiarowe gniazda PCIe, więc zmieścisz w nim np. kartę sieciową, kartę z portami COM albo kartę graficzną. Slim ma 9,5 cm szerokości i gniazda niskoprofilowe — stanie obok monitora albo pod biurkiem."
+    },
+    {
+     "q": "Czy podłączę starszą drukarkę fiskalną lub czytnik na porcie szeregowym?",
+     "a": "Tak, port szeregowy jest dostępny jako opcja — właśnie z myślą o starszych drukarkach fiskalnych i czytnikach. W wersji Tower możesz też dołożyć kartę z portami COM w pełnowymiarowym gnieździe PCIe."
+    },
+    {
+     "q": "Ile monitorów podłączę bez przejściówek?",
+     "a": "Dwa — z tyłu są HDMI 2.1 i DisplayPort 1.4a. Opcjonalnie można dodać moduł z dodatkowym wyjściem wideo, a w wersji Tower zamontować kartę graficzną do kilku monitorów."
+    },
+    {
+     "q": "Czy da się później rozbudować pamięć i dysk?",
+     "a": "Pamięć DDR5 jest w dwóch gniazdach, maksymalnie 64 GB (2× 32 GB). Oprócz dysku SSD M.2 jest zatoka 3,5\" SATA na dodatkowy dysk HDD do 4 TB, np. na archiwum."
+    }
+   ]
+  },
+  "dell-pro-tower-slim-essential": {
+   "faq": [
+    {
+     "q": "Czym linia Essential różni się od Dell Pro Tower / Slim?",
+     "a": "Essential to podstawowa linia komputerów biznesowych Dell w obudowach o tych samych wymiarach. Nie ma w niej Wi-Fi 7 ani procesorów AMD — jeśli ich potrzebujesz, wybierz linię Dell Pro Tower / Slim."
+    },
+    {
+     "q": "Czy nada się na stanowisko przy kasie z programem sprzedaży?",
+     "a": "Tak, to jedno z typowych zastosowań obok biura, recepcji czy pokoju nauczycielskiego. Opcjonalnie komputer może mieć port szeregowy, a komplet USB (USB-C i USB-A) wystarczy na akcesoria stanowiska."
+    },
+    {
+     "q": "Czy rozbuduję pamięć i miejsce na dane?",
+     "a": "Typowe konfiguracje mają 8 lub 16 GB RAM, a dwa gniazda DDR5 pozwalają rozbudować pamięć do 64 GB. Dysk SSD M.2 może mieć do 2 TB, a w zatoce 3,5\" zmieścisz dodatkowy dysk HDD do 4 TB."
+    },
+    {
+     "q": "Czy komputer połączy się z siecią bez kabla?",
+     "a": "Tak, typowe konfiguracje mają moduł Wi-Fi: Intel AX211 (Wi-Fi 6E) lub MediaTek MT7920 (Wi-Fi 6) z Bluetooth. Do dyspozycji jest też gniazdo RJ-45 1 Gb/s, a z tyłu HDMI i DisplayPort na dwa monitory."
+    }
+   ]
+  },
+  "dell-pro-micro": {
+   "faq": [
+    {
+     "q": "Czy mogę przykręcić ten komputer za monitorem?",
+     "a": "Tak. Ma 18 × 18 cm, 3,6 cm grubości i waży około 1,2–1,4 kg, więc przykręcisz go za monitorem lub pod blatem. Do montażu za monitorem dobierz uchwyt VESA."
+    },
+    {
+     "q": "Czy w tak małej obudowie da się rozbudować pamięć i dysk?",
+     "a": "Tak. Są dwa gniazda pamięci DDR5 SODIMM (maksymalnie 64 GB) i dwa gniazda M.2 2230/2280 na dyski SSD NVMe — drugi dysk możesz dołożyć później. Typowe konfiguracje mają 8 lub 16 GB RAM i dysk 256 lub 512 GB."
+    },
+    {
+     "q": "Jakie ma złącza i czy podłączę dwa monitory?",
+     "a": "Z tyłu są HDMI 2.1 i DisplayPort 1.4a na dwa monitory, RJ-45 1 Gb/s, USB-C 10 Gb/s i komplet USB-A. W miejsce zaślepki można dołożyć moduł z dodatkowym portem wideo lub szeregowym albo antenę Wi-Fi."
+    },
+    {
+     "q": "Czym różni się wersja z procesorem Intel od wersji AMD?",
+     "a": "QCM1250 ma procesory Intel serii T (35 W) i zasilacz 65 W (i3) lub 90 W. QCM1255 ma procesory AMD Ryzen 8000GE z grafiką Radeon 740M i zasilacz 65 W. Obudowa i możliwości rozbudowy są takie same."
+    }
+   ],
+   "opis": [
+    "Dell Pro Micro to komputer dla stanowisk, na których brakuje miejsca: recepcja, kasa w sklepie, gabinet, stanowisko w magazynie, sala konferencyjna. Ma 18 × 18 cm i 3,6 cm grubości, waży około 1,2–1,4 kg, więc przykręcisz go za monitorem lub pod blatem i zwolnisz biurko.",
+    "W środku pracują energooszczędne procesory Intel serii T albo AMD Ryzen serii GE. Mimo małych wymiarów są dwa gniazda pamięci (do 64 GB) i dwa gniazda na dyski SSD M.2. Z tyłu masz HDMI i DisplayPort na dwa monitory, RJ-45, USB-C 10 Gb/s i komplet USB-A, a typowe konfiguracje mają też Wi-Fi 6E z Bluetooth.",
+    "W miejsce zaślepki można dołożyć moduł z dodatkowym portem (wideo lub szeregowym) albo antenę Wi-Fi. Zasilacz jest zewnętrzny, jak w laptopie: 65 W lub 90 W. Wersja QCM1250 ma procesory Intel, a QCM1255 — AMD z grafiką Radeon 740M. Do montażu za monitorem dobierz uchwyt VESA; PRO-KOM pomoże dobrać konfigurację."
+   ]
+  },
+  "dell-pro-aio": {
+   "faq": [
+    {
+     "q": "Czym różnią się wersje QC24251, QC24250 i Plus QB24250?",
+     "a": "QC24251 ma energooszczędne procesory 35 W serii T, prostszy zestaw złączy i zasilanie 130 W. QC24250 ma mocniejsze procesory 65 W Core Ultra, więcej złączy USB 10–20 Gb/s i zasilacz 160 W. Plus QB24250 to wyższa linia w kolorze srebrnym."
+    },
+    {
+     "q": "Czy podłączę do niego drugi monitor?",
+     "a": "Tak, z tyłu jest wyjście DisplayPort 1.4a, do którego podłączysz drugi monitor. Na biurku nadal stoi tylko ekran, do którego dokładasz klawiaturę i mysz."
+    },
+    {
+     "q": "Czy nada się do wideorozmów bez dodatkowego sprzętu?",
+     "a": "Tak. W górnej krawędzi jest wysuwana kamera Full HD 1080p (2 Mpix), a głośniki są wbudowane w obudowę. Nie musisz dokupować osobnej kamerki do spotkań online."
+    },
+    {
+     "q": "Czy jest wersja z ekranem dotykowym i regulacją wysokości?",
+     "a": "Tak. Ekran 23,8\" Full HD IPS jest dostępny bez dotyku (250 nitów) albo w wersji dotykowej (300 nitów). Podstawa może być stała albo z regulacją wysokości."
+    }
+   ]
+  },
+  "synology-diskstation-plus-2-4": {
+   "faq": [
+    {
+     "q": "Wystarczą mi 2 dyski czy lepiej wziąć 4?",
+     "a": "Dwa dyski wystarczą w małym biurze lub sklepie — wtedy jeden jest lustrzaną kopią drugiego. Cztery dyski (DS425+, DS925+) dają więcej miejsca i zapas na nagrania z kamer."
+    },
+    {
+     "q": "Ile kamer mogę podłączyć do nagrywania?",
+     "a": "NAS nagrywa obraz z kamer IP w programie Surveillance Station. W zestawie są 2 licencje kamer, a każda kolejna kamera wymaga dokupienia licencji. Przy większej liczbie kamer wybierz model na 4 dyski, który daje zapas miejsca na nagrania."
+    },
+    {
+     "q": "Czy mogę włożyć dyski innej firmy niż Synology?",
+     "a": "Od DSM 7.3 modele z rocznika 2025 pozwalają założyć pulę na dyskach innych firm, ale pełne działanie producent gwarantuje tylko z dyskami z listy zgodności. Pamięć podręczna i pule na dyskach M.2 nadal wymagają dysków z tej listy."
+    },
+    {
+     "q": "Czym DS725+ i DS925+ różnią się od DS225+ i DS425+?",
+     "a": "DS725+ i DS925+ mają procesor AMD Ryzen, 4 GB pamięci ECC (do 32 GB) i można do nich dołożyć obudowę DX525 z 5 dyskami. DS225+ i DS425+ mają Intel J4125, 2 GB RAM (do 6 GB) i nie mają rozbudowy."
+    }
+   ]
+  },
+  "synology-diskstation-plus-5-8": {
+   "faq": [
+    {
+     "q": "Czym różni się DS1525+ od DS1825+?",
+     "a": "DS1525+ ma 5 zatok, zasilacz zewnętrzny 120 W, 2 porty USB i rozbudowę do 15 dysków. DS1825+ ma 8 zatok, zasilacz wewnętrzny 250 W, 3 porty USB, pełne gniazdo PCIe i rozbudowę do 18 dysków."
+    },
+    {
+     "q": "Czy podłączę go do sieci 10 GbE?",
+     "a": "W standardzie oba modele mają 2 porty 2,5 GbE. Do DS1525+ dołożysz moduł 10 GbE E10G22-T1-Mini, a do DS1825+ kartę 10 lub 25 GbE w gnieździe PCIe Gen3 x8 (x4). Moduł lub kartę PRO-KOM dobierze i zainstaluje razem z NAS-em."
+    },
+    {
+     "q": "Co się stanie, gdy zepsuje się dysk?",
+     "a": "Przy większej liczbie dysków można ustawić RAID z dwoma dyskami zapasowymi — dane przetrwają awarię dwóch dysków. RAID nie chroni jednak przed skasowaniem plików, wirusem czy pożarem, więc potrzebna jest osobna kopia, np. na drugim NAS-ie, dysku USB lub w chmurze."
+    },
+    {
+     "q": "Czy mogę później dołożyć pamięć i miejsce na dane?",
+     "a": "Tak. Pamięć 8 GB DDR4 ECC rozbudujesz do 32 GB w 2 gniazdach. Miejsce zwiększysz, dokładając do dwóch obudów DX525 po 5 dysków, a dwa gniazda M.2 przyjmą szybkie dyski na pamięć podręczną lub osobną pulę."
+    }
+   ]
+  },
+  "synology-rackstation": {
+   "faq": [
+    {
+     "q": "Co oznaczają litery „RP” w nazwie modelu?",
+     "a": "Modele RP (RS826RP+, RS1221RP+, RS1226RP+) mają dwa zasilacze. Gdy jeden się zepsuje, NAS pracuje dalej. RS1221+ ma jeden zasilacz, a RS422+ zasilacz zewnętrzny 100 W."
+    },
+    {
+     "q": "Wybrać model 1U czy 2U?",
+     "a": "Modele 1U (RS422+, RS826RP+) mieszczą 4 dyski, a 2U (RS1221+, RS1226RP+) — 8 dysków. Później dołożysz obudowę RX426 (do RS826RP+ i RS1226RP+) albo RX418 (do RS1221+), każdą na 4 dyski."
+    },
+    {
+     "q": "Czy zmieszczę RackStation w płytkiej szafie?",
+     "a": "Najpłytsze są RS1221+ (306,6 mm), który pasuje też do szafy 2-słupkowej, oraz RS422+ (327,5 mm). Przed zamówieniem sprawdź głębokość swojej szafy rack 19\"."
+    },
+    {
+     "q": "Co jest w zestawie, a co trzeba dokupić?",
+     "a": "Urządzenia są bez dysków i bez szyn montażowych — dobiera się je osobno. Na stronach modeli serii 26 producent zaznacza, że wymagane są dyski z listy zgodności Synology."
+    }
+   ]
+  },
+  "synology-diskstation-value-j": {
+   "faq": [
+    {
+     "q": "Czy taki NAS wystarczy w moim biurze?",
+     "a": "Tak, jeśli potrzebujesz automatycznej kopii kilku komputerów, wspólnego folderu dla 2–5 osób i dostępu do plików z telefonu. Przy nagrywaniu kilku kamer, wielu osobach pracujących na plikach lub planach rozbudowy wybierz serię Plus."
+    },
+    {
+     "q": "Czy DS124 z jednym dyskiem to dobry wybór?",
+     "a": "DS124 to tylko miejsce na kopie — nie chroni przed awarią dysku. Jeśli chcesz, żeby jeden dysk był lustrzaną kopią drugiego, wybierz dwudyskowy DS223j lub DS223."
+    },
+    {
+     "q": "Czym różni się DS223j od DS223?",
+     "a": "DS223j ma 1 GB RAM, białą obudowę i do dysków 2,5\" wymaga osobnej ramki. DS223 ma 2 GB RAM, czarną obudowę i 3 porty USB z przyciskiem kopiowania z USB."
+    },
+    {
+     "q": "Czy rozbuduję pamięć albo dołożę szybkie dyski SSD?",
+     "a": "Nie. Producent nie przewiduje rozbudowy pamięci RAM, a modele tej serii nie mają gniazd M.2. Gwarancja producenta to 2 lata, z możliwością przedłużenia do 4 lat."
+    }
+   ]
+  },
+  "synology-dyski-rozszerzenia": {
+   "faq": [
+    {
+     "q": "Wybrać dyski Plus czy Enterprise?",
+     "a": "Seria Plus (HAT33xx, 4–20 TB) to dyski do NAS-ów w małej firmie, z 3-letnią gwarancją. Seria Enterprise (HAT53xx, 4–24 TB, 7200 obr./min, obciążenie 550 TB/rok) jest do pracy 24/7 przy większym obciążeniu i ma 5 lat gwarancji."
+    },
+    {
+     "q": "Czy do NAS-a Synology muszę kupować dyski Synology?",
+     "a": "W RackStation serii 26 producent wymaga dysków z listy zgodności. W DiskStation z rocznika 2025 od DSM 7.3 można użyć dysków innych firm, ale pełne działanie i pomoc techniczną producent gwarantuje przy dyskach z listy."
+    },
+    {
+     "q": "Która obudowa rozszerzająca pasuje do mojego NAS-a?",
+     "a": "DX525 (+5 dysków) pasuje do DS725+, DS925+, DS1525+ i DS1825+, RX426 (+4 dyski) do RS826(RP)+ i RS1226(RP)+, a RX418 do RS1221+. Starsza DX517 pasuje tylko do poprzednich generacji, m.in. DS923+, DS723+, DS1522+ i DS1821+."
+    },
+    {
+     "q": "Czy dyski SAS HAS5300 włożę do DiskStation?",
+     "a": "Nie. Dyski SAS Enterprise HAS5300 / HAS5310 są tylko do serwerów z kontrolerem SAS, nie do DiskStation Plus. Do DiskStation wybierasz dyski SATA z serii HAT33xx lub HAT53xx."
+    }
+   ]
+  },
+  "qnap-nas-2-4": {
+   "faq": [
+    {
+     "q": "Który model wystarczy na pliki i kopie w małym biurze?",
+     "a": "Do plików i kopii w małej firmie wystarczą TS-233, TS-216G i TS-433 z czterordzeniowym procesorem ARM. Mają pamięć wlutowaną na stałe, więc nie rozbudujesz jej później. TS-233 to model do najmniejszego biura."
+    },
+    {
+     "q": "Czy mogę przyspieszyć NAS dyskami SSD?",
+     "a": "Tak, w modelach TS-264, TS-364, TS-464 i TS-473A są dwa gniazda M.2 2280 na dyski SSD NVMe. Modele z procesorem ARM (TS-233, TS-216G, TS-433) nie mają gniazd M.2."
+    },
+    {
+     "q": "Czy podłączę NAS do sieci 10 GbE?",
+     "a": "Tak, w TS-264, TS-464 i TS-473A — przez kartę 10 GbE w gnieździe PCIe. Pozostałe modele mają porty 1 GbE lub 2,5 GbE, a TS-264, TS-464 i TS-473A po dwa porty 2,5 GbE w standardzie."
+    },
+    {
+     "q": "Jak NAS robi kopie komputerów i nagrywa kamery?",
+     "a": "Kopie komputerów z Windows robisz programem QNAP NetBak / HDP PC Agent, a nagrania z kamer — aplikacją QVR Elite. Dodatkową kopię na drugi nośnik lub do chmury ustawisz w Hybrid Backup Sync."
+    }
+   ]
+  },
+  "qnap-nas-5-8": {
+   "faq": [
+    {
+     "q": "Kiedy warto wybrać 6–8 zatok zamiast 4?",
+     "a": "Gdy masz dużo projektów, zdjęć lub dokumentów, kopie wielu komputerów i serwerów albo nagrania z większej liczby kamer. Więcej zatok to więcej miejsca i możliwość ustawienia RAID 6, w którym dane przetrwają awarię dwóch dysków naraz."
+    },
+    {
+     "q": "Które modele mają szybką sieć 10 GbE w zestawie?",
+     "a": "TS-632X i TS-832PX mają w zestawie dwa porty 10 GbE SFP+ (do szybkiego switcha w szafie) i dwa porty 2,5 GbE. Pozostałe modele mają porty 2,5 GbE, a szybszą sieć można dodać kartą w gnieździe PCIe."
+    },
+    {
+     "q": "Do czego służy model TS-AI642?",
+     "a": "TS-AI642 ma 8-rdzeniowy procesor ARM z jednostką do analizy obrazu (NPU) i dwa wyjścia HDMI. Producent kieruje go m.in. do monitoringu i rozpoznawania obrazu. Ma 8 GB RAM bez rozbudowy i nie ma wbudowanych gniazd M.2."
+    },
+    {
+     "q": "Ile pamięci RAM mogę dołożyć?",
+     "a": "TS-673A i TS-873A rozbudujesz do 64 GB pamięci ECC, TS-664 do 16 GB, a TS-632X i TS-832PX z 4 do 16 GB. TS-AI642 ma 8 GB bez możliwości rozbudowy. TS-673A i TS-873A mają też dwa gniazda PCIe Gen3 x4 na dalszą rozbudowę."
+    }
+   ]
+  },
+  "qnap-nas-rack": {
+   "faq": [
+    {
+     "q": "Czy NAS zmieści się w małej szafie wiszącej?",
+     "a": "Modele z literą „e” (eU) mają płytką obudowę: TS-433eU, TS-432XeU i TS-464eU ok. 292 mm, TS-864eU i TS-873AeU ok. 297 mm. Głębsze są TS-1273AU-RP (371 mm) i TS-464U (479 mm)."
+    },
+    {
+     "q": "Które modele mają dwa zasilacze?",
+     "a": "Dwa zasilacze redundantne mają wersje RP: TS-464U-RP, TS-864eU-RP, TS-873AeU-RP i TS-1273AU-RP. Gdy jeden zasilacz ulegnie awarii, serwer działa dalej."
+    },
+    {
+     "q": "Ile dysków zmieszczę w wersji rack?",
+     "a": "Modele 1U mieszczą 4 dyski, modele 2U — 8 dysków, a TS-1273AU-RP — 12 dysków 3,5\"/2,5\" SATA. Urządzenia są sprzedawane bez dysków, więc pojemność dobierasz osobno."
+    },
+    {
+     "q": "Czy podłączę NAS do sieci 10 GbE?",
+     "a": "Wszystkie modele mają dwa porty 2,5 GbE. TS-432XeU ma dodatkowo port 10 GbE SFP+, a w modelach z gniazdem PCIe 10 GbE dodasz kartą. Producent daje 3 lata gwarancji na wszystkie modele z tej karty."
+    }
+   ]
+  },
+  "apc-back-ups": {
+   "faq": [
+    {
+     "q": "Jak dobrać moc UPS-a do kasy i komputera?",
+     "a": "Zsumuj moc w watach wszystkich podłączanych urządzeń i weź UPS z zapasem ok. 30–40%. Do wyboru są modele 750 VA/410 W, 950 VA/520 W, 1200 VA/650 W i 1600 VA/900 W. PRO-KOM pomoże dobrać moc do Twojego stanowiska."
+    },
+    {
+     "q": "Jak długo UPS podtrzyma zasilanie po zaniku prądu?",
+     "a": "Producent podaje ok. 4,8–6,5 minuty przy połowie obciążenia, zależnie od modelu. To wystarczy, żeby dokończyć paragon, zapisać pracę i spokojnie wyłączyć komputer."
+    },
+    {
+     "q": "Czy podłączę wtyczki kasy i komputera bez przejściówek?",
+     "a": "Tak, każdy model ma 4 gniazda Schuko, takie jak w ścianie. Sam UPS podłączasz do gniazdka wtyczką Schuko na przewodzie 1,2 m. Na stanowisku zmieścisz np. kasę, drukarkę fiskalną, komputer i router."
+    },
+    {
+     "q": "Czy ten UPS nada się do serwera albo NAS-a?",
+     "a": "Na wyjściu jest przybliżona (schodkowa) sinusoida. Do serwerów i NAS-ów APC przewiduje serie Smart-UPS z czystą sinusoidą — Back-UPS BXR jest do jednego stanowiska z kasą lub komputerem."
+    }
+   ]
+  },
+  "apc-back-ups-pro": {
+   "faq": [
+    {
+     "q": "Wybrać BR650MI czy BR1600SI?",
+     "a": "BR650MI (650 VA/390 W, 6 gniazd) to mała jednostka do routera, modemu i komputera biurowego. BR1600SI (1600 VA/960 W, 8 gniazd) daje czystą sinusoidę i zasili mocniejszy komputer lub stację roboczą; ma też porty ładowania USB-A i USB-C."
+    },
+    {
+     "q": "Czy podłączę urządzenia ze zwykłą wtyczką?",
+     "a": "Gniazda są typu IEC C13, jak w zasilaczach komputerów i serwerów. Do sprzętu ze zwykłą wtyczką trzeba dobrać kabel lub przejściówkę — PRO-KOM pomoże to skompletować."
+    },
+    {
+     "q": "Jak długo UPS podtrzyma zasilanie?",
+     "a": "Producent nie podaje czasu podtrzymania w minutach dla tych modeli. Moc dobierz z zapasem ok. 30–40% ponad sumę watów podłączonych urządzeń, a aktualne obciążenie sprawdzisz na wyświetlaczu LCD."
+    },
+    {
+     "q": "Co zrobić, gdy po latach zużyje się akumulator?",
+     "a": "Akumulator wymieniasz sam, zestawem RBC, więc nie musisz kupować całego nowego zasilacza. Żywotność akumulatora to 3–5 lat. O jego stanie i obciążeniu UPS-a informuje wyświetlacz LCD oraz alarmy dźwiękowe."
+    }
+   ]
+  },
+  "apc-smart-ups-wieza": {
+   "faq": [
+    {
+     "q": "Czy serwer wyłączy się sam, gdy kończy się akumulator?",
+     "a": "Tak. Przez USB lub kabel szeregowy RS232 serwer dostaje sygnał o zaniku zasilania i z programem PowerChute Serial Shutdown zamyka się sam, zanim akumulator się wyczerpie."
+    },
+    {
+     "q": "Czym różni się linia SMC od SMT?",
+     "a": "SMT1500IC ma większą moc w watach (1500 VA/1000 W) i 3 lata gwarancji producenta na urządzenie, 2 lata na akumulator. Modele SMC (1000 VA/600 W i 1500 VA/900 W) mają 2 lata gwarancji."
+    },
+    {
+     "q": "Czy sprawdzę stan UPS-a zdalnie?",
+     "a": "Tak, port Ethernet SmartConnect pozwala śledzić stan UPS-a przez chmurę. Dostępność tej usługi zależy od warunków producenta. Na miejscu stan pracy, obciążenie i akumulator pokazuje panel LCD z alarmami dźwiękowymi."
+    },
+    {
+     "q": "Czy nada się do stanowiska POS lub komputera z programem kasowym?",
+     "a": "Tak, APC opisuje te modele jako przeznaczone do serwerów, pamięci masowych, sieci i punktów sprzedaży. Na wyjściu jest czysta sinusoida, a 8 gniazd IEC C13 pasuje do zasilaczy komputerów i serwerów."
+    }
+   ]
+  },
+  "apc-smart-ups-rack": {
+   "faq": [
+    {
+     "q": "Czy ten UPS zmieści się w mojej szafie rack?",
+     "a": "Wszystkie modele zajmują 2U w szafie 19\", a zestaw montażowy jest w komplecie. Głębokość to 477 mm w modelach 1500 VA i 683 mm w SMT2200RMI2UC — sprawdź głębokość szafy przed zamówieniem."
+    },
+    {
+     "q": "Ile urządzeń podłączę do UPS-a?",
+     "a": "Modele 1500 VA mają 4 gniazda IEC C13. SMT2200RMI2UC ma 8 gniazd IEC C13 i 1 gniazdo IEC C19 — więcej miejsca na serwer, switch, router i rejestrator."
+    },
+    {
+     "q": "Czym różni się SMT od SMC?",
+     "a": "SMT ma wolny slot rozszerzeń na kartę sieciową, wyłącznik awaryjny EPO i 3 lata gwarancji na urządzenie (2 lata na akumulator). SMC1500I-2UC ma 2 lata gwarancji, a producent podaje dla niego żywotność akumulatora 4–6 lat."
+    },
+    {
+     "q": "Czy serwer w szafie wyłączy się sam przy dłuższym zaniku prądu?",
+     "a": "Tak. Z programem PowerChute Serial Shutdown, przez USB lub RS232, serwer zamknie się automatycznie. Stan UPS-a podejrzysz też zdalnie w chmurze przez port Ethernet SmartConnect."
+    }
+   ]
+  },
+  "apc-smart-ups-online": {
+   "faq": [
+    {
+     "q": "Czym UPS on-line różni się od line-interactive?",
+     "a": "W SRT sprzęt cały czas pracuje z napięcia wytworzonego przez UPS (podwójna konwersja), więc przy zaniku prądu nie ma przerwy przełączenia, a zakłócenia z sieci nie docierają do urządzeń. Moc w watach jest równa mocy w VA."
+    },
+    {
+     "q": "Kiedy warto wybrać UPS on-line?",
+     "a": "Tam, gdzie sieć energetyczna jest słaba albo sprzęt jest szczególnie wrażliwy. APC wskazuje SRT do serwerów, pamięci masowych, sieci głosowych i danych, laboratoriów medycznych i lekkiego przemysłu."
+    },
+    {
+     "q": "Czy mogę wydłużyć czas pracy na akumulatorach?",
+     "a": "Tak, do UPS-a dołożysz do 10 zewnętrznych modułów akumulatorów SRT48BP. Wewnętrzny akumulator 48 V wymieniasz sam, ładuje się ok. 3 h, a jego żywotność to 3–5 lat."
+    },
+    {
+     "q": "Czy UPS zamontuję w szafie rack?",
+     "a": "SRT1500RMXLI montujesz w szafie 19\" (2U, szyny w komplecie, głębokość 505 mm) albo stawiasz jako wieżę. SRT1000XLI to wieża, którą przerobisz na rack zestawem szyn SRTRK3/SRTRK4 kupowanym osobno."
+    }
+   ]
+  },
+  "microsoft-windows-11-pro": {
+   "faq": [
+    {
+     "q": "Czy do firmy wystarczy Windows 11 Home?",
+     "a": "Home wystarczy na pojedynczy komputer bez zarządzania. Pro dodaje szyfrowanie dysku BitLocker, możliwość łączenia się z komputerem przez Pulpit zdalny, Hyper-V oraz dołączanie do domeny Active Directory i Microsoft Entra ID."
+    },
+    {
+     "q": "Którą licencję wybrać: OEM, ESD czy BOX?",
+     "a": "OEM kupujesz z nowym komputerem i zostaje z nim na stałe. ESD to klucz elektroniczny wysyłany e-mailem, bez nośnika — np. do zmiany Home na Pro w działającym komputerze. BOX to wersja pudełkowa z pendrive instalacyjnym."
+    },
+    {
+     "q": "Czy przeniosę licencję OEM na nowy komputer?",
+     "a": "Nie. Licencję OEM można przenieść tylko razem z całym komputerem, na którym ją zainstalowano. Przy wymianie komputera kupujesz nową licencję — do nowego komputera wybierasz wersję OEM, która zostaje z tym sprzętem."
+    },
+    {
+     "q": "Co zrobić z komputerami, które mają jeszcze Windows 10?",
+     "a": "Wsparcie Windows 10 skończyło się 14 października 2025 r. Możesz przejść na Windows 11, o ile sprzęt na to pozwala, albo wykupić roczne aktualizacje zabezpieczeń ESU na kolejne lata (1., 2., 3. rok)."
+    }
+   ]
+  },
+  "microsoft-365-business": {
+   "faq": [
+    {
+     "q": "Który plan Microsoft 365 wybrać dla pracowników?",
+     "a": "Business Basic daje pocztę, Teams i 1 TB na pliki, ale Office tylko w przeglądarce i na telefonie. Business Standard dodaje klasyczne aplikacje Office, a Business Premium — Intune i Defender dla Firm. Apps for business to same aplikacje i OneDrive, bez poczty."
+    },
+    {
+     "q": "Na ilu urządzeniach pracownik zainstaluje Office?",
+     "a": "W planach Standard i Premium każdy użytkownik zainstaluje aplikacje na 5 komputerach PC lub Mac, 5 tabletach i 5 telefonach. Abonament jest na osobę, a nie na komputer."
+    },
+    {
+     "q": "Czy mogę zrezygnować z subskrypcji w trakcie okresu?",
+     "a": "W modelu NCE subskrypcję można anulować tylko w pierwszych 7 dniach okresu. Zobowiązanie wybierasz miesięczne lub roczne — warto to przemyśleć przy zmiennej liczbie pracowników."
+    },
+    {
+     "q": "Czy dostanę firmową pocztę we własnej domenie?",
+     "a": "Tak, w planach Basic, Standard i Premium dostajesz pocztę we własnej domenie (np. biuro@twojafirma.pl) ze skrzynką 100 GB. Przy przenoszeniu poczty z innego serwera pomagamy w konfiguracji domeny i skrzynek."
+    }
+   ]
+  },
+  "microsoft-office-2024": {
+   "faq": [
+    {
+     "q": "Office 2024 czy Microsoft 365 — co wybrać?",
+     "a": "Office 2024 kupujesz raz i działa na jednym komputerze, bez aktualizacji do nowych wersji. Microsoft 365 to abonament za użytkownika, miesięczny lub roczny, ale z pocztą firmową, 1 TB na pliki, Teams i instalacją na 5 komputerach jednej osoby."
+    },
+    {
+     "q": "Czy mogę używać w firmie Office Home 2024?",
+     "a": "Według Microsoft Office Home 2024 jest przeznaczony do użytku w domu i szkole i nie ma Outlooka. Do firmy wybierz Office Home & Business 2024, który ma prawo do użytku komercyjnego."
+    },
+    {
+     "q": "Jak długo Office 2024 będzie aktualizowany?",
+     "a": "Wersje 2024 dostają tylko poprawki bezpieczeństwa, bez nowych funkcji. Wsparcie kończy się 10.10.2029 dla Office 2024 i 9.10.2029 dla Office LTSC 2024. Przejście na kolejną wersję wymaga nowej licencji."
+    },
+    {
+     "q": "Czym różni się Home & Business od wersji LTSC?",
+     "a": "Home & Business 2024 to Word, Excel, PowerPoint, OneNote i Outlook na jednym PC lub Mac. LTSC Standard i Professional Plus to wersje z licencjonowania zbiorowego; Professional Plus ma dodatkowo Access. Teams nie instaluje się razem z Office LTSC 2024."
+    }
+   ]
+  },
+  "microsoft-windows-server-cal": {
+   "faq": [
+    {
+     "q": "Czy potrzebuję Windows Server, czy wystarczy NAS?",
+     "a": "Windows Server jest potrzebny przy domenie, uprawnieniach do folderów, programie księgowym lub magazynowym w sieci albo pracy zdalnej na serwerze. Przy kilku osobach, które tylko dzielą pliki, często wystarcza NAS albo Microsoft 365 — pomożemy to ocenić."
+    },
+    {
+     "q": "Ile rdzeni muszę objąć licencją?",
+     "a": "Licencja musi objąć wszystkie fizyczne rdzenie serwera, ale co najmniej 8 na procesor i 16 na serwer. Dostępne są licencje na 16 i 24 rdzenie oraz pakiety po 2 rdzenie do dokupienia."
+    },
+    {
+     "q": "Wybrać CAL na użytkownika czy na urządzenie?",
+     "a": "Device CAL sprawdza się przy pracy zmianowej na wspólnych komputerach. User CAL — gdy każdy ma własny komputer lub łączy się z kilku urządzeń. Licencje są w pakietach po 1 i 5."
+    },
+    {
+     "q": "Kiedy potrzebuję dodatkowo licencji RDS CAL?",
+     "a": "Gdy pracownicy pracują na serwerze przez Pulpit zdalny, np. z programem księgowym uruchamianym zdalnie. RDS CAL kupuje się dodatkowo do zwykłej CAL, na użytkownika lub urządzenie; obowiązuje 120 dni okresu przejściowego."
+    }
+   ]
+  },
+  "adobe-acrobat-pro-teams": {
+   "faq": [
+    {
+     "q": "Czy zamienię PDF na plik Word lub Excel?",
+     "a": "Tak. Acrobat Pro edytuje tekst i obrazy w PDF, zamienia dokumenty na Word i Excel oraz z powrotem, łączy pliki i chroni je hasłem. Przydaje się to wszędzie, gdzie dużo dokumentów przychodzi i wychodzi jako PDF, np. w biurze rachunkowym lub kancelarii."
+    },
+    {
+     "q": "Czy program odczyta tekst z zeskanowanych dokumentów?",
+     "a": "Tak, wersja Pro ma rozpoznawanie tekstu ze skanów (OCR). Możesz też porównać dwie wersje dokumentu i trwale zaczernić dane wrażliwe, np. numery PESEL przed wysłaniem."
+    },
+    {
+     "q": "Czy wyślę dokument do podpisu elektronicznego?",
+     "a": "Tak, z Acrobata Pro wysyłasz prośby o podpis elektroniczny — pojedynczo albo zbiorczo, do wielu osób naraz. Przed wysłaniem możesz zabezpieczyć dokument hasłem lub zaczernić w nim dane wrażliwe."
+    },
+    {
+     "q": "Co z licencją, gdy pracownik odejdzie z firmy?",
+     "a": "Licencje „for teams” przypisuje się do osób i zarządza nimi w konsoli Admin Console. Licencję łatwo odebrać i przypisać nowemu pracownikowi bez kupowania kolejnej."
+    }
+   ],
+   "opis": [
+    "Acrobat Pro for teams to program do pracy z dokumentami PDF w biurze. Przydaje się w biurach rachunkowych, kancelariach, administracji szkół i pensjonatów — wszędzie, gdzie dużo dokumentów przychodzi i wychodzi jako PDF. Kupujesz go jako subskrypcję roczną, liczoną za użytkownika.",
+    "Edytujesz tekst i obrazy w PDF, zamieniasz pliki na Word i Excel, łączysz je i chronisz hasłem. Wersja Pro rozpoznaje tekst ze skanów (OCR), porównuje dwie wersje dokumentu, trwale zaczernia dane wrażliwe (np. numery PESEL przed wysłaniem), sprawdza zgodność z PDF/A i PDF/X oraz wysyła prośby o podpis elektroniczny — także zbiorczo.",
+    "Licencje „for teams” przypisuje się do osób i zarządza nimi w konsoli Admin Console, więc łatwo przenieść licencję na nowego pracownika. Program jest wielojęzyczny. Jeśli firma robi też grafikę i reklamę, zamiast samego Acrobata można wybrać pakiet Creative Cloud Pro for teams z m.in. Photoshopem, Illustratorem, InDesignem i Acrobatem Pro."
+   ]
+  },
+  "samsung-qbc": {
+   "faq": [
+    {
+     "q": "Czy do ekranu muszę podłączyć komputer?",
+     "a": "Nie. Ekran ma wbudowany odtwarzacz z systemem Tizen 7.0 i pamięcią 8 GB, a treści trafiają na niego przez sieć — Wi-Fi lub kabel RJ-45. Ma też 2 porty USB."
+    },
+    {
+     "q": "Czy ekran QBC może być włączony całą dobę?",
+     "a": "Producent podaje pracę 16/7, czyli do 16 godzin dziennie, 7 dni w tygodniu. Jeśli ekran ma działać całą dobę, np. w całodobowej recepcji, wybierz serię QMC przeznaczoną do pracy 24/7."
+    },
+    {
+     "q": "Czy mogę powiesić ekran pionowo, np. jako menu przy kasie?",
+     "a": "Tak, ekran pracuje poziomo lub pionowo, a ramka ma równe 11,5 mm z każdej strony. Do montażu dobierz uchwyt ścienny Slim Fit lub stojak; rozstaw VESA zależy od przekątnej, od 200×200 do 600×400 mm."
+    },
+    {
+     "q": "Jak zmieniać treści na kilku ekranach naraz?",
+     "a": "Treściami zarządzasz zdalnie przez oprogramowanie Samsung — VXT CMS w chmurze (licencja kupowana osobno) albo MagicINFO. Dzięki temu zmienisz menu czy plan dnia na wszystkich ekranach z jednego miejsca, bez komputera przy ekranie."
+    }
+   ]
+  },
+  "samsung-qmc": {
+   "faq": [
+    {
+     "q": "Czym seria QMC różni się od QBC?",
+     "a": "QMC jest przeznaczona do pracy 24/7, ma jasność 500 nit (w 32\" — 400 nit), wejście DisplayPort i odtwarzacz z pamięcią 16 GB. Sprawdzi się tam, gdzie obraz ma być włączony cały czas, np. w całodobowej recepcji."
+    },
+    {
+     "q": "Czy jest wersja z ekranem dotykowym?",
+     "a": "Tak, QM32C-T to 32\" ekran Full HD z dotykiem — np. jako mały punkt informacyjny lub ekran do zamawiania. Pracuje w trybie 16/7, a z szybą dotykową ma jasność 300 nit."
+    },
+    {
+     "q": "Jak zmieniać treści na ekranach w kilku lokalizacjach?",
+     "a": "Treści na wielu ekranach, np. w Rabce i w Zakopanem, zmieniasz zdalnie przez MagicINFO albo VXT CMS w chmurze (licencje osobno). Ustawiasz harmonogram, a ekran sam przełącza treści o wybranej godzinie."
+    },
+    {
+     "q": "Jakie złącza ma ekran?",
+     "a": "Ma 3× HDMI 2.0, DisplayPort 1.2 (poza modelem 32\"), 2× USB, RJ-45, RS-232 we/wy, wejście IR i wyjście audio mini jack, a do tego Wi-Fi i Bluetooth. Treści możesz więc puścić z wbudowanego odtwarzacza albo z zewnętrznego źródła."
+    }
+   ]
+  },
+  "samsung-qhc": {
+   "faq": [
+    {
+     "q": "Kiedy wybrać QHC zamiast QMC?",
+     "a": "Gdy ekran stoi w mocno oświetlonym sklepie, w holu z dużymi przeszkleniami albo w strefie wejścia. QHC ma jasność 700 nit wobec 500 nit w QMC, więc obraz nie jest „wyprany” przez światło."
+    },
+    {
+     "q": "Czy mogę postawić ekran za szybą witryny od strony słońca?",
+     "a": "QHC jest przeznaczony do wnętrz. Za szybą witryny skierowanej na słońce lepiej sprawdzi się seria OMB/OMN o jasności 2500–4000 nit. QHC (700 nit) jest do jasnych wnętrz, np. holu z przeszkleniami."
+    },
+    {
+     "q": "Jaki jest największy ekran w tej serii?",
+     "a": "Do dużych przestrzeni są QH98C (98\", 700 nit, 56,3 kg) i QH115FX (115\", 1000 nit, Tizen 8.0, 83,7 kg, VESA 1000×600). Modele 43–75\" mają obudowę 28,5 mm i wieszasz je poziomo albo pionowo."
+    },
+    {
+     "q": "Czy ekran potrzebuje komputera do wyświetlania treści?",
+     "a": "Nie, ma wbudowany odtwarzacz Tizen. Treściami zarządzasz zdalnie przez MagicINFO lub VXT CMS (licencje osobno), a do ekranu możesz też podłączyć źródło przez 3 wejścia HDMI lub DisplayPort."
+    }
+   ]
+  },
+  "samsung-om": {
+   "faq": [
+    {
+     "q": "Czym różnią się modele OM55B, OM55N-S i OH55DX?",
+     "a": "OM55B ma obraz 4K i 3000 nit — do witryny. OM55N-S ma Full HD i 4000 nit, to najjaśniejszy model do witryny w pełnym słońcu. OH55DX to ekran zewnętrzny z ochroną IP56 i jasnością 3500 nit (szczytowo 4000)."
+    },
+    {
+     "q": "Czy ekran można powiesić na zewnątrz budynku?",
+     "a": "Tylko model OH55DX — ma certyfikat IP56, czyli odporność na wodę i pył. OM55B i OM55N-S mają ochronę IP5X przed pyłem i są przeznaczone do montażu za szybą witryny."
+    },
+    {
+     "q": "Czy za ekranem musi stać komputer, żeby wyświetlał treści?",
+     "a": "Nie. Ekrany mają wbudowany odtwarzacz MagicINFO na systemie Tizen i Wi-Fi, więc treści wysyłasz przez sieć. MagicINFO pozwala zarządzać z jednego miejsca wszystkimi ekranami — w sklepie i w witrynie."
+    },
+    {
+     "q": "Jakie ekran ma złącza i jak się go montuje?",
+     "a": "OM55B ma 2× HDMI 2.0, DisplayPort 1.2, USB, RJ-45, RS-232, IR i wyjście audio; OH55DX — 2× HDMI i 2× USB. OM55B i OM55N-S mają mocowanie VESA 400×400 mm i ważą 23,1 kg, a przewody chowa się w prowadnicy."
+    }
+   ]
+  },
+  "samsung-waf": {
+   "faq": [
+    {
+     "q": "Czy do monitora trzeba podłączać komputer?",
+     "a": "Nie. Monitor ma wbudowany Android (WAF: Android 14, WAFX-P: Android 15) z certyfikatem Google EDLA, więc działa na nim sklep Google Play i aplikacje Google. Zewnętrzny komputer możesz podłączyć opcjonalnie, np. przez OPS."
+    },
+    {
+     "q": "Jak pokażę na ekranie obraz z laptopa lub telefonu?",
+     "a": "Bezprzewodowo — z iOS, Mac, Windows, Android i Chrome OS. Seria WAF pozwala pokazać ekrany do dziewięciu urządzeń jednocześnie. Na kablu masz do dyspozycji 2× HDMI 2.1 i 4× USB."
+    },
+    {
+     "q": "Czym WAFX-P różni się od zwykłej serii WAF?",
+     "a": "WAFX-P ma wbudowaną kamerę 48 MP z automatycznym kadrowaniem, mikrofon o zasięgu 10 m i głośniki 2× 20 W z subwooferem — to gotowy zestaw do wideokonferencji. Ma też Android 15, 128 GB pamięci, Wi-Fi 6 i jasność 450 nit."
+    },
+    {
+     "q": "Czy monitor nada się do reklamy wyświetlanej całą dobę?",
+     "a": "Nie. Producent podaje pracę do 12 godzin dziennie (12/7), więc to sprzęt do zajęć w klasie, szkoleń i spotkań. Do całodobowej reklamy lepiej sprawdzą się ekrany przeznaczone do pracy 24/7."
+    }
+   ]
+  },
+  "sharp-nec-projektory-sala": {
+   "faq": [
+    {
+     "q": "Lampa czy laser — co wybrać do sali?",
+     "a": "Lampę trzeba co jakiś czas wymieniać: 10 000 h w ME403U i 4 000 h w P554U (w trybie Eco dwa razy dłużej), gwarancja na lampę to 6 miesięcy lub 1 000 h. Laser działa do 20 000 h i ma gwarancję 3 lata lub 10 000 h."
+    },
+    {
+     "q": "Jaką jasność wybrać do mojej sali?",
+     "a": "Im jaśniejsze pomieszczenie i większy ekran, tym więcej lumenów. W sali, której nie da się zaciemnić, lepiej sprawdzą się modele ok. 5 000 lm; przy roletach zwykle wystarczy mniejsza jasność, np. 3 700 lm w ME403U. Dobór potwierdzamy po oględzinach sali."
+    },
+    {
+     "q": "Jak podłączę laptop i czy da się poprowadzić sygnał jednym kablem?",
+     "a": "Każdy model ma 2× HDMI, VGA, LAN i USB. P554U i P547UL mają też HDBaseT, czyli przesył obrazu kablem sieciowym. Wi-Fi uzyskasz przez opcjonalny moduł."
+    },
+    {
+     "q": "Z jakiej odległości od ekranu można zawiesić projektor?",
+     "a": "Współczynnik rzutu wynosi ok. 1,2–2:1, a zoom ręczny 1,6x (w PE506UL 1,7x) pozwala dopasować obraz do ekranu z różnych odległości. P554U, PE506UL i P547UL mają też przesuw obiektywu, którego nie ma ME403U."
+    }
+   ]
+  },
+  "sharp-nec-projektory-laser": {
+   "faq": [
+    {
+     "q": "WUXGA czy 4K UHD — czym różnią się te modele?",
+     "a": "NEC P627UL pokazuje WUXGA 1920×1200 w technologii 3LCD, ma 6 200 lm i jest cichy (27 dB). Sharp P601Q i P721Q wyświetlają 4K UHD w technologii DLP (matryca 1920×1080 z przesuwaniem pikseli) i mają zoom oraz ostrość z napędem."
+    },
+    {
+     "q": "Czy w tych projektorach wymienia się lampy?",
+     "a": "Nie. Źródło światła jest laserowe — producent podaje 20 000 h pracy do spadku jasności o połowę i daje na laser 3 lata gwarancji lub 10 000 h (co nastąpi pierwsze). Na sam projektor gwarancja wynosi 3 lata."
+    },
+    {
+     "q": "Jak doprowadzić obraz do projektora pod sufitem?",
+     "a": "Wszystkie modele mają HDBaseT — obraz i sterowanie idą jednym kablem sieciowym, np. ze stołu albo z szafy technicznej. Do tego 2× HDMI, LAN, RS-232 i USB, a P627UL ma też VGA."
+    },
+    {
+     "q": "Czy projektor musi wisieć dokładnie na środku ekranu?",
+     "a": "Nie. P627UL ma przesuw obiektywu poziomo ±29% i pionowo +60%. Sharp P601Q i P721Q mają przesuw z napędem, sterowany z pilota: poziomo ±25% i pionowo ±55%, co ułatwia montaż pod sufitem."
+    }
+   ]
+  },
+  "sharp-nec-instalacyjne": {
+   "faq": [
+    {
+     "q": "Czy obiektyw jest w zestawie z projektorem?",
+     "a": "Nie. Projektory są sprzedawane bez obiektywu, a obiektyw dobiera się osobno po pomiarze sali — od bardzo krótkiego rzutu 0,32:1 (NP44ML) po długi rzut 4,59–7,02:1 (NP15ZL). Obraz może mieć od 40 do 500\" przekątnej."
+    },
+    {
+     "q": "Czy projektor ma wbudowany głośnik?",
+     "a": "Nie. Te modele nie mają głośnika, tylko wyjście audio 3,5 mm, więc w sali potrzebne jest osobne nagłośnienie. Warto zaplanować je razem z projektorem."
+    },
+    {
+     "q": "Laser czy lampa — czym różnią się te modele w eksploatacji?",
+     "a": "Modele laserowe (PV710UL, PV800UL, PA804UL, PA1004UL) mają źródło światła na 20 000 h z gwarancją 3 lata lub 10 000 h. Lampowy PA803U ma lampę na 3 000 h (5 000 h w trybie Eco) z gwarancją 6 miesięcy lub 1 000 h."
+    },
+    {
+     "q": "Jaki kolor obudowy wybrać — biały czy czarny?",
+     "a": "PV710UL, PV800UL, PA804UL i PA1004UL są dostępne w kolorze białym lub czarnym. Czarny lepiej znika na tle ciemnego sufitu czy sceny. Kolor obudowy wybierasz przy zamówieniu projektora."
+    }
+   ],
+   "opis": [
+    "To projektory do montażu na stałe w dużych pomieszczeniach: aula, kościół, sala widowiskowa w domu kultury, duża sala konferencyjna w hotelu. Najważniejsza różnica wobec projektorów biurowych: obiektyw jest wymienny. Dobierasz go do sali — od bardzo krótkiego rzutu (np. 0,32:1, kilkadziesiąt cm od ekranu) po długi rzut z tyłu sali (do ok. 7:1) — i projektor może wisieć tam, gdzie pasuje architektonicznie.",
+    "Wszystkie modele mają rozdzielczość WUXGA (1920×1200), jasność od 7 100 do 9 000 lm (PA1004UL w trybie Boost 10 000 lm), przesuw obiektywu i wejście HDBaseT do przesyłu obrazu skrętką. Modele laserowe (PV710UL, PV800UL, PA804UL, PA1004UL) mają źródło światła na 20 000 h (do spadku jasności o połowę) z gwarancją 3 lata lub 10 000 h. Lampowy PA803U ma lampę na 3 000 h (5 000 h w trybie Eco), z gwarancją 6 miesięcy lub 1 000 h.",
+    "Ważne przy wycenie: projektory zwykle są sprzedawane bez obiektywu i obiektyw dobiera się osobno po pomiarze sali (PV710UL i PA803U występują także w zestawach z obiektywem NP13ZL lub NP41ZL). Modele te nie mają wbudowanego głośnika, więc potrzebne jest nagłośnienie. PV710UL, PV800UL, PA804UL i PA1004UL są dostępne w kolorze białym lub czarnym (czarny lepiej znika na tle ciemnego sufitu czy sceny). Producent daje 3 lata gwarancji na projektor."
+   ]
+  },
+  "lenovo-thinkpad-l13-2-in-1-gen-6": {
+   "faq": [
+    {
+     "q": "Czy da się później rozbudować pamięć i dysk?",
+     "a": "Pamięci nie — LPDDR5X jest wlutowana, więc 16 albo 32 GB wybierasz przy zakupie. Dysk siedzi w gnieździe M.2 2242 PCIe 4.0, a w konfiguracji masz do wyboru 256 GB, 512 GB lub 1 TB."
+    },
+    {
+     "q": "Wersja Intel czy AMD — czym się różnią?",
+     "a": "Intel ma procesory Core Ultra serii 2, Wi-Fi 6E lub Wi-Fi 7 i opcję vPro (235U, 265U) do zdalnego zarządzania. AMD ma procesory Ryzen PRO 200, Wi-Fi 7 i dodatkowe zabezpieczenie Microsoft Pluton."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home"
+    }
+   ]
+  },
+  "lenovo-thinkpad-x13-detachable-gen-1": {
+   "faq": [
+    {
+     "q": "Czy pamięć da się rozbudować po zakupie?",
+     "a": "Nie. Pamięć LPDDR5X jest wlutowana, więc 16, 32 lub 64 GB wybierasz w konfiguracji — najlepiej z zapasem. Dysk SSD (256 GB, 512 GB lub 1 TB) siedzi w gnieździe M.2 2242 PCIe 4.0."
+    },
+    {
+     "q": "Czy połączę się z internetem w terenie bez Wi-Fi?",
+     "a": "Tak, jeśli wybierzesz wersję 5G. Ma wbudowany modem 5G z eSIM i gniazdo nano-SIM, więc internet masz przy oględzinach czy u klienta. Bez modemu tablet łączy się przez Wi-Fi 7."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home"
+    }
+   ]
+  },
+  "lenovo-thinkbook-14-2-in-1-g6": {
+   "faq": [
+    {
+     "q": "Core Ultra 5 czy Core Ultra 7 — który procesor wybrać?",
+     "a": "Core Ultra 5 325 wystarczy do biura, recepcji i szkoły: dokumenty, poczta, przeglądarka i wideorozmowy. Core Ultra 7 355 daje więcej mocy do cięższych arkuszy i wielu programów otwartych naraz."
+    },
+    {
+     "q": "Czy podłączę kabel sieciowy i monitor bez przejściówek?",
+     "a": "Monitor tak — przez HDMI 1.4b albo jeden z dwóch portów USB-C z wyjściem obrazu. Wbudowanego gniazda RJ-45 laptop nie ma — z siecią łączy się przez Wi-Fi 7. Do tego dwa USB-A i czytnik microSD."
+    }
+   ]
+  },
+  "lenovo-thinkbook-16p-g6": {
+   "faq": [
+    {
+     "q": "Wersja Intel (IAX) czy AMD (ADR) — czym się różnią?",
+     "a": "IAX ma procesory Intel Core Ultra HX do 24 rdzeni, kartę RTX 5060 lub RTX 5070 i dwa porty Thunderbolt 4. ADR ma AMD Ryzen 9 8940HX / 8945HX, kartę RTX 5060 i dwa porty USB-C 10 Gb/s."
+    },
+    {
+     "q": "Czy ekran nadaje się do pracy z kolorem, np. przy zdjęciach i druku?",
+     "a": "Tak. W wersji Intel ekrany mają 100% DCI-P3, 500 nitów i kalibrację kolorów z fabryki. W wersji AMD do takiej pracy wybierz ekran 240 Hz z 500 nitami i 100% DCI-P3 — wariant 165 Hz ma 350 nitów i 100% sRGB."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-m-tiny-gen-6": {
+   "faq": [
+    {
+     "q": "Czym różnią się M70q, M75q i M90q?",
+     "a": "M70q to podstawowy model z Intel Core Ultra 3–7 i dwoma gniazdami na dyski. M75q ma AMD Ryzen AI 400 z NPU do 50 TOPS, DisplayPort 2.1 i grafikę Radeon 840M / 860M. M90q to wydajniejszy wariant do Core Ultra 9 285, z trzema gniazdami na dyski."
+    },
+    {
+     "q": "Czy w tak małym komputerze rozbuduję pamięć i dyski?",
+     "a": "Tak. Pamięć DDR5 siedzi w dwóch gniazdach i można ją rozbudować do 64 GB. M70q i M75q mają dwa gniazda M.2 2280, a M90q — trzy, każde na dysk do 2 TB."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home"
+    }
+   ]
+  },
+  "lenovo-thinkcentre-m70a-m90a-gen-6": {
+   "faq": [
+    {
+     "q": "M70a czy M90a — czym się różnią?",
+     "a": "M70a ma energooszczędne procesory Core Ultra „T”, zasilacz zewnętrzny 90 W i do 2 dysków — do recepcji i biura. M90a ma procesory do Core Ultra 9 285, opcjonalną kartę GeForce RTX, Thunderbolt 4, ekran 120 Hz, do 3 dysków i mocniejsze głośniki."
+    },
+    {
+     "q": "Czy da się później dołożyć pamięci albo dysk?",
+     "a": "Pamięć DDR5 siedzi w dwóch gniazdach SODIMM, maks. 64 GB. M70a przyjmie do 2 dysków M.2 (do 1 TB każdy), M90a do 3 (do 2 TB każdy), z obsługą RAID 0/1."
+    }
+   ]
+  },
+  "lenovo-thinkstation-p3-tiny-ultra-gen-2": {
+   "faq": [
+    {
+     "q": "Ile monitorów podłączę do tej stacji?",
+     "a": "P3 Tiny Gen 2 obsłuży do 4 monitorów z grafiki zintegrowanej. P3 Ultra SFF Gen 2 nawet do 12: 4 z płyty głównej i 8 z dwóch kart graficznych — to wygodne przy dużych rysunkach i wielu oknach programu."
+    },
+    {
+     "q": "Skąd mam wiedzieć, że mój program CAD będzie na niej działał?",
+     "a": "Lenovo publikuje osobną listę certyfikacji programów inżynierskich (ISV, czyli programy CAD, BIM i 3D) dla stacji ThinkStation. Przed zakupem warto sprawdzić na niej swój program — pomożemy dobrać konfigurację."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Pro for Workstations"
+    }
+   ]
+  },
+  "lenovo-thinkstation-p3-tower-gen-2-p4": {
+   "faq": [
+    {
+     "q": "Ile dysków zmieszczę i czy jest RAID?",
+     "a": "P3 Tower Gen 2 przyjmie do 7 dysków (np. 3× SATA + 4× M.2), M.2 do 4 TB i HDD do 12 TB. P4 mieści do 6 dysków: 3× M.2 i 3× HDD 3,5\" do 12 TB. Oba modele obsługują RAID."
+    },
+    {
+     "q": "Czy mogę pracować na Linuksie?",
+     "a": "Dla P4 Lenovo podaje Ubuntu Linux i Red Hat Enterprise Linux obok Windows 11 Pro. Dla P3 Tower Gen 2 lista systemów nie była weryfikowana, więc potwierdzimy ją przy wycenie."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Ubuntu Linux (P4), Red Hat Enterprise Linux (P4)"
+    }
+   ]
+  },
+  "lenovo-thinkvision-m-przenosne": {
+   "faq": [
+    {
+     "q": "Czym M14d różni się od M14t Gen 2?",
+     "a": "Oba mają ekran 14\" 2240×1400. M14t Gen 2 jest dotykowy (10 punktów), ma rysik w zestawie i podstawkę, którą obrócisz do pionu; waży 0,7 kg. M14d jest bez dotyku, jaśniejszy (300 nitów) i lżejszy — 0,6 kg z podstawką."
+    },
+    {
+     "q": "Co dostanę w zestawie i jaka jest gwarancja?",
+     "a": "M14d ma w zestawie kabel USB-C 1 m. M14t Gen 2 — kabel USB-C 1 m, rysik, etui ochronne, 2 klipsy i przejściówkę kątową. Oba modele mają 3 lata gwarancji producenta i można je przykręcić do uchwytu VESA 100 mm."
+    }
+   ],
+   "parametry_dodaj": [
+    {
+     "k": "M16",
+     "v": "16\" 1920×1200 (16:10), jasność 300 cd/m²",
+     "przed": "Jasność"
+    }
+   ],
+   "zrodla_dodaj": [
+    {
+     "typ": "specyfikacja",
+     "url": "https://psref.lenovo.com/syspool/Sys/PDF/ThinkVision/ThinkVision_M16_Monitor/ThinkVision_M16_Monitor_Spec.pdf"
+    }
+   ]
+  },
+  "lenovo-thinksmart-core-gen-2": {
+   "faq": [
+    {
+     "q": "Którą wersję wybrać: Microsoft Teams Rooms czy Zoom Rooms?",
+     "a": "To osobne wersje z fabrycznie zainstalowanym oprogramowaniem, więc wybierasz je przy zamówieniu. Teams Rooms jest dla firm pracujących na Microsoft 365 i Teams, a Zoom Rooms (z certyfikacją Zoom) dla firm spotykających się przez Zoom."
+    },
+    {
+     "q": "Czy kamera obejmie wszystkich siedzących przy stole?",
+     "a": "W zestawach FRK i IPFRK jest listwa ThinkSmart Bar 180 z trzema kamerami, które razem widzą 180° w poziomie, więc w kadrze są też osoby z boku. Listwa ma osiem mikrofonów kierunkowych i cztery głośniki."
+    }
+   ]
+  },
+  "dell-pro-7": {
+   "faq": [
+    {
+     "q": "13 czy 14 cali — który rozmiar wybrać?",
+     "a": "Wersja 13\" jest mniejsza i lżejsza (od 1,19 kg) i ma baterię 55,8 Wh. Wersja 14\" (od 1,27 kg) ma większy ekran z opcją 2560×1600 120 Hz lub OLED i baterię do 70 Wh. Oba rozmiary są też w wersji 2 w 1."
+    },
+    {
+     "q": "Czy laptop połączy się z internetem bez Wi-Fi?",
+     "a": "Tak, jeśli wybierzesz opcjonalny modem 5G (MediaTek T700) lub 4G LTE (Snapdragon X12) — oba z eSIM i tacką nano-SIM. W biurze laptop łączy się przez Wi-Fi 7 lub Wi-Fi 6E."
+    }
+   ]
+  },
+  "dell-pro-5": {
+   "faq": [
+    {
+     "q": "Intel Core czy Core Ultra / Ryzen AI PRO — co wybrać?",
+     "a": "Intel Core (bez „Ultra”) wystarczy do typowej pracy biurowej, z pamięcią 8–48 GB jednokanałową. Core Ultra i AMD Ryzen AI PRO mają układ AI (Copilot+ PC), pamięć do 64 GB dwukanałową i wersje vPro / AMD PRO do zdalnego zarządzania."
+    },
+    {
+     "q": "Jaką baterię wybrać i czy można ją wymienić?",
+     "a": "Bateria jest wymienna, w pojemności 45, 57 lub 70 Wh, także w wersji o wydłużonej żywotności. ExpressCharge ładuje ją do 80% w 60 minut, a ExpressCharge Boost do 35% w 20 minut przy wyłączonym laptopie."
+    }
+   ]
+  },
+  "dell-pro-rugged": {
+   "faq": [
+    {
+     "q": "Rugged 13 czy Rugged 14 — czym się różnią?",
+     "a": "Rugged 13 jest w pełni wzmocniony, ma dotykowy ekran 1400 nitów, pamięć wlutowaną 16/32 GB i waży 2,40 kg. Rugged 14 jest półwzmocniony i lżejszy (2,04 kg), ma większy ekran 14\" i pamięć w gniazdach SODIMM do 64 GB."
+    },
+    {
+     "q": "Czy ekran będzie czytelny na zewnątrz, w słońcu?",
+     "a": "Tak. Dotykowy ekran 13,3\" ma jasność 1400 nitów, a dotykowy 14\" — 1100 nitów; typowy laptop biurowy ma 300–400 nitów. Ekrany dotykowe obsługują pasywne pióro. Wersja 14\" bez dotyku ma 400 nitów."
+    },
+    {
+     "q": "Czy podłączę starsze urządzenia, np. sterowniki i mierniki?",
+     "a": "Tak. Laptop ma port szeregowy RS-232, a także RJ-45, HDMI 2.1 i Thunderbolt 4. W opcji dobierzesz moduł z dodatkowym portem: RJ-45, USB-A, portem szeregowym lub USB Fischer."
+    },
+    {
+     "q": "Czy laptop ma internet i GPS do pracy w terenie?",
+     "a": "W opcji tak: modem 4G LTE (Snapdragon X12) lub 5G (Snapdragon X62) z eSIM i tacką nano-SIM oraz osobny odbiornik GPS u-blox NEO-M9N. Można też dołożyć drugą baterię."
+    }
+   ]
+  },
+  "dell-pro-precision-7": {
+   "faq": [
+    {
+     "q": "14 czy 16 cali — którą wersję wybrać?",
+     "a": "Wersja 14\" waży od 1,59 kg, ma grafikę do RTX PRO 2000 (8 GB), dysk do 4 TB i cztery porty Thunderbolt. Wersja 16\" (od 2,17 kg) ma ekran do 120 Hz (także OLED 4K), grafikę do RTX PRO 3000 (12 GB), dysk do 8 TB, HDMI, czytnik SD i baterię 96 Wh."
+    },
+    {
+     "q": "Czy pamięć da się rozbudować po zakupie?",
+     "a": "Nie. Pamięć LPDDR5x jest wlutowana, więc 16, 32 lub 64 GB warto wybrać z zapasem już przy zakupie. Dyski SSD są dostępne do 4 TB w wersji 14\" i do 8 TB w wersji 16\"."
+    }
+   ]
+  },
+  "dell-pro-max-plus": {
+   "faq": [
+    {
+     "q": "16 Plus czy 18 Plus — który wybrać?",
+     "a": "16 Plus waży od 2,55 kg, ma ekran 16\" (w opcji dotykowy OLED UHD+) i dyski łącznie do 12 TB. 18 Plus waży od 3,25 kg, ma duży ekran 18\" QHD+ 120 Hz i dyski do 16 TB — to praktycznie zamiennik komputera stacjonarnego."
+    },
+    {
+     "q": "Czy pamięć i dyski da się rozbudować?",
+     "a": "Tak. Pamięć rozbudujesz do 96 GB w modułach CSODIMM lub do 128 GB w CAMM2 (bez ECC). Dyski SSD łącznie mieszczą do 12 TB w 16 Plus i do 16 TB w 18 Plus, pojedyncze od 512 GB do 4 TB."
+    },
+    {
+     "q": "Czy przy biurku potrzebuję stacji dokującej?",
+     "a": "Zwykle nie. Laptop ma dwa porty Thunderbolt 5, Thunderbolt 4, HDMI 2.1, dwa USB-A, gniazdo sieciowe 2,5 Gb/s i czytnik kart SD. Ładuje go zasilacz USB-C 280 W."
+    }
+   ]
+  },
+  "dell-pro-max-desktop": {
+   "faq": [
+    {
+     "q": "Micro czy Tower T2 — który model wybrać?",
+     "a": "Micro (206 × 79 × 178 mm) zmieści kartę do RTX PRO 4000 Blackwell SFF 24 GB i do 96 GB pamięci — do CAD 2D/3D w ciasnym biurze. Tower T2 przyjmie kartę do RTX PRO 6000 96 GB lub dwie karty, do 128 GB pamięci i zasilacz do 1500 W."
+    },
+    {
+     "q": "Czy stacja ma pamięć ECC i ile pamięci zmieści?",
+     "a": "Tak, pamięć ECC (z korekcją błędów) jest dostępna w obu modelach. Micro przyjmie do 96 GB DDR5 (do 6400 MT/s), a Tower T2 do 128 GB (4 × 32 GB, do 4400 MT/s)."
+    },
+    {
+     "q": "Ile dysków zmieszczę w środku?",
+     "a": "Micro ma 2 gniazda M.2 2280 (Gen4 i Gen5) na SSD do 4 TB, z RAID 0/1. Tower T2 ma 3 gniazda M.2 i 4 kieszenie 3,5\" SATA — SSD do 4 TB i dyski HDD do 4 TB, np. na archiwum projektów."
+    },
+    {
+     "q": "Jak podłączę monitory?",
+     "a": "Micro ma z tyłu trzy wyjścia DisplayPort 1.4a, więc od razu obsłuży kilka monitorów. Tower T2 ma 2× DisplayPort 1.4a, a w opcji Thunderbolt 4, HDMI 2.1, DisplayPort 2.1 lub VGA."
+    }
+   ]
+  },
+  "dell-plus-monitory": {
+   "faq": [
+    {
+     "q": "Czy podłączę laptop jednym kablem USB-C?",
+     "a": "Tylko do modelu 32\" QD-OLED (S3225QC) — ma USB-C z obrazem, ładowaniem laptopa 90 W i koncentratorem USB. Modele 24\" i 27\" podłączasz przez HDMI lub DisplayPort; do pracy na jednym kablu lepiej wybrać monitory Dell Pro z koncentratorem USB-C."
+    },
+    {
+     "q": "Który rozmiar i rozdzielczość wybrać?",
+     "a": "24\" Full HD sprawdzi się na recepcji i prostym stanowisku. 27\" QHD daje więcej miejsca na arkusze, 27\" 4K — ostry obraz do zdjęć i dokumentów z drobnym tekstem. 32\" 4K QD-OLED służy do pokazywania klientom projektów i zdjęć."
+    },
+    {
+     "q": "Czy monitor obrócę do pionu albo powieszę na ramieniu?",
+     "a": "Podstawa ma regulację wysokości (110–130 mm), pochylenia i obrotu, a modele IPS obracają się też do pionu (pivot). Wszystkie monitory mają mocowanie VESA 100 × 100 mm, więc zamontujesz je na ramieniu lub uchwycie."
+    },
+    {
+     "q": "Czy te monitory są wygodne dla oczu przy całodziennej pracy?",
+     "a": "Modele S2425HSM, S2725DSM i S2725QS mają certyfikat TÜV Eye Comfort 4 gwiazdki, redukcję światła niebieskiego i obraz bez migotania. Model 32\" QD-OLED ma obniżoną emisję światła niebieskiego."
+    }
+   ]
+  },
+  "dell-ultrasharp-oled-6k": {
+   "faq": [
+    {
+     "q": "Czy podłączę laptop jednym kablem?",
+     "a": "Tak. Przez Thunderbolt 4 jeden kabel przesyła obraz, internet (gniazdo sieciowe 2,5 Gb/s w monitorze), porty USB i ładowanie laptopa do 140 W. Do pełnego wykorzystania potrzebny jest laptop z Thunderbolt."
+    },
+    {
+     "q": "32\" OLED czy 52\" 6K — który monitor wybrać?",
+     "a": "U3226Q ma fabrycznie skalibrowane kolory i wbudowany kalibrator — do grafiki, zdjęć, druku i wideo; nie ma głośników. U5226KW (6144×2560, zakrzywiony) zastępuje dwa monitory, ma KVM i głośniki 2× 9 W — do pracy na wielu oknach."
+    }
+   ]
+  },
+  "dell-stacje-dokujace": {
+   "faq": [
+    {
+     "q": "Czym Smart Dock różni się od zwykłej stacji?",
+     "a": "Modele Smart Dock (SD25, SD25TB4, SD25TB5) mają zarządzanie w chmurze przez Dell Device Management Console: aktualizacje firmware, inwentaryzację i wyłączanie portów — nawet bez podłączonego komputera."
+    },
+    {
+     "q": "Ile monitorów podłączę do stacji?",
+     "a": "Do 4 monitorów. WD25 i SD25TB4 obsłużą 4× 4K 60 Hz, 2× 6K lub 1× 8K, a WD25TB5 do 4× 4K 120 Hz. SD25 na USB-C obsłuży 1× 4K, 2× QHD lub 5K albo 3× FHD. Złącza to HDMI 2.1, 2× DisplayPort i USB-C z DisplayPort."
+    }
+   ]
+  },
+  "dell-wideokonferencje": {
+   "faq": [
+    {
+     "q": "Kamera 2K czy 4K — którą wybrać?",
+     "a": "WB526 (2K, kąt 78°, zoom cyfrowy 2×) wystarczy na stanowisko biurowe i do gabinetu. WB726 (4K do 60 kl./s, kąt 90°, zoom 4×) ma certyfikat Microsoft Teams i Zoom oraz przesuwaną zasłonkę — do zarządu i małej salki."
+    },
+    {
+     "q": "Jak podłączyć zestaw głośnomówiący SL525?",
+     "a": "Bezprzewodowo przez odbiornik USB-C albo Bluetooth 5.3 (do 8 sparowanych urządzeń, 2 jednocześnie) lub kablem USB-C z przejściówką na USB-A. Bateria wystarcza do 12 h rozmów, a ładowanie trwa 2,5 h."
+    }
+   ]
+  },
+  "dell-poweredge-r260": {
+   "faq": [
+    {
+     "q": "Czy R260 zmieści się w mojej szafie rack?",
+     "a": "To serwer 1U o krótkiej głębokości: 461 mm bez maskownicy i 497 mm z maskownicą, szerokość 482 mm, waga do 9,61 kg. Zmieści się także w płytszej szafie teleinformatycznej."
+    },
+    {
+     "q": "Jak serwer chroni dane przy awarii dysku?",
+     "a": "Dyski pracują z kontrolerem RAID (PERC H355, PERC H755 lub programowy S160), więc awaria jednego nie oznacza utraty danych. System możesz trzymać na module BOSS-N1 z dwoma dyskami M.2 NVMe w RAID 1, a pamięć ECC poprawia błędy."
+    }
+   ]
+  },
+  "lenovo-thinkcentre-m70t-m70s-m75s-gen-6": {
+   "parametry_dodaj": [
+    {
+     "k": "System",
+     "v": "do wyboru: Windows 11 Pro, Windows 11 Home"
+    }
+   ]
+  }
+ }
+}

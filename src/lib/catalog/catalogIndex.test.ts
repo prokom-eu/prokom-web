@@ -1,0 +1,617 @@
+import { gzipSync } from 'node:zlib'
+
+import { describe, expect, it } from 'vitest'
+
+import konfigurator from '../../../seed/prokombiznes/k4/konfigurator-k4.json'
+import type {
+  BiznesSetting,
+  CatalogCategory,
+  Industry,
+  Media,
+  Partner,
+  Product,
+} from '@/payload-types'
+
+import {
+  BUNDLES_PAGE,
+  buildCatalogIndex,
+  type CatalogIndex,
+  type CatalogSource,
+  searchIndex,
+  WIZARD_PAGE,
+} from './catalogIndex'
+import { image, sourceFromSeed, TENANT } from './seedSource.fixture'
+import { k4Wizard, type K4WizardFile } from '../../seed/biznes/k4Wizard'
+
+const OTHER_TENANT = 2
+
+describe('buildCatalogIndex on the seed package', () => {
+  const index = buildCatalogIndex(sourceFromSeed())
+
+  it('lists all 225 products', () => {
+    expect(index.products).toHaveLength(225)
+  })
+
+  it('stays under 50 KB gzip (B2 acceptance)', () => {
+    const size = gzipSync(JSON.stringify(index)).length
+    expect(size).toBeLessThan(50 * 1024)
+  })
+
+  it('builds a product card with brand, categories and a normalized hay', () => {
+    const ergo = index.products.find((product) => product.slug === 'posnet-ergo-online')!
+    expect(ergo).toMatchObject({
+      name: 'Posnet Ergo Online',
+      brand: 'posnet',
+      kind: 'device',
+      categories: ['kasy-fiskalne'],
+      group: 'sprzedaz',
+      industries: ['biura-uslugi', 'gastronomia', 'handel'],
+      badge: 'Ulga do 700 zł',
+      featuredOrder: 0,
+      registerTypes: ['mobile', 'small'],
+      image: {
+        url: '/api/media/file/ergo-01-480x360.webp',
+        alt: 'Posnet Ergo Online',
+      },
+    })
+    expect(ergo.hay).toContain('posnet ergo online')
+    expect(ergo.hay).toContain('kasy fiskalne')
+    // The group name is matched apart, with a lower weight (`lib/search.ts`).
+    expect(ergo.hay).not.toContain('kasy i sprzedaz')
+    expect(ergo.hay).toContain('food truck')
+    expect(ergo.hay).not.toMatch(/[A-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/)
+  })
+
+  it('hides empty categories and counts the others', () => {
+    const slugs = index.categories.map((category) => category.slug)
+    // Katalog v2: every one of the 23 categories has products (vending: 1).
+    expect(slugs).toHaveLength(23)
+    expect(slugs).toContain('automaty-vendingowe')
+    const total = index.categories.reduce((sum, category) => sum + category.count, 0)
+    expect(total).toBe(225)
+    expect(index.groups).toHaveLength(5)
+    expect(index.groups[0]).toMatchObject({ slug: 'sprzedaz', gradient: ['#244FB0', '#4FA3F0'] })
+  })
+
+  it('lists brands of the products, industries, pages but home, and search settings', () => {
+    // 32 brands in the package, 31 with products (StorageCraft has none in katalog v2).
+    expect(index.brands).toHaveLength(31)
+    expect(index.industries.filter((industry) => industry.active)).toHaveLength(3)
+    expect(index.pages).toEqual([{ slug: 'opieka-it', title: 'Opieka IT' }])
+    expect(index.search.synonyms.notebook).toEqual(['laptop'])
+    expect(index.search.popular).toContain('KSeF')
+  })
+
+  it('lists the configurator among the pages while it has valid rules (K4g)', () => {
+    const source = sourceFromSeed()
+    const rules = k4Wizard(konfigurator as unknown as K4WizardFile, (key) => key).wizard
+    const withWizard = buildCatalogIndex({
+      ...source,
+      settings: { search: source.settings!.search, wizard: rules as BiznesSetting['wizard'] },
+    })
+    expect(withWizard.pages).toContainEqual(WIZARD_PAGE)
+    expect(index.pages).not.toContainEqual(WIZARD_PAGE)
+  })
+
+  it('lists ready bundles among the pages (K3c), in the 50 KB budget', () => {
+    const source = sourceFromSeed()
+    const listed = source.products[0]!.id
+    const withBundles = buildCatalogIndex({
+      ...source,
+      bundles: [
+        {
+          slug: 'zestaw-kawiarnia-lada',
+          name: 'Kawiarnia — stanowisko przy ladzie',
+          required: [listed],
+        },
+        // Every required card hidden: the bundle page answers 404, so it is no result.
+        { slug: 'zestaw-ukryty', name: 'Ukryty', required: [-1] },
+      ],
+    })
+    expect(withBundles.pages.map(({ slug }) => slug)).not.toContain('zestawy/zestaw-ukryty')
+    expect(withBundles.pages).toContainEqual(BUNDLES_PAGE)
+    expect(withBundles.pages).toContainEqual({
+      slug: 'zestawy/zestaw-kawiarnia-lada',
+      title: 'Zestaw: Kawiarnia — stanowisko przy ladzie',
+    })
+    expect(index.pages).not.toContainEqual(BUNDLES_PAGE)
+  })
+
+  it('carries no price field', () => {
+    expect(JSON.stringify(index)).not.toMatch(/"(price|cena|offers)"/i)
+  })
+})
+
+describe('buildCatalogIndex tenant isolation of relations', () => {
+  const source = (relations: Partial<Product>): CatalogSource => ({
+    tenantId: TENANT,
+    products: [
+      { id: 1, slug: 'p', name: 'P', kind: 'device', categories: [], ...relations },
+    ] as unknown as Product[],
+    categories: [],
+    groups: [],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+  const build = (relations: Partial<Product>) => buildCatalogIndex(source(relations))
+  const category = (tenant: number) =>
+    ({ id: 10 + tenant, slug: `kat-${tenant}`, name: `Kat ${tenant}`, tenant }) as CatalogCategory
+  const industry = (tenant: number) =>
+    ({ id: 20 + tenant, slug: `branza-${tenant}`, name: `Branża ${tenant}`, tenant }) as Industry
+  const brand = (tenants: number[]) =>
+    ({ id: 30, slug: 'marka', name: 'Marka', partnerStatus: 'none', tenants }) as Partner
+
+  it('drops categories and industries of another tenant', () => {
+    const [product] = build({
+      categories: [category(OTHER_TENANT), category(TENANT)],
+      industries: [industry(OTHER_TENANT), industry(TENANT)],
+    }).products
+    expect(product).toMatchObject({ categories: ['kat-1'], industries: ['branza-1'] })
+    expect(product!.hay).not.toContain('kat 2')
+    expect(product!.hay).not.toContain('branza 2')
+  })
+
+  it('drops a brand not shown on this site', () => {
+    const index = build({ brand: brand([OTHER_TENANT]) })
+    expect(index.products[0]!.brand).toBeNull()
+    expect(index.brands).toEqual([])
+    expect(index.products[0]!.hay).not.toContain('marka')
+  })
+
+  it('lists "Skompletuj stanowisko" of this tenant only, and only when set', () => {
+    const fit = (slug: string, tenant: number) => ({ id: 40 + tenant, slug, tenant }) as Product
+    const [product] = build({
+      fitsWith: [fit('obca', OTHER_TENANT), fit('swoja', TENANT)],
+    }).products
+    expect(product!.fits).toEqual(['swoja'])
+    expect(build({}).products[0]).not.toHaveProperty('fits')
+  })
+
+  it('keeps a brand shown on this site', () => {
+    expect(build({ brand: brand([OTHER_TENANT, TENANT]) }).products[0]!.brand).toBe('marka')
+  })
+
+  it('gives a brand the slug of its first salon 2.0 (K4f), none without one', () => {
+    const relations = { brand: brand([TENANT]) }
+    const withSalons = buildCatalogIndex({
+      ...source(relations),
+      salons: [
+        { slug: 'inny', brandIds: [99], chooser: true },
+        { slug: 'druk', brandIds: [31, 30], chooser: false },
+        { slug: 'drugi', brandIds: [30], chooser: true },
+      ],
+    })
+    expect(withSalons.brands[0]).toMatchObject({ slug: 'marka', salon: 'druk' })
+    expect(build(relations).brands[0]).not.toHaveProperty('salon')
+  })
+
+  it('gives a brand its small logo file, and none without a file', () => {
+    const withLogo = {
+      ...brand([TENANT]),
+      url: '/api/partners/file/marka.png',
+      width: 800,
+      height: 200,
+      sizes: { logo: { url: '/api/partners/file/marka-320x80.webp', width: 320, height: 80 } },
+    } as Partner
+    expect(build({ brand: withLogo }).brands[0]!.logo).toEqual({
+      url: '/api/partners/file/marka-320x80.webp',
+      width: 800,
+      height: 200,
+    })
+    expect(build({ brand: brand([TENANT]) }).brands[0]).not.toHaveProperty('logo')
+  })
+})
+
+describe('buildCatalogIndex brand pages and subcategories (K3b′)', () => {
+  const group = { id: 50, slug: 'biuro', name: 'Komputery i biuro', tenant: TENANT }
+  const komp = {
+    id: 51,
+    slug: 'komputery-monitory',
+    name: 'Komputery i monitory',
+    tenant: TENANT,
+    group: 50,
+    subcategories: [
+      { name: 'Laptopy', slug: 'laptopy' },
+      { name: 'Komputery i All-in-One', slug: 'komputery' },
+      { name: 'Monitory', slug: 'monitory' },
+    ],
+  } as CatalogCategory
+  const lenovo = {
+    id: 30,
+    slug: 'lenovo',
+    name: 'Lenovo',
+    partnerStatus: 'none',
+    tenants: [TENANT],
+    brandPage: { hasPage: true },
+  } as Partner
+  const ingenico = { ...lenovo, id: 31, slug: 'ingenico', name: 'Ingenico', brandPage: {} }
+  const card = (id: number, fields: Partial<Product>) =>
+    ({
+      id,
+      slug: `p${id}`,
+      name: `P${id}`,
+      kind: 'device',
+      categories: [komp],
+      ...fields,
+    }) as Product
+  const index = buildCatalogIndex({
+    tenantId: TENANT,
+    products: [
+      card(1, { brand: lenovo, subcategory: 'Laptopy', series: 'ThinkBook' }),
+      card(2, { brand: lenovo, subcategory: 'Laptopy' }),
+      card(3, { brand: ingenico, subcategory: 'Monitory' }),
+      card(4, { subcategory: 'Nieznana' }),
+    ],
+    categories: [komp],
+    groups: [group] as unknown as CatalogSource['groups'],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+
+  it('marks only brands with a page', () => {
+    expect(index.brands.find((brand) => brand.slug === 'lenovo')).toMatchObject({ page: true })
+    expect(index.brands.find((brand) => brand.slug === 'ingenico')).not.toHaveProperty('page')
+  })
+
+  it('counts subcategories with products, in the panel order, with their addresses', () => {
+    expect(index.categories[0]!.subcategories).toEqual([
+      { name: 'Laptopy', slug: 'laptopy', count: 2 },
+      { name: 'Monitory', slug: 'monitory', count: 1 },
+    ])
+  })
+
+  it('lets „laptop” find a card through its subcategory and series', () => {
+    expect(index.products[0]!.hay).toContain('laptopy')
+    expect(index.products[0]!.hay).toContain('thinkbook')
+  })
+})
+
+describe('buildCatalogIndex images', () => {
+  const product = (images: Media[]) =>
+    ({
+      id: 1,
+      slug: 'p',
+      name: 'P',
+      kind: 'device',
+      categories: [],
+      images,
+    }) as unknown as Product
+  const build = (images: Media[]) =>
+    buildCatalogIndex({
+      tenantId: TENANT,
+      products: [product(images)],
+      categories: [],
+      groups: [],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).products[0]!
+
+  it('never lists an image that needs consent', () => {
+    expect(build([image(1, 'a.webp', { requiresConsent: true })]).image).toBeUndefined()
+  })
+
+  it('never lists an image of another tenant', () => {
+    expect(build([image(1, 'a.webp', { tenant: OTHER_TENANT })]).image).toBeUndefined()
+  })
+
+  it('takes the first public image', () => {
+    expect(
+      build([image(1, 'a.webp', { requiresConsent: true }), image(2, 'b.webp')]).image?.url,
+    ).toBe('/api/media/file/b-480x360.webp')
+  })
+
+  it('describes the card photo as „Marka Model” wherever it shows (audit 0611 P0-7)', () => {
+    expect(build([image(1, 'a.webp')]).image?.alt).toBe('P')
+    const branded = buildCatalogIndex({
+      tenantId: TENANT,
+      products: [
+        {
+          ...product([image(1, 'a.webp')]),
+          name: 'Ergo ONLINE',
+          brand: { id: 3, slug: 'posnet', name: 'Posnet', tenants: [TENANT] },
+        } as unknown as Product,
+      ],
+      categories: [],
+      groups: [],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).products[0]!
+    expect(branded.image?.alt).toBe('Posnet Ergo ONLINE')
+  })
+})
+
+describe('buildCatalogIndex group showcase (home page offer cards)', () => {
+  const category = { id: 11, slug: 'kasy', name: 'Kasy', group: 5, tenant: TENANT }
+  const product = {
+    id: 1,
+    slug: 'p',
+    name: 'P',
+    kind: 'device',
+    categories: [category],
+  } as unknown as Product
+  const build = (showcase: unknown) =>
+    buildCatalogIndex({
+      tenantId: TENANT,
+      products: [product],
+      categories: [category] as unknown as CatalogCategory[],
+      groups: [
+        {
+          id: 5,
+          slug: 'sprzedaz',
+          name: 'Kasy i sprzedaż',
+          icon: 'store',
+          gradientFrom: '#244FB0',
+          gradientTo: '#4FA3F0',
+          showcase,
+        },
+      ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).groups[0]
+
+  it('gives the pill group of a featured product only (K35 7a)', () => {
+    const products = (extra: Record<string, unknown>) =>
+      buildCatalogIndex({
+        tenantId: TENANT,
+        products: [{ ...product, ...extra } as unknown as Product],
+        categories: [category] as unknown as CatalogCategory[],
+        groups: [],
+        industries: [],
+        pages: [],
+        settings: null,
+      }).products[0]
+    expect(
+      products({ featured: true, featuredOrder: 2, featuredGroup: 'zasilanie' }),
+    ).toMatchObject({ featuredOrder: 2, featuredGroup: 'zasilanie' })
+    expect(products({ featured: false, featuredGroup: 'zasilanie' })?.featuredGroup).toBeUndefined()
+  })
+
+  it('lists the wheel products of the department by slug, only the listed ones (K36 §12)', () => {
+    const withWheel = buildCatalogIndex({
+      tenantId: TENANT,
+      products: [product],
+      categories: [category] as unknown as CatalogCategory[],
+      groups: [
+        {
+          id: 5,
+          slug: 'sprzedaz',
+          name: 'Kasy i sprzedaż',
+          icon: 'store',
+          gradientFrom: '#244FB0',
+          gradientTo: '#4FA3F0',
+          // A draft (not in the products) and an unpopulated id are left out.
+          wheelProducts: [{ id: 9, slug: 'szkic' }, product, 7],
+        },
+      ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+      industries: [],
+      pages: [],
+      settings: null,
+    }).groups[0]
+    expect(withWheel?.wheel).toEqual(['p'])
+    expect(build(null)?.wheel).toBeUndefined()
+  })
+
+  it('gives the wheel cards their short name, colour and cut-out photo (KOLO-HERO v3)', () => {
+    const wheelGroup = (extra: object, products: object[]) =>
+      buildCatalogIndex({
+        tenantId: TENANT,
+        products: products as unknown as Product[],
+        categories: [category] as unknown as CatalogCategory[],
+        groups: [
+          {
+            id: 5,
+            slug: 'sprzedaz',
+            name: 'Kasy i sprzedaż',
+            icon: 'store',
+            gradientFrom: '#244FB0',
+            gradientTo: '#4FA3F0',
+            wheelProducts: products,
+            ...extra,
+          },
+        ] as unknown as Parameters<typeof buildCatalogIndex>[0]['groups'],
+        industries: [],
+        pages: [],
+        settings: null,
+      }).groups[0]
+    const cut = {
+      ...product,
+      slug: 'cut',
+      wheelName: 'Krótka',
+      wheelColor: ' burgund ',
+      wheelImage: image(3, 'kolo-cut.webp'),
+      images: [image(1, 'ergo.webp')],
+    }
+    const plain = { ...product, slug: 'plain', images: [image(2, 'b.webp')] }
+    // Another site's cut-out falls back to the card's own photo.
+    const foreign = {
+      ...product,
+      slug: 'foreign',
+      wheelImage: image(4, 'x.webp', { tenant: OTHER_TENANT }),
+      images: [image(2, 'b.webp')],
+    }
+    const group = wheelGroup(
+      {
+        shortName: ' Krótko ',
+        wheelLink: { label: 'Opieka IT dla firm', href: '/opieka-it', icon: 'lifebuoy' },
+      },
+      [cut, plain, foreign],
+    )
+    expect(group?.wheelCards).toEqual([
+      {
+        slug: 'cut',
+        name: 'Krótka',
+        color: 'burgund',
+        image: expect.objectContaining({ url: expect.stringContaining('kolo-cut') }),
+      },
+      {
+        slug: 'plain',
+        name: 'P',
+        image: expect.objectContaining({ url: expect.stringContaining('/b-') }),
+      },
+      {
+        slug: 'foreign',
+        name: 'P',
+        image: expect.objectContaining({ url: expect.stringContaining('/b-') }),
+      },
+    ])
+    expect(group?.shortName).toBe('Krótko')
+    expect(group?.wheelLink).toEqual({
+      label: 'Opieka IT dla firm',
+      href: '/opieka-it',
+      icon: 'lifebuoy',
+    })
+    // Only an address of this site, with a label and an icon, makes a bubble.
+    for (const wheelLink of [
+      { label: 'X', href: 'https://example.com', icon: 'lifebuoy' },
+      { label: '', href: '/x', icon: 'lifebuoy' },
+      { label: 'X', href: '/x', icon: null },
+    ]) {
+      expect(wheelGroup({ wheelLink }, [plain])?.wheelLink).toBeUndefined()
+    }
+  })
+
+  it('gives up to two public pictures of this tenant', () => {
+    const own = image(1, 'ergo.webp')
+    const foreign = image(2, 'obce.webp', { tenant: OTHER_TENANT })
+    const consent = image(3, 'zgoda.webp', { requiresConsent: true })
+    const group = build({ mode: 'images', images: [foreign, own, consent] })
+    expect(group?.showcase?.images.map((picture) => picture.alt)).toEqual(['Obraz ergo.webp'])
+    expect(group?.showcase?.statuses).toEqual([])
+  })
+
+  it('gives the status rows in the status mode', () => {
+    const group = build({
+      mode: 'statuses',
+      images: [image(1, 'ergo.webp')],
+      statuses: [{ label: 'Opieka IT', value: 'aktywna', tone: 'ok' }],
+    })
+    expect(group?.showcase).toEqual({
+      images: [],
+      statuses: [{ label: 'Opieka IT', value: 'aktywna', tone: 'ok' }],
+    })
+  })
+
+  it('has no showcase when nothing is set', () => {
+    expect(build(undefined)).not.toHaveProperty('showcase')
+    expect(build({ mode: 'images', images: [] })).not.toHaveProperty('showcase')
+  })
+})
+
+describe('searchIndex (`GET /api/catalog-index`, K31c)', () => {
+  it('leaves out what only server-rendered views use: the „film” badge, the „Polecane” order', () => {
+    const index = {
+      products: [
+        { slug: 'a', video: true, order: 0, name: 'A' },
+        { slug: 'b', name: 'B' },
+      ],
+      groups: [
+        {
+          slug: 'g',
+          name: 'G',
+          top: ['a'],
+          wheelCards: [{ slug: 'a', name: 'A' }],
+          wheelLink: { label: 'L', href: '/l', icon: 'life' },
+          shortName: 'G',
+        },
+      ],
+      brands: [],
+      categories: [
+        {
+          slug: 'c',
+          name: 'C',
+          group: 'g',
+          count: 1,
+          menuImage: { url: '/m.webp', alt: 'C', width: 1, height: 1 },
+        },
+      ],
+    } as unknown as CatalogIndex
+    const result = searchIndex(index)
+    // The mega menu thumbnail is drawn on the server only.
+    expect(result.categories).toEqual([{ slug: 'c', name: 'C', group: 'g', count: 1 }])
+    expect(result.products).toEqual([
+      { slug: 'a', name: 'A' },
+      { slug: 'b', name: 'B' },
+    ])
+    expect(result.groups).toEqual([{ slug: 'g', name: 'G' }])
+  })
+})
+
+describe('buildCatalogIndex salon chooser (K4f) and films (K31c)', () => {
+  const brand = (id: number, slug: string) =>
+    ({
+      id,
+      slug,
+      name: slug,
+      partnerStatus: 'none',
+      tenants: [TENANT],
+      brandPage: { hasPage: true },
+    }) as unknown as Partner
+  const source = (products: Partial<Product>[]): CatalogSource => ({
+    tenantId: TENANT,
+    products: products.map((fields, position) => ({
+      id: position + 1,
+      slug: `p${position + 1}`,
+      name: `P${position + 1}`,
+      kind: 'device',
+      categories: [],
+      ...fields,
+    })) as Product[],
+    categories: [],
+    groups: [],
+    industries: [],
+    pages: [],
+    settings: null,
+  })
+  const build = (products: Partial<Product>[]) => buildCatalogIndex(source(products))
+
+  it('a brand leads to „Pomóż mi wybrać” only when its salon 2.0 has it (K4f)', () => {
+    const lenovo = brand(30, 'lenovo')
+    const dell = brand(31, 'dell')
+    const index = buildCatalogIndex({
+      ...source([{ brand: lenovo }, { brand: dell }]),
+      salons: [
+        { slug: 'lenovo', brandIds: [30], chooser: true },
+        { slug: 'dell', brandIds: [31], chooser: false },
+      ],
+    })
+    expect(index.brands.find((item) => item.slug === 'lenovo')).toMatchObject({
+      salon: 'lenovo',
+      showroom: true,
+    })
+    expect(index.brands.find((item) => item.slug === 'dell')).not.toHaveProperty('showroom')
+  })
+
+  it('marks cards with an active film', () => {
+    const index = build([
+      { videos: [{ youtubeId: 'UFXLZ4kSjD0', title: 'A', match: 'model', active: true }] },
+      { videos: [{ youtubeId: 'UFXLZ4kSjD0', title: 'A', match: 'model', active: false }] },
+      {},
+    ])
+    expect(index.products.map((product) => product.video ?? false)).toEqual([true, false, false])
+  })
+})
+
+describe('buildCatalogIndex: only ready cards in the lists (ADR-026, wariant B)', () => {
+  const source = sourceFromSeed()
+  const [first, second] = source.products
+  const index = buildCatalogIndex({
+    ...source,
+    products: source.products.map((product) =>
+      product.id === first!.id ? { ...product, contentStatus: 'needs-review' as const } : product,
+    ),
+  })
+
+  it('leaves a card „Do sprawdzenia” out of the index (lists, search, menu, counts)', () => {
+    expect(index.products.some((product) => product.slug === first!.slug)).toBe(false)
+    expect(index.products.some((product) => product.slug === second!.slug)).toBe(true)
+  })
+
+  it('keeps a card without a status (older data) or „Gotowe”', () => {
+    expect(index.products).toHaveLength(source.products.length - 1)
+  })
+})

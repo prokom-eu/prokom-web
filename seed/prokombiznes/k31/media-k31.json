@@ -1,0 +1,288 @@
+{
+ "opis": "Pochodzenie zdjęć K3.1 (25.10.2026). Lenovo: oficjalne zdjęcia Lenovo z kart produktów elenovo.pl (wycięte białe tło, usunięty dopisek „Copilot+PC”). Dell: oficjalne zdjęcia z dell.com (serwer i.dell.com, wersja z przezroczystym tłem). Wszystkie: kwadrat 1200 px, WebP z przezroczystością. Media.source = domena. Uwagi: ThinkPad X9 — zdjęcia X9 15p (ta sama rodzina); P3 Tower Gen 2 / P4 — zdjęcia ThinkStation P4; monitory Dell Plus — widoki z tyłu i z boku (brak frontu w galerii producenta); Dell Pro 5 i Pro Max Micro/Tower — po 1 zdjęciu.",
+ "zdjecia": {
+  "lenovo-thinkbook-14-2-in-1-g6": {
+   "pliki": [
+    "lenovo-thinkbook-14-2-in-1-g6-01.webp",
+    "lenovo-thinkbook-14-2-in-1-g6-02.webp",
+    "lenovo-thinkbook-14-2-in-1-g6-03.webp",
+    "lenovo-thinkbook-14-2-in-1-g6-04.webp",
+    "lenovo-thinkbook-14-2-in-1-g6-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkbook-14-2-in-1-g6-ipl-intel-core-ultra-7-355-14-16gb-512gb-ssd-w11-pro"
+  },
+  "lenovo-thinkbook-16p-g6": {
+   "pliki": [
+    "lenovo-thinkbook-16p-g6-01.webp",
+    "lenovo-thinkbook-16p-g6-02.webp",
+    "lenovo-thinkbook-16p-g6-03.webp",
+    "lenovo-thinkbook-16p-g6-04.webp",
+    "lenovo-thinkbook-16p-g6-05.webp",
+    "lenovo-thinkbook-16p-g6-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkbook-16p-g6-iax-intel-core-ultra-9-275hx-16-32k-32gb-1tb-ssd-w11-p"
+  },
+  "lenovo-thinkcentre-m-tiny-gen-6": {
+   "pliki": [
+    "lenovo-thinkcentre-m-tiny-gen-6-01.webp",
+    "lenovo-thinkcentre-m-tiny-gen-6-02.webp",
+    "lenovo-thinkcentre-m-tiny-gen-6-03.webp",
+    "lenovo-thinkcentre-m-tiny-gen-6-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkcentre-m70q-gen-6-intel-core-ultra-5-235t-16gb-512gb-ssd-w11-pro"
+  },
+  "lenovo-thinkcentre-m70a-m90a-gen-6": {
+   "pliki": [
+    "lenovo-thinkcentre-m70a-m90a-gen-6-01.webp",
+    "lenovo-thinkcentre-m70a-m90a-gen-6-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkcentre-m70a-gen-6-intel-core-ultra-5-235t-16gb-512gb-w11-p-dotykowy-ekran"
+  },
+  "lenovo-thinkcentre-m70t-m70s-m75s-gen-6": {
+   "pliki": [
+    "lenovo-thinkcentre-m70t-m70s-m75s-gen-6-01.webp",
+    "lenovo-thinkcentre-m70t-m70s-m75s-gen-6-02.webp",
+    "lenovo-thinkcentre-m70t-m70s-m75s-gen-6-03.webp",
+    "lenovo-thinkcentre-m70t-m70s-m75s-gen-6-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkcentre-m70s-gen-6-intel-core-ultra-5-225-16gb-512gb-w11-p"
+  },
+  "lenovo-thinkpad-l13-2-in-1-gen-6": {
+   "pliki": [
+    "lenovo-thinkpad-l13-2-in-1-gen-6-01.webp",
+    "lenovo-thinkpad-l13-2-in-1-gen-6-02.webp",
+    "lenovo-thinkpad-l13-2-in-1-gen-6-03.webp",
+    "lenovo-thinkpad-l13-2-in-1-gen-6-04.webp",
+    "lenovo-thinkpad-l13-2-in-1-gen-6-05.webp",
+    "lenovo-thinkpad-l13-2-in-1-gen-6-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkpad-l13-2-in-1-gen-6-intel-core-ultra-5-225u-133-16gb-512gb-ssd-w11-pro"
+  },
+  "lenovo-thinkpad-x13-detachable-gen-1": {
+   "pliki": [
+    "lenovo-thinkpad-x13-detachable-gen-1-01.webp",
+    "lenovo-thinkpad-x13-detachable-gen-1-02.webp",
+    "lenovo-thinkpad-x13-detachable-gen-1-03.webp",
+    "lenovo-thinkpad-x13-detachable-gen-1-04.webp",
+    "lenovo-thinkpad-x13-detachable-gen-1-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkpad-x13-detachable-gen-1-intel-core-ultra-7-365-13-32gb-512gb-ssd-w11-pro"
+  },
+  "lenovo-thinkpad-x9-aura-edition": {
+   "pliki": [
+    "lenovo-thinkpad-x9-aura-edition-01.webp",
+    "lenovo-thinkpad-x9-aura-edition-02.webp",
+    "lenovo-thinkpad-x9-aura-edition-03.webp",
+    "lenovo-thinkpad-x9-aura-edition-04.webp",
+    "lenovo-thinkpad-x9-aura-edition-05.webp",
+    "lenovo-thinkpad-x9-aura-edition-06.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkpad-x9-15p-gen-1-aura-edition-intel-core-ultra-x9-388h-153-32gb-1tb-ssd-w11-pro"
+  },
+  "lenovo-thinksmart-core-gen-2": {
+   "pliki": [
+    "lenovo-thinksmart-core-gen-2-01.webp",
+    "lenovo-thinksmart-core-gen-2-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/zestaw-lenovo-thinksmart-core-ip-controller-full-room-kit-mtr"
+  },
+  "lenovo-thinkstation-p3-tiny-ultra-gen-2": {
+   "pliki": [
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2-01.webp",
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2-02.webp",
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2-03.webp",
+    "lenovo-thinkstation-p3-tiny-ultra-gen-2-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkstation-p3-tiny-gen-2-intel-core-ultra-7-265-32gb-1tb-w11-p"
+  },
+  "lenovo-thinkstation-p3-tower-gen-2-p4": {
+   "pliki": [
+    "lenovo-thinkstation-p3-tower-gen-2-p4-01.webp",
+    "lenovo-thinkstation-p3-tower-gen-2-p4-02.webp",
+    "lenovo-thinkstation-p3-tower-gen-2-p4-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/lenovo-thinkstation-p4-amd-ryzen-7-pro-9755-64gb-1tb-ssd-w11-pro"
+  },
+  "lenovo-thinkvision-m-przenosne": {
+   "pliki": [
+    "lenovo-thinkvision-m-przenosne-01.webp",
+    "lenovo-thinkvision-m-przenosne-02.webp",
+    "lenovo-thinkvision-m-przenosne-03.webp",
+    "lenovo-thinkvision-m-przenosne-04.webp",
+    "lenovo-thinkvision-m-przenosne-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://elenovo.pl"
+   ],
+   "strona": "https://elenovo.pl/monitor-lenovo-thinkvision-m14t-gen-2-14-2240-x-1400-px-60-hz"
+  },
+  "dell-plus-monitory": {
+   "pliki": [
+    "dell-plus-monitory-01.webp",
+    "dell-plus-monitory-02.webp",
+    "dell-plus-monitory-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-poweredge-r260": {
+   "pliki": [
+    "dell-poweredge-r260-01.webp",
+    "dell-poweredge-r260-02.webp",
+    "dell-poweredge-r260-03.webp",
+    "dell-poweredge-r260-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-14-premium": {
+   "pliki": [
+    "dell-pro-14-premium-01.webp",
+    "dell-pro-14-premium-02.webp",
+    "dell-pro-14-premium-03.webp",
+    "dell-pro-14-premium-04.webp",
+    "dell-pro-14-premium-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-5": {
+   "pliki": [
+    "dell-pro-5-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-7": {
+   "pliki": [
+    "dell-pro-7-01.webp",
+    "dell-pro-7-02.webp",
+    "dell-pro-7-03.webp",
+    "dell-pro-7-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-max-desktop": {
+   "pliki": [
+    "dell-pro-max-desktop-01.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-max-plus": {
+   "pliki": [
+    "dell-pro-max-plus-01.webp",
+    "dell-pro-max-plus-02.webp",
+    "dell-pro-max-plus-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-precision-7": {
+   "pliki": [
+    "dell-pro-precision-7-01.webp",
+    "dell-pro-precision-7-02.webp",
+    "dell-pro-precision-7-03.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-pro-rugged": {
+   "pliki": [
+    "dell-pro-rugged-01.webp",
+    "dell-pro-rugged-02.webp",
+    "dell-pro-rugged-03.webp",
+    "dell-pro-rugged-04.webp",
+    "dell-pro-rugged-05.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-stacje-dokujace": {
+   "pliki": [
+    "dell-stacje-dokujace-01.webp",
+    "dell-stacje-dokujace-02.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-ultrasharp-oled-6k": {
+   "pliki": [
+    "dell-ultrasharp-oled-6k-01.webp",
+    "dell-ultrasharp-oled-6k-02.webp",
+    "dell-ultrasharp-oled-6k-03.webp",
+    "dell-ultrasharp-oled-6k-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  },
+  "dell-wideokonferencje": {
+   "pliki": [
+    "dell-wideokonferencje-01.webp",
+    "dell-wideokonferencje-02.webp",
+    "dell-wideokonferencje-03.webp",
+    "dell-wideokonferencje-04.webp"
+   ],
+   "zrodlo_domeny": [
+    "https://www.dell.com",
+    "https://i.dell.com"
+   ]
+  }
+ }
+}

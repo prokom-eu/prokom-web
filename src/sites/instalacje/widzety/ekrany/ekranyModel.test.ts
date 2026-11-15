@@ -1,0 +1,252 @@
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+
+import { describe, expect, it } from 'vitest'
+
+import { ekrany } from '../../dane/ekrany'
+import {
+  autoplayStep,
+  brightnessView,
+  INITIAL_PITCH,
+  INITIAL_SCREEN,
+  INITIAL_SYNC,
+  ledView,
+  resetOffers,
+  SCREEN_KEYS,
+  type ScreenState,
+  screenView,
+  type SyncState,
+  syncLog,
+  syncRows,
+  raiseCase,
+  togglePromo,
+} from './ekranyModel'
+
+// The reference: the prototype's own class (`zrodlo/pages/Multimedia.js`, v4.2) with a
+// `setState` that really merges, so clicks and the autoplay run in the original too.
+const source = readFileSync(
+  fileURLToPath(
+    new URL(
+      '../../../../../docs/design/prokominstalacje/zrodlo/pages/Multimedia.js',
+      import.meta.url,
+    ),
+  ),
+  'utf8',
+)
+// Round v6 §1.1 (owner 08.11.2026): no legal content on the page, so the two prototype texts
+// that went on about local rules in Zakopane are shortened on purpose. Everything else stays 1:1.
+const V6_TEXT: readonly (readonly [prefix: string, text: string])[] = [
+  [
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz i w Zakopanem',
+    'Ekran w witrynie zmienia ofertę w ciągu dnia. Na zewnątrz najpierw sprawdzamy, czy gmina pozwala na taki ekran.',
+  ],
+  [
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz, a w Zakopanem',
+    'Deszcz, mróz i słońce odbite od śniegu. Tylko ekran przeznaczony na zewnątrz.',
+  ],
+]
+const v6 = (text: string) => V6_TEXT.find(([prefix]) => text.startsWith(prefix))?.[1] ?? text
+
+type Pick = { pick: () => void }
+type Ref = {
+  tv: {
+    tabs: (Pick & { on: string })[]
+    fmt: string
+    frame: string
+    s: { h: string; sub: string; f: string; items: Record<string, string>[] }
+    clock: string
+    dots: string[]
+    sched: { n: string; st: string; cls: string }[]
+    nowSt: string
+    note: string
+  }
+  sy: { log: string; btns: { go: () => void }[]; rows: { n: string; p: string; cls: string }[] }
+  js: {
+    places: (Pick & { on: string })[]
+    vcls: string
+    nits: string
+    cls: string
+    txt: string
+    bar: string
+    marks: { n: string; st: string }[]
+    scrSt: string
+    rLabel: string
+    tR: () => void
+  }
+  ld: { pT: string; min: string; cmf: string; z1: string; z2: string; onP: (e: unknown) => void }
+}
+type Proto = {
+  state: Record<string, unknown> & { tick: number }
+  initState(): Record<string, unknown>
+  mountPage(): void
+  page(P: unknown, c: unknown): Ref
+  tick?: () => void
+}
+const Prototype = new Function(
+  `return class { ${source}
+    sub(c, o) { return o }
+    setState(o) { Object.assign(this.state, o) }
+    every(ms, fn) { this.tick = fn.bind(this) } }`,
+)() as new () => Proto
+const P = new Proxy({}, { get: (_, key) => String(key) })
+
+function fresh(): Proto {
+  const proto = new Prototype()
+  proto.state = { ...proto.initState(), tick: 13 }
+  return proto
+}
+
+function expectScreen(proto: Proto, state: ScreenState) {
+  const ref = proto.page(P, {}).tv
+  const v = screenView(state, proto.state.tick)
+  const sl = v.slide
+  const items =
+    sl.kind === 'rec'
+      ? sl.items.map(([ic, val, n]) => ({ ic, v: val, n, st: '' }))
+      : sl.kind === 'menu'
+        ? sl.items.map(([n, val]) => ({ n, v: val, st: '' }))
+        : sl.kind === 'conf'
+          ? sl.items.map(([n, h]) => ({ n, st: `height:${h}%` }))
+          : []
+  expect({
+    fmt: v.format,
+    frame: v.portrait ? 'tvf port' : 'tvf',
+    s: { h: sl.title, sub: 'sub' in sl ? sl.sub : '', f: sl.foot, items },
+    clock: v.clock,
+    dots: v.dots.map((on) => (on ? 'on' : '')),
+    sched: v.schedule.map((p) => ({
+      n: p.name,
+      st: `left:${p.left};width:${p.width}`,
+      cls: p.on ? 'on' : '',
+    })),
+    nowSt: `left:${v.now}`,
+    note: v.note,
+    tabs: SCREEN_KEYS.map((k) => String(k === state.tab)),
+  }).toEqual({
+    fmt: ref.fmt,
+    frame: ref.frame,
+    // INST-6 (runda v6 §2.2): no exclamation mark on the demo slide.
+    s: {
+      ...ref.s,
+      h: ref.s.h === 'Dzień dobry! Pogoda dziś' ? 'Dzień dobry, pogoda na dziś' : ref.s.h,
+    },
+    clock: ref.clock,
+    dots: ref.dots,
+    sched: ref.sched,
+    nowSt: ref.nowSt,
+    note: v6(ref.note),
+    tabs: ref.tabs.map((t) => t.on),
+  })
+}
+
+describe('screens in the hero', () => {
+  it.each(SCREEN_KEYS.flatMap((k, i) => [0, 1, 2].map((slide) => [k, i, slide] as const)))(
+    '%s, slide %i as the prototype',
+    (tab, i, slide) => {
+      const proto = fresh()
+      proto.page(P, {}).tv.tabs[i]!.pick()
+      proto.state.sl = slide
+      expectScreen(proto, { tab, slide })
+    },
+  )
+
+  it.each([false, true])('autoplay: 40 ticks as the prototype, touched %s', (touched) => {
+    const proto = fresh()
+    proto.mountPage()
+    proto.state.touched = touched
+    let state = INITIAL_SCREEN
+    for (let n = 1; n <= 40; n++) {
+      proto.tick!()
+      state = autoplayStep(state, n, touched)
+      expect([state.tab, state.slide]).toEqual([proto.state.tab, proto.state.sl])
+      expectScreen(proto, state)
+    }
+  })
+})
+
+// Audit 09.11: the prototype's demo showed equipment prices; ours shows discounts of a sample
+// shop (spec §2: no equipment prices), so it is tested on its own.
+describe('demo: one change, two screens', () => {
+  it('starts with the discounts of the day and no change sent', () => {
+    expect(syncRows(INITIAL_SYNC).map((r) => [r.name, r.value, r.cls])).toEqual([
+      ['Etui do telefonu', '−20%', 'synr'],
+      ['Folie ochronne', '−10%', 'synr'],
+      ['Ładowarki i kable', '−15%', 'synr'],
+      ['Słuchawki bezprzewodowe', '−10%', 'synr'],
+    ])
+    expect(syncLog(INITIAL_SYNC, '')).toBe(ekrany.sync.log)
+  })
+
+  it('raises the case discount by 5 points up to 50%, the row lights up', () => {
+    let state: SyncState = INITIAL_SYNC
+    state = raiseCase(state)
+    expect(syncRows(state)[0]).toEqual({ name: 'Etui do telefonu', value: '−25%', cls: 'synr hot' })
+    expect(syncLog(state, '10:00:00')).toBe(
+      'Zmiana wysłana o 10:00:00 · etui do telefonu: −25% · oba ekrany zaktualizowane',
+    )
+    for (let n = 0; n < 10; n++) state = raiseCase(state)
+    expect(syncRows(state)[0]?.value).toBe('−50%')
+  })
+
+  it('toggles the headphones promotion and resets', () => {
+    let state = togglePromo(INITIAL_SYNC)
+    expect(syncRows(state)[3]).toMatchObject({ value: '−25%', cls: 'synr hot promo' })
+    state = togglePromo(state)
+    expect(syncRows(state)[3]).toMatchObject({ value: '−10%', cls: 'synr hot' })
+    state = resetOffers(raiseCase(state))
+    expect(state.discounts).toEqual(ekrany.sync.discounts)
+    expect(state.version).toBe(4)
+  })
+
+  it('shows no amount in złoty anywhere', () => {
+    expect(JSON.stringify(ekrany.sync)).not.toMatch(/zł/)
+  })
+})
+
+describe('brightness', () => {
+  it.each(ekrany.brightness.places.flatMap((_, i) => [false, true].map((r) => [i, r] as const)))(
+    'place %i, regular screen %s as the prototype',
+    (place, regular) => {
+      const proto = fresh()
+      proto.page(P, {}).js.places[place]!.pick()
+      if (regular) proto.page(P, {}).js.tR()
+      const ref = proto.page(P, {}).js
+      const v = brightnessView(place, regular)
+      expect({
+        vcls: v.scene,
+        nits: v.range,
+        cls: v.cls,
+        txt: v.text,
+        bar: `width:${v.bar}`,
+        marks: v.marks.map((m) => ({ n: m.label, st: `left:${m.left}` })),
+        scrSt: `opacity:${v.screenOpacity};filter:contrast(${v.screenContrast})`,
+        rLabel: v.toggle,
+      }).toEqual({
+        vcls: ref.vcls,
+        nits: ref.nits,
+        cls: ref.cls,
+        txt: v6(ref.txt),
+        bar: ref.bar,
+        marks: ref.marks,
+        scrSt: ref.scrSt,
+        rLabel: ref.rLabel,
+      })
+    },
+  )
+})
+
+describe('LED pixel pitch', () => {
+  it.each([9, 12, 25, 40, 63, 80, 100, INITIAL_PITCH])('pitch %i as the prototype', (pitch) => {
+    const proto = fresh()
+    proto.page(P, {}).ld.onP({ target: { value: String(pitch) } })
+    const ref = proto.page(P, {}).ld
+    const v = ledView(pitch)
+    expect({
+      pT: v.pitch,
+      min: v.min,
+      cmf: v.comfort,
+      z1: `width:${v.closeWidth}`,
+      z2: `left:${v.comfortLeft};width:${v.comfortWidth}`,
+    }).toEqual({ pT: ref.pT, min: ref.min, cmf: ref.cmf, z1: ref.z1, z2: ref.z2 })
+  })
+})

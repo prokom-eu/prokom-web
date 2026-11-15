@@ -1,0 +1,533 @@
+import config from '@payload-config'
+import { getPayload, type Where } from 'payload'
+import { cache } from 'react'
+
+import { log } from '@/lib/log'
+import { publicImage, type PublicImage } from '@/lib/media/public'
+import type {
+  InstalacjeSetting as InstalacjeSettingsDoc,
+  InstObject as InstObjectDoc,
+  InstService as InstServiceDoc,
+} from '@/payload-types'
+import { navigation } from '@/sites/instalacje/dane/nawigacja'
+
+import { buildMenu, type InstMenu, type MenuDoc } from './menu'
+import { byNewest, homeRealizations, withPhotos } from './realizations'
+import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
+
+/** Far above the 10 services, 12 objects and 76 solutions of the package. */
+const LIMIT = 500
+
+/**
+ * Menus of one Instalacje tenant (header, mega menu, sheet, footer). The line's collections are
+ * readable for the panel only, so this reads on the server — published entries of this tenant
+ * only, public fields only. Call it only for a tenant of the Instalacje line. Deduplicated per
+ * request.
+ */
+export const getInstalacjeMenu = cache(async (tenantId: number): Promise<InstMenu> => {
+  const payload = await getPayload({ config })
+  const where: Where = {
+    and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+  }
+  const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+  const fields = {
+    key: true,
+    slug: true,
+    name: true,
+    icon: true,
+    color: true,
+    menuCaption: true,
+  } as const
+  const [services, objects, solutions] = await Promise.all([
+    payload.find({ collection: 'inst-services', ...published, select: fields }),
+    payload.find({ collection: 'inst-objects', ...published, select: fields }),
+    payload.find({ collection: 'inst-solutions', ...published, select: { service: true } }),
+  ])
+  const areas = new Set(
+    solutions.docs.map(({ service }) => (typeof service === 'object' ? service?.id : service)),
+  )
+  const toDoc = (doc: MenuDoc): MenuDoc => ({
+    key: doc.key,
+    slug: doc.slug ?? null,
+    name: doc.name,
+    icon: doc.icon ?? null,
+    color: doc.color ?? null,
+    menuCaption: doc.menuCaption ?? null,
+  })
+  const { menu, missing } = buildMenu(
+    navigation,
+    services.docs.map(toDoc),
+    objects.docs.map(toDoc),
+    { areas: areas.size, solutions: solutions.docs.length },
+  )
+  if (missing.length > 0) {
+    log.warn({ tenant: tenantId, missing }, 'Instalacje menu keys without a published entry')
+  }
+  return menu
+})
+
+/**
+ * One published service of this tenant for its page (`instService` block), relations to other
+ * services and objects populated with their public fields. `null` → the block renders nothing.
+ * Deduplicated per request; fresh on every request like the menu.
+ */
+export const getInstalacjeService = cache(
+  async (tenantId: number, serviceId: number): Promise<InstServiceDoc | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-services',
+      where: {
+        and: [
+          { id: { equals: serviceId } },
+          { tenant: { equals: tenantId } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+      draft: false,
+      depth: 1,
+      limit: 1,
+      populate: {
+        // `_status`, `tenant`: a related entry in draft or of another tenant is dropped by the page.
+        'inst-services': {
+          key: true,
+          slug: true,
+          name: true,
+          icon: true,
+          color: true,
+          menuCaption: true,
+          tenant: true,
+          _status: true,
+        },
+        'inst-objects': {
+          key: true,
+          slug: true,
+          name: true,
+          icon: true,
+          color: true,
+          menuCaption: true,
+          tenant: true,
+          _status: true,
+        },
+      },
+      overrideAccess: true,
+    })
+    return docs[0] ?? null
+  },
+)
+
+/**
+ * Published object pages of this tenant (`/dla-kogo/<slug>`) for the site map (`sitemap.xml`,
+ * `/mapa-strony`), in the order they were created (the package order). Deduplicated per request.
+ */
+export const getInstalacjeObjectList = cache(
+  async (tenantId: number): Promise<{ slug: string; name: string; updatedAt: string }[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-objects',
+      where: {
+        and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+      },
+      draft: false,
+      depth: 0,
+      limit: LIMIT,
+      sort: 'createdAt',
+      select: { slug: true, name: true, updatedAt: true },
+      overrideAccess: true,
+    })
+    return docs.flatMap(({ slug, name, updatedAt }) => (slug ? [{ slug, name, updatedAt }] : []))
+  },
+)
+
+/** Public fields of a service or object card (related services, similar objects). */
+const CARD_FIELDS = {
+  key: true,
+  slug: true,
+  name: true,
+  icon: true,
+  color: true,
+  menuCaption: true,
+  tenant: true,
+  _status: true,
+} as const
+
+/**
+ * One published object of this tenant by its address (`/dla-kogo/<slug>`), related services
+ * populated with their card fields. `null` → 404. Deduplicated per request (metadata + page).
+ */
+export const getInstalacjeObject = cache(
+  async (tenantId: number, slug: string): Promise<InstObjectDoc | null> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'inst-objects',
+      where: {
+        and: [
+          { slug: { equals: slug } },
+          { tenant: { equals: tenantId } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+      draft: false,
+      depth: 1,
+      limit: 1,
+      populate: { 'inst-services': CARD_FIELDS },
+      overrideAccess: true,
+    })
+    return docs[0] ?? null
+  },
+)
+
+type CardKeys =
+  'id' | 'key' | 'slug' | 'name' | 'icon' | 'color' | 'menuCaption' | 'tenant' | '_status'
+export type ServiceCard = Pick<InstServiceDoc, CardKeys>
+export type ObjectCard = Pick<InstObjectDoc, CardKeys>
+
+/**
+ * Cards of all published services and objects of this tenant: names, addresses and colours for
+ * the object pages (hotspot chips, „Podobne obiekty”). Deduplicated per request.
+ */
+export const getInstalacjeCards = cache(
+  async (tenantId: number): Promise<{ services: ServiceCard[]; objects: ObjectCard[] }> => {
+    const payload = await getPayload({ config })
+    const where: Where = {
+      and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+    }
+    const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+    const [services, objects] = await Promise.all([
+      payload.find({ collection: 'inst-services', ...published, select: CARD_FIELDS }),
+      payload.find({ collection: 'inst-objects', ...published, select: CARD_FIELDS }),
+    ])
+    return { services: services.docs, objects: objects.docs }
+  },
+)
+
+export type InstalacjeSiteSettings = {
+  showPrices: boolean
+  noPriceText: string
+  warrantyMonths: number
+  responseText: string
+  /** „Twój opiekun” of /dla-architektow; `null` = no name yet (or still a boss's marker). */
+  architects: ArchitectsContact | null
+}
+
+export type ArchitectsContact = {
+  name: string
+  role: string | null
+  phone: string | null
+  email: string | null
+  quote: string | null
+  responseText: string | null
+}
+
+/** A panel text fit for the page: trimmed, never a boss's marker (`[SZEF…]`, spec §10). */
+const pageText = (value: string | null | undefined) => {
+  const text = value?.trim()
+  return text && !/\[\s*(SZEF|CENA)/i.test(text) ? text : null
+}
+
+/**
+ * Switches and promises of the line (`InstalacjeSettings`, one per tenant). No document yet →
+ * the boss's decisions as defaults: no prices, 24 months, 24 h answer (spec §2).
+ */
+export const getInstalacjeSettings = cache(
+  async (tenantId: number): Promise<InstalacjeSiteSettings> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'instalacje-settings',
+      where: { tenant: { equals: tenantId } },
+      depth: 1,
+      limit: 1,
+      select: {
+        showPrices: true,
+        noPriceText: true,
+        warrantyMonths: true,
+        responseText: true,
+        architects: true,
+      },
+      overrideAccess: true,
+    })
+    const doc = docs[0]
+    return {
+      showPrices: doc?.showPrices ?? false,
+      noPriceText: doc?.noPriceText || SETTINGS_DEFAULTS.noPriceText,
+      warrantyMonths: doc?.warrantyMonths ?? SETTINGS_DEFAULTS.warrantyMonths,
+      responseText: doc?.responseText || SETTINGS_DEFAULTS.responseText,
+      architects: architectsContact(doc?.architects),
+    }
+  },
+)
+
+function architectsContact(
+  group: InstalacjeSettingsDoc['architects'] | undefined,
+): ArchitectsContact | null {
+  const name = pageText(group?.name)
+  if (!group || !name) return null
+  return {
+    name,
+    role: pageText(group.role),
+    phone: pageText(group.phone),
+    email: pageText(group.email),
+    quote: pageText(group.quote),
+    responseText: pageText(group.responseText),
+  }
+}
+
+export type HomeRealization = {
+  id: number
+  title: string
+  category: string | null
+  place: string | null
+  scope: string | null
+  /** Round v5 (RUNDA-V5 §4): the photos, the cover first; never empty (runda v6 D2). */
+  photos: PublicImage[]
+}
+
+/** Photos of a realization the public site may show (this tenant, no consent needed). */
+function realizationImages(photos: unknown, tenantId: number): PublicImage[] {
+  return (Array.isArray(photos) ? photos : [])
+    .map((photo) => publicImage(photo, tenantId))
+    .filter((image): image is PublicImage => image !== null)
+}
+
+/**
+ * What the home sections need beyond the menu (I6): the number of brands of the published offer
+ * (`InstServices.offer.brands`, counted once each) and up to 4 published realizations with a
+ * photo, the featured ones first (published = with the client's consent, I2; runda v6 D2). This tenant only, public fields only.
+ */
+export const getInstalacjeHome = cache(
+  async (tenantId: number): Promise<{ brands: number; realizations: HomeRealization[] }> => {
+    const payload = await getPayload({ config })
+    const where: Where = {
+      and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+    }
+    const [services, realizations] = await Promise.all([
+      payload.find({
+        collection: 'inst-services',
+        where,
+        draft: false,
+        depth: 0,
+        limit: LIMIT,
+        select: { offer: true },
+        overrideAccess: true,
+      }),
+      payload.find({
+        collection: 'realizations',
+        where,
+        draft: false,
+        depth: 1,
+        limit: LIMIT,
+        select: {
+          title: true,
+          category: true,
+          place: true,
+          scope: true,
+          photos: true,
+          year: true,
+          legacyId: true,
+          featured: true,
+        },
+        overrideAccess: true,
+      }),
+    ])
+    const brands = new Set(
+      services.docs.flatMap((doc) => (doc.offer?.brands ?? []).map((b) => b.trim().toLowerCase())),
+    )
+    brands.delete('')
+    return {
+      brands: brands.size,
+      // Newest first, without a year after them, then the package order (`byNewest`); 4 cards.
+      realizations: homeRealizations(
+        [...realizations.docs].sort(byNewest).map((doc) => ({
+          id: doc.id,
+          title: doc.title,
+          category: doc.category ?? null,
+          place: doc.place ?? null,
+          scope: doc.scope ?? null,
+          featured: doc.featured ?? false,
+          photos: realizationImages(doc.photos, tenantId),
+        })),
+        4,
+      ).map(({ featured: _featured, ...card }) => card),
+    }
+  },
+)
+
+/** A card of „Nowe rozwiązania” on `/dla-architektow` (public fields only, no internal note). */
+export type ArchNewsCard = {
+  id: number
+  title: string
+  category: 'snd' | 'scr' | 'smart' | 'wifi' | 'kam' | 'ev' | 'sz'
+  type: 'Nowość' | 'Rozwiązanie' | 'Szkolenie' | 'Oferta'
+  description: string
+  params: { label: string; value: string }[]
+  plan: string[]
+  examples: string | null
+  places: string[]
+  illustration: string | null
+  /** Round v5 (RUNDA-V5 §7.2): the product photo; without it the card keeps its SVG. */
+  image: PublicImage | null
+  featured: boolean
+}
+
+/**
+ * Published „Nowe rozwiązania” of this tenant (`InstArchNews`, ADR-I005 §2) in panel order.
+ * Read on every request (no cache), so a card shows right after it is published. Without the
+ * internal note. Deduplicated per request.
+ */
+export const getInstArchNews = cache(async (tenantId: number): Promise<ArchNewsCard[]> => {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'inst-arch-news',
+    where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+    sort: ['order', 'id'],
+    draft: false,
+    depth: 1,
+    limit: LIMIT,
+    overrideAccess: true,
+    select: {
+      image: true,
+      title: true,
+      category: true,
+      type: true,
+      description: true,
+      params: true,
+      planItems: true,
+      examples: true,
+      places: true,
+      illustration: true,
+      featured: true,
+    },
+  })
+  return docs.map((d) => ({
+    id: d.id,
+    title: d.title,
+    category: d.category,
+    type: d.type,
+    description: d.description,
+    params: (d.params ?? []).map((p) => ({ label: p.label, value: p.value })),
+    plan: (d.planItems ?? []).map((p) => p.text),
+    examples: d.examples ?? null,
+    places: (d.places ?? []).map((p) => p.name),
+    illustration: d.illustration ?? null,
+    image: publicImage(d.image, tenantId),
+    featured: d.featured ?? false,
+  }))
+})
+
+/** One area of the full offer `/uslugi` (I12): a published service and its published solutions. */
+export type OfferAreaData = {
+  key: string
+  name: string
+  /** Accent of the service (panel value, `--h`). */
+  color: string | null
+  icon: string | null
+  href: string | null
+  family: string
+  description: string
+  brands: string[]
+  solutions: { name: string; description: string; categories: string[] }[]
+}
+
+/**
+ * The full offer of this tenant (I12): published services in the menu order with their offer
+ * texts, each with its published solutions (`InstSolutions`, by `order`). Public fields only;
+ * fresh on every request like the menu.
+ */
+export const getInstalacjeOffer = cache(async (tenantId: number): Promise<OfferAreaData[]> => {
+  const payload = await getPayload({ config })
+  const where: Where = {
+    and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }],
+  }
+  const published = { where, draft: false, depth: 0, limit: LIMIT, overrideAccess: true } as const
+  const [services, solutions] = await Promise.all([
+    payload.find({
+      collection: 'inst-services',
+      ...published,
+      select: { key: true, name: true, icon: true, slug: true, offer: true, color: true },
+    }),
+    payload.find({
+      collection: 'inst-solutions',
+      ...published,
+      sort: ['order', 'legacyId'],
+      select: { name: true, description: true, service: true, categories: true },
+    }),
+  ])
+  const order = new Map(SERVICE_KEYS.map((s, index) => [s.value as string, index]))
+  return [...services.docs]
+    .sort((a, b) => (order.get(a.key) ?? 99) - (order.get(b.key) ?? 99))
+    .map((s) => ({
+      key: s.key,
+      name: s.name,
+      color: s.color ?? null,
+      icon: s.icon ?? null,
+      href: s.slug ? `/${s.slug}` : null,
+      family: OFFER_FAMILIES.find((f) => f.value === s.offer?.family)?.label ?? '',
+      description: s.offer?.description ?? '',
+      brands: (s.offer?.brands ?? []).map((b) => b.trim()).filter(Boolean),
+      solutions: solutions.docs
+        .filter((x) => (typeof x.service === 'object' ? x.service?.id : x.service) === s.id)
+        .map((x) => ({
+          name: x.name,
+          description: x.description ?? '',
+          categories: x.categories ?? [],
+        })),
+    }))
+})
+
+/** A published realization for `/realizacje` (I12): public fields only; photos since v5. */
+export type RealizationCard = {
+  id: number
+  title: string
+  category: string | null
+  place: string | null
+  scope: string | null
+  description: string | null
+  year: number | null
+  services: string[]
+  kind: string | null
+  photos: PublicImage[]
+}
+
+/**
+ * The published realizations of this tenant (published = with the client's consent, the hook of
+ * `Realizations`) that have a photo (runda v6 D2), newest first, without a year after them, then
+ * in the package order (`byNewest`). Fresh on every request.
+ */
+export const getInstalacjeRealizations = cache(
+  async (tenantId: number): Promise<RealizationCard[]> => {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'realizations',
+      where: { and: [{ tenant: { equals: tenantId } }, { _status: { equals: 'published' } }] },
+      draft: false,
+      depth: 1,
+      limit: LIMIT,
+      select: {
+        legacyId: true,
+        photos: true,
+        title: true,
+        category: true,
+        place: true,
+        scope: true,
+        description: true,
+        year: true,
+        services: true,
+        kind: true,
+      },
+      overrideAccess: true,
+    })
+    return withPhotos(
+      [...docs].sort(byNewest).map((d) => ({
+        id: d.id,
+        title: d.title,
+        category: d.category ?? null,
+        place: d.place ?? null,
+        scope: d.scope ?? null,
+        description: d.description ?? null,
+        year: d.year ?? null,
+        services: d.services ?? [],
+        kind: d.kind ?? null,
+        photos: realizationImages(d.photos, tenantId),
+      })),
+    )
+  },
+)

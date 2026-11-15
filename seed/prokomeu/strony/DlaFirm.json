@@ -1,0 +1,1924 @@
+{
+ "_zrodlo": "DlaFirm.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "heroRows": [
+   {
+    "c": "var(--k-b)",
+    "a": "Kasa fiskalna",
+    "b": "zafiskalizowana",
+    "dl": "0.00s"
+   },
+   {
+    "c": "var(--k-b)",
+    "a": "E-faktury KSeF",
+    "b": "skonfigurowane",
+    "dl": "0.22s"
+   },
+   {
+    "c": "var(--k-b)",
+    "a": "Komputery i kopie",
+    "b": "pod opieką",
+    "dl": "0.44s"
+   },
+   {
+    "c": "var(--k-i)",
+    "a": "Monitoring",
+    "b": "nagrywa",
+    "dl": "0.66s"
+   },
+   {
+    "c": "var(--k-i)",
+    "a": "Wi-Fi gości",
+    "b": "działa",
+    "dl": "0.88s"
+   },
+   {
+    "c": "var(--k-i)",
+    "a": "Alarm",
+    "b": "uzbrojony",
+    "dl": "1.10s"
+   },
+   {
+    "c": "var(--k-s)",
+    "a": "Strona firmowa",
+    "b": "online",
+    "dl": "1.32s"
+   }
+  ],
+  "facts": [
+   {
+    "d": "M4 7h16v13H4zM4 11h16M8 4v4M16 4v4",
+    "v": "Od 2004 roku",
+    "l": "pracujemy dla firm"
+   },
+   {
+    "d": "M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01",
+    "v": "100+",
+    "l": "klientów firmowych"
+   },
+   {
+    "d": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+    "v": "4 autoryzacje",
+    "l": "Posnet, Elzab, GoPOS, InsERT"
+   },
+   {
+    "d": "M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",
+    "v": "Podhale · Małopolska",
+    "l": "dojazd na miejsce, a zdalnie cała Polska"
+   }
+  ],
+  "branches": [
+   {
+    "name": "Gastronomia",
+    "sub": "restauracja, bar, kawiarnia",
+    "ic": "M7 3v8a2 2 0 002 2v8M11 3v8a2 2 0 01-2 2M17 3c-2 2-2 6 0 8v10",
+    "ib": "var(--k-g)",
+    "ic2": "var(--k-gi)",
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 12%, var(--k-card))",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Hotel i pensjonat",
+    "sub": "pensjonat, apartamenty",
+    "ic": "M3 20V8M3 14h18v6M21 14v-3a3 3 0 00-3-3h-7v6M7 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Handel",
+    "sub": "sklep, punkt usługowy",
+    "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Biuro i usługi",
+    "sub": "kancelaria, księgowość",
+    "ic": "M4 7h16v13H4zM9 7V4h6v3M4 12h16",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Firma budowlana i instalacyjna",
+    "sub": "baza, magazyn, ekipy",
+    "ic": "M3 20h18M6 20V9l6-5 6 5v11M10 20v-5h4v5",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Usługi w terenie",
+    "sub": "ekipy, serwis, transport",
+    "ic": "M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Gabinet i salon",
+    "sub": "gabinet, fryzjer, kosmetyka",
+    "ic": "M12 3a4 4 0 014 4c0 3-4 5-4 5s-4-2-4-5a4 4 0 014-4zM5 21a7 7 0 0114 0",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Produkcja i magazyn",
+    "sub": "zakład, hurtownia",
+    "ic": "M3 21V10l6 4V10l6 4V6l6 4v11z",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Deweloper i architekt",
+    "sub": "inwestycje i projekty",
+    "ic": "M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Wspólnota i zarządca",
+    "sub": "bloki, osiedla",
+    "ic": "M3 21h18M4 21V9h6v12M14 21V4h6v17M7 12h.01M7 16h.01M17 8h.01M17 12h.01M17 16h.01",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Szkoła",
+    "sub": "pracownie i sale",
+    "ic": "M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Gmina i instytucja",
+    "sub": "urząd, instytucja",
+    "ic": "M3 21h18M4 10h16M12 3l9 7H3zM6 10v11M10 10v11M14 10v11M18 10v11",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   },
+   {
+    "name": "Inna branża",
+    "sub": "każda firma i instytucja",
+    "ic": "M12 5v14M5 12h14",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)"
+   }
+  ],
+  "plan": {
+   "name": "Gastronomia",
+   "ic": "M7 3v8a2 2 0 002 2v8M11 3v8a2 2 0 01-2 2M17 3c-2 2-2 6 0 8v10",
+   "title": "Lokal gotowy na gości — od kasy po stronę z menu.",
+   "groups": [
+    {
+     "line": "Biznes",
+     "cd": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "ink": "var(--k-bi)",
+     "domain": "prokombiznes.pl",
+     "url": "https://prokombiznes.pl",
+     "phone": "889 003 889",
+     "tel": "tel:+48889003889",
+     "items": [
+      "GoPOS na sali i w kuchni",
+      "Sprzęt do GoPOS",
+      "Kasa fiskalna z fiskalizacją i szkoleniem",
+      "Terminal płatniczy PolCard"
+     ]
+    },
+    {
+     "line": "Instalacje",
+     "cd": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "ink": "var(--k-ii)",
+     "domain": "prokominstalacje.pl",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "tel": "tel:+48889003889",
+     "items": [
+      "Kamery na sali i zapleczu",
+      "Wi-Fi dla gości oddzielone od sieci kasy",
+      "Nagłośnienie sali",
+      "Ekrany z ofertą"
+     ]
+    },
+    {
+     "line": "Software",
+     "cd": "var(--k-s)",
+     "ct": "var(--k-st)",
+     "dark": "var(--k-sd)",
+     "ink": "var(--k-si)",
+     "domain": "prokomsoftware.pl",
+     "url": "https://prokomsoftware.pl",
+     "phone": "883 200 151",
+     "tel": "tel:+48883200151",
+     "items": [
+      "Strona z menu edytowanym z telefonu",
+      "Widoczność w Google i w Mapach"
+     ]
+    }
+   ],
+   "count": "3 linie",
+   "start": [
+    {
+     "n": "01",
+     "t": "Rozmowa o lokalu: liczba miejsc, kuchnia, sposób sprzedaży."
+    },
+    {
+     "n": "02",
+     "t": "Kasa i system sprzedaży, żeby lokal mógł wystartować."
+    },
+    {
+     "n": "03",
+     "t": "Sieć, kamery i nagłośnienie, a na końcu strona."
+    }
+   ],
+   "ask": [
+    "Kiedy planujesz otwarcie?",
+    "Ile jest stanowisk sprzedaży i czy kuchnia ma dostawać zamówienia na ekran?",
+    "Czy lokal ma już internet i okablowanie?",
+    "Czy masz stronę albo profil w Google?"
+   ],
+   "cls": "stg sb"
+  },
+  "chips": [
+   {
+    "name": "Gastronomia",
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 16%, transparent)"
+   },
+   {
+    "name": "Hotel i pensjonat",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Handel",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Biuro i usługi",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Firma budowlana i instalacyjna",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Usługi w terenie",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gabinet i salon",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Produkcja i magazyn",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Deweloper i architekt",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Wspólnota i zarządca",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Szkoła",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Gmina i instytucja",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Inna branża",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.14)",
+    "bg": "transparent"
+   }
+  ],
+  "total": 46,
+  "A": {
+   "line": "Biznes",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "domain": "prokombiznes.pl",
+   "url": "https://prokombiznes.pl",
+   "phone": "889 003 889",
+   "tel": "tel:+48889003889",
+   "title": "Sprzedaż i kasa",
+   "lead": "Wszystko, czego potrzeba, żeby legalnie i wygodnie sprzedawać.",
+   "cta": "Oferta dla firm",
+   "items": [
+    {
+     "t": "Kasy fiskalne Posnet i Elzab",
+     "d": "Ze zgłoszeniem, fiskalizacją, programowaniem i szkoleniem.",
+     "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+    },
+    {
+     "t": "Przejęcie serwisu kasy",
+     "d": "Przejmujemy serwis kasy po innej firmie i załatwiamy formalności.",
+     "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+    },
+    {
+     "t": "Przeglądy kas",
+     "d": "Pilnujemy terminu obowiązkowego przeglądu.",
+     "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+    },
+    {
+     "t": "GoPOS dla gastronomii",
+     "d": "System sprzedaży na salę i kuchnię, ze sprzętem.",
+     "ic": "M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6"
+    },
+    {
+     "t": "Terminale płatnicze PolCard",
+     "d": "Dobór i uruchomienie terminala.",
+     "ic": "M3 6h18v12H3zM3 10h18M7 15h4"
+    },
+    {
+     "t": "Wagi, skanery, drukarki etykiet",
+     "d": "Osprzęt stanowiska kasowego dobrany do kasy i programu.",
+     "ic": "M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12"
+    },
+    {
+     "t": "Sprawdzarki cen",
+     "d": "Dla punktów sprzedaży z większym asortymentem.",
+     "ic": "M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12"
+    },
+    {
+     "t": "Automaty sprzedające",
+     "d": "Z partnerem Optivendi — dla firm, obiektów i instytucji.",
+     "ic": "M6 2h12v20H6zM9 6h6v6H9zM9 16h2"
+    }
+   ],
+   "promise": "Oddzwonimy w 60 minut w godzinach pracy",
+   "count": "8 usług w tym obszarze",
+   "steps": [
+    {
+     "n": "01",
+     "t": "Dzwonisz albo piszesz",
+     "d": "Mówisz, co i gdzie sprzedajesz."
+    },
+    {
+     "n": "02",
+     "t": "Oddzwaniamy w 60 minut",
+     "d": "W godzinach pracy."
+    },
+    {
+     "n": "03",
+     "t": "Fiskalizacja i szkolenie",
+     "d": "Zgłoszenie, programowanie i szkolenie robimy u Ciebie."
+    }
+   ],
+   "cls": "stage stg sb",
+   "is1": true,
+   "is2": false,
+   "is3": false,
+   "is4": false,
+   "isX": false,
+   "vh": "",
+   "vr": []
+  },
+  "atabs": [
+   {
+    "title": "Sprzedaż i kasa",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "on": "true",
+    "bg": "var(--k-bd)",
+    "bd": "var(--k-b)",
+    "bar": "100%",
+    "dot": "1"
+   },
+   {
+    "title": "Biuro i IT",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "title": "Obiekt i bezpieczeństwo",
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "title": "Strona i systemy",
+    "line": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "title": "Dostawy i instytucje",
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "title": "Serwis sprzętu",
+    "line": "Tech",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   }
+  ],
+  "ltabsF": [
+   {
+    "name": "Biznes",
+    "short": "Kasy, komputery, programy i dostawy",
+    "count": "24 usługi",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "on": "true",
+    "bg": "var(--k-bd)",
+    "bd": "var(--k-b)",
+    "bar": "100%"
+   },
+   {
+    "name": "Instalacje",
+    "short": "Monitoring, sieci, obiekt",
+    "count": "10 usług",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   },
+   {
+    "name": "Software",
+    "short": "Strony, systemy, aplikacje",
+    "count": "6 usług",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   },
+   {
+    "name": "Tech",
+    "short": "Serwis sprzętu firmowego",
+    "count": "6 usług",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "on": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px"
+   }
+  ],
+  "subs": [
+   {
+    "name": "Sprzedaż i kasa",
+    "cd": "var(--k-b)",
+    "on": "true",
+    "bd": "var(--k-b)",
+    "bg": "color-mix(in srgb, var(--k-b) 16%, transparent)"
+   },
+   {
+    "name": "Biuro i IT",
+    "cd": "var(--k-b)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent"
+   },
+   {
+    "name": "Dostawy i instytucje",
+    "cd": "var(--k-b)",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent"
+   }
+  ],
+  "hasSubs": true,
+  "kit": [
+   {
+    "name": "Kasa fiskalna",
+    "on": "true",
+    "bd": "var(--k-b)",
+    "bg": "color-mix(in srgb, var(--k-b) 22%, transparent)",
+    "dot": "var(--k-b)"
+   },
+   {
+    "name": "Terminal PolCard",
+    "on": "true",
+    "bd": "var(--k-b)",
+    "bg": "color-mix(in srgb, var(--k-b) 22%, transparent)",
+    "dot": "var(--k-b)"
+   },
+   {
+    "name": "Waga",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   },
+   {
+    "name": "Skaner",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   },
+   {
+    "name": "Drukarka etykiet",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   },
+   {
+    "name": "GoPOS",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   }
+  ],
+  "kitNote": "W zestawie: Kasa fiskalna, Terminal PolCard. Osprzęt dobieramy do kasy i programu, a uruchomienie i szkolenie robimy u Ciebie.",
+  "itRows": [
+   {
+    "name": "Komputery i laptopy",
+    "on": "true",
+    "status": "pod opieką",
+    "c": "var(--k-b)"
+   },
+   {
+    "name": "Kopie zapasowe",
+    "on": "false",
+    "status": "do przeglądu",
+    "c": "var(--k-y)"
+   },
+   {
+    "name": "Ochrona ESET",
+    "on": "false",
+    "status": "do przeglądu",
+    "c": "var(--k-y)"
+   },
+   {
+    "name": "E-faktury KSeF",
+    "on": "false",
+    "status": "do przeglądu",
+    "c": "var(--k-y)"
+   }
+  ],
+  "itNote": "1 Z 4 POD OPIEKĄ",
+  "cams": [
+   {
+    "label": "Wejście",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "true",
+    "aria": "Pokaż: Wejście",
+    "bd": "var(--k-i)"
+   },
+   {
+    "label": "Sala",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "false",
+    "aria": "Pokaż: Sala",
+    "bd": "transparent"
+   },
+   {
+    "label": "Zaplecze",
+    "cam": true,
+    "wifi": false,
+    "cls": "cb cam",
+    "on": "false",
+    "aria": "Pokaż: Zaplecze",
+    "bd": "transparent"
+   },
+   {
+    "label": "Wi-Fi gości",
+    "cam": false,
+    "wifi": true,
+    "cls": "cb wifi",
+    "on": "false",
+    "aria": "Pokaż: Wi-Fi gości",
+    "bd": "transparent"
+   }
+  ],
+  "camCols": "2.6fr 1fr 1fr 1fr",
+  "camNote": "Kliknij podgląd, żeby go powiększyć — tak samo zobaczysz kamery w telefonie.",
+  "swTabs": [
+   {
+    "name": "Strona",
+    "on": "true",
+    "bd": "var(--k-s)",
+    "bg": "color-mix(in srgb, var(--k-s) 22%, transparent)",
+    "dot": "var(--k-s)"
+   },
+   {
+    "name": "Panel zleceń",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   },
+   {
+    "name": "Automatyzacja",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.18)",
+    "bg": "transparent",
+    "dot": "rgba(var(--r-w),.25)"
+   }
+  ],
+  "sw": {
+   "web": true,
+   "kan": false,
+   "flow": false,
+   "note": "Strona firmowa, wizytówka albo landing page — z panelem do zmian."
+  },
+  "sits": [
+   {
+    "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+    "ib": "var(--k-g)",
+    "ic2": "var(--k-gi)",
+    "title": "Otwieram lokal",
+    "on": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 12%, transparent)",
+    "dash": "var(--k-g)"
+   },
+   {
+    "ic": "M15 7a4 4 0 11-3.9 5H8v3H5v-3H3v-3h8.1A4 4 0 0115 7z",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "title": "Przejmuję lokal po kimś",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "dash": "rgba(var(--r-w),.25)"
+   },
+   {
+    "ic": "M8 8a3 3 0 100-6 3 3 0 000 6zM16 10a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 21v-2a5 5 0 0110 0v2M13 21v-1.5a3.5 3.5 0 017 0V21",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "title": "Rośnie zespół i brakuje porządku w IT",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "dash": "rgba(var(--r-w),.25)"
+   },
+   {
+    "ic": "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "title": "Muszę wejść w e-faktury",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "dash": "rgba(var(--r-w),.25)"
+   },
+   {
+    "ic": "M14.5 6.5a4 4 0 00-5 5L3 18l3 3 6.5-6.5a4 4 0 005-5L15 12l-3-3z",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "title": "Remontuję obiekt",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "dash": "rgba(var(--r-w),.25)"
+   },
+   {
+    "ic": "M4 4h16v16H4zM4 10h16M10 4v16",
+    "ib": "rgba(var(--r-w),.06)",
+    "ic2": "var(--k-ink2)",
+    "title": "Firma pracuje na Excelu i kartkach",
+    "on": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "dash": "rgba(var(--r-w),.25)"
+   }
+  ],
+  "sit": {
+   "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+   "title": "Otwieram lokal",
+   "text": "Termin otwarcia goni, a potrzebna jest kasa, sieć, kamery i strona. Układamy kolejność tak, żeby lokal mógł sprzedawać od pierwszego dnia.",
+   "cls": "stg sb",
+   "order": [
+    {
+     "line": "Biznes",
+     "c": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "url": "https://prokombiznes.pl",
+     "phone": "889 003 889",
+     "what": "Kasa i system sprzedaży",
+     "when": "Najpierw",
+     "n": "01"
+    },
+    {
+     "line": "Instalacje",
+     "c": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "what": "Sieć, kamery, nagłośnienie",
+     "when": "Potem",
+     "n": "02"
+    },
+    {
+     "line": "Software",
+     "c": "var(--k-s)",
+     "ct": "var(--k-st)",
+     "dark": "var(--k-sd)",
+     "url": "https://prokomsoftware.pl",
+     "phone": "883 200 151",
+     "what": "Strona i Google",
+     "when": "Na końcu",
+     "n": "03"
+    }
+   ]
+  },
+  "wsteps": [
+   {
+    "n": "01",
+    "title": "Jedna rozmowa",
+    "on": "true",
+    "ink": "var(--k-ink)",
+    "bar": "var(--k-g)"
+   },
+   {
+    "n": "02",
+    "title": "Wizja lokalna albo przegląd",
+    "on": "false",
+    "ink": "var(--k-ink3)",
+    "bar": "rgba(var(--r-w),.14)"
+   },
+   {
+    "n": "03",
+    "title": "Jeden plan i wycena",
+    "on": "false",
+    "ink": "var(--k-ink3)",
+    "bar": "rgba(var(--r-w),.14)"
+   },
+   {
+    "n": "04",
+    "title": "Realizacja etapami",
+    "on": "false",
+    "ink": "var(--k-ink3)",
+    "bar": "rgba(var(--r-w),.14)"
+   },
+   {
+    "n": "05",
+    "title": "Uruchomienie i szkolenie",
+    "on": "false",
+    "ink": "var(--k-ink3)",
+    "bar": "rgba(var(--r-w),.14)"
+   },
+   {
+    "n": "06",
+    "title": "Opieka",
+    "on": "false",
+    "ink": "var(--k-ink3)",
+    "bar": "rgba(var(--r-w),.14)"
+   }
+  ],
+  "wstep": {
+   "n": "01",
+   "title": "Jedna rozmowa",
+   "text": "Opowiadasz o firmie raz. Nie musisz wiedzieć, która linia czym się zajmuje.",
+   "we": "Zadajemy pytania i notujemy potrzeby dla wszystkich linii.",
+   "you": "Mówisz, co boli i na kiedy to ma działać.",
+   "cls": "stg sb"
+  },
+  "care": [
+   {
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "phone": "889 003 889",
+    "tel": "tel:+48889003889",
+    "title": "Serwis kas fiskalnych",
+    "items": [
+     "Autoryzowany serwis Posnet i Elzab",
+     "Przeglądy i naprawy",
+     "Przejęcie serwisu po innej firmie"
+    ],
+    "promise": "Oddzwonimy w 60 minut w godzinach pracy"
+   },
+   {
+    "line": "Biznes",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "dark": "var(--k-bd)",
+    "ink": "var(--k-bi)",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "phone": "889 003 889",
+    "tel": "tel:+48889003889",
+    "title": "Opieka IT",
+    "items": [
+     "Pomoc zdalna i na miejscu",
+     "Monitoring i kopie zapasowe",
+     "Bezpłatny przegląd IT na start"
+    ],
+    "promise": "Oddzwonimy w 60 minut w godzinach pracy"
+   },
+   {
+    "line": "Instalacje",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "dark": "var(--k-id)",
+    "ink": "var(--k-ii)",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "phone": "889 003 889",
+    "tel": "tel:+48889003889",
+    "title": "Serwis instalacji",
+    "items": [
+     "Gwarancja na montaż 24 miesiące",
+     "Przeglądy i pomoc zdalna",
+     "Przejęcie cudzej instalacji"
+    ],
+    "promise": "Odpowiemy w 24 godziny w dni robocze"
+   },
+   {
+    "line": "Software",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "ink": "var(--k-si)",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "phone": "883 200 151",
+    "tel": "tel:+48883200151",
+    "title": "Opieka nad stroną i systemem",
+    "items": [
+     "Serwer w Polsce, kopia co noc",
+     "Aktualizacje i drobne zmiany",
+     "Rozwój systemu razem z firmą"
+    ],
+    "promise": "Odpowiedź w 1 dzień roboczy"
+   }
+  ],
+  "compare": [
+   {
+    "t": "Kontakt",
+    "a": "Osobny numer i osobne ustalenia z każdym wykonawcą.",
+    "b": "Jeden kontakt do całości, a w tle właściwe zespoły."
+   },
+   {
+    "t": "Gdy coś nie działa razem",
+    "a": "Każdy wykonawca odpowiada za swoją część i trzeba ustalić, czyja to sprawa.",
+    "b": "Sieć, kasę i komputer ustawia ta sama firma — sprawdzamy całość."
+   },
+   {
+    "t": "Kolejność prac",
+    "a": "Terminy wykonawców koordynujesz sam.",
+    "b": "Kolejność między liniami układamy po naszej stronie."
+   },
+   {
+    "t": "Wiedza o Twojej firmie",
+    "a": "Każdemu wykonawcy tłumaczysz wszystko od początku.",
+    "b": "Opowiadasz raz — zespoły pracują pod jednym dachem."
+   },
+   {
+    "t": "Serwis po wdrożeniu",
+    "a": "Kilka umów i kilka miejsc do zgłaszania usterek.",
+    "b": "Serwis kas, IT, instalacji i strony w jednej firmie."
+   },
+   {
+    "t": "Na miejscu",
+    "a": "Zależy od wykonawcy — część działa tylko zdalnie.",
+    "b": "Salon i serwis w Rabce-Zdroju, dojazd na Podhalu i w Małopolsce."
+   }
+  ],
+  "grants": [
+   {
+    "d": "M6 3h12v18H6zM9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01",
+    "t": "Kosztorys pod wymagania projektu"
+   },
+   {
+    "d": "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5",
+    "t": "Dokumenty do rozliczenia"
+   },
+   {
+    "d": "M3 5h18v11H3zM9 20h6M12 16v4",
+    "t": "Dostawa, konfiguracja, szkolenie"
+   }
+  ],
+  "auths": [
+   {
+    "k": "Autoryzowany serwis",
+    "n": "Posnet",
+    "d": "Fiskalizacja, przeglądy i naprawy kas."
+   },
+   {
+    "k": "Autoryzowany serwis",
+    "n": "Elzab",
+    "d": "Fiskalizacja, przeglądy i naprawy kas."
+   },
+   {
+    "k": "Autoryzowany partner",
+    "n": "GoPOS",
+    "d": "Wdrożenie systemu sprzedaży w gastronomii."
+   },
+   {
+    "k": "Autoryzowany partner",
+    "n": "InsERT",
+    "d": "Subiekt, wdrożenie i szkolenie."
+   }
+  ],
+  "brands": [
+   {
+    "c": "var(--k-b)",
+    "n": "Lenovo"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "Dell"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "Microsoft"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "ESET"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "Synology"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "QNAP"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "PolCard"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "Fellowes"
+   },
+   {
+    "c": "var(--k-b)",
+    "n": "Kobra"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "Ampio"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "Hikvision"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "Dahua"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "BCS"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "Ubiquiti"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "APART"
+   },
+   {
+    "c": "var(--k-i)",
+    "n": "Elzab EcoPower"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Potrzebuję kilku rzeczy naraz. Muszę dzwonić w kilka miejsc?",
+    "a": "Nie. Wystarczy jeden telefon albo jedna wiadomość — połączymy zespoły po naszej stronie i dostaniesz jeden plan.",
+    "isOpen": true,
+    "open": "true",
+    "rot": "rotate(45deg)",
+    "bd": "color-mix(in srgb, var(--k-g) 40%, transparent)"
+   },
+   {
+    "n": "02",
+    "q": "Czy linie to osobne firmy?",
+    "a": "Nie. To jedna firma, PRO-KOM Tadeusz Wójciak z Rabki-Zdroju, z jednym NIP-em. Linie mają osobne strony i zespoły, żeby sprawa od razu trafiała do właściwych ludzi.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "03",
+    "q": "Mam już kasę albo kamery od innej firmy. Co wtedy?",
+    "a": "Przejmujemy serwis kas po innych firmach i załatwiamy formalności. Przejmujemy też gotowe instalacje — najpierw sprawdzamy, co da się zostawić.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "04",
+    "q": "Co robicie przy uruchomieniu kasy fiskalnej?",
+    "a": "Zgłaszamy kasę, fiskalizujemy ją, programujemy i szkolimy obsługę. Wniosek o ulgę na kasę składa Twoja księgowa.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "05",
+    "q": "Czy podajecie ceny na stronie?",
+    "a": "Nie. Wycenę dostajesz na piśmie po krótkiej rozmowie, bo zależy od lokalu, liczby stanowisk i zakresu.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "06",
+    "q": "Jak szybko odpowiadacie?",
+    "a": "Linia Biznes oddzwania w 60 minut w godzinach pracy. Instalacje odpowiadają w 24 godziny w dni robocze, Software w 1 dzień roboczy.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "07",
+    "q": "Czy dojeżdżacie do klienta?",
+    "a": "Tak. Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Strony i systemy robimy zdalnie dla firm z całej Polski.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "08",
+    "q": "Czy pomagacie przy zakupach z dofinansowaniem?",
+    "a": "Tak. Przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia zamówienia.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "09",
+    "q": "Czy muszę brać wszystko naraz?",
+    "a": "Nie. Możesz zacząć od jednej rzeczy, na przykład kasy albo kamer. Plan pokazuje tylko, co warto mieć na uwadze na przyszłość.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   },
+   {
+    "n": "10",
+    "q": "Gdzie jest Wasz salon?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.",
+    "isOpen": false,
+    "open": "false",
+    "rot": "none",
+    "bd": "rgba(var(--r-w),.1)"
+   }
+  ],
+  "after": [
+   {
+    "n": "01",
+    "t": "Wiadomość trafia do linii, której dotyczy Twoja sprawa."
+   },
+   {
+    "n": "02",
+    "t": "Oddzwaniamy albo odpisujemy i dopytujemy o szczegóły."
+   },
+   {
+    "n": "03",
+    "t": "Dostajesz plan i wycenę na piśmie, zanim cokolwiek zaczniemy."
+   }
+  ],
+  "next": [
+   {
+    "k": "Inwestycje i dostawy",
+    "t": "Większe zamówienie albo cały obiekt",
+    "d": "Sprzęt IT, RTV i AGD dla firm i instytucji — złóż listę zapytania, wczytaj przykład obiektu, wyślij SWZ.",
+    "href": "Dostawy.dc.html"
+   },
+   {
+    "k": "Załatw online",
+    "t": "Załatw to bez dzwonienia",
+    "d": "Zgłoszenie naprawy, wycena strony, plan instalacji — wszystko, co da się zrobić przez internet.",
+    "href": "Narzedzia.dc.html"
+   },
+   {
+    "k": "Pomoc",
+    "t": "Co zrobić, gdy…",
+    "d": "Kasa nie drukuje, padło Wi-Fi, pękł ekran. Krótkie instrukcje i właściwy numer.",
+    "href": "Pomoc.dc.html"
+   },
+   {
+    "k": "Linie PRO-KOM",
+    "t": "Co gdzie załatwisz",
+    "d": "Lista spraw z przypisaną linią, numerem i stroną z pełną ofertą.",
+    "href": "Linie.dc.html"
+   }
+  ]
+ },
+ "lines": {
+  "b": {
+   "line": "Biznes",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "domain": "prokombiznes.pl",
+   "url": "https://prokombiznes.pl",
+   "phone": "889 003 889",
+   "tel": "tel:+48889003889"
+  },
+  "i": {
+   "line": "Instalacje",
+   "cd": "var(--k-i)",
+   "ct": "var(--k-it)",
+   "dark": "var(--k-id)",
+   "ink": "var(--k-ii)",
+   "domain": "prokominstalacje.pl",
+   "url": "https://prokominstalacje.pl",
+   "phone": "889 003 889",
+   "tel": "tel:+48889003889"
+  },
+  "s": {
+   "line": "Software",
+   "cd": "var(--k-s)",
+   "ct": "var(--k-st)",
+   "dark": "var(--k-sd)",
+   "ink": "var(--k-si)",
+   "domain": "prokomsoftware.pl",
+   "url": "https://prokomsoftware.pl",
+   "phone": "883 200 151",
+   "tel": "tel:+48883200151"
+  },
+  "t": {
+   "line": "Tech",
+   "cd": "var(--k-t)",
+   "ct": "var(--k-tt)",
+   "dark": "var(--k-td)",
+   "ink": "var(--k-ti)",
+   "domain": "prokomserwis.pl",
+   "url": "https://prokomserwis.pl",
+   "phone": "883 200 151",
+   "tel": "tel:+48883200151"
+  }
+ },
+ "branches": [
+  {
+   "key": "gastro",
+   "name": "Gastronomia",
+   "title": "Lokal gotowy na gości — od kasy po stronę z menu.",
+   "g": {
+    "b": [
+     "GoPOS na sali i w kuchni",
+     "Sprzęt do GoPOS",
+     "Kasa fiskalna z fiskalizacją i szkoleniem",
+     "Terminal płatniczy PolCard"
+    ],
+    "i": [
+     "Kamery na sali i zapleczu",
+     "Wi-Fi dla gości oddzielone od sieci kasy",
+     "Nagłośnienie sali",
+     "Ekrany z ofertą"
+    ],
+    "s": [
+     "Strona z menu edytowanym z telefonu",
+     "Widoczność w Google i w Mapach"
+    ]
+   },
+   "start": [
+    "Rozmowa o lokalu: liczba miejsc, kuchnia, sposób sprzedaży.",
+    "Kasa i system sprzedaży, żeby lokal mógł wystartować.",
+    "Sieć, kamery i nagłośnienie, a na końcu strona."
+   ],
+   "ask": [
+    "Kiedy planujesz otwarcie?",
+    "Ile jest stanowisk sprzedaży i czy kuchnia ma dostawać zamówienia na ekran?",
+    "Czy lokal ma już internet i okablowanie?",
+    "Czy masz stronę albo profil w Google?"
+   ]
+  },
+  {
+   "key": "hotel",
+   "name": "Hotel i pensjonat",
+   "title": "Goście mają Wi-Fi, Ty masz spokój.",
+   "g": {
+    "i": [
+     "Wi-Fi w każdym pokoju",
+     "Monitoring i wideodomofon",
+     "Zamki na kod i kontrola dostępu",
+     "Telewizja hotelowa i anteny",
+     "Ładowarka dla gości — Elzab EcoPower"
+    ],
+    "b": [
+     "Kasa fiskalna i terminal",
+     "Komputer recepcji pod opieką",
+     "Kopie zapasowe danych"
+    ],
+    "s": [
+     "Strona obiektu widoczna w Google",
+     "Zmiany na stronie z telefonu"
+    ]
+   },
+   "start": [
+    "Wizja lokalna i pomiar zasięgu Wi-Fi w obiekcie.",
+    "Sieć i Wi-Fi gości — od tego zależy reszta.",
+    "Monitoring, dostęp i telewizja, potem recepcja i strona."
+   ],
+   "ask": [
+    "Ile jest pokoi i budynków?",
+    "Gdzie dziś goście skarżą się na zasięg?",
+    "Czy obiekt działa cały rok, czy sezonowo?",
+    "Czy masz już kamery albo alarm po innym wykonawcy?"
+   ]
+  },
+  {
+   "key": "sklep",
+   "name": "Handel",
+   "title": "Sprzedaż, towar i bezpieczeństwo w jednym planie.",
+   "g": {
+    "b": [
+     "Kasa fiskalna, waga i skaner",
+     "Sprawdzarka cen i drukarka etykiet",
+     "Subiekt do sprzedaży i magazynu",
+     "Terminal płatniczy PolCard"
+    ],
+    "i": [
+     "Monitoring sali sprzedaży",
+     "Alarm",
+     "Sieć dla kas i zaplecza"
+    ],
+    "s": [
+     "Strona firmowa",
+     "Widoczność w Google"
+    ]
+   },
+   "start": [
+    "Rozmowa o asortymencie i liczbie stanowisk.",
+    "Kasa z wagą i skanerem oraz program sprzedaży.",
+    "Monitoring i alarm, a potem strona."
+   ],
+   "ask": [
+    "Ile jest stanowisk kasowych?",
+    "Czy sprzedajesz towar na wagę?",
+    "Czy prowadzisz magazyn w programie, czy w zeszycie?",
+    "Czy przejmujesz kasę po poprzednim właścicielu?"
+   ]
+  },
+  {
+   "key": "biuro",
+   "name": "Biuro i usługi",
+   "title": "Komputery działają, dane są bezpieczne, papier znika.",
+   "g": {
+    "b": [
+     "Komputery, laptopy i serwer",
+     "Microsoft Office i ochrona ESET",
+     "Opieka IT z pomocą zdalną",
+     "Kopie zapasowe",
+     "Programy InsERT i e-faktury KSeF"
+    ],
+    "i": [
+     "Sieć i Wi-Fi w biurze",
+     "Kontrola dostępu",
+     "Monitoring"
+    ],
+    "s": [
+     "System albo panel pod Twój proces",
+     "Automatyzacje zamiast Excela",
+     "Strona firmowa"
+    ]
+   },
+   "start": [
+    "Bezpłatny przegląd IT: co jest, co działa, co grozi awarią.",
+    "Kopie zapasowe i porządek w komputerach.",
+    "Programy, sieć, a potem system pod proces firmy."
+   ],
+   "ask": [
+    "Ile osób pracuje przy komputerach?",
+    "Kto dziś pomaga, gdy coś nie działa?",
+    "Czy robicie kopie zapasowe i czy ktoś je kiedyś odtwarzał?",
+    "Co dziś zajmuje najwięcej ręcznej pracy?"
+   ]
+  },
+  {
+   "key": "budowa",
+   "name": "Firma budowlana i instalacyjna",
+   "title": "Zlecenia, ekipy i rozliczenia w jednym miejscu.",
+   "g": {
+    "s": [
+     "Panel zleceń dla ekip",
+     "Czas pracy i rozliczenia",
+     "Aplikacja dla ekipy: zdjęcia i protokół",
+     "Strona firmowa z realizacjami"
+    ],
+    "b": [
+     "Laptopy i komputery do biura",
+     "Subiekt i e-faktury KSeF",
+     "Opieka IT"
+    ],
+    "i": [
+     "Sieć w biurze i na bazie",
+     "Monitoring bazy i magazynu"
+    ]
+   },
+   "start": [
+    "Rozmowa o tym, jak dziś wygląda zlecenie od telefonu do faktury.",
+    "Panel zleceń i czas pracy — jeden moduł na start.",
+    "Sprzęt i program do faktur, potem strona."
+   ],
+   "ask": [
+    "Ile ekip pracuje w terenie?",
+    "Gdzie dziś zapisujecie zlecenia i godziny?",
+    "Czy ekipy mają telefony służbowe?",
+    "Jakiego programu do faktur używacie?"
+   ]
+  },
+  {
+   "key": "teren",
+   "name": "Usługi w terenie",
+   "title": "Ekipy w terenie, a Ty wiesz, co jest zrobione.",
+   "g": {
+    "s": [
+     "Rejestr pracy ekip w telefonie",
+     "Zlecenia, rozliczenia i tablica zadań",
+     "Strona firmowa"
+    ],
+    "b": [
+     "Laptopy i sprzęt dla firmy",
+     "Programy InsERT i e-faktury KSeF"
+    ],
+    "i": [
+     "Monitoring bazy i placu"
+    ]
+   },
+   "start": [
+    "Rozmowa o tym, jak dziś zapisujecie zlecenia i godziny.",
+    "Jeden moduł na start: rejestr pracy albo zlecenia.",
+    "Program do faktur i sprzęt, potem strona."
+   ],
+   "ask": [
+    "Ile osób pracuje poza biurem?",
+    "Na czym dziś zapisujecie pracę — kartka, Excel, komunikator?",
+    "Co ma widzieć klient, a co tylko Ty?"
+   ]
+  },
+  {
+   "key": "gabinet",
+   "name": "Gabinet i salon",
+   "title": "Recepcja, płatności i strona, która przyprowadza klientów.",
+   "g": {
+    "b": [
+     "Kasa fiskalna i terminal",
+     "Komputer recepcji i drukarka",
+     "Kopie zapasowe danych",
+     "Opieka IT"
+    ],
+    "i": [
+     "Sieć i Wi-Fi w gabinecie",
+     "Wideodomofon i kontrola dostępu",
+     "Monitoring poczekalni"
+    ],
+    "s": [
+     "Strona gabinetu",
+     "Widoczność w Google"
+    ]
+   },
+   "start": [
+    "Rozmowa o gabinecie i liczbie stanowisk.",
+    "Kasa, komputer i kopie danych.",
+    "Sieć i strona."
+   ],
+   "ask": [
+    "Ile jest stanowisk i gabinetów?",
+    "Czy dane klientów są dziś gdzieś kopiowane?",
+    "Czy masz stronę i wizytówkę w Google?"
+   ]
+  },
+  {
+   "key": "produkcja",
+   "name": "Produkcja i magazyn",
+   "title": "Towar policzony, hala w zasięgu, proces w systemie.",
+   "g": {
+    "b": [
+     "Drukarki etykiet i skanery",
+     "Komputery i serwer",
+     "Subiekt do magazynu i sprzedaży",
+     "Kopie zapasowe"
+    ],
+    "i": [
+     "Sieć i Wi-Fi w hali",
+     "Monitoring hali i placu",
+     "Kontrola dostępu"
+    ],
+    "s": [
+     "Panel pod proces: zlecenia, magazyn, czas pracy",
+     "Automatyczne raporty"
+    ]
+   },
+   "start": [
+    "Rozmowa i obejście hali.",
+    "Sieć i sprzęt do znakowania towaru.",
+    "Program magazynowy albo panel pod proces."
+   ],
+   "ask": [
+    "Jak dziś liczycie stany magazynowe?",
+    "Czy w hali jest zasięg sieci?",
+    "Co chcielibyście widzieć w raporcie na koniec dnia?"
+   ]
+  },
+  {
+   "key": "deweloper",
+   "name": "Deweloper i architekt",
+   "title": "Instalacje zaplanowane, zanim wejdą tynki.",
+   "g": {
+    "i": [
+     "Teletechnika w budownictwie",
+     "Projekt instalacji niskoprądowych",
+     "Smart home Ampio w lokalach",
+     "Ładowarki w garażu — Elzab EcoPower",
+     "Współpraca z pracowniami — strona „Dla architektów”"
+    ],
+    "s": [
+     "Strona inwestycji"
+    ],
+    "b": [
+     "Sprzęt do biura sprzedaży"
+    ]
+   },
+   "start": [
+    "Przesyłasz rzuty — najlepiej przed tynkami.",
+    "Planujemy trasy kabli i punkty instalacji.",
+    "Wycena, montaż etapami, pomiary i odbiór."
+   ],
+   "ask": [
+    "Na jakim etapie jest inwestycja?",
+    "Ile jest lokali i części wspólnych?",
+    "Jakie instalacje mają być w standardzie, a jakie w opcji?",
+    "Kto koordynuje branże na budowie?"
+   ]
+  },
+  {
+   "key": "wspolnota",
+   "name": "Wspólnota i zarządca",
+   "title": "Budynek bezpieczny i podłączony.",
+   "g": {
+    "i": [
+     "Monitoring części wspólnych",
+     "Wideodomofony i kontrola dostępu",
+     "Sieć i światłowód w budynku",
+     "Ładowarki w garażu — Elzab EcoPower"
+    ],
+    "s": [
+     "Strona wspólnoty albo obiektu"
+    ]
+   },
+   "start": [
+    "Rozmowa o budynku i przegląd tego, co już jest.",
+    "Wejścia i części wspólne: wideodomofony, dostęp, kamery.",
+    "Sieć w budynku, a potem strona."
+   ],
+   "ask": [
+    "Ile jest klatek, wejść i garaży?",
+    "Czy są już kamery albo domofony po innym wykonawcy?",
+    "Kto podejmuje decyzję — zarząd czy zarządca?"
+   ]
+  },
+  {
+   "key": "szkola",
+   "name": "Szkoła",
+   "title": "Sprzęt do sal i instalacje w budynku, także z dofinansowaniem.",
+   "g": {
+    "b": [
+     "Komputery i laptopy do pracowni",
+     "Monitory interaktywne i projektory",
+     "Kosztorys i dokumenty do dofinansowania",
+     "Konfiguracja i szkolenie"
+    ],
+    "i": [
+     "Nagłośnienie",
+     "Sieć i Wi-Fi w budynku",
+     "Monitoring"
+    ],
+    "s": [
+     "Strona szkoły"
+    ]
+   },
+   "start": [
+    "Rozmowa o projekcie i jego wymaganiach.",
+    "Kosztorys i zestawienie sprzętu.",
+    "Dostawa, montaż, konfiguracja i szkolenie."
+   ],
+   "ask": [
+    "Czy zakup jest w ramach projektu z dofinansowaniem?",
+    "Ile sal i stanowisk ma objąć dostawa?",
+    "Czy budynek ma okablowanie sieciowe?"
+   ]
+  },
+  {
+   "key": "gmina",
+   "name": "Gmina i instytucja",
+   "title": "Dostawy, sieć i bezpieczeństwo dla urzędu i jednostek.",
+   "g": {
+    "b": [
+     "Komputery, serwery i kopie zapasowe",
+     "Programy i ochrona ESET",
+     "Opieka IT",
+     "Dokumenty do dofinansowań"
+    ],
+    "i": [
+     "Monitoring obiektów",
+     "Sieć i Wi-Fi",
+     "Nagłośnienie sal",
+     "Kontrola dostępu"
+    ],
+    "s": [
+     "Strona instytucji",
+     "Panel albo system pod procedurę"
+    ]
+   },
+   "start": [
+    "Rozmowa o potrzebie i trybie zamówienia.",
+    "Zestawienie i kosztorys.",
+    "Dostawa i montaż, potem opieka."
+   ],
+   "ask": [
+    "Czy zamówienie idzie w trybie zapytania, czy przetargu?",
+    "Ile lokalizacji obejmuje?",
+    "Jakie są wymagania co do gwarancji i dokumentacji?"
+   ]
+  },
+  {
+   "key": "inne",
+   "name": "Inna branża",
+   "title": "Każda firma. Powiedz, czego potrzebujesz.",
+   "g": {
+    "b": [
+     "Kasy, komputery i programy",
+     "Opieka IT i kopie zapasowe"
+    ],
+    "i": [
+     "Monitoring, alarmy i sieci",
+     "Nagłośnienie i ekrany"
+    ],
+    "s": [
+     "Strony, systemy i aplikacje"
+    ],
+    "t": [
+     "Naprawy telefonów i komputerów"
+    ]
+   },
+   "start": [
+    "Jedna rozmowa — opowiadasz o firmie raz.",
+    "Przegląd tego, co już masz.",
+    "Plan z podziałem na etapy i wycena na piśmie."
+   ],
+   "ask": [
+    "Czym zajmuje się firma i ile osób w niej pracuje?",
+    "Co dziś najbardziej przeszkadza w pracy?",
+    "Na kiedy to ma działać?"
+   ]
+  }
+ ],
+ "stany": {
+  "arN": {
+   "1": {
+    "A": {
+     "line": "Biznes",
+     "cd": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "ink": "var(--k-bi)",
+     "domain": "prokombiznes.pl",
+     "url": "https://prokombiznes.pl",
+     "phone": "889 003 889",
+     "tel": "tel:+48889003889",
+     "title": "Sprzedaż i kasa",
+     "lead": "Wszystko, czego potrzeba, żeby legalnie i wygodnie sprzedawać.",
+     "cta": "Oferta dla firm",
+     "items": [
+      {
+       "t": "Kasy fiskalne Posnet i Elzab",
+       "d": "Ze zgłoszeniem, fiskalizacją, programowaniem i szkoleniem.",
+       "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+      },
+      {
+       "t": "Przejęcie serwisu kasy",
+       "d": "Przejmujemy serwis kasy po innej firmie i załatwiamy formalności.",
+       "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+      },
+      {
+       "t": "Przeglądy kas",
+       "d": "Pilnujemy terminu obowiązkowego przeglądu.",
+       "ic": "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"
+      },
+      {
+       "t": "GoPOS dla gastronomii",
+       "d": "System sprzedaży na salę i kuchnię, ze sprzętem.",
+       "ic": "M4 5h16v11H4zM8 20h8M12 16v4M8 9h3M8 12h6"
+      },
+      {
+       "t": "Terminale płatnicze PolCard",
+       "d": "Dobór i uruchomienie terminala.",
+       "ic": "M3 6h18v12H3zM3 10h18M7 15h4"
+      },
+      {
+       "t": "Wagi, skanery, drukarki etykiet",
+       "d": "Osprzęt stanowiska kasowego dobrany do kasy i programu.",
+       "ic": "M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12"
+      },
+      {
+       "t": "Sprawdzarki cen",
+       "d": "Dla punktów sprzedaży z większym asortymentem.",
+       "ic": "M4 6v12M8 6v12M11 6v12M15 6v12M18 6v12M21 6v12"
+      },
+      {
+       "t": "Automaty sprzedające",
+       "d": "Z partnerem Optivendi — dla firm, obiektów i instytucji.",
+       "ic": "M6 2h12v20H6zM9 6h6v6H9zM9 16h2"
+      }
+     ],
+     "promise": "Oddzwonimy w 60 minut w godzinach pracy",
+     "count": "8 usług w tym obszarze",
+     "steps": [
+      {
+       "n": "01",
+       "t": "Dzwonisz albo piszesz",
+       "d": "Mówisz, co i gdzie sprzedajesz."
+      },
+      {
+       "n": "02",
+       "t": "Oddzwaniamy w 60 minut",
+       "d": "W godzinach pracy."
+      },
+      {
+       "n": "03",
+       "t": "Fiskalizacja i szkolenie",
+       "d": "Zgłoszenie, programowanie i szkolenie robimy u Ciebie."
+      }
+     ],
+     "cls": "stage stg sa",
+     "is1": true,
+     "is2": false,
+     "is3": false,
+     "is4": false,
+     "isX": false,
+     "vh": "",
+     "vr": []
+    }
+   }
+  },
+  "brN": {
+   "1": {
+    "plan": {
+     "name": "Gastronomia",
+     "ic": "M7 3v8a2 2 0 002 2v8M11 3v8a2 2 0 01-2 2M17 3c-2 2-2 6 0 8v10",
+     "title": "Lokal gotowy na gości — od kasy po stronę z menu.",
+     "groups": [
+      {
+       "line": "Biznes",
+       "cd": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "dark": "var(--k-bd)",
+       "ink": "var(--k-bi)",
+       "domain": "prokombiznes.pl",
+       "url": "https://prokombiznes.pl",
+       "phone": "889 003 889",
+       "tel": "tel:+48889003889",
+       "items": [
+        "GoPOS na sali i w kuchni",
+        "Sprzęt do GoPOS",
+        "Kasa fiskalna z fiskalizacją i szkoleniem",
+        "Terminal płatniczy PolCard"
+       ]
+      },
+      {
+       "line": "Instalacje",
+       "cd": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "ink": "var(--k-ii)",
+       "domain": "prokominstalacje.pl",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "tel": "tel:+48889003889",
+       "items": [
+        "Kamery na sali i zapleczu",
+        "Wi-Fi dla gości oddzielone od sieci kasy",
+        "Nagłośnienie sali",
+        "Ekrany z ofertą"
+       ]
+      },
+      {
+       "line": "Software",
+       "cd": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "dark": "var(--k-sd)",
+       "ink": "var(--k-si)",
+       "domain": "prokomsoftware.pl",
+       "url": "https://prokomsoftware.pl",
+       "phone": "883 200 151",
+       "tel": "tel:+48883200151",
+       "items": [
+        "Strona z menu edytowanym z telefonu",
+        "Widoczność w Google i w Mapach"
+       ]
+      }
+     ],
+     "count": "3 linie",
+     "start": [
+      {
+       "n": "01",
+       "t": "Rozmowa o lokalu: liczba miejsc, kuchnia, sposób sprzedaży."
+      },
+      {
+       "n": "02",
+       "t": "Kasa i system sprzedaży, żeby lokal mógł wystartować."
+      },
+      {
+       "n": "03",
+       "t": "Sieć, kamery i nagłośnienie, a na końcu strona."
+      }
+     ],
+     "ask": [
+      "Kiedy planujesz otwarcie?",
+      "Ile jest stanowisk sprzedaży i czy kuchnia ma dostawać zamówienia na ekran?",
+      "Czy lokal ma już internet i okablowanie?",
+      "Czy masz stronę albo profil w Google?"
+     ],
+     "cls": "stg sa"
+    }
+   }
+  },
+  "siN": {
+   "1": {
+    "sit": {
+     "ic": "M4 9l1-5h14l1 5M4 9h16v11H4zM9 20v-6h6v6",
+     "title": "Otwieram lokal",
+     "text": "Termin otwarcia goni, a potrzebna jest kasa, sieć, kamery i strona. Układamy kolejność tak, żeby lokal mógł sprzedawać od pierwszego dnia.",
+     "cls": "stg sa",
+     "order": [
+      {
+       "line": "Biznes",
+       "c": "var(--k-b)",
+       "ct": "var(--k-bt)",
+       "dark": "var(--k-bd)",
+       "url": "https://prokombiznes.pl",
+       "phone": "889 003 889",
+       "what": "Kasa i system sprzedaży",
+       "when": "Najpierw",
+       "n": "01"
+      },
+      {
+       "line": "Instalacje",
+       "c": "var(--k-i)",
+       "ct": "var(--k-it)",
+       "dark": "var(--k-id)",
+       "url": "https://prokominstalacje.pl",
+       "phone": "889 003 889",
+       "what": "Sieć, kamery, nagłośnienie",
+       "when": "Potem",
+       "n": "02"
+      },
+      {
+       "line": "Software",
+       "c": "var(--k-s)",
+       "ct": "var(--k-st)",
+       "dark": "var(--k-sd)",
+       "url": "https://prokomsoftware.pl",
+       "phone": "883 200 151",
+       "what": "Strona i Google",
+       "when": "Na końcu",
+       "n": "03"
+      }
+     ]
+    }
+   }
+  },
+  "wiN": {
+   "1": {
+    "wstep": {
+     "n": "01",
+     "title": "Jedna rozmowa",
+     "text": "Opowiadasz o firmie raz. Nie musisz wiedzieć, która linia czym się zajmuje.",
+     "we": "Zadajemy pytania i notujemy potrzeby dla wszystkich linii.",
+     "you": "Mówisz, co boli i na kiedy to ma działać.",
+     "cls": "stg sa"
+    }
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

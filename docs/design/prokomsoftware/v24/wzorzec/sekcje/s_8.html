@@ -1,0 +1,16 @@
+<!-- FAQ + CONTACT -->
+<section id="faq" class="au-sec">
+<div class="wrap au-fc">
+<div><div class="au-eb">Pytania</div><h2 class="au-h2" style="font-size:44px;margin-bottom:22px">Zanim napiszesz</h2><div style="display:flex;flex-direction:column;gap:10px"><sc-for list="{{faqs}}" as="q" hint-placeholder-count="6"><div class="au-q {{q.o}}"><button aria-expanded="{{q.exp}}" onClick="{{q.tog}}">{{q.q}}<span class="pl">+</span></button><div class="ans"><div><p>{{q.a}}</p></div></div></div></sc-for></div></div>
+<div id="kontakt" class="au-glass" style="padding:32px;display:flex;flex-direction:column;gap:14px;align-self:start">
+<div class="au-eb">Kontakt</div><h2 class="au-h2" style="font-size:38px">Napisz po swojemu</h2><p style="margin:0;color:var(--fg2)">Odpowiadamy w 1 dzień roboczy. Zawsze człowiek.</p>
+<div class="au-chips"><sc-for list="{{topics}}" as="t" hint-placeholder-count="6"><button class="au-chip {{t.cls}}" onClick="{{t.pick}}" aria-pressed="{{t.sel}}">{{t.mark}}{{t.l}}</button></sc-for></div>
+<textarea class="au-in" rows="4" placeholder="Np. zamówienia przychodzą mailem i przepisujemy je do Excela…"></textarea>
+<div class="au-two"><input class="au-in" placeholder="Imię i firma" aria-label="Imię i firma"><input class="au-in" placeholder="E-mail albo telefon" aria-label="E-mail albo telefon"></div>
+<p class="au-rodo">Administratorem danych jest PRO-KOM Tadeusz Wójciak. Użyjemy ich tylko do odpowiedzi. Szczegóły w <a class="au-link" href="@P:polityka">polityce prywatności</a>.</p>
+<a class="au-btn" href="@P:dziekujemy">Wyślij wiadomość →</a>
+<div class="au-row" style="font-size:14px;color:var(--fg2);padding-top:8px;border-top:1px solid var(--gb)"><span>883 200 151</span><span>kontakt@prokomsoftware.pl</span></div>
+</div>
+</div>
+</section>
+

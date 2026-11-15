@@ -1,0 +1,1790 @@
+/*
+ * Brand tokens — the only place with colour values (docs/marka.md, ADR-007, ADR-013).
+ * Components use the semantic variables below (via Tailwind), never a line's own colour.
+ *   --c-<line>          brand book colour on light backgrounds: logo, rules, icons, large headings
+ *   --c-<line>-on-dark  brand book colour on dark backgrounds
+ *   --c-<line>-text     darker shade with ≥ 4.5:1 on white and papier: text, links, white-label buttons
+ *   --c-biznes-*        Biznes palette from its approved visualisation (docs/design/prokombiznes)
+ * Semantic variables (set per line through `data-line`, per theme through `data-theme`):
+ *   --accent, --accent-2, --accent-text, --accent-on-dark, --accent-ink (label on accent buttons)
+ *   --surface, --surface-2, --surface-3, --card, --surface-dark (dark rhythm blocks)
+ *   --ink, --ink-2, --ink-3 (text, secondary, tertiary), --border, --glow, --grid (Software only)
+ *   --st1, --st2, --st3, --sth, --shd (studio under product photos — Biznes, K31-ZMIANY §3)
+ *   --plate, --plate-shadow (white plate a product photo stands on — white in both themes, as
+ *   many packshots have a white background; NAPRAWA-0911 §3)
+ *   --border-input (form fields, ≥ 3:1 on every surface — WCAG 1.4.11; `--border` is decorative)
+ *   --ok, --warn (status dots: open / partner, closed; ≥ 3:1; on Biznes `--warn` is also small
+ *   orange text on cards and `surface-2`, ≥ 4.5:1 — themes.test.ts), --ok-text (small green labels)
+ *   --promo, --promo-ink (marketing badge of catalog cards and its label)
+ *   --card-2 (second card level), --ink-soft, --accent-soft / --accent-line (active chips and
+ *   their border), --stage (preview mock-ups), --chip, --glow-2, --dot, --header-bg, --shadow, and the v24
+ *   --glass, --glass-card, --em-*, --sheen*, --beam* (ADR-015 „Rozstrzygnięcia v24”) —
+ *   Software's visualisation (ADR-015); other lines get neutral defaults below.
+ *   --c-software-light-* / --c-software-night-*  Software palette (docs/design/prokomsoftware)
+ * Contrast is checked by `tokens.test.ts` and `themes.test.ts`.
+ */
+
+:root {
+  --c-prokom: #45a02c;
+  --c-prokom-on-dark: #4fb034;
+  --c-prokom-text: #367e23;
+  /* Hub interface (pro-kom.eu visualisation): small green text that keeps 4.5:1 on its papier. */
+  --c-prokom-light-text: #2e7a1e;
+
+  --c-biznes: #244fb0;
+  --c-biznes-on-dark: #4a7be0;
+  --c-biznes-text: #244fb0;
+
+  --c-instalacje: #0093b3;
+  --c-instalacje-on-dark: #12b6d8;
+  --c-instalacje-text: #007994;
+
+  --c-software: #8b61e3;
+  --c-software-on-dark: #9670ee;
+  --c-software-text: #5b33c4; /* ADR-015: the interface text shade (was #7e58cd) */
+
+  --c-tech: #d13a2e;
+  --c-tech-on-dark: #e2483a;
+  --c-tech-text: #cb382d;
+
+  --c-zakopane: #dd8600;
+  --c-zakopane-on-dark: #f29a00;
+  --c-zakopane-text: #9f6000;
+
+  --c-grafit: #121613;
+  --c-papier: #f4f5f1;
+  --c-white: #ffffff;
+  --c-border: #e3e6df;
+  --c-input-border: #767c74;
+
+  /* Biznes — light theme of the visualisation. */
+  --c-biznes-light-surface-2: #f3f5fa;
+  --c-biznes-light-surface-3: #e9edf6;
+  --c-biznes-light-ink: #0d1326;
+  --c-biznes-light-ink-2: #4a5470;
+  --c-biznes-light-ink-3: #6b7590;
+  --c-biznes-light-border: #e2e6ef;
+  --c-biznes-light-glow: rgba(74, 123, 224, 0.22);
+  /* Studio background under product photos (K31-ZMIANY §3): gradient stops, desk, shadow. */
+  --c-biznes-light-st1: #ffffff;
+  --c-biznes-light-st2: #f2f5fb;
+  --c-biznes-light-st3: #e1e8f4;
+  --c-biznes-light-sth: rgba(36, 79, 176, 0.055);
+  --c-biznes-light-shd: rgba(13, 19, 38, 0.26);
+  /* White plate under product photos (NAPRAWA-0911 §3): photos with a white background. */
+  --c-biznes-light-plate-shadow: rgba(13, 19, 38, 0.1);
+  /* Biznes — dark theme of the visualisation. */
+  --c-biznes-night-surface: #060a15;
+  --c-biznes-night-surface-2: #0b1222;
+  --c-biznes-night-surface-3: #111a30;
+  --c-biznes-night-card: #0c1427;
+  --c-biznes-night-ink: #eef2fb;
+  --c-biznes-night-ink-2: #a6b1c9;
+  --c-biznes-night-ink-3: #7c88a4;
+  --c-biznes-night-border: #1b2440;
+  --c-biznes-night-accent-2: #8fb0f4;
+  --c-biznes-night-accent-ink: #06102a;
+  --c-biznes-night-glow: rgba(74, 123, 224, 0.42);
+  --c-biznes-night-st1: #1c2a4d;
+  --c-biznes-night-st2: #111b35;
+  --c-biznes-night-st3: #0a1226;
+  --c-biznes-night-sth: rgba(143, 176, 244, 0.06);
+  --c-biznes-night-shd: rgba(0, 0, 0, 0.6);
+  --c-biznes-night-plate-shadow: rgba(0, 0, 0, 0.45);
+  /* Biznes — dark rhythm blocks, the same in both themes. */
+  --c-biznes-navy: #0a1430;
+  /* Need tiles of the home page (icon squares, tags), from boards/Main.dc.html. */
+  --c-biznes-tone-green: #1f9d63;
+  --c-biznes-tone-green-2: #46c78b;
+  --c-biznes-tone-red: #e0482f;
+  --c-biznes-tone-red-2: #f5866a;
+  --c-biznes-tone-blue: #2563eb;
+  --c-biznes-tone-blue-2: #5b8df6;
+  --c-biznes-tone-violet: #7b4fe0;
+  --c-biznes-tone-violet-2: #a98bf5;
+  /* Darker green and red under the white corner tags (≥ 4.5:1; the tile colours give 3.5 and 4.2). */
+  --c-biznes-tone-green-tag: #15724a;
+  --c-biznes-tone-red-tag: #c43a22;
+  /* Wizard card of the home page (dark green, into navy), board `Main` `.kpxk`. */
+  --c-biznes-wizard: #0f3d2a;
+
+  /* Software — values 1:1 from docs/design/prokomsoftware/tokens.css (ADR-015). */
+  /* Software — light theme of the visualisation. */
+  --c-software-light-surface: #f4f5f1;
+  --c-software-light-surface-2: #eceee8;
+  --c-software-light-surface-3: #e3e6df;
+  --c-software-light-card: #ffffff;
+  --c-software-light-card-2: #f7f8f5;
+  /* v24: grafit 10 % on the page. */
+  --c-software-light-border: #dddfdb;
+  --c-software-light-ink: #121613;
+  --c-software-light-ink-soft: #2e342f;
+  --c-software-light-ink-2: #4f5650;
+  /* = ink-2: Software has one shade of secondary text. */
+  --c-software-light-ink-3: #4f5650;
+  /* = --c-input-border: 3.91 on surface, 3.39 on surface-3. */
+  --c-software-light-border-input: #767c74;
+  /* Small green labels: ≥ 5.28 on every light surface. */
+  --c-software-light-ok-text: #256a18;
+  /* ADR-015: white on the brand book's #8b61e3 is only 4.27, too little for a button label. */
+  --c-software-light-accent: #6e45d4;
+  /* ADR-015: also --c-software-text (was #7e58cd). */
+  --c-software-light-accent-text: #5b33c4;
+  --c-software-light-accent-ink: #ffffff;
+  --c-software-light-accent-soft: #ece7fb;
+  /* v24: violet 45 % on the page (`--gbh`). */
+  --c-software-light-accent-line: #b8a6e4;
+  --c-software-light-chip: #e8eae5;
+  --c-software-light-ok: #2e7a1e;
+  --c-software-light-warn: #a86a00;
+  /* ADR-015 v24 pkt 3: the violet glow is back (v23 pkt 2 reverted). */
+  --c-software-light-glow: rgba(150, 112, 238, 0.28);
+  --c-software-light-grid: rgba(18, 22, 19, 0.05);
+  --c-software-light-dot: rgba(18, 22, 19, 0.09);
+  /* Map mock-up of /kontakt (board `Kontakt`, `.gmaps`): decoration, no text on it. */
+  /* Contact map from OpenStreetMap (SWV4, ZMIANY-v23 §6): land, water, streets, buildings,
+     green, wood, parking, building outline, road casing, main road, paths, rail, labels. */
+  --c-software-light-map-land: #eef0ea;
+  --c-software-light-map-water: #c9dce6;
+  --c-software-light-map-road: #ffffff;
+  --c-software-light-map-block: #dddfd8;
+  --c-software-light-map-park: #dce6d2;
+  --c-software-light-map-wood: #cfddc4;
+  --c-software-light-map-parking: #e4e5e0;
+  --c-software-light-map-block-line: #cdd0c7;
+  --c-software-light-map-casing: #c9ccc3;
+  --c-software-light-map-road-main: #ffffff;
+  --c-software-light-map-path: #b4b8ae;
+  --c-software-light-map-rail: #9ea39a;
+  --c-software-light-map-label: #2e342f;
+  --c-software-light-header-bg: rgba(244, 245, 241, 0.8);
+  --c-software-light-shadow: 0 40px 90px -45px rgba(40, 30, 80, 0.35);
+  /* Software — dark theme of the visualisation. */
+  /* v24 Aurora (ZMIANY §1, `aurora.css` `.au.dark`): near-black page, glass cards over it;
+     `card` / `card-2` = the glass card laid on the page, for solid fills. */
+  --c-software-night-surface: #0b0d0c;
+  --c-software-night-surface-2: #101211;
+  --c-software-night-surface-3: #161817;
+  --c-software-night-card: #151716;
+  --c-software-night-card-2: #1c1f1d;
+  --c-software-night-border: #232524;
+  --c-software-night-ink: #eef0ec;
+  --c-software-night-ink-soft: #d9ddd8;
+  --c-software-night-ink-2: #b3b9b3;
+  --c-software-night-ink-3: #7f867f;
+  /* 4.57 on surface, 3.87 on card-2. */
+  --c-software-night-border-input: #7a817b;
+  /* = ok: ≥ 8.3 on every dark surface. */
+  --c-software-night-ok-text: #7bd36a;
+  /* = --c-software-on-dark of the brand book. */
+  --c-software-night-accent: #9670ee;
+  --c-software-night-accent-2: #c9a9ff;
+  --c-software-night-accent-text: #c9b8ff;
+  --c-software-night-accent-ink: #0b0d0c;
+  --c-software-night-accent-soft: #211d30;
+  --c-software-night-accent-line: #503f7d;
+  --c-software-night-chip: #232823;
+  --c-software-night-ok: #7bd36a;
+  --c-software-night-warn: #f2b84b;
+  --c-software-night-glow: rgba(110, 69, 212, 0.42);
+  --c-software-night-grid: rgba(255, 255, 255, 0.04);
+  --c-software-night-dot: rgba(244, 245, 241, 0.08);
+  --c-software-night-map-land: #161a17;
+  --c-software-night-map-water: #1a2a33;
+  --c-software-night-map-road: #3a403b;
+  --c-software-night-map-block: #232824;
+  --c-software-night-map-park: #1b241c;
+  --c-software-night-map-wood: #1d281e;
+  --c-software-night-map-parking: #1b1f1c;
+  --c-software-night-map-block-line: #2c322d;
+  --c-software-night-map-casing: #0e110f;
+  --c-software-night-map-road-main: #4a514b;
+  --c-software-night-map-path: #3e443f;
+  --c-software-night-map-rail: #5a615b;
+  --c-software-night-map-label: #d9ddd8;
+  --c-software-night-header-bg: rgba(11, 13, 12, 0.78);
+  --c-software-night-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.9);
+  /* ADR-015 v24 pkt 5: the footer and dark bands of Software, the same in both themes. */
+  --c-software-band: #161a17;
+
+  /* Instalacje — values 1:1 from docs/design/prokominstalacje/tokens.css (ADR-I003 §3). */
+  /* Instalacje — light theme of the visualisation. */
+  --c-instalacje-light-surface: #f4f5f1;
+  --c-instalacje-light-surface-2: #eceee8;
+  --c-instalacje-light-surface-3: #e3e6df;
+  --c-instalacje-light-card: #ffffff;
+  --c-instalacje-light-card-2: #f7f8f5;
+  --c-instalacje-light-border: #dcdfd8;
+  --c-instalacje-light-ink: #121613;
+  --c-instalacje-light-ink-soft: #2e342f;
+  /* = ink-3: the visualisation has one shade of secondary text (`--muted`). */
+  --c-instalacje-light-ink-2: #4f5650;
+  /* White on the brand book's #0093b3 is too little for a button label (visualisation note). */
+  --c-instalacje-light-accent: #007a96;
+  --c-instalacje-light-accent-text: #006a82;
+  --c-instalacje-light-accent-ink: #ffffff;
+  --c-instalacje-light-accent-soft: #e1f2f6;
+  --c-instalacje-light-accent-line: #b6dde6;
+  --c-instalacje-light-ok: #2e7a1e;
+  --c-instalacje-light-warn: #a86a00;
+  --c-instalacje-light-bad: #b3261e;
+  --c-instalacje-light-glow: rgba(0, 122, 150, 0.24);
+  --c-instalacje-light-dot: rgba(18, 22, 19, 0.08);
+  --c-instalacje-light-header-bg: rgba(244, 245, 241, 0.86);
+  --c-instalacje-light-shadow: 0 36px 80px -30px rgba(20, 60, 70, 0.32);
+  /* Instalacje — dark theme of the visualisation. */
+  --c-instalacje-night-surface: #101412;
+  --c-instalacje-night-surface-2: #151916;
+  --c-instalacje-night-surface-3: #1b201c;
+  --c-instalacje-night-card: #191e1a;
+  --c-instalacje-night-card-2: #1f251f;
+  --c-instalacje-night-border: #2a302b;
+  --c-instalacje-night-ink: #f4f5f1;
+  --c-instalacje-night-ink-soft: #d9ddd8;
+  --c-instalacje-night-ink-2: #b5bbb5;
+  /* = --c-instalacje-on-dark of the brand book. */
+  --c-instalacje-night-accent: #12b6d8;
+  --c-instalacje-night-accent-text: #4ccbe6;
+  --c-instalacje-night-accent-ink: #06181c;
+  --c-instalacje-night-accent-soft: #0f272b;
+  --c-instalacje-night-accent-line: #1f4e57;
+  --c-instalacje-night-ok: #7bd36a;
+  --c-instalacje-night-warn: #f2b84b;
+  --c-instalacje-night-bad: #f07a6a;
+  --c-instalacje-night-glow: rgba(18, 182, 216, 0.36);
+  --c-instalacje-night-dot: rgba(244, 245, 241, 0.07);
+  --c-instalacje-night-header-bg: rgba(16, 20, 18, 0.8);
+  --c-instalacje-night-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+  /* Not in the visualisation; chosen for the contrast tests (themes.test.ts). Dark blocks: the
+     visualisation's `--ink` (#0b1416), the same in both themes. */
+  --c-instalacje-surface-dark: #0b1416;
+  --c-instalacje-light-border-input: #767c74;
+  --c-instalacje-light-ok-text: #256a18;
+  --c-instalacje-night-border-input: #7a817b;
+  /* Shell of the visualisation v4.2 (I3, `pk.css`): the CTA band and the footer are dark in
+     both themes; the bottom bar and the menu sheet cast their own shadows. */
+  --c-instalacje-band: #0e1a1d;
+  --c-instalacje-band-line: #1f4e57;
+  --c-instalacje-band-ink: #f4f5f1;
+  --c-instalacje-band-lead: #b5c7cb;
+  --c-instalacje-band-note: #9fb0b4;
+  --c-instalacje-band-glow: rgba(18, 182, 216, 0.35);
+  --c-instalacje-band-button: #12b6d8;
+  --c-instalacje-band-button-ink: #06181c;
+  --c-instalacje-band-button-glow: rgba(18, 182, 216, 0.6);
+  --c-instalacje-band-ghost: rgba(14, 26, 29, 0.5);
+  --c-instalacje-band-ghost-ring: rgba(255, 255, 255, 0.22);
+  --c-instalacje-band-phone: #f2b84b;
+  --c-instalacje-foot-top: #071214;
+  --c-instalacje-foot-mid: #061012;
+  --c-instalacje-foot-bottom: #050b0d;
+  --c-instalacje-foot-glow: rgba(18, 182, 216, 0.08);
+  --c-instalacje-foot-ink: #f2f6f7;
+  --c-instalacje-foot-ink-2: #7f9398;
+  --c-instalacje-foot-text: #9fb0b4;
+  --c-instalacje-foot-line: rgba(255, 255, 255, 0.08);
+  --c-instalacje-foot-rule: #142226;
+  --c-instalacje-foot-accent: #4ccbe6;
+  --c-instalacje-foot-card: rgba(255, 255, 255, 0.035);
+  --c-instalacje-foot-card-hover: rgba(255, 255, 255, 0.06);
+  --c-instalacje-foot-card-ring: rgba(255, 255, 255, 0.07);
+  --c-instalacje-foot-icon-bg: rgba(76, 203, 230, 0.12);
+  --c-instalacje-foot-ridge: rgba(76, 203, 230, 0.35);
+  --c-instalacje-foot-cta-from: #12b6d8;
+  --c-instalacje-foot-cta-to: #0a8fad;
+  --c-instalacje-foot-cta-glow: rgba(18, 182, 216, 0.8);
+  --c-instalacje-foot-cta-icon: rgba(255, 255, 255, 0.18);
+  --c-instalacje-foot-white: #ffffff;
+  --c-instalacje-foot-chip: #7fe0b0;
+  --c-instalacje-foot-chip-bg: rgba(70, 199, 139, 0.12);
+  --c-instalacje-foot-chip-2: #8fd8ea;
+  --c-instalacje-scrim: rgba(5, 10, 9, 0.52);
+  --c-instalacje-live-ping: rgba(123, 211, 106, 0.55);
+  --c-instalacje-bar-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6);
+  --c-instalacje-sheet-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.55);
+  --c-instalacje-tab-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.5);
+
+  /* Service pages of the visualisation v4.2 (I4, `pk.css`): the antenna scene, the meter,
+     multiplexes, the LTE/5G spectrum, switches and quiz results - the same in both themes;
+     `-light`/`-night` pairs flip with the theme. Dark cards reuse the CTA band above. */
+  --c-instalacje-mask: #000000;
+  --c-instalacje-seg-shadow: rgba(0, 0, 0, 0.4);
+  --c-instalacje-light-hero-top: #eaf4f7;
+  --c-instalacje-light-hero-ridge-1: rgba(0, 122, 150, 0.07);
+  --c-instalacje-light-hero-ridge-2: rgba(0, 122, 150, 0.05);
+  --c-instalacje-night-hero-ridge-1: rgba(76, 203, 230, 0.05);
+  --c-instalacje-night-hero-ridge-2: rgba(255, 255, 255, 0.025);
+  --c-instalacje-light-ill-top: #ffffff;
+  --c-instalacje-light-ill-bottom: #f6f8f6;
+  --c-instalacje-night-ill-top: #1c2320;
+  --c-instalacje-night-ill-bottom: #141917;
+  --c-instalacje-light-ill-shadow: 0 40px 90px -40px rgba(20, 60, 70, 0.38);
+  --c-instalacje-night-ill-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 50px 100px -40px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(76, 203, 230, 0.04);
+  --c-instalacje-night-ill-shadow-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 50px 100px -40px rgba(0, 0, 0, 0.85);
+  --c-instalacje-ill-glow: rgba(76, 203, 230, 0.1);
+  --c-instalacje-light-illbar-top: #fafbfa;
+  --c-instalacje-light-illbar-bottom: #f4f6f4;
+  --c-instalacje-night-illbar-top: rgba(255, 255, 255, 0.035);
+  --c-instalacje-night-illbar-bottom: rgba(255, 255, 255, 0);
+  --c-instalacje-light-scene-sky-1: #bfd9e2;
+  --c-instalacje-light-scene-sky-2: #e6eff1;
+  --c-instalacje-night-scene-sky-1: #0b1a22;
+  --c-instalacje-night-scene-sky-2: #1c3440;
+  --c-instalacje-light-scene-ridge: #9fb6bc;
+  --c-instalacje-night-scene-ridge: #1c2e33;
+  --c-instalacje-light-scene-ground: #c9d3cb;
+  --c-instalacje-night-scene-ground: #1e2a26;
+  --c-instalacje-scene-snow: #eef3f4;
+  --c-instalacje-scene-wood-1: #a8774e;
+  --c-instalacje-scene-wood-2: #6a4326;
+  --c-instalacje-scene-wall-line: #4a3524;
+  --c-instalacje-scene-roof-1: #5e4232;
+  --c-instalacje-scene-roof-2: #2c1f17;
+  --c-instalacje-scene-lit-1: #ffebb8;
+  --c-instalacje-scene-lit-2: #f2b24b;
+  --c-instalacje-scene-beam: #7f9296;
+  --c-instalacje-scene-mast: #9aa5a8;
+  --c-instalacje-scene-metal-1: #f2f5f6;
+  --c-instalacje-scene-metal-2: #c3cbcf;
+  --c-instalacje-scene-metal-3: #8e999e;
+  --c-instalacje-scene-metal-line: #8c9a9e;
+  --c-instalacje-scene-acc-1: #6fddf2;
+  --c-instalacje-scene-acc-2: #0e8fae;
+  --c-instalacje-scene-yagi: #d9ddd8;
+  --c-instalacje-scene-compass: rgba(10, 18, 20, 0.6);
+  --c-instalacje-scene-drop: #000000;
+  --c-instalacje-meter-idle: #2a3a3e;
+  --c-instalacje-meter-lock-ink: #0b1a0e;
+  --c-instalacje-meter-track: rgba(255, 255, 255, 0.08);
+  --c-instalacje-dark-icon-bg: rgba(76, 203, 230, 0.14);
+  --c-instalacje-go: #2e9e55;
+  --c-instalacje-go-bg: rgba(46, 158, 85, 0.16);
+  --c-instalacje-go-tint: rgba(46, 158, 85, 0.08);
+  --c-instalacje-mux-ok-bg: rgba(123, 211, 106, 0.16);
+  --c-instalacje-mux-old-bg: rgba(242, 184, 75, 0.18);
+  --c-instalacje-res-bad-bg: rgba(242, 184, 75, 0.08);
+  /* Amber text on the amber tint of a light card (`--warn` gives 4.0:1 there). */
+  --c-instalacje-light-warn-text: #8a5700;
+  --c-instalacje-switch-off: #3a1e1f;
+  --c-instalacje-switch-off-ink: #ffb1b1;
+  --c-instalacje-switch-track: rgba(255, 255, 255, 0.12);
+  --c-instalacje-spec-bg: #0b1418;
+  --c-instalacje-spec-ink: #e8f0f1;
+  --c-instalacje-spec-tv-1: rgba(18, 182, 216, 0.35);
+  --c-instalacje-spec-tv-2: rgba(18, 182, 216, 0.12);
+  --c-instalacje-spec-sub: #b5c4c8;
+  --c-instalacje-spec-lte-1: rgba(240, 122, 106, 0.45);
+  --c-instalacje-spec-lte-2: rgba(240, 122, 106, 0.3);
+  --c-instalacje-spec-filter-bg: rgba(11, 20, 24, 0.55);
+  --c-instalacje-sat-dish: #d3d9da;
+  --c-instalacje-sat-dish-line: #9aa6a9;
+  --c-instalacje-sat-tv: #0b1012;
+  /* Hues of the satellite cards (the colours of Wi-Fi and Anteny in the prototype's menu). */
+  --c-instalacje-hue-blue: #5b8cf0;
+  --c-instalacje-hue-violet: #b58cf0;
+
+  /* Home sections of the visualisation v4.2 (I6, `pk.css`, `Main.body.html`): colour bands,
+     "Dla kogo" cards, the mountain band - `-light`/`-night` pairs flip with the theme; the
+     service teaser, the services card and the quick plan form are dark in both themes. */
+  --c-instalacje-light-band-soft: #ebf0ee;
+  --c-instalacje-night-band-soft: #141916;
+  --c-instalacje-light-band-tint: #e2f1f4;
+  --c-instalacje-night-band-tint: #0f1f22;
+  --c-instalacje-light-band-plan-1: #d6eef3;
+  --c-instalacje-night-band-plan-1: #0f2e33;
+  --c-instalacje-light-band-plan-2: #e7f1e2;
+  --c-instalacje-night-band-plan-2: #1b2a1a;
+  --c-instalacje-light-ob-2: #fbefd8;
+  --c-instalacje-light-obi-2: #9a5e00;
+  --c-instalacje-light-ob-3: #e4ecf9;
+  --c-instalacje-light-obi-3: #2e5ca6;
+  --c-instalacje-light-ob-4: #e4f1df;
+  --c-instalacje-light-ob-5: #f8e5e1;
+  --c-instalacje-light-obi-5: #a83a27;
+  --c-instalacje-light-ob-1: #e0f1f5;
+  --c-instalacje-night-ob-2: #2a2213;
+  --c-instalacje-night-ob-3: #142034;
+  --c-instalacje-night-obi-3: #8db4f0;
+  --c-instalacje-night-ob-4: #16261a;
+  --c-instalacje-night-ob-5: #2c1a17;
+  --c-instalacje-night-obi-5: #f28a78;
+  --c-instalacje-light-ob-ring: rgba(0, 0, 0, 0.04);
+  --c-instalacje-night-ob-ring: rgba(255, 255, 255, 0.06);
+  --c-instalacje-ob-shadow: rgba(0, 0, 0, 0.6);
+  --c-instalacje-light-ob-chip: rgba(255, 255, 255, 0.75);
+  --c-instalacje-light-gor-top: #d7ebf3;
+  --c-instalacje-light-gor-mid: #eef6f8;
+  --c-instalacje-light-gor-bottom: #f7fafa;
+  --c-instalacje-light-gor-ring: #cfe2ea;
+  --c-instalacje-light-gor-card: rgba(255, 255, 255, 0.85);
+  /* The prototype's dark band has two stops; the middle one is its value at 75%. */
+  --c-instalacje-night-gor-top: #0e1e28;
+  --c-instalacje-night-gor-mid: #101b21;
+  --c-instalacje-night-gor-bottom: #111a1f;
+  --c-instalacje-light-gor-mt: #c3dbe5;
+  --c-instalacje-night-gor-mt: #1a2c36;
+  --c-instalacje-us-glow-1: rgba(18, 182, 216, 0.1);
+  --c-instalacje-us-glow-2: rgba(232, 111, 176, 0.08);
+  --c-instalacje-us-glow-3: rgba(123, 211, 106, 0.08);
+  --c-instalacje-us-bar-shadow: rgba(0, 0, 0, 0.45);
+  --c-instalacje-us-stage-end: #081012;
+  --c-instalacje-us-stage-ring: rgba(255, 255, 255, 0.06);
+  --c-instalacje-us-tag: rgba(8, 16, 18, 0.7);
+  --c-instalacje-deep-1: #0f3a44;
+  --c-instalacje-deep-2: #0b1a1d;
+  --c-instalacje-deep-3: #081113;
+  --c-instalacje-deep-ring: rgba(76, 203, 230, 0.2);
+  --c-instalacje-deep-lead: #b8c6c9;
+  --c-instalacje-deep-note: #a9babe;
+  --c-instalacje-deep-tile: rgba(255, 255, 255, 0.05);
+  --c-instalacje-orbit-1: rgba(76, 203, 230, 0.28);
+  --c-instalacje-orbit-2: rgba(76, 203, 230, 0.18);
+  --c-instalacje-plan-1: #16301f;
+  --c-instalacje-plan-bg: #071214;
+  --c-instalacje-plan-bg-2: #0b1618;
+  --c-instalacje-plan-bg-3: #152226;
+  --c-instalacje-plan-glass-top: rgba(255, 255, 255, 0.06);
+  --c-instalacje-light-plan-glass-top: rgba(255, 255, 255, 0.07);
+  --c-instalacje-plan-glass-bottom: rgba(255, 255, 255, 0.02);
+  --c-instalacje-plan-tile: rgba(255, 255, 255, 0.04);
+  --c-instalacje-plan-step: rgba(255, 255, 255, 0.03);
+  --c-instalacje-plan-num: rgba(255, 255, 255, 0.1);
+  --c-instalacje-plan-box: rgba(255, 255, 255, 0.25);
+  --c-instalacje-plan-rule: rgba(255, 255, 255, 0.14);
+  --c-instalacje-plan-card-ink: #dde8ea;
+  --c-instalacje-plan-chip-ink: #c9d6d9;
+  --c-instalacje-plan-placeholder: #5e7076;
+  --c-instalacje-plan-on-ink: #062026;
+  --c-instalacje-plan-send: rgba(76, 203, 230, 0.35);
+  --c-instalacje-plan-send-glow: rgba(18, 182, 216, 0.9);
+  --c-instalacje-plan-chip-on: rgba(76, 203, 230, 0.2);
+  --c-instalacje-plan-step-bg: rgba(76, 203, 230, 0.16);
+  --c-instalacje-plan-ok-glow: rgba(46, 158, 85, 0.2);
+  --c-instalacje-plan-ok-bg: rgba(46, 158, 85, 0.14);
+  /* Green under white text (step done, zone found): the prototype's #2e9e55 gives 3.4:1. */
+  --c-instalacje-plan-ok-label: #258543;
+  --c-instalacje-plan-err-bg: rgba(240, 122, 106, 0.14);
+  --c-instalacje-plan-err: #ff9a8a;
+  --c-instalacje-ticket-1: #103e48;
+  --c-instalacje-ticket-2: #0a171a;
+  --c-instalacje-ticket-ring-bg: #10262b;
+  /* Prototype #8fa3a8 gives 4.4:1 on the ticket's top stop. */
+  --c-instalacje-ticket-mut: #91a5aa;
+  --c-instalacje-ticket-rule: rgba(255, 255, 255, 0.07);
+  --c-instalacje-ticket-shadow: rgba(0, 0, 0, 0.8);
+
+  /* tokeny-stron: illustrations and widgets of the pages I7–I16 (narzedzia/tokeny-stron.mjs). */
+  --c-instalacje-il-note-w-bg: rgba(242, 184, 75, 0.1);
+  --c-instalacje-il-note-w-sh: rgba(242, 184, 75, 0.35);
+  --c-instalacje-il-win-lit-fill: #ffe3a3;
+  --c-instalacje-il-cone-ir-fill: #7fe3f7;
+  --c-instalacje-il-phone-bg: #0b0f0d;
+  --c-instalacje-il-phone-sh: #2a302b;
+  --c-instalacje-il-phs-bg: #141a17;
+  --c-instalacje-il-phh-c: #b5bbb5;
+  --c-instalacje-il-tile-bg: #1e2622;
+  --c-instalacje-il-tile-bg-2: #10313a;
+  --c-instalacje-il-tile-c: #8de7f8;
+  --c-instalacje-il-odi-sh: rgba(18, 182, 216, 0.25);
+  --c-instalacje-il-nvr-bg: #0a1214;
+  --c-instalacje-il-nvr-c: #e6eef0;
+  --c-instalacje-il-nvr-sh: #1f3a40;
+  --c-instalacje-il-nvrh-bord: #1a2b2f;
+  --c-instalacje-il-nvrh-c: #f07a6a;
+  --c-instalacje-il-tline-bg: #111c1f;
+  --c-instalacje-il-tgl-c: #c9d3d5;
+  --c-instalacje-il-dori-bg: rgba(123, 211, 106, 0.22);
+  --c-instalacje-il-dori-bg-2: rgba(18, 182, 216, 0.18);
+  --c-instalacje-il-dori-bg-3: rgba(240, 122, 106, 0.16);
+  --c-instalacje-il-sign-bg: #f2c230;
+  --c-instalacje-il-sign-c: #14110a;
+  --c-instalacje-il-sign-bord: rgba(20, 17, 10, 0.25);
+  --c-instalacje-light-il-house-hsky: #bfd9e2;
+  --c-instalacje-night-il-house-hsky: #0b1a22;
+  --c-instalacje-light-il-house-hsky-2: #e3eef0;
+  --c-instalacje-night-il-house-hsky-2: #16303a;
+  --c-instalacje-light-il-house-hmtn: #a9bfc4;
+  --c-instalacje-night-il-house-hmtn: #1c2e33;
+  --c-instalacje-light-il-house-hgnd: #c9d3cb;
+  --c-instalacje-night-il-house-hgnd: #1e2a26;
+  --c-instalacje-light-il-hroof-fill: #6b4a36;
+  --c-instalacje-night-il-hroof-fill: #4a3226;
+  --c-instalacje-light-il-hwall-fill: #eadcc6;
+  --c-instalacje-night-il-hwall-fill: #2b2420;
+  --c-instalacje-il-hwall-line: #5b4632;
+  --c-instalacje-il-hdoor-line: #3a2a1c;
+  --c-instalacje-il-hgate-fill: #0a1418;
+  --c-instalacje-il-hgate-line: #5a615c;
+  --c-instalacje-light-il-hwin-fill: #9fc6d2;
+  --c-instalacje-night-il-hwin-fill: #ffd27a;
+  --c-instalacje-il-sir-fill: #3a3f3c;
+  --c-instalacje-light-il-kin-fill: #ffe7b0;
+  --c-instalacje-night-il-kin-fill: #0b1418;
+  --c-instalacje-il-klf-fill: #7b5a3c;
+  --c-instalacje-il-klock-fill: #151a18;
+  --c-instalacje-il-kkey-bg: #17262a;
+  --c-instalacje-il-kkey-sh: rgba(0, 0, 0, 0.35);
+  --c-instalacje-light-il-evs-esk: #cfe3ea;
+  --c-instalacje-night-il-evs-esk: #0b1a22;
+  /* Ładowarki (I9): background of the charger photos (pk.css --evT1/--evT2) and their glow (--evG). */
+  --c-instalacje-light-il-evtile-1: #ffffff;
+  --c-instalacje-night-il-evtile-1: #1a2220;
+  --c-instalacje-light-il-evtile-2: #e6eae3;
+  --c-instalacje-night-il-evtile-2: #0d1211;
+  --c-instalacje-light-il-evglow: rgba(95, 208, 176, 0.35);
+  --c-instalacje-night-il-evglow: rgba(95, 208, 176, 0.3);
+  /* „Dla kogo” (I10): cross-section scenes of the object pages (pk.css `.pk` --sg*: sky, walls,
+     roof, furniture, devices, labels). */
+  --c-instalacje-light-sg-s1: #d8ecf2;
+  --c-instalacje-night-sg-s1: #0f1d23;
+  --c-instalacje-light-sg-s2: #f1f6f2;
+  --c-instalacje-night-sg-s2: #16262b;
+  --c-instalacje-light-sg-mt1: #c9dce0;
+  --c-instalacje-night-sg-mt1: #1b2a2e;
+  --c-instalacje-light-sg-mt2: #bcd3d6;
+  --c-instalacje-night-sg-mt2: #1f3033;
+  --c-instalacje-light-sg-gr: #c7dabf;
+  --c-instalacje-night-sg-gr: #1c2a22;
+  --c-instalacje-light-sg-w: #e4d9c6;
+  --c-instalacje-night-sg-w: #3a3f3f;
+  --c-instalacje-light-sg-in: #fbf7f0;
+  --c-instalacje-night-sg-in: #1e2427;
+  --c-instalacje-light-sg-roof: #8a5a3c;
+  --c-instalacje-night-sg-roof: #4a2f25;
+  --c-instalacje-light-sg-fl: #c9af8c;
+  --c-instalacje-night-sg-fl: #5a4532;
+  --c-instalacje-light-sg-fu: #a8865f;
+  --c-instalacje-night-sg-fu: #6e5640;
+  --c-instalacje-light-sg-pil: #e9e0d0;
+  --c-instalacje-night-sg-pil: #2e3536;
+  --c-instalacje-light-sg-lb: #5e6a6c;
+  --c-instalacje-night-sg-lb: #8fa3a7;
+  --c-instalacje-light-sg-ln: #b7ae9f;
+  --c-instalacje-night-sg-ln: #56626a;
+  --c-instalacje-light-sg-dev: #3b4a50;
+  --c-instalacje-night-sg-dev: #c9d3d6;
+  --c-instalacje-light-sg-win: #bfd6de;
+  --c-instalacje-night-sg-win: #2a3a40;
+  --c-instalacje-light-sg-lit: #f2b84b;
+  --c-instalacje-night-sg-lit: #f2b84b;
+  --c-instalacje-light-sg-pp: #8a979b;
+  --c-instalacje-night-sg-pp: #6f8187;
+  --c-instalacje-light-sg-tree: #5e8a5a;
+  --c-instalacje-night-sg-tree: #24402f;
+  --c-instalacje-il-evsnow-fill: #e8eef0;
+  --c-instalacje-il-evcab-line: #1a1f1c;
+  --c-instalacje-il-evbody-fill: #e6ecee;
+  --c-instalacje-il-evglass-fill: #1e3a44;
+  --c-instalacje-il-evbat-fill: rgba(10, 18, 20, 0.78);
+  --c-instalacje-il-shwin-fill: #9fc6d2;
+  --c-instalacje-light-il-shbl-fill: #7f8784;
+  --c-instalacje-night-il-shbl-fill: #3a4246;
+  --c-instalacje-il-sl-menu-bg: #2a1d14;
+  --c-instalacje-il-sl-menu-bg-2: #120c08;
+  --c-instalacje-il-sl-menu-c: #f6e7cf;
+  --c-instalacje-il-sl-win-bg: #0a5c70;
+  --c-instalacje-il-sl-conf-c: #121613;
+  --c-instalacje-il-mni-bord: rgba(246, 231, 207, 0.35);
+  --c-instalacje-il-cfb-bg: #007a96;
+  --c-instalacje-light-il-ans-ask: #e6eff1;
+  --c-instalacje-night-il-ans-ask: #1c3440;
+  --c-instalacje-light-il-anmt-fill: #9fb6bc;
+  --c-instalacje-night-il-anmt-fill: #1c2e33;
+  --c-instalacje-il-anroof-fill: #4a3226;
+  --c-instalacje-il-anwin-fill: #ffd27a;
+  --c-instalacje-il-anpan-fill: #2c6e9b;
+  --c-instalacje-il-fot-knum2-c: #e6c27a;
+  --c-instalacje-il-syph-fill: #121a1c;
+  --c-instalacje-il-syscr-fill: #2c3e46;
+  --c-instalacje-il-synote-fill: #1e2a2d;
+  --c-instalacje-il-labres-bg: rgba(123, 211, 106, 0.12);
+  --c-instalacje-il-synf-bg: #0a1a1e;
+  --c-instalacje-il-synf-sh: #050a0b;
+  --c-instalacje-il-synf-sh-2: #2a3438;
+  --c-instalacje-il-synft-c: #6f8388;
+  --c-instalacje-il-jsvis-bg: #1b262b;
+  --c-instalacje-il-jssun-bg: #fff4d8;
+  --c-instalacje-il-jssun-bg-2: rgba(255, 244, 216, 0);
+  --c-instalacje-il-jsscr-bg: #c0392b;
+  --c-instalacje-il-ldz1-bg: rgba(240, 122, 106, 0.35);
+  --c-instalacje-il-hsd-fill: #4a3020;
+  --c-instalacje-light-il-phero-hglow2-bg: rgba(242, 184, 75, 0.22);
+  --c-instalacje-night-il-phero-hglow2-bg: rgba(242, 184, 75, 0.14);
+  --c-instalacje-light-il-phm1-fill: rgba(0, 122, 150, 0.07);
+  --c-instalacje-night-il-phm1-fill: rgba(76, 203, 230, 0.05);
+  --c-instalacje-light-il-phm2-fill: rgba(0, 122, 150, 0.05);
+  --c-instalacje-night-il-phm2-fill: rgba(255, 255, 255, 0.025);
+  --c-instalacje-light-il-ill-bg: #ffffff;
+  --c-instalacje-night-il-ill-bg: #1c2320;
+  --c-instalacje-light-il-ill-bg-2: #f6f8f6;
+  --c-instalacje-night-il-ill-bg-2: #141917;
+  --c-instalacje-light-il-ill-sh: rgba(20, 60, 70, 0.38);
+  --c-instalacje-night-il-ill-sh: rgba(255, 255, 255, 0.06);
+  --c-instalacje-il-ill-sh-2: rgba(0, 0, 0, 0.85);
+  --c-instalacje-il-ill-sh-3: rgba(76, 203, 230, 0.04);
+  --c-instalacje-light-il-illbar-bg: #fafbfa;
+  --c-instalacje-night-il-illbar-bg: rgba(255, 255, 255, 0.035);
+  --c-instalacje-light-il-house-hwall-line: #b08a62;
+  --c-instalacje-night-il-house-hwall-line: #6b5238;
+  --c-instalacje-il-house-hfloor-line: #7a5a3c;
+  --c-instalacje-il-kdoor-kpn-line: #5e3d22;
+  --c-instalacje-light-il-shp-shout-line: #8e9a9e;
+  --c-instalacje-night-il-shp-shout-line: #6c7a7e;
+  --c-instalacje-light-il-shfu-fill: rgba(60, 40, 20, 0.06);
+  --c-instalacje-night-il-shfu-fill: rgba(255, 255, 255, 0.06);
+  --c-instalacje-light-il-shfu-line: rgba(60, 40, 20, 0.18);
+  --c-instalacje-night-il-shfu-line: rgba(255, 255, 255, 0.16);
+  --c-instalacje-light-il-shfu-t-fill: rgba(60, 40, 20, 0.1);
+  --c-instalacje-night-il-shfu-t-fill: rgba(255, 255, 255, 0.1);
+  --c-instalacje-light-il-cons-bg: #2b3335;
+  --c-instalacje-night-il-cons-bg: #22292b;
+  --c-instalacje-light-il-cons-bg-2: #1c2224;
+  --c-instalacje-night-il-cons-bg-2: #161b1d;
+  --c-instalacje-il-cons-bg-3: rgba(255, 255, 255, 0.012);
+  --c-instalacje-il-clcd-bg: #0b2a30;
+  --c-instalacje-il-clcd-bg-2: #082025;
+  --c-instalacje-il-clcd-sh: rgba(76, 203, 230, 0.25);
+  --c-instalacje-il-clcd-c: #9fe7f5;
+  --c-instalacje-il-clcd-text: rgba(76, 203, 230, 0.6);
+  --c-instalacje-il-cmet-bg: #1b2a1e;
+  --c-instalacje-il-cmet-sh: rgba(86, 209, 110, 0.6);
+  --c-instalacje-il-cmet-r-bg: #2e1a1a;
+  --c-instalacje-il-cmet-r-sh: rgba(255, 90, 90, 0.6);
+  --c-instalacje-il-ctk-c: #7d8a8d;
+  --c-instalacje-il-crng-bg: #f3f6f6;
+  --c-instalacje-il-crng-bg-2: #bac4c6;
+  --c-instalacje-il-crng-bg-3: #2b3335;
+  --c-instalacje-il-crng-bg-4: #aeb9bb;
+  --c-instalacje-il-crng-bg-5: #e3e8e8;
+  --c-instalacje-il-crng-sh: rgba(0, 0, 0, 0.3);
+  --c-instalacje-il-cmas-bg: rgba(0, 0, 0, 0.28);
+  --c-instalacje-il-cgr-bg: #c98b1c;
+  --c-instalacje-il-cgr-sh: rgba(20, 17, 10, 0.4);
+  --c-instalacje-light-il-kmap2-k: #eef0e8;
+  --c-instalacje-night-il-kmap2-k: #0e1517;
+  --c-instalacje-light-il-kmap2-kt: #1b2629;
+  --c-instalacje-night-il-kmap2-kt: #e6eef0;
+  --c-instalacje-light-il-kmap2-kmut: #5c6e72;
+  --c-instalacje-night-il-kmap2-kmut: #8fa3a8;
+  --c-instalacje-light-il-kmap2-kcl: rgba(90, 80, 60, 0.16);
+  --c-instalacje-night-il-kmap2-kcl: rgba(160, 200, 205, 0.13);
+  --c-instalacje-light-il-kmap2-kriv: #3b9cc2;
+  --c-instalacje-night-il-kmap2-kriv: #3fa9c9;
+  --c-instalacje-light-il-kmap2-krd: #e3a532;
+  --c-instalacje-night-il-kmap2-krd: #e8c27a;
+  --c-instalacje-light-il-kmap2-krd-2: #ffffff;
+  --c-instalacje-night-il-kmap2-krd-2: #0e1517;
+  --c-instalacje-light-il-kmap2-kr0-fill: #e3e8d6;
+  --c-instalacje-night-il-kmap2-kr0-fill: #142124;
+  --c-instalacje-light-il-kmap2-kr1-fill: #d8e2c6;
+  --c-instalacje-night-il-kmap2-kr1-fill: #182a2d;
+  --c-instalacje-light-il-kmap2-kr2-fill: #cbdab6;
+  --c-instalacje-night-il-kmap2-kr2-fill: #1d3235;
+  --c-instalacje-light-il-kmap2-kr3-fill: #c4d0a8;
+  --c-instalacje-night-il-kmap2-kr3-fill: #233b3e;
+  --c-instalacje-light-il-kmap2-kr4-fill: #d2cda4;
+  --c-instalacje-night-il-kmap2-kr4-fill: #2a4447;
+  --c-instalacje-light-il-kmap2-kr5-fill: #d8c79e;
+  --c-instalacje-night-il-kmap2-kr5-fill: #334f53;
+  --c-instalacje-light-il-kmap2-kr6-fill: #d2bc98;
+  --c-instalacje-night-il-kmap2-kr6-fill: #3f5d62;
+  --c-instalacje-light-il-kmap2-kr7-fill: #e2d6c8;
+  --c-instalacje-night-il-kmap2-kr7-fill: #5a7880;
+  --c-instalacje-light-il-kmap2-kr8-fill: #f7f5f2;
+  --c-instalacje-night-il-kmap2-kr8-fill: #8fa9b0;
+  --c-instalacje-light-il-kmap2-kreg-fill: #6b5e4e;
+  --c-instalacje-night-il-kmap2-kreg-fill: #dde8ea;
+  --c-instalacje-il-zkcard-sh: rgba(0, 0, 0, 0.55);
+  --c-instalacje-il-zkerr-bg: rgba(240, 122, 106, 0.12);
+  --c-instalacje-light-il-zkerr-c: #b8412f;
+  --c-instalacje-night-il-zkerr-c: #e5604e;
+  --c-instalacje-il-idchip-bg: #f6d98a;
+  --c-instalacje-il-idchip-bg-2: #c9a04a;
+  --c-instalacje-il-idchip-sh: rgba(0, 0, 0, 0.2);
+  --c-instalacje-il-idwave-bd: rgba(11, 20, 24, 0.5);
+  --c-instalacje-il-lkst-c: #e5604e;
+  --c-instalacje-light-il-sgstain-fill: #b8a6e6;
+  --c-instalacje-night-il-sgstain-fill: #7a5cc9;
+  --c-instalacje-il-sgorg-fill: #b9a58a;
+  --c-instalacje-il-sgalt-fill: #d9c9a8;
+  --c-instalacje-il-sgscr-fill: #0b1114;
+  --c-instalacje-il-sgtx-line: #e86fb0;
+  --c-instalacje-il-sgrack-fill: #121a1d;
+  --c-instalacje-il-sgloop-line: #f29a4b;
+  --c-instalacje-il-sgcar-sgwh-fill: #111111;
+  --c-instalacje-il-sggw-bg: #10262c;
+  --c-instalacje-il-sggw-bg-2: #0b1517;
+  --c-instalacje-il-sggm-fill: rgba(76, 203, 230, 0.08);
+  --c-instalacje-il-sgstars-fill: #e8f1f3;
+  --c-instalacje-light-il-sgstars-sgmoon-fill: #ffe59a;
+  --c-instalacje-night-il-sgstars-sgmoon-fill: #f4e7c2;
+  --c-instalacje-il-sgsnow-fill: #e9f2f4;
+  --c-instalacje-light-il-sgshl-line: rgba(60, 30, 10, 0.25);
+  --c-instalacje-night-il-sgshl-line: rgba(0, 0, 0, 0.28);
+  --c-instalacje-light-il-sgpkl-line: rgba(90, 60, 30, 0.14);
+  --c-instalacje-night-il-sgpkl-line: rgba(0, 0, 0, 0.16);
+  --c-instalacje-il-sgchand-line: #c9a86a;
+  --c-instalacje-il-sgfrig-fill: #c9d6da;
+  --c-instalacje-il-sgfrig-fill-2: #5a6a70;
+  --c-instalacje-il-sgbot-fill: #6fb0a0;
+  --c-instalacje-il-sgtrb-fill: #d9dfe1;
+  --c-instalacje-il-sgtrb-fill-2: #6e7c82;
+  --c-instalacje-il-sgslab-fill: #a9aead;
+  --c-instalacje-il-sgslab-fill-2: #6c7473;
+  --c-instalacje-il-sgblk-fill: #c99a72;
+  --c-instalacje-il-sgscaf-line: #e8a23a;
+  --c-instalacje-il-sgcrl-line: #b98420;
+  --c-instalacje-il-sgsteel-fill: #7d8c93;
+  --c-instalacje-il-sgsolar-fill: #2c4a7a;
+  --c-instalacje-il-sgsolar-line: #9fb8e0;
+  --c-instalacje-il-sgbed-fill: #e9dcc8;
+  --c-instalacje-il-sgbed-fill-2: #4e5a5e;
+  --c-instalacje-il-sgev-fill: #5fd0b0;
+  --c-instalacje-il-sgboard-fill: #2e5a3f;
+  --c-instalacje-il-sgtbox-fill: #8c9cf5;
+  --c-instalacje-light-il-sggar-fill: #d9d6ce;
+  --c-instalacje-night-il-sggar-fill: #1a2124;
+  --c-instalacje-il-xc-err-c: #e5484d;
+  --c-instalacje-il-evtile-filt: rgba(0, 0, 0, 0.34);
+  --c-instalacje-il-evcv-filt: rgba(0, 0, 0, 0.36);
+  --c-instalacje-il-artv-fill: #0b1416;
+  --c-instalacje-il-artv-line: #2b3a3f;
+  --c-instalacje-il-arpanel-fill: #1e2a2e;
+  --c-instalacje-il-arrackl-line: #2b4a52;
+  --c-instalacje-il-aropa-bg: #16424c;
+  --c-instalacje-il-aropa-sh: rgba(76, 203, 230, 0.15);
+  --c-instalacje-il-aropa-fill: #2a5560;
+  --c-instalacje-il-arerr-bg: rgba(224, 100, 90, 0.12);
+  --c-instalacje-il-arcar-fill: #4f6d85;
+  --c-instalacje-il-arwheel-fill: #1a2226;
+  --c-instalacje-il-ardvb-line: rgba(255, 255, 255, 0.09);
+  --c-instalacje-il-ardvb-mute: #93a6ab;
+  --c-instalacje-il-ardvb-soft: #c5d2d5;
+  --c-instalacje-il-ardvb-acce: #0f2a30;
+  --c-instalacje-il-ardvb-lead-c: #a9bcc0;
+  --c-instalacje-il-ardvi-bg: rgba(18, 182, 216, 0.15);
+  --c-instalacje-il-ardvwhy-sh: rgba(242, 184, 75, 0.3);
+  /* tokeny-stron, cz. 2 (I8): klasy z JS stron (stany, scena .ttx Teletechniki). */
+  --c-instalacje-il-car-k1-fill: #e57060;
+  --c-instalacje-il-car-k2-fill: #6a889f;
+  --c-instalacje-il-arm-dvi-line: #ffd89a;
+  --c-instalacje-il-night-wkh-fill: #e6ebed;
+  --c-instalacje-light-il-hroom-fill: rgba(0, 0, 0, 0.02);
+  --c-instalacje-night-il-hroom-fill: rgba(255, 255, 255, 0.03);
+  --c-instalacje-light-il-hroom-line: rgba(0, 0, 0, 0.08);
+  --c-instalacje-night-il-hroom-line: rgba(255, 255, 255, 0.08);
+  --c-instalacje-il-mdp-c0-bg: #242a27;
+  --c-instalacje-il-mdp-c1-bg: #e6e9e4;
+  --c-instalacje-il-mdp-c2-bg: #5a6461;
+  --c-instalacje-il-mdp-c2-bg-2: #2e3533;
+  --c-instalacje-il-rbr-c-sh: rgba(242, 184, 75, 0.4);
+  --c-instalacje-il-wallw-bg: #a65a3e;
+  --c-instalacje-il-wallw-bg-2: #7e4430;
+  --c-instalacje-il-synr-c: #d9e4e6;
+  --c-instalacje-light-il-shp-shr-line: #9aa6aa;
+  --c-instalacje-night-il-shp-shr-line: #55666b;
+  --c-instalacje-light-il-ttx-sk: #bfdce8;
+  --c-instalacje-night-il-ttx-sk: #08141c;
+  --c-instalacje-light-il-ttx-sk-2: #e3eff2;
+  --c-instalacje-night-il-ttx-sk-2: #122c3a;
+  --c-instalacje-light-il-ttx-sk-3: #eef4f2;
+  --c-instalacje-night-il-ttx-sk-3: #1b3a44;
+  --c-instalacje-light-il-ttx-rm: #f3f1ec;
+  --c-instalacje-night-il-ttx-rm: #1a2427;
+  --c-instalacje-light-il-ttx-rm-2: #e9e6df;
+  --c-instalacje-night-il-ttx-rm-2: #212d30;
+  --c-instalacje-light-il-ttx-rw: #fff3dc;
+  --c-instalacje-night-il-ttx-rw: #3a2f22;
+  --c-instalacje-light-il-ttx-rw-2: #f6ebd6;
+  --c-instalacje-night-il-ttx-rw-2: #2a2621;
+  --c-instalacje-light-il-ttx-gl: #a9d2e2;
+  --c-instalacje-night-il-ttx-gl: #16384a;
+  --c-instalacje-light-il-ttx-gl-2: #d7ecf3;
+  --c-instalacje-night-il-ttx-gl-2: #0c1c26;
+  --c-instalacje-light-il-ttx-ln: #8c9a9d;
+  --c-instalacje-night-il-ttx-ln: #5e6e72;
+  --c-instalacje-light-il-ttx-cut: #c5cdcf;
+  --c-instalacje-night-il-ttx-cut: #3c4649;
+  --c-instalacje-light-il-ttx-cutl: #9ba7aa;
+  --c-instalacje-night-il-ttx-cutl: #59666a;
+  --c-instalacje-light-il-ttx-wood: #b88b5e;
+  --c-instalacje-night-il-ttx-wood: #6b4e35;
+  --c-instalacje-light-il-ttx-wood-2: #a57a50;
+  --c-instalacje-night-il-ttx-wood-2: #57412e;
+  --c-instalacje-light-il-ttx-sofa: #5e98a6;
+  --c-instalacje-night-il-ttx-sofa: #3e6c78;
+  --c-instalacje-light-il-ttx-sofa-2: #7db2be;
+  --c-instalacje-night-il-ttx-sofa-2: #4f8592;
+  --c-instalacje-light-il-ttx-ink: #1f2d31;
+  --c-instalacje-night-il-ttx-ink: #c9d6d9;
+  --c-instalacje-light-il-ttx-txso0-fill: #d9cdb8;
+  --c-instalacje-night-il-ttx-txso0-fill: #1c1a16;
+  --c-instalacje-light-il-ttx-txso1-fill: #b9a98c;
+  --c-instalacje-night-il-ttx-txso1-fill: #3a342a;
+  --c-instalacje-il-ttx-txbpg-line: rgba(160, 215, 255, 0.16);
+  --c-instalacje-light-il-ttx-txmoon-fill: #fff6d8;
+  --c-instalacje-night-il-ttx-txmoon-fill: #f4e9c8;
+  --c-instalacje-il-ttx-txmoon-filt: rgba(244, 233, 200, 0.5);
+  --c-instalacje-light-il-ttx-txm1-fill: #c9dce0;
+  --c-instalacje-night-il-ttx-txm1-fill: #18303a;
+  --c-instalacje-il-ttx-txgl-line: #3b4a3c;
+  --c-instalacje-light-il-ttx-txpave-fill: #a9aead;
+  --c-instalacje-night-il-ttx-txpave-fill: #4a4f4e;
+  --c-instalacje-light-il-ttx-txgrass-fill: #8db27f;
+  --c-instalacje-night-il-ttx-txgrass-fill: #3e5a3a;
+  --c-instalacje-light-il-ttx-txcon-fill: #aeb6b5;
+  --c-instalacje-night-il-ttx-txcon-fill: #55605f;
+  --c-instalacje-light-il-ttx-txhole-fill: #6b7574;
+  --c-instalacje-night-il-ttx-txhole-fill: #111819;
+  --c-instalacje-il-ttx-txpipe-line: #e07a2e;
+  --c-instalacje-light-il-ttx-txtree-fill: #3e7a5a;
+  --c-instalacje-night-il-ttx-txtree-fill: #1f4a3a;
+  --c-instalacje-il-ttx-txtrunk-fill: #4a3526;
+  --c-instalacje-light-il-ttx-txroof-fill: #5b6467;
+  --c-instalacje-night-il-ttx-txroof-fill: #2e3436;
+  --c-instalacje-light-il-ttx-txatt-fill: #dcd7cc;
+  --c-instalacje-night-il-ttx-txatt-fill: #141b1d;
+  --c-instalacje-light-il-ttx-txcore-fill: #e4e1da;
+  --c-instalacje-night-il-ttx-txcore-fill: #192225;
+  --c-instalacje-il-ttx-txshaft-fill: rgba(18, 182, 216, 0.06);
+  --c-instalacje-light-il-ttx-txwf-fill: #ffffff;
+  --c-instalacje-night-il-ttx-txwf-fill: #3a4447;
+  --c-instalacje-light-il-ttx-txwm-fill: #8db4c2;
+  --c-instalacje-night-il-ttx-txwm-fill: #0e1e26;
+  --c-instalacje-light-il-txwg-shop-fill: #cfe6ec;
+  --c-instalacje-night-il-txwg-shop-fill: #1f3a40;
+  --c-instalacje-il-ttx-txshade-fill: #e9c27a;
+  --c-instalacje-il-ttx-txtop-line: #c9c2b6;
+  --c-instalacje-il-ttx-txpill-fill: #e6e1d6;
+  --c-instalacje-il-ttx-txmon-fill: #0d1416;
+  --c-instalacje-il-ttx-txmon-line: #5e6e72;
+  --c-instalacje-il-ttx-txpot-fill: #b5643c;
+  --c-instalacje-il-ttx-txleaf-fill: #3f8a5a;
+  --c-instalacje-il-ttx-txscr-fill: #1e5c6e;
+  --c-instalacje-light-il-ttx-txbox-fill: #d6dcdd;
+  --c-instalacje-night-il-ttx-txbox-fill: #3a4548;
+  --c-instalacje-light-il-ttx-txbox-line: #99a5a8;
+  --c-instalacje-night-il-ttx-txbox-line: #6c7a7e;
+  --c-instalacje-il-ttx-txrk-fill: #0f1517;
+  --c-instalacje-il-ttx-txrk-line: #4b585c;
+  --c-instalacje-il-ttx-txru-fill: #232d30;
+  --c-instalacje-light-il-ttx-txsp-fill: #eef1f1;
+  --c-instalacje-night-il-ttx-txsp-fill: #3b4649;
+  --c-instalacje-light-il-ttx-txsp-line: #8c9a9d;
+  --c-instalacje-night-il-ttx-txsp-line: #8e999c;
+  --c-instalacje-il-ttx-txuni-fill: #d9dfe0;
+  --c-instalacje-il-ttx-txpan-fill: #20292c;
+  --c-instalacje-il-ttx-txout-line: #8c9a9d;
+  --c-instalacje-il-k-rt-line: #cfe8ff;
+  --c-instalacje-light-il-bp-txsky-fill: #1d5a8c;
+  --c-instalacje-night-il-bp-txsky-fill: #0b3558;
+  --c-instalacje-il-bp-a-line: rgba(214, 236, 255, 0.78);
+  --c-instalacje-il-bp-txcut-fill: rgba(214, 236, 255, 0.1);
+  --c-instalacje-il-bp-txsign-fill: rgba(214, 236, 255, 0.8);
+  --c-instalacje-il-bp-txlv-fill: rgba(214, 236, 255, 0.85);
+  --c-instalacje-il-ttx-txdl-line: rgba(214, 236, 255, 0.7);
+  --c-instalacje-il-ttx-txdt-fill: rgba(214, 236, 255, 0.9);
+  --c-instalacje-il-ttx-txcc-fill: rgba(255, 92, 92, 0.18);
+  --c-instalacje-il-ttx-txcc-line: #ff6b6b;
+  --c-instalacje-il-ttx-txct-fill: #ff8a8a;
+  --c-instalacje-il-ttx-txok-line: #bff0cc;
+  --c-instalacje-il-ttx-txstamp-line: #57c77e;
+  --c-instalacje-light-il-ttx-txstamp-fill: #1f7f43;
+  --c-instalacje-night-il-ttx-txstamp-fill: #7ee0a0;
+  --c-instalacje-light-il-ttx-ttm-fill: #0a7c96;
+  --c-instalacje-night-il-ttx-ttm-fill: #4ccbe6;
+  --c-instalacje-il-ttm-dot-fill: #0b3558;
+  --c-instalacje-light-il-mxp-site: #eef1ee;
+  --c-instalacje-night-il-mxp-site: #0f1517;
+  --c-instalacje-light-il-mxp-wa: #2a383c;
+  --c-instalacje-night-il-mxp-wa: #c9d6d9;
+  --c-instalacje-light-il-mxp-fu: #c9d2d2;
+  --c-instalacje-night-il-mxp-fu: #2c3a3e;
+  --c-instalacje-light-il-mxp-fu-2: #aebbbc;
+  --c-instalacje-night-il-mxp-fu-2: #3d4e53;
+  --c-instalacje-light-il-mxp-fu-3: #dde3e2;
+  --c-instalacje-night-il-mxp-fu-3: #24302f;
+  --c-instalacje-il-mxp-rcs: rgba(76, 203, 230, 0);
+  --c-instalacje-light-il-mxp-mpw0-fill: #e6d3bb;
+  --c-instalacje-night-il-mxp-mpw0-fill: #2a231c;
+  --c-instalacje-light-il-mxp-mpw1-line: #d3bc9f;
+  --c-instalacje-night-il-mxp-mpw1-line: #3a3026;
+  --c-instalacje-light-il-mxp-mpd0-fill: #d9c3a3;
+  --c-instalacje-night-il-mxp-mpd0-fill: #2c251d;
+  --c-instalacje-light-il-mxp-mpd1-line: #c4aa85;
+  --c-instalacje-night-il-mxp-mpd1-line: #1e1914;
+  --c-instalacje-light-il-mxp-mpt0-fill: #f4f6f6;
+  --c-instalacje-night-il-mxp-mpt0-fill: #1d2628;
+  --c-instalacje-light-il-mxp-mpt1-line: #dde3e3;
+  --c-instalacje-night-il-mxp-mpt1-line: #2a3537;
+  --c-instalacje-light-il-mxp-mps0-fill: #eceae4;
+  --c-instalacje-night-il-mxp-mps0-fill: #20282a;
+  --c-instalacje-light-il-mxp-mps1-line: #dad6cc;
+  --c-instalacje-night-il-mxp-mps1-line: #2c3638;
+  --c-instalacje-light-il-mxp-mpc0-fill: #dde4ee;
+  --c-instalacje-night-il-mxp-mpc0-fill: #1c2433;
+  --c-instalacje-light-il-mxp-mpc1-fill: #c8d2e0;
+  --c-instalacje-night-il-mxp-mpc1-fill: #2a3446;
+  --c-instalacje-light-il-mxp-mpg0-fill: #b9d8a8;
+  --c-instalacje-night-il-mxp-mpg0-fill: #1a3020;
+  --c-instalacje-light-il-mxp-mpg1-line: #add09a;
+  --c-instalacje-night-il-mxp-mpg1-line: #1f3826;
+  --c-instalacje-il-mxp-mglz-fill: rgba(120, 200, 230, 0.18);
+  --c-instalacje-il-mxp-mumb-line: rgba(242, 184, 75, 0.55);
+  --c-instalacje-il-mxp-msink-fill: #cfe8ef;
+  --c-instalacje-light-il-mxp-mpool-fill: #7ccbdd;
+  --c-instalacje-night-il-mxp-mpool-fill: #1a6c80;
+  --c-instalacje-il-mxp-mpwv-line: rgba(255, 255, 255, 0.35);
+  --c-instalacje-il-mxp-mgal-fill: rgba(181, 140, 240, 0.06);
+  --c-instalacje-il-mxp-mgal-line: rgba(181, 140, 240, 0.5);
+  --c-instalacje-il-mxp-mcrt-fill: rgba(181, 96, 52, 0.25);
+  --c-instalacje-il-mcrt-mg-fill: rgba(60, 140, 80, 0.25);
+  --c-instalacje-light-il-mxp-mcrl-line: #ffffff;
+  --c-instalacje-night-il-mxp-mcrl-line: rgba(255, 255, 255, 0.55);
+  --c-instalacje-il-mxp-mpl-fill: #2f7a4e;
+  --c-instalacje-il-mxp-mpl2-fill: #4fa36d;
+  --c-instalacje-il-mxp-mspk2-fill: #2c3a3e;
+  --c-instalacje-light-il-mxp-mzch-bg: rgba(255, 255, 255, 0.92);
+  --c-instalacje-night-il-mxp-mzch-bg: rgba(10, 16, 18, 0.82);
+  --c-instalacje-light-il-mxp-mzch-sh: rgba(0, 0, 0, 0.08);
+  --c-instalacje-night-il-mxp-mzch-sh: rgba(255, 255, 255, 0.1);
+  --c-instalacje-light-il-mxp-mzch-c: #1b2629;
+  --c-instalacje-night-il-mxp-mzch-c: #e8f0f1;
+  --c-instalacje-il-mxp-mmxban-sh: rgba(242, 184, 75, 0.7);
+  --c-instalacje-il-mute-clcd-bg: #2e1416;
+  --c-instalacje-il-mute-clcd-bg-2: #241012;
+  --c-instalacje-il-mute-clcd-sh: rgba(255, 107, 107, 0.3);
+  --c-instalacje-il-cmet-y-bg: #2e2a17;
+  --c-instalacje-il-cmet-y-sh: rgba(242, 193, 75, 0.6);
+  --c-instalacje-il-cmu-bg: #2a3335;
+  --c-instalacje-il-cmu-c: #b5c2c5;
+  --c-instalacje-il-cmu-sh: #0a0e0f;
+  --c-instalacje-il-cmu-bg-2: #4a2222;
+  --c-instalacje-il-csb-bg: #173038;
+  --c-instalacje-il-csb-bg-2: #1d3b42;
+  --c-instalacje-il-cann-bg: #f6c665;
+  --c-instalacje-il-cann-bg-2: #e3a532;
+  --c-instalacje-il-cann-sh: #8a6012;
+  --c-instalacje-il-cann-sh-2: rgba(242, 184, 75, 0.8);
+  --c-instalacje-light-il-kmap2-kz2-line: rgba(10, 124, 150, 0.4);
+  --c-instalacje-night-il-kmap2-kz2-line: rgba(76, 203, 230, 0.22);
+  --c-instalacje-light-il-kmap2-kz2-fill: rgba(18, 182, 216, 0.16);
+  --c-instalacje-night-il-kmap2-kz2-fill: rgba(76, 203, 230, 0.16);
+  --c-instalacje-il-wlwall-m0-bg: #6b7275;
+  --c-instalacje-il-wlwall-m0-bg-2: #5a6164;
+  --c-instalacje-il-wlwall-m1-bg: #9aa1a3;
+  --c-instalacje-il-wlwall-m1-bg-2: #7e8588;
+  --c-instalacje-il-wlwall-m2-bg: #0000;
+  --c-instalacje-il-wlwall-m2-bg-2: #e8dcc8;
+  --c-instalacje-il-wlwall-m3-bg: rgba(255, 255, 255, 0.5);
+  --c-instalacje-il-wlwall-m3-bg-2: rgba(160, 215, 235, 0.25);
+  --c-instalacje-il-old-mxstd-c: #a86a00;
+  --c-instalacje-il-zkin-xa-bad-sh: #e0645a;
+  --c-instalacje-il-evstage-evi-filt: rgba(0, 0, 0, 0.38);
+
+  /* Status colours of the Biznes visualisation (dots); `-text` is darkened for 4.5:1. */
+  --c-ok: #1f9d63;
+  --c-ok-text: #15724a;
+  --c-warn: #c2410c;
+  --c-ok-night: #46c78b;
+  --c-warn-night: #f97316;
+
+  /* Marketing badge of the Biznes catalog cards ("Ulga do 700 zł"), the same in both themes. */
+  --c-promo: #f59e0b;
+  --c-promo-ink: #1a1200;
+  --promo: var(--c-promo);
+  --promo-ink: var(--c-promo-ink);
+
+  /* No `data-line` (unknown domain, 404): the main PRO-KOM line. */
+  --accent: var(--c-prokom);
+  --accent-on-dark: var(--c-prokom-on-dark);
+  --accent-text: var(--c-prokom-text);
+  --accent-2: var(--c-prokom);
+  --accent-ink: var(--c-white);
+
+  /* Neutrals of lines without their own visualisation: white / papier / grafit (marka.md). */
+  --surface: var(--c-white);
+  --surface-2: var(--c-papier);
+  --surface-3: var(--c-papier);
+  --card: var(--c-white);
+  --surface-dark: var(--c-grafit);
+  --ink: var(--c-grafit);
+  --ink-2: var(--c-grafit);
+  --ink-3: var(--c-grafit);
+  --border: var(--c-border);
+  --border-input: var(--c-input-border);
+  --glow: transparent;
+  --grid: transparent;
+  --ok: var(--c-ok);
+  --ok-text: var(--c-ok-text);
+  --warn: var(--c-warn);
+
+  /* Tokens from Software's visualisation (ADR-015) with neutral defaults, so components never
+     ask which line they are on. Declared on <html> with `data-line`, so `var()` sees the line. */
+  --card-2: var(--surface-2);
+  --ink-soft: var(--ink);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  --accent-line: color-mix(in srgb, var(--accent) 35%, var(--surface));
+  --stage: var(--surface-2);
+  /* Studio under product photos (Biznes, K31-ZMIANY §3); neutral on other lines. */
+  --st1: var(--surface);
+  --st2: var(--surface-2);
+  --st3: var(--surface-3);
+  --sth: transparent;
+  --shd: transparent;
+  --plate: var(--surface);
+  --plate-shadow: transparent;
+  --chip: var(--surface-2);
+  --glow-2: transparent;
+  --dot: transparent;
+  --header-bg: var(--surface);
+  /* Not `none`: Tailwind puts it at the end of a box-shadow list with the ring shadows, where
+     `none` would drop the whole declaration. */
+  --shadow: 0 0 #0000;
+  /* Plain accent text where a line has no gradient H1 (text clipped to the background stays visible). */
+  --grad-h1: linear-gradient(var(--accent-text), var(--accent-text));
+  /* Accent part of a plain (non-gradient) H1 — Biznes hero (ADR-013, v20). */
+  --h1-accent: var(--accent-text);
+  /* Background of the primary button: the text accent; Software uses its button accent. */
+  --button-bg: var(--accent-text);
+  /* Flat CTA block with white text (Software); the text accent elsewhere. */
+  --cta-bg: var(--accent-text);
+  /* Accent on the inverted pill (--ink background): plain pill text where a line has no pill. */
+  --pill-accent: var(--surface);
+  /* Dark footer of Software v21 (ADR-015 v22 pkt 1) — defaults for every line, so the footer
+     never asks which line it is on; only references to the palette. */
+  --footer-bg: var(--c-grafit);
+  --footer-text: var(--c-papier);
+  --footer-muted: var(--c-software-night-ink-2);
+  --footer-line: var(--c-software-night-border);
+  --footer-eyebrow: var(--accent-on-dark);
+  /* Ticks of the guarantees and the „0 zł” badge — the dark palette's green on the footer. */
+  --footer-ok: var(--c-software-night-ok-text);
+
+  /* Motion (SWV7, `src/styles/motion.css`): one set of curves and times for the Software and
+     Instalacje lines (I-M). Out: entries and hover; in-out: state changes; spring: small
+     accents (≤ 4 px past). */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-press: 120ms;
+  --dur-hover: 200ms;
+  --dur-state: 280ms;
+  --dur-enter: 520ms;
+  --dur-sheet: 420ms;
+  /* v24 Aurora motion of Software (ZMIANY-v24 §5): page swap out / in, the arrival of a
+     section after a glide, the beam over it, the light sweep of buttons. */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-page-out: 320ms;
+  --dur-page-in: 550ms;
+  --dur-arrive: 950ms;
+  /* = ARRIVE_MS in lib/shared/smoothScroll.ts (how long the section stays marked). */
+  --dur-beam: 1400ms;
+  --dur-sheen: 700ms;
+  /* The side rail stepping aside at the footer (AUDYT po SWA7 #4). */
+  --dur-rail-away: 350ms;
+  /* Offer window of Software (SWA14 §2): a plain entry — the panel and the backdrop come in,
+     closing is quicker; a device switch („Komputer | Telefon”) scales and fades the frame.
+     = ENTER_MS in sites/software/components/offer/SolutionDialog.tsx. */
+  --ease-offer: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-offer-in: 240ms;
+  --dur-offer-backdrop: 180ms;
+  --dur-offer-out: 160ms;
+  --dur-offer-switch: 180ms;
+  /* Hero carousel: one slide (= SLIDE_MS in lib/software/heroStage.ts). */
+  --hx-slide: 4200ms;
+  /* The rest of the hero (pattern `aurora.css`): window flight and fade, the word, the cursor,
+     the band, the cosmic layer — stars, aurora ribbons, orbits, beam. */
+  --dur-hx-move: 1100ms;
+  /* Desktop drum (SWA14 §1): every window moves one place with this time and curve
+     (= SLIDE_MOVE_MS in lib/software/heroStage.ts); the phone keeps move/fade above. */
+  --dur-hx-slide: 700ms;
+  --ease-hx-slide: cubic-bezier(0.22, 0.8, 0.2, 1);
+  /* A tile further than one slide away: the windows cross-fade in place. */
+  --dur-hx-far: 220ms;
+  --dur-hx-fade: 800ms;
+  --dur-hx-word: 600ms;
+  --dur-hx-blink: 1s;
+  --dur-hx-band: 50s;
+  --dur-hx-twinkle: 6s;
+  --dur-hx-twinkle-2: 8s;
+  --dur-hx-drift: 120s;
+  --dur-hx-drift-2: 80s;
+  --dur-hx-ribbon: 16s;
+  --dur-hx-ribbon-2: 19s;
+  --dur-hx-ribbon-3: 23s;
+  --dur-hx-orbit: 40s;
+  --dur-hx-orbit-2: 70s;
+  --dur-hx-beam: 6s;
+  /* 404 and „Dziękujemy” (ZMIANY-v24 §9.7): the check mark draws itself, the planet floats. */
+  --dur-sys-draw: 1s;
+  --dur-sys-tick: 600ms;
+  --dur-sys-float: 6s;
+  /* The tick starts once the ring is nearly drawn. */
+  --dur-sys-draw-delay: 100ms;
+  --dur-sys-tick-delay: 800ms;
+  /* Mock-ups (ZMIANY-v24 §8): bars grow, a log line slides in, a dot runs on the wire, the
+     slider sweeps, the toast comes back, stars twinkle, a picture drifts; steps between items. */
+  --dur-mk-bar: 900ms;
+  --dur-mk-log: 500ms;
+  --dur-mk-travel: 2400ms;
+  --dur-mk-wipe: 5600ms;
+  --dur-mk-toast: 6000ms;
+  --dur-mk-twinkle: 3000ms;
+  --dur-mk-drift: 9000ms;
+  /* The „na żywo” dot of the company dashboard (SWA14 §4.2). */
+  --dur-mk-blink: 1400ms;
+  --mk-step-bar: 70ms;
+  --mk-step-log: 250ms;
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3, NAGLOWEK-KAPSULA §4): defaults for pages
+     without a line design (hub, 404); the lines set their own values below. */
+  --on-dark: var(--accent-on-dark);
+  --on-dark-text: var(--accent-on-dark);
+  --on-dark-ink: var(--c-grafit);
+  --line-dark: var(--c-grafit);
+  --line-dark-text: var(--c-papier);
+  --cap-bg: color-mix(in srgb, var(--surface) 78%, transparent);
+  /* Search window (AUDYT-0811 #4): a dim, blurred page and a window that stands out from it. */
+  --sdlg-backdrop: color-mix(in srgb, var(--surface-dark) 72%, transparent);
+  --sdlg-bg: var(--card);
+  --sdlg-ring: color-mix(in srgb, var(--accent-text) 35%, var(--border));
+  --sdlg-glow: var(--cap-shadow);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: color-mix(in srgb, var(--surface) 92%, transparent);
+  --cap-border: color-mix(in srgb, var(--ink) 9%, transparent);
+  --cap-highlight: color-mix(in srgb, var(--c-white) 90%, transparent);
+  --cap-shadow: color-mix(in srgb, var(--ink) 28%, transparent);
+  --cap-kbd: var(--surface);
+  --nav-ink: var(--ink);
+  --nav-ink-2: var(--ink-2);
+  --nav-hover: color-mix(in srgb, var(--ink) 5%, transparent);
+  --nav-active-bg: var(--accent-soft);
+  --nav-active-ink: var(--accent-text);
+  --cap-cta-from: var(--accent-text);
+  --cap-cta-to: var(--accent-text);
+  --cap-cta-ink: var(--accent-ink);
+  --cap-cta-glow: color-mix(in srgb, var(--accent) 50%, transparent);
+  /* Resolved on <html> (where data-line and data-theme are), then inherited as a value. */
+  --cap-cta-bg: linear-gradient(180deg, var(--cap-cta-from), var(--cap-cta-to));
+  /* The same on every line and theme (board 11): near shadow, gloss of the action, its count. */
+  --cap-shadow-near: rgba(0, 0, 0, 0.05);
+  --cap-cta-gloss: rgba(255, 255, 255, 0.22);
+  --cap-cta-edge: rgba(255, 255, 255, 0.08);
+  --cap-count-bg: rgba(255, 255, 255, 0.95);
+  --cap-count-ink: var(--c-grafit);
+  /* Shadow under the address map pin and its cards (board Mapa). */
+  --map-pin-shadow: rgba(0, 0, 0, 0.45);
+  /* Footer on the line's dark band (board Footer): headings and phone, rules, tiles. */
+  --line-dark-ink: var(--c-papier);
+  --line-dark-rule: rgba(255, 255, 255, 0.1);
+  --line-dark-card: rgba(255, 255, 255, 0.04);
+  --line-dark-current: rgba(255, 255, 255, 0.08);
+  /* Gaming tile (spec §2.4): a product brand with its own look, the same on every line. */
+  --gaming-bg: #080c0b;
+  --gaming-border: rgba(242, 194, 48, 0.45);
+  --gaming-gold: #f2c230;
+  --gaming-ink: #ece4d0;
+  /* Page scrollbar (spec §3 „Pasek przewijania”): the accent mixed into the track — 80 %, not the
+     spec's ~68 %: at 68 % four line/theme pairs stay below 3:1 (WCAG 1.4.11, shared-tokens.test). */
+  --scrollbar-track: var(--surface-2);
+  --scrollbar-thumb: color-mix(in srgb, var(--accent) 80%, var(--scrollbar-track));
+  /* Opening status (spec §5 `OpeningStatus`): dot colours per state, the same on every line;
+     the dark theme and dark bands get the light green dot. */
+  --status-open: #2e7a1e;
+  --status-open-bg: #eaf5e6;
+  /* The spec's #C77800, a shade darker: 3:1 also on the papier surface-2 of Instalacje and Software. */
+  --status-soon: #c27500;
+  --status-closed: #b45309;
+  --status-open-on-dark: #7bd36a;
+  --status-bg-on-dark: rgba(255, 255, 255, 0.07);
+  --status-ink-on-dark: var(--c-white);
+  /* Mock-ups of sample businesses (ADR-015 „Rozstrzygnięcia v24” pkt 4, ZMIANY-v24 §8): each one
+     wears its sample firm's brand (themes a–f of `v24/boards/Vis.dc.html`), the same in both
+     themes of the page; neutrals of the mock-up chrome; illustrations behind the site heroes. */
+  --mk-a-page: #f6f6f2;
+  --mk-a-nav: #ffffff;
+  --mk-a-nav-ink: #121613;
+  --mk-a-line: #e8eae5;
+  --mk-a-hero: #eef0f6;
+  --mk-a-hero-ink: #141a2e;
+  --mk-a-blob: #e1e5f0;
+  --mk-a-ghost: rgba(20, 26, 46, 0.25);
+  --mk-a-acc: #2747d8;
+  --mk-a-acc-ink: #ffffff;
+  --mk-a-acc-text: #2747d8;
+  --mk-a-acc-soft: #e6ebfc;
+  --mk-b-page: #f8f5ef;
+  --mk-b-nav: #1d2b26;
+  --mk-b-nav-ink: #f8f5ef;
+  --mk-b-line: #1d2b26;
+  --mk-b-hero: #1d2b26;
+  --mk-b-hero-ink: #f8f5ef;
+  --mk-b-blob: #25362f;
+  --mk-b-ghost: rgba(248, 245, 239, 0.3);
+  --mk-b-acc: #d9a648;
+  --mk-b-acc-ink: #1d2b26;
+  --mk-b-acc-text: #876213;
+  --mk-b-acc-soft: #f5ead3;
+  --mk-c-page: #faf6f1;
+  --mk-c-nav: #fffaf4;
+  --mk-c-nav-ink: #3b2416;
+  --mk-c-line: #efe4d8;
+  --mk-c-hero: #f3e6d8;
+  --mk-c-hero-ink: #3b2416;
+  --mk-c-blob: #ecd8c4;
+  --mk-c-ghost: rgba(59, 36, 22, 0.25);
+  --mk-c-acc: #c2552a;
+  --mk-c-acc-ink: #ffffff;
+  --mk-c-acc-text: #a2441f;
+  --mk-c-acc-soft: #f8e3d8;
+  --mk-d-page: #f3f7f5;
+  --mk-d-nav: #ffffff;
+  --mk-d-nav-ink: #0e2f2a;
+  --mk-d-line: #e1ebe7;
+  --mk-d-hero: #0e2f2a;
+  --mk-d-hero-ink: #f3f7f5;
+  --mk-d-blob: #143d37;
+  --mk-d-ghost: rgba(243, 247, 245, 0.3);
+  --mk-d-acc: #f2c14e;
+  --mk-d-acc-ink: #0e2f2a;
+  --mk-d-acc-text: #0f6b5c;
+  --mk-d-acc-soft: #dcefe9;
+  --mk-e-page: #f6f6f2;
+  --mk-e-nav: #ffffff;
+  --mk-e-nav-ink: #121613;
+  --mk-e-line: #e8eae5;
+  --mk-e-hero: #151a16;
+  --mk-e-hero-ink: #f4f5f1;
+  --mk-e-blob: #20261f;
+  --mk-e-ghost: rgba(244, 245, 241, 0.3);
+  --mk-e-acc: #9670ee;
+  --mk-e-acc-ink: #121613;
+  --mk-e-acc-text: #5b33c4;
+  --mk-e-acc-soft: #ece7fb;
+  --mk-f-page: #f7f7f9;
+  --mk-f-nav: #ffffff;
+  --mk-f-nav-ink: #16161d;
+  --mk-f-line: #e8e8ee;
+  --mk-f-hero: #f0eefb;
+  --mk-f-hero-ink: #16161d;
+  --mk-f-blob: #e4e0f7;
+  --mk-f-ghost: rgba(22, 22, 29, 0.25);
+  --mk-f-acc: #16161d;
+  --mk-f-acc-ink: #ffffff;
+  --mk-f-acc-text: #4b3fb5;
+  --mk-f-acc-soft: #ebe8fb;
+  --mk-paper: #f6f6f2;
+  --mk-white: #ffffff;
+  --mk-ink: #121613;
+  --mk-ink-2: #4f5650;
+  --mk-mute: #6b716b;
+  --mk-faint: #9aa39a;
+  --mk-faint-2: #8d948e;
+  --mk-line: #e8eae5;
+  --mk-line-2: #eef0ec;
+  --mk-line-3: #f0f1ed;
+  --mk-line-4: #eceee8;
+  --mk-chip-line: #e3e6df;
+  --mk-node-line: #dcdfd8;
+  --mk-tag: #f1f2ee;
+  --mk-chrome: #ecede9;
+  --mk-chrome-line: #e0e2dc;
+  --mk-chrome-dot: #d9dbd5;
+  --mk-dark: #151a16;
+  --mk-dark-2: #1c211d;
+  --mk-dark-3: #262c27;
+  --mk-dark-line: #2a302b;
+  --mk-dark-ink: #b5bbb5;
+  --mk-device: #0d100e;
+  --mk-ok: #256a18;
+  --mk-ok-bg: #e3f1dd;
+  --mk-ok-dot: #2e7a1e;
+  --mk-ok-dark-bg: #1f3a1a;
+  --mk-ok-dark-ink: #9fe08a;
+  --mk-ok-dark-dot: #7fd36a;
+  --mk-up: #4fa83a;
+  --mk-up-warn: #d9a648;
+  --mk-violet: #6e45d4;
+  --mk-violet-2: #9670ee;
+  --mk-violet-text: #5b33c4;
+  --mk-violet-soft: #ece7fb;
+  --mk-violet-line: #cfc2f5;
+  --mk-violet-bar: #e4def8;
+  --mk-violet-dark: #2c2540;
+  --mk-violet-lav: #b39bf5;
+  --mk-violet-pale: #c3abfa;
+  --mk-old-bg: #ffffff;
+  --mk-old-ink: #000000;
+  --mk-old-head: #1e3a8a;
+  --mk-old-head-ink: #ffef5a;
+  --mk-old-link: #0000ee;
+  --mk-old-new: #cc0000;
+  --mk-old-box: #f3f3f3;
+  --mk-old-box-line: #999999;
+  --mk-old-img: #c8c8c8;
+  --mk-art-teal: #3fc1ad;
+  --mk-art-moon: #f3d58e;
+  --mk-art-moon-core: #e9c06a;
+  --mk-art-hill: #25362f;
+  --mk-art-hill-2: #2c4138;
+  --mk-art-hill-3: #334b40;
+  --mk-art-leaf: #6c8a3c;
+  --mk-shadow: rgba(10, 14, 11, 0.55);
+  --mk-shadow-soft: rgba(18, 22, 19, 0.35);
+  --mk-shadow-deep: rgba(0, 0, 0, 0.7);
+  --mk-edge: rgba(18, 22, 19, 0.08);
+  --mk-gloss: rgba(255, 255, 255, 0.6);
+  --mk-dot-grid: rgba(18, 22, 19, 0.09);
+  --mk-label-dark: rgba(18, 22, 19, 0.85);
+  --mk-device-edge: rgba(255, 255, 255, 0.06);
+  /* Gaming in the brand bar (spec §2.4): a darker gold dash than its #F2C230 on light pages. */
+  --gaming-dash: #d9a400;
+  /* EU energy label classes A–G (Regulation (EU) 2017/1369): fixed by the standard, the same in
+     both themes — the only fixed colours of the procurement offer preview (ZAOPATRZENIE §4). */
+  --c-energy-a: #00a651;
+  --c-energy-b: #50b848;
+  --c-energy-c: #bed62f;
+  --c-energy-d: #fff200;
+  --c-energy-e: #fdb913;
+  --c-energy-f: #f37021;
+  --c-energy-g: #ed1c24;
+  /* Letter on G: only black reaches AA on that red (white 4.4:1, the Biznes ink 4.2:1). */
+  --c-energy-ink-g: #000000;
+}
+
+/* `[data-line='prokom']` (pro-kom.eu hub, light and dark): the hub's own token file (H1-2, ADR-023). */
+
+[data-line='biznes'] {
+  --accent: var(--c-biznes);
+  --accent-on-dark: var(--c-biznes-on-dark);
+  --accent-text: var(--c-biznes-text);
+  --accent-2: var(--c-biznes-on-dark);
+  --accent-ink: var(--c-white);
+  --surface: var(--c-white);
+  --surface-2: var(--c-biznes-light-surface-2);
+  --surface-3: var(--c-biznes-light-surface-3);
+  --card: var(--c-white);
+  --surface-dark: var(--c-biznes-navy);
+  --ink: var(--c-biznes-light-ink);
+  --ink-2: var(--c-biznes-light-ink-2);
+  --ink-3: var(--c-biznes-light-ink-3);
+  --border: var(--c-biznes-light-border);
+  --border-input: var(--c-biznes-light-ink-3);
+  --glow: var(--c-biznes-light-glow);
+  --st1: var(--c-biznes-light-st1);
+  --st2: var(--c-biznes-light-st2);
+  --st3: var(--c-biznes-light-st3);
+  --sth: var(--c-biznes-light-sth);
+  --shd: var(--c-biznes-light-shd);
+  --plate: var(--c-white);
+  --plate-shadow: var(--c-biznes-light-plate-shadow);
+  --tone-green: var(--c-biznes-tone-green);
+  --tone-green-2: var(--c-biznes-tone-green-2);
+  --tone-red: var(--c-biznes-tone-red);
+  --tone-red-2: var(--c-biznes-tone-red-2);
+  --tone-blue: var(--c-biznes-tone-blue);
+  --tone-blue-2: var(--c-biznes-tone-blue-2);
+  --tone-violet: var(--c-biznes-tone-violet);
+  --tone-violet-2: var(--c-biznes-tone-violet-2);
+  --tone-green-tag: var(--c-biznes-tone-green-tag);
+  --tone-red-tag: var(--c-biznes-tone-red-tag);
+  --tone-blue-tag: var(--c-biznes-tone-blue);
+  --tone-violet-tag: var(--c-biznes-tone-violet);
+  --wizard: var(--c-biznes-wizard);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): role tokens of the line's dark band — the same
+     in both themes. */
+  --on-dark: #4a7be0;
+  --on-dark-text: #8dadf0;
+  --on-dark-ink: #06102a;
+  --line-dark: var(--c-biznes-navy);
+  --line-dark-text: #aeb8d2;
+  --line-dark-ink: var(--c-white);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(255, 255, 255, 0.78);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(255, 255, 255, 0.92);
+  --cap-border: rgba(13, 19, 38, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.9);
+  --cap-shadow: rgba(13, 19, 38, 0.28);
+  --cap-kbd: #ffffff;
+  --nav-ink: #0d1326;
+  --nav-ink-2: #4a5470;
+  --nav-hover: rgba(13, 19, 38, 0.05);
+  --nav-active-bg: #e9edf6;
+  --nav-active-ink: #244fb0;
+  --cap-cta-from: #2f5bc2;
+  --cap-cta-to: #1f45a0;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(36, 79, 176, 0.55);
+}
+
+[data-line='software'] {
+  --accent: var(--c-software-light-accent);
+  --accent-on-dark: var(--c-software-on-dark);
+  --accent-text: var(--c-software-text);
+  --surface: var(--c-software-light-surface);
+  --surface-2: var(--c-software-light-surface-2);
+  --surface-3: var(--c-software-light-surface-3);
+  --card: var(--c-software-light-card);
+  --card-2: var(--c-software-light-card-2);
+  --ink: var(--c-software-light-ink);
+  --ink-soft: var(--c-software-light-ink-soft);
+  --ink-2: var(--c-software-light-ink-2);
+  --ink-3: var(--c-software-light-ink-3);
+  --border: var(--c-software-light-border);
+  --border-input: var(--c-software-light-border-input);
+  /* ADR-015 v23: one flat accent. */
+  --accent-2: var(--accent);
+  --accent-ink: var(--c-software-light-accent-ink);
+  --accent-soft: var(--c-software-light-accent-soft);
+  --accent-line: var(--c-software-light-accent-line);
+  /* ADR-015 v23 pkt 5: neutral stage. */
+  --stage: var(--surface-2);
+  --chip: var(--c-software-light-chip);
+  /* ADR-015 v24 pkt 5: the footer grafit in both themes (shared board 02). */
+  --surface-dark: var(--c-software-band);
+  --ok: var(--c-software-light-ok);
+  --ok-text: var(--c-software-light-ok-text);
+  --warn: var(--c-software-light-warn);
+  /* The amber badge of the audit report (SwAuditForm): `--warn` is for status dots only, so the
+     badge has its own pair — light amber with dark text in both themes (10:1). */
+  --badge-warn: var(--c-software-night-warn);
+  --badge-warn-ink: var(--c-software-light-ink);
+  --glow: var(--c-software-light-glow);
+  --grid: var(--c-software-light-grid);
+  --dot: var(--c-software-light-dot);
+  --map-land: var(--c-software-light-map-land);
+  --map-water: var(--c-software-light-map-water);
+  --map-road: var(--c-software-light-map-road);
+  --map-block: var(--c-software-light-map-block);
+  --map-park: var(--c-software-light-map-park);
+  --map-wood: var(--c-software-light-map-wood);
+  --map-parking: var(--c-software-light-map-parking);
+  --map-block-line: var(--c-software-light-map-block-line);
+  --map-casing: var(--c-software-light-map-casing);
+  --map-road-main: var(--c-software-light-map-road-main);
+  --map-path: var(--c-software-light-map-path);
+  --map-rail: var(--c-software-light-map-rail);
+  --map-label: var(--c-software-light-map-label);
+  --header-bg: var(--c-software-light-header-bg);
+  --shadow: var(--c-software-light-shadow);
+  /* Boards: buttons on --accent with --accent-ink (SW4); follows the theme with --accent. */
+  --button-bg: var(--accent);
+  /* ADR-015 v20 pkt 4: „Zobacz →” on the inverted „Twój projekt” pill — the other theme's text
+     accent (the board's --accent-2 has too little contrast there). */
+  --pill-accent: var(--c-software-night-accent-text);
+  --footer-eyebrow: var(--c-software-night-accent-text);
+
+  /* Footer and dark blocks: the same grafit as --surface-dark (ADR-015 v23 pkt 4). */
+  --footer-bg: var(--surface-dark);
+  /* Flat CTA blocks with white text („Czasem powiemy”, quote ticket, footer CTA): the light
+     palette's text accent in both themes, ≥ 4.5:1 (ADR-015 v23 pkt 1, themes.test.ts). */
+  --cta-bg: var(--c-software-light-accent-text);
+  /* Shared elements (spec WSPOLNE-ELEMENTY §3): role tokens of the line's dark band — the same
+     in both themes. */
+  --on-dark: #9670ee;
+  --on-dark-text: #b49bf5;
+  --on-dark-ink: #120a26;
+  --line-dark: var(--c-software-band);
+  --line-dark-text: #a9afa9;
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(255, 255, 255, 0.74);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(255, 255, 255, 0.92);
+  --cap-border: rgba(18, 22, 19, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.9);
+  --cap-shadow: rgba(18, 22, 19, 0.26);
+  --cap-kbd: #ffffff;
+  --nav-ink: #121613;
+  --nav-ink-2: #4f5650;
+  --nav-hover: rgba(18, 22, 19, 0.05);
+  --nav-active-bg: #ece7fb;
+  --nav-active-ink: #5b33c4;
+  --cap-cta-from: #7b52e0;
+  --cap-cta-to: #6238cf;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(110, 69, 212, 0.5);
+  /* v24 Aurora (ZMIANY §1, ADR-015 „Rozstrzygnięcia v24”): glass, the gradient of the
+     highlighted heading word (`em`), the light sweep of buttons and the arrival beam. Light only
+     from the Software violet family or neutral (themes.test.ts). */
+  --glass: rgba(255, 255, 255, 0.72);
+  --sdlg-backdrop: rgba(22, 26, 23, 0.55);
+  --sdlg-bg: rgba(255, 255, 255, 0.97);
+  --sdlg-glow: var(--glow);
+  --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.7));
+  --em-from: #5b33c4;
+  --em-mid: #7b52e0;
+  --em-mid-at: 45%;
+  --em-to: #a07ef2;
+  /* H1 of a subpage (aurora.css `.au.light .au-ph h1 em`). */
+  --em-hero-from: #9670ee;
+  --em-hero-to: #5b33c4;
+  /* The highlighted H1 part on the dark band of O firmie / Kontakt (both themes, AUDYT-0811 #11). */
+  --em-band-from: #d9ccff;
+  --em-band-to: #9670ee;
+  --sheen: rgba(255, 255, 255, 0.35);
+  --sheen-ghost: rgba(150, 112, 238, 0.25);
+  --beam: #9670ee;
+  --beam-glow: rgba(150, 112, 238, 0.6);
+  /* Hero v24 (ZMIANY-v24 §4.1): the cosmic layer, the word of the H1, the active tile. Mixed with
+     transparent in `hero.css`; violet family or neutral only (themes.test.ts). */
+  --hv: #9670ee;
+  --hv-deep: #6e45d4;
+  --hv-lav: #c4b0ff;
+  --hv-pale: #dccdff;
+  --hv-dot: #e6dcff;
+  --hv-edge: #c3abfa;
+  --hero-white: #ffffff;
+  --hero-black: #000000;
+  --hero-badge-ink: #0b0d0c;
+  --hero-tile-from: #8a62ea;
+  --hero-tile-to: #6b42d8;
+  --hero-word-from: #9670ee;
+  --hero-word-to: #5b33c4;
+  /* Pictures of the news categories (ZMIANY-v24 §1 pkt 4, aurora.css `.au-pc-art`): the only place
+     with other hues — a category code (turquoise, gold, red, navy); dark in both themes. */
+  --news-art-base: #0f1110;
+  --news-art-orb: rgba(150, 112, 238, 0.55);
+  --news-art-poradnik: rgba(150, 112, 238, 0.55);
+  --news-art-poradnik-bg: #1a1430;
+  --news-art-strony: rgba(63, 193, 173, 0.45);
+  --news-art-strony-bg: #10201d;
+  --news-art-systemy: rgba(74, 123, 224, 0.45);
+  --news-art-systemy-bg: #111827;
+  --news-art-automatyzacje: rgba(242, 193, 78, 0.4);
+  --news-art-automatyzacje-bg: #1c1a12;
+  --news-art-bezpieczenstwo: rgba(226, 72, 58, 0.38);
+  --news-art-bezpieczenstwo-bg: #1e1312;
+  /* Covers of the posts (decision 15.11, `news/PostCover`): scenes drawn on the dark category
+     panel — in both themes, like the panel itself. Glass and ink are white over the panel, the
+     solid hue of each category draws the scene's accent (`-ink`), the soft one its fills. */
+  --cover-glass: rgba(255, 255, 255, 0.06);
+  --cover-glass-2: rgba(255, 255, 255, 0.11);
+  --cover-line: rgba(255, 255, 255, 0.17);
+  --cover-ink: rgba(244, 245, 241, 0.92);
+  --cover-ink-2: rgba(244, 245, 241, 0.42);
+  --cover-ok: #5fd08a;
+  --cover-alert: #f0786b;
+  --news-art-poradnik-ink: #b39bf5;
+  --news-art-strony-ink: #5fd6c2;
+  --news-art-systemy-ink: #7fa8f7;
+  --news-art-automatyzacje-ink: #f2c14e;
+  --news-art-bezpieczenstwo-ink: #f0786b;
+}
+
+/* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);
+   Instalacje also follows the system (its own token sheet). */
+[data-line='biznes'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-biznes-on-dark);
+  --accent-on-dark: var(--c-biznes-night-accent-2);
+  --accent-text: var(--c-biznes-on-dark);
+  --accent-2: var(--c-biznes-night-accent-2);
+  --accent-ink: var(--c-biznes-night-accent-ink);
+  --surface: var(--c-biznes-night-surface);
+  --surface-2: var(--c-biznes-night-surface-2);
+  --surface-3: var(--c-biznes-night-surface-3);
+  --card: var(--c-biznes-night-card);
+  --surface-dark: var(--c-biznes-navy);
+  --ink: var(--c-biznes-night-ink);
+  --ink-2: var(--c-biznes-night-ink-2);
+  --ink-3: var(--c-biznes-night-ink-3);
+  --border: var(--c-biznes-night-border);
+  --border-input: var(--c-biznes-night-ink-3);
+  --glow: var(--c-biznes-night-glow);
+  --st1: var(--c-biznes-night-st1);
+  --st2: var(--c-biznes-night-st2);
+  --st3: var(--c-biznes-night-st3);
+  --sth: var(--c-biznes-night-sth);
+  --shd: var(--c-biznes-night-shd);
+  --plate: var(--c-white);
+  --plate-shadow: var(--c-biznes-night-plate-shadow);
+  --ok: var(--c-ok-night);
+  --ok-text: var(--c-ok-night);
+  --warn: var(--c-warn-night);
+  --h1-accent: var(--c-biznes-night-accent-2);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(17, 28, 60, 0.66);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(17, 28, 60, 0.9);
+  --cap-border: rgba(255, 255, 255, 0.09);
+  --cap-highlight: rgba(255, 255, 255, 0.06);
+  --cap-shadow: rgba(0, 0, 0, 0.6);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #eef2fb;
+  --nav-ink-2: #a6b0cc;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(74, 123, 224, 0.18);
+  --nav-active-ink: #8fb0f5;
+  --cap-cta-from: #4472dc;
+  --cap-cta-to: #2d5bc8;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(74, 123, 224, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
+}
+
+[data-line='software'][data-theme='dark'] {
+  color-scheme: dark;
+  --accent: var(--c-software-night-accent);
+  --accent-on-dark: var(--c-software-night-accent-2);
+  --accent-text: var(--c-software-night-accent-text);
+  --surface: var(--c-software-night-surface);
+  --surface-2: var(--c-software-night-surface-2);
+  --surface-3: var(--c-software-night-surface-3);
+  --card: var(--c-software-night-card);
+  --card-2: var(--c-software-night-card-2);
+  --ink: var(--c-software-night-ink);
+  --ink-soft: var(--c-software-night-ink-soft);
+  --ink-2: var(--c-software-night-ink-2);
+  --ink-3: var(--c-software-night-ink-3);
+  --border: var(--c-software-night-border);
+  --border-input: var(--c-software-night-border-input);
+  --accent-2: var(--accent);
+  --accent-ink: var(--c-software-night-accent-ink);
+  --accent-soft: var(--c-software-night-accent-soft);
+  --accent-line: var(--c-software-night-accent-line);
+  --stage: var(--surface-2);
+  --chip: var(--c-software-night-chip);
+  --ok: var(--c-software-night-ok);
+  --ok-text: var(--c-software-night-ok-text);
+  --warn: var(--c-software-night-warn);
+  --glow: var(--c-software-night-glow);
+  --grid: var(--c-software-night-grid);
+  --dot: var(--c-software-night-dot);
+  --map-land: var(--c-software-night-map-land);
+  --map-water: var(--c-software-night-map-water);
+  --map-road: var(--c-software-night-map-road);
+  --map-block: var(--c-software-night-map-block);
+  --map-park: var(--c-software-night-map-park);
+  --map-wood: var(--c-software-night-map-wood);
+  --map-parking: var(--c-software-night-map-parking);
+  --map-block-line: var(--c-software-night-map-block-line);
+  --map-casing: var(--c-software-night-map-casing);
+  --map-road-main: var(--c-software-night-map-road-main);
+  --map-path: var(--c-software-night-map-path);
+  --map-rail: var(--c-software-night-map-rail);
+  --map-label: var(--c-software-night-map-label);
+  --header-bg: var(--c-software-night-header-bg);
+  --pill-accent: var(--c-software-light-accent-text);
+  --shadow: var(--c-software-night-shadow);
+  /* Header capsule (NAGLOWEK-KAPSULA §4, board 11). */
+  --cap-bg: rgba(24, 27, 25, 0.72);
+  /* Scrolled capsule: nearly opaque so the page does not read through the menu (AUDYT-0811 #3). */
+  --cap-bg-solid: rgba(16, 18, 17, 0.9);
+  --cap-border: rgba(255, 255, 255, 0.08);
+  --cap-highlight: rgba(255, 255, 255, 0.05);
+  --cap-shadow: rgba(0, 0, 0, 0.65);
+  --cap-kbd: rgba(255, 255, 255, 0.08);
+  --nav-ink: #ecedea;
+  --nav-ink-2: #a9ada8;
+  --nav-hover: rgba(255, 255, 255, 0.06);
+  --nav-active-bg: rgba(150, 112, 238, 0.18);
+  --nav-active-ink: #c3abfa;
+  --cap-cta-from: #8a62ea;
+  --cap-cta-to: #6b42d8;
+  --cap-cta-ink: #ffffff;
+  --cap-cta-glow: rgba(150, 112, 238, 0.6);
+  /* Opening status in the dark theme (spec §5). */
+  --status-open: var(--status-open-on-dark);
+  --status-open-bg: var(--status-bg-on-dark);
+  /* v24 Aurora: glass and the `em` gradient of the dark theme. */
+  --glass: rgba(20, 22, 21, 0.66);
+  --sdlg-backdrop: rgba(5, 6, 8, 0.72);
+  --sdlg-bg: rgba(30, 33, 32, 0.94);
+  --sdlg-glow: var(--glow);
+  --glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  --em-from: #8f9690;
+  --em-mid: #a79bd6;
+  --em-mid-at: 70%;
+  --hero-word-from: #d9ccff;
+  --hero-word-to: #9670ee;
+  --em-to: #c3abfa;
+  --em-hero-from: #d9ccff;
+  --em-hero-to: #9670ee;
+}
+
+/* „Plan Twojej firmy” (K31d′): colours of the floor plan drawings, 1:1 from `fp.css` of the
+   K3.1 package (`seed/prokombiznes/k31/plansze-svg/fp.css`). Scoped to the plan stage; the rules
+   that use them live in `src/sites/biznes/components/plan/floorPlan.css`. */
+[data-line='biznes'] .fp-stage {
+  --fpo: #e9eef6;
+  --fp1: #fafbfd;
+  --fp1l: #e7ecf4;
+  --fp2: #f7f1e8;
+  --fp2l: #eadfcf;
+  --fp3: #f2f3f6;
+  --fp3l: #d9dde5;
+  --fp4: #f0f2f9;
+  --fp4l: #e2e6f2;
+  --fpw: #24324d;
+  --fpdg: #fafbfd;
+  --fpwin: #dcebfb;
+  --fplab: #5a6886;
+  --fpf: #ffffff;
+  --fps: #c7d0df;
+  --fpd: #e3d2b9;
+  --fpds: #c4a982;
+  --fpc: #dce2ec;
+  --fpfr: #ddebfa;
+  --fpfrs: #9ebee6;
+  --fpct: #d7e2f8;
+  --fpcts: #8fa9e0;
+  --fpbl: #e7edf8;
+  --fpsf: #c9d6ee;
+  --fpsfs: #9fb2d8;
+  --fpcar: #f1f4f9;
+  --fpcars: #8c9ab3;
+  --fpgl: #c6d7ee;
+  /* Goods on shelves, plants and boxes — the same in both themes (boxes darker at night). */
+  --fpp1: #f4b26b;
+  --fpp2: #8cc7a2;
+  --fpp3: #e98a8a;
+  --fpp4: #9db6ee;
+  --fpp5: #f2d16b;
+  --fpp-opacity: 1;
+  --fppt: #5db487;
+  --fppt2: #3e9a6b;
+  --fpbx: #e8c79a;
+  --fpbxs: #c9a372;
+  --fpent: #ffffff;
+}
+
+[data-line='biznes'][data-theme='dark'] .fp-stage {
+  --fpo: #0c1428;
+  --fp1: #152039;
+  --fp1l: #1c2945;
+  --fp2: #1b2236;
+  --fp2l: #252d45;
+  --fp3: #161e33;
+  --fp3l: #253050;
+  --fp4: #17203a;
+  --fp4l: #202b48;
+  --fpw: #a9bbdd;
+  --fpdg: #152039;
+  --fpwin: #2a4373;
+  --fplab: #93a3c4;
+  --fpf: #22304f;
+  --fps: #34466d;
+  --fpd: #3a3446;
+  --fpds: #5a4e66;
+  --fpc: #2c3b5e;
+  --fpfr: #1f3460;
+  --fpfrs: #3d5d99;
+  --fpct: #243a6e;
+  --fpcts: #3f5fa6;
+  --fpbl: #2a3858;
+  --fpsf: #2e3f68;
+  --fpsfs: #4a5f92;
+  --fpcar: #2a3654;
+  --fpcars: #6a7da3;
+  --fpgl: #3a5180;
+  --fpp-opacity: 0.7;
+  --fpbx: #6b5a40;
+  --fpbxs: #8a7350;
+}

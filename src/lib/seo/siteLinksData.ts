@@ -1,0 +1,121 @@
+import { listBundles } from '../catalog/bundle'
+import {
+  getBundles,
+  getCatalogIndex,
+  getFloorPlans,
+  getWizardRules,
+  getPublishedProductList,
+} from '../catalog/data'
+import { buildPlanScenes } from '../catalog/floorPlan'
+import { AREA_TOWNS } from '../instalacje/area'
+import { getInstalacjeObjectList } from '../instalacje/data'
+import { getPublishedPageList } from '../pages/data'
+import { getHubSettings } from '../prokom/data'
+import { HUB_NOINDEX_SLUGS, hubMapPages } from '../prokom/pages'
+import { getPostList } from '../posts/data'
+import {
+  getCityList,
+  getIndustryPageList,
+  getSolutionDates,
+  getSolutionsIndex,
+} from '../software/data'
+import { hasGuide, hasNews } from '../posts/list'
+import type { Line } from '../tenant/lines'
+import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
+
+/**
+ * The site map of one tenant from the cached loaders (each filters by the tenant): pages, on
+ * Biznes the catalog, on Software the catalog of solutions, on Instalacje the object pages and
+ * the guide posts, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
+ */
+export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
+  const catalog = tenant.line === 'biznes'
+  const software = tenant.line === 'software'
+  const instalacje = tenant.line === 'instalacje'
+  const [
+    pages,
+    index,
+    products,
+    posts,
+    allBundles,
+    solutions,
+    industryPages,
+    objectPages,
+    cities,
+    plans,
+    rules,
+    solutionDates,
+  ] = await Promise.all([
+    getPublishedPageList(tenant.id),
+    catalog ? getCatalogIndex(tenant.id) : null,
+    catalog ? getPublishedProductList(tenant.id) : [],
+    hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
+    catalog ? getBundles(tenant.id) : [],
+    software ? getSolutionsIndex(tenant.id) : null,
+    software ? getIndustryPageList(tenant.id) : null,
+    instalacje ? getInstalacjeObjectList(tenant.id) : null,
+    software ? getCityList(tenant.id) : null,
+    catalog ? getFloorPlans(tenant.id) : null,
+    catalog ? getWizardRules(tenant.id) : null,
+    software ? getSolutionDates(tenant.id) : null,
+  ])
+  // Every published product is listed (as `sitemap.xml` always did); the index adds the
+  // categories, the product list the dates for `<lastmod>`.
+  const indexed = new Map((index?.products ?? []).map((product) => [product.slug, product]))
+  // Bundles shown on the site (`listBundle`); in the maps only those „Gotowe” (K3c).
+  const bundles = listBundles(allBundles, new Set(indexed.keys()))
+  const sections = buildSiteMap({
+    pages,
+    catalog: index && {
+      categories: index.categories,
+      brands: brandLinks(index.brands),
+      industries: index.industries,
+      bundles: bundles.length
+        ? bundles.filter((bundle) => bundle.indexable).map(({ slug, name }) => ({ slug, name }))
+        : null,
+      plan: Boolean(plans && buildPlanScenes(plans.records, new Set(indexed.keys())).length),
+      // `/konfigurator` answers 404 without rules in the panel: listed only with them.
+      configurator: Boolean(rules),
+      products: products.map(({ slug, name, updatedAt }) => ({
+        slug,
+        name: indexed.get(slug)?.name ?? name,
+        categories: indexed.get(slug)?.categories ?? [],
+        updatedAt,
+      })),
+    },
+    news: hasNews(tenant.line) && posts ? { posts } : null,
+    guide: hasGuide(tenant.line) && posts ? { posts } : null,
+    solutions: solutions && {
+      items: solutions.solutions.map(({ slug, name }) => ({
+        slug,
+        name,
+        updatedAt: solutionDates?.get(slug) ?? null,
+      })),
+    },
+    industryPages,
+    cities,
+    objectPages,
+    areaPages: instalacje ? AREA_TOWNS : null,
+  })
+  return tenant.line === 'prokom' ? withHubPages(sections, tenant.id) : sections
+}
+
+/**
+ * pro-kom.eu: its own pages (routes, not panel pages) lead the maps; its legal pages stay out until
+ * a lawyer accepts them (spec §4, §6.13). A v1.1 page is listed only while switched on.
+ */
+async function withHubPages(sections: SiteMapSection[], tenantId: number) {
+  const { pages } = await getHubSettings(tenantId)
+  const hidden = new Set<string>(HUB_NOINDEX_SLUGS.map((slug) => `/${slug}`))
+  const hub = hubMapPages(pages)
+  const known = new Set(hub.map((page) => page.href))
+  return [
+    { id: 'hub', title: 'PRO-KOM', links: hub },
+    ...sections
+      .map((section) => ({
+        ...section,
+        links: section.links.filter((link) => !hidden.has(link.href) && !known.has(link.href)),
+      }))
+      .filter((section) => section.links.length > 0 || section.groups?.length),
+  ]
+}

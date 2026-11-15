@@ -1,0 +1,482 @@
+/*
+ * Stylesheet of pro-kom.eu (ADR-023 „CSS per linia”): Tailwind with the shared styles, the hub
+ * tokens (`tokens-prokom.css`) and the classes of `src/sites/prokom` only. Loaded by
+ * `src/app/(sites)/LineSheet.tsx` on hub pages. Colours only from tokens (ADR-007); a line's
+ * colour comes in as `--ln` / `--ln-text` (`lineColors.ts`).
+ */
+@import 'tailwindcss' source(none);
+@import '../../../styles/site.css';
+@import '../../../styles/tokens-prokom.css';
+@import './home.css';
+@import './home-scene.css';
+@import './home-paths.css';
+@import './home-end.css';
+@import './offer.css';
+@import './business.css';
+@import './light.css';
+@source '..';
+
+/* --- Capsule: 1081–1340 px hides „Pomoc” and „O firmie” (spec §5.2; footer and sheet have them). */
+@media (min-width: 1081px) and (max-width: 1340px) {
+  [data-line='prokom'] .cap__nav li[data-cap-key='/pomoc'],
+  [data-line='prokom'] .cap__nav li[data-cap-key='/o-firmie'] {
+    display: none;
+  }
+}
+/* The tablet loupe next to Menu; a phone has „Szukaj” on top of the sheet. */
+@media (max-width: 767px) {
+  [data-line='prokom'] .pk-search-t {
+    display: none;
+  }
+}
+
+/* --- „Oferta” mega menu (board Naglowek): lines · chosen line · „Zacznij od siebie”. */
+.pk-mega:not([hidden]) {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 280px;
+  gap: 0;
+  overflow: hidden;
+}
+.pk-mega__lines,
+.pk-mega__start {
+  padding: 22px;
+  background: var(--surface-2);
+}
+.pk-mega__start {
+  border-left: 1px solid var(--border);
+}
+.pk-mega .pk-mega__start ul {
+  display: grid;
+  gap: 2px;
+}
+.pk-mega__head {
+  margin-bottom: 10px;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pk-mega__tab {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  padding: 0 12px;
+  color: var(--ink-2);
+  font-weight: 800;
+  text-align: left;
+}
+.pk-mega__tab[aria-selected='true'] {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--ln);
+}
+.pk-mega__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--ln);
+}
+.pk-mega__all {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--accent-text);
+  font-weight: 800;
+}
+.pk-mega__panel {
+  padding: 22px 26px;
+}
+.pk-mega__name {
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+}
+.pk-mega__desc {
+  margin-top: 4px;
+  color: var(--ink-2);
+}
+/* `.pk-mega` in front: the shared `.cap__nav ul { display: flex }` reaches lists in the panel. */
+.pk-mega .pk-mega__services {
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 16px;
+  margin-top: 16px;
+}
+.pk-mega__service,
+.pk-mega__startlink {
+  display: flex;
+  min-height: 44px;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 12px;
+  padding: 8px;
+}
+.pk-mega__service:hover,
+.pk-mega__startlink:hover {
+  background: var(--nav-hover);
+}
+.pk-mega__service b,
+.pk-mega__startlink b {
+  display: block;
+  color: var(--ink);
+  font-weight: 800;
+}
+.pk-mega__service span span,
+.pk-mega__startlink span span {
+  display: block;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.pk-mega__icon {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ln) 16%, transparent);
+  color: var(--ln-text);
+}
+.pk-mega__startlink svg {
+  margin-top: 2px;
+  color: var(--accent-text);
+}
+.pk-mega__more {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--ln-text);
+  font-weight: 800;
+}
+.pk-mega__pick {
+  display: block;
+  margin-top: 14px;
+  border-radius: 16px;
+  padding: 16px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.pk-mega__pick b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 17px;
+}
+
+/* --- Menu sheet (spec §5.4): „Cała oferta” and the start links. */
+.pk-sheet__head {
+  margin: 18px 0 8px;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pk-sheet__all {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--accent-text);
+  font-weight: 800;
+}
+.pk-sheet__link {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink);
+  font-weight: 700;
+}
+.pk-sheet__link svg {
+  color: var(--accent-text);
+}
+.pk-sheet__all:focus-visible,
+.pk-sheet__link:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* --- Content container (spec §8): 1560 px; from 1400 px the rail (16 + 64 + 16 px) never covers it. */
+.pk-wrap {
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 3vw, 48px);
+}
+@media (min-width: 1400px) {
+  /* The shared rail measures its place from this box, not the capsule's 1344 px (wspolne.css). */
+  html:has([data-site-rail]) {
+    --rail-content: 1560px;
+  }
+  html:has([data-site-rail]) .pk-wrap {
+    padding-left: max(clamp(20px, 3vw, 48px), calc(96px - max(0px, (100vw - 1560px) / 2)));
+  }
+}
+
+/* --- Home skeleton (H1-2): sections with anchors; content comes in H2. */
+.pk-home section {
+  scroll-margin-top: 96px;
+}
+
+/* --- `/szukaj` (spec §5.6, board 12): form, filters, best hit, groups, empty state, side panel. */
+.pk-search__eyebrow {
+  margin-bottom: 8px;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pk-search__form {
+  display: flex;
+  max-width: 760px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  border: 1px solid var(--border-input);
+  border-radius: 16px;
+  padding: 6px 6px 6px 16px;
+  background: var(--card);
+}
+.pk-search__form:focus-within {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+.pk-search__input {
+  min-width: 0;
+  min-height: 44px;
+  flex: 1;
+  background: transparent;
+  color: var(--ink);
+  font-size: 17px;
+  outline: none;
+}
+.pk-search__input::placeholder {
+  color: var(--ink-3);
+}
+.pk-search__submit,
+.pk-btn--primary {
+  min-height: 44px;
+  border-radius: 12px;
+  padding: 0 18px;
+  background: var(--button-bg);
+  color: var(--accent-ink);
+  font-weight: 800;
+}
+.pk-search__popular {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--ink-3);
+  font-size: 14px;
+}
+.pk-chip {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 14px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+.pk-chip:hover {
+  border-color: var(--accent-text);
+}
+.pk-search__layout {
+  display: grid;
+  gap: 32px;
+  margin-top: 32px;
+}
+@media (min-width: 1080px) {
+  .pk-search__layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+.pk-search__tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.pk-tab {
+  display: inline-flex;
+  min-height: 44px;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 14px;
+  color: var(--ink-2);
+  font-weight: 800;
+}
+.pk-tab[aria-current='page'] {
+  border-color: var(--ln);
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+  color: var(--ink);
+}
+.pk-tab__dot {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 999px;
+  background: var(--ln);
+}
+.pk-tab__count {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.pk-best {
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  background: var(--card);
+  box-shadow: inset 4px 0 0 var(--ln);
+}
+.pk-best__link,
+.pk-hit {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pk-best__go {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--ln-text);
+  font-weight: 800;
+}
+.pk-hit__icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--accent-text);
+}
+.pk-hit__hint {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.pk-group {
+  margin-top: 28px;
+}
+.pk-group ul {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+.pk-hit {
+  min-height: 56px;
+  border-radius: 14px;
+  padding: 10px;
+}
+.pk-hit:hover {
+  background: var(--surface-2);
+}
+.pk-hit b {
+  color: var(--ink);
+}
+.pk-none {
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  background: var(--card);
+}
+.pk-none p {
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+.pk-none__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.pk-btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 18px;
+  color: var(--ink);
+  font-weight: 800;
+}
+.pk-btn--primary {
+  border-color: transparent;
+}
+.pk-side {
+  align-self: start;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  background: var(--card);
+}
+.pk-side__phone {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin: 8px 0 4px;
+  color: var(--accent-text);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+}
+.pk-side__lines {
+  display: grid;
+  gap: 4px;
+}
+.pk-side__line {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+}
+.pk-side__line span span {
+  display: block;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.pk-search a:focus-visible,
+.pk-search button:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* --- /kontakt (audit H8 pkt 7): the salon card's map follows the page theme like the dark map of
+   /o-firmie — the shared template draws it light, which glared on the hub's dark default. Night
+   palette of `.addr-map[data-variant='dark']` (wspolne.css); the shared template stays as it is. */
+[data-line='prokom'][data-theme='dark'] [data-address-card] .addr-map[data-variant='light'] {
+  --am-land: var(--c-software-night-map-land);
+  --am-water: var(--c-software-night-map-water);
+  --am-road: var(--c-software-night-map-road);
+  --am-road-main: var(--c-software-night-map-road-main);
+  --am-block: var(--c-software-night-map-block);
+  --am-block-line: var(--c-software-night-map-block-line);
+  --am-park: var(--c-software-night-map-park);
+  --am-wood: var(--c-software-night-map-wood);
+  --am-parking: var(--c-software-night-map-parking);
+  --am-casing: var(--c-software-night-map-casing);
+  --am-path: var(--c-software-night-map-path);
+  --am-rail: var(--c-software-night-map-rail);
+  --am-label: var(--c-software-night-map-label);
+  --am-card: var(--c-papier);
+}

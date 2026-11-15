@@ -1,0 +1,99 @@
+import type { Payload } from 'payload'
+
+import { HOME_SLUG } from '../../lib/pages/slug'
+import { SOFTWARE_AUDIT_SLUG } from './audit'
+import { SOFTWARE_PRIVACY_SLUG, SOFTWARE_TERMS_SLUG } from './legal'
+import { SOFTWARE_PRICING_SLUG } from './pricing'
+import { SOFTWARE_ABOUT_SLUG, SOFTWARE_CONTACT_SLUG } from './sharedPages'
+
+type Count = (name: string, result: boolean | 'updated') => void
+type Seo = { title?: string | null; description?: string | null }
+
+// TODO(krystian): opisy meta do akceptacji przed produkcją (spec. §9: „opisy pisze Krystian”) —
+// propozycje SW12 z tekstów plansz. Tytuł podstron bez „| PRO-KOM Software” (dokłada go szablon
+// tytułu); strona główna leży w segmencie layoutu, którego szablon jej nie obejmuje — tytuł pełny.
+/** Titles and descriptions of the Software pages kept in the panel (spec. §9). */
+export const SOFTWARE_PAGE_SEO: Readonly<Record<string, Seo>> = {
+  [HOME_SLUG]: {
+    // ≤ 60 characters: longer titles are cut in results (audyt 01.11 P2).
+    // SEO etap 1: „strony internetowe” (the phrase people type) and the region, ≤ 65 characters.
+    title: 'Strony internetowe i systemy — Rabka, Podhale | PRO-KOM Software',
+    description:
+      'Strony internetowe, sklepy i systemy dla firm z Rabki-Zdroju i Podhala. Cena „od” i termin od razu, stała wycena, opieka po starcie.',
+  },
+  [SOFTWARE_PRICING_SLUG]: {
+    title: 'Cennik stron, systemów i opieki',
+    description:
+      'Ceny „od” stron, sklepów i systemów dla firm oraz poziomy opieki po starcie. Stała cena przed rozpoczęciem pracy.',
+  },
+  [SOFTWARE_AUDIT_SLUG]: {
+    description:
+      'Darmowy audyt strony internetowej: szybkość, wygląd na telefonie i widoczność w Google. Lista poprawek prostym językiem, bez zobowiązań.',
+  },
+  [SOFTWARE_PRIVACY_SLUG]: {
+    description:
+      'Jak PRO-KOM Software przetwarza dane z formularzy i kreatora: kto jest administratorem, jak długo przechowujemy dane i jakie masz prawa.',
+  },
+  [SOFTWARE_TERMS_SLUG]: {
+    description:
+      'Regulamin strony PRO-KOM Software: formularz kontaktowy, kreator wyceny, darmowy audyt, ceny orientacyjne i reklamacje.',
+  },
+  cookies: {
+    description:
+      'PRO-KOM Software nie śledzi odwiedzających: bez cookies reklamowych i bez banera zgód. Lista zapisów w przeglądarce i jak je usunąć.',
+  },
+  dostepnosc: {
+    description:
+      'Deklaracja dostępności prokomsoftware.pl: WCAG 2.1 AA, obsługa klawiaturą, kontrast, ograniczenie ruchu i jak zgłosić barierę.',
+  },
+  [SOFTWARE_CONTACT_SLUG]: {
+    description:
+      'Napisz albo zadzwoń do PRO-KOM Software w Rabce-Zdroju. Odpowiadamy w sprawie stron, systemów i aplikacji, wycena w 5–7 dni.',
+  },
+  [SOFTWARE_ABOUT_SLUG]: {
+    description:
+      'PRO-KOM Software z Rabki-Zdroju: kto zbuduje Twoją stronę albo system, jak pracujemy i z czego budujemy.',
+  },
+}
+
+/**
+ * The SEO group to save, or `null` when nothing changes: the seed fills only empty fields, so a
+ * title or description written in the panel stays.
+ */
+export function seoFill(current: Seo | null | undefined, seed: Seo): Seo | null {
+  const next: Seo = { ...current }
+  let changed = false
+  for (const key of ['title', 'description'] as const) {
+    if (seed[key] && !current?.[key]?.trim()) {
+      next[key] = seed[key]
+      changed = true
+    }
+  }
+  return changed ? next : null
+}
+
+const local = { overrideAccess: true, context: { seed: true }, depth: 0 } as const
+
+/** Fills the empty SEO fields of the Software pages; run after the pages are created. */
+export async function seedSoftwareSeo(payload: Payload, tenantId: number, count: Count) {
+  for (const [slug, seed] of Object.entries(SOFTWARE_PAGE_SEO)) {
+    const {
+      docs: [page],
+    } = await payload.find({
+      collection: 'pages',
+      where: { and: [{ tenant: { equals: tenantId } }, { slug: { equals: slug } }] },
+      limit: 1,
+      ...local,
+    })
+    if (!page) continue
+    const seo = seoFill(page.seo, seed)
+    count(`pages ${slug} seo`, seo ? 'updated' : false)
+    if (!seo) continue
+    await payload.update({
+      collection: 'pages',
+      id: page.id,
+      data: { seo, _status: 'published' },
+      ...local,
+    })
+  }
+}

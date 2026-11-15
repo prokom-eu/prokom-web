@@ -1,0 +1,682 @@
+/*
+ * Stylesheet of the Instalacje line (ADR-I003 §3): scenes, keyframes and effects from the
+ * visualisation (docs/design/prokominstalacje/pk.css) that are hard to express in Tailwind.
+ * Layout, spacing and typography stay in Tailwind. Colours only through tokens (tokens.css).
+ * Every rule is scoped to the line: a global stylesheet stays loaded after a navigation.
+ */
+
+/* `clip`, not `hidden`: `hidden` makes the page a scroll container and breaks `position: sticky`
+   of the header and the anchor bar (fixed in the visualisation v4.0). */
+[data-line='instalacje'] .inst-page {
+  overflow-x: clip;
+}
+
+/* A page with its own CTA band (service pages, `CtaBandView page`) hides the frame's one. */
+[data-line='instalacje'] .inst-page:has([data-cta-page]) .ctaf {
+  display: none;
+}
+
+/* Page under an open menu sheet does not scroll (`ShellProvider`, MOBILE-APLIKACJA §4). */
+html[data-line='instalacje'].pk-lock,
+html[data-line='instalacje'].pk-lock body {
+  overflow: hidden;
+}
+
+/*
+ * Shell (I3): top bar, header, mega menu, bottom bar, menu sheet, CTA band, footer.
+ * Rules of `pk.css` v4.2 copied 1:1 with the class names of the prototype (easier to compare);
+ * a rule that the file overrides later is merged into its last version. Variables of the
+ * prototype → tokens: bg → --surface, bg2 → --surface-2, bg3 → --surface-3, card → --card,
+ * text → --ink, soft → --ink-soft, muted → --ink-2, line → --border, hdr → --header-bg,
+ * accentText/Soft/Line/Ink → --accent-text/-soft/-line/-ink. Hover only with a pointer
+ * (MOBILE-APLIKACJA §5). Breakpoints: 1300, 1100, 760, 700 px (ADR-I003 §3).
+ */
+[data-line='instalacje'] {
+  /* Base pieces the shell uses (pk.css: .wrap, .btn, .eye, .ico). */
+  /* `content-box` as in the prototype (no box-sizing reset there): 1280 px of content plus the
+     padding, 1344 px in all — Tailwind's `border-box` made every page 64 px narrower (I4). */
+  & .wrap {
+    box-sizing: content-box;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  & .eye {
+    font-weight: 800;
+    color: var(--accent-text);
+    font-size: 13.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  & .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 26px;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 16px;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition:
+      transform 0.2s var(--ease-out),
+      box-shadow 0.2s var(--ease-out),
+      background 0.2s;
+    color: var(--ink);
+    white-space: nowrap;
+    touch-action: manipulation;
+  }
+  & .btn-p {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: 0 14px 34px -12px var(--glow);
+  }
+  & .btn-s {
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: 14.5px;
+    border-radius: 13px;
+  }
+  & .ico {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+  }
+  & .ico.s {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  & .live {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ok);
+    margin-right: 7px;
+    vertical-align: 1px;
+    position: relative;
+  }
+  /* The ring around the dot grows and fades (transform + opacity, report 11.11.2026; before:
+     an animated box-shadow, repainted on every frame). 8 px × 3.5 = the old 10 px spread. The
+     ring is `::before`, the dot is drawn again on top by `::after`, so like the old shadow the
+     ring shows only outside the dot. */
+  & .live::before,
+  & .live::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  & .live::before {
+    background: var(--inst-live-ping);
+    opacity: 0;
+    animation: inst-ping 2.4s ease-out infinite;
+  }
+  & .live::after {
+    background: inherit;
+  }
+  & .live.off {
+    background: var(--warn);
+  }
+  & .live.off::before {
+    animation: none;
+  }
+
+  & .megah {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 8px;
+  }
+  & .megac {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  & .megac a {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 14px;
+    transition: background 0.2s;
+  }
+  & .megac a b {
+    display: block;
+    font-size: 15px;
+  }
+  & .megac a span span {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+  & .megac a .mhi {
+    flex: none;
+    background: color-mix(in srgb, var(--mh, var(--accent)) 15%, transparent);
+    color: color-mix(in srgb, var(--mh, var(--accent)) 82%, var(--ink));
+    box-shadow: none;
+    transition: transform 0.2s;
+  }
+  & .megap {
+    background: var(--accent-soft);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+  }
+  & .megap b {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 20px;
+    line-height: 1.15;
+  }
+  & .megap > span {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  & .megapo {
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--inst-promo-warm) 14%, var(--card)),
+      var(--accent-soft)
+    );
+  }
+  & .megal {
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--accent-text);
+  }
+  & .iconb {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: none;
+    touch-action: manipulation;
+  }
+
+  /* Anchor bar of subpages (`AnchorsBar`; first used in I4). */
+  & .anchors {
+    position: sticky;
+    top: 76px;
+    z-index: 20;
+    background: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  & .anchors .wrap {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  & .anchors .wrap::-webkit-scrollbar {
+    display: none;
+  }
+  & .anchors a {
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink-2);
+  }
+
+  /* CTA band above the footer — dark in both themes. */
+  & .cta {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    background: var(--inst-band);
+    color: var(--inst-band-ink);
+    box-shadow: inset 0 0 0 1px var(--inst-band-line);
+  }
+  & .cta::after {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: -160px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--inst-band-glow), transparent 65%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  & .cta > * {
+    position: relative;
+    z-index: 1;
+  }
+  & .cta .eye {
+    color: var(--inst-foot-accent);
+  }
+  & .cta .h2 {
+    font-family: var(--font-display);
+    font-stretch: 115%;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    font-size: clamp(30px, 3.4vw, 48px);
+    line-height: 1.02;
+    margin: 0;
+  }
+  & .cta .lead {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: var(--inst-band-lead);
+    margin: 0;
+    max-width: 62ch;
+  }
+  & .cta .ctan {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    color: var(--inst-band-note);
+    text-align: center;
+  }
+  & .cta .ctan svg {
+    flex: none;
+  }
+  & .hbtn-p {
+    background: var(--inst-band-button);
+    color: var(--inst-band-button-ink);
+    box-shadow: 0 16px 36px -12px var(--inst-band-button-glow);
+  }
+  & .hbtn-g {
+    background: var(--inst-band-ghost);
+    color: var(--inst-band-ink);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 0 0 1.5px var(--inst-band-ghost-ring);
+  }
+  & .hbtn-g b {
+    color: var(--inst-band-phone);
+  }
+
+  & .ftmt {
+    position: absolute;
+    left: 0;
+    top: -89px;
+    display: block;
+    width: 100%;
+    height: 90px;
+  }
+  & .ftmt path {
+    fill: var(--inst-foot-top);
+  }
+  & .ftmt path.l {
+    fill: none;
+    stroke: var(--inst-foot-ridge);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  & .fbot {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--inst-foot-rule);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--inst-foot-ink-2);
+    font-size: 13px;
+  }
+
+  & .mtabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 5px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+    flex: 1;
+  }
+  & .mtab {
+    min-height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--ink-2);
+    font: 800 15px var(--font-sans);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  & .mtab.on {
+    background: var(--card);
+    color: var(--ink);
+    box-shadow:
+      var(--inst-tab-shadow),
+      inset 0 0 0 1px var(--border);
+  }
+  & .mgh {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    padding: 12px 4px 0;
+  }
+  & .mgrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px 0 4px;
+  }
+  & .mgrid a {
+    background: color-mix(in srgb, var(--mh, var(--accent)) 8%, var(--surface-3));
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 14.5px;
+    font-weight: 800;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    line-height: 1.25;
+    min-height: 58px;
+    transition: transform 0.15s;
+  }
+  & .mhi2 {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    flex: none;
+    background: color-mix(in srgb, var(--mh, var(--accent)) 18%, transparent);
+    color: color-mix(in srgb, var(--mh, var(--accent)) 85%, var(--ink));
+  }
+  & .mall {
+    display: block;
+    font-weight: 800;
+    color: var(--accent-text);
+    padding: 12px 4px;
+  }
+  & .mshl {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+  }
+  & .mshl a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    transition: transform 0.15s;
+  }
+  & .mshl a > span:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  & .mshl b {
+    font-size: 15.5px;
+    font-weight: 800;
+  }
+  & .mshl small {
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  & .mshl i {
+    color: var(--ink-2);
+    display: grid;
+  }
+  /* Press of buttons and sheet items: the shared `scale(.97)` of motion.css (I-M). */
+}
+
+/* Hover only with a pointer: on touch it sticks after a tap (MOBILE-APLIKACJA §5). */
+@media (hover: hover) {
+  [data-line='instalacje'] {
+    & .megac a:hover {
+      background: color-mix(in srgb, var(--mh, var(--accent)) 9%, transparent);
+    }
+    & .megac a:hover .mhi {
+      transform: scale(1.08);
+    }
+    & .megac a:hover b {
+      color: color-mix(in srgb, var(--mh, var(--accent)) 70%, var(--ink));
+    }
+    & .iconb:hover {
+      border-color: var(--accent);
+    }
+    & .btn-p:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px -12px var(--glow);
+    }
+    & .hbtn-p:hover {
+      transform: translateY(-2px);
+    }
+    & .hbtn-g:hover {
+      box-shadow: inset 0 0 0 1.5px var(--inst-band-button);
+    }
+    & .anchors a:hover {
+      color: var(--ink);
+      background: var(--surface-3);
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  [data-line='instalacje'] {
+    & .cta {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+/* Tablet: the sheet in the middle of the screen (spec §4). */
+
+@media (max-width: 760px) {
+  [data-line='instalacje'] {
+    & .wrap {
+      padding: 0 16px;
+    }
+    & .anchors {
+      top: 64px;
+      transition: top 0.28s var(--ease-out);
+    }
+    & .cta {
+      padding: 28px;
+      border-radius: 24px;
+    }
+    & .ftmt {
+      top: -49px;
+      height: 50px;
+    }
+    /* Press: `scale(.94)` in ruch.css (I-M). */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] {
+    & .imega,
+    & .live::before {
+      animation: none;
+    }
+    & .anchors {
+      transition: none;
+    }
+  }
+}
+
+@keyframes inst-ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+
+@keyframes inst-megain {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes inst-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Page transitions (MOBILE-APLIKACJA §5): a short cross-fade; header and bottom bar stay put. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-line='instalacje']::view-transition-old(*),
+  html[data-line='instalacje']::view-transition-new(*) {
+    animation-duration: 180ms;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-line='instalacje']::view-transition-group(*),
+  html[data-line='instalacje']::view-transition-old(*),
+  html[data-line='instalacje']::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* --- L1-I: the line in the shared shell (ADR-022, NAGLOWEK-KAPSULA, WSPOLNE-ELEMENTY §5) -------
+   The capsule, rail, footer, tab bar and sheet are shared (`src/styles/wspolne.css`); here only
+   what is the Instalacje line's own: its two mega menus inside the capsule's panel, the current
+   section pill on a mega trigger, the loupe below 1400 px, the mountain ridge and glow of the
+   footer, and the anchor bar under the capsule (replaced by the rail's „Na tej stronie” from 1400). */
+[data-line='instalacje'] {
+  & .imega {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.05fr;
+    gap: 10px 18px;
+    padding: 24px;
+  }
+  & .imega[hidden] {
+    display: none;
+  }
+  & .imega--o {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 1fr;
+  }
+  /* The mega trigger of the section the page belongs to (e.g. „Usługi” on /monitoring). */
+  & .cap-link[aria-current='true'] {
+    background: var(--nav-active-bg);
+    color: var(--nav-active-ink);
+    font-weight: 700;
+  }
+  & [data-site-footer] {
+    margin-top: 90px;
+    isolation: isolate;
+  }
+  & [data-site-footer]::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 120px;
+    z-index: -1;
+    width: 60%;
+    height: 520px;
+    background: radial-gradient(50% 50% at 80% 40%, var(--inst-foot-glow), transparent 75%);
+    pointer-events: none;
+  }
+  & .wrap {
+    padding-left: calc(32px + var(--rail-offset, 0px));
+  }
+  & .anchors {
+    top: 92px;
+    transition: top var(--dur-state) var(--ease-out);
+  }
+}
+/* The tablet search button (next to Menu, shown with it up to 1080 px): phones have the app bar. */
+@media (max-width: 767px) {
+  [data-line='instalacje'] .isearch-t {
+    display: none;
+  }
+}
+@media (min-width: 1400px) {
+  [data-line='instalacje'] {
+    & .isearch,
+    & .anchors {
+      display: none;
+    }
+  }
+  /* The home hero is wider than `.wrap` (1440 px, 48 px gutter): its text and dock keep clear of
+     the side rail (16 px + 64 px + 16 px) until the screen leaves room for both. */
+  /* The shared footer's content keeps clear of the rail like the capsule (`--rail-offset`). */
+  [data-line='instalacje'] [data-site-footer] > div {
+    padding-left: calc(32px + var(--rail-offset, 0px));
+  }
+  [data-line='instalacje']:has([data-site-rail]) .hx {
+    --hx-gutter: max(48px, calc(96px - max(0px, (100vw - 1440px) / 2)));
+    & .hxin {
+      padding-left: var(--hx-gutter);
+    }
+    & .hxdock {
+      left: var(--hx-gutter);
+    }
+  }
+}
+@media (max-width: 1080px) {
+  [data-line='instalacje'] .anchors {
+    top: 76px;
+  }
+  /* The capsule hides while scrolling down on a phone: the bar moves up without a gap. */
+  [data-line='instalacje']:has(.cap-wrap[data-hidden]) .anchors {
+    top: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-line='instalacje'] .anchors {
+    transition: none;
+  }
+}

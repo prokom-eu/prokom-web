@@ -1,0 +1,15 @@
+  <section id="faq" class="{{rv.faq}}" data-rv="faq" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Pytania i odpowiedzi</span><h2 class="h2">{{sx.faqH}}</h2></div></div>
+      <div class="faqw">
+        <div class="ri"><sc-for list="{{faq}}" as="q" hint-placeholder-count="6"><details class="fq" open="{{q.open}}"><summary><em>{{q.n}}</em><span>{{q.q}}</span><!--i:P.plus:18:2.4--></summary><p>{{q.a}}</p></details></sc-for></div>
+        <div class="card ri sticky" style="padding: 26px; display: flex; flex-direction: column; gap: 14px">
+          <span class="ico"><!--i:P.chat:24--></span>
+          <b class="h3">{{sx.faqA.t}}</b>
+          <span class="mut">{{sx.faqA.d}}</span>
+          <a href="{{K.telH}}" class="btn btn-p"><span class="ph" style="color: inherit">{{K.tel}}</span></a>
+          <a href="{{sx.faqA.href}}" class="btn btn-g">{{sx.faqA.cta}}</a>
+        </div>
+      </div>
+    </div>
+  </section>

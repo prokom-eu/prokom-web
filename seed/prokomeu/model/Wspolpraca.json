@@ -1,0 +1,562 @@
+{
+  "_zrodlo": "docs/design/prokomeu/plansze/Wspolpraca.dc.html (renderVals) — scripts/prokomeu-model.mjs",
+  "roles": [
+    {
+      "key": "architekt",
+      "name": "Architekt",
+      "sub": "projekt budynku",
+      "line": "instalacje",
+      "lines": "PRO-KOM Instalacje",
+      "eyebrow": "Dla architekta",
+      "heading": "Instalacje zaplanowane w projekcie, a nie dorabiane na budowie.",
+      "start": "rzuty — nawet wstępne",
+      "points": [
+        {
+          "title": "Konsultacja na etapie projektu",
+          "text": "Mówimy, gdzie potrzebne są trasy kabli, puszki i szafa."
+        },
+        {
+          "title": "Punkty naniesione na rzuty",
+          "text": "Kamery, czujki, gniazda sieci, głośniki, panele sterowania."
+        },
+        {
+          "title": "Lista dla branżystów",
+          "text": "Co musi przygotować elektryk i wykonawca przed tynkami."
+        },
+        {
+          "title": "Jeden kontakt do końca budowy",
+          "text": "Ta sama ekipa projektuje, montuje i serwisuje."
+        }
+      ],
+      "form": {
+        "heading": "Wyślij rzuty do konsultacji",
+        "linkLabel": "Link do rzutów",
+        "linkPlaceholder": "np. link do pliku PDF albo DWG",
+        "descPlaceholder": "Np. dom jednorodzinny 180 m², etap projektu budowlanego, inwestor chce monitoring i smart home"
+      }
+    },
+    {
+      "key": "projektant-wnetrz",
+      "name": "Projektant wnętrz",
+      "sub": "wnętrza i wykończenie",
+      "line": "instalacje",
+      "lines": "PRO-KOM Instalacje",
+      "eyebrow": "Dla projektanta wnętrz",
+      "heading": "Technika, której nie widać — i panele tam, gdzie pasują do wnętrza.",
+      "start": "rzuty i układ mebli",
+      "points": [
+        {
+          "title": "Smart home Ampio",
+          "text": "Światło, rolety i ogrzewanie z paneli dobranych do projektu."
+        },
+        {
+          "title": "Nagłośnienie w zabudowie",
+          "text": "Głośniki sufitowe i ścienne zaplanowane przed sufitami."
+        },
+        {
+          "title": "Wi-Fi bez routera na szafce",
+          "text": "Punkty dostępowe na kablu, w miejscach ustalonych z Tobą."
+        },
+        {
+          "title": "Ekrany i telewizory",
+          "text": "Przepusty i zasilanie ukryte w ścianie."
+        }
+      ],
+      "form": {
+        "heading": "Wyślij projekt wnętrza",
+        "linkLabel": "Link do rzutów lub wizualizacji",
+        "linkPlaceholder": "np. link do pliku PDF",
+        "descPlaceholder": "Np. apartament 90 m², klient chce sterowanie światłem i nagłośnienie w salonie"
+      }
+    },
+    {
+      "key": "deweloper",
+      "name": "Deweloper",
+      "sub": "budynki i osiedla",
+      "line": "instalacje",
+      "lines": "PRO-KOM Instalacje · Biznes · Software",
+      "eyebrow": "Dla dewelopera i inwestora",
+      "heading": "Cały zakres niskoprądowy inwestycji u jednego wykonawcy.",
+      "start": "projekt i harmonogram inwestycji",
+      "points": [
+        {
+          "title": "Lokale",
+          "text": "Okablowanie sieci, wideodomofon i przygotowanie pod smart home."
+        },
+        {
+          "title": "Części wspólne",
+          "text": "Monitoring, kontrola dostępu, domofony i światłowód w budynku."
+        },
+        {
+          "title": "Garaż",
+          "text": "Ładowarki Elzab EcoPower i przygotowanie miejsc pod kolejne."
+        },
+        {
+          "title": "Strona inwestycji",
+          "text": "Strona z lokalami i formularzem — robi ją PRO-KOM Software."
+        }
+      ],
+      "form": {
+        "heading": "Opisz inwestycję",
+        "linkLabel": "Link do dokumentacji",
+        "linkPlaceholder": "np. link do projektu albo przedmiaru",
+        "descPlaceholder": "Np. budynek wielorodzinny, 24 lokale, garaż podziemny, termin stanu surowego — wiosna"
+      }
+    },
+    {
+      "key": "wykonawca",
+      "name": "Wykonawca",
+      "sub": "generalny i branżowy",
+      "line": "instalacje",
+      "lines": "PRO-KOM Instalacje",
+      "eyebrow": "Dla wykonawcy",
+      "heading": "Bierzemy instalacje niskoprądowe jako podwykonawca.",
+      "start": "przedmiar albo projekt branżowy",
+      "points": [
+        {
+          "title": "Wycena z przedmiaru",
+          "text": "Na piśmie, z zakresem i terminem."
+        },
+        {
+          "title": "Jedna ekipa na cały zakres",
+          "text": "Monitoring, alarm, sieć, domofony, nagłośnienie."
+        },
+        {
+          "title": "Praca według harmonogramu budowy",
+          "text": "Wchodzimy w ustalonym oknie, przed tynkami i po nich."
+        },
+        {
+          "title": "24 miesiące gwarancji na montaż",
+          "text": "I serwis po odbiorze — u tej samej firmy."
+        }
+      ],
+      "form": {
+        "heading": "Wyślij przedmiar",
+        "linkLabel": "Link do przedmiaru lub projektu",
+        "linkPlaceholder": "np. link do pliku PDF albo arkusza",
+        "descPlaceholder": "Np. pensjonat 30 pokoi, monitoring i sieć Wi-Fi, wejście na budowę w marcu"
+      }
+    },
+    {
+      "key": "instytucja",
+      "name": "Instytucja",
+      "sub": "szkoła, urząd, większy zakup",
+      "line": "biznes",
+      "lines": "PRO-KOM Biznes · Instalacje",
+      "eyebrow": "Dla instytucji i większych zamówień",
+      "heading": "Większe dostawy sprzętu IT oraz RTV i AGD dla obiektów i instytucji.",
+      "start": "specyfikacja albo lista potrzeb",
+      "points": [
+        {
+          "title": "Dostawy sprzętu IT",
+          "text": "Komputery, laptopy, serwery, drukarki i sieć — na życzenie z konfiguracją."
+        },
+        {
+          "title": "RTV i AGD dla obiektów",
+          "text": "Telewizory i AGD do pokoi, biur i kuchni — z dostawą pod adres."
+        },
+        {
+          "title": "Oferty w postępowaniach",
+          "text": "Odpowiadamy na zapytania ofertowe i przetargi."
+        },
+        {
+          "title": "Wdrożenie IT na miejscu",
+          "text": "Uruchomienie i szkolenie — jeśli ich potrzebujesz. Serwis po dostawie."
+        }
+      ],
+      "form": {
+        "heading": "Wyślij zapytanie ofertowe",
+        "linkLabel": "Link do specyfikacji",
+        "linkPlaceholder": "np. link do opisu przedmiotu zamówienia",
+        "descPlaceholder": "Np. 30 komputerów do pracowni szkolnej z montażem i konfiguracją, termin do końca czerwca"
+      }
+    },
+    {
+      "key": "dostawca",
+      "name": "Dostawca",
+      "sub": "producent, dystrybutor",
+      "line": "prokom",
+      "lines": "biuro PRO-KOM",
+      "eyebrow": "Dla dostawcy i producenta",
+      "heading": "Szukamy sprzętu, za który możemy ręczyć przed klientem.",
+      "start": "oferta dystrybucyjna",
+      "points": [
+        {
+          "title": "Sprzęt dla firm",
+          "text": "Kasy, komputery, drukarki, sieć, akcesoria."
+        },
+        {
+          "title": "Instalacje",
+          "text": "Kamery, alarmy, smart home, nagłośnienie, ekrany."
+        },
+        {
+          "title": "Serwis i akcesoria",
+          "text": "Części, folie ochronne, akcesoria GSM."
+        },
+        {
+          "title": "Komputery do gier",
+          "text": "Podzespoły do zestawów składanych w Rabce-Zdroju."
+        }
+      ],
+      "form": {
+        "heading": "Przedstaw swoją ofertę",
+        "linkLabel": "Link do oferty lub katalogu",
+        "linkPlaceholder": "np. link do katalogu produktów",
+        "descPlaceholder": "Np. jesteśmy dystrybutorem kamer IP, oferujemy szkolenia i wsparcie techniczne"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "title": "Koncepcja",
+      "when": "najlepszy moment",
+      "lead": "Ustalamy, co ma działać w budynku i ile miejsca potrzebuje technika.",
+      "we": "Rozmawiamy o potrzebach inwestora i podpowiadamy, które instalacje warto przewidzieć od razu.",
+      "you": "Wstępne rzuty i krótki opis: dom, obiekt noclegowy, lokal czy budynek wielorodzinny."
+    },
+    {
+      "title": "Projekt",
+      "when": "jeszcze na papierze",
+      "lead": "Nanosimy punkty i trasy na rzuty, zanim powstanie projekt wykonawczy.",
+      "we": "Rozmieszczamy kamery, czujki, gniazda sieci, głośniki i panele. Wskazujemy miejsce na szafę.",
+      "you": "Rzuty w PDF albo DWG i informacja, kto prowadzi branżę elektryczną."
+    },
+    {
+      "title": "Przed tynkami",
+      "when": "ostatni dobry moment",
+      "lead": "Kładziemy kable i puszki. Po tynkach każda zmiana to kucie.",
+      "we": "Układamy okablowanie wszystkich instalacji w jednym wejściu na budowę.",
+      "you": "Termin wejścia w harmonogramie i dostęp do budynku."
+    },
+    {
+      "title": "Wykończenie",
+      "when": "montaż urządzeń",
+      "lead": "Montujemy urządzenia, uruchamiamy systemy i łączymy je ze sobą.",
+      "we": "Montaż, konfiguracja, podgląd w telefonie, test każdego punktu.",
+      "you": "Zasilanie i internet w budynku oraz ustalenie, kto ma mieć dostęp."
+    },
+    {
+      "title": "Odbiór i opieka",
+      "when": "po zakończeniu",
+      "lead": "Przekazujemy instalację inwestorowi i zostajemy jako serwis.",
+      "we": "Szkolimy użytkowników i przekazujemy dostępy. Montaż ma 24 miesiące gwarancji.",
+      "you": "Osoby do przeszkolenia i kontakt do zarządcy albo właściciela."
+    }
+  ],
+  "scopes": [
+    {
+      "name": "Instalacje",
+      "line": "instalacje",
+      "tag": "W projekcie:",
+      "items": [
+        {
+          "title": "Monitoring",
+          "text": "Kamery z nagrywaniem i podglądem w telefonie.",
+          "when": "kabel do każdej kamery i miejsce na rejestrator."
+        },
+        {
+          "title": "Alarm",
+          "text": "Czujki i centrala z powiadomieniem w telefonie.",
+          "when": "trasy do czujek i manipulatora przy wejściu."
+        },
+        {
+          "title": "Wideodomofon i kontrola dostępu",
+          "text": "Furtka, brama, wejścia i klatki.",
+          "when": "przewody do furtki, bramy i każdego wejścia."
+        },
+        {
+          "title": "Sieć i Wi-Fi",
+          "text": "Okablowanie i punkty dostępowe na kablu.",
+          "when": "gniazda sieci w pokojach i punkty na sufitach."
+        },
+        {
+          "title": "Światłowód i teletechnika",
+          "text": "Instalacja w budynku wielorodzinnym i obiekcie.",
+          "when": "piony, szachty i pomieszczenie techniczne."
+        },
+        {
+          "title": "Smart home Ampio",
+          "text": "Światło, rolety i ogrzewanie w jednej aplikacji.",
+          "when": "rozdzielnica z zapasem miejsca i przewody do paneli."
+        },
+        {
+          "title": "Nagłośnienie",
+          "text": "Sale, lokale, obiekty i domy.",
+          "when": "przewody głośnikowe przed sufitami."
+        },
+        {
+          "title": "Ekrany informacyjne",
+          "text": "Ekrany z ofertą i informacją w lokalu albo obiekcie.",
+          "when": "zasilanie i sieć za każdym ekranem."
+        },
+        {
+          "title": "Ładowarki do aut",
+          "text": "Elzab EcoPower do domu, firmy i garażu.",
+          "when": "przewód zasilający do miejsca postojowego."
+        },
+        {
+          "title": "Telewizja i anteny",
+          "text": "Telewizja w pokojach obiektu noclegowego.",
+          "when": "okablowanie do każdego pokoju."
+        }
+      ]
+    },
+    {
+      "name": "Sprzęt i IT",
+      "line": "biznes",
+      "tag": "Dla obiektu:",
+      "items": [
+        {
+          "title": "Kasy i sprzedaż",
+          "text": "Kasy fiskalne Posnet i Elzab, GoPOS, terminale PolCard.",
+          "when": "lokale usługowe i gastronomia w inwestycji."
+        },
+        {
+          "title": "Komputery i serwery",
+          "text": "Lenovo i Dell — konfiguracja i wdrożenie na życzenie.",
+          "when": "biura, recepcje i administracja."
+        },
+        {
+          "title": "Większe dostawy IT",
+          "text": "Sprzęt w większych ilościach — konfiguracja na życzenie.",
+          "when": "szkoły, urzędy, hotele i firmy."
+        },
+        {
+          "title": "RTV i AGD",
+          "text": "Wyposażenie pokoi, biur i części wspólnych.",
+          "when": "obiekty noclegowe i instytucje."
+        },
+        {
+          "title": "Drukarki i niszczarki",
+          "text": "Urządzenia biurowe z serwisem.",
+          "when": "biura i sekretariaty."
+        },
+        {
+          "title": "Opieka IT",
+          "text": "Pomoc zdalna i na miejscu, kopie zapasowe.",
+          "when": "gotowy obiekt po uruchomieniu."
+        }
+      ]
+    },
+    {
+      "name": "Oprogramowanie",
+      "line": "software",
+      "tag": "Przydaje się, gdy:",
+      "items": [
+        {
+          "title": "Strona inwestycji",
+          "text": "Strona z lokalami, rzutami i formularzem.",
+          "when": "sprzedajesz albo wynajmujesz lokale."
+        },
+        {
+          "title": "Strona obiektu",
+          "text": "Strona pensjonatu, hotelu albo lokalu.",
+          "when": "obiekt ma przyjmować gości od pierwszego dnia."
+        },
+        {
+          "title": "Panel dla ekipy",
+          "text": "Zlecenia, czas pracy i protokoły w telefonie.",
+          "when": "masz ekipy w terenie i papierowe karty pracy."
+        },
+        {
+          "title": "Automatyzacje",
+          "text": "Dane przechodzą między programami bez przepisywania.",
+          "when": "te same dane wpisujesz w kilku miejscach."
+        }
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "value": "Od 2004 roku",
+      "label": "działamy w Rabce-Zdroju"
+    },
+    {
+      "value": "24 miesiące",
+      "label": "gwarancji na montaż instalacji"
+    },
+    {
+      "value": "24 godziny",
+      "label": "na odpowiedź linii Instalacje w dni robocze"
+    },
+    {
+      "value": "Jedna firma",
+      "label": "instalacje, sprzęt i oprogramowanie"
+    }
+  ],
+  "deliveries": [
+    {
+      "title": "Komputery i laptopy",
+      "text": "Pracownie, biura i urzędy. Konfiguracja na życzenie."
+    },
+    {
+      "title": "Serwery i sieć",
+      "text": "Serwery, przełączniki, Wi-Fi i kopie zapasowe — wdrożenie na życzenie."
+    },
+    {
+      "title": "Drukarki i urządzenia biurowe",
+      "text": "Drukarki, urządzenia wielofunkcyjne, niszczarki."
+    },
+    {
+      "title": "RTV i AGD dla firm",
+      "text": "Telewizory i AGD do pokoi, kuchni i biur — dostawa pod adres, bez montażu."
+    },
+    {
+      "title": "Monitoring i nagłośnienie",
+      "text": "Z montażem albo bez — robi to PRO-KOM Instalacje."
+    },
+    {
+      "title": "Montaż, szkolenie, serwis",
+      "text": "Zakres ustalamy z Tobą. Po dostawie zostajemy jako serwis."
+    }
+  ],
+  "suppliers": [
+    {
+      "title": "Co nas interesuje",
+      "text": "Sprzęt dla firm, urządzenia do instalacji, części serwisowe i podzespoły."
+    },
+    {
+      "title": "Co wysłać",
+      "text": "Ofertę, warunki współpracy i informację o dostępności oraz gwarancji."
+    },
+    {
+      "title": "Na co patrzymy",
+      "text": "Jakość, serwis producenta i dostępność części — bo ręczymy za sprzęt."
+    },
+    {
+      "title": "Co dalej",
+      "text": "Odpisujemy na konkretne propozycje. Decyzję podejmuje właściciel firmy."
+    }
+  ],
+  "rules": [
+    {
+      "title": "Jeden kontakt",
+      "text": "Rozmawiasz z jedną firmą — od rzutów do odbioru i serwisu."
+    },
+    {
+      "title": "Wycena na piśmie",
+      "text": "Z zakresem i terminem. Cen nie podajemy na stronie, bo każdy obiekt jest inny."
+    },
+    {
+      "title": "Odpowiadamy w dni robocze",
+      "text": "Oddzwaniamy albo odpisujemy na każde zgłoszenie — czas odpowiedzi linii podajemy przy jej numerze."
+    },
+    {
+      "title": "24 miesiące gwarancji na montaż",
+      "text": "Po odbiorze zostajemy jako serwis — przeglądy i naprawy u tej samej firmy."
+    },
+    {
+      "title": "Warunki dla pracowni",
+      "text": "Ustalamy indywidualnie i na piśmie, przed pierwszym wspólnym projektem."
+    },
+    {
+      "title": "Spotkanie w salonie",
+      "text": "W salonie w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Na jakim etapie najlepiej się odezwać?",
+      "answer": "Na etapie koncepcji albo projektu. Wtedy instalacje trafiają na rzuty i nie trzeba niczego kuć. Przyjmujemy też obiekty w trakcie budowy i gotowe."
+    },
+    {
+      "question": "Czy przejmujecie instalacje po innym wykonawcy?",
+      "answer": "Tak. Sprawdzamy, co jest zrobione, i mówimy wprost, co da się wykorzystać, a co trzeba poprawić."
+    },
+    {
+      "question": "W jakim formacie wysłać rzuty?",
+      "answer": "Wystarczy PDF. Jeśli masz DWG — tym lepiej. W formularzu podajesz link do plików."
+    },
+    {
+      "question": "Gdzie pracujecie?",
+      "answer": "Na Podhalu i w Małopolsce dojeżdżamy na miejsce. Dostawy sprzętu i oprogramowanie realizujemy w całej Polsce."
+    },
+    {
+      "question": "Czy odpowiadacie na zapytania ofertowe i przetargi?",
+      "answer": "Tak. Wyślij specyfikację albo link do postępowania — odpowiemy, czy składamy ofertę."
+    },
+    {
+      "question": "Czy podajecie ceny na stronie?",
+      "answer": "Nie. Każdy obiekt jest inny, więc wycenę dostajesz na piśmie, po ustaleniu zakresu."
+    }
+  ],
+  "next": [
+    {
+      "eyebrow": "Oferta",
+      "title": "Cała oferta PRO-KOM",
+      "text": "Wszystkie usługi pięciu linii w jednym miejscu.",
+      "href": "/linie"
+    },
+    {
+      "eyebrow": "Dla firm",
+      "title": "Plan dla Twojej branży",
+      "text": "Kasa, IT, obiekt i strona złożone w jeden plan.",
+      "href": "/dla-firm"
+    },
+    {
+      "eyebrow": "Marki",
+      "title": "Marki i autoryzacje",
+      "text": "Na czym pracujemy i do czego tego używamy.",
+      "href": "/partnerzy"
+    },
+    {
+      "eyebrow": "Kontakt",
+      "title": "Zadzwoń albo przyjdź",
+      "text": "Salon i biuro: ul. Orkana 16B, Rabka-Zdrój.",
+      "href": "/kontakt"
+    }
+  ],
+  "page": {
+    "hero": {
+      "eyebrow": "Dla architektów · deweloperów · wykonawców · instytucji · dostawców",
+      "title": "Projektujesz, budujesz albo zamawiasz? Zróbmy to razem.",
+      "lead": "Instalacje, sprzęt i oprogramowanie od jednej firmy z Rabki-Zdroju. Wchodzimy w projekt wcześnie, bierzemy cały zakres i zostajemy po odbiorze. Wybierz, kim jesteś — pokażemy, od czego zaczynamy.",
+      "cta": "Wyślij rzuty albo zapytanie",
+      "rolesLabel": "Kim jesteś?",
+      "rolesHint": "kliknij — plan zmienia się obok",
+      "start": "Zaczynamy od:"
+    },
+    "stages": {
+      "eyebrow": "Kiedy nas włączyć",
+      "title": "Im wcześniej, tym mniej kucia ścian.",
+      "lead": "Pięć etapów inwestycji: co robimy my, a czego potrzebujemy od Ciebie.",
+      "we": "Co robimy my",
+      "you": "Czego potrzebujemy od Ciebie"
+    },
+    "scope": {
+      "eyebrow": "Co wnosimy do projektu",
+      "title": "Jeden wykonawca na wszystko, co ma kabel, ekran albo program.",
+      "architectsTitle": "Pełna strona dla architektów i deweloperów",
+      "architectsText": "Przekrój domu, nowe rozwiązania do projektów, checklista projektanta i przepisy — na stronie linii Instalacje.",
+      "architectsPath": "/dla-architektow"
+    },
+    "deliveries": {
+      "eyebrow": "Instytucje i większe dostawy",
+      "title": "Sto komputerów albo wyposażenie całego obiektu? Też.",
+      "lead": "Dla szkół, urzędów, gmin, hoteli i firm dostarczamy sprzęt w większych ilościach. Pełny zakres, lista zapytania i przykłady obiektów są na osobnej stronie.",
+      "cta": "Inwestycje i dostawy"
+    },
+    "suppliers": {
+      "eyebrow": "Dostawcy i producenci",
+      "title": "Masz produkt, który pasuje do naszej oferty?",
+      "lead": "Sprzedajemy, montujemy i serwisujemy — więc szukamy sprzętu, za który możemy ręczyć. Napisz, co oferujesz. Odpowiadamy na każdą konkretną propozycję."
+    },
+    "rules": {
+      "eyebrow": "Zasady współpracy",
+      "title": "Krótko i na piśmie."
+    },
+    "faq": {
+      "eyebrow": "Pytania",
+      "title": "Zanim napiszesz."
+    },
+    "form": {
+      "eyebrow": "Napisz do nas",
+      "note": "Formularz dopasowuje się do tego, kim jesteś.",
+      "to": "Trafia do:"
+    },
+    "next": {
+      "eyebrow": "Co dalej",
+      "title": "Inne drogi do tej samej firmy."
+    }
+  }
+}

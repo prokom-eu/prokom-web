@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Zasady i tokeny elementów wspólnych PRO-KOM</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#121613}a:hover{color:#45A02C}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1600px; box-sizing: border-box; padding: 72px 80px; background: #F4F5F1; color: #121613; font-family: Manrope, system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px">
+    <div style="display: flex; flex-direction: column; gap: 18px; max-width: 640px">
+      <div style="display: flex; align-items: center; gap: 12px; font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #367E23">
+        <span style="width: 22px; height: 4px; border-radius: 2px; background: #45A02C"></span>
+        System elementów wspólnych · wersja 1 · 1.11.2026
+      </div>
+      <h1 style="margin: 0; font-family: Archivo, sans-serif; font-stretch: 112%; font-weight: 800; font-size: 54px; line-height: 0.98; letter-spacing: -0.025em">Jedna firma. Cztery strony.<br>Jeden szkielet.</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4F5650; max-width: 680px">To, co klient widzi na każdej stronie PRO-KOM, budujemy raz. Wygląd i treść, które sprzedają daną linię, zostają tej linii.</p>
+    </div>
+    <div style="display: flex; gap: 10px">
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF; min-width: 150px">
+        <span style="font-size: 12px; font-weight: 700; color: #4F5650">Biznes</span>
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px">prokombiznes.pl</span>
+        <span style="height: 4px; border-radius: 2px; background: #244FB0"></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF; min-width: 150px">
+        <span style="font-size: 12px; font-weight: 700; color: #4F5650">Instalacje</span>
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px">prokominstalacje.pl</span>
+        <span style="height: 4px; border-radius: 2px; background: #0093B3"></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF; min-width: 150px">
+        <span style="font-size: 12px; font-weight: 700; color: #4F5650">Software</span>
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px">prokomsoftware.pl</span>
+        <span style="height: 4px; border-radius: 2px; background: #8B61E3"></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF; min-width: 150px">
+        <span style="font-size: 12px; font-weight: 700; color: #4F5650">Tech · działa</span>
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 15px">prokomserwis.pl</span>
+        <span style="height: 4px; border-radius: 2px; background: #D13A2E"></span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 26px; border-radius: 22px; background: #121613; color: #F4F5F1">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Wspólne 1:1</span>
+        <span style="padding: 5px 10px; border-radius: 999px; background: #4FB034; color: #0B1A08; font-size: 12px; font-weight: 800">ten sam kod i treść</span>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #B5BBB5">Identyczne na każdej stronie. Zmienia się tylko podświetlona linia i akcent.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; font-weight: 700">
+        <sc-for list="{{tier1}}" as="t" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4FB034" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{t}}</div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 26px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E3E6DF">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Wspólny szkielet</span>
+        <span style="padding: 5px 10px; border-radius: 999px; background: #ECEEE8; color: #2E342F; font-size: 12px; font-weight: 800">treść z linii</span>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4F5650">Ten sam układ i zachowanie. Linia podaje pozycje menu, kolumny, pytania, kroki.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; font-weight: 700">
+        <sc-for list="{{tier2}}" as="t" hint-placeholder-count="8">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 16px; height: 16px; border-radius: 5px; border: 2px solid #121613; box-sizing: border-box"></span>{{t}}</div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 26px; border-radius: 22px; background: #ECEEE8">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Tylko linia</span>
+        <span style="padding: 5px 10px; border-radius: 999px; background: #FFFFFF; color: #2E342F; font-size: 12px; font-weight: 800">nie ujednolicamy</span>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #4F5650">To sprzedaje daną linię. Zaakceptowane wizualizacje zostają bez zmian.</p>
+      <div style="display: flex; flex-direction: column; gap: 9px; font-size: 15px; font-weight: 700; color: #2E342F">
+        <sc-for list="{{tier3}}" as="t" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 16px; height: 2px; background: #767C74"></span>{{t}}</div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; flex-grow: 1">
+    <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E3E6DF">
+      <div style="display: flex; align-items: baseline; justify-content: space-between">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Tokeny linii</span>
+        <span style="font-size: 13px; color: #4F5650">kolor ciemny linii = stopka i ciemne pasy</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 120px repeat(7, minmax(0, 1fr)); gap: 8px; align-items: center; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #4F5650">
+        <span></span><span>Akcent</span><span>Tekst akc.</span><span>Na ciemnym</span><span>Tło</span><span>Tło 2</span><span>Tekst</span><span>Ciemny</span>
+      </div>
+      <sc-for list="{{lines}}" as="l" hint-placeholder-count="3">
+        <div style="display: grid; grid-template-columns: 120px repeat(7, minmax(0, 1fr)); gap: 8px; align-items: center">
+          <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 16px">{{l.name}}</span>
+          <sc-for list="{{l.sw}}" as="s" hint-placeholder-count="7">
+            <div style="display: flex; flex-direction: column; gap: 5px">
+              <span style="height: 44px; border-radius: 10px; border: 1px solid rgba(18,22,19,0.08); background: {{s}}"></span>
+              <span style="font-size: 11px; font-family: ui-monospace, monospace; color: #4F5650">{{s}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="display: flex; gap: 10px; align-items: center; padding-top: 6px; border-top: 1px solid #E3E6DF; font-size: 13px; color: #4F5650">
+        <span style="font-weight: 800; color: #121613">Pozostałe linie w pasie linii:</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #45A02C"></span>PRO-KOM #45A02C</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #DD8600"></span>Zakopane #DD8600</span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 26px; border-radius: 22px; background: #FFFFFF; border: 1px solid #E3E6DF">
+        <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">Skala tekstu (wspólna od H2 w dół)</span>
+        <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid #E3E6DF; padding-bottom: 10px">
+          <span style="width: 92px; flex-shrink: 0; font-size: 12px; font-weight: 800; color: #4F5650">H2 · 48/800</span>
+          <span style="font-family: Archivo, sans-serif; font-stretch: 108%; font-weight: 800; font-size: 40px; line-height: 1.02; letter-spacing: -0.02em">Zanim zadzwonisz</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid #E3E6DF; padding-bottom: 10px">
+          <span style="width: 92px; flex-shrink: 0; font-size: 12px; font-weight: 800; color: #4F5650">H3 · 24/800</span>
+          <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 24px">Salon w Rabce-Zdroju</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid #E3E6DF; padding-bottom: 10px">
+          <span style="width: 92px; flex-shrink: 0; font-size: 12px; font-weight: 800; color: #4F5650">Nadtytuł</span>
+          <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #244FB0">Kontakt · kolor tekstu linii</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 16px">
+          <span style="width: 92px; flex-shrink: 0; font-size: 12px; font-weight: 800; color: #4F5650">Tekst · 16/1,6</span>
+          <span style="font-size: 16px; line-height: 1.6; color: #2E342F">Manrope. H1 w hero zostaje linii — to jej wizytówka.</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <sc-for list="{{dims}}" as="d" hint-placeholder-count="6">
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E3E6DF">
+            <span style="font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px">{{d.v}}</span>
+            <span style="font-size: 12px; font-weight: 700; color: #4F5650">{{d.k}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 28px; padding: 28px 30px; border-radius: 22px; background: #080C0B; color: #C2BAA4; border: 1px solid rgba(242,194,48,0.35)">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <span style="align-self: flex-start; padding: 5px 10px; border-radius: 999px; background: rgba(242,194,48,0.14); color: #F2C230; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase">Marka produktowa PRO-KOM</span>
+      <span style="display: flex; flex-direction: column; gap: 4px; line-height: 1"><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 34px; color: #ECE4D0">PRO-KOM</span><span style="font-family: Archivo, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 18px; letter-spacing: 0.42em; color: #F2C230">GAMING</span></span>
+      <span style="font-size: 14.5px; line-height: 1.55">prokomgaming.pl ma własną nawigację, stopkę, wygląd i repo. Elementy wspólne jej nie dotyczą — i tak zostaje.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 9px; padding: 18px; border-radius: 16px; background: rgba(236,228,208,0.04); border: 1px solid rgba(236,228,208,0.1)">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #ECE4D0">Na stronach linii</span>
+        <span style="font-size: 14px; line-height: 1.5">Kafelek w pasie linii: stopka, Kontakt, O firmie.</span>
+        <span style="font-size: 14px; line-height: 1.5">„Gaming” na końcu przełącznika w pasku marki.</span>
+        <span style="font-size: 14px; line-height: 1.5">Chip w menu na telefonie. Ciemny kafelek ze złotem — wyraźnie inny niż linie.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding: 18px; border-radius: 16px; background: rgba(236,228,208,0.04); border: 1px solid rgba(236,228,208,0.1)">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #ECE4D0">Na prokomgaming.pl</span>
+        <span style="font-size: 14px; line-height: 1.5">Wszystko własne, bez zmian w projekcie.</span>
+        <span style="font-size: 14px; line-height: 1.5">W swojej stopce, w swoim stylu: „PRO-KOM Gaming to marka PRO-KOM Tadeusz Wójciak · NIP · pro-kom.eu”.</span>
+        <span style="font-size: 14px; line-height: 1.5">Widoczna w pasie linii dopiero po starcie (20.11).</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tier1: ['Pasek marki z przełącznikiem linii', 'Status godzin na żywo', 'Pas „Jedna firma — linie PRO-KOM”', 'Pasek prawny i linki prawne', 'Wizytówka firmy (dane, NIP, CEIDG)', 'Mapa adresu (OpenStreetMap)','Zgoda RODO i ochrona formularza'],
+      tier2: ['Nagłówek: znak, menu, motyw, przycisk', 'Stopka: kolumny i kontakt', 'Formularz: rdzeń pól + tematy linii', 'FAQ: pytania obok karty kontaktu', 'Jak pracujemy: kroki', 'Dolny pasek i menu na telefonie', 'Kontakt — szablon strony', 'O firmie — szablon strony'],
+      tier3: ['Hero i H1 strony głównej', 'Sekcje oferty, katalog, usługi', 'Kreator, konfigurator, plan firmy', 'Mega menu', 'Tło neutralne linii (granat / papier)', 'Ilustracje i sceny'],
+      lines: [
+        { name: 'Biznes', sw: ['#244FB0', '#244FB0', '#4A7BE0', '#FFFFFF', '#F3F5FA', '#0D1326', '#0A1430'] },
+        { name: 'Instalacje', sw: ['#007A96', '#006A82', '#12B6D8', '#F4F5F1', '#ECEEE8', '#121613', '#071214'] },
+        { name: 'Software', sw: ['#6E45D4', '#5B33C4', '#9670EE', '#F4F5F1', '#ECEEE8', '#121613', '#161A17'] },
+        { name: 'Tech', sw: ['#C4362B', '#B3301F', '#E2483A', '#F4F5F1', '#ECEEE8', '#121613', '#1A1312'] }
+      ],
+      dims: [
+        { v: '40 px', k: 'pasek marki' }, { v: '76 px', k: 'nagłówek' }, { v: '1280', k: 'kontener' },
+        { v: '56 · 44 · 40', k: 'przyciski' }, { v: '10 · 16 · 22', k: 'promienie' }, { v: '≥ 44 px', k: 'cel dotyku' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

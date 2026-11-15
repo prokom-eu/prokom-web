@@ -1,6 +1,6 @@
 # ADR-002: Jeden dostawca — serwer, domeny, poczta
 
-- **Status:** przyjęta wstępnie — Seohost (ostateczna akceptacja kosztów: szef)
+- **Status:** przyjęta wstępnie — Seohost (ostateczna akceptacja kosztów: szef). **Część „serwer” (VPS) zastąpiona przez ADR-019** (VPS w webh.pl, 31.10.2026); domeny i poczta — bez zmian.
 - **Data:** 2026-10-12, aktualizacja 2026-10-14
 - **Decyduje:** szef (koszty), Krystian (rekomendacja techniczna)
 

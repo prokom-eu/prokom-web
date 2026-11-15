@@ -1,0 +1,155 @@
+{
+  "_info": "Nawigacja v24 (SWA5, ZMIANY-v24 §3.2): menu kapsuły, mega menu Oferta (4 grupy wg planszy AU-pc — pozycje /rozwiazania/<slug> pokazują cenę „od” z Solutions i otwierają okno oferty) i szuflada „Twój projekt”. Stopka, dolny pasek, menu telefonu i CTA — SiteSettings.shared.",
+  "header": [
+    {
+      "label": "Oferta",
+      "mega": true
+    },
+    {
+      "label": "Kreator",
+      "badge": "60 s",
+      "href": "/dobierz",
+      "homeHref": "#dobierz",
+      "pill": true
+    },
+    {
+      "label": "Darmowy audyt",
+      "href": "/audyt"
+    },
+    {
+      "label": "O firmie",
+      "href": "/o-firmie"
+    },
+    {
+      "label": "Kontakt",
+      "href": "/kontakt"
+    }
+  ],
+  "headerRight": {
+    "themeToggle": true,
+    "projectDrawer": true,
+    "ctaHomeHref": "#kontakt"
+  },
+  "mega": {
+    "columns": [
+      {
+        "title": "Strony internetowe",
+        "links": [
+          [
+            "Strona wizytówka",
+            "/rozwiazania/strona-wizytowka"
+          ],
+          [
+            "Strona firmowa z panelem",
+            "/rozwiazania/strona-firmowa-z-panelem"
+          ],
+          [
+            "Rozbudowana strona firmowa",
+            "/rozwiazania/rozbudowana-strona-firmowa"
+          ],
+          [
+            "Landing page",
+            "/rozwiazania/landing-page"
+          ],
+          [
+            "Strona dla hotelu lub pensjonatu",
+            "/rozwiazania/strona-dla-hotelu-lub-pensjonatu"
+          ],
+          [
+            "Strona dla restauracji lub baru",
+            "/rozwiazania/strona-dla-restauracji-lub-baru"
+          ]
+        ]
+      },
+      {
+        "title": "Przebudowa i opieka",
+        "links": [
+          [
+            "Przebudowa starej strony",
+            "/rozwiazania/przebudowa-starej-strony"
+          ],
+          [
+            "Opieka nad stroną i systemem",
+            "/rozwiazania/opieka-nad-strona-i-systemem"
+          ],
+          [
+            "Przejęcie po innym wykonawcy",
+            "/rozwiazania/przejecie-po-innym-wykonawcy"
+          ]
+        ]
+      },
+      {
+        "title": "Systemy dla firm",
+        "links": [
+          [
+            "System zleceń i grafik ekip",
+            "/rozwiazania/system-zlecen-i-grafik-ekip"
+          ],
+          [
+            "CRM dla małej i średniej firmy",
+            "/rozwiazania/crm-dla-malej-i-sredniej-firmy"
+          ],
+          [
+            "Z Excela do systemu",
+            "/rozwiazania/z-excela-do-systemu"
+          ],
+          [
+            "Czas pracy i rozliczenia",
+            "/rozwiazania/czas-pracy-i-rozliczenia"
+          ]
+        ]
+      },
+      {
+        "title": "Automatyzacje i AI",
+        "links": [
+          [
+            "Powiadomienia SMS i e-mail",
+            "/rozwiazania/powiadomienia-sms-i-e-mail"
+          ],
+          [
+            "Faktury bez przepisywania",
+            "/rozwiazania/faktury-bez-przepisywania"
+          ],
+          [
+            "Asystent AI do zapytań",
+            "/rozwiazania/asystent-ai-do-zapytan"
+          ]
+        ]
+      }
+    ],
+    "card": {
+      "eyebrow": "Pełna oferta",
+      "title": "Strony, systemy i automatyzacje dla każdej firmy",
+      "text": "Przy każdym rozwiązaniu cena „od” i termin. Każde z podglądem na żywo.",
+      "cta": [
+        "Zobacz pełną ofertę →",
+        "/rozwiazania"
+      ],
+      "links": [
+        [
+          "Nie wiesz, co wybrać? Kreator 60 s →",
+          "/dobierz"
+        ],
+        [
+          "Masz stronę? Darmowy audyt →",
+          "/audyt"
+        ]
+      ]
+    }
+  },
+  "projectDrawer": {
+    "title": "Twój projekt",
+    "empty": "Na razie pusto. Klikaj „+ Dodaj do wyceny” przy rozwiązaniach, a tu zbierze się lista. Wycenimy całość naraz.",
+    "send": "Wyślij do wyceny →",
+    "clear": "Wyczyść listę"
+  },
+  "startBand": {
+    "eyebrow": "Masz pomysł?",
+    "title": "Zacznij od podglądu,",
+    "em": "nie od faktury.",
+    "cta": [
+      "Kreator 60 s →",
+      "/dobierz"
+    ]
+  }
+}

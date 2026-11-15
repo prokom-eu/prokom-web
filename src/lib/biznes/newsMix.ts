@@ -1,0 +1,64 @@
+import type { SisterLine } from '@/lib/posts/sister'
+
+/** Lines of the other PRO-KOM sites, one post of each in the Biznes home news (15.11). */
+const SISTER_ORDER: readonly SisterLine[] = ['instalacje', 'software']
+
+/**
+ * The list beside the featured post of the Biznes home news (decision of Krystian 15.11: „ma być
+ * różnorodnie”): one more Biznes post, then the newest post of Instalacje and of Software. A
+ * missing line is made up by more Biznes posts, then by more posts of the other lines.
+ * `own` = Biznes posts after the featured one, newest first; `sister` = posts of the other lines,
+ * newest first.
+ */
+export function homeNewsMix<O, S extends { line: SisterLine }>(
+  own: readonly O[],
+  sister: readonly S[],
+  size = 3,
+): { own: O[]; sister: S[] } {
+  const pickedOwn = own.slice(0, Math.min(1, size))
+  const pickedSister = SISTER_ORDER.flatMap((line) => {
+    const post = sister.find((item) => item.line === line)
+    return post ? [post] : []
+  }).slice(0, size - pickedOwn.length)
+  let missing = size - pickedOwn.length - pickedSister.length
+  for (const post of own.slice(pickedOwn.length)) {
+    if (missing <= 0) break
+    pickedOwn.push(post)
+    missing--
+  }
+  for (const post of sister) {
+    if (missing <= 0) break
+    if (pickedSister.includes(post)) continue
+    pickedSister.push(post)
+    missing--
+  }
+  return { own: pickedOwn, sister: pickedSister }
+}
+
+/** Instalacje categories whose posts are always for businesses (guests, not a home). */
+const BUSINESS_CATEGORIES: readonly string[] = ['noclegi']
+// Word starts only (`(?<!\p{L})` with `u`: plain `\b` treats ą, ó, ł as word breaks), and none of
+// the look-alikes: „firmware”, „biurko”, „obiektyw”, „lokalizacja”. No „budowa” or „magazyn”:
+// in Polish they are as often a house (budowa domu, magazyn energii) as a business.
+const BUSINESS_WORDS =
+  /(?<!\p{L})(firm(?!ware)|biur(?!k)|sklep|pensjonat|hotel|restaurac|apartament|obiekt(?!yw)|lokal(?!iz)|gmin|szkoł|parafi|deweloper)/iu
+// Any word starting with „dom” (domu, domowej, domem, domków) but not „domofon”/„domena”,
+// „przydomowy”, „mieszkanie”, „mieszkańcy”, and the English „home” of „smart home”.
+const HOME_WORDS = /(?<!\p{L})(dom(?!ofon|en)|przydom|mieszka|home(?!\p{L}))/iu
+
+/**
+ * Whether a post of another line belongs in the news of a B2B site (audyt 15.11 P1-1): every
+ * Software post; an Instalacje post only with a business category or a business word and no
+ * home word in its title or lead. No signal = left out, so a home post never shows by mistake.
+ */
+export function isForBusiness(post: {
+  line: SisterLine
+  title: string
+  lead?: string | null
+  category?: string | null
+}): boolean {
+  if (post.line === 'software') return true
+  if (post.category && BUSINESS_CATEGORIES.includes(post.category)) return true
+  const text = `${post.title} ${post.lead ?? ''}`
+  return BUSINESS_WORDS.test(text) && !HOME_WORDS.test(text)
+}

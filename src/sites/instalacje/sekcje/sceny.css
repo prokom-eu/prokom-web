@@ -1,0 +1,658 @@
+/*
+ * Scenes of the service cards (`SERVICE_SCENES`, `.sx*`, colours from `--sx-*` under
+ * `[data-inst-sx]`) — runda v6 §1.7.1: their own sheet, linked by the home and service page modules
+ * and by the „Dla kogo” pages (`style/*.tsx`). Without it the related cards of the object pages drew
+ * black rectangles (an SVG with no fill rule). Moved 1:1 from `glowna-sekcje.css`; the keyframes
+ * live in `sceny-ruch.css` (not linked on the „Dla kogo” pages), and the related cards stop their
+ * scenes anyway (`.relsc`, `sekcje.css`) — the scenes move on the home page.
+ */
+[data-line='instalacje'] {
+  & .sxsky {
+    fill: var(--sx-sky);
+  }
+  & .sxm1 {
+    fill: var(--sx-m1);
+  }
+  & .sxsnow {
+    fill: var(--sx-snow);
+  }
+  & .sxgnd {
+    fill: var(--sx-gnd);
+  }
+  & .sxlane {
+    stroke: var(--sx-line);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 10 8;
+  }
+  & .sxwall {
+    fill: var(--sx-wall);
+  }
+  & .sxwin {
+    fill: var(--sx-win);
+    opacity: 0.85;
+  }
+  & .sxwin.d {
+    fill: var(--sx-win-d);
+    opacity: 1;
+  }
+  & .sxwinl {
+    fill: none;
+    stroke: var(--sx-winl);
+    stroke-width: 3;
+  }
+  & .sxbeam {
+    fill: color-mix(in srgb, var(--h) 22%, transparent);
+  }
+  & .sxcone {
+    animation: inst-gl-sxpan 7s ease-in-out infinite;
+    transform-origin: 70px 52px;
+  }
+  & .sxcam {
+    animation: inst-gl-sxpan 7s ease-in-out infinite;
+    transform-origin: 62px 46px;
+  }
+  & .sxmet {
+    fill: var(--sx-met);
+  }
+  & .sxbody {
+    fill: var(--sx-body);
+  }
+  & .sxlens {
+    fill: var(--h);
+  }
+  & .sxcar {
+    fill: var(--sx-car);
+  }
+  & .sxtyre {
+    fill: var(--sx-tyre);
+    stroke: var(--sx-tyre-line);
+    stroke-width: 2;
+  }
+  & .sxglass {
+    fill: var(--sx-glass);
+    opacity: 0.8;
+  }
+  & .sxwalk {
+    animation: inst-gl-sxwalk 9s linear infinite;
+  }
+  & .sxper {
+    fill: var(--sx-pale);
+  }
+  & .sxdet {
+    fill: none;
+    stroke: var(--sx-det);
+    stroke-width: 2;
+  }
+  & .sxdetl {
+    fill: var(--sx-det);
+  }
+  & .sxdett {
+    font: 900 9px var(--font-sans);
+    fill: var(--sx-ink);
+  }
+  & .sxfl {
+    fill: var(--sx-white);
+    opacity: 0.8;
+    animation: inst-gl-sxsnowf 6s linear infinite;
+  }
+  & .sxchip {
+    fill: var(--sx-chip);
+    stroke: var(--sx-line);
+  }
+  & .sxht {
+    font: 800 9.5px var(--font-sans);
+    fill: var(--sx-ht);
+    letter-spacing: 0.08em;
+  }
+  & .sxrec {
+    fill: var(--sx-rec);
+    animation: inst-gl-pulse 1.2s infinite;
+  }
+  & .sxtlb {
+    fill: var(--sx-line);
+  }
+  & .sxtlp {
+    fill: var(--h);
+  }
+  & .sxtlm {
+    fill: var(--h);
+  }
+  & .sxtlm.w {
+    fill: var(--sx-warn);
+  }
+  & .sxroom {
+    fill: var(--sx-room);
+  }
+  & .sxroom2 {
+    fill: var(--sx-room2);
+  }
+  & .sxframe {
+    fill: var(--sx-frame);
+  }
+  & .sxmoon {
+    fill: var(--sx-moon);
+  }
+  & .sxmull {
+    stroke: var(--sx-frame);
+    stroke-width: 5;
+  }
+  & .sxblind {
+    fill: var(--sx-frame);
+    animation: inst-gl-sxblind 8s ease-in-out infinite;
+    transform-origin: 110px 32px;
+  }
+  & .sxfloor {
+    fill: var(--sx-floor);
+  }
+  & .sxfloorl {
+    stroke: var(--sx-frame);
+    stroke-width: 2;
+  }
+  & .sxsofa {
+    fill: color-mix(in srgb, var(--h) 45%, var(--sx-floor));
+  }
+  & .sxsofa2 {
+    fill: color-mix(in srgb, var(--h) 60%, var(--sx-floor));
+  }
+  & .sxcord {
+    stroke: var(--sx-cord);
+    stroke-width: 1.5;
+  }
+  & .sxshade {
+    fill: var(--sx-win);
+  }
+  & .sxlamp {
+    fill: url(#none);
+    fill: var(--sx-lamp);
+    animation: inst-gl-sxglow 4s ease-in-out infinite;
+  }
+  & .sxpanel {
+    fill: var(--sx-panel);
+    stroke: color-mix(in srgb, var(--h) 60%, transparent);
+  }
+  & .sxtemp {
+    font: 900 12px var(--font-display);
+    fill: var(--sx-white);
+    text-anchor: middle;
+  }
+  & .sxled {
+    fill: var(--h);
+  }
+  & .sxph {
+    fill: var(--sx-panel);
+    stroke: var(--sx-ph-line);
+    stroke-width: 1.2;
+  }
+  & .sxsc {
+    fill: color-mix(in srgb, var(--h) 25%, var(--sx-panel));
+  }
+  & .sxpt {
+    font: 800 10px var(--font-sans);
+    fill: var(--sx-white);
+  }
+  & .sxpt2 {
+    font: 700 9px var(--font-sans);
+    fill: var(--sx-pt2);
+  }
+  & .sxpt2.d {
+    fill: var(--sx-ink);
+    font-weight: 800;
+  }
+  & .sxpt3 {
+    font: 900 11px var(--font-display);
+    fill: var(--sx-white);
+  }
+  & .sxpt3.c {
+    text-anchor: middle;
+    font-size: 9px;
+  }
+  & .sxtile {
+    fill: var(--sx-tile);
+  }
+  & .sxtg {
+    fill: var(--sx-frame);
+  }
+  & .sxtg.on {
+    fill: var(--h);
+  }
+  & .sxtk {
+    fill: var(--sx-white);
+  }
+  & .sxtk.k2 {
+    animation: inst-gl-sxtog 4s ease-in-out infinite;
+  }
+  & .sxok {
+    fill: var(--h);
+  }
+  & .sxplan {
+    fill: var(--sx-plan);
+  }
+  & .sxz {
+    fill: var(--sx-z);
+  }
+  & .sxz.deck {
+    fill: var(--sx-deck);
+  }
+  & .sxwl {
+    fill: none;
+    stroke: var(--sx-pale);
+    stroke-width: 2.5;
+    opacity: 0.7;
+  }
+  & .sxwl.t {
+    stroke-width: 1.5;
+    opacity: 0.4;
+  }
+  & .sxtbl {
+    fill: var(--sx-car);
+  }
+  & .sxbar {
+    fill: var(--sx-wood);
+  }
+  & .sxumb {
+    fill: var(--sx-umb);
+    stroke: var(--sx-umb-line);
+  }
+  & .sxrp {
+    fill: color-mix(in srgb, var(--h) 16%, transparent);
+    stroke: var(--h);
+    stroke-width: 1.2;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-gl-mxr 2.6s cubic-bezier(0.25, 0.6, 0.3, 1) infinite;
+  }
+  & .sxrp.r2 {
+    animation-delay: -1.3s;
+  }
+  & .sxspk {
+    fill: var(--sx-body);
+    stroke: var(--h);
+    stroke-width: 2;
+  }
+  & .sxzl {
+    font: 900 9px var(--font-sans);
+    letter-spacing: 0.14em;
+    fill: var(--sx-zl);
+  }
+  & .sxzl.c {
+    text-anchor: middle;
+  }
+  & .sxcons {
+    fill: var(--sx-cons);
+    stroke: var(--sx-cons-line);
+  }
+  & .sxtrk {
+    fill: var(--sx-trk);
+  }
+  & .sxcap {
+    fill: var(--sx-cap);
+    animation: inst-gl-sxfad 5s ease-in-out infinite;
+  }
+  & .sxcap.c1 {
+    animation-delay: -1.5s;
+  }
+  & .sxcap.c2 {
+    animation-delay: -3s;
+  }
+  & .sxmtr {
+    fill: var(--sx-go);
+    animation: inst-gl-sxmet 0.6s steps(3) infinite alternate;
+  }
+  & .sxmtr.m1 {
+    animation-delay: -0.2s;
+  }
+  & .sxmtr.m2 {
+    fill: var(--sx-amber);
+    animation-delay: -0.4s;
+  }
+  & .sxhouse {
+    fill: var(--sx-house);
+  }
+  & .sxroofl {
+    fill: none;
+    stroke: var(--sx-pale);
+    stroke-width: 4;
+    stroke-linejoin: round;
+  }
+  & .sxdoor {
+    fill: var(--sx-wood);
+  }
+  & .sxpirb {
+    stroke: color-mix(in srgb, var(--h) 70%, transparent);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 4;
+    animation: inst-gl-sxdash 1.2s linear infinite;
+  }
+  & .sxsir {
+    fill: var(--h);
+  }
+  & .sxsirp {
+    fill: none;
+    stroke: var(--h);
+    stroke-width: 2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-gl-txring 1.6s ease-out infinite;
+  }
+  & .sxshield {
+    fill: var(--h);
+  }
+  & .sxchk {
+    fill: none;
+    stroke: var(--sx-ink);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  & .sxnote {
+    animation: inst-gl-sxnote 6s ease-in-out infinite;
+  }
+  & .sxbtn {
+    fill: var(--sx-frame);
+  }
+  & .sxbtn.g {
+    fill: var(--h);
+  }
+  & .sxarmed {
+    fill: color-mix(in srgb, var(--h) 22%, transparent);
+    stroke: var(--h);
+  }
+  & .sxarmt {
+    font: 900 10px var(--font-sans);
+    letter-spacing: 0.14em;
+    fill: var(--sx-white);
+    text-anchor: middle;
+  }
+  & .sxfl1 {
+    fill: var(--sx-fl1);
+    stroke: var(--sx-fl1-line);
+  }
+  & .sxfl2 {
+    fill: var(--sx-fl2);
+    stroke: var(--sx-line);
+  }
+  & .sxheat {
+    fill: color-mix(in srgb, var(--h) 16%, transparent);
+  }
+  & .sxheat2 {
+    fill: color-mix(in srgb, var(--h) 22%, transparent);
+  }
+  & .sxwave {
+    fill: none;
+    stroke: var(--h);
+    stroke-width: 1.4;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: inst-gl-txring 2.8s ease-out infinite;
+  }
+  & .sxap {
+    fill: var(--sx-body);
+    stroke: var(--h);
+    stroke-width: 1.5;
+  }
+  & .sxdev {
+    fill: var(--sx-white);
+    animation: inst-gl-sxblink 2s steps(2) infinite;
+  }
+  & .sxss {
+    fill: var(--sx-chip);
+    stroke: var(--h);
+  }
+  & .sxss.b {
+    stroke: var(--sx-blue);
+  }
+  & .sxss.c {
+    stroke: var(--sx-det);
+  }
+  & .sxsst {
+    font: 800 9.5px var(--font-sans);
+    fill: var(--sx-white);
+    text-anchor: middle;
+  }
+  & .sxjamb {
+    fill: var(--sx-frame);
+  }
+  & .sxleaf {
+    fill: var(--sx-leaf);
+  }
+  & .sxpanelw {
+    fill: none;
+    stroke: var(--sx-panelw);
+    stroke-width: 2;
+  }
+  & .sxhandle {
+    fill: var(--sx-pale);
+  }
+  & .sxkp {
+    fill: var(--sx-panel);
+    stroke: var(--sx-ph-line);
+  }
+  & .sxkey {
+    fill: var(--sx-frame);
+  }
+  & .sxkled {
+    fill: var(--sx-rec);
+    animation: inst-gl-sxkled 5s infinite;
+  }
+  & .sxcard {
+    animation: inst-gl-sxcard 5s ease-in-out infinite;
+  }
+  & .sxcd {
+    fill: var(--h);
+  }
+  & .sxchip2 {
+    fill: var(--sx-card);
+    stroke: var(--sx-ink);
+    stroke-width: 0.6;
+  }
+  & .sxcdl {
+    stroke: var(--sx-ink);
+    stroke-width: 2;
+    opacity: 0.5;
+  }
+  & .sxcode {
+    font: 900 24px var(--font-display);
+    fill: var(--h);
+    letter-spacing: 0.08em;
+  }
+  & .sxsep {
+    fill: var(--sx-line);
+  }
+  & .sxstreet {
+    fill: var(--sx-street);
+  }
+  & .sxpave {
+    fill: var(--sx-pave);
+  }
+  & .sxshop {
+    fill: var(--sx-frame);
+  }
+  & .sxglass2 {
+    fill: var(--sx-glass2);
+  }
+  & .sxtv {
+    fill: var(--sx-tyre);
+    stroke: var(--sx-tyre-line);
+  }
+  & .sxsill {
+    stroke: var(--sx-tyre-line);
+    stroke-width: 4;
+  }
+  & .sxslides {
+    animation: inst-gl-uslide 12s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  }
+  & .sxs1 {
+    fill: var(--sx-s1);
+  }
+  & .sxs2 {
+    fill: color-mix(in srgb, var(--h) 70%, var(--sx-s2));
+  }
+  & .sxs3 {
+    fill: var(--sx-s3);
+  }
+  & .sxst {
+    font: 900 10px var(--font-sans);
+    fill: var(--sx-white);
+    letter-spacing: 0.12em;
+  }
+  & .sxsl {
+    fill: var(--sx-sl);
+  }
+  & .sxsl2 {
+    fill: var(--sx-sl2);
+  }
+  & .sxsb {
+    font: 900 30px var(--font-display);
+    fill: var(--sx-white);
+  }
+  & .sxsb2 {
+    font: 900 13px var(--font-display);
+    fill: var(--sx-win);
+  }
+  & .sxsched {
+    fill: var(--sx-panel);
+    stroke: var(--sx-line);
+  }
+  & .sxsi {
+    fill: var(--sx-tile);
+  }
+  & .sxsi.b {
+    fill: color-mix(in srgb, var(--h) 30%, var(--sx-tile));
+  }
+  & .sxplay {
+    fill: var(--h);
+    animation: inst-gl-sxplay 12s linear infinite;
+  }
+  & .sxbld {
+    fill: var(--sx-bld);
+  }
+  & .sxapt {
+    fill: var(--sx-apt);
+  }
+  & .sxshaft {
+    fill: var(--sx-shaft);
+  }
+  & .sxrise {
+    stroke-width: 1.6;
+    stroke-dasharray: 4 6;
+    animation: inst-gl-sxdash 1s linear infinite;
+  }
+  & .sxrise.r0 {
+    stroke: var(--sx-warn);
+  }
+  & .sxrise.r1 {
+    stroke: var(--sx-blue);
+  }
+  & .sxrise.r2 {
+    stroke: var(--sx-violet);
+  }
+  & .sxbr {
+    stroke: color-mix(in srgb, var(--h) 80%, var(--sx-white));
+    stroke-width: 1.4;
+    opacity: 0.8;
+  }
+  & .sxsock {
+    fill: var(--sx-body);
+  }
+  & .sxpass {
+    fill: var(--sx-pass);
+  }
+  & .sxpck {
+    fill: none;
+    stroke: var(--sx-white);
+    stroke-width: 1.4;
+  }
+  & .sxstar {
+    fill: var(--sx-white);
+    animation: inst-gl-sxblink 3s steps(2) infinite;
+  }
+  & .sxsolar {
+    fill: var(--sx-solar);
+    stroke: var(--sx-solar-line);
+    stroke-width: 0.6;
+  }
+  & .sxsat {
+    animation: inst-gl-sxfloat 6s ease-in-out infinite;
+  }
+  & .sxsig {
+    stroke: var(--h);
+    stroke-width: 1.6;
+    stroke-dasharray: 6 6;
+    animation: inst-gl-sxdash 1s linear infinite;
+  }
+  & .sxsig.s2 {
+    opacity: 0.5;
+  }
+  & .sxmast {
+    stroke: var(--sx-mast);
+    stroke-width: 2.4;
+  }
+  & .sxmast2 {
+    stroke: var(--sx-mast);
+    stroke-width: 1.4;
+  }
+  & .sxdish {
+    fill: var(--sx-dish);
+    stroke: var(--sx-mast);
+  }
+  & .sxtvf {
+    fill: var(--sx-tyre);
+    stroke: var(--sx-tyre-line);
+  }
+  & .sxtvp {
+    fill: color-mix(in srgb, var(--h) 45%, var(--sx-s3));
+    animation: inst-gl-sxglow 3s ease-in-out infinite;
+  }
+  & .sxmeterb {
+    fill: var(--sx-fl1-line);
+  }
+  & .sxmeter {
+    fill: var(--h);
+    transform-box: fill-box;
+    transform-origin: left;
+    animation: inst-gl-sxmeter 4s ease-in-out infinite;
+  }
+  & .sxwb {
+    fill: var(--sx-body);
+  }
+  & .sxwbs {
+    fill: var(--sx-panel);
+  }
+  & .sxwbr {
+    fill: none;
+    stroke: var(--h);
+    stroke-width: 3;
+    animation: inst-gl-sxglow 2s ease-in-out infinite;
+  }
+  & .sxcable {
+    fill: none;
+    stroke: var(--sx-frame);
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+  & .sxpulse {
+    fill: none;
+    stroke: var(--h);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 8 22;
+    animation: inst-gl-sxpls 1.2s linear infinite;
+  }
+  & .sxcar2 {
+    fill: color-mix(in srgb, var(--h) 40%, var(--sx-car2));
+  }
+  & .sxbatb {
+    fill: var(--sx-tile);
+  }
+  & .sxbat {
+    fill: var(--h);
+    transform-box: fill-box;
+    transform-origin: left;
+    animation: inst-gl-sxbat 6s ease-in-out infinite;
+  }
+  & .sxslides {
+    animation: inst-gl-sxslide 12s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  }
+}

@@ -1,0 +1,59 @@
+# prokominstalacje.pl — mapa przekierowań 301 (szkic)
+
+Stan: 01.11.2026 · przygotował Claude Code (decyzja Krystiana 01.11: „zrób to wszystko sam”) · **do akceptacji Krystiana** (wiersze oznaczone „do decyzji” — szefa). · **08.11.2026: wiersze „do decyzji” rozstrzygnięte** (Claude, wg spec §2 — do zmiany przez Krystiana/szefa).
+
+## Skąd lista
+- **pro-kom.eu**: publiczna mapa strony `https://pro-kom.eu/sitemap.xml` (lastmod 30.09.2026), wszystkie adresy o instalacjach i sprzęcie RTV/audio.
+- **pro-kom.pl**: `https://pro-kom.pl/page-sitemap1.xml` (8 stron: start, kontakt, systemy POS, KSeF, PRO-KOM, konfigurator PC, o nas, FAQ). Nie ma tam stron o instalacjach, więc **nic z pro-kom.pl nie przekierowujemy na Instalacje**. Ich adresy dotyczą Biznesu i huba.
+- Przed przełączeniem (SEO §2.5) porównać listę z zaindeksowanymi adresami starej domeny w Search Console: Strony → „Zaindeksowane”. Dopisać tu adresy spoza mapy strony, np. stare wpisy albo adresy z parametrami.
+
+## Mapa (pro-kom.eu → prokominstalacje.pl)
+
+| Stary adres (pro-kom.eu) | Nowy adres | Uwagi |
+|---|---|---|
+| `/uslugi/montaz-instalacje` | `https://prokominstalacje.pl/uslugi` | przegląd wszystkich instalacji → pełna oferta |
+| `/uslugi/montaz-instalacje/monitoring` | `https://prokominstalacje.pl/monitoring` | |
+| `/uslugi/montaz-instalacje/inteligentny-dom` | `https://prokominstalacje.pl/smart-home` | |
+| `/uslugi/montaz-instalacje/multimedialne` | `https://prokominstalacje.pl/ekrany` | ekrany, projekcja, digital signage |
+| `/uslugi/montaz-instalacje/naglosnieniowe` | `https://prokominstalacje.pl/naglosnienie` | |
+| `/uslugi/montaz-instalacje/sieci-strukturalnych` | `https://prokominstalacje.pl/sieci-wifi` | „Okablowanie strukturalne” jest w obszarze Sieci i Wi-Fi pełnej oferty; dla budynków w budowie jest też `/teletechnika` |
+| `/uslugi/montaz-instalacje/telewizyjne-i-satelitarne` | `https://prokominstalacje.pl/anteny` | |
+| `/realizacje` | `https://prokominstalacje.pl/realizacje` | **przekierowujemy (08.11)**: te same realizacje są w seedzie Instalacji (43 zdjęcia z pro-kom.eu); gdy hub pro-kom.eu dostanie własne realizacje — zmienić |
+| `/produkt/reseller/rtv-sat` | — (bez przekierowania na Instalacje) | **08.11**: sprzedaż sprzętu, a Instalacje nie sprzedają sprzętu (spec §2) — zostaje na pro-kom.eu do huba |
+| `/produkt/reseller/audio` | — (bez przekierowania na Instalacje) | **08.11**: jak wyżej |
+
+Bez przekierowania na Instalacje (inne linie albo hub): `/e-faktura`, `/firma`, `/kariera`, `/kontakt`, `/polityka-prywatnosci`, `/regulamin-sklepu`, `/tworzenie-stron-internetowych` (Software), `/produkt/*` poza dwoma wyżej (Biznes), `/uslugi/opieka-techniczna*`, `/uslugi/serwis*` (Biznes/Tech), `/zdalna-pomoc`.
+
+## Wdrożenie
+- Stare adresy są na **pro-kom.eu**, więc przekierowanie musi odpowiadać na tej domenie:
+  1. **dopóki pro-kom.eu stoi na obecnym serwerze** (przed hubem, grudzień 2026): reguły 301 na tamtym serwerze, np. w `.htaccess` albo w konfiguracji obecnego hostingu. Robi to Krystian przy przełączeniu Instalacji (I15);
+  2. **po przeniesieniu pro-kom.eu do tej aplikacji (hub)**: wpisy w panelu → Przekierowania, tenant `pro-kom`, `from` = stary adres, `to` = pełny adres `https://prokominstalacje.pl/…`. Kolekcja przyjmuje cele `https://` (`src/lib/redirects/rules.ts`), a `proxy.ts` stosuje je przed routingiem.
+- Każdy wiersz = 301 (stały), bez łańcuchów (stary adres → od razu docelowy).
+- Test po wdrożeniu: `curl -sI https://pro-kom.eu/uslugi/montaz-instalacje/monitoring` → `301` i `location: https://prokominstalacje.pl/monitoring`. Lista kontrolna SEO §6.
+
+## Reguły dla obecnej pro-kom.eu (nazwa.pl, 13.11.2026)
+Obecna pro-kom.eu to Next.js + Payload na Apache z Phusion Passenger w nazwa.pl (nagłówki `Server: Apache/2`, `X-Powered-By: Next.js, Payload, Phusion Passenger`; 13.11 wszystkie stare adresy z mapy odpowiadają 200). Reguły `mod_rewrite` z `.htaccess` działają przed Passengerem, więc wystarczy dopisać je **na samej górze** pliku `.htaccess` w katalogu strony (Panel nazwa.pl → Menedżer plików albo FTP). Kopię starego pliku zachowaj obok (`.htaccess.bak`).
+
+```apache
+# 301: Instalacje -> prokominstalacje.pl (docs/tresci/prokominstalacje-301.md)
+RewriteEngine On
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/?$ https://prokominstalacje.pl/uslugi [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/monitoring/?$ https://prokominstalacje.pl/monitoring [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/inteligentny-dom/?$ https://prokominstalacje.pl/smart-home [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/multimedialne/?$ https://prokominstalacje.pl/ekrany [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/naglosnieniowe/?$ https://prokominstalacje.pl/naglosnienie [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/sieci-strukturalnych/?$ https://prokominstalacje.pl/sieci-wifi [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?uslugi/montaz-instalacje/telewizyjne-i-satelitarne/?$ https://prokominstalacje.pl/anteny [R=301,L]
+RewriteRule ^(?:prokom-nowy/)?realizacje/?$ https://prokominstalacje.pl/realizacje [R=301,L]
+
+# 301: Software -> prokomsoftware.pl (14.11.2026)
+RewriteRule ^(?:prokom-nowy/)?tworzenie-stron-internetowych/?$ https://prokomsoftware.pl/ [R=301,L]
+```
+
+**Wdrożone 13.11.2026** (Claude przez SSH `pro-kom@pro-kom.nazwa.pl`, klucz `id_ed25519` dodany w panelu nazwa.pl → Konto SSH): katalog strony `/prokom-nowy`, kopia `.htaccess.bak-20261113` obok. Reguły trafiły przed istniejące (www → bez www, http → https), więc stare adresy idą od razu na nowy, bez łańcucha. Prefiks `(?:prokom-nowy/)?` jest konieczny: dla hosta `pro-kom.eu` mod_rewrite widzi ścieżkę z nazwą katalogu (DOCUMENT_ROOT = główny katalog FTP), dla `www` — bez niej. Wynik: wszystkie 8 adresów `https://pro-kom.eu/…` i `https://www.pro-kom.eu/…` → 301 na właściwą stronę, strona główna i `/kontakt` dalej 200.
+
+**Znany błąd sprzed zmiany (nie z `.htaccess`):** `http://pro-kom.eu/<cokolwiek>` → 301 na `https://pro-kom.eu/prokom-nowy/<cokolwiek>` → 404 (przekierowanie robi warstwa nazwa.pl, prawdopodobnie wymuszenie HTTPS przy DOCUMENT_ROOT na katalogu głównym). Stare adresy instalacji z `http://` też tak kończą. Do decyzji Krystiana: ustawienie w panelu nazwa.pl albo zostawić do przeniesienia pro-kom.eu do huba (grudzień).
+
+Sprawdzenie po wgraniu (Git Bash): `for p in uslugi/montaz-instalacje uslugi/montaz-instalacje/monitoring realizacje; do curl -sI https://pro-kom.eu/$p | grep -iE "^HTTP|^location"; done` → `301` i `location: https://prokominstalacje.pl/…`; strona główna `https://pro-kom.eu/` dalej 200.
+
+**Software, 14.11.2026** (decyzja Krystiana 14.11): jedyna podstrona oprogramowania starej pro-kom.eu, `/tworzenie-stron-internetowych` („Tworzenie stron internetowych Next.js”), → 301 na `https://prokomsoftware.pl/` (strona główna — stara strona była ogólna, nie o jednym rozwiązaniu). Reguła tuż za regułami Instalacji, kopia `.htaccess.bak-20261114`. Sprawdzone curlem: `https://pro-kom.eu/tworzenie-stron-internetowych` (także z `/`) → 301 `https://prokomsoftware.pl/`; z `www` — najpierw 301 na `https://pro-kom.eu/…`, potem na Software (dwa skoki); `/`, `/kontakt`, `/firma` dalej 200. Pozycja menu „Strony internetowe” starej strony prowadzi teraz na prokomsoftware.pl.

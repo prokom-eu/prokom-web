@@ -1,0 +1,22 @@
+  <section class="phero" style="padding-bottom: 40px">
+    <div class="hgrid"></div><div class="hglow"></div>
+    <div class="wrap" style="position: relative">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">Poradnik</span></nav>
+      <div class="split" style="margin-top: 22px; align-items: end">
+        <div style="display: flex; flex-direction: column; gap: 16px"><span class="eye in d1">Poradnik · przepisy, technika, praktyka</span><h1 class="h1 in d2">Poradnik: <span class="acc">monitoring, RODO, Wi-Fi i instalacje w obiektach na Podhalu.</span></h1></div>
+        <p class="lead in d3">Odpowiedzi, zanim zadasz pytanie. Krótkie poradniki dla właścicieli domów, pensjonatów i firm. Przepisy podajemy ze źródłami i datą aktualizacji. Piszemy tak, jak tłumaczymy klientom na wizji lokalnej.</p>
+      </div>
+      <div class="zpc in d4" style="margin-top: 28px"><sc-for list="{{pr.cats}}" as="c" hint-placeholder-count="6"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.n}}</button></sc-for></div>
+    </div>
+  </section>
+  <section style="padding: 0 0 96px">
+    <div class="wrap">
+      <a href="PoradnikRodo.dc.html" class="prfeat card">
+        <div class="prart"><svg viewBox="0 0 400 260" aria-hidden="true"><rect width="400" height="260" fill="var(--accentSoft)"></rect><g transform="translate(110 40) scale(7.5)"><path d="{{P.cam}}" fill="none" stroke="var(--accentText)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></g><rect x="236" y="150" width="120" height="70" rx="10" fill="#F2C230"></rect><text x="296" y="192" text-anchor="middle" font-family="Archivo" font-weight="900" font-size="18" fill="#14110A">RODO</text></svg></div>
+        <div class="prtx"><span class="tag a" style="align-self: flex-start">Polecany · Przepisy</span><b class="h2" style="font-size: clamp(26px, 2.6vw, 38px)">Monitoring w pensjonacie a RODO: gdzie kamera może patrzeć, a gdzie nie</b><p class="lead" style="font-size: 17px">Parking i narciarnia tak, pokoje i sauna nie. Jak długo trzymać nagrania, co napisać na tabliczce i czym jest wyrok w sprawie kamery sąsiada.</p><span class="mut" style="font-size: 14px">7 minut czytania · aktualizacja: październik 2026</span><span style="color: var(--accentText); font-weight: 800">Czytaj poradnik →</span></div>
+      </a>
+      <div class="prgrid"><sc-for list="{{pr.list}}" as="a" hint-placeholder-count="9"><a href="{{a.href}}" class="card prc2"><span class="svk">{{a.c}}</span><b class="h3">{{a.t}}</b><p>{{a.d}}</p><span class="mut" style="font-size: 13px; margin-top: auto">{{a.m}}</span></a></sc-for></div>
+      <sc-if value="{{pr.empty}}" hint-placeholder-val="{{ false }}"><div class="note" style="margin-top: 18px"><!--i:P.book:20--><span>W tej kategorii dopiero przygotowujemy poradniki.</span></div></sc-if>
+      <div class="note w" style="margin-top: 22px"><!--i:P.doc:20--><span>W prototypie pełny tekst ma pierwszy poradnik. Pozostałe karty prowadzą do odpowiednich sekcji stron usług. Docelowo każdy poradnik to osobna strona z autorem, datą i źródłami.</span></div>
+    </div>
+  </section>

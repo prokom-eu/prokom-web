@@ -1,0 +1,89 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "https://staging.prokombiznes.pl/",
+        "https://staging.prokombiznes.pl/oferta",
+        "https://staging.prokombiznes.pl/o-firmie",
+        "https://staging.prokombiznes.pl/kontakt",
+        "https://staging.prokombiznes.pl/marki",
+        "https://staging.prokombiznes.pl/produkt/m365-business-standard",
+        "https://staging.prokomsoftware.pl/",
+        "https://staging.prokomsoftware.pl/rozwiazania",
+        "https://staging.prokomsoftware.pl/polityka-prywatnosci",
+        "https://staging.prokominstalacje.pl/",
+        "https://staging.prokominstalacje.pl/monitoring",
+        "https://staging.prokominstalacje.pl/dla-kogo/pensjonaty",
+        "https://staging.prokominstalacje.pl/ladowarki-ev",
+        "https://staging.prokominstalacje.pl/zaplanuj",
+        "https://staging.prokominstalacje.pl/dla-architektow",
+        "https://staging.prokominstalacje.pl/kontakt",
+        "https://staging.pro-kom.eu/",
+        "https://staging.pro-kom.eu/dla-firm",
+        "https://staging.pro-kom.eu/inwestycje-i-dostawy",
+        "https://staging.pro-kom.eu/kontakt"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "skipAudits": ["is-crawlable", "robots-txt"]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": [
+          "error",
+          {
+            "minScore": 0.9,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "categories:accessibility": [
+          "error",
+          {
+            "minScore": 0.9,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "categories:best-practices": [
+          "error",
+          {
+            "minScore": 0.9,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "categories:seo": [
+          "error",
+          {
+            "minScore": 0.9,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "largest-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 4000,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "lcp-lazy-loaded": [
+          "error",
+          {
+            "minScore": 1,
+            "aggregationMethod": "median-run"
+          }
+        ],
+        "cumulative-layout-shift": [
+          "error",
+          {
+            "maxNumericValue": 0.1,
+            "aggregationMethod": "median-run"
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci/reports"
+    }
+  }
+}

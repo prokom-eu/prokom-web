@@ -1,0 +1,561 @@
+{
+ "_zrodlo": "Zasieg.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "q": "",
+  "res": {
+   "tag": "Wynik",
+   "title": "Wpisz co najmniej 3 litery",
+   "text": "Albo wybierz miejscowość z podpowiedzi powyżej."
+  },
+  "zoneBorder": "rgba(var(--r-w),.16)",
+  "zoneInk": "var(--k-ink3)",
+  "cities": [
+   {
+    "name": "Rabka-Zdrój",
+    "zone": "Tu jesteśmy",
+    "items": [
+     {
+      "cd": "var(--k-g)",
+      "t": "Salon i serwis na miejscu, ul. Orkana 16B"
+     },
+     {
+      "cd": "var(--k-b)",
+      "t": "Kasy, komputery i opieka IT dla firm"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Instalacje w domach, pensjonatach i firmach"
+     },
+     {
+      "cd": "var(--k-t)",
+      "t": "Naprawy i odbiór w salonie"
+     }
+    ],
+    "bg": "linear-gradient(160deg, var(--k-g), var(--k-g3))",
+    "ink": "var(--k-gi)",
+    "edge": "transparent",
+    "ring": "color-mix(in srgb, var(--k-gi) 25%, transparent)",
+    "tagInk": "var(--k-gi)",
+    "btnBd": "color-mix(in srgb, var(--k-gi) 45%, transparent)"
+   },
+   {
+    "name": "Mszana Dolna",
+    "zone": "Strefa Małopolska · blisko",
+    "items": [
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm: kasy, wdrożenia, serwis"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Montaż i serwis instalacji"
+     },
+     {
+      "cd": "var(--k-t)",
+      "t": "Naprawy w salonie w Rabce-Zdroju"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Nowy Targ",
+    "zone": "Strefa Podhale",
+    "items": [
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm, sklepów i lokali"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Monitoring, alarmy, sieci"
+     },
+     {
+      "cd": "var(--k-s)",
+      "t": "Strony i systemy dla firm"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Zakopane",
+    "zone": "Strefa Podhale",
+    "items": [
+     {
+      "cd": "var(--k-i)",
+      "t": "Wi-Fi dla gości, monitoring, zamki na kod w obiektach noclegowych"
+     },
+     {
+      "cd": "var(--k-b)",
+      "t": "Kasy i GoPOS dla gastronomii"
+     },
+     {
+      "cd": "var(--k-s)",
+      "t": "Strony pensjonatów i restauracji"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Limanowa",
+    "zone": "Strefa Małopolska",
+    "items": [
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm — termin w rozmowie"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Montaż instalacji"
+     },
+     {
+      "cd": "var(--k-t)",
+      "t": "Naprawy kurierem albo w salonie"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Nowy Sącz",
+    "zone": "Strefa Małopolska",
+    "items": [
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm — termin w rozmowie"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Montaż instalacji"
+     },
+     {
+      "cd": "var(--k-s)",
+      "t": "Strony i systemy zdalnie"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Myślenice",
+    "zone": "Strefa Małopolska",
+    "items": [
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm — termin w rozmowie"
+     },
+     {
+      "cd": "var(--k-i)",
+      "t": "Montaż instalacji"
+     },
+     {
+      "cd": "var(--k-t)",
+      "t": "Naprawy kurierem albo w salonie"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   },
+   {
+    "name": "Kraków",
+    "zone": "Strefa Małopolska",
+    "items": [
+     {
+      "cd": "var(--k-i)",
+      "t": "Instalacje dla inwestycji, deweloperów i architektów"
+     },
+     {
+      "cd": "var(--k-b)",
+      "t": "Dojazd do firm — termin w rozmowie"
+     },
+     {
+      "cd": "var(--k-s)",
+      "t": "Strony i systemy zdalnie"
+     },
+     {
+      "cd": "var(--k-y)",
+      "t": "Komputery do gier z wysyłką"
+     }
+    ],
+    "bg": "var(--k-card)",
+    "ink": "var(--k-ink)",
+    "edge": "rgba(var(--r-w),.1)",
+    "ring": "rgba(var(--r-w),.1)",
+    "tagInk": "var(--k-gt)",
+    "btnBd": "rgba(var(--r-w),.26)"
+   }
+  ],
+  "poland": [
+   {
+    "label": "SOFTWARE",
+    "how": "Zdalnie",
+    "title": "Strony, systemy i aplikacje dla firm z całego kraju.",
+    "items": [
+     "Rozmowa i ustalenia online",
+     "Podgląd i wycena na piśmie",
+     "Opieka nad stroną po wdrożeniu"
+    ],
+    "phone": "883 200 151",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "dark": "var(--k-sd)",
+    "edge": "rgba(var(--r-w),.1)"
+   },
+   {
+    "label": "GAMING",
+    "how": "Wysyłka",
+    "title": "Komputery do gier wysyłane do całej Polski.",
+    "items": [
+     "Składane ręcznie w Rabce-Zdroju",
+     "Wysyłka do całej Polski",
+     "Gwarancja 2 lata na cały komputer"
+    ],
+    "phone": "883 200 151",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "dark": "var(--k-yd)",
+    "edge": "color-mix(in srgb, var(--k-y) 45%, transparent)"
+   },
+   {
+    "label": "TECH",
+    "how": "Kurier",
+    "title": "Naprawy sprzętu wysłanego kurierem.",
+    "items": [
+     "Zgłoszenie naprawy online",
+     "Bezpłatna diagnoza i wycena",
+     "Status naprawy do sprawdzenia online"
+    ],
+    "phone": "883 200 151",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "dark": "var(--k-td)",
+    "edge": "rgba(var(--r-w),.1)"
+   }
+  ],
+  "quick": [
+   {
+    "label": "Nowy Targ"
+   },
+   {
+    "label": "Zakopane"
+   },
+   {
+    "label": "Limanowa"
+   },
+   {
+    "label": "Kraków"
+   },
+   {
+    "label": "Gdańsk"
+   }
+  ],
+  "podhale": [
+   {
+    "label": "Rabka-Zdrój"
+   },
+   {
+    "label": "Chabówka"
+   },
+   {
+    "label": "Raba Wyżna"
+   },
+   {
+    "label": "Spytkowice"
+   },
+   {
+    "label": "Nowy Targ"
+   },
+   {
+    "label": "Szaflary"
+   },
+   {
+    "label": "Biały Dunajec"
+   },
+   {
+    "label": "Poronin"
+   },
+   {
+    "label": "Zakopane"
+   },
+   {
+    "label": "Kościelisko"
+   },
+   {
+    "label": "Bukowina Tatrzańska"
+   },
+   {
+    "label": "Czarny Dunajec"
+   },
+   {
+    "label": "Jabłonka"
+   }
+  ],
+  "malopolska": [
+   {
+    "label": "Mszana Dolna"
+   },
+   {
+    "label": "Niedźwiedź"
+   },
+   {
+    "label": "Limanowa"
+   },
+   {
+    "label": "Nowy Sącz"
+   },
+   {
+    "label": "Jordanów"
+   },
+   {
+    "label": "Maków Podhalański"
+   },
+   {
+    "label": "Sucha Beskidzka"
+   },
+   {
+    "label": "Myślenice"
+   },
+   {
+    "label": "Dobczyce"
+   },
+   {
+    "label": "Wieliczka"
+   },
+   {
+    "label": "Kraków"
+   },
+   {
+    "label": "Wadowice"
+   },
+   {
+    "label": "Bochnia"
+   },
+   {
+    "label": "Tarnów"
+   }
+  ],
+  "towns": [
+   {
+    "name": "Mszana Dolna",
+    "x": "60%",
+    "y": "40%",
+    "ink": "var(--k-ink)",
+    "dot": "var(--k-gd)"
+   },
+   {
+    "name": "Nowy Targ",
+    "x": "55%",
+    "y": "62%",
+    "ink": "var(--k-ink)",
+    "dot": "var(--k-gd)"
+   },
+   {
+    "name": "Zakopane",
+    "x": "40%",
+    "y": "73%",
+    "ink": "var(--k-ink)",
+    "dot": "var(--k-gd)"
+   },
+   {
+    "name": "Limanowa",
+    "x": "73%",
+    "y": "45%",
+    "ink": "var(--k-ink2)",
+    "dot": "var(--k-ink2)"
+   },
+   {
+    "name": "Nowy Sącz",
+    "x": "78%",
+    "y": "57%",
+    "ink": "var(--k-ink2)",
+    "dot": "var(--k-ink2)"
+   },
+   {
+    "name": "Myślenice",
+    "x": "44%",
+    "y": "15%",
+    "ink": "var(--k-ink2)",
+    "dot": "var(--k-ink2)"
+   },
+   {
+    "name": "Kraków",
+    "x": "16%",
+    "y": "10%",
+    "ink": "var(--k-ink2)",
+    "dot": "var(--k-ink2)"
+   }
+  ],
+  "rows": [
+   {
+    "name": "Biznes",
+    "domain": "prokombiznes.pl",
+    "url": "https://prokombiznes.pl",
+    "phone": "889 003 889",
+    "cd": "var(--k-b)",
+    "ct": "var(--k-bt)",
+    "a": "Rozmowa, dobór sprzętu i odbiór w salonie.",
+    "b": "Dojazd do firmy: wdrożenia, kasy, serwis u klienta.",
+    "c": "Pomoc zdalna dla firm pod opieką IT.",
+    "aInk": "var(--k-ink)",
+    "bInk": "var(--k-ink)",
+    "cInk": "var(--k-ink)",
+    "aBar": "var(--k-b)",
+    "bBar": "var(--k-b)",
+    "cBar": "var(--k-b)"
+   },
+   {
+    "name": "Instalacje",
+    "domain": "prokominstalacje.pl",
+    "url": "https://prokominstalacje.pl",
+    "phone": "889 003 889",
+    "cd": "var(--k-i)",
+    "ct": "var(--k-it)",
+    "a": "Nie dotyczy",
+    "b": "Projekt, montaż i serwis u klienta — dom, obiekt, firma.",
+    "c": "Nie dotyczy",
+    "aInk": "var(--k-ink5)",
+    "bInk": "var(--k-ink)",
+    "cInk": "var(--k-ink5)",
+    "aBar": "rgba(var(--r-w),.18)",
+    "bBar": "var(--k-i)",
+    "cBar": "rgba(var(--r-w),.18)"
+   },
+   {
+    "name": "Software",
+    "domain": "prokomsoftware.pl",
+    "url": "https://prokomsoftware.pl",
+    "phone": "883 200 151",
+    "cd": "var(--k-s)",
+    "ct": "var(--k-st)",
+    "a": "Spotkanie w Rabce-Zdroju.",
+    "b": "Nie dotyczy",
+    "c": "Strony, systemy i aplikacje robimy zdalnie dla firm z całej Polski.",
+    "aInk": "var(--k-ink)",
+    "bInk": "var(--k-ink5)",
+    "cInk": "var(--k-ink)",
+    "aBar": "var(--k-s)",
+    "bBar": "rgba(var(--r-w),.18)",
+    "cBar": "var(--k-s)"
+   },
+   {
+    "name": "Tech",
+    "domain": "prokomserwis.pl",
+    "url": "https://prokomserwis.pl",
+    "phone": "883 200 151",
+    "cd": "var(--k-t)",
+    "ct": "var(--k-tt)",
+    "a": "Naprawy, folie Hammer Glass i akcesoria na miejscu.",
+    "b": "Nie dotyczy",
+    "c": "Sprzęt do naprawy możesz wysłać kurierem z całej Polski.",
+    "aInk": "var(--k-ink)",
+    "bInk": "var(--k-ink5)",
+    "cInk": "var(--k-ink)",
+    "aBar": "var(--k-t)",
+    "bBar": "rgba(var(--r-w),.18)",
+    "cBar": "var(--k-t)"
+   },
+   {
+    "name": "Gaming",
+    "domain": "prokomgaming.pl",
+    "url": "https://prokomgaming.pl",
+    "phone": "883 200 151",
+    "cd": "var(--k-y)",
+    "ct": "var(--k-y)",
+    "a": "Odbiór komputera w Rabce-Zdroju.",
+    "b": "Nie dotyczy",
+    "c": "Wysyłka komputerów do całej Polski.",
+    "aInk": "var(--k-ink)",
+    "bInk": "var(--k-ink5)",
+    "cInk": "var(--k-ink)",
+    "aBar": "var(--k-y)",
+    "bBar": "rgba(var(--r-w),.18)",
+    "cBar": "var(--k-y)"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "open": true,
+    "q": "Czy przyjeżdżacie do klienta?",
+    "a": "Tak. Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce. Termin ustalamy w rozmowie."
+   },
+   {
+    "n": "02",
+    "open": false,
+    "q": "Mieszkam daleko od Rabki. Co możecie dla mnie zrobić?",
+    "a": "Stronę, system albo aplikację zrobimy zdalnie. Sprzęt do naprawy wyślesz kurierem, a komputer do gier wyślemy do Ciebie."
+   },
+   {
+    "n": "03",
+    "open": false,
+    "q": "Ile kosztuje dojazd?",
+    "a": "Zasady dojazdu ustalamy przy wycenie — przed przyjazdem wiesz, na czym stoisz."
+   },
+   {
+    "n": "04",
+    "open": false,
+    "q": "Gdzie jest salon i kiedy jest otwarty?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00."
+   },
+   {
+    "n": "05",
+    "open": false,
+    "q": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+    "a": "Tak. Linia Tech przyjmuje sprzęt z całej Polski. Zacznij od zgłoszenia naprawy na prokomserwis.pl."
+   },
+   {
+    "n": "06",
+    "open": false,
+    "q": "Czy robicie strony dla firm spoza Małopolski?",
+    "a": "Tak. Strony, systemy i aplikacje robimy zdalnie dla firm z całej Polski. Jeśli wolisz się spotkać, zapraszamy do Rabki-Zdroju."
+   },
+   {
+    "n": "07",
+    "open": false,
+    "q": "Czy komputer do gier mogę odebrać osobiście?",
+    "a": "Tak, w salonie w Rabce-Zdroju. Standardowo wysyłamy komputery do całej Polski."
+   },
+   {
+    "n": "08",
+    "open": false,
+    "q": "Mojej miejscowości nie ma na liście. Co teraz?",
+    "a": "Lista jest robocza. Zadzwoń pod 883 200 151 — powiemy, czy dojedziemy i jak szybko."
+   }
+  ]
+ },
+ "stany": {},
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

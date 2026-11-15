@@ -1,0 +1,69 @@
+import { cx } from '@/components/ui/cx'
+
+import { EmText } from './EmText'
+
+type Props = {
+  /** Empty or missing: no eyebrow line (a city without one in the panel). */
+  eyebrow?: string | null
+  /** First part of the H2 — or the whole H2 with its highlighted part in `**stars**`. */
+  title: string
+  /** Second part, in the violet gradient (`.sw-em`); ZMIANY-v24 §2: „eyebrow → H2 z `em`”. */
+  em?: string | null
+  lead?: string | null
+  /** `h1` for the heading of a subpage hero (`.sw-h1-page`, `em` in the hero gradient). */
+  level?: 'h1' | 'h2'
+  align?: 'start' | 'center'
+  /** Id of the heading (`aria-labelledby` of its section, anchors). */
+  id?: string
+  /** Max width class of the block (`cx` does not merge Tailwind classes, so not via `className`). */
+  width?: string
+  className?: string
+}
+
+/**
+ * Heading of a Software v24 section: eyebrow, H2 with its highlighted part, lead. Rises in on
+ * scroll (`data-rise`) and „arrives” after a glide of the rail (motion.css §6).
+ */
+export function SectionHead({
+  eyebrow,
+  title,
+  em,
+  lead,
+  level = 'h2',
+  align = 'start',
+  id,
+  width = 'max-w-[760px]',
+  className,
+}: Props) {
+  const Heading = level
+  return (
+    <div
+      className={cx(
+        'flex flex-col gap-4',
+        width,
+        align === 'center' && 'mx-auto items-center text-center',
+        className,
+      )}
+    >
+      {eyebrow ? (
+        <p className="sw-eyebrow" data-rise>
+          {eyebrow}
+        </p>
+      ) : null}
+      <Heading id={id} className={level === 'h1' ? 'sw-h1-page' : 'sw-h2'} data-rise>
+        <EmText text={title} emClass={level === 'h1' ? 'sw-em-hero' : 'sw-em'} />
+        {em ? (
+          <>
+            {' '}
+            <em className={level === 'h1' ? 'sw-em-hero' : 'sw-em'}>{em}</em>
+          </>
+        ) : null}
+      </Heading>
+      {lead ? (
+        <p className="max-w-[56ch] text-lg text-ink-2" data-rise>
+          {lead}
+        </p>
+      ) : null}
+    </div>
+  )
+}

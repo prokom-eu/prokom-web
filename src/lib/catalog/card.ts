@@ -1,0 +1,72 @@
+import { partnerStatusLabel } from '../partners/badges'
+import type { CatalogIndex, IndexProduct } from './catalogIndex'
+import type { IconName } from './options'
+
+export type BadgeTone = 'service' | 'new' | 'promo' | 'authorized'
+
+export type ProductBadge = { label: string; tone: BadgeTone }
+
+const MAX_BADGES = 2
+
+/**
+ * Authorization label: the brand's authorized status from the panel; a brand without a status
+ * falls back to the kind (as in the design). A brand with another status (Optivendi „Partner”,
+ * COMEX „We współpracy”) gets no authorization badge — never „Autoryzowany” (K4-FINAL §1).
+ */
+function authorizedLabel(product: IndexProduct, brands: CatalogIndex['brands']): string | null {
+  const status = brands.find((brand) => brand.slug === product.brand)?.status
+  if (status === 'authorized-partner' || status === 'authorized-service') {
+    return partnerStatusLabel(status)
+  }
+  if (status && status !== 'none') return null
+  return product.kind === 'software' ? 'Autoryzowany partner' : 'Autoryzowany serwis'
+}
+
+/**
+ * `alt` of a product photo (audit 0611 P0.5): „Marka Model” — the brand's name before the
+ * product's name, unless the name already starts with it („Posnet Ergo”, not „Posnet Posnet
+ * Ergo”). Without a brand: the name alone.
+ */
+export function productImageAlt(brandName: string | null | undefined, name: string): string {
+  const brand = brandName?.trim()
+  const model = name.trim()
+  if (!brand) return model
+  return model.toLocaleLowerCase('pl').startsWith(brand.toLocaleLowerCase('pl'))
+    ? model
+    : `${brand} ${model}`
+}
+
+/**
+ * Badges on a product card (spec. §5.3): Usługa, Nowość, the marketing badge, then the
+ * authorization if there is room — at most two.
+ */
+export function productBadges(
+  product: IndexProduct,
+  brands: CatalogIndex['brands'],
+): ProductBadge[] {
+  const badges: ProductBadge[] = []
+  if (product.kind === 'service') badges.push({ label: 'Usługa', tone: 'service' })
+  if (product.isNew) badges.push({ label: 'Nowość', tone: 'new' })
+  if (product.badge) badges.push({ label: product.badge, tone: 'promo' })
+  const authorized = product.authorized ? authorizedLabel(product, brands) : null
+  if (authorized && badges.length < MAX_BADGES) {
+    badges.push({ label: authorized, tone: 'authorized' })
+  }
+  return badges.slice(0, MAX_BADGES)
+}
+
+/** Address of a product page (B6). */
+export const productHref = (slug: string) => `/produkt/${encodeURIComponent(slug)}`
+
+/**
+ * Icon of a product without a photo (`StageFallback` on the studio, K31-ZMIANY §4.10): the icon
+ * of its main category, else of its group.
+ */
+export function cardIcon(
+  product: IndexProduct,
+  index: Pick<CatalogIndex, 'categories' | 'groups'>,
+): IconName {
+  const category = index.categories.find((item) => item.slug === product.categories[0])
+  const group = index.groups.find((item) => item.slug === product.group)
+  return category?.icon ?? group?.icon ?? 'store'
+}

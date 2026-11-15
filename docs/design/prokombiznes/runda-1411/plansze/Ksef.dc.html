@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>KSeF — odliczanie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Archivo";src:url("../obrazy/archivo-latin-ext-wdth-normal.woff2") format("woff2");font-weight:100 900;font-stretch:100% 125%;unicode-range:U+0100-017F}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0000-00FF,U+2000-206F,U+2190-21FF,U+20AC}
+@font-face{font-family:"Manrope";src:url("../obrazy/manrope-latin-ext-wght-normal.woff2") format("woff2");font-weight:200 800;unicode-range:U+0100-017F}
+body{margin:0}
+</style>
+</helmet>
+<div style="width:1440px;height:500px;box-sizing:border-box;padding:40px 72px;background:#ffffff;font-family:Manrope,system-ui,sans-serif">
+  <div style="position:relative;overflow:hidden;height:100%;box-sizing:border-box;border-radius:34px;background:radial-gradient(80% 120% at 0% 0%,#1d3b8a 0%,#0a1430 55%),#0a1430;color:#ffffff;padding:48px 52px;display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:48px;align-items:center">
+    <div aria-hidden="true" style="position:absolute;right:-120px;bottom:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,157,99,.25),rgba(31,157,99,0))"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:18px">
+      <span style="font-size:12px;font-weight:800;letter-spacing:.16em;color:#8fb0f4">KSEF · OBOWIĄZEK DLA KAŻDEJ FIRMY</span>
+      <h2 style="margin:0;font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.03em">Od 1 stycznia 2027 KSeF obowiązuje wszystkie firmy, także najmniejsze.</h2>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:#aeb8d2;max-width:560px">Przygotujemy Twoją firmę: sprawdzimy program do faktur, uprawnienia i kasę, przygotujemy certyfikat do trybu offline i procedurę na wypadek awarii.</p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="#" style="height:54px;padding:0 22px;border-radius:15px;background:#ffffff;color:#0a1430;font:800 15px Manrope,sans-serif;display:flex;align-items:center;text-decoration:none">Przygotuj firmę do KSeF →</a>
+        <a href="#" style="font-size:14px;font-weight:800;color:#8fb0f4;text-decoration:none">Poradnik: 6 rzeczy do grudnia</a>
+      </div>
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:13px;font-weight:700;color:#aeb8d2">Do terminu: 1 stycznia 2027</span>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+        <div style="padding:18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);text-align:center"><b style="display:block;font-family:Archivo,sans-serif;font-stretch:115%;font-size:52px;line-height:1">47</b><span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#aeb8d2">DNI</span></div>
+        <div style="padding:18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);text-align:center"><b style="display:block;font-family:Archivo,sans-serif;font-stretch:115%;font-size:52px;line-height:1">0</b><span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#aeb8d2">GODZIN</span></div>
+        <div style="padding:18px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);text-align:center"><b style="display:block;font-family:Archivo,sans-serif;font-stretch:115%;font-size:52px;line-height:1">50</b><span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#aeb8d2">MINUT</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">1</span>Program do faktur</span>
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">2</span>Dostęp i uprawnienia</span>
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">3</span>Certyfikat KSeF</span>
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">4</span>Faktury z kasy fiskalnej</span>
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">5</span>Procedura na awarię</span>
+        <span style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:13.5px;font-weight:700"><span style="width:24px;height:24px;border-radius:50%;background:rgba(143,176,244,.16);display:grid;place-items:center;font-size:11px">6</span>Test i szkolenie</span>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+import { describe, expect, it } from 'vitest'
+
+import { isValidPageSlug } from '../pages/slug'
+import { decideRoute, NOT_FOUND_SEGMENT } from './routing'
+
+const panelHost = 'panel.localhost'
+// 404 of a site domain is rendered by the site (its header and footer), not the proxy.
+const SITE_404 = { type: 'notFoundPage', pathname: '/biznes.localhost/_404' }
+
+function route(host: string | null, pathname: string) {
+  return decideRoute({ host, pathname, panelHost })
+}
+
+describe('decideRoute — panel domain', () => {
+  it('serves the admin panel', () => {
+    expect(route('panel.localhost:3000', '/admin')).toEqual({ type: 'next' })
+    expect(route('panel.localhost:3000', '/admin/collections/users')).toEqual({ type: 'next' })
+  })
+
+  it('serves the Payload API', () => {
+    expect(route('panel.localhost:3000', '/api/users/login')).toEqual({ type: 'next' })
+  })
+
+  it('redirects the root to the admin panel', () => {
+    expect(route('panel.localhost:3000', '/')).toEqual({ type: 'redirect', pathname: '/admin' })
+  })
+
+  it('does not serve site pages', () => {
+    expect(route('panel.localhost:3000', '/kontakt')).toEqual({ type: 'notFound' })
+  })
+})
+
+describe('decideRoute — site domains', () => {
+  it('uses a 404 segment that can never be a page slug', () => {
+    expect(isValidPageSlug(NOT_FOUND_SEGMENT)).toBe(false)
+  })
+
+  it('rewrites a page to the domain segment', () => {
+    expect(route('Biznes.localhost:3000', '/')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost',
+    })
+    expect(route('biznes.localhost:3000', '/oferta/serwis')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/oferta/serwis',
+    })
+  })
+
+  it.each(['/admin', '/admin/', '/admin/login', '/api', '/api/users', '/api/graphql'])(
+    'returns 404 for %s',
+    (pathname) => {
+      expect(route('biznes.localhost:3000', pathname)).toEqual(SITE_404)
+    },
+  )
+
+  it('blocks the admin and API even when the path looks like a file', () => {
+    expect(route('biznes.localhost', '/api/users/file/x.png')).toEqual(SITE_404)
+    expect(route('biznes.localhost', '/admin/x.js')).toEqual(SITE_404)
+  })
+
+  it('serves uploaded images (file access is checked by Payload per host)', () => {
+    expect(route('biznes.localhost', '/api/media/file/hero-960x480.webp')).toEqual({
+      type: 'next',
+    })
+    expect(route('biznes.localhost', '/api/partners/file/posnet.png')).toEqual({ type: 'next' })
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/media/file/a.png',
+        method: 'HEAD',
+        panelHost,
+      }),
+    ).toEqual({ type: 'next' })
+  })
+
+  it.each([
+    '/api/media',
+    '/api/media/1',
+    '/api/media/file',
+    '/api/media/file/',
+    '/api/media/file/a/b.png',
+    '/api/media/file/a.png/',
+    '/api/partners/file/../users',
+  ])('keeps the rest of the upload API closed: %s', (pathname) => {
+    expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+  })
+
+  it('serves uploaded images only to GET and HEAD', () => {
+    for (const method of ['POST', 'PATCH', 'DELETE']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/media/file/a.png',
+          method,
+          panelHost,
+        }),
+      ).toEqual(SITE_404)
+    }
+  })
+
+  it('accepts inquiries (ADR-003): POST /api/inquiry', () => {
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/inquiry',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'next' })
+  })
+
+  it('keeps the rest of the inquiry API closed', () => {
+    for (const method of ['GET', 'HEAD', 'PATCH', 'DELETE']) {
+      expect(
+        decideRoute({ host: 'biznes.localhost', pathname: '/api/inquiry', method, panelHost }),
+      ).toEqual(SITE_404)
+    }
+    for (const pathname of ['/api/inquiries', '/api/inquiry/', '/api/inquiry/1', '/api/inquiryx']) {
+      expect(
+        decideRoute({ host: 'biznes.localhost', pathname, method: 'POST', panelHost }),
+      ).toEqual(SITE_404)
+    }
+  })
+
+  it('answers the health check on any host (Docker, smoke test, monitoring)', () => {
+    for (const host of ['biznes.localhost', 'panel.localhost', 'localhost:3000', '127.0.0.1']) {
+      for (const method of ['GET', 'HEAD']) {
+        expect(decideRoute({ host, pathname: '/api/health', method, panelHost })).toEqual({
+          type: 'next',
+        })
+      }
+    }
+  })
+
+  it('keeps the rest of the health path closed on site domains', () => {
+    expect(
+      decideRoute({ host: 'biznes.localhost', pathname: '/api/health', method: 'POST', panelHost }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/health/', '/api/health/x', '/api/healthz']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
+  it('hands out a fresh form token on site domains, read only (K4-FINAL §5, drawer form)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/inquiry-token',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/inquiry-token',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/inquiry-token/', '/api/inquiry-token/x']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
+  it('lets the catalog index through on site domains (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/catalog-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+  })
+
+  it('keeps the rest of the catalog index path closed on site domains', () => {
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/catalog-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of ['/api/catalog-index/', '/api/catalog-index/x', '/api/catalog']) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
+  it('lets one plan drawing through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'biznes.localhost',
+          pathname: '/api/plan-svg/sklep',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/api/plan-svg/sklep',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual(SITE_404)
+    for (const pathname of [
+      '/api/plan-svg',
+      '/api/plan-svg/',
+      '/api/plan-svg/a/b',
+      '/api/plan-svg/A_B',
+    ]) {
+      expect(route('biznes.localhost', pathname)).toEqual(SITE_404)
+    }
+  })
+
+  it('lets the solutions index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'software.localhost',
+          pathname: '/api/solutions-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'software.localhost',
+        pathname: '/api/solutions-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/software.localhost/_404' })
+    for (const pathname of ['/api/solutions-index/', '/api/solutions-index/x', '/api/solutions']) {
+      expect(route('software.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/software.localhost/_404',
+      })
+    }
+  })
+
+  it('lets the hub search index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'prokom.localhost',
+          pathname: '/api/hub-search-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'prokom.localhost',
+        pathname: '/api/hub-search-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/prokom.localhost/_404' })
+    expect(route('prokom.localhost', '/api/hub-search-index/x')).toEqual({
+      type: 'notFoundPage',
+      pathname: '/prokom.localhost/_404',
+    })
+  })
+
+  it('lets the Instalacje search index through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'instalacje.localhost',
+          pathname: '/api/inst-search-index',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'instalacje.localhost',
+        pathname: '/api/inst-search-index',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/instalacje.localhost/_404' })
+    for (const pathname of ['/api/inst-search-index/', '/api/inst-search-index/x', '/api/inst']) {
+      expect(route('instalacje.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/instalacje.localhost/_404',
+      })
+    }
+  })
+
+  it.each(['/robots.txt', '/sitemap.xml'])('rewrites %s to the domain segment', (pathname) => {
+    expect(route('software.localhost:3000', pathname)).toEqual({
+      type: 'rewrite',
+      pathname: `/software.localhost${pathname}`,
+    })
+  })
+
+  it('does not treat similar paths as the admin', () => {
+    expect(route('biznes.localhost', '/administracja')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/administracja',
+    })
+  })
+
+  it('serves files from public/ as they are', () => {
+    expect(route('biznes.localhost', '/brand/logo.svg')).toEqual({ type: 'next' })
+  })
+
+  it('serves the Software solution thumbnails (SWR3, spec. §5.2) — only that folder', () => {
+    expect(route('software.localhost', '/software/rozwiazania/strona-wizytowka.svg')).toEqual({
+      type: 'next',
+    })
+    // `/software` itself stays a page path of the tenant.
+    expect(route('software.localhost', '/software/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/software.localhost/software/cennik',
+    })
+  })
+
+  it('serves the brand logos and products of pro-kom.eu (H9) — only those', () => {
+    expect(route('prokom.localhost', '/prokom/marki/posnet.webp')).toEqual({ type: 'next' })
+    expect(route('prokom.localhost', '/prokom/marki/produkty/elzab-k10.webp')).toEqual({
+      type: 'next',
+    })
+    // `/prokom` itself stays a page path of the tenant.
+    expect(route('prokom.localhost', '/prokom/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/prokom.localhost/prokom/cennik',
+    })
+  })
+
+  it('serves the charger photos (I9) and brand logos (round v5) of Instalacje — only those', () => {
+    expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route('instalacje.localhost', '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
+    // `/instalacje` itself stays a page path of the tenant.
+    expect(route('instalacje.localhost', '/instalacje/cennik')).toEqual({
+      type: 'rewrite',
+      pathname: '/instalacje.localhost/instalacje/cennik',
+    })
+  })
+
+  // Review of S3: a path ending in another domain must not reach that tenant's segment.
+  it('rewrites a path that looks like another domain under the request host', () => {
+    expect(route('instalacje.localhost', '/biznes.localhost')).toEqual({
+      type: 'rewrite',
+      pathname: '/instalacje.localhost/biznes.localhost',
+    })
+  })
+
+  it('rewrites dotted paths outside public/ folders', () => {
+    expect(route('biznes.localhost', '/cennik.pdf')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/cennik.pdf',
+    })
+    expect(route('biznes.localhost', '/brandx/logo.svg')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/brandx/logo.svg',
+    })
+  })
+})
+
+describe('decideRoute — invalid host', () => {
+  it.each([null, '', 'evil.pl/x'])('returns 404 for %j', (host) => {
+    expect(route(host, '/')).toEqual({ type: 'notFound' })
+  })
+
+  // The `next/image` optimizer fetches a local file with an internal request without any headers
+  // (Next 16 `fetchInternalImage`): the public folders must not depend on the host, or every
+  // optimized image from `public/` answers 404 (round v5: charger photos, brand logos).
+  it('still serves the public folders, and only those', () => {
+    expect(route(null, '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/brand/logo.svg')).toEqual({ type: 'next' })
+    expect(route(null, '/instalacje/cennik')).toEqual({ type: 'notFound' })
+    expect(route(null, '/admin')).toEqual({ type: 'notFound' })
+  })
+})
+
+describe('decideRoute — analytics proxy (ADR-020)', () => {
+  const routeWith = (host: string, pathname: string, method: string) =>
+    decideRoute({ host, pathname, method, panelHost })
+
+  it('passes the Umami script and the event endpoint of a site domain', () => {
+    expect(routeWith('software.localhost', '/_s/script.js', 'GET')).toEqual({
+      type: 'analytics',
+      pathname: '/script.js',
+    })
+    expect(routeWith('software.localhost', '/_s/api/send', 'POST')).toEqual({
+      type: 'analytics',
+      pathname: '/api/send',
+    })
+  })
+
+  it('answers 404 for any other path, method or the panel domain', () => {
+    expect(routeWith('software.localhost', '/_s/script.js', 'POST')).toEqual({ type: 'notFound' })
+    expect(routeWith('software.localhost', '/_s/api/send', 'GET')).toEqual({ type: 'notFound' })
+    expect(routeWith('software.localhost', '/_s/api/websites', 'GET')).toEqual({
+      type: 'notFound',
+    })
+    expect(routeWith('software.localhost', '/_s', 'GET')).toEqual({ type: 'notFound' })
+    expect(routeWith('panel.localhost', '/_s/script.js', 'GET')).toEqual({ type: 'notFound' })
+  })
+})
+
+// Audit 14.11 (P2): robots, link previews and old browsers ask for `/favicon.ico` directly.
+describe('decideRoute — /favicon.ico of a site', () => {
+  it("a site domain gets its line's icon (the proxy resolves the tenant)", () => {
+    expect(route('biznes.localhost', '/favicon.ico')).toEqual({ type: 'favicon' })
+    expect(route('software.localhost', '/favicon.ico')).toEqual({ type: 'favicon' })
+  })
+
+  it('only that exact path, only for reading; not on the panel or without a host', () => {
+    expect(route('biznes.localhost', '/favicon.ico/x')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/favicon.ico/x',
+    })
+    expect(
+      decideRoute({
+        host: 'biznes.localhost',
+        pathname: '/favicon.ico',
+        method: 'POST',
+        panelHost,
+      }),
+    ).not.toEqual({ type: 'favicon' })
+    expect(route(panelHost, '/favicon.ico')).toEqual({ type: 'notFound' })
+    expect(route(null, '/favicon.ico')).toEqual({ type: 'notFound' })
+  })
+})

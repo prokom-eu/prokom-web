@@ -1,0 +1,149 @@
+import type { Metadata } from 'next'
+
+import { Container } from '@/components/ui/Container'
+import { Heading } from '@/components/ui/Heading'
+import { TextLink } from '@/components/ui/TextLink'
+import { biznesDescription } from '@/lib/biznes/seo'
+import { getEnv } from '@/lib/env'
+import { ogImages } from '@/lib/pages/metadata'
+import { HUB_DESCRIPTIONS } from '@/lib/prokom/seo'
+import { SITE_MAP_PATH, type SiteMapLink } from '@/lib/seo/siteLinks'
+import { loadSiteMap } from '@/lib/seo/siteLinksData'
+import { robotsMeta } from '@/lib/seo/robots'
+import { getSiteSettings } from '@/lib/site/data'
+import { getSharedData } from '@/lib/shared/getSharedData'
+import { restOfSiteMap, softwareSiteMapGroups } from '@/lib/software/siteMap'
+import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
+import { SoftwareSiteMap } from '@/sites/software/components/sitemap/SoftwareSiteMap'
+
+import { requestOrigin, requireTenant } from '../tenant'
+
+type Props = { params: Promise<{ domain: string }> }
+
+const TITLE = 'Mapa strony'
+const DESCRIPTION =
+  'Wszystkie strony serwisu w jednym miejscu: oferta, produkty, aktualności i informacje.'
+const HUB_SITE_MAP_H1 = 'Wszystko, co jest na pro-kom.eu.'
+/** The hub sells nothing itself: its pages and the lines, no „produkty”. */
+const HUB_SITE_MAP_LEAD =
+  'Wszystkie strony pro-kom.eu w jednym miejscu: oferta linii, strony dla firm, kontakt i informacje o firmie.'
+/** Software has no products: its own sentence (lead of the board `AU-mapa`). */
+const SOFTWARE_DESCRIPTION =
+  'Wszystkie podstrony PRO-KOM Software na jednym ekranie: oferta, kreator, darmowy audyt, firma i informacje prawne.'
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const tenant = await requireTenant(params)
+  const settings = await getSiteSettings(tenant.id)
+  const description =
+    tenant.line === 'software'
+      ? SOFTWARE_DESCRIPTION
+      : tenant.line === 'biznes'
+        ? biznesDescription(DESCRIPTION)
+        : tenant.line === 'prokom'
+          ? HUB_DESCRIPTIONS['/mapa-strony']
+          : DESCRIPTION
+  // Biznes: 30–60 characters with the suffix (audit 0611 P1-8); the H1 stays „Mapa strony”.
+  const title = tenant.line === 'biznes' ? `${TITLE} — wszystkie podstrony` : TITLE
+  return {
+    title,
+    description,
+    alternates: { canonical: SITE_MAP_PATH },
+    robots: robotsMeta(getEnv().SITE_ENV),
+    openGraph: {
+      type: 'website',
+      locale: 'pl_PL',
+      siteName: tenant.name,
+      url: SITE_MAP_PATH,
+      title,
+      description,
+      // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
+      images: ogImages(
+        settings?.seo.ogImage ?? null,
+        tenant.line === 'biznes' ? 'biznes' : undefined,
+      ),
+    },
+  }
+}
+
+function Links({ links }: { links: readonly SiteMapLink[] }) {
+  return (
+    <ul className="columns-1 gap-8 sm:columns-2 lg:columns-3">
+      {links.map((link) => (
+        <li key={link.href} className="break-inside-avoid py-1">
+          {/* Plain links: hundreds of `next/link`s would all prefetch on scroll. */}
+          <TextLink href={link.href} className="font-medium no-underline hover:underline">
+            {link.label}
+          </TextLink>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/**
+ * HTML site map `/mapa-strony` (spec. §2) — a route of every line, built from the same list as
+ * its `sitemap.xml` (`lib/seo/siteLinks`), so only the site's own public addresses appear.
+ */
+export default async function SiteMapPage({ params }: Props) {
+  const tenant = await requireTenant(params)
+  const sections = await loadSiteMap(tenant)
+  if (tenant.line === 'software') {
+    const shared = await getSharedData(tenant.id)
+    const groups = softwareSiteMapGroups({
+      legal: shared?.company.legal ?? null,
+      lines: shared?.lines ?? [],
+      currentLine: tenant.line,
+      hasNews: (sections.find((section) => section.id === 'aktualnosci')?.links.length ?? 0) > 1,
+    })
+    return <SoftwareSiteMap title={TITLE} groups={groups} rest={restOfSiteMap(sections, groups)} />
+  }
+  const crumbs = [
+    { name: 'Strona główna', href: '/' },
+    { name: TITLE, href: SITE_MAP_PATH },
+  ]
+  return (
+    <Container className="py-12 sm:py-16">
+      {/* Breadcrumbs like every Biznes subpage; other lines have none yet. */}
+      {tenant.line === 'biznes' && (
+        <div className="mb-6">
+          <Breadcrumbs items={crumbs} />
+          <BreadcrumbJsonLd items={crumbs} origin={await requestOrigin()} />
+        </div>
+      )}
+      {/* pro-kom.eu: `BreadcrumbList` of its subpages (spec §4), crumbs as on the boards. */}
+      {tenant.line === 'prokom' && (
+        <HubBreadcrumbJsonLd name={TITLE} path={SITE_MAP_PATH} origin={await requestOrigin()} />
+      )}
+      <Heading level={1} size="xl">
+        {/* pro-kom.eu: the H1 of spec §4; the title stays „Mapa strony”. */}
+        {tenant.line === 'prokom' ? HUB_SITE_MAP_H1 : TITLE}
+      </Heading>
+      <p className="mt-4 max-w-[60ch] text-lg text-ink-2">
+        {tenant.line === 'prokom' ? HUB_SITE_MAP_LEAD : DESCRIPTION}
+      </p>
+      {sections.map((section) => (
+        <section key={section.id} aria-labelledby={`mapa-${section.id}`} className="mt-12">
+          <Heading level={2} size="lg" id={`mapa-${section.id}`}>
+            {section.title}
+          </Heading>
+          {section.links.length > 0 && (
+            <div className="mt-4">
+              <Links links={section.links} />
+            </div>
+          )}
+          {section.groups?.map((group) => (
+            <div key={group.title} className="mt-6">
+              <Heading level={3} size="md">
+                {group.title}
+              </Heading>
+              <div className="mt-2">
+                <Links links={group.links} />
+              </div>
+            </div>
+          ))}
+        </section>
+      ))}
+    </Container>
+  )
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Mapa adresu PRO-KOM — komponent wspólny</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Manrope:wght@400..800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div role="img" aria-label="Mapa: PRO-KOM, ul. Orkana 16B, 34-700 Rabka-Zdrój" style="position: relative; width: 100%; height: {{h}}px; overflow: hidden; border-radius: {{radius}}px; background: {{c.land}}; font-family: Manrope, system-ui, sans-serif">
+  <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block">
+    <rect x="0" y="0" width="800" height="500" fill="{{c.land}}"/>
+    <path d="M520 30 C610 20 700 60 730 125 C750 175 705 215 640 210 C575 205 535 170 515 115 Z" fill="{{c.park}}"/>
+    <path d="M70 360 C125 335 190 355 205 410 C212 452 155 476 102 460 C58 446 44 388 70 360 Z" fill="{{c.park}}"/>
+    <path d="M-20 305 C120 272 205 335 322 322 C442 310 474 382 602 392 C702 400 762 362 820 372" fill="none" stroke="{{c.water}}" stroke-width="16" stroke-linecap="round"/>
+    <g fill="{{c.building}}">
+      <rect x="190" y="70" width="46" height="34" rx="4"/><rect x="246" y="96" width="30" height="40" rx="4"/><rect x="200" y="122" width="38" height="28" rx="4"/>
+      <rect x="430" y="70" width="52" height="30" rx="4"/><rect x="492" y="132" width="40" height="36" rx="4"/><rect x="430" y="118" width="44" height="40" rx="4"/>
+      <rect x="300" y="250" width="56" height="40" rx="4"/><rect x="430" y="262" width="38" height="30" rx="4"/><rect x="478" y="250" width="44" height="34" rx="4"/>
+      <rect x="250" y="440" width="60" height="36" rx="4"/><rect x="460" y="452" width="52" height="30" rx="4"/><rect x="660" y="250" width="48" height="40" rx="4"/>
+      <rect x="40" y="150" width="48" height="36" rx="4"/><rect x="560" y="440" width="46" height="34" rx="4"/><rect x="700" y="440" width="54" height="36" rx="4"/>
+    </g>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M120 -20 L172 520 M640 -20 C620 200 660 330 610 520 M-20 420 C200 400 500 442 820 430 M252 212 L302 58 M470 232 C520 300 560 332 642 332 M402 118 L622 98" stroke="{{c.casing}}" stroke-width="14"/>
+      <path d="M120 -20 L172 520 M640 -20 C620 200 660 330 610 520 M-20 420 C200 400 500 442 820 430 M252 212 L302 58 M470 232 C520 300 560 332 642 332 M402 118 L622 98" stroke="{{c.street}}" stroke-width="10"/>
+      <path d="M400 -20 C394 120 410 300 390 520" stroke="{{c.casing}}" stroke-width="19"/>
+      <path d="M400 -20 C394 120 410 300 390 520" stroke="{{c.street}}" stroke-width="14"/>
+      <path d="M-20 214 C200 200 420 244 820 222" stroke="{{c.casing}}" stroke-width="25"/>
+      <path d="M-20 214 C200 200 420 244 820 222" stroke="{{c.main}}" stroke-width="19"/>
+    </g>
+  </svg>
+  <span style="position: absolute; left: 51.5%; top: 14%; font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: {{c.text}}">ul. Orkana</span>
+  <span style="position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; background: {{accent}}; opacity: 0.16"></span>
+  <span style="position: absolute; left: 50%; top: 50%; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 1.5px solid {{accent}}; opacity: 0.28"></span>
+  <span style="position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -46px 0 0 -20px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: {{accent}}; box-shadow: 0 10px 20px -6px rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center">
+    <span style="width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF"></span>
+  </span>
+  <sc-if value="{{label}}" hint-placeholder-val="{{ true }}">
+    <span style="position: absolute; left: calc(50% + 30px); top: calc(50% - 92px); display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border-radius: 14px; background: {{c.card}}; color: {{c.cardInk}}; box-shadow: 0 16px 34px -14px rgba(0,0,0,0.4); white-space: nowrap">
+      <span style="font-family: Archivo, sans-serif; font-stretch: 112%; font-weight: 800; font-size: 15px">PRO-KOM</span>
+      <span style="font-size: 12.5px; font-weight: 600; opacity: 0.8">ul. Orkana 16B, Rabka-Zdrój</span>
+    </span>
+  </sc-if>
+  <span style="position: absolute; right: 8px; bottom: 6px; font-size: 10px; font-weight: 600; color: {{c.text}}; opacity: 0.85">© OpenStreetMap</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0093B3","options":["#244FB0","#0093B3","#6E45D4","#45A02C"]},"dark":{"editor":"boolean","default":false},"label":{"editor":"boolean","default":true},"h":{"editor":"int","default":420,"min":80,"max":900},"radius":{"editor":"int","default":24,"min":0,"max":40},"$preview":{"width":800,"height":420}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    const c = dark
+      ? { land: '#1A1F1C', street: '#2E3530', main: '#3A423C', casing: '#141815', building: '#232925', park: '#1E2A20', water: '#16303A', text: '#A9AFA9', card: '#F4F5F1', cardInk: '#121613' }
+      : { land: '#EEF0EA', street: '#FFFFFF', main: '#FFFFFF', casing: '#D6DAD1', building: '#E0E3DB', park: '#DCE8D3', water: '#C8E0E7', text: '#5B625C', card: '#FFFFFF', cardInk: '#121613' };
+    return {
+      c: c,
+      accent: this.props.accent ?? '#0093B3',
+      label: this.props.label ?? true,
+      h: this.props.h ?? 420,
+      radius: this.props.radius ?? 24
+    };
+  }
+}
+</script>
+</body>
+</html>

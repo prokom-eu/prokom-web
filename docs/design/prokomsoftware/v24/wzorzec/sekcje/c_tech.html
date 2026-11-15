@@ -1,0 +1,28 @@
+<!-- TECH -->
+<section id="technologia" class="au-sec">
+<div class="wrap">
+<div class="au-row" style="align-items:flex-end;margin-bottom:34px"><div><div class="au-eb">Jak budujemy</div><h2 class="au-h2">Nie składamy stron z szablonu.<br><em>Piszemy je pod Twoją firmę.</em></h2></div><p class="au-lead" style="max-width:420px;margin:0">Większość stron powstaje z gotowego motywu i kilkunastu wtyczek. My piszemy od podstaw. Dlatego dostajesz rzeczy, które da się zmierzyć i wpisać do protokołu odbioru.</p></div>
+<div class="au-glass au-tech">
+<div class="au-segs big" role="tablist" aria-label="Cecha"><sc-for list="{{techTabs}}" as="x" hint-placeholder-count="4"><button role="tab" class="{{x.cls}}" onClick="{{x.pick}}">{{x.t}}</button></sc-for></div>
+<div class="au-tgrid ent" key="{{ttKey}}">
+<sc-if value="{{tt0}}" hint-placeholder-val="{{ true }}">
+<div class="au-tvis"><svg viewBox="0 0 240 150" class="gauge" aria-hidden="true"><path d="M30 130a90 90 0 0 1 180 0" fill="none" stroke="var(--g2)" stroke-width="16" stroke-linecap="round"></path><path class="arc" d="M30 130a90 90 0 0 1 180 0" fill="none" stroke="#9670ee" stroke-width="16" stroke-linecap="round" pathLength="100"></path><line class="needle" x1="120" y1="130" x2="120" y2="58" stroke="var(--fg)" stroke-width="4" stroke-linecap="round"></line><circle cx="120" cy="130" r="8" fill="var(--fg)"></circle></svg><b class="big">&lt; 2,5 s</b><span>treść na ekranie telefonu</span></div>
+<div class="au-tcol"><h3>Klient nie czeka i nie ucieka</h3><p>Strona czeka gotowa na serwerze, nic nie składa się w locie z wtyczek. Google lepiej ocenia szybkie strony, a klient dzwoni, zamiast wracać do wyników.</p><div class="au-vs"><div><span>WordPress z wtyczkami</span>motyw i wtyczki ładują się po kolei</div><div class="me"><span>Strona od PRO-KOM</span>treść w mniej niż 2,5 s, zmierzona przy odbiorze</div></div></div>
+</sc-if>
+<sc-if value="{{tt1}}" hint-placeholder-val="{{ false }}">
+<div class="au-tvis"><div class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></div><div class="pills"><span>✓ kopia 03:00</span><span>✓ aktualizacje</span><span>✓ monitoring 24/7</span></div></div>
+<div class="au-tcol"><h3>Spokój zamiast łatania wtyczek</h3><p>Nie ma obcych wtyczek, które trzeba co tydzień łatać. Kopie, aktualizacje i monitoring robimy my. Ty prowadzisz firmę.</p><div class="au-stat"><b>7 966</b><span>nowych luk w WordPressie i wtyczkach w 2024 r. (ok. 22 dziennie, 96% we wtyczkach). Źródło: Patchstack, „State of WordPress Security in 2025”.</span></div><div class="au-vs"><div><span>WordPress z wtyczkami</span>każda wtyczka to inny autor i inna luka</div><div class="me"><span>Strona od PRO-KOM</span>jeden kod, bez PHP i bez wtyczek</div></div></div>
+</sc-if>
+<sc-if value="{{tt2}}" hint-placeholder-val="{{ false }}">
+<div class="au-tvis"><div class="serp"><div class="q">twoja usługa + miasto</div><div class="res on"><span>twojafirma.pl</span><b>Twoja Firma · Twoje miasto</b><i>★★★★★ · otwarte do 17:00 · tel.</i></div><div class="res"><span>konkurencja.pl</span><b>Firma XYZ</b></div><div class="ai"><b>Asystent AI</b>„Polecam Twoja Firma — odpowiada w 24 h, ceny na stronie.”</div></div></div>
+<div class="au-tcol"><h3>Widoczna w Google i w odpowiedziach AI</h3><p>Szybkość, wygoda na telefonie i dobre opisy. Dane o firmie, godziny i adres zapisujemy tak, żeby czytał je Google i asystenci AI, np. ChatGPT. Miejsca w wynikach uczciwie nie gwarantuje nikt.</p><div class="au-vs"><div><span>WordPress z wtyczkami</span>zależy od wtyczek i ich ustawień</div><div class="me"><span>Strona od PRO-KOM</span>dane strukturalne i SEO w cenie każdej strony</div></div></div>
+</sc-if>
+<sc-if value="{{tt3}}" hint-placeholder-val="{{ false }}">
+<div class="au-tvis"><div class="stack"><span><b>Strona</b>Next.js · TypeScript</span><span><b>Panel</b>Payload CMS po polsku</span><span><b>System</b>Python · Django</span><span><b>Dane</b>PostgreSQL</span><span><b>Serwer</b>Docker · VPS w Polsce</span></div></div>
+<div class="au-tcol"><h3>Sprawdzone narzędzia, dane w Polsce</h3><p>Nazw nie musisz znać. Ważne, co z nich masz: szybka strona, panel po polsku, dane na serwerze w Polsce i kopia co noc. Projekt może przejąć każdy programista, nie tylko my.</p><div class="au-vs"><div><span>Gotowe kreatory stron</span>dane u dostawcy, abonament na zawsze</div><div class="me"><span>Strona od PRO-KOM</span>domena, kod i dane zapisane na Twoją firmę</div></div></div>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+

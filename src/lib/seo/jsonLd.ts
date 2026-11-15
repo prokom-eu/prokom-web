@@ -1,0 +1,499 @@
+import { brandAsset } from '../brand/lines'
+import { toTelHref } from '../site/link'
+import type { PublicCompanyData } from '../site/public'
+import type { Line } from '../tenant/lines'
+import { AREA_SERVED as INSTALACJE_AREA_SERVED } from '../instalacje/seo'
+
+const DAYS: Record<string, string> = {
+  mon: 'Monday',
+  tue: 'Tuesday',
+  wed: 'Wednesday',
+  thu: 'Thursday',
+  fri: 'Friday',
+  sat: 'Saturday',
+  sun: 'Sunday',
+}
+
+const WEEK = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
+const SHORT: Record<string, string> = {
+  mon: 'Mo',
+  tue: 'Tu',
+  wed: 'We',
+  thu: 'Th',
+  fri: 'Fr',
+  sat: 'Sa',
+  sun: 'Su',
+}
+
+/**
+ * One row of hours in the schema.org text form: „Mo-Fr 09:00-17:00”, consecutive days as a range
+ * („Mo,We 09:00-12:00” otherwise). Search engines read it next to `openingHoursSpecification`.
+ */
+export function openingHoursText(row: { days: readonly string[]; opens: string; closes: string }) {
+  const indexes = [...new Set(row.days.map((day) => WEEK.indexOf(day as (typeof WEEK)[number])))]
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)
+  const ranges: string[] = []
+  for (let i = 0; i < indexes.length; i++) {
+    const start = indexes[i]!
+    let end = start
+    while (indexes[i + 1] === end + 1) end = indexes[++i]!
+    const from = SHORT[WEEK[start]!]
+    const to = SHORT[WEEK[end]!]
+    ranges.push(end - start >= 1 ? `${from}-${to}` : `${from}`)
+  }
+  return `${ranges.join(',')} ${row.opens}-${row.closes}`
+}
+
+type OrganizationInput = {
+  company: PublicCompanyData
+  tenant: { name: string; line: Line }
+  /** Phone and e-mail of the line (`SiteSettings`); company ones are the fallback. */
+  contact: { phone: string | null; email: string | null; phone2?: string | null }
+  origin: string
+  /**
+   * Towns the line serves (Biznes: `SiteSettings.biznes.serviceAreas`; the regions are added
+   * here — SEO lokalne 13.11); none = no `areaServed`.
+   */
+  areaServed?: readonly string[]
+}
+
+/**
+ * Regions the Biznes pages name next to the towns of the panel (SEO lokalne 13.11) and their
+ * schema.org types: Małopolska is a voivodeship (`AdministrativeArea`), Podhale a region with no
+ * administrative border (`Place`); the panel's towns are `City`.
+ */
+const BIZNES_REGIONS = { Podhale: 'Place', Małopolska: 'AdministrativeArea' } as const
+const areaNode = (name: string) => ({
+  '@type': BIZNES_REGIONS[name as keyof typeof BIZNES_REGIONS] ?? 'City',
+  name,
+})
+
+/** The Biznes area: the panel's towns plus the regions, one copy each (a region in the panel too). */
+const biznesAreaServed = (towns: readonly string[]) =>
+  [...new Set([...towns, ...Object.keys(BIZNES_REGIONS)])].map(areaNode)
+
+/** Where the Software line works (its texts: Podhale, Małopolska and remotely in Poland). */
+export const SOFTWARE_AREA_SERVED = ['Rabka-Zdrój', 'Podhale', 'Małopolska', 'Polska'] as const
+
+/**
+ * The main office for search engines (audyt 01.11 P2) — the only salon, ul. Orkana 16B in Rabka:
+ * its place on the map (the point of the contact map, `scripts/software-osm-map.mjs`) and the
+ * Software image. Software and Biznes show only this salon, Instalacje put it on their first one
+ * (SEO lokalne 13.11). The public company data carries no coordinates, so they live here; a test
+ * keeps them equal to the company seed's first location.
+ */
+const MAIN_OFFICE = {
+  geo: { '@type': 'GeoCoordinates', latitude: 49.60994, longitude: 19.95339 },
+  image: '/brand/prokom-software_og.png',
+} as const
+
+/** `tel:+48…` from the panel's number as schema.org wants it (E.164): `+48883200151`. */
+const e164 = (phone: string | undefined) => (phone ? toTelHref(phone)?.slice(4) : undefined)
+
+/**
+ * `Organization` (the line as the public face of the company) plus one `LocalBusiness` per
+ * branch with its opening hours — all from `CompanyData`, so a change in the panel updates it.
+ * Software lists only the first branch.
+ */
+export function organizationJsonLd({
+  company,
+  tenant,
+  contact,
+  origin,
+  areaServed,
+}: OrganizationInput) {
+  const orgId = `${origin}/#organization`
+  const telephone = e164(contact.phone ?? company.phones[0]?.number)
+  const email = contact.email ?? company.email
+  // The line's second number (Biznes, runda 1411): `telephone` stays the main one, the second is
+  // a `ContactPoint` of its own (customer service, in Polish).
+  const telephone2 = e164(contact.phone2 ?? undefined)
+  const contactPoint =
+    telephone2 && telephone2 !== telephone
+      ? [
+          {
+            '@type': 'ContactPoint',
+            telephone: telephone2,
+            contactType: 'customer service',
+            areaServed: 'PL',
+            availableLanguage: 'pl',
+          },
+        ]
+      : undefined
+  const organization = {
+    '@type': 'Organization',
+    '@id': orgId,
+    name: tenant.name,
+    legalName: company.name,
+    url: `${origin}/`,
+    logo: origin + brandAsset(tenant.line, 'poziome_kolor.svg'),
+    telephone,
+    ...(contactPoint && { contactPoint }),
+    email,
+    taxID: company.nip,
+  }
+  // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
+  // office (the first location), never the other salons of the company.
+  // Biznes too: only Rabka (CLAUDE.md „prokombiznes.pl”), the salon of the map point.
+  const onlyMain = tenant.line === 'software' || tenant.line === 'biznes'
+  const locations = onlyMain ? company.locations.slice(0, 1) : company.locations
+  const branches = locations.map((location, index) => ({
+    // A software house is a `ProfessionalService` (a `LocalBusiness`, SEO etap 1).
+    '@type': tenant.line === 'software' ? 'ProfessionalService' : 'LocalBusiness',
+    // By position, not city: two branches in one city must stay two nodes.
+    '@id': `${origin}/#oddzial-${index + 1}`,
+    name: `${company.name} — ${location.name}`,
+    parentOrganization: { '@id': orgId },
+    url: `${origin}/`,
+    telephone,
+    email,
+    // Instalacje (13.11, local SEO): the salon is the same point (ul. Orkana 16B), the area its
+    // service towns up to Kraków.
+    ...(tenant.line === 'instalacje' &&
+      index === 0 && {
+        geo: MAIN_OFFICE.geo,
+        areaServed: INSTALACJE_AREA_SERVED.map((name) => ({ '@type': 'City', name })),
+      }),
+    ...(tenant.line === 'software' && {
+      geo: MAIN_OFFICE.geo,
+      image: origin + MAIN_OFFICE.image,
+      areaServed: SOFTWARE_AREA_SERVED,
+    }),
+    ...(tenant.line === 'biznes' && {
+      geo: MAIN_OFFICE.geo,
+      // Always the regions, as the service pages: no towns in the panel = regions only.
+      areaServed: biznesAreaServed(areaServed ?? []),
+    }),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: location.street,
+      postalCode: location.postalCode,
+      addressLocality: location.city,
+      addressCountry: 'PL',
+    },
+    openingHours: location.hours.map(openingHoursText),
+    openingHoursSpecification: location.hours.map(({ days, opens, closes }) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: days.flatMap((day) => (DAYS[day] ? [`https://schema.org/${DAYS[day]}`] : [])),
+      opens,
+      closes,
+    })),
+  }))
+  return { '@context': 'https://schema.org', '@graph': [organization, ...branches] }
+}
+
+/** `FAQPage` for the FAQ block (the answers are plain text in the panel). */
+export function faqJsonLd(items: readonly { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    })),
+  }
+}
+
+type ProductInput = {
+  name: string
+  description: string | null
+  /** Absolute address of the product page. */
+  url: string
+  brand: string | null
+  category: string | null
+  /** Absolute image addresses, the main one first. */
+  images: readonly string[]
+  /** `productGroupID` of a `ProductGroup` (the card's slug). */
+  groupId?: string
+  /** Versions of a card with many models: ≥ 2 make it a `ProductGroup` (K31-ZMIANY §13.5). */
+  variants?: readonly { name: string; sku: string; url: string }[]
+}
+
+/**
+ * `Product` of the product page — never with `offers`: the catalog has no prices (spec. §6.2,
+ * spec. §1). A card with ≥ 2 versions is a `ProductGroup` whose `hasVariant` link to
+ * `?wersja=` (canonical stays on the card). Missing fields are left out rather than sent empty.
+ */
+export function productJsonLd({
+  name,
+  description,
+  url,
+  brand,
+  category,
+  images,
+  groupId,
+  variants = [],
+}: ProductInput) {
+  const common = {
+    '@context': 'https://schema.org',
+    name,
+    ...(description && { description }),
+    url,
+    ...(brand && { brand: { '@type': 'Brand', name: brand } }),
+    ...(category && { category }),
+    ...(images.length > 0 && { image: [...images] }),
+  }
+  if (variants.length < 2) return { ...common, '@type': 'Product' }
+  return {
+    ...common,
+    '@type': 'ProductGroup',
+    ...(groupId && { productGroupID: groupId }),
+    variesBy: ['https://schema.org/model'],
+    hasVariant: variants.map((variant) => ({
+      '@type': 'Product',
+      name: variant.name,
+      sku: variant.sku,
+      url: variant.url,
+    })),
+  }
+}
+
+type VideoInput = { id: string; title: string; channel: string | null }
+
+/**
+ * `VideoObject` of a producer's video (ADR-016): the poster address from `i.ytimg.com` and the
+ * youtube-nocookie player — only in JSON-LD, the browser loads neither before „▶”. Without
+ * `uploadDate`: neither the import nor oEmbed gives it (STAN, K31b).
+ */
+export function videoJsonLd({ id, title, channel }: VideoInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: title,
+    description: channel ? `${title} — film producenta (${channel}).` : title,
+    thumbnailUrl: [`https://i.ytimg.com/vi/${id}/hqdefault.jpg`],
+    embedUrl: `https://www.youtube-nocookie.com/embed/${id}`,
+  }
+}
+
+type ArticleInput = {
+  headline: string
+  description: string | null
+  /** Absolute address of the post. */
+  url: string
+  /** Origin of the site: author and publisher point at its `Organization` node. */
+  origin: string
+  datePublished: string | null
+  dateModified: string | null
+  /** Absolute image addresses. */
+  images: readonly string[]
+}
+
+/**
+ * `Article` of a news post (spec. §6.9). Author and publisher are the line's `Organization`
+ * from the layout (`#organization`), so the company data stay in one place.
+ */
+export function articleJsonLd({
+  headline,
+  description,
+  url,
+  origin,
+  datePublished,
+  dateModified,
+  images,
+}: ArticleInput) {
+  const organization = { '@id': `${origin}/#organization` }
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    ...(description && { description }),
+    url,
+    mainEntityOfPage: url,
+    inLanguage: 'pl-PL',
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    author: organization,
+    publisher: organization,
+    ...(images.length > 0 && { image: [...images] }),
+  }
+}
+
+/**
+ * `BreadcrumbList` from the visible breadcrumbs, with absolute addresses. `url: null` → the item
+ * has no `item`: its page is not indexed (a filtered catalog view), so it is named, not linked.
+ */
+export function breadcrumbJsonLd(items: readonly { name: string; url: string | null }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(({ name, url }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name,
+      ...(url && { item: url }),
+    })),
+  }
+}
+
+/**
+ * One service with its page (Software solution page, spec. §6.1). `offers` only with a price:
+ * the „od” price as `minPrice`, net (prices on the site are net); no price → no `offers`.
+ */
+export function serviceJsonLd({
+  name,
+  description,
+  url,
+  provider,
+  priceFrom,
+  areaServed,
+  providerId,
+}: {
+  name: string
+  description: string | undefined
+  url: string
+  provider: string
+  /** The page's organization (`<origin>/#organization`): one node for search engines. */
+  providerId?: string
+  priceFrom: number | null
+  /** Places the service is offered in (`SOFTWARE_AREA_SERVED`). */
+  areaServed?: readonly string[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    ...(description && { description }),
+    url,
+    provider: { '@type': 'Organization', ...(providerId && { '@id': providerId }), name: provider },
+    ...(areaServed && { areaServed }),
+    ...(priceFrom !== null && {
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'PLN',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          minPrice: priceFrom,
+          priceCurrency: 'PLN',
+          valueAddedTaxIncluded: false,
+        },
+      },
+    }),
+  }
+}
+
+/** A list of services with their pages (the Software catalog, spec. §5). */
+export function serviceListJsonLd({
+  name,
+  provider,
+  items,
+}: {
+  name: string
+  provider: string
+  items: readonly { name: string; description: string | undefined; url: string }[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: item.name,
+        ...(item.description && { description: item.description }),
+        url: item.url,
+        provider: { '@type': 'Organization', name: provider },
+      },
+    })),
+  }
+}
+
+/**
+ * List of linked pages (K3c: the items of a ready bundle, the bundles of `/zestawy`): `ListItem`
+ * with a name and an address only — never `offers` (no prices on the site).
+ */
+export function itemListJsonLd({
+  name,
+  items,
+}: {
+  name: string
+  items: readonly { name: string; url: string }[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  }
+}
+
+/**
+ * `WebSite` of a home page with the site search for search engines (audit 0611 P0.3b): the
+ * search box points at the catalog's own query parameter (Biznes: `/oferta?szukaj=`, see
+ * `lib/catalog/filters`). Published by the Organization the layout emits (`/#organization`).
+ */
+export function websiteSearchJsonLd({
+  origin,
+  name,
+  searchPath,
+  queryParam,
+}: {
+  origin: string
+  name: string
+  searchPath: string
+  queryParam: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${origin}/#website`,
+    name,
+    url: `${origin}/`,
+    inLanguage: 'pl-PL',
+    publisher: { '@id': `${origin}/#organization` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${origin}${searchPath}?${queryParam}={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  }
+}
+
+/** JSON for `<script type="application/ld+json">`; `<` escaped so text cannot end the tag (Next docs). */
+export function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c')
+}
+
+/**
+ * `Service` of a Biznes service page (Opieka IT, GoPOS, InsERT, KSeF…; SEO lokalne 13.11): who
+ * offers it (the site's `Organization`, by `@id`) and where — the same area as the salon. No
+ * offer and no price (K4-FINAL §1).
+ */
+export function biznesServiceJsonLd({
+  name,
+  description,
+  url,
+  origin,
+  areaServed,
+}: {
+  name: string
+  description: string | undefined
+  url: string
+  origin: string
+  /** Towns of `SiteSettings.biznes.serviceAreas`. */
+  areaServed: readonly string[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    ...(description && { description }),
+    url,
+    provider: { '@id': `${origin}/#organization` },
+    areaServed: biznesAreaServed(areaServed),
+  }
+}

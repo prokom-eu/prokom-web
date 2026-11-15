@@ -1,0 +1,2398 @@
+/*
+ * Home page of pro-kom.eu (spec §6.1, board 01 `Main.dc.html`): shared bits, hero, trust bar.
+ * Colours only from tokens (ADR-007): translucent whites as `color-mix` of `--k-white`, the line
+ * colour as `--ln` / `--ln-text` (`lineColors.ts`). Motion only `transform` / `opacity` (spec §8),
+ * all of it off with reduced motion (end of file).
+ */
+
+.pk-home {
+  --w03: color-mix(in srgb, var(--k-white) 3%, transparent);
+  --w05: color-mix(in srgb, var(--k-white) 5%, transparent);
+  --w09: color-mix(in srgb, var(--k-white) 9%, transparent);
+  --w12: color-mix(in srgb, var(--k-white) 12%, transparent);
+  --w16: color-mix(in srgb, var(--k-white) 16%, transparent);
+  --w22: color-mix(in srgb, var(--k-white) 22%, transparent);
+  --w60: color-mix(in srgb, var(--k-white) 62%, transparent);
+  --w72: color-mix(in srgb, var(--k-white) 72%, transparent);
+  --w82: color-mix(in srgb, var(--k-white) 82%, transparent);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: var(--k-bg);
+  color: var(--k-ink);
+}
+.pk-home :where(h1, h2, h3) {
+  text-wrap: balance;
+}
+.pk-home :where(p) {
+  text-wrap: pretty;
+}
+
+/* --- Shared bits ---------------------------------------------------------------------------- */
+.pk-eb {
+  color: var(--k-gt);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.pk-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 44px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+}
+.pk-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.pk-nowrap {
+  font-style: normal;
+  white-space: nowrap;
+}
+.pk-lead {
+  max-width: 640px;
+  color: var(--k-ink2);
+  font-size: 16px;
+  line-height: 1.55;
+}
+.pk-bx {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid var(--w22);
+  border-radius: 999px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-bx:hover {
+  transform: translateY(-3px);
+}
+.pk-bx--round {
+  width: 46px;
+  justify-content: center;
+  padding: 0;
+  font-size: 16px;
+}
+.pk-rec {
+  display: block;
+  animation: pk-pulse 1.6s infinite;
+}
+@keyframes pk-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* PRO–KOM word mark (`Mark.tsx`). */
+.pk-mark {
+  /* Keeps its `sr-only` text inside scrolling rows (the tabs of the scene on a phone). */
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.pk-mark__word {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+  white-space: nowrap;
+}
+.pk-mark__dash {
+  display: block;
+  width: 8px;
+  height: 3px;
+  background: var(--ln, var(--k-g));
+}
+.pk-mark__label {
+  color: var(--ln-text, var(--k-gt));
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+.pk-mark--xs .pk-mark__word {
+  gap: 2px;
+  font-size: 11px;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+.pk-mark--xs .pk-mark__dash {
+  width: 5px;
+  height: 2px;
+}
+.pk-mark--md .pk-mark__word {
+  gap: 4px;
+  font-size: 26px;
+}
+.pk-mark--md .pk-mark__dash {
+  width: 12px;
+  height: 4px;
+}
+.pk-mark--md .pk-mark__label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+}
+
+/* --- Hero ----------------------------------------------------------------------------------- */
+.pk-hero {
+  position: relative;
+  overflow: hidden;
+}
+.pk-hero__dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--w12) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 75% 85% at 50% 38%, black 0%, transparent 78%);
+}
+.pk-hero__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-top: 16px;
+  padding-bottom: 56px;
+}
+.pk-hb {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  /* Rows may grow with the PRO-KOM tile's content (short windows), never clip it. */
+  grid-template-rows: repeat(4, minmax(clamp(146px, calc((100svh - 222px) / 4), 214px), auto));
+  gap: 14px;
+}
+
+/* The PRO-KOM tile. */
+.pk-hb-main {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  grid-column: 1 / 7;
+  grid-row: 1 / 5;
+  gap: 20px;
+  border: 1px solid var(--w09);
+  border-radius: 36px;
+  padding: clamp(28px, 3vw, 48px);
+  /* H9: a soft light of the five lines along the bottom, the company green behind the word. */
+  background:
+    radial-gradient(
+      42% 30% at 8% 104%,
+      color-mix(in srgb, var(--k-b) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 34% 106%,
+      color-mix(in srgb, var(--k-i) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 60% 106%,
+      color-mix(in srgb, var(--k-s) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      38% 28% at 84% 106%,
+      color-mix(in srgb, var(--k-t) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 30% at 104% 100%,
+      color-mix(in srgb, var(--k-y) 10%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 34% at 30% 22%,
+      color-mix(in srgb, var(--k-g) 9%, transparent),
+      transparent 72%
+    ),
+    var(--k-card);
+  box-shadow: inset 0 1px 0 var(--w09);
+}
+.pk-hstr {
+  position: absolute;
+  top: 0;
+  right: clamp(28px, 3vw, 48px);
+  left: clamp(28px, 3vw, 48px);
+  display: flex;
+  height: 3px;
+  gap: 4px;
+  pointer-events: none;
+}
+.pk-hstr i {
+  display: block;
+  flex: 1;
+  border-radius: 0 0 3px 3px;
+  background: var(--ln);
+  opacity: 0.85;
+  transform-origin: 50% 0;
+  animation: pk-hsin 0.9s var(--ease) both;
+}
+.pk-hstr i:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.pk-hstr i:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.pk-hstr i:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.pk-hstr i:nth-child(5) {
+  animation-delay: 0.32s;
+}
+@keyframes pk-hsin {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+.pk-hdots {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 360px;
+  height: 360px;
+  pointer-events: none;
+  background-image: radial-gradient(var(--w12) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(circle at 70% 30%, black, transparent 68%);
+}
+.pk-hb-main__pills .oh-status {
+  max-width: 100%;
+  white-space: normal;
+}
+.pk-hb-main__pills {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.pk-pill {
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.pk-pill--accent {
+  background: color-mix(in srgb, var(--k-g) 10%, transparent);
+  color: var(--k-gt);
+}
+.pk-hb-main__h1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 6px 0 0;
+}
+.pk-hb-main__word {
+  margin: 0;
+}
+.pk-hb-main__word {
+  display: flex;
+  align-items: center;
+  gap: 0.09em;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.7vw, 104px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 0.84;
+}
+.pk-wm {
+  color: var(--k-ink);
+}
+.pk-hy {
+  /* The hyphen stays in the text (accessible name „PRO-KOM”), the bar is drawn instead. */
+  overflow: hidden;
+  color: transparent;
+  line-height: 0;
+  display: block;
+  width: 0.42em;
+  height: 0.125em;
+  flex: none;
+  background: var(--k-g);
+  box-shadow: 0 0 50px var(--k-g);
+  animation: pk-hy 3.2s ease-in-out infinite;
+}
+@keyframes pk-hy {
+  50% {
+    transform: scaleX(1.08);
+  }
+}
+.pk-hb-main__title {
+  max-width: 620px;
+  font-family: var(--font-display);
+  font-size: clamp(21px, 2.2vw, 36px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+.pk-hb-main__em {
+  display: block;
+  color: var(--k-gt);
+}
+.pk-hb-main__lead {
+  position: relative;
+  max-width: 480px;
+  color: var(--k-ink2);
+  font-size: 16.5px;
+  line-height: 1.55;
+}
+.pk-hb-main__h1 > span,
+.pk-hb-main__lead,
+.pk-hb-main__body {
+  animation: pk-wmin 0.9s var(--ease) both;
+}
+.pk-hb-main__h1 > span:nth-child(1) {
+  animation-delay: 0.15s;
+}
+.pk-hb-main__h1 > span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.pk-hb-main__lead {
+  animation-delay: 0.42s;
+}
+.pk-hb-main__body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+  animation-delay: 0.55s;
+}
+/* Transform only: text with opacity 0 would not count for LCP until it shows (spec §9). */
+@keyframes pk-wmin {
+  from {
+    transform: translateY(0.35em);
+  }
+}
+.pk-hq {
+  position: relative;
+  display: flex;
+  height: 62px;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid var(--w16);
+  border-radius: 20px;
+  padding: 0 8px 0 20px;
+  background: var(--k-bg);
+}
+.pk-hq:focus-within {
+  border-color: var(--k-g);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--k-g) 22%, transparent);
+}
+.pk-hq__icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--k-ink3);
+}
+.pk-hq__input {
+  min-width: 0;
+  height: 100%;
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--k-ink);
+  font: 600 16.5px var(--font-sans);
+  outline: none;
+}
+.pk-hq__input::placeholder {
+  color: var(--k-ink3);
+}
+.pk-hq__go {
+  height: 46px;
+  flex: none;
+  border-radius: 14px;
+  padding: 0 18px;
+  background: var(--k-g);
+  color: var(--k-gi);
+  font-size: 14.5px;
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hq__go:hover {
+  transform: translateY(-1px);
+}
+@media (max-width: 560px) {
+  .pk-hq__go {
+    padding: 0 14px;
+  }
+}
+.pk-hch-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.pk-hch {
+  display: flex;
+  /* A touch target of the hero chips (spec §9: ≥44 px). */
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--w16);
+  border-radius: 999px;
+  padding: 0 12px;
+  background: var(--w03);
+  color: var(--k-ink2);
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hch,
+.pk-ht__go {
+  position: relative;
+}
+/* 44 px touch targets (spec §5.4) without changing the drawn size. */
+.pk-hch::after,
+.pk-ht__go::after {
+  position: absolute;
+  inset: -5px 0;
+  content: '';
+}
+.pk-ht__go::after {
+  inset: -5px;
+}
+.pk-hch:hover {
+  color: var(--k-ink);
+  transform: translateY(-2px);
+}
+.pk-hch > span {
+  width: 12px;
+  height: 3px;
+  background: var(--ln);
+}
+.pk-hb-main__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--w09);
+  padding-top: 18px;
+}
+.pk-hcta {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 0 22px;
+  background: var(--k-g);
+  color: var(--k-gi);
+  font-size: 15.5px;
+  font-weight: 800;
+  transition: transform 0.35s var(--ease);
+}
+.pk-hcta:hover {
+  transform: translateY(-2px);
+}
+/* Both company numbers in one capsule, split by a thin rule (H9). */
+.pk-hphones {
+  display: flex;
+  height: 52px;
+  align-items: stretch;
+  border: 1.5px solid var(--w22);
+  border-radius: 16px;
+}
+.pk-hphone + .pk-hphone {
+  border-left: 1px solid var(--w16);
+}
+.pk-hphone {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  font-stretch: 118%;
+  font-weight: 800;
+}
+.pk-hb-main__note {
+  flex-basis: 100%;
+  color: var(--k-ink3);
+  font-size: 13.5px;
+}
+
+/* Line tiles. */
+.pk-ht {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--ln) 24%, transparent);
+  border-radius: 30px;
+  padding: 20px 24px 18px;
+  background: var(--ln-dark);
+  color: var(--k-white);
+  animation: pk-hin 0.9s var(--ease) both;
+  transition:
+    transform 0.5s var(--ease),
+    border-color 0.4s;
+}
+.pk-ht:hover,
+.pk-ht:focus-within {
+  z-index: 2;
+  border-color: var(--ln);
+  transform: translateY(-4px);
+}
+.pk-ht--big {
+  gap: 16px;
+  padding: 24px 24px 20px;
+}
+.pk-ht--biznes {
+  grid-column: 7 / 10;
+  grid-row: 1 / 3;
+}
+.pk-ht--instalacje {
+  grid-column: 10 / 13;
+  grid-row: 1 / 3;
+}
+.pk-ht--software {
+  grid-column: 7 / 10;
+  grid-row: 3 / 5;
+}
+.pk-ht--tech {
+  grid-column: 10 / 13;
+  grid-row: 3 / 4;
+}
+.pk-ht--gaming {
+  grid-column: 10 / 13;
+  grid-row: 4 / 5;
+}
+/* Gaming switched off in `CompanyData`: Tech takes both rows. */
+.pk-ht--tech:last-child {
+  grid-row: 3 / 5;
+}
+/* Transform only: no half-transparent colours while the tiles come in (LCP, contrast checks). */
+@keyframes pk-hin {
+  from {
+    transform: translateY(34px) scale(0.97);
+  }
+}
+.pk-ht__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pk-ht__go {
+  display: flex;
+  min-height: 34px;
+  flex: none;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 13px;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  font-size: 12.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: transform 0.3s var(--ease);
+}
+.pk-ht:hover .pk-ht__go {
+  transform: translateX(3px);
+}
+.pk-ht i {
+  display: block;
+  font-style: normal;
+}
+
+/* Vignettes of the big tiles. */
+.pk-vg {
+  position: relative;
+  min-height: 88px;
+  max-height: 150px;
+  flex: 1 1 96px;
+  overflow: hidden;
+  border: 1px solid var(--w09);
+  border-radius: 16px;
+  background: var(--w05);
+  transition: transform 0.45s var(--ease);
+}
+.pk-ht:hover .pk-vg {
+  transform: translateY(-3px) scale(1.015);
+}
+.pk-vl {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.7s var(--ease);
+}
+.pk-vl[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.pk-vg__rows {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px 14px;
+}
+.pk-vr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--w09);
+  padding: 7px 0;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.pk-vr:last-child {
+  border-bottom: none;
+}
+.pk-vr--big {
+  padding: 13px 0;
+  font-size: 15px;
+}
+.pk-vp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+  font-size: 11px;
+  font-weight: 800;
+}
+.pk-vr--big .pk-vp {
+  padding: 5px 10px;
+  font-size: 12.5px;
+}
+.pk-vp i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ln);
+}
+.pk-vg__tiles,
+.pk-vg__kanban {
+  display: grid;
+  height: 100%;
+  box-sizing: border-box;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px;
+}
+.pk-tl2 {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 10px;
+  padding-bottom: 22px;
+  background: linear-gradient(160deg, var(--w12), var(--w03));
+}
+.pk-tl2:not([data-kind='cam']) {
+  background: color-mix(in srgb, var(--ln) 16%, transparent);
+}
+.pk-tl2 b,
+.pk-cb b {
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.pk-tl2 b i,
+.pk-cb b i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--k-t);
+}
+.pk-tl2 em {
+  position: absolute;
+  right: 7px;
+  bottom: 6px;
+  left: 7px;
+  overflow: hidden;
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-tl2[data-kind='cam']::before,
+.pk-cb[data-kind='cam']::before {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 38%;
+  top: 0;
+  content: '';
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--ln) 28%, transparent),
+    transparent
+  );
+  animation: pk-scan 3.4s linear infinite;
+}
+@keyframes pk-scan {
+  from {
+    transform: translateY(-110%);
+  }
+  to {
+    transform: translateY(290%);
+  }
+}
+.pk-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+.pk-bars i {
+  max-width: 9px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--ln);
+  transform-origin: 50% 100%;
+  animation: pk-eq 1.9s ease-in-out infinite;
+}
+@keyframes pk-eq {
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+.pk-tl2__wifi {
+  width: 36px;
+  height: 30px;
+  margin: auto;
+}
+.pk-vr__eq {
+  width: 54px;
+  height: 16px;
+}
+.pk-rg {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border: 2px solid var(--ln);
+  border-radius: 50%;
+  animation: pk-pulse 1.8s infinite;
+}
+.pk-rg i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ln);
+}
+.pk-sw {
+  position: relative;
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--ln);
+}
+.pk-sw::after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  content: '';
+  border-radius: 50%;
+  background: var(--k-white);
+  animation: pk-swk 4s ease-in-out infinite;
+  animation-delay: inherit;
+}
+@keyframes pk-swk {
+  0%,
+  40%,
+  100% {
+    transform: translateX(13px);
+  }
+  50%,
+  90% {
+    transform: none;
+  }
+}
+.pk-vg__web {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+.pk-vg__chrome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--w09);
+  padding: 8px 12px;
+}
+.pk-vg__chrome i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--w22);
+}
+.pk-vg__chrome span {
+  height: 12px;
+  flex: 1;
+  margin-left: 8px;
+  border-radius: 6px;
+  background: var(--w09);
+}
+.pk-vg__page {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+.pk-vg__copy {
+  display: flex;
+  flex: 1.4;
+  flex-direction: column;
+  gap: 7px;
+}
+.pk-sk {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--w22);
+  animation: pk-pulse 2.6s ease-in-out infinite;
+}
+.pk-sk--title {
+  width: 88%;
+  height: 12px;
+  background: var(--k-white);
+  opacity: 0.9;
+}
+.pk-sk--short {
+  width: 70%;
+}
+.pk-vg__btn {
+  width: 64px;
+  height: 18px;
+  margin-top: 3px;
+  border-radius: 6px;
+  background: var(--ln);
+}
+.pk-vg__chart {
+  flex: 1;
+  align-self: stretch;
+  border-radius: 10px;
+  padding: 8px;
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+}
+.pk-kc {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 10px;
+  padding: 7px;
+  background: var(--w05);
+}
+.pk-kc em {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+.pk-kd {
+  height: 14px;
+  border-radius: 5px;
+  background: var(--w16);
+}
+.pk-kd[data-on] {
+  background: var(--ln);
+  animation: pk-pulse 1.8s infinite;
+}
+.pk-vg__flow {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 12px;
+}
+.pk-fn {
+  flex: none;
+  border: 1px solid var(--w22);
+  border-radius: 999px;
+  padding: 7px 9px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.pk-fn[data-on] {
+  border-color: transparent;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+}
+.pk-fl {
+  position: relative;
+  min-width: 10px;
+  height: 2px;
+  flex: 1;
+  overflow: hidden;
+  background: var(--w16);
+}
+.pk-fl::after {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  content: '';
+  background: var(--ln);
+  animation: pk-flw 1.8s linear infinite;
+  animation-delay: inherit;
+}
+@keyframes pk-flw {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+.pk-ht__stages {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pk-ht__bars {
+  display: flex;
+  gap: 4px;
+}
+.pk-stp {
+  height: 5px;
+  flex: 1;
+  border-radius: 3px;
+  background: var(--w16);
+}
+.pk-stp[data-state] {
+  background: var(--ln);
+}
+.pk-stp[data-state='now'] {
+  animation: pk-pulse 1.4s infinite;
+}
+.pk-ht__stage-names {
+  display: flex;
+  justify-content: space-between;
+  color: var(--w60);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+.pk-ht__stage-names [data-now] {
+  color: var(--ln-text);
+}
+.pk-ht__eq {
+  height: 30px;
+}
+/* H9: the gaming tile's equalizer spans the tile instead of a short stub. */
+.pk-ht__eq i {
+  max-width: none;
+}
+
+/* Slides. */
+.pk-ht__slides {
+  position: relative;
+  height: 48px;
+  flex: none;
+  margin-top: auto;
+}
+.pk-ht--big .pk-ht__slides {
+  height: 94px;
+}
+.pk-hsl {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-36px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.5s var(--ease);
+}
+.pk-hsl[data-after] {
+  transform: translateX(36px);
+}
+.pk-hsl[data-on] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 0.45s var(--ease) 0.18s,
+    transform 0.6s var(--ease) 0.18s;
+}
+.pk-hsl__title {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+.pk-ht--big .pk-hsl__title {
+  font-size: clamp(19px, 1.7vw, 24px);
+}
+.pk-hsl__text {
+  color: var(--w72);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.pk-ht__segs {
+  display: flex;
+  gap: 5px;
+}
+.pk-ht__seg {
+  min-height: 44px;
+  flex: 1;
+  margin: -10px 0;
+  padding: 20px 0;
+}
+.pk-ht__seg > span {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--w16);
+}
+.pk-ht__seg i {
+  height: 100%;
+  background: var(--ln);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+.pk-ht__seg i[data-fill='done'] {
+  transform: none;
+}
+.pk-ht__seg i[data-fill='now'] {
+  animation: pk-fill 4.2s linear forwards;
+  animation-play-state: paused;
+}
+.pk-hb[data-running] .pk-ht__seg i[data-fill='now'] {
+  animation-play-state: running;
+}
+@keyframes pk-fill {
+  to {
+    transform: none;
+  }
+}
+
+/* Counters. */
+.pk-hcn {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 6px;
+  border-top: 1px solid var(--w12);
+}
+.pk-hcn li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 20px 0 0;
+}
+.pk-hcn__value {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-stretch: 118%;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+}
+.pk-hcn__label {
+  color: var(--k-ink3);
+  font-size: 14.5px;
+}
+
+/* --- Trust bar ------------------------------------------------------------------------------ */
+.pk-mqw {
+  overflow: hidden;
+  border-top: 1px solid var(--w09);
+  border-bottom: 1px solid var(--w09);
+  padding: 20px 0;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.pk-mq {
+  display: flex;
+  width: max-content;
+  gap: 14px;
+  animation: pk-mq 55s linear infinite;
+}
+.pk-mqw:hover .pk-mq,
+.pk-mqw:focus-within .pk-mq {
+  animation-play-state: paused;
+}
+/* A touch screen cannot pause on hover: the row stands still and scrolls by hand (WCAG 2.2.2). */
+@media (hover: none) {
+  .pk-mqw {
+    overflow-x: auto;
+    scrollbar-width: none;
+    mask-image: none;
+  }
+  .pk-mq {
+    animation: none;
+    padding: 0 clamp(20px, 3vw, 48px);
+  }
+  .pk-mq__list[aria-hidden] {
+    display: none;
+  }
+}
+@keyframes pk-mq {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.pk-mq__list {
+  display: flex;
+  gap: 14px;
+}
+.pk-mqi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--w09);
+  border-radius: 18px;
+  padding: 10px 20px 10px 10px;
+  background: var(--w03);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition:
+    transform 0.5s var(--ease),
+    border-color 0.4s;
+}
+a.pk-mqi:hover {
+  border-color: color-mix(in srgb, var(--ln) 55%, transparent);
+  transform: translateY(-2px);
+}
+.pk-mqc {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ln) 16%, transparent);
+  color: var(--ln-text);
+}
+.pk-mqi__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-mqi__note {
+  color: var(--ln-text);
+  font: 700 11px var(--font-sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.pk-mqa {
+  margin-left: 2px;
+  color: var(--ln-text);
+  font: 800 14px var(--font-sans);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.pk-mqi:hover .pk-mqa {
+  opacity: 1;
+}
+
+/* --- Smaller screens (board breakpoints) ---------------------------------------------------- */
+@media (max-width: 980px) {
+  .pk-hb {
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+  }
+  .pk-hb-main {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    border-radius: 28px;
+    padding: 26px 22px 22px;
+  }
+  .pk-ht--biznes,
+  .pk-ht--instalacje {
+    grid-column: span 6;
+    grid-row: auto;
+    min-height: 330px;
+  }
+  .pk-ht--software {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 330px;
+  }
+  .pk-ht--tech,
+  .pk-ht--gaming {
+    grid-column: span 6;
+    grid-row: auto;
+    min-height: 180px;
+  }
+}
+@media (max-width: 640px) {
+  .pk-hcn {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pk-hcn__value {
+    font-size: 36px;
+  }
+  .pk-hb {
+    gap: 10px;
+  }
+  .pk-hb-main {
+    padding: 22px 18px 18px;
+  }
+  .pk-ht--biznes,
+  .pk-ht--instalacje,
+  .pk-ht--software,
+  .pk-ht--tech {
+    grid-column: span 6;
+    min-height: 176px;
+    border-radius: 24px;
+    padding: 16px;
+  }
+  .pk-ht--gaming {
+    grid-column: 1 / -1;
+    min-height: 150px;
+    border-radius: 24px;
+    padding: 16px;
+  }
+  .pk-hb .pk-vg,
+  .pk-hb .pk-hsl__text,
+  .pk-ht__stage-names {
+    display: none;
+  }
+  .pk-ht__go {
+    width: 34px;
+    justify-content: center;
+    padding: 0;
+  }
+  .pk-ht__go-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .pk-ht--big .pk-ht__slides {
+    height: 64px;
+  }
+}
+
+/* --- Hero motion, premium pass (H10, Krystian 15.11) -------------------------------------------
+   Transform, opacity and light filters only; the global reduced-motion rule below switches all of
+   it off. The cursor light and the tilt need a mouse (`trackPointer` in HeroTiles). */
+.pk-ht {
+  isolation: isolate;
+}
+/* A slow ambient glow of the line drifting in the tile's corner. */
+.pk-ht::before {
+  position: absolute;
+  z-index: -2;
+  inset: -20%;
+  background: radial-gradient(
+    38% 34% at 78% 18%,
+    color-mix(in srgb, var(--ln) 22%, transparent),
+    transparent 70%
+  );
+  content: '';
+  pointer-events: none;
+  animation: pk-drift 16s ease-in-out infinite alternate;
+}
+.pk-hb:not([data-running]) .pk-ht::before {
+  animation-play-state: paused;
+}
+@keyframes pk-drift {
+  to {
+    transform: translate(-14%, 10%) scale(1.12);
+  }
+}
+/* The light under the cursor. */
+.pk-ht__light {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(
+    340px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%),
+    color-mix(in srgb, var(--ln) 26%, transparent),
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+/* The rim lit where the cursor is (a 1 px ring masked out of the light). */
+.pk-ht::after {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%),
+    var(--ln),
+    transparent 65%
+  );
+  content: '';
+  mask:
+    linear-gradient(var(--k-white) 0 0) content-box exclude,
+    linear-gradient(var(--k-white) 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pk-ht:hover .pk-ht__light,
+  .pk-ht:hover::after {
+    opacity: 1;
+  }
+}
+/* The tilt only where motion is welcome — reduced motion keeps the plain lift of the tile. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pk-ht:hover {
+    transform: perspective(1100px) rotateX(calc((0.5 - var(--my, 0.5)) * 4deg))
+      rotateY(calc((var(--mx, 0.5) - 0.5) * 5deg)) translateY(-4px);
+    transition:
+      transform 0.2s ease-out,
+      border-color 0.4s;
+  }
+}
+/* One sheen across each tile as it comes in (transform only; it crosses the whole tile). */
+.pk-ht__top::before {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, var(--w12), transparent);
+  content: '';
+  pointer-events: none;
+  transform: translateX(-100%) skewX(-18deg);
+  animation: pk-sheen 1.6s var(--ease) both;
+}
+.pk-ht--biznes .pk-ht__top::before {
+  animation-delay: 0.5s;
+}
+.pk-ht--instalacje .pk-ht__top::before {
+  animation-delay: 0.62s;
+}
+.pk-ht--software .pk-ht__top::before {
+  animation-delay: 0.74s;
+}
+.pk-ht--tech .pk-ht__top::before {
+  animation-delay: 0.86s;
+}
+.pk-ht--gaming .pk-ht__top::before {
+  animation-delay: 0.98s;
+}
+@keyframes pk-sheen {
+  from {
+    transform: translateX(0) skewX(-18deg);
+  }
+  to {
+    transform: translateX(500%) skewX(-18deg);
+  }
+}
+
+/* Slides: a soft cross-fade with blur — the title first, then its line of text. */
+.pk-hsl {
+  filter: blur(6px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.55s var(--ease),
+    filter 0.4s ease;
+}
+.pk-hsl[data-on] {
+  filter: none;
+  transition:
+    opacity 0.55s var(--ease) 0.15s,
+    transform 0.7s var(--ease) 0.15s,
+    filter 0.6s var(--ease) 0.15s;
+}
+.pk-hsl[data-on] .pk-hsl__title {
+  animation: pk-lift 0.7s var(--ease) 0.15s both;
+}
+.pk-hsl[data-on] .pk-hsl__text {
+  animation: pk-lift 0.7s var(--ease) 0.28s both;
+}
+/* Transform only — not `pk-rise` of the line scene, which fades in from zero (and would hide
+   headings for LCP). */
+@keyframes pk-lift {
+  from {
+    transform: translateY(10px);
+  }
+}
+
+/* Vignettes: blur and scale between pictures, their rows coming in one by one. */
+.pk-vl {
+  filter: blur(8px);
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.8s var(--ease),
+    filter 0.6s var(--ease);
+}
+.pk-vl[data-on] {
+  filter: none;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn) {
+  animation: pk-pop 0.7s var(--ease) both;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn):nth-child(2),
+.pk-vl[data-on] .pk-fn:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc):nth-child(3),
+.pk-vl[data-on] .pk-fn:nth-child(5) {
+  animation-delay: 0.2s;
+}
+@keyframes pk-pop {
+  from {
+    transform: translateY(10px) scale(0.97);
+  }
+}
+/* A status lights up as its row arrives („wdrożony”, „działa”). */
+.pk-vl[data-on] .pk-vp {
+  animation: pk-glow 1.2s var(--ease) both;
+}
+.pk-vl[data-on] .pk-vr:nth-child(2) .pk-vp {
+  animation-delay: 0.15s;
+}
+.pk-vl[data-on] .pk-vr:nth-child(3) .pk-vp {
+  animation-delay: 0.3s;
+}
+@keyframes pk-glow {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ln) 0%, transparent);
+  }
+  40% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ln) 35%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ln) 0%, transparent);
+  }
+}
+.pk-vp i {
+  animation: pk-blink 2.4s ease-in-out infinite;
+}
+@keyframes pk-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Progress of the slides: the track of the running slide glows softly. */
+.pk-ht__seg[aria-pressed='true'] > span {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
+}
+
+/* Tech: the repair moves on through its stages; Gaming: bars with a less even beat. */
+.pk-stp {
+  position: relative;
+  overflow: hidden;
+}
+.pk-stp[data-state='now']::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--w60), transparent);
+  content: '';
+  /* Off the bar at rest, so reduced motion leaves no still streak. */
+  transform: translateX(-100%);
+  animation: pk-run 1.8s ease-in-out infinite;
+}
+@keyframes pk-run {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.pk-ht__eq i {
+  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 60%, transparent));
+  animation-duration: 1.6s;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+.pk-ht__eq i:nth-child(3n) {
+  animation-duration: 2.1s;
+}
+.pk-ht__eq i:nth-child(4n + 1) {
+  animation-duration: 1.3s;
+}
+
+/* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
+   The big tiles' pictures fill the free height (no gap above the title); every picture is a small,
+   tailored screen of its line. Tokens only; reduced motion stops the movement (global rule). */
+.pk-ht--big .pk-vg {
+  min-height: 120px;
+  max-height: none;
+  flex: 1 1 140px;
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln) 14%, transparent),
+      transparent 65%
+    ),
+    var(--w05);
+  box-shadow: inset 0 1px 0 var(--w09);
+}
+.pk-tick {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+/* A small app window: title bar, rows with icons and ticked statuses, a sync line. */
+.pk-app {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 10px 12px 10px;
+}
+.pk-app__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--w09);
+  padding-bottom: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.pk-app__logo {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-app__bar em {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  color: var(--ln-text);
+  font-style: normal;
+}
+.pk-app__bar em i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ln);
+  animation: pk-blink 2.4s ease-in-out infinite;
+}
+.pk-app__rows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.pk-app__row {
+  gap: 10px;
+}
+.pk-app__ico {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+}
+.pk-app__ico svg {
+  width: 13px;
+  height: 13px;
+}
+.pk-app__label {
+  overflow: hidden;
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-app .pk-vp {
+  gap: 5px;
+  color: var(--k-white);
+}
+.pk-app .pk-vp .pk-tick {
+  color: var(--ln-text);
+}
+.pk-app__sync {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--w09);
+}
+.pk-app__sync i {
+  width: 35%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ln);
+  animation: pk-flw 2.6s ease-in-out infinite;
+}
+
+/* Cameras: a scene behind a viewfinder, REC and LIVE. */
+.pk-cam {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    var(--w09),
+    color-mix(in srgb, var(--k-dim) 70%, transparent)
+  );
+}
+.pk-cam__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pk-cam__shape {
+  fill: var(--w16);
+}
+.pk-cam__shade {
+  fill: var(--w09);
+}
+.pk-cam__line {
+  stroke: var(--w16);
+  stroke-width: 1;
+}
+.pk-cam__walker {
+  fill: color-mix(in srgb, var(--ln) 55%, var(--w22));
+  animation: pk-walk 7s ease-in-out infinite;
+}
+@keyframes pk-walk {
+  0%,
+  10% {
+    transform: translateX(-14px);
+  }
+  55%,
+  65% {
+    transform: translateX(22px);
+  }
+  100% {
+    transform: translateX(-14px);
+  }
+}
+/* Viewfinder corners. */
+.pk-cam__vf {
+  position: absolute;
+  inset: 8px;
+  background:
+    linear-gradient(var(--w60), var(--w60)) left top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 1.5px 8px no-repeat;
+  opacity: 0.55;
+}
+.pk-cam__live {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--w12);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.pk-tl2 .pk-cam b {
+  z-index: 1;
+}
+.pk-tl2 b .pk-rec {
+  animation: pk-blink 1.4s steps(2) infinite;
+}
+.pk-tl2 em {
+  z-index: 1;
+}
+
+/* Alarm: a shield, „Uzbrojony”, rings going out. */
+.pk-alarm {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-alarm__ico {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  color: var(--ln-text);
+}
+.pk-alarm small {
+  position: relative;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: color-mix(in srgb, var(--ln) 26%, transparent);
+  font-size: 9px;
+  font-weight: 800;
+}
+.pk-alarm__rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.pk-alarm__rings i {
+  position: absolute;
+  top: -22px;
+  left: -22px;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ln);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pk-ring 2.6s ease-out infinite;
+}
+.pk-alarm__rings i + i {
+  animation-delay: 1.3s;
+}
+@keyframes pk-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Wi-Fi: arcs lighting up from the router, the strength under them. */
+.pk-wifi {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-wifi__arcs {
+  width: 40px;
+  height: 30px;
+  fill: none;
+  stroke: var(--ln);
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+.pk-wifi__arcs path {
+  animation: pk-arc 2.4s ease-in-out infinite;
+}
+.pk-wifi__arcs path:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.pk-wifi__arcs path:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes pk-arc {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.pk-wifi small {
+  color: var(--ln-text);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Website: a nav, a headline with a button and a picture block with a chart. */
+.pk-vg__chrome span {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: var(--w60);
+  font-size: 9px;
+  font-weight: 700;
+}
+.pk-web__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 0;
+}
+.pk-web__nav i {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w16);
+}
+.pk-web__nav .pk-web__logo {
+  width: 14px;
+  height: 14px;
+  margin-right: auto;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-web__nav .pk-web__cta {
+  width: 30px;
+  height: 12px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ln) 60%, transparent);
+}
+.pk-sk--half {
+  width: 60%;
+}
+.pk-web__shot {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--ln) 42%, transparent),
+    color-mix(in srgb, var(--ln) 10%, transparent)
+  );
+}
+.pk-web__shot > i {
+  position: absolute;
+  top: 18%;
+  right: 14%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--w22);
+}
+.pk-web__shot .pk-vg__chart {
+  margin-top: auto;
+  background: none;
+}
+
+/* Kanban: counted columns, tagged cards with an avatar, one card travelling to „Gotowe”. */
+.pk-kc em {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pk-kc em b {
+  border-radius: 999px;
+  padding: 0 5px;
+  background: var(--w12);
+  font-size: 9px;
+}
+.pk-kd {
+  position: relative;
+  display: flex;
+  height: auto;
+  min-height: 22px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 6px;
+  background: var(--w09);
+}
+.pk-kd i {
+  width: 70%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w22);
+}
+.pk-kd u {
+  width: 30%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ln);
+  text-decoration: none;
+}
+.pk-kd[data-tag='b'] u {
+  background: var(--w22);
+}
+.pk-kd::after {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--w22);
+  content: '';
+}
+.pk-kd--moving {
+  min-height: 22px;
+  background: var(--ln);
+  animation: pk-move 5s var(--ease) infinite;
+}
+.pk-kd--moving::after {
+  background: var(--w60);
+}
+@keyframes pk-move {
+  0%,
+  30% {
+    transform: none;
+  }
+  55%,
+  85% {
+    transform: translateX(calc(100% + 6px));
+  }
+  100% {
+    transform: none;
+  }
+}
+.pk-vg__kanban {
+  overflow: hidden;
+}
+.pk-kc {
+  overflow: visible;
+}
+
+/* Flow: nodes with icons, the last one ticked. */
+.pk-fn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pk-fn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Tech: the device of the slide pops in beside the stages. */
+.pk-tech {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.pk-tech__dev {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  place-items: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+  animation: pk-pop 0.6s var(--ease) both;
+}
+.pk-tech__dev svg {
+  width: 18px;
+  height: 18px;
+}
+.pk-tech__track {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Gaming: the frames with a readout that changes with the slide. */
+.pk-game2 {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.pk-game2 .pk-ht__eq {
+  flex: 1;
+}
+.pk-game2__read {
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--ln) 45%, transparent);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  animation: pk-pop 0.6s var(--ease) both;
+}
+
+/* Compact rows so three fit with the bar and the sync line in the smaller tiles. */
+.pk-app .pk-vr {
+  padding: 4px 0;
+  font-size: 11.5px;
+}
+.pk-app .pk-vp {
+  padding: 2px 7px;
+  font-size: 10px;
+}
+.pk-app__ico {
+  width: 20px;
+  height: 20px;
+}
+.pk-app__ico svg {
+  width: 11px;
+  height: 11px;
+}
+/* Flow in a tall tile: nodes stacked, the signal running down between them. */
+.pk-vg__flow {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 16px;
+}
+.pk-vg__flow .pk-fl {
+  width: 2px;
+  min-width: 0;
+  height: auto;
+  min-height: 10px;
+  flex: 1 1 14px;
+  max-height: 26px;
+  margin-left: 18px;
+}
+.pk-vg__flow .pk-fl::after {
+  width: 100%;
+  height: 40%;
+  animation-name: pk-flw-down;
+}
+@keyframes pk-flw-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(250%);
+  }
+}
+/* --- Hero search, premium pass (15.11): a taller field with a glowing rim, a typed sample phrase
+   and live suggestions under it. */
+.pk-hq {
+  z-index: 5;
+  height: 68px;
+  border-radius: 22px;
+  padding: 0 8px 0 22px;
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--w16), var(--w16)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow:
+    0 18px 40px -26px color-mix(in srgb, var(--k-g) 70%, transparent),
+    inset 0 1px 0 var(--w05);
+  transition:
+    box-shadow 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+/* On focus the rim lights in the five line colours. */
+.pk-hq:focus-within {
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--k-b), var(--k-i), var(--k-s), var(--k-t), var(--k-y)) border-box;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--k-g) 16%, transparent),
+    0 22px 50px -24px color-mix(in srgb, var(--k-g) 80%, transparent);
+}
+.pk-hq[data-open] {
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+.pk-hq__icon {
+  width: 22px;
+  height: 22px;
+}
+.pk-hq__field {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex: 1;
+  align-items: center;
+}
+.pk-hq__input {
+  font-size: 17px;
+}
+.pk-hq[data-sample] .pk-hq__input::placeholder {
+  color: transparent;
+}
+/* The typed sample phrase, in the colour of its line. */
+.pk-hq__sample {
+  position: absolute;
+  /* Clipped at the field's edge (never under the button on a phone), fading out at the end. */
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, var(--k-ink) calc(100% - 28px), transparent);
+  color: var(--k-ink3);
+  font-size: 17px;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pk-hq__sample b {
+  color: var(--ln-text);
+  font-weight: 700;
+}
+.pk-hq__caret {
+  width: 2px;
+  height: 20px;
+  background: var(--ln);
+  animation: pk-caret 1s steps(1) infinite;
+}
+.pk-hq__kbd {
+  flex: none;
+  border: 1px solid var(--w16);
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--k-ink3);
+  font: 700 12px var(--font-sans);
+}
+.pk-hq__go {
+  height: 50px;
+  padding: 0 22px;
+  font-size: 15px;
+  box-shadow: 0 10px 24px -14px var(--k-g);
+}
+@media (max-width: 760px) {
+  .pk-hq__kbd {
+    display: none;
+  }
+}
+
+/* Live suggestions. */
+.pk-hq__pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid var(--w12);
+  border-radius: 20px;
+  padding: 8px;
+  background: var(--k-card);
+  box-shadow: 0 30px 60px -24px color-mix(in srgb, var(--k-dim) 90%, transparent);
+  animation: pk-pop 0.35s var(--ease) both;
+}
+.pk-hq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  padding: 8px 12px;
+  transition: background 0.2s;
+}
+.pk-hq__list [aria-selected='true'] .pk-hq__hit,
+.pk-hq__hit:hover {
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+}
+.pk-hq__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ln);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ln) 70%, transparent);
+}
+.pk-hq__hit-text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit-title {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__hit-hint {
+  overflow: hidden;
+  color: var(--k-ink3);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__kind {
+  flex: none;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: var(--w05);
+  color: var(--ln-text);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.pk-hq__note {
+  padding: 8px 12px 4px;
+  color: var(--k-ink3);
+  font-size: 13px;
+}
+.pk-hq__all {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--w09);
+  margin-top: 4px;
+  padding: 8px 12px 4px;
+  color: var(--k-gt);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+/* The tile must not cut the suggestions off. */
+.pk-hb-main:has(.pk-hq[data-open]) {
+  overflow: visible;
+  z-index: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-home *,
+  .pk-home *::before,
+  .pk-home *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .pk-ht__seg i[data-fill='now'] {
+    transform: none;
+  }
+}
+/* „Załatw od razu” (15.11): four tools of the lines as glass buttons in their colours, above the
+   call to action; two by two, one column on narrow phones. */
+.pk-hq2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.pk-hq2__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.pk-hq2__item {
+  position: relative;
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ln) 28%, var(--w09));
+  border-radius: 16px;
+  padding: 8px 12px 8px 8px;
+  background:
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--ln) 16%, transparent),
+      transparent 60%
+    ),
+    var(--w03);
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.3s;
+}
+.pk-hq2__item:hover {
+  border-color: var(--ln);
+  transform: translateY(-2px);
+}
+.pk-hq2__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  box-shadow: 0 8px 20px -10px var(--ln);
+}
+.pk-hq2__text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq2__title {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq2__line {
+  color: var(--ln-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+.pk-hq2__go {
+  color: var(--k-ink3);
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hq2__item:hover .pk-hq2__go {
+  color: var(--ln-text);
+  transform: translate(2px, -2px);
+}
+@media (max-width: 420px) {
+  .pk-hq2__list {
+    grid-template-columns: 1fr;
+  }
+}
+/* The call to action sits at the bottom of the tile. */
+.pk-hq2 + .pk-hb-main__cta,
+.pk-hch-list + .pk-hb-main__cta {
+  margin-top: auto;
+}
+/* Narrow phones (H9 review): both numbers keep a margin at 360 px; below that they may wrap. */
+@media (max-width: 400px) {
+  .pk-hphones {
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .pk-hphone {
+    min-height: 50px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+}

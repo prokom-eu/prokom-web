@@ -1,0 +1,80 @@
+# ADR-017: prokombiznes.pl K4 — wersja finalna: kategorie, salony 2.0, konfigurator 3.0, nowe strony
+
+- **Status:** przyjęta (30.10.2026 — Krystian zaakceptował wersję finalną wizualizacji v150 i decyzje D-K4-1…9 z `docs/design/prokombiznes/K4-FINAL.md` §3, „pełna zgoda”)
+- **Data:** 2026-10-30
+- **Decyduje:** Krystian (technika, treść); szef — treści oznaczone [SZEF] w `K4-FINAL.md` §10
+
+## Kontekst
+Po paczce K3.1 (wgranej w #110, zbudowanej do K3c — #142) wizualizacja przeszła rundy K3.2–K3.6 (v127–v150): nowe marki i karty (162), nowy podział kategorii, salon 2.0 dla wszystkich marek, Konfigurator 3.0, nowa strona główna, Oferta 2.0, nowe strony (automaty vendingowe, KSeF, ulga), poprawki po dwóch audytach. Paczka K4 (`docs/design/prokombiznes/K4-FINAL.md`, `PRZEKAZANIE-K4.md`, `k4/`, `seed/prokombiznes/k4/`) przenosi to do repo. Część rozwiązań wymaga decyzji o modelu i adresach, które dotąd zapisywał ADR-012.
+
+## Decyzje
+1. **Adresy (D-K4-1).** Zostają adresy z ADR-012 (rozstrz. K3/K3.1): `/produkt/[slug]`, `/zestawy`, `/zestawy/[slug]`, `/oferta`, `/oferta/[kategoria]`, `/oferta/[kategoria]/[podkategoria]`, `/marki/[slug]`, `/plan-firmy`. Nowe: `/marki`, `/konfigurator` (301 z `/kreator`), `/automaty-vendingowe`, `/ksef`, `/ulga-na-kase-fiskalna`. Salony tematyczne: `/marki/druk`, `/marki/siec`, `/marki/nas`, `/marki/niszczarki`; marka należąca do salonu tematycznego → 301 do salonu. Nowe adresy najwyższego poziomu dopisujemy do `RESERVED_PAGE_SLUGS`. Adresy z `K33-ZMIANY.md` §1 (`/gotowe-zestawy`, `/oferta/[kategoria]/[produkt]`, `/plan-twojej-firmy`) **nie obowiązują**.
+2. **Kategorie (D-K4-2).** 33 kategorie w 5 działach z `seed/prokombiznes/k4/slowniki-k4.json` zastępują 23 kategorie K3 („Komputery i monitory” → Laptopy, Komputery i All-in-One, Monitory, Tablety, Telefony; nowe: Klawiatury, myszy i słuchawki; Niszczarki; „Drukarki i urządzenia wielofunkcyjne” z podkategoriami). Slugi przez `CATEGORY_SLUGS`, 301 ze starych adresów.
+3. **Salony (D-K4-3).** Nowa kolekcja `Showrooms` (per tenant): slug, tytuł, marki[], bloki salonu 2.0 (`K4-FINAL.md` §6, wszystkie opcjonalne). `Partners` zostaje kartą marki (logo, status, opis, fakty). Dane salonów Lenovo/Dell przechodzą z `Partners.showroom` do `Showrooms`; pole usuwamy migracją po przeniesieniu (K4f-2).
+4. **Konfigurator (D-K4-4).** Dane Konfiguratora 3.0 w `BiznesSettings.wizard` (rozszerzenie z B10c): rodzaje firm, sytuacje, skale, potrzeby, presety, listy produktów, pytania z nadpisaniami, grupy zestawów, sceny. Silnik (`K35-ZMIANY.md` §1.2) jako czyste funkcje z testami; link do wyniku `?kr=firma|etap|skala|potrzeby|odpowiedzi`.
+5. **Motyw (D-K4-5).** Domyślnie jasny; bez dziedziczenia `prefers-color-scheme`; wybór w `localStorage` (odczyt/zapis w `try/catch`).
+6. **Opinie (D-K4-6).** Karty opinii z flagą widoczności; zaślepki nie są widoczne na produkcji.
+7. **Strony KSeF, ulga, automaty (D-K4-7).** `Pages` z blokami Biznesu (ADR-010). Teksty KSeF w dwóch wersjach z polem „od daty” (przełączenie 1.01.2027, strefa Europe/Warsaw).
+8. **Podział kart (D-K4-8).** Podział z K3.1 w repo wygrywa nad kartami niepodzielonymi w wizualizacji; odwołania w danych K4 przepisane wg `mapa-slugow-k4.json`.
+9. **Aktualności (D-K4-9).** Zostaje `/aktualnosci` z B11a; stara plansza Aktualności nie wraca.
+10. **`polecane` zamiast `dobierz`.** „Do tego zwykle dobierają” bierze jawną listę `{produkt, etykieta}` z danych K4; dopasowanie fraz `dobierz` (K31b-2) przestaje być używane.
+11. **Pomiar odłożony.** `K35-ZMIANY.md` §7 (Plausible) to plan na później — bez skryptów analityki w K4 i PROD′.
+
+## Konsekwencje
+- Sesje: `docs/zadania/prokombiznes.md` §7 (K4a-1 … Staging). K31e i część PROD zastąpione (§2 `K4-FINAL.md`).
+- Migracje: kategorie (z 301), nowe pola `Products`, kolekcja `Showrooms` (na końcu listy kolekcji — nazwy indeksów), rozszerzenie `BiznesSettings.wizard`, usunięcie `Partners.showroom`.
+- Treści przenoszone na produkcję w panelu (seed tylko lokalnie) — lista w STAN „Produkcja” rośnie o strony K4.
+
+## Odrzucone
+- Salony jako pole `Partners.showroom` dla wszystkich — salon tematyczny łączy kilka marek.
+- Nowy global na Konfigurator — sprzeczne z decyzją KD D2 (bez nowych globali).
+- Adresy z K33 §1 — zmiana już zbudowanych tras bez korzyści.
+
+## Doprecyzowania K4a-1 (Krystian, 30.10.2026)
+- **Strony podkategorii** (`/oferta/[kategoria]/[podkategoria]`) mają tylko podkategorie **Serwerów, NAS i UPS**, **Ekranów i projektorów** (ADR-012 rozstrz. 14) oraz **Drukarek i urządzeń wielofunkcyjnych** (nowe w K4). W pozostałych kategoriach podkategoria jest chipem filtra bez adresu, choć `slowniki-k4.json` podaje slug — chroni to przed stronami z 1–2 produktami w indeksie. Lista w kodzie: `K4_SUBCATEGORY_PAGES` (`src/seed/biznes/k4Categories.ts`).
+- „Komputery i monitory” nie ma odpowiednika w K4: `/oferta/komputery-monitory` → 301 `/oferta`, jej strony podkategorii → 301 do nowych kategorii (`laptopy`, `komputery`, `monitory`; stacje robocze i dokujące → `komputery`); usunięte karty K3 tej kategorii → `/oferta/laptopy`.
+- Karta „Nie wiesz, co wybrać?” kategorii z paczki (`dobor`) czeka na K4d (przycisk i akcja jeszcze nie trafiają na stronę, a tekst automatów odsyła do strony z K4j); pola są w panelu, import ich jeszcze nie wypełnia.
+
+## Doprecyzowania K4a-2 (Krystian, 30.10.2026)
+- **Bloki salonu 2.0 jako pola Payload** (nie JSON): kolekcja `Showrooms` z zakładkami Nagłówek / Modele / Oferta i dobór / Serwis i wdrożenie / O marce i pytania; relacje do produktów i marek sprawdzane w panelu. Z paczki pomijamy `logo`/`logos` (bloby wizualizacji — logo z `Partners`), `n` (liczniki z bazy, K4-FINAL §4.4), `im` (zdjęcia z kart produktów) i `serw` (= obecność bloku serwisu). Przycisk wdrożenia otwiera zapytanie; jedyny wyjątek „Zobacz GoPOS” → `/gopos` (paczka nie podaje adresu).
+- **Grupy `/marki` i kolejność marek na głównej w `BiznesSettings.brands`**, nie w `Partners`: `Partners` jest wspólne dla wszystkich stron, a Samsung jest w dwóch grupach. `Partners.partnerStatus` dostaje wartości `partner` (Optivendi) i `cooperation` (COMEX, „We współpracy”); status pochodzi tylko z `zasady_statusow` — marka z innym statusem w paczce zatrzymuje import.
+- **Logo marek z `media/marki`** jako `k4-logo-<slug>`; SVG zamieniane na WebP (sharp) — `Partners` nie przyjmuje SVG (skrypty w pliku).
+- **„O to firmy pytają najczęściej” = 16 pozycji z K35 §7a** (`K4_FEATURED` w `src/seed/biznes/k4Home.ts`) — `strona-glowna-k4.json` ma jeszcze starą ósemkę. Grupa pigułki w `Products.featuredGroup` (4 wartości, UPS osobno — to nie działy). `pop9` → `Products.categoryOrder` (karta sprzed podziału K3.1 oddaje miejsce swoim nowym kartom), `dzTop9` → `CatalogGroups.topProducts`, koło → `CatalogGroups.wheelProducts` z `kolo_hero` (= `heroOrbit9` planszy; `dzialy_hero.p` w paczce się różni i nie jest importowane).
+- **Plany i zestawy:** K4 nakłada treść na pakiet K3.1/K3c — rysunek planu, seria, branże i notatki zestawu zostają; punkty K4 w procentach przeliczane na jednostki rzutu. Usługi zestawu K4 podaje nazwą — import szuka karty usługi o tej nazwie. Otwarte pytanie elementu K3 (`do_potwierdzenia`) zostaje przy tej samej karcie, więc zestaw nie przechodzi sam w „Gotowe”.
+
+## Doprecyzowania K4f (Krystian, 31.10.2026)
+- **Wszystkie 20 salonów od razu** (K4f-1), jednym szablonem `Showrooms` — bez listy dozwolonych salonów w kodzie. K4f-2 = porównanie pozostałych 10 z planszami, usunięcie komponentów K31c i `Partners.showroom` migracją, decyzja o filmach serii Lenovo/Dell (salon 2.0 nie ma na nie miejsca; od K4f-1 nie są widoczne).
+- **Salon kilku marek** (Druk, Sieć, NAS, Niszczarki) ma neutralne nagłówki domyślne: „Oferta”, „W kilku faktach”, „Najczęstsze pytania”, „Zapytaj o ofertę”, „Więcej o markach”; salon jednej marki — jak plansza („Zanim wybierzesz Posnet”). Panel nadpisuje je polami `headings`.
+- **Znacznik karty modelu** wyświetlany tylko, gdy brzmi „polecamy na start” (K4-FINAL §6) — inne wartości z danych (EuroCert „najwygodniejszy”, Niszczarki „P-5” — plansza je pokazuje, K4-FINAL §6 wygrywa) szablon pomija.
+- **K4f-2 (Krystian, 31.10):** `Partners.showroom` usunięte migracją `k4f_drop_partners_showroom` (tabele `partners_showroom_*`, kolumny `showroom_*`, wiersze salonu w `partners_rels`/`partners_texts`; `down` bez danych). **Filmy serii Lenovo/Dell nie wracają do salonu** (plansza salonu 2.0 nie ma sekcji filmu); `wideo-k31.json` → `serie` nie jest importowane, filmy produktów (`Products.videos`, ADR-016) zostają — znaczek „film” na kartach i strona produktu. Seria kart z `marki-salony-k31.json` (`showroomSeries`) dalej ustawia `Products.series`.
+- **Liczniki w faktach hero** („44 pozycje”, „16 modeli”, „17 serii”) liczone z opublikowanych kart marek salonu, nie z danych (K4-FINAL §4.4); brak kart → fakt pominięty.
+- **`/marki/<marka z salonu tematycznego>`** (np. `/marki/kyocera`) → stałe przekierowanie do salonu (`permanentRedirect`, HTTP 308 — dla wyszukiwarek równoważne 301). Strona marki K3b′ zostaje dla marek z `hasPage` bez salonu.
+- **Kafel marki na `/marki`:** salon → `/marki/<salon>`; GoPOS, InsERT, Optivendi → własna strona, gdy opublikowana; reszta → `/oferta?marka=<slug>`; marka bez kart i bez strony nie ma kafla.
+- **„Marki” w nagłówku** schowane w 1080–1279 px (siedem pozycji się nie mieści) — jak „Gotowe zestawy”; zostaje w mega-menu, stopce i bocznym pasku.
+
+## Rozstrzygnięcia 06.11 (Krystian, 05–06.11.2026 — paczka 0611)
+Pełna lista decyzji D1–D18: `docs/zadania/prokombiznes-0611.md` §1. Tu tylko te, które odwracają lub zmieniają wcześniejsze ustalenia K4:
+- **Marki na głównej w dwóch przesuwających się paskach** (wszystkie marki, klikalne logo, wygaszanie pod kursorem, przeciąganie, przycisk pauzy — WCAG 2.2.2), **także na telefonie**. Odwraca K36 §1 (usunięcie paska logo) i K4-FINAL „Start: bez paska marek” (D5).
+- **Branże scalone z Planem Twojej firmy** w jedną sekcję głównej (przełącznik branż → plan → gotowy zestaw branży → dofinansowania); osobna sekcja „Firmy każdej wielkości” znika. Zmienia kolejność głównej z K4 v150 (D8).
+- **Aktualności wracają na główną** (3 karty z panelu; mniej niż 3 wpisy Biznesu → linki do wpisów innych linii bez kopiowania treści; pusto → sekcja się nie renderuje). Odwraca K4-FINAL §2 (D8).
+- **Telefon nie chowa treści, którą pokazuje komputer.** Długie bloki skracamy formą (akordeon `<details>`, rząd przewijany, lista kompaktowa, karta pomocy), nie `display:none`. Odwraca decyzję 02.11 „telefon jak plansza” (`hiddenOnPhone` / `max-md:hidden` dla sekcji bez planszy App-*) (D12).
+
+Uzupełnienia BIZ-1 (Krystian, 08.11): dolny pasek telefonu = wspólny `TabBar` (Start · Oferta · Zapytanie na środku · Kontakt · Menu; Szukaj = lupa w kapsule) — plan §13 #9; brakujący podgląd wyniku w `SearchDialog` i `inert` schowanej kapsuły — mały PR `feat/wsp-szukaj-podglad` z folderu Biznesu; miniatury kategorii w mega menu — opcjonalne pole `menuImage` w `CatalogCategories` (migracja dodająca) ze zdjęciami z prototypu, zapas: zdjęcie produktu → ikona.
+
+## Rozstrzygnięcia 08.11 (BIZ-2)
+
+- **Marki na głównej w dwóch przesuwających się paskach** (ZAOPATRZENIE §9, D5 z 06.11) zastępują siatkę 16 kafli K4 v150. **Odwraca K36 §1** (usunięcie paska logo) i K4-FINAL „Start: bez paska marek” — także na telefonie. Wszystkie marki z `Partners` linii: najpierw kolejność z panelu (`BiznesSettings` → marki na głównej), potem reszta wg liczby pozycji, na zmianę między paski. Ruch to pętla `requestAnimationFrame` (zwalnianie pod kursorem, przeciąganie, stop przy fokusie), jeden przycisk „Wstrzymaj animację” dla obu pasków (WCAG 2.2.2); przy `prefers-reduced-motion` paski stoją, a przeciąganie działa.
+- **Nowa sekcja „Zaopatrzenie firm”** (blok `bzProcurement`, ZAOPATRZENIE §8, D4) zaraz po Ofercie. Karta pokazuje się tylko, gdy jej podstrona jest opublikowana; kalkulator bierze liczbę urządzeń na lokal/stanowisko z konfiguratora podstrony, a korzyść „Odbiór starego sprzętu” i oddzwanianie — z flagi strony AGD (§0 pkt 1) i obietnicy w panelu (§0 pkt 7).
+
+## Rozstrzygnięcia 15.11 (Krystian, runda 14–15.11 — aktualizacja działającej strony)
+
+Źródło prawdy: `docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md` §1 (plansze `runda-1411/plansze/`, plan PR-ów R0–R9 — `docs/zadania/prokombiznes.md` §7.4). Wygrywa z K4-FINAL, paczką 0611 i `MOBILE-APLIKACJA.md` tam, gdzie się różnią.
+- **Dwa numery wszędzie** (889 003 889, 883 200 151): górny pasek, hero, CTA, kontakt, o-firmie, stopka, dolny pasek telefonu (arkusz „Zadzwoń” z oboma numerami), JSON-LD (`telephone` + `contactPoint`). Numery tylko z panelu.
+- **„Wycena na mailu”** zamiast „wycena na piśmie” we wszystkich tekstach Biznesu (Instalacje i Software bez zmian).
+- **Bez linków „Sprawdź w CEIDG”** i kart weryfikacji na Biznesie — przełącznik linii w `SiteSettings.shared` (domyślnie włączony, Biznes wyłącza). NIP zostaje jako tekst.
+- Statusy bez zmian: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, Optivendi „Partner”, COMEX „We współpracy”.
+- **Nowa kolejność głównej** (13 sekcji, §1 przekazania): bez paska KSeF (strona `/ksef` zostaje) i bez mapy obszaru (tylko `/kontakt`); `bzReferences` ukryte; nowe bloki „Systemy, które u Ciebie wdrożymy” (zastępuje podsekcję Oferty) i „Inne linie PRO-KOM”.
+- **Hero:** koncepcja koła zostaje — 5 działów × 3 produkty jako zdjęcia, w środku bez liczby pozycji; pod hero pasek uprawnień; w hero dwa numery.
+- **Najczęściej wybierane:** 3 rzędy × 8, przewijane, bez zakładek. **Jak pracujemy:** bez „Zajmuje się” i inicjałów. **Od 2004:** bez rzędu Optivendi/COMEX, kafle ze zdjęciem produktu.
+- **/o-firmie** nowy układ, bez sekcji „Nie musisz wierzyć nam na słowo”; „Jawne dane firmy” → „Przypomnimy o przeglądzie”. **/kontakt:** 2 równe kafle numerów, 7 dni godzin, nowa mapa obszaru. **/marki:** Optivendi i COMEX w siatce „Pozostałe marki” ze znaczkiem statusu.
+- **Karty bez zdjęcia:** licencje z okładką „klucz licencji”, usługi z obrazem tego, czego dotyczą; Office 2024 rozdzielony („bezterminowa”, wsparcie do 10.2029).

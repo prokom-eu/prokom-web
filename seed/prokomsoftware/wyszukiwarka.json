@@ -1,0 +1,129 @@
+{
+  "_info": "Startowe synonimy wyszukiwarki katalogu (SoftwareSettings.search). Format jak BiznesSettings.search: fraza → rozwinięcia. Do uzupełnienia o frazy z Search Console po starcie.",
+  "synonyms": [
+    {
+      "phrase": "excel",
+      "expansions": [
+        "arkusz",
+        "tabelka",
+        "z excela do systemu"
+      ]
+    },
+    {
+      "phrase": "grafik",
+      "expansions": [
+        "harmonogram",
+        "zlecenia",
+        "czas pracy",
+        "ekipy"
+      ]
+    },
+    {
+      "phrase": "rezerwacje",
+      "expansions": [
+        "rezerwacja",
+        "booking",
+        "pensjonat",
+        "hotel",
+        "kalendarz"
+      ]
+    },
+    {
+      "phrase": "crm",
+      "expansions": [
+        "klienci",
+        "baza klientów",
+        "sprzedaż",
+        "oferty"
+      ]
+    },
+    {
+      "phrase": "strona",
+      "expansions": [
+        "www",
+        "witryna",
+        "strona internetowa",
+        "wizytówka"
+      ]
+    },
+    {
+      "phrase": "aplikacja",
+      "expansions": [
+        "apka",
+        "telefon",
+        "android",
+        "ios",
+        "mobilna"
+      ]
+    },
+    {
+      "phrase": "sklep",
+      "expansions": [
+        "e-sklep",
+        "sklep internetowy",
+        "zamówienia",
+        "płatności"
+      ]
+    },
+    {
+      "phrase": "faktury",
+      "expansions": [
+        "fakturowanie",
+        "ksef",
+        "program do faktur"
+      ]
+    },
+    {
+      "phrase": "ai",
+      "expansions": [
+        "sztuczna inteligencja",
+        "chatgpt",
+        "asystent"
+      ]
+    },
+    {
+      "phrase": "sms",
+      "expansions": [
+        "powiadomienia",
+        "przypomnienia",
+        "e-mail"
+      ]
+    },
+    {
+      "phrase": "serwis",
+      "expansions": [
+        "zgłoszenia",
+        "naprawy",
+        "reklamacje"
+      ]
+    },
+    {
+      "phrase": "magazyn",
+      "expansions": [
+        "stany",
+        "zamówienia",
+        "dostawy"
+      ]
+    }
+  ],
+  "stopWords": [
+    "dla",
+    "do",
+    "i",
+    "na",
+    "w",
+    "z",
+    "mojej",
+    "firmy",
+    "program",
+    "system"
+  ],
+  "popular": [
+    "strona firmowa",
+    "pensjonat",
+    "zlecenia",
+    "excel",
+    "crm",
+    "aplikacja"
+  ]
+}

@@ -1,0 +1,186 @@
+{
+ "_strona": "Realizacje",
+ "_title": "Realizacje: nagłośnienie, multimedia, sieci — Podhale | PRO-KOM",
+ "_description": "Wybrane realizacje PRO-KOM Instalacje: nagłośnienie, ekrany, projekcja, sieci i anteny w firmach, parafiach, szkołach i lokalach na Podhalu i w Małopolsce.",
+ "_uwaga": "Zrzut danych z wizualizacji v4.0 (stan początkowy strony, motyw jasny). Teksty = treść do seeda. Klucze UI (cls, on, pick) pomijaj.",
+ "dane": {
+  "ctaEye": "Masz podobny obiekt?",
+  "ctaH": "Twoja realizacja może być następna.",
+  "ctaP": "Pokaż nam obiekt. Zaproponujemy rozwiązanie, a po montażu pokażemy je tutaj, jeśli się zgodzisz.",
+  "rl": {
+   "fs": [
+    {
+     "n": "Wszystkie",
+     "c": 11,
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Nagłośnienie",
+     "c": 8,
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Multimedia i projekcja",
+     "c": 6,
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Sieci",
+     "c": 1,
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Anteny",
+     "c": 1,
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "fo": [
+    {
+     "n": "Każdy obiekt",
+     "on": "true",
+     "cls": "chip on"
+    },
+    {
+     "n": "Firmy",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Kościoły",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Gastronomia",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Sklepy i usługi",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Szkoły",
+     "on": "false",
+     "cls": "chip"
+    },
+    {
+     "n": "Domy",
+     "on": "false",
+     "cls": "chip"
+    }
+   ],
+   "list": [
+    {
+     "k": "Audio, projekcja, IT",
+     "n": "Blachotrapez",
+     "m": "Rabka-Zdrój i Ponice · firma: sale i biuro",
+     "art": "[svg-path]",
+     "ph": "Sala konferencyjna, szkoleniowa i marketingowa (nagłośnienie, projekcja), przyłącza IT stanowisk biurowych i nagłośnienie samochodu reklamowego",
+     "z": "Sprzedaż, montaż i wykonanie",
+     "cls": "card rl"
+    },
+    {
+     "k": "Audio i wideo",
+     "n": "Parafia św. Teresy",
+     "m": "Rabka-Zdrój · kościół",
+     "art": "[svg-path]",
+     "ph": "Instalacja audiowizualna i nagłośnienie chóru",
+     "z": "Sprzedaż i montaż",
+     "cls": "card rl"
+    },
+    {
+     "k": "Nagłośnienie",
+     "n": "Empik",
+     "m": "Zakopane i Kraków · salony sprzedaży",
+     "art": "[svg-path]",
+     "ph": "Nagłośnienie sal sprzedaży",
+     "z": "Montaż",
+     "cls": "card rl"
+    },
+    {
+     "k": "Audio i wideo",
+     "n": "Restauracja „Aleksandra”",
+     "m": "Mszana Dolna · restauracja i dom weselny",
+     "art": "[svg-path]",
+     "ph": "Instalacja audiowizualna",
+     "z": "Sprzedaż i montaż",
+     "cls": "card rl"
+    },
+    {
+     "k": "Ekrany i dźwięk",
+     "n": "Caffe Europa",
+     "m": "Nowy Sącz · kawiarnia",
+     "art": "[svg-path]",
+     "ph": "Instalacja reklamowo-wizualna i nagłośnienie",
+     "z": "Sprzedaż, montaż i wdrożenie oprogramowania",
+     "cls": "card rl"
+    },
+    {
+     "k": "Nagłośnienie",
+     "n": "FitBar",
+     "m": "Nowy Sącz · lokal gastronomiczny",
+     "art": "[svg-path]",
+     "ph": "Nagłośnienie lokalu",
+     "z": "Montaż",
+     "cls": "card rl"
+    },
+    {
+     "k": "Nagłośnienie",
+     "n": "Parafia Narodzenia św. Jana Chrzciciela (Jasna Górka)",
+     "m": "Ślemień · kościół",
+     "art": "[svg-path]",
+     "ph": "Nagłośnienie",
+     "z": "Montaż",
+     "cls": "card rl xa-rlx"
+    },
+    {
+     "k": "Nagłośnienie",
+     "n": "Kaplica Sióstr Nazaretanek",
+     "m": "Rabka-Zdrój · kaplica",
+     "art": "[svg-path]",
+     "ph": "Nagłośnienie",
+     "z": "Montaż",
+     "cls": "card rl xa-rlx"
+    },
+    {
+     "k": "Projekcja",
+     "n": "Szkoła Podstawowa im. Adama Mickiewicza",
+     "m": "Rabka-Zdrój · szkoła",
+     "art": "[svg-path]",
+     "ph": "Sprzęt projekcyjny",
+     "z": "Sprzedaż i montaż",
+     "cls": "card rl xa-rlx"
+    },
+    {
+     "k": "Projekcja",
+     "n": "Zakłady bukmacherskie",
+     "m": "Kraków · lokal usługowy",
+     "art": "[svg-path]",
+     "ph": "Sprzęt projekcyjny",
+     "z": "Sprzedaż i montaż",
+     "cls": "card rl xa-rlx"
+    },
+    {
+     "k": "Anteny",
+     "n": "Dom prywatny",
+     "m": "Ponice · dom jednorodzinny",
+     "art": "[svg-path]",
+     "ph": "Instalacja RTV-SAT",
+     "z": "Sprzedaż i montaż",
+     "cls": "card rl xa-rlx"
+    }
+   ],
+   "empty": false,
+   "moreOn": true,
+   "moreT": "Pokaż wszystkie (11)"
+  }
+ }
+}

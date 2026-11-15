@@ -1,0 +1,80 @@
+import { describe, expect, it } from 'vitest'
+
+import { partnerBadges, partnerStatusLabel, partnerStatusesByName } from './badges'
+
+describe('partnerBadges', () => {
+  it('names each authorized partner and joins the authorized services', () => {
+    expect(
+      partnerBadges([
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
+        { name: 'InsERT', status: 'authorized-partner' },
+        { name: 'Elzab', status: 'authorized-service' },
+        { name: 'Comarch', status: 'none' },
+      ]),
+    ).toEqual([
+      { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
+      { label: 'Autoryzowany partner InsERT', kind: 'partner' },
+      { label: 'Autoryzowany serwis Posnet i Elzab', kind: 'service' },
+    ])
+  })
+
+  it('names the services as K4-FINAL §1 does, whatever the panel order', () => {
+    expect(
+      partnerBadges([
+        { name: 'Elzab', status: 'authorized-service' },
+        { name: 'InsERT', status: 'authorized-partner' },
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
+      ]),
+    ).toEqual([
+      { label: 'Autoryzowany partner GoPOS', kind: 'partner' },
+      { label: 'Autoryzowany partner InsERT', kind: 'partner' },
+      { label: 'Autoryzowany serwis Posnet i Elzab', kind: 'service' },
+    ])
+  })
+
+  it('lists three or more services with commas', () => {
+    expect(
+      partnerBadges([
+        { name: 'Posnet', status: 'authorized-service' },
+        { name: 'Elzab', status: 'authorized-service' },
+        { name: 'Fawag', status: 'authorized-service' },
+      ]),
+    ).toEqual([{ label: 'Autoryzowany serwis Posnet, Elzab i Fawag', kind: 'service' }])
+  })
+
+  // Statuses are [SZEF] facts set in the panel; the seed sets none.
+  it('shows nothing without confirmed statuses', () => {
+    expect(partnerBadges([{ name: 'Posnet', status: 'none' }])).toEqual([])
+  })
+})
+
+describe('partnerStatusLabel', () => {
+  it('names only a status confirmed in the panel', () => {
+    expect(partnerStatusLabel('authorized-partner')).toBe('Autoryzowany partner')
+    expect(partnerStatusLabel('authorized-service')).toBe('Autoryzowany serwis')
+    // Decision of Krystian 15.11: Optivendi and COMEX without a badge.
+    expect(partnerStatusLabel('partner')).toBeNull()
+    expect(partnerStatusLabel('cooperation')).toBeNull()
+    expect(partnerStatusLabel('none')).toBeNull()
+    expect(partnerStatusLabel(null)).toBeNull()
+  })
+})
+
+describe('partnerStatusesByName', () => {
+  it('maps each partner with a confirmed status to its label', () => {
+    expect(
+      partnerStatusesByName([
+        { name: 'GoPOS', status: 'authorized-partner' },
+        { name: 'Posnet', status: 'authorized-service' },
+        { name: 'COMEX', status: 'cooperation' },
+        { name: 'Bez statusu', status: 'none' },
+        { name: 'Pusty', status: null },
+      ]),
+    ).toEqual({
+      GoPOS: 'Autoryzowany partner',
+      Posnet: 'Autoryzowany serwis',
+    })
+  })
+})

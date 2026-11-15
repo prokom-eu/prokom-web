@@ -1,0 +1,11 @@
+# PRO-KOM Tech staging (prokomserwis.pl, repo prokom-system) for the proxy (overlay on
+# compose.proxy.yml). Add it only when `staging.prokomserwis.pl` points to the server and the
+# `prokom-tech-staging` certificate exists — nginx does not start with a server block whose
+# certificate is missing (docs/runbook.md §0). From then on the proxy always starts with it.
+
+services:
+  nginx:
+    environment:
+      TECH_STAGING_HOST: ${TECH_STAGING_HOST:?set TECH_STAGING_HOST}
+    volumes:
+      - ./nginx/templates/tech-staging.conf.template:/etc/nginx/templates/tech-staging.conf.template:ro

@@ -1,0 +1,58 @@
+  <section class="phero">
+    <div class="hgrid"></div><div class="hglow"></div>
+    <div class="wrap" style="position: relative">
+      <nav class="crumb in d1" aria-label="Okruszki"><a href="Main.dc.html">Start</a><span>/</span><span style="color: var(--text)">O firmie</span></nav>
+      <div class="phw">
+        <div class="pht2">
+          <span class="eye in d1">PRO-KOM · Rabka-Zdrój i Zakopane · od 2004 roku</span>
+          <h1 class="h1 in d2">Firma z Podhala, <span class="acc">która zostaje po montażu.</span></h1>
+          <p class="lead in d3">PRO-KOM z Rabki-Zdroju montuje monitoring, alarmy, sieci i smart home, a w tej samej firmie dostarcza kasy, komputery, serwis i oprogramowanie. Od 2004 roku obsługujemy domy, firmy i obiekty turystyczne na Podhalu. Mamy dwa salony, w Rabce i w Zakopanem.</p>
+          <div class="pkv in d4"><sc-for list="{{of.kv}}" as="k" hint-placeholder-count="3"><div class="kv"><b>{{k.b}}</b><span>{{k.s}}</span></div></sc-for></div>
+        </div>
+        <div class="phv in d3">
+          <div class="ofmap card">
+            <svg viewBox="0 0 460 360" aria-hidden="true">
+              <path d="M0 300 L60 240 L120 270 L190 180 L260 250 L320 200 L390 260 L460 220 V360 H0 Z" class="ofmt"></path>
+              <path d="M178 196 L190 180 L204 198 Z M310 214 L320 200 L332 216 Z" fill="#EEF3F4"></path>
+              <path d="M140 110 C160 160, 170 200, 200 250 S 230 300, 250 320" class="ofroad"></path>
+              <g><circle cx="140" cy="110" r="10" class="ofpin"></circle><circle cx="140" cy="110" r="24" class="ofring"></circle><text x="172" y="104" class="ofl">Rabka-Zdrój</text><text x="172" y="122" class="ofs">salon · ul. Orkana 16B</text></g>
+              <g><circle cx="250" cy="320" r="10" class="ofpin"></circle><circle cx="250" cy="320" r="24" class="ofring"></circle><text x="282" y="314" class="ofl">Zakopane</text><text x="282" y="332" class="ofs">salon · [ADRES ZAKOPANE]</text></g>
+              <g><circle cx="200" cy="232" r="5" class="ofdot"></circle><text x="212" y="236" class="ofs">Nowy Targ</text></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="linie" class="{{rv.ln}}" data-rv="ln" style="padding: 40px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Linie PRO-KOM</span><h2 class="h2">Jedna firma, kilka specjalizacji.</h2></div><p class="lead" style="max-width: 460px">Instalacje to jedna z linii PRO-KOM. Gdy obiekt potrzebuje kasy, komputera, strony internetowej albo naprawy sprzętu, robimy to w tej samej firmie.</p></div>
+      <div class="g4"><sc-for list="{{of.lines}}" as="l" hint-placeholder-count="4"><a href="{{l.href}}" class="{{l.cls}}"><span class="ico"><!--i:l.ic:22--></span><b class="h3">{{l.t}}</b><p>{{l.d}}</p><span style="color: var(--accentText); font-weight: 800; margin-top: auto">{{l.l}}</span></a></sc-for></div>
+    </div>
+  </section>
+
+  <section id="historia" class="{{rv.hi}}" data-rv="hi" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Historia</span><h2 class="h2">Ponad 20 lat na Podhalu.</h2></div></div>
+      <div class="oftl ri"><sc-for list="{{of.tl}}" as="t" hint-placeholder-count="5"><div class="ofti"><b>{{t.y}}</b><i></i><span><b>{{t.t}}</b><span>{{t.d}}</span></span></div></sc-for></div>
+      <p class="src ri" style="margin-top: 12px">Daty poza rokiem 2004 do uzupełnienia przez właściciela. Jeśli ich nie będzie, oś usuwamy i zostaje „Od 2004 r. w Rabce-Zdroju”. <span class="ph">[SZEF]</span></p>
+    </div>
+  </section>
+
+  <section id="jak" class="{{rv.jk}}" data-rv="jk" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Jak pracujemy</span><h2 class="h2">Zasady, których się trzymamy.</h2></div></div>
+      <div class="g3"><sc-for list="{{of.val}}" as="v" hint-placeholder-count="6"><div class="card feat ri"><span class="ico"><!--i:v.ic:22--></span><b class="h3">{{v.t}}</b><p>{{v.d}}</p></div></sc-for></div>
+    </div>
+  </section>
+
+  <section id="dane" class="{{rv.dn}}" data-rv="dn" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="card ri" style="padding: 34px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+        <div><span class="eye">Dane firmy</span><p style="margin: 10px 0 0; font-size: 15.5px">PRO-KOM Tadeusz Wójciak<br>ul. Orkana 16B, 34-700 Rabka-Zdrój<br>NIP 7352511447</p></div>
+        <div><span class="eye">Salony</span><p style="margin: 10px 0 0; font-size: 15.5px">Rabka-Zdrój, ul. Orkana 16B<br>Zakopane, <span class="ph">{{K.adrZ}}</span><br>Rabka: pn–pt 9:00–17:00<br>Zakopane: <span class="ph">[SZEF: godziny, soboty]</span></p></div>
+        <div><span class="eye">Zespół instalacji</span><p style="margin: 10px 0 0; font-size: 15.5px">Tu przedstawimy osoby, które przyjeżdżają na montaż: imię, rola i uprawnienia. <span class="ph">[SZEF: 2–3 osoby, zdjęcia, uprawnienia SEP, certyfikaty producentów]</span></p></div>
+      </div>
+    </div>
+  </section>

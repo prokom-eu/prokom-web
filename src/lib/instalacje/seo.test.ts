@@ -1,0 +1,63 @@
+import { describe, expect, it } from 'vitest'
+
+import { AREA_SERVED, serviceJsonLd, websiteJsonLd } from './seo'
+
+const base = {
+  origin: 'https://prokominstalacje.pl',
+  path: '/anteny',
+  name: 'Anteny RTV/SAT',
+  description: 'Montaż anten satelitarnych i DVB-T2.',
+  serviceType: 'Montaż anten',
+}
+
+describe('serviceJsonLd', () => {
+  it('describes the service with an absolute address and the site as provider', () => {
+    const data = serviceJsonLd(base)
+    expect(data['@type']).toBe('Service')
+    expect(data.url).toBe('https://prokominstalacje.pl/anteny')
+    expect(data.provider).toEqual({ '@id': 'https://prokominstalacje.pl/#oddzial-1' })
+    expect(data.areaServed).toHaveLength(AREA_SERVED.length)
+  })
+
+  it('offers the service without a price (spec §2)', () => {
+    const json = JSON.stringify(serviceJsonLd(base).offers)
+    expect(json).not.toMatch(/price/i)
+  })
+
+  it('leaves out an empty description', () => {
+    expect(serviceJsonLd({ ...base, description: '' })).not.toHaveProperty('description')
+  })
+})
+
+describe('serviceJsonLd — audience (architects, I16c)', () => {
+  it('names the business audience only when given', () => {
+    const base = {
+      origin: 'https://x.test',
+      path: '/a',
+      name: 'A',
+      description: null,
+      serviceType: 'T',
+    }
+    expect(serviceJsonLd(base)).not.toHaveProperty('audience')
+    expect(serviceJsonLd({ ...base, audience: ['architekci', 'deweloperzy'] }).audience).toEqual({
+      '@type': 'BusinessAudience',
+      audienceType: 'architekci, deweloperzy',
+    })
+  })
+})
+
+describe('websiteJsonLd', () => {
+  it('names the site and points to the Organization of the layout', () => {
+    expect(
+      websiteJsonLd({ origin: 'https://prokominstalacje.pl', name: 'PRO-KOM Instalacje' }),
+    ).toEqual({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://prokominstalacje.pl/#website',
+      name: 'PRO-KOM Instalacje',
+      url: 'https://prokominstalacje.pl/',
+      inLanguage: 'pl-PL',
+      publisher: { '@id': 'https://prokominstalacje.pl/#organization' },
+    })
+  })
+})

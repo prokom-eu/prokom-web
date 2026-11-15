@@ -1,0 +1,117 @@
+import { describe, expect, it } from 'vitest'
+
+import catalog from '../../../seed/prokombiznes/k4/katalog-k4.json'
+import slugMap from '../../../seed/prokombiznes/k4/mapa-slugow-k4.json'
+import homeFile from '../../../seed/prokombiznes/k4/strona-glowna-k4.json'
+import {
+  K4_FEATURED,
+  k4CategoryOrder,
+  k4GroupProducts,
+  k4HomeProductFields,
+  k4WheelImageFile,
+  k4WheelProducts,
+  type K4HomeFile,
+} from './k4Home'
+
+const home: K4HomeFile = homeFile
+const cards = new Set(catalog.produkty.map((card) => card.slug_seed))
+const splitCards = Object.values(slugMap.niepodzielone).flatMap((split) => split.nowe)
+
+describe('K4_FEATURED (runda 1411 R5: three rows of eight)', () => {
+  it('has 24 cards of the catalog, eight a row, rows in a block, no repeat', () => {
+    expect(K4_FEATURED).toHaveLength(24)
+    for (const item of K4_FEATURED) expect(cards.has(item.slug), item.slug).toBe(true)
+    expect(new Set(K4_FEATURED.map((item) => item.slug)).size).toBe(24)
+    expect(K4_FEATURED.map((item) => item.group)).toEqual([
+      ...Array(8).fill('kasy-platnosci'),
+      ...Array(8).fill('komputery-telefony'),
+      ...Array(8).fill('programy-ochrona'),
+    ])
+  })
+})
+
+describe('k4CategoryOrder (pop9)', () => {
+  const order = k4CategoryOrder(home, slugMap.niepodzielone)
+
+  it('names only cards of the K4 catalog or of the repo split', () => {
+    for (const slug of order.keys()) {
+      expect(cards.has(slug) || splitCards.includes(slug), slug).toBe(true)
+    }
+  })
+
+  it('gives the place of a card the repo split to each of its new cards', () => {
+    const place = home.kolejnosc_w_kategorii['lenovo-yoga-pro']
+    expect(order.get('lenovo-yoga-pro-7-15')).toBe(place)
+    expect(order.get('lenovo-yoga-pro-9-16')).toBe(place)
+    expect(order.has('lenovo-yoga-pro')).toBe(false)
+  })
+
+  it('sets the pill only for the 16 and the place for every listed card', () => {
+    expect(k4HomeProductFields('ergo', order)).toEqual({
+      featuredGroup: 'kasy-platnosci',
+      categoryOrder: 0,
+    })
+    expect(k4HomeProductFields('nieznana', order)).toEqual({
+      featuredGroup: null,
+      categoryOrder: null,
+    })
+  })
+})
+
+describe('k4GroupProducts (dzTop9, wheel)', () => {
+  const ids = new Map<string, number>()
+  const idOf = (slug: string) => {
+    if (!ids.has(slug)) ids.set(slug, ids.size + 1)
+    return ids.get(slug)
+  }
+
+  it('gives each of the 5 departments 5 first cards and its wheel run (KOLO-HERO v3)', () => {
+    const groups = k4GroupProducts(home, idOf)
+    expect([...groups.keys()]).toEqual(['sprz', 'biuro', 'prog', 'bezp', 'usl'])
+    for (const group of groups.values()) expect(group.topProducts).toHaveLength(5)
+    expect([...groups.values()].map((group) => group.wheelProducts.length)).toEqual([4, 6, 3, 3, 2])
+    expect(groups.get('sprz')?.wheelProducts).toEqual(
+      ['ergo', 'k10', 'd3', 'pol'].map((slug) => idOf(slug)),
+    )
+    // „Serwis” holds services of its own department, not cards of others (KOLO-HERO §Dane).
+    expect(groups.get('usl')?.wheelProducts).toEqual([idOf('ksef'), idOf('przkas')])
+  })
+
+  it('sets the short label and the extra page bubble, and clears them elsewhere', () => {
+    const groups = k4GroupProducts(home, idOf)
+    expect(groups.get('bezp')?.shortName).toBe('Sieć i ochrona')
+    expect(groups.get('sprz')?.shortName).toBeNull()
+    expect(groups.get('usl')?.wheelLink).toEqual({
+      label: 'Opieka IT dla firm',
+      href: '/opieka-it',
+      icon: 'lifebuoy',
+    })
+    expect(groups.get('prog')?.wheelLink).toEqual({ label: null, href: null, icon: null })
+  })
+
+  it('stops on a card without a record', () => {
+    expect(() => k4GroupProducts(home, (slug) => (slug === 'ergo' ? undefined : 1))).toThrow(/ergo/)
+  })
+})
+
+describe('k4WheelProducts (KOLO-HERO v3)', () => {
+  it('gives every wheel card its short name, and the iPhone its colour', () => {
+    const cards = k4WheelProducts(home)
+    expect(cards.size).toBe(18)
+    expect(cards.get('apple-macbook-air-m5')).toEqual({
+      wheelName: 'Apple MacBook Air (M5)',
+      wheelColor: null,
+    })
+    expect(cards.get('apple-iphone-18-pro')).toEqual({
+      wheelName: 'Apple iPhone 18 Pro',
+      wheelColor: 'burgund',
+    })
+  })
+
+  it('names the cut-out photo of a wheel card', () => {
+    expect(k4WheelImageFile('ergo').uploadName).toBe('k4-kolo-ergo.webp')
+    expect(k4WheelImageFile('ergo').filePath.replaceAll('\\', '/')).toMatch(
+      /seed\/prokombiznes\/k4\/media\/kolo\/kolo-ergo\.webp$/,
+    )
+  })
+})

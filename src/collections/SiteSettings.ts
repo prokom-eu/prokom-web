@@ -1,0 +1,469 @@
+import type { CollectionConfig, Field } from 'payload'
+
+import { adminOnly } from '../lib/auth/access'
+import { tenantImageFilter } from '../lib/media/access'
+import { DEPARTMENTS } from '../lib/site/departments'
+import { isValidNavHref } from '../lib/site/link'
+import { isValidTitleTemplate } from '../lib/site/title'
+import { FACT_KEY } from '../lib/software/facts'
+import { validateNavigation } from '../lib/software/navigation'
+import { LINES } from '../lib/tenant/lines'
+import { copyTenantLine, onLine } from '../lib/tenant/copyLine'
+import { sharedLineFields } from '../fields/sharedLineFields'
+import { biznesFooter } from './biznesFooter'
+import { biznesNavigation } from './biznesNavigation'
+
+const linkFields: Field[] = [
+  { name: 'label', label: 'Etykieta', type: 'text', required: true },
+  {
+    name: 'href',
+    label: 'Link',
+    type: 'text',
+    required: true,
+    validate: (value: unknown) =>
+      typeof value === 'string' && isValidNavHref(value)
+        ? true
+        : 'Ścieżka (/kontakt), adres https://, mailto: albo tel:.',
+  },
+]
+
+const isBiznes = onLine('biznes')
+
+const text = (name: string, label: string, description?: string): Field => ({
+  name,
+  label,
+  type: 'textarea',
+  ...(description && { admin: { description } }),
+})
+
+/**
+ * „KSeF — pas na głównej” (plan 0611 §7.1 pkt 7): the deadline the home band counts down to and
+ * its texts before and from that day on (K36 §3). No deadline = no band.
+ */
+const ksefGroup: Field = {
+  name: 'ksef',
+  label: 'KSeF — pas na stronie głównej',
+  type: 'group',
+  admin: {
+    description:
+      'Pas z odliczaniem między „Najczęściej wybierane” a planem. Bez terminu pas się nie pokazuje. Tylko fakty ze źródłem (komunikat MF).',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'deadline',
+          label: 'Termin',
+          type: 'date',
+          admin: { date: { pickerAppearance: 'dayOnly', displayFormat: 'dd.MM.yyyy' } },
+        },
+        {
+          name: 'href',
+          label: 'Link przycisku',
+          type: 'text',
+          defaultValue: '/ksef',
+          validate: (value: unknown) =>
+            !value || (typeof value === 'string' && isValidNavHref(value))
+              ? true
+              : 'Ścieżka (/ksef), adres https://, mailto: albo tel:.',
+        },
+      ],
+    },
+    {
+      name: 'textBefore',
+      label: 'Nagłówek przed terminem',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Np. „Od 1 stycznia 2027 KSeF obejmie także najmniejsze firmy.”' },
+    },
+    {
+      name: 'textAfter',
+      label: 'Nagłówek od dnia terminu',
+      type: 'text',
+      maxLength: 120,
+      admin: { description: 'Pokazywany od dnia terminu, bez odliczania (K36 §3 „wersja po”).' },
+    },
+  ],
+}
+
+/**
+ * „Zaopatrzenie — linki” (plan 0611 §6.4, ZAOPATRZENIE §10): texts of the hook-ins of the two
+ * procurement pages. An empty field hides its hook-in; so does a page that is not published.
+ */
+const procurementGroup: Field = {
+  name: 'procurement',
+  label: 'Zaopatrzenie — linki',
+  type: 'group',
+  admin: {
+    description:
+      'Odnośniki do stron „AGD i RTV dla firm” i „Dostawy IT dla firm” w reszcie strony. Puste pole = odnośnik niewidoczny.',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'categoryBand',
+          label: 'Pas nad siatką kategorii',
+          type: 'text',
+          admin: { placeholder: 'np. Kupujesz 5 sztuk lub więcej?' },
+        },
+        {
+          name: 'categoryBandCta',
+          label: 'Link pasa',
+          type: 'text',
+          admin: { description: 'Puste = tytuł strony „Dostawy IT dla firm”.' },
+        },
+      ],
+    },
+    {
+      name: 'itCategories',
+      label: 'Kategorie z pasem i linkiem na karcie produktu',
+      type: 'text',
+      hasMany: true,
+      admin: { description: 'Adresy kategorii, np. laptopy, komputery, monitory.' },
+    },
+    {
+      name: 'productLink',
+      label: 'Link na karcie produktu (pod „Do zapytania”)',
+      type: 'text',
+      admin: { placeholder: 'np. Potrzebujesz kilku sztuk? Policz stanowiska' },
+    },
+    {
+      name: 'industryTiles',
+      label: 'Kafle na stronach branż',
+      type: 'array',
+      labels: { singular: 'Kafel', plural: 'Kafle' },
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'industry',
+              label: 'Branża (adres)',
+              type: 'text',
+              required: true,
+              admin: { placeholder: 'np. noclegi' },
+            },
+            {
+              name: 'page',
+              label: 'Strona',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'AGD i RTV dla firm', value: 'agd' },
+                { label: 'Dostawy IT dla firm', value: 'it' },
+              ],
+            },
+          ],
+        },
+        { name: 'title', label: 'Tytuł', type: 'text', required: true, maxLength: 80 },
+        { name: 'text', label: 'Opis', type: 'text', maxLength: 160 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'scaleTitle',
+          label: 'Konfigurator — karta przy skali „Ponad 10”',
+          type: 'text',
+          admin: { placeholder: 'np. Przy tej skali zrobimy dostawę' },
+        },
+        { name: 'scaleText', label: 'Opis karty', type: 'text', maxLength: 200 },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'searchAgd',
+          label: 'Wyszukiwarka — frazy AGD',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „AGD i RTV dla firm” na górze wyników.' },
+        },
+        {
+          name: 'searchIt',
+          label: 'Wyszukiwarka — frazy IT',
+          type: 'text',
+          hasMany: true,
+          admin: { description: 'Podpowiedź „Dostawy IT dla firm” na górze wyników.' },
+        },
+      ],
+    },
+  ],
+}
+
+/**
+ * Data of the Biznes line (ADR-012, rozstrzygnięcie 2). Shown in the panel only for Biznes;
+ * the public reader ignores it on other lines (`toPublicSiteSettings` with the tenant's line). [SZEF] = the boss's
+ * wording, edited here, never a constant in code (spec. §1).
+ */
+const biznesGroup: Field = {
+  name: 'biznes',
+  label: 'Biznes',
+  type: 'group',
+  admin: { condition: (data) => isBiznes(data) },
+  fields: [
+    {
+      name: 'contactChannels',
+      label: 'Kanały kontaktu działów',
+      type: 'array',
+      admin: { description: 'W nagłówku zostaje jeden numer główny (telefon linii wyżej).' },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'department',
+              label: 'Dział',
+              type: 'select',
+              required: true,
+              options: [...DEPARTMENTS],
+            },
+            { name: 'phone', label: 'Telefon', type: 'text' },
+            { name: 'email', label: 'E-mail', type: 'email' },
+          ],
+        },
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'hours',
+              label: 'Godziny',
+              type: 'text',
+              admin: { placeholder: 'np. pn–pt 8:00–16:00' },
+            },
+            {
+              name: 'showInFooter',
+              label: 'Pokaż w stopce',
+              type: 'checkbox',
+              defaultValue: false,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'trustLine',
+      label: 'Linia zaufania',
+      type: 'text',
+      admin: {
+        description:
+          '[SZEF] np. „Autoryzowany serwis Posnet i Elzab · Autoryzowany partner GoPOS i InsERT” (K4-FINAL §1: pełne brzmienie statusów).',
+      },
+    },
+    {
+      name: 'serviceAreas',
+      label: 'Miejscowości obsługi',
+      type: 'text',
+      hasMany: true,
+    },
+    {
+      name: 'promises',
+      label: 'Obietnice [SZEF]',
+      type: 'group',
+      admin: { description: 'Tylko prawdziwe obietnice; pusta = niewidoczna na stronie.' },
+      fields: [
+        {
+          name: 'callbackTime',
+          label: 'Czas oddzwonienia',
+          type: 'text',
+          admin: {
+            placeholder: 'np. Oddzwaniamy w ciągu 60 minut',
+            description:
+              'Krótko, bez „w godzinach pracy” — strona główna dopisuje to sama, w katalogu to tytuł kroku.',
+          },
+        },
+        text('itReview', 'Przegląd IT'),
+        text('includedWithRegister', 'W cenie kasy'),
+        text('serviceTakeover', 'Przejęcie serwisu'),
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'showReviews',
+          label: 'Pokaż opinie klientów',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
+          name: 'showClientLogos',
+          label: 'Pokaż logo klientów',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: { description: 'Tylko logo z pisemną zgodą (obrazy bez „Wymaga zgody”).' },
+        },
+        {
+          name: 'showOwnerQuote',
+          label: 'Pokaż słowo od właściciela',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Cytat właściciela na stronie głównej. Włącz dopiero, gdy szef zatwierdzi treść.',
+          },
+        },
+      ],
+    },
+    ksefGroup,
+    procurementGroup,
+    biznesNavigation,
+    biznesFooter,
+  ],
+}
+
+const isSoftware = onLine('software')
+
+/**
+ * Data of the Software line (ADR-014 §1.4, rozstrz. v20 4–5). Shown in the panel only for
+ * Software. Phone and e-mail stay the line's fields above (rozstrz. SW0 4).
+ */
+const softwareGroup: Field = {
+  name: 'software',
+  label: 'Software',
+  type: 'group',
+  admin: { condition: (data) => isSoftware(data) },
+  fields: [
+    {
+      name: 'navigation',
+      label: 'Nawigacja (JSON)',
+      type: 'json',
+      validate: validateNavigation,
+      admin: {
+        description:
+          'Nagłówek, mega menu, stopka, dolny pasek i menu na telefonie, „Twój projekt”. Linki jako [etykieta, adres]. Zapis sprawdza kształt — zmieniaj ostrożnie.',
+      },
+    },
+    {
+      name: 'facts',
+      label: 'Fakty [SZEF]',
+      type: 'array',
+      admin: {
+        description:
+          'Wartości wstawiane w teksty w miejsce [KLUCZ], np. CZAS ODPOWIEDZI → „1 dnia roboczego”. Pusta wartość = zdanie z tym kluczem nie pokazuje się na stronie.',
+      },
+      validate: (rows: unknown) => {
+        const keys = (Array.isArray(rows) ? rows : []).map((row: { key?: string }) =>
+          row.key?.trim(),
+        )
+        const twice = keys.find((value, index) => value && keys.indexOf(value) !== index)
+        return twice ? `Klucz „${twice}” jest dwa razy.` : true
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'key',
+              label: 'Klucz',
+              type: 'text',
+              required: true,
+              validate: (value: unknown) =>
+                typeof value === 'string' && FACT_KEY.test(value.trim())
+                  ? true
+                  : 'Wielkie litery bez nawiasów, np. CZAS ODPOWIEDZI.',
+            },
+            { name: 'value', label: 'Wartość', type: 'text' },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+/**
+ * Settings of one site (line). Exactly one document per tenant: the multi-tenant plugin runs
+ * this collection with `isGlobal: true`, which makes the tenant field unique.
+ */
+export const SiteSettings: CollectionConfig = {
+  slug: 'site-settings',
+  labels: { singular: 'Ustawienia strony', plural: 'Ustawienia stron' },
+  admin: {
+    description:
+      'Pola linii Biznes i Software pojawiają się w ustawieniach tej linii po pierwszym zapisie.',
+  },
+  // The plugin limits editors to their own tenants; deleting settings is an admin decision.
+  access: {
+    read: ({ req: { user } }) => Boolean(user),
+    create: ({ req: { user } }) => Boolean(user),
+    update: ({ req: { user } }) => Boolean(user),
+    delete: adminOnly,
+  },
+  hooks: { beforeChange: [copyTenantLine] },
+  fields: [
+    {
+      name: 'line',
+      label: 'Linia',
+      type: 'select',
+      options: [...LINES],
+      // Always overwritten by `copyTenantLine` on save, whatever the request sends.
+      admin: { hidden: true },
+    },
+    {
+      type: 'row',
+      fields: [
+        { name: 'phone', label: 'Telefon linii', type: 'text' },
+        {
+          name: 'phone2',
+          label: 'Drugi telefon linii',
+          type: 'text',
+          admin: { description: 'Opcjonalny, pokazywany obok głównego (Software).' },
+        },
+        { name: 'email', label: 'E-mail linii', type: 'email' },
+      ],
+    },
+    { name: 'navigation', label: 'Nawigacja', type: 'array', maxRows: 8, fields: linkFields },
+    {
+      name: 'footer',
+      label: 'Stopka linii',
+      type: 'group',
+      fields: [
+        { name: 'text', label: 'Tekst', type: 'textarea' },
+        { name: 'links', label: 'Linki', type: 'array', maxRows: 12, fields: linkFields },
+      ],
+    },
+    {
+      name: 'seo',
+      label: 'Domyślne SEO',
+      type: 'group',
+      fields: [
+        {
+          name: 'titleTemplate',
+          label: 'Szablon tytułu',
+          type: 'text',
+          validate: (value: unknown) =>
+            !value || (typeof value === 'string' && isValidTitleTemplate(value))
+              ? true
+              : 'Szablon musi zawierać dokładnie jedno %s, np. „%s | PRO-KOM Biznes”.',
+          admin: { description: '%s zastępuje tytuł podstrony, np. „%s | PRO-KOM Biznes”.' },
+        },
+        {
+          name: 'description',
+          label: 'Opis',
+          type: 'textarea',
+          maxLength: 160,
+          admin: { description: 'Domyślny opis w wynikach wyszukiwania (do 160 znaków).' },
+        },
+        {
+          name: 'ogImage',
+          label: 'Obraz do udostępnień',
+          type: 'upload',
+          relationTo: 'media',
+          filterOptions: tenantImageFilter,
+          admin: {
+            description: 'Pokazuje się przy linku na Facebooku czy w komunikatorach (1200×630).',
+          },
+        },
+      ],
+    },
+    sharedLineFields,
+    biznesGroup,
+    softwareGroup,
+  ],
+}

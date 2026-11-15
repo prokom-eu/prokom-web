@@ -1,0 +1,163 @@
+<!--@pheroA-->
+          <div class="ill" role="region" aria-label="Interaktywny plan domu sterowanego przez Ampio">
+            <div class="illbar">
+              <div class="pills" role="group" aria-label="Sceny"><sc-for list="{{sh.scenes}}" as="s" hint-placeholder-count="5"><button type="button" class="{{s.cls}}" aria-pressed="{{s.on}}" onClick="{{s.pick}}"><!--i:s.ic:15-->{{s.n}}</button></sc-for></div>
+              <button type="button" class="{{sh.offCls}}" aria-pressed="{{sh.offOn}}" onClick="{{sh.tOff}}"><!--i:P.off:15-->Bez internetu</button>
+            </div>
+            <div class="shw">
+              <svg class="fp shp" viewBox="0 0 640 400" aria-hidden="true">
+                <defs><radialGradient id="slg"><stop offset="0" stop-color="#FFD27A" stop-opacity=".95"></stop><stop offset="1" stop-color="#FFD27A" stop-opacity="0"></stop></radialGradient></defs>
+                <rect x="10" y="10" width="620" height="380" rx="8" class="shout"></rect>
+                <sc-for list="{{sh.rooms}}" as="r" hint-placeholder-count="8"><g class="{{r.gcls}}" onClick="{{r.pick}}"><rect class="{{r.cls}}" x="{{r.x}}" y="{{r.y}}" width="{{r.w}}" height="{{r.h}}"></rect><ellipse cx="{{r.cx}}" cy="{{r.cy}}" rx="{{r.rx}}" ry="{{r.ry}}" fill="url(#slg)" style="{{r.lst}}" class="shl"></ellipse><foreignObject x="{{r.tx}}" y="{{r.ty}}" width="300" height="24" class="fo fo-l"><div xmlns="http://www.w3.org/1999/xhtml" class="fot">{{r.n}}</div></foreignObject><foreignObject x="{{r.tx}}" y="{{r.vy}}" width="300" height="24" class="fo fo-lb"><div xmlns="http://www.w3.org/1999/xhtml" class="fot big">{{r.t}}</div></foreignObject></g></sc-for>
+<g class="shfu" aria-hidden="true">
+                  <rect x="60" y="150" width="150" height="44" rx="12"></rect><rect x="60" y="138" width="150" height="18" rx="8"></rect><rect x="96" y="96" width="78" height="34" rx="6" class="t"></rect><rect x="236" y="70" width="40" height="110" rx="6" class="t"></rect>
+                  <rect x="314" y="34" width="122" height="28" rx="5"></rect><circle cx="340" cy="48" r="7" class="t"></circle><circle cx="366" cy="48" r="7" class="t"></circle><rect x="342" y="96" width="66" height="44" rx="8" class="t"></rect>
+                  <rect x="490" y="62" width="96" height="112" rx="10"></rect><rect x="496" y="68" width="40" height="24" rx="6" class="t"></rect><rect x="542" y="68" width="40" height="24" rx="6" class="t"></rect>
+                  <rect x="470" y="228" width="80" height="54" rx="22"></rect><rect x="572" y="232" width="34" height="26" rx="6" class="t"></rect>
+                  <rect x="40" y="252" width="120" height="40" rx="6"></rect><circle cx="100" cy="316" r="16" class="t"></circle>
+                  <rect x="196" y="262" width="88" height="54" rx="8" class="t"></rect><circle cx="214" cy="340" r="9"></circle><circle cx="266" cy="340" r="9"></circle>
+                  <rect x="346" y="316" width="118" height="50" rx="16"></rect><rect x="360" y="322" width="38" height="38" rx="8" class="t"></rect>
+                </g>
+                <sc-for list="{{sh.wins}}" as="w" hint-placeholder-count="10"><rect x="{{w.x}}" y="{{w.y}}" width="{{w.w}}" height="{{w.h}}" class="shwin"></rect><rect x="{{w.x}}" y="{{w.y}}" width="{{w.bw}}" height="{{w.bh}}" class="shbl"></rect></sc-for>
+                <rect x="{{sh.gate.x}}" y="376" width="{{sh.gate.w}}" height="8" rx="3" class="shgate"></rect>
+                <g class="{{sh.alCls}}"><rect x="252" y="252" width="34" height="22" rx="6" class="shpan"></rect><foreignObject x="252" y="258" width="34" height="12" class="fo "><div xmlns="http://www.w3.org/1999/xhtml" class="fot shpt2">{{sh.alT}}</div></foreignObject></g>
+              </svg>
+              <div class="shside">
+                <div class="shcard">
+                  <span class="mut" style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em">Pomieszczenie</span>
+                  <b class="h3">{{sh.sel.n}}</b>
+                  <div class="shrow"><span><!--i:P.light:16-->Światło</span><div class="stepper"><button type="button" onClick="{{sh.sel.lm}}" aria-label="Ciemniej">−</button><b>{{sh.sel.l}}%</b><button type="button" onClick="{{sh.sel.lp}}" aria-label="Jaśniej">+</button></div></div>
+                  <div class="shrow"><span><!--i:P.blind:16-->Zasłonięcie</span><div class="stepper"><button type="button" onClick="{{sh.sel.bm}}" aria-label="Otwórz">−</button><b>{{sh.sel.b}}%</b><button type="button" onClick="{{sh.sel.bp}}" aria-label="Zamknij">+</button></div></div>
+                  <div class="shrow"><span><!--i:P.thermo:16-->Temperatura</span><div class="stepper"><button type="button" onClick="{{sh.sel.tm}}" aria-label="Chłodniej">−</button><b>{{sh.sel.t}}°</b><button type="button" onClick="{{sh.sel.tp}}" aria-label="Cieplej">+</button></div></div>
+                </div>
+                <div class="shnet {{sh.netCls}}">
+                  <div><!--i:P.cloud:18--><span>Aplikacja Ampio UNI</span><b>{{sh.appS}}</b></div>
+                  <div><!--i:P.grid:18--><span>Panele w ścianach</span><b>działają</b></div>
+                  <div><!--i:P.cpu:18--><span>Moduły w rozdzielnicy</span><b>działają</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="nvrnote" style="color: var(--muted); padding: 12px 16px 16px; font-size: 13.5px" aria-live="polite">{{sh.note}}</div>
+          </div>
+<!--@pheroB-->
+
+  <section id="co-sterujesz" class="{{rv.cs}}" data-rv="cs" style="padding: 96px 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Co sterujesz</span><h2 class="h2">Dwanaście rzeczy, którymi steruje Ampio. <span class="acc">W jednej aplikacji i na panelach w ścianie.</span></h2></div><p class="lead" style="max-width: 460px">Ampio to polski system automatyki budynku. Łączy światło, ogrzewanie, rolety, bramę, alarm, kamery i energię tak, żeby dom sam robił to, co powtarzasz codziennie. Kliknij obszar, żeby zobaczyć, co potrafi i z jakich modułów to budujemy.</p></div>
+      <div class="axw ri">
+        <div class="axg"><sc-for list="{{ax.areas}}" as="a" hint-placeholder-count="12"><button type="button" class="{{a.cls}}" onClick="{{a.pick}}" aria-pressed="{{a.on}}"><span class="axi"><!--i:a.ic:22--></span><b>{{a.n}}</b></button></sc-for></div>
+        <div class="card axd" key="{{ax.k}}">
+          <div class="axh"><span class="axbig"><!--i:ax.ic:30--></span><div style="display: flex; flex-direction: column; gap: 4px"><span class="svk">{{ax.g}}</span><b class="h3" style="font-size: 26px">{{ax.n}}</b></div></div>
+          <p class="axp">{{ax.d}}</p>
+          <ul class="axl"><sc-for list="{{ax.f}}" as="f" hint-placeholder-count="5"><li><span class="axok"><!--i:P.check:14:2.6--></span><span>{{f}}</span></li></sc-for></ul>
+          <div class="axr"><div class="axq"><span>Kiedy</span><b>{{ax.when}}</b></div><span class="axar" aria-hidden="true"></span><div class="axq to"><span>To</span><b>{{ax.then}}</b></div></div>
+          <div class="axt"><div><span class="usl" style="width: auto">Moduły Ampio</span><div class="tags" style="margin-top: 6px"><sc-for list="{{ax.m}}" as="t" hint-placeholder-count="3"><span class="tag mono">{{t}}</span></sc-for></div></div><div><span class="usl" style="width: auto">Współpracuje m.in. z</span><div class="tags" style="margin-top: 6px"><sc-for list="{{ax.i}}" as="t" hint-placeholder-count="4"><span class="tag">{{t}}</span></sc-for></div></div></div>
+          <p class="src" style="margin: 0">{{ax.note}}</p>
+        </div>
+      </div>
+      <p class="src ri" style="margin-top: 12px">Integracja zależy od modelu urządzenia, dlatego każdą sprawdzamy w projekcie.</p>
+    </div>
+  </section>
+
+  <section id="dlaczego" class="{{rv.why}}" data-rv="why" style="padding: 0 0 104px">
+    <div class="wrap split" style="align-items: center">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 18px">
+        <span class="eye">Dlaczego Ampio</span>
+        <h2 class="h2">Każdy moduł ma własny mózg. <span class="acc">Jedna awaria nie gasi domu.</span></h2>
+        <p class="lead">W wielu systemach wszystko zależy od jednego sterownika. Ampio rozkłada logikę na moduły połączone magistralą. Gdy jeden się zepsuje, przestaje działać tylko jego część, a reszta domu pracuje dalej.</p>
+        <ul class="list"><sc-for list="{{why}}" as="w" hint-placeholder-count="5"><li><i><!--i:P.check:14:2.6--></i><div><b>{{w.t}}</b><span>{{w.d}}</span></div></li></sc-for></ul>
+        
+      </div>
+      <div class="card flw ri">
+        <div class="illbar" style="padding: 0 0 12px"><b style="font-size: 15px">Co się dzieje przy awarii?</b><button type="button" class="{{fl.btnCls}}" onClick="{{fl.toggle}}"><!--i:P.bolt:15-->{{fl.btn}}</button></div>
+        <div class="flg2">
+          <div class="flbox"><svg viewBox="0 0 316 220" aria-hidden="true"><rect x="118" y="6" width="80" height="28" rx="8" class="{{fl.cc}}"></rect><text x="158" y="25" text-anchor="middle" class="flt">STEROWNIK</text><g class="{{fl.a0}}"><rect x="20" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="62" cy="76" r="24" class="flg"></circle><circle cx="62" cy="76" r="6" class="flb"></circle></g><g class="{{fl.a1}}"><rect x="112" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="154" cy="76" r="24" class="flg"></circle><circle cx="154" cy="76" r="6" class="flb"></circle></g><g class="{{fl.a2}}"><rect x="204" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="246" cy="76" r="24" class="flg"></circle><circle cx="246" cy="76" r="6" class="flb"></circle></g><g class="{{fl.a3}}"><rect x="20" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="62" cy="152" r="24" class="flg"></circle><circle cx="62" cy="152" r="6" class="flb"></circle></g><g class="{{fl.a4}}"><rect x="112" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="154" cy="152" r="24" class="flg"></circle><circle cx="154" cy="152" r="6" class="flb"></circle></g><g class="{{fl.a5}}"><rect x="204" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="246" cy="152" r="24" class="flg"></circle><circle cx="246" cy="152" r="6" class="flb"></circle></g></svg><b>Jeden centralny sterownik</b><span>{{fl.aTxt}}</span></div>
+          <div class="flbox"><svg viewBox="0 0 316 220" aria-hidden="true"><path d="M20 40 H296" class="flbus"></path><text x="20" y="30" class="flt l">MAGISTRALA CAN</text><g class="{{fl.b0}}"><rect x="20" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="62" cy="76" r="24" class="flg"></circle><circle cx="62" cy="76" r="6" class="flb"></circle></g><g class="{{fl.b1}}"><rect x="112" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="154" cy="76" r="24" class="flg"></circle><circle cx="154" cy="76" r="6" class="flb"></circle></g><g class="{{fl.b2}}"><rect x="204" y="46" width="84" height="68" rx="8" class="flr"></rect><circle cx="246" cy="76" r="24" class="flg"></circle><circle cx="246" cy="76" r="6" class="flb"></circle></g><g class="{{fl.b3}}"><rect x="20" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="62" cy="152" r="24" class="flg"></circle><circle cx="62" cy="152" r="6" class="flb"></circle></g><g class="{{fl.b4}}"><rect x="112" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="154" cy="152" r="24" class="flg"></circle><circle cx="154" cy="152" r="6" class="flb"></circle></g><g class="{{fl.b5}}"><rect x="204" y="122" width="84" height="68" rx="8" class="flr"></rect><circle cx="246" cy="152" r="24" class="flg"></circle><circle cx="246" cy="152" r="6" class="flb"></circle></g></svg><b>Ampio: logika w modułach</b><span>{{fl.bTxt}}</span></div>
+        </div>
+        <p class="src" style="margin: 10px 0 0">Ilustracja zasady działania. Ampio opisuje przykład z budowy: po przecięciu kabla między piętrami automatyka w pokojach działała dalej.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="panele" class="{{rv.pan}}" data-rv="pan" style="padding: 0 0 104px">
+    <div class="wrap split">
+      <div class="ri" style="display: flex; flex-direction: column; gap: 18px">
+        <span class="eye">Szklane panele Ampio M-DOT</span>
+        <h2 class="h2">Panel zaprojektujesz razem z nami.</h2>
+        <p class="lead">W Kreatorze Paneli Ampio wybieramy kolor szkła, liczbę pól, ikony i podpisy. Panele mają od 2 do 18 pól dotykowych, w formacie kwadratowym albo prostokątnym, a wybrane modele mają czytnik kart RFID.</p>
+        <div class="cq"><span class="mut" style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em">Kolor szkła</span><div class="seg"><sc-for list="{{pn.glass}}" as="g" hint-placeholder-count="3"><button type="button" class="{{g.cls}}" aria-pressed="{{g.on}}" onClick="{{g.pick}}">{{g.n}}</button></sc-for></div></div>
+        <div class="cq"><span class="mut" style="font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em">Liczba pól</span><div class="seg"><sc-for list="{{pn.size}}" as="g" hint-placeholder-count="3"><button type="button" class="{{g.cls}}" aria-pressed="{{g.on}}" onClick="{{g.pick}}">{{g.n}}</button></sc-for></div></div>
+      </div>
+      <div class="ri" style="display: flex; justify-content: center">
+        <div class="{{pn.cls}}">
+          <div class="mdg" style="{{pn.gst}}"><sc-for list="{{pn.icons}}" as="i" hint-placeholder-count="6"><button type="button" class="{{i.cls}}" onClick="{{i.press}}"><!--i:i.ic:20:1.8--><span>{{i.n}}</span></button></sc-for></div>
+          <span class="mdlogo">{{pn.label}}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="integracje" class="{{rv.int}}" data-rv="int" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Integracje</span><h2 class="h2">Pompa ciepła, rekuperacja, alarm, kamery. Wszystko się dogada.</h2></div><p class="lead" style="max-width: 460px">Ampio rozmawia w kilkunastu standardach komunikacji, od KNX i DALI po Modbus, MQTT i Matter. Przez Matter łączy się z asystentami Apple, Google i Amazon Alexa.</p></div>
+      <div class="intw ri"><sc-for list="{{ints}}" as="g" hint-placeholder-count="5"><div class="intg"><b>{{g.n}}</b><div class="tags"><sc-for list="{{g.t}}" as="t" hint-placeholder-count="5"><span class="tag">{{t}}</span></sc-for></div></div></sc-for></div>
+      <p class="src ri" style="margin-top: 12px">Konkretny model urządzenia sprawdzamy przy projekcie.</p>
+    </div>
+  </section>
+
+  <section id="obiekty" class="{{rv.hot}}" data-rv="hot" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Pensjonaty, apartamenty, hotele</span><h2 class="h2">Pusty pokój grzeje mniej i nie świeci. <span class="acc">A wszystkie obiekty masz w jednym telefonie.</span></h2></div><p class="lead" style="max-width: 460px">Kliknij pokój, żeby zmienić jego stan. Tak działa logika, którą ustawiamy w obiektach noclegowych: gość w pokoju ma komfort, pusty pokój oszczędza, a obsługa wie, co się dzieje.</p></div>
+      <div class="hotw ri">
+        <div class="card hotb">
+          <div class="illbar" style="padding: 0 0 12px"><b style="font-size: 15px">Pensjonat · piętro 1</b><span class="tag a">{{rb.sum}}</span></div>
+          <div class="rbg"><sc-for list="{{rb.rooms}}" as="r" hint-placeholder-count="6"><button type="button" class="{{r.cls}}" onClick="{{r.pick}}"><span class="rbn">{{r.n}}</span><span class="rbs">{{r.st}}</span><span class="rbv"><!--i:P.thermo:16-->{{r.t}}</span><span class="rbv"><!--i:P.light:16-->{{r.l}}</span><span class="rbx">{{r.x}}</span></button></sc-for></div>
+          <div class="note" style="margin: 12px 0 0"><!--i:P.drop:18--><span>Do tego powiadomienia dla obsługi: wyciek wody, awaria, hałas w ciszy nocnej. Tak działa Ampio w hotelu Citadines w Berlinie.</span></div>
+        </div>
+        <div class="phone" role="img" aria-label="Aplikacja Ampio UNI z kilkoma obiektami, przykładowy ekran">
+          <div class="phs">
+            <div class="phh"><span>Ampio UNI</span><span>Moje obiekty</span></div>
+            <div class="objt"><sc-for list="{{mo.tabs}}" as="t" hint-placeholder-count="3"><button type="button" class="{{t.cls}}" onClick="{{t.pick}}">{{t.n}}</button></sc-for></div>
+            <div class="pht" style="font-size: 20px">{{mo.title}}</div>
+            <div class="phn" key="{{mo.k}}"><!--i:P.check:18:2.2--><span>{{mo.note}}</span></div>
+            <div class="phg"><sc-for list="{{mo.tiles}}" as="t" hint-placeholder-count="6"><div class="{{t.cls}}"><i><!--i:t.ic:18--></i><span>{{t.n}}</span><b class="big">{{t.v}}</b><span>{{t.s}}</span></div></sc-for></div>
+            <div style="margin-top: auto; font-size: 12px; color: #8C948E; text-align: center">Przykładowy ekran · ilustracja</div>
+          </div>
+        </div>
+      </div>
+      <div class="axb ri"><sc-for list="{{axb}}" as="x" hint-placeholder-count="3"><div class="card axbc"><span class="ico"><!--i:x.ic:22--></span><b style="font-size: 18px">{{x.n}}</b><ul class="axl"><sc-for list="{{x.f}}" as="f" hint-placeholder-count="4"><li><span class="axok"><!--i:P.check:14:2.6--></span><span>{{f}}</span></li></sc-for></ul><span class="src">{{x.s}}</span></div></sc-for></div>
+      <div class="refs ri"><span class="usl" style="width: auto">Realizacje Ampio w obiektach</span><sc-for list="{{refs}}" as="r" hint-placeholder-count="3"><div class="refc"><b>{{r.n}}</b><span>{{r.d}}</span></div></sc-for><span class="src">To realizacje producenta Ampio, nie PRO-KOM. Funkcje hotelowe (moduł pokoju M-ROOM-s PRO, panel z kieszenią na kartę) są na zamówienie specjalne.</span></div>
+    </div>
+  </section>
+
+  <section id="moduly" class="{{rv.mod}}" data-rv="mod" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Dla dociekliwych</span><h2 class="h2">Z czego składa się instalacja Ampio.</h2></div><p class="lead" style="max-width: 460px">Moduły na szynę DIN w rozdzielnicy albo do puszki, połączone jedną magistralą. Dobieramy je w projekcie do liczby obwodów, rolet i pomieszczeń.</p></div>
+      <div class="modg"><sc-for list="{{mods}}" as="m" hint-placeholder-count="8"><div class="card modc ri"><div style="display: flex; gap: 12px; align-items: center"><span class="ico" style="width: 42px; height: 42px"><!--i:m.ic:20--></span><b style="font-size: 17px">{{m.n}}</b></div><p>{{m.d}}</p><div class="tags"><sc-for list="{{m.m}}" as="x" hint-placeholder-count="3"><span class="tag mono">{{x}}</span></sc-for></div></div></sc-for></div>
+      <p class="src ri" style="margin-top: 12px">Konkretny dobór robimy w projekcie, a wycenę podajemy dla całej instalacji.</p>
+    </div>
+  </section>
+
+  <section id="etapy" class="{{rv.et}}" data-rv="et" style="padding: 0 0 104px">
+    <div class="wrap">
+      <div class="shead ri"><div><span class="eye">Kiedy zacząć</span><h2 class="h2">Najlepiej, zanim elektryk położy pierwszy przewód.</h2></div><p class="lead" style="max-width: 460px">Smart home planujemy razem z instalacją elektryczną. Wtedy jest najtaniej i najwięcej da się zrobić. W gotowym domu też się da, choć zwykle trzeba dołożyć przewody.</p></div>
+      <div class="etw">
+        <div class="tl7 ri"><sc-for list="{{et}}" as="s" hint-placeholder-count="7"><div class="tl7i"><span class="stn">{{s.n}}</span><div><b>{{s.t}}</b><p>{{s.d}}</p><span class="tl7w">{{s.w}}</span></div></div></sc-for></div>
+        <div class="card ckl ri">
+          <span class="eye">Budujesz? Lista przed tynkami</span>
+          <b class="h3">Odhacz, co już masz zaplanowane</b>
+          <div class="ckbar"><i style="{{ck.bar}}"></i></div><span class="mut" style="font-size: 14px">{{ck.txt}}</span>
+          <sc-for list="{{ck.items}}" as="c" hint-placeholder-count="8"><button type="button" class="{{c.cls}}" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><i><!--i:P.check:14:3--></i><span><b>{{c.t}}</b><span>{{c.d}}</span></span></button></sc-for>
+          <a href="Zaplanuj.dc.html" class="btn btn-p">Umów konsultację projektu →</a>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--@odbsec-->
+  <div class="wrap xc-gwn"><div class="note"><!--i:P.shield:20--><span>Gwarancja na moduły Ampio: według warunków producenta. Warunki gwarancji Ampio zależą m.in. od montażu przez instalatora autoryzowanego przez producenta. <span class="ph">[SZEF: potwierdź autoryzację Ampio. Bez niej sprzęt kupujemy przez partnera, a okresu gwarancji producenta nie podajemy]</span></span></div></div>
+<!--@pkgs-->
+<!--@cena-->
+<!--@faqsec-->
+<!--@relsec-->

@@ -1,0 +1,12 @@
+# PRO-KOM Gaming production for the proxy (overlay on compose.proxy.yml, session G16 of
+# prokom-gaming). Add it only when the Gaming domain (and www) points to the server and the
+# `prokom-gaming-prod` certificate exists (prokom-gaming docs/runbook.md §4):
+#   docker compose --env-file .env.proxy -f docker/compose.proxy.yml \
+#     -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml up -d
+
+services:
+  nginx:
+    environment:
+      GAMING_PROD_HOST: ${GAMING_PROD_HOST:?set GAMING_PROD_HOST}
+    volumes:
+      - ./nginx/templates/gaming-prod.conf.template:/etc/nginx/templates/gaming-prod.conf.template:ro

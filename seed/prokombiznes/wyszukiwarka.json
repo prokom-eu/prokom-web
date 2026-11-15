@@ -1,0 +1,244 @@
+{
+ "synonimy": {
+  "terminal": [
+   "platnicz",
+   "polcard",
+   "softpos"
+  ],
+  "karta": [
+   "terminal",
+   "platnicz"
+  ],
+  "karty": [
+   "terminal",
+   "platnicz"
+  ],
+  "blik": [
+   "terminal",
+   "blik"
+  ],
+  "laptop": [
+   "laptop",
+   "notebook"
+  ],
+  "notebook": [
+   "laptop"
+  ],
+  "komputer": [
+   "komputer",
+   "laptop",
+   "thinkcentre"
+  ],
+  "antywirus": [
+   "eset"
+  ],
+  "wirus": [
+   "eset"
+  ],
+  "wirusy": [
+   "eset"
+  ],
+  "faktura": [
+   "subiekt",
+   "ksef",
+   "optima",
+   "faktur"
+  ],
+  "faktury": [
+   "subiekt",
+   "ksef",
+   "optima",
+   "faktur"
+  ],
+  "fakturowanie": [
+   "subiekt",
+   "faktur"
+  ],
+  "ksiegowosc": [
+   "optima",
+   "ksiegow"
+  ],
+  "ksiegowa": [
+   "optima",
+   "ksiegow"
+  ],
+  "restauracja": [
+   "gastronomia",
+   "gopos"
+  ],
+  "restauracji": [
+   "gastronomia",
+   "gopos"
+  ],
+  "kawiarnia": [
+   "gastronomia",
+   "gopos"
+  ],
+  "pizzeria": [
+   "gastronomia",
+   "gopos"
+  ],
+  "bar": [
+   "gastronomia"
+  ],
+  "hotel": [
+   "nfhotel",
+   "hotele"
+  ],
+  "pensjonat": [
+   "nfhotel",
+   "hotele"
+  ],
+  "apartamenty": [
+   "nfhotel"
+  ],
+  "wifi": [
+   "wi-fi",
+   "wifi",
+   "unifi"
+  ],
+  "internet": [
+   "wifi",
+   "siec"
+  ],
+  "backup": [
+   "kopie",
+   "nas"
+  ],
+  "kopia": [
+   "kopie",
+   "nas"
+  ],
+  "kopie": [
+   "kopie",
+   "nas"
+  ],
+  "podpis": [
+   "podpis",
+   "eurocert"
+  ],
+  "bateria": [
+   "mobil",
+   "bateri",
+   "akumulator"
+  ],
+  "baterie": [
+   "mobil",
+   "bateri",
+   "akumulator"
+  ],
+  "przenosna": [
+   "mobil"
+  ],
+  "mobilna": [
+   "mobil"
+  ],
+  "tania": [
+   "mala",
+   "lite"
+  ],
+  "kasa": [
+   "kas"
+  ],
+  "kasy": [
+   "kas"
+  ],
+  "kase": [
+   "kas"
+  ],
+  "sklep": [
+   "handel",
+   "sklep"
+  ],
+  "sklepu": [
+   "handel",
+   "sklep"
+  ],
+  "szkola": [
+   "szkoly",
+   "interaktywny"
+  ],
+  "tablica": [
+   "interaktywny"
+  ],
+  "prad": [
+   "ups",
+   "zasilanie"
+  ],
+  "naprawa": [
+   "serwis",
+   "napraw"
+  ],
+  "office": [
+   "microsoft",
+   "office"
+  ],
+  "poczta": [
+   "microsoft",
+   "poczta"
+  ],
+  "mail": [
+   "poczta",
+   "microsoft"
+  ],
+  "drukarka": [
+   "drukark"
+  ],
+  "ksero": [
+   "wielofunkcyjne"
+  ],
+  "skaner": [
+   "skaner",
+   "wielofunkcyjne"
+  ],
+  "kody": [
+   "skaner"
+  ],
+  "magazyn": [
+   "magazyn",
+   "subiekt"
+  ],
+  "informatyk": [
+   "opieka"
+  ],
+  "it": [
+   "opieka",
+   "przeglad"
+  ]
+ },
+ "stop_slowa": [
+  "a",
+  "chce",
+  "cos",
+  "dla",
+  "do",
+  "firmy",
+  "i",
+  "jakas",
+  "jaki",
+  "jakis",
+  "mi",
+  "moj",
+  "moja",
+  "na",
+  "o",
+  "od",
+  "oraz",
+  "potrzebuje",
+  "szukam",
+  "the",
+  "w",
+  "z",
+  "ze"
+ ],
+ "popularne": [
+  "kasa na baterie",
+  "terminal",
+  "Subiekt",
+  "KSeF",
+  "laptop",
+  "GoPOS",
+  "podpis",
+  "kopie zapasowe"
+ ]
+}

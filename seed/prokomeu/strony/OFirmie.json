@@ -1,0 +1,727 @@
+{
+ "_zrodlo": "OFirmie.dc.html",
+ "_uwaga": "Migawka danych z wizualizacji (stan domyślny). Teksty 1:1 do seeda; pola techniczne (kolory var(--k-*), klasy) tylko pomocniczo.",
+ "renderVals": {
+  "open": {
+   "text": "Zamknięte · otwieramy w poniedziałek o 9:00",
+   "dot": "var(--k-y)"
+  },
+  "card": [
+   {
+    "k": "Firma",
+    "v": "PRO-KOM Tadeusz Wójciak"
+   },
+   {
+    "k": "Adres",
+    "v": "ul. Orkana 16B, 34-700 Rabka-Zdrój"
+   },
+   {
+    "k": "NIP",
+    "v": "7352511447"
+   },
+   {
+    "k": "Telefon",
+    "v": "883 200 151"
+   },
+   {
+    "k": "E-mail",
+    "v": "biuro@pro-kom.eu"
+   },
+   {
+    "k": "Godziny",
+    "v": "pn–pt 9:00–17:00"
+   }
+  ],
+  "auth": [
+   {
+    "k": "Serwis",
+    "v": "Posnet"
+   },
+   {
+    "k": "Serwis",
+    "v": "Elzab"
+   },
+   {
+    "k": "Partner",
+    "v": "GoPOS"
+   },
+   {
+    "k": "Partner",
+    "v": "InsERT"
+   }
+  ],
+  "facts": [
+   {
+    "v": "2004",
+    "l": "od tego roku działamy w Rabce-Zdroju",
+    "d": "M4 7h16v13H4zM4 11h16M8 4v4M16 4v4",
+    "c": "var(--k-g)"
+   },
+   {
+    "v": "5 linii",
+    "l": "w jednej firmie, pod jednym NIP-em",
+    "d": "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5M3 17l9 5 9-5",
+    "c": "var(--k-g)"
+   },
+   {
+    "v": "4 autoryzacje",
+    "l": "Posnet, Elzab, GoPOS, InsERT",
+    "d": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+    "c": "var(--k-b)"
+   },
+   {
+    "v": "Na miejscu",
+    "l": "salon i serwis przy ul. Orkana 16B",
+    "d": "M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",
+    "c": "var(--k-t)"
+   },
+   {
+    "v": "100+",
+    "l": "klientów firmowych z Podhala i Małopolski",
+    "d": "M16 20v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1M9.5 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM21 20v-1a4 4 0 00-3-3.8M16 4.2a3.5 3.5 0 010 6.6",
+    "c": "var(--k-g)"
+   }
+  ],
+  "miles": [
+   {
+    "y": "2004",
+    "s": "Początek",
+    "t": "Start w Rabce-Zdroju",
+    "x": "Powstaje PRO-KOM. Od pierwszego roku składamy komputery — i robimy to do dziś.",
+    "c": "var(--k-g)"
+   },
+   {
+    "y": "2026",
+    "s": "Porządek w liniach",
+    "t": "Nowy znak i podział na linie",
+    "x": "Jeden znak PRO-KOM i osobne linie: Biznes, Instalacje, Software i Tech. Każda z własnym kolorem, zespołem i numerem.",
+    "c": "var(--k-g)"
+   },
+   {
+    "y": "XI 2026",
+    "s": "Dziś",
+    "t": "Nowe strony linii",
+    "x": "Startują strony PRO-KOM Instalacje, PRO-KOM Software i PRO-KOM Gaming.",
+    "c": "var(--k-y)"
+   }
+  ],
+  "years": [
+   {
+    "y": "2004",
+    "t": "Start w Rabce-Zdroju",
+    "sel": "true",
+    "c": "var(--k-g)",
+    "fill": "var(--k-g)",
+    "ink": "var(--k-ink)",
+    "glow": "0 0 0 6px color-mix(in srgb, var(--k-g) 22%, transparent)"
+   },
+   {
+    "y": "2026",
+    "t": "Nowy znak i linie",
+    "sel": "false",
+    "c": "rgba(var(--r-w),.3)",
+    "fill": "var(--k-bg2)",
+    "ink": "var(--k-ink3)",
+    "glow": "none"
+   },
+   {
+    "y": "XI 2026",
+    "t": "Nowe strony linii",
+    "sel": "false",
+    "c": "rgba(var(--r-w),.3)",
+    "fill": "var(--k-bg2)",
+    "ink": "var(--k-ink3)",
+    "glow": "none"
+   }
+  ],
+  "cur": {
+   "y": "2004",
+   "c": "var(--k-g)",
+   "ink": "var(--k-gt)",
+   "s": "Start w Rabce-Zdroju",
+   "t": "Start w Rabce-Zdroju",
+   "x": "Powstaje PRO-KOM. Od pierwszego roku składamy komputery — i robimy to do dziś.",
+   "cls": "sw sb",
+   "pos": "ETAP 1 Z 3"
+  },
+  "L": {
+   "key": "biznes",
+   "name": "Biznes",
+   "label": "BIZNES",
+   "h": "Kasy, komputery i opieka IT dla firm.",
+   "long": "Kasy fiskalne, GoPOS, programy InsERT, komputery i opieka IT dla firm, gastronomii, sklepów i instytucji.",
+   "who": "gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy",
+   "color": "granat",
+   "mark": "Kasy, komputery, programy i opieka IT dla firm.",
+   "promise": "Oddzwonimy w 60 minut w godzinach pracy",
+   "phone": "889 003 889",
+   "tel": "+48889003889",
+   "domain": "prokombiznes.pl",
+   "cd": "var(--k-b)",
+   "ct": "var(--k-bt)",
+   "dark": "var(--k-bd)",
+   "ink": "var(--k-bi)",
+   "det": [
+    [
+     "Kasy fiskalne",
+     "Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem."
+    ],
+    [
+     "GoPOS",
+     "Sprzedaż w gastronomii: sala i kuchnia w jednym systemie."
+    ],
+    [
+     "Programy InsERT",
+     "Subiekt i e-faktury KSeF, wdrożenie i szkolenie."
+    ],
+    [
+     "Komputery i serwery",
+     "Lenovo i Dell, dostawa i konfiguracja w firmie."
+    ],
+    [
+     "Opieka IT",
+     "Pomoc zdalna, kopie zapasowe, monitoring."
+    ],
+    [
+     "Terminale płatnicze",
+     "PolCard — dobór i uruchomienie."
+    ]
+   ],
+   "url": "https://prokombiznes.pl",
+   "telHref": "tel:+48889003889",
+   "items": [
+    {
+     "t": "Kasy fiskalne",
+     "d": "Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem."
+    },
+    {
+     "t": "GoPOS",
+     "d": "Sprzedaż w gastronomii: sala i kuchnia w jednym systemie."
+    },
+    {
+     "t": "Programy InsERT",
+     "d": "Subiekt i e-faktury KSeF, wdrożenie i szkolenie."
+    },
+    {
+     "t": "Komputery i serwery",
+     "d": "Lenovo i Dell, dostawa i konfiguracja w firmie."
+    },
+    {
+     "t": "Opieka IT",
+     "d": "Pomoc zdalna, kopie zapasowe, monitoring."
+    },
+    {
+     "t": "Terminale płatnicze",
+     "d": "PolCard — dobór i uruchomienie."
+    }
+   ],
+   "isTeam": false,
+   "isLine": true,
+   "cls": "sw sb"
+  },
+  "ltabs": [
+   {
+    "name": "Biznes",
+    "cd": "var(--k-b)",
+    "sel": "true",
+    "bg": "var(--k-bd)",
+    "bd": "var(--k-b)",
+    "bar": "100%",
+    "dot": "1"
+   },
+   {
+    "name": "Instalacje",
+    "cd": "var(--k-i)",
+    "sel": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "name": "Software",
+    "cd": "var(--k-s)",
+    "sel": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "name": "Tech",
+    "cd": "var(--k-t)",
+    "sel": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "name": "Gaming",
+    "cd": "var(--k-y)",
+    "sel": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   },
+   {
+    "name": "Razem",
+    "cd": "var(--k-g)",
+    "sel": "false",
+    "bg": "var(--k-card)",
+    "bd": "rgba(var(--r-w),.1)",
+    "bar": "18px",
+    "dot": "0"
+   }
+  ],
+  "team": {
+   "node": "Twój pensjonat",
+   "title": "Goście mają Wi-Fi, Ty masz spokój.",
+   "tabs": [
+    {
+     "name": "Pensjonat",
+     "sel": "true",
+     "bd": "var(--k-g)",
+     "bg": "var(--k-g)",
+     "ink": "var(--k-gi)"
+    },
+    {
+     "name": "Restauracja",
+     "sel": "false",
+     "bd": "rgba(var(--r-w),.22)",
+     "bg": "transparent",
+     "ink": "var(--k-white)"
+    },
+    {
+     "name": "Biuro",
+     "sel": "false",
+     "bd": "rgba(var(--r-w),.22)",
+     "bg": "transparent",
+     "ink": "var(--k-white)"
+    }
+   ],
+   "cards": [
+    {
+     "label": "INSTALACJE",
+     "cd": "var(--k-i)",
+     "ct": "var(--k-it)",
+     "dark": "var(--k-id)",
+     "url": "https://prokominstalacje.pl",
+     "phone": "889 003 889",
+     "items": [
+      "Wi-Fi w każdym pokoju",
+      "Monitoring i wideodomofon",
+      "Zamki na kod i kontrola dostępu",
+      "Telewizja hotelowa"
+     ],
+     "delay": "0.12s"
+    },
+    {
+     "label": "BIZNES",
+     "cd": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "url": "https://prokombiznes.pl",
+     "phone": "889 003 889",
+     "items": [
+      "Kasa fiskalna i terminal",
+      "Komputer recepcji pod opieką"
+     ],
+     "delay": "0.22s"
+    },
+    {
+     "label": "SOFTWARE",
+     "cd": "var(--k-s)",
+     "ct": "var(--k-st)",
+     "dark": "var(--k-sd)",
+     "url": "https://prokomsoftware.pl",
+     "phone": "883 200 151",
+     "items": [
+      "Strona pensjonatu widoczna w Google"
+     ],
+     "delay": "0.32s"
+    }
+   ]
+  },
+  "rules": [
+   {
+    "n": "01",
+    "t": "Jedna firma odpowiada za całość.",
+    "x": "Kasa, sieć, kamery, komputer i strona — gdy coś ze sobą nie gra, nie szukasz winnego między wykonawcami. Dzwonisz do nas."
+   },
+   {
+    "n": "02",
+    "t": "Mówimy konkretnie.",
+    "x": "Zakres i termin dostajesz na piśmie, zanim zaczniemy. Bez drobnego druku."
+   },
+   {
+    "n": "03",
+    "t": "Dobieramy pod potrzebę, nie pod markę.",
+    "x": "Najpierw pytamy, co ma działać. Sprzęt i program wybieramy do tego."
+   },
+   {
+    "n": "04",
+    "t": "Nie obiecujemy tego, czego nie zrobimy.",
+    "x": "Jeśli coś nie jest naszą specjalizacją, powiemy to wprost."
+   },
+   {
+    "n": "05",
+    "t": "Jesteśmy na miejscu.",
+    "x": "Salon i serwis w Rabce-Zdroju. Rozmawiasz z ludźmi, nie z infolinią."
+   },
+   {
+    "n": "06",
+    "t": "Po wdrożeniu nie znikamy.",
+    "x": "Serwis, przeglądy i opieka są w tej samej firmie, pod tym samym adresem. Za rok dzwonisz pod ten sam numer."
+   }
+  ],
+  "steps": [
+   {
+    "n": "01",
+    "t": "Rozmowa",
+    "x": "Telefon, wiadomość albo wizyta w salonie. Mówisz, co ma działać — nie musisz znać nazw urządzeń.",
+    "sel": "true",
+    "bd": "var(--k-g)",
+    "bg": "color-mix(in srgb, var(--k-g) 9%, var(--k-card))",
+    "nb": "var(--k-g)",
+    "ni": "var(--k-gi)"
+   },
+   {
+    "n": "02",
+    "t": "Właściwy zespół",
+    "x": "Sprawę przejmuje linia, która zajmuje się tym na co dzień. Przy większym temacie kilka naraz.",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "nb": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ni": "var(--k-gt)"
+   },
+   {
+    "n": "03",
+    "t": "Rozpoznanie",
+    "x": "Pytamy o szczegóły, a gdy trzeba — oglądamy obiekt albo sprzęt, zanim cokolwiek zaproponujemy.",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "nb": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ni": "var(--k-gt)"
+   },
+   {
+    "n": "04",
+    "t": "Zakres i termin na piśmie",
+    "x": "Wiesz, co będzie zrobione i kiedy, zanim zaczniemy pracę.",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "nb": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ni": "var(--k-gt)"
+   },
+   {
+    "n": "05",
+    "t": "Wykonanie",
+    "x": "Dostawa, montaż, wdrożenie albo naprawa. Na koniec pokazujemy, jak z tego korzystać.",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "nb": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ni": "var(--k-gt)"
+   },
+   {
+    "n": "06",
+    "t": "Opieka",
+    "x": "Serwis, przeglądy i pomoc po wdrożeniu — w tej samej firmie.",
+    "sel": "false",
+    "bd": "rgba(var(--r-w),.1)",
+    "bg": "var(--k-card)",
+    "nb": "color-mix(in srgb, var(--k-g) 16%, transparent)",
+    "ni": "var(--k-gt)"
+   }
+  ],
+  "stepW": "17%",
+  "authx": [
+   {
+    "k": "Autoryzowany serwis",
+    "v": "Posnet",
+    "x": "Kasy i drukarki fiskalne: fiskalizacja, przeglądy i naprawy. Jesteśmy na liście autoryzowanych serwisów producenta.",
+    "cta": "Zobacz listę serwisów",
+    "href": "https://www.posnet.com.pl"
+   },
+   {
+    "k": "Autoryzowany serwis",
+    "v": "Elzab",
+    "x": "Kasy fiskalne Elzab — sprzedaż, programowanie i serwis.",
+    "cta": "",
+    "href": ""
+   },
+   {
+    "k": "Autoryzowany partner",
+    "v": "GoPOS",
+    "x": "System sprzedaży dla gastronomii: sala i kuchnia w jednym systemie.",
+    "cta": "",
+    "href": ""
+   },
+   {
+    "k": "Autoryzowany partner",
+    "v": "InsERT",
+    "x": "Subiekt i e-faktury KSeF. PRO-KOM jest w wyszukiwarce autoryzowanych partnerów InsERT.",
+    "cta": "Zobacz partnerów InsERT",
+    "href": "https://www.insert.com.pl"
+   }
+  ],
+  "brands": [
+   {
+    "n": "Lenovo",
+    "c": "var(--k-b)"
+   },
+   {
+    "n": "Dell",
+    "c": "var(--k-b)"
+   },
+   {
+    "n": "Microsoft",
+    "c": "var(--k-b)"
+   },
+   {
+    "n": "ESET",
+    "c": "var(--k-b)"
+   },
+   {
+    "n": "Synology",
+    "c": "var(--k-b)"
+   },
+   {
+    "n": "Ampio",
+    "c": "var(--k-i)"
+   },
+   {
+    "n": "Hikvision",
+    "c": "var(--k-i)"
+   },
+   {
+    "n": "Dahua",
+    "c": "var(--k-i)"
+   },
+   {
+    "n": "BCS",
+    "c": "var(--k-i)"
+   },
+   {
+    "n": "Ubiquiti",
+    "c": "var(--k-i)"
+   },
+   {
+    "n": "Hammer Glass",
+    "c": "var(--k-t)"
+   }
+  ],
+  "reach": [
+   {
+    "k": "Na miejscu",
+    "t": "Rabka-Zdrój",
+    "x": "Salon i serwis. Naprawy, odbiory i rozmowa o tym, czego potrzebujesz.",
+    "d": "M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11zM12 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+   },
+   {
+    "k": "Z dojazdem",
+    "t": "Podhale i Małopolska",
+    "x": "Do firm i na montaże dojeżdżamy na Podhalu i w całej Małopolsce.",
+    "d": "M3 6h11v10H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z"
+   },
+   {
+    "k": "Zdalnie i wysyłką",
+    "t": "Cała Polska",
+    "x": "Strony, systemy i komputery do gier robimy dla klientów z całej Polski.",
+    "d": "M12 21a9 9 0 100-18 9 9 0 000 18zM3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"
+   }
+  ],
+  "reg": [
+   {
+    "k": "Pełna nazwa",
+    "v": "PRO-KOM Tadeusz Wójciak"
+   },
+   {
+    "k": "Adres",
+    "v": "ul. Orkana 16B, 34-700 Rabka-Zdrój"
+   },
+   {
+    "k": "NIP",
+    "v": "7352511447"
+   },
+   {
+    "k": "Rejestr",
+    "v": "CEIDG — wpis po numerze NIP"
+   },
+   {
+    "k": "Kontakt",
+    "v": "biuro@pro-kom.eu · 883 200 151"
+   }
+  ],
+  "faq": [
+   {
+    "n": "01",
+    "q": "Czy linie PRO-KOM to osobne firmy?",
+    "a": "Nie. To jedna firma, PRO-KOM Tadeusz Wójciak, z jednym NIP-em i jednym adresem. Linie mają osobne strony i zespoły, żeby każdy klient od razu trafiał do właściwych ludzi.",
+    "sel": "true",
+    "rows": "1fr",
+    "rot": "rotate(180deg)"
+   },
+   {
+    "n": "02",
+    "q": "Od kiedy działacie?",
+    "a": "Od 2004 roku, cały czas w Rabce-Zdroju.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "03",
+    "q": "Gdzie jest salon i kiedy jest otwarty?",
+    "a": "Rabka-Zdrój, ul. Orkana 16B. Od poniedziałku do piątku 9:00–17:00.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "04",
+    "q": "Czy działacie poza Podhalem?",
+    "a": "Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "05",
+    "q": "Jak sprawdzić, że firma istnieje?",
+    "a": "Wpisz NIP 7352511447 w wyszukiwarce CEIDG. Autoryzacje sprawdzisz na stronach producentów — linki są w sekcji „Autoryzacje i marki”.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   },
+   {
+    "n": "06",
+    "q": "Do kogo zadzwonić, jeśli nie wiem, która to linia?",
+    "a": "Pod 883 200 151 — pokierujemy. Możesz też wpisać swoją sprawę w wyszukiwarce na górze strony.",
+    "sel": "false",
+    "rows": "0fr",
+    "rot": "none"
+   }
+  ],
+  "next": [
+   {
+    "k": "Linie",
+    "t": "Wszystkie linie PRO-KOM",
+    "x": "Co gdzie załatwisz i do kogo dzwonić.",
+    "href": "Linie.dc.html"
+   },
+   {
+    "k": "Załatw online",
+    "t": "Bez dzwonienia",
+    "x": "Zgłoszenia, wyceny i konfiguratory.",
+    "href": "Narzedzia.dc.html"
+   },
+   {
+    "k": "Pomoc",
+    "t": "Co zrobić, gdy…",
+    "x": "Pierwsze kroki, zanim zadzwonisz.",
+    "href": "Pomoc.dc.html"
+   }
+  ]
+ },
+ "stany": {
+  "tN": {
+   "1": {
+    "cur": {
+     "y": "2004",
+     "c": "var(--k-g)",
+     "ink": "var(--k-gt)",
+     "s": "Start w Rabce-Zdroju",
+     "t": "Start w Rabce-Zdroju",
+     "x": "Powstaje PRO-KOM. Od pierwszego roku składamy komputery — i robimy to do dziś.",
+     "cls": "sw sa",
+     "pos": "ETAP 1 Z 3"
+    }
+   }
+  },
+  "lnN": {
+   "1": {
+    "L": {
+     "key": "biznes",
+     "name": "Biznes",
+     "label": "BIZNES",
+     "h": "Kasy, komputery i opieka IT dla firm.",
+     "long": "Kasy fiskalne, GoPOS, programy InsERT, komputery i opieka IT dla firm, gastronomii, sklepów i instytucji.",
+     "who": "gastronomia, sklepy, biura, hotele i pensjonaty, szkoły, gminy",
+     "color": "granat",
+     "mark": "Kasy, komputery, programy i opieka IT dla firm.",
+     "promise": "Oddzwonimy w 60 minut w godzinach pracy",
+     "phone": "889 003 889",
+     "tel": "+48889003889",
+     "domain": "prokombiznes.pl",
+     "cd": "var(--k-b)",
+     "ct": "var(--k-bt)",
+     "dark": "var(--k-bd)",
+     "ink": "var(--k-bi)",
+     "det": [
+      [
+       "Kasy fiskalne",
+       "Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem."
+      ],
+      [
+       "GoPOS",
+       "Sprzedaż w gastronomii: sala i kuchnia w jednym systemie."
+      ],
+      [
+       "Programy InsERT",
+       "Subiekt i e-faktury KSeF, wdrożenie i szkolenie."
+      ],
+      [
+       "Komputery i serwery",
+       "Lenovo i Dell, dostawa i konfiguracja w firmie."
+      ],
+      [
+       "Opieka IT",
+       "Pomoc zdalna, kopie zapasowe, monitoring."
+      ],
+      [
+       "Terminale płatnicze",
+       "PolCard — dobór i uruchomienie."
+      ]
+     ],
+     "url": "https://prokombiznes.pl",
+     "telHref": "tel:+48889003889",
+     "items": [
+      {
+       "t": "Kasy fiskalne",
+       "d": "Posnet i Elzab — z fiskalizacją, programowaniem i szkoleniem."
+      },
+      {
+       "t": "GoPOS",
+       "d": "Sprzedaż w gastronomii: sala i kuchnia w jednym systemie."
+      },
+      {
+       "t": "Programy InsERT",
+       "d": "Subiekt i e-faktury KSeF, wdrożenie i szkolenie."
+      },
+      {
+       "t": "Komputery i serwery",
+       "d": "Lenovo i Dell, dostawa i konfiguracja w firmie."
+      },
+      {
+       "t": "Opieka IT",
+       "d": "Pomoc zdalna, kopie zapasowe, monitoring."
+      },
+      {
+       "t": "Terminale płatnicze",
+       "d": "PolCard — dobór i uruchomienie."
+      }
+     ],
+     "isTeam": false,
+     "isLine": true,
+     "cls": "sw sa"
+    }
+   }
+  }
+ },
+ "_stany_uwaga": "Treść pozostałych zakładek/wyborów: stany[klucz][indeks] = pola, które różnią się od stanu domyślnego."
+}

@@ -1,0 +1,2173 @@
+{
+ "wersja": "K3",
+ "sprawdzono": "2026-10-25",
+ "grupy": [
+  {
+   "slug": "sprz",
+   "nazwa": "Kasy i sprzedaż",
+   "ikona": "store",
+   "gradient": [
+    "#244FB0",
+    "#4FA3F0"
+   ],
+   "kolejnosc": 0
+  },
+  {
+   "slug": "biuro",
+   "nazwa": "Komputery i biuro",
+   "ikona": "monitor",
+   "gradient": [
+    "#0E7C86",
+    "#33C2B5"
+   ],
+   "kolejnosc": 1
+  },
+  {
+   "slug": "prog",
+   "nazwa": "Oprogramowanie",
+   "ikona": "doc",
+   "gradient": [
+    "#6D3FD1",
+    "#A07BF0"
+   ],
+   "kolejnosc": 2
+  },
+  {
+   "slug": "bezp",
+   "nazwa": "Bezpieczeństwo, sieć i podpis",
+   "ikona": "shield",
+   "gradient": [
+    "#1F7A4A",
+    "#46C78B"
+   ],
+   "kolejnosc": 3
+  },
+  {
+   "slug": "usl",
+   "nazwa": "Serwis i usługi",
+   "ikona": "wrench",
+   "gradient": [
+    "#C2410C",
+    "#F59E0B"
+   ],
+   "kolejnosc": 4
+  }
+ ],
+ "kategorie": [
+  {
+   "slug": "kasy",
+   "nazwa": "Kasy fiskalne",
+   "grupa": "sprz",
+   "opis": "Posnet, Elzab, Fawag — kasy online do sklepu, usług i sprzedaży w terenie",
+   "kolejnosc": 0,
+   "liczba": 11
+  },
+  {
+   "slug": "druk",
+   "nazwa": "Drukarki fiskalne",
+   "grupa": "sprz",
+   "opis": "Posnet, Elzab, Fawag — do programu sprzedaży i stanowisk POS",
+   "kolejnosc": 1,
+   "liczba": 12
+  },
+  {
+   "slug": "pos",
+   "nazwa": "Stanowiska POS",
+   "grupa": "sprz",
+   "opis": "Sunmi, Posnet, Elzab — dotykowe stanowiska pod GoPOS i program sklepowy",
+   "kolejnosc": 2,
+   "liczba": 6
+  },
+  {
+   "slug": "mob",
+   "nazwa": "Kasoterminale i mobilne",
+   "grupa": "sprz",
+   "opis": "Sunmi, Posnet, Elzab — kelner przy stoliku i sprzedaż w terenie",
+   "kolejnosc": 3,
+   "liczba": 6
+  },
+  {
+   "slug": "term",
+   "nazwa": "Terminale płatnicze",
+   "grupa": "sprz",
+   "opis": "PolCard from Fiserv — karty, BLIK, płatność telefonem",
+   "kolejnosc": 4,
+   "liczba": 2
+  },
+  {
+   "slug": "kiosk",
+   "nazwa": "Kioski i ekrany kuchenne",
+   "grupa": "sprz",
+   "opis": "Sunmi — samoobsługa gości i kuchnia bez papieru",
+   "kolejnosc": 5,
+   "liczba": 2
+  },
+  {
+   "slug": "akc",
+   "nazwa": "Akcesoria POS",
+   "grupa": "sprz",
+   "opis": "szuflady, drukarki bonów, sprawdzarki cen, wyświetlacze",
+   "kolejnosc": 6,
+   "podkategorie": [
+    {
+     "slug": null,
+     "nazwa": "Szuflady kasowe",
+     "liczba": 7
+    },
+    {
+     "slug": null,
+     "nazwa": "Sprawdzarki cen i wyświetlacze",
+     "liczba": 5
+    },
+    {
+     "slug": null,
+     "nazwa": "Drukarki bonowe",
+     "liczba": 4
+    },
+    {
+     "slug": null,
+     "nazwa": "Klawiatury i osprzęt",
+     "liczba": 1
+    }
+   ],
+   "liczba": 17
+  },
+  {
+   "slug": "wagi",
+   "nazwa": "Wagi sklepowe",
+   "grupa": "sprz",
+   "opis": "Dibal, Elzab, Fawag — sklepowe, etykietujące i kontrolne",
+   "kolejnosc": 7,
+   "podkategorie": [
+    {
+     "slug": null,
+     "nazwa": "Wagi sklepowe",
+     "liczba": 9
+    },
+    {
+     "slug": null,
+     "nazwa": "Wagi kontrolne i magazynowe",
+     "liczba": 2
+    }
+   ],
+   "liczba": 11
+  },
+  {
+   "slug": "kody",
+   "nazwa": "Skanery, etykiety i kolektory",
+   "grupa": "sprz",
+   "opis": "Zebra, Godex, Sunmi, SATO — skanery, drukarki etykiet, kolektory",
+   "kolejnosc": 8,
+   "podkategorie": [
+    {
+     "slug": null,
+     "nazwa": "Drukarki etykiet i metkownice",
+     "liczba": 10
+    },
+    {
+     "slug": null,
+     "nazwa": "Skanery kodów",
+     "liczba": 5
+    },
+    {
+     "slug": null,
+     "nazwa": "Kolektory danych",
+     "liczba": 3
+    },
+    {
+     "slug": null,
+     "nazwa": "Drukarki kart",
+     "liczba": 1
+    }
+   ],
+   "liczba": 19
+  },
+  {
+   "slug": "vend",
+   "nazwa": "Automaty vendingowe",
+   "grupa": "sprz",
+   "opis": "fiskalizacja automatów sprzedających",
+   "kolejnosc": 9,
+   "liczba": 1
+  },
+  {
+   "slug": "komp",
+   "nazwa": "Komputery i monitory",
+   "grupa": "biuro",
+   "opis": "Lenovo, Dell — laptopy, komputery i monitory do firmy",
+   "kolejnosc": 10,
+   "podkategorie": [
+    {
+     "slug": "laptopy",
+     "nazwa": "Laptopy",
+     "liczba": 28
+    },
+    {
+     "slug": "komputery",
+     "nazwa": "Komputery i All-in-One",
+     "liczba": 9
+    },
+    {
+     "slug": "monitory",
+     "nazwa": "Monitory",
+     "liczba": 9
+    }
+   ],
+   "liczba": 46
+  },
+  {
+   "slug": "serw",
+   "nazwa": "Serwery, NAS i UPS",
+   "grupa": "biuro",
+   "opis": "Dell PowerEdge, Synology, QNAP, APC",
+   "kolejnosc": 11,
+   "podkategorie": [
+    {
+     "slug": "serwery",
+     "nazwa": "Serwery",
+     "liczba": 6
+    },
+    {
+     "slug": "nas",
+     "nazwa": "Serwery plików NAS",
+     "liczba": 8
+    },
+    {
+     "slug": "ups",
+     "nazwa": "Zasilacze UPS",
+     "liczba": 5
+    }
+   ],
+   "liczba": 19
+  },
+  {
+   "slug": "mfp",
+   "nazwa": "Drukarki wielofunkcyjne",
+   "grupa": "biuro",
+   "opis": "Konica Minolta, Kyocera — A4 i A3, mono i kolor",
+   "kolejnosc": 12,
+   "liczba": 14
+  },
+  {
+   "slug": "av",
+   "nazwa": "Ekrany i projektory",
+   "grupa": "biuro",
+   "opis": "Avtek, Samsung, Sharp/NEC — monitory interaktywne, ekrany informacyjne, projektory",
+   "kolejnosc": 13,
+   "podkategorie": [
+    {
+     "slug": "monitory-interaktywne",
+     "nazwa": "Monitory interaktywne",
+     "liczba": 8
+    },
+    {
+     "slug": "ekrany-informacyjne",
+     "nazwa": "Ekrany informacyjne",
+     "liczba": 5
+    },
+    {
+     "slug": "projektory",
+     "nazwa": "Projektory",
+     "liczba": 3
+    }
+   ],
+   "liczba": 16
+  },
+  {
+   "slug": "progs",
+   "nazwa": "Programy sprzedażowe i ERP",
+   "grupa": "prog",
+   "opis": "InsERT, Comarch, Insoft — sprzedaż, magazyn, księgowość, kadry",
+   "kolejnosc": 14,
+   "liczba": 13
+  },
+  {
+   "slug": "progb",
+   "nazwa": "Programy branżowe",
+   "grupa": "prog",
+   "opis": "GoPOS, NFHotel, Insoft, Elzab — gastronomia, hotele, sklepy",
+   "kolejnosc": 15,
+   "liczba": 13
+  },
+  {
+   "slug": "m365",
+   "nazwa": "Licencje i oprogramowanie biurowe",
+   "grupa": "prog",
+   "opis": "Microsoft 365, Windows, Office, Windows Server, Adobe Acrobat",
+   "kolejnosc": 16,
+   "liczba": 5
+  },
+  {
+   "slug": "siec",
+   "nazwa": "Sieć i Wi-Fi",
+   "grupa": "bezp",
+   "opis": "Ubiquiti UniFi, TP-Link Omada — Wi-Fi, routery, przełączniki",
+   "kolejnosc": 17,
+   "liczba": 13
+  },
+  {
+   "slug": "ochr",
+   "nazwa": "Antywirus i firewall",
+   "grupa": "bezp",
+   "opis": "ESET, Stormshield",
+   "kolejnosc": 18,
+   "liczba": 2
+  },
+  {
+   "slug": "podpis",
+   "nazwa": "Podpis i pieczęć kwalifikowana",
+   "grupa": "bezp",
+   "opis": "EuroCert — podpis i pieczęć do KSeF, ZUS, KRS, przetargów",
+   "kolejnosc": 19,
+   "liczba": 2
+  },
+  {
+   "slug": "it",
+   "nazwa": "Opieka IT i wdrożenia",
+   "grupa": "usl",
+   "opis": "opieka IT, KSeF, wdrożenia programów, kopie, szkolenia",
+   "kolejnosc": 20,
+   "liczba": 6
+  },
+  {
+   "slug": "serwis",
+   "nazwa": "Serwis i przeglądy",
+   "grupa": "usl",
+   "opis": "kasy i drukarki fiskalne, POS, komputery, odzysk danych",
+   "kolejnosc": 21,
+   "liczba": 6
+  },
+  {
+   "slug": "dof",
+   "nazwa": "Dofinansowania",
+   "grupa": "usl",
+   "opis": "zakupy w projektach z dofinansowaniem",
+   "kolejnosc": 22,
+   "liczba": 1
+  }
+ ],
+ "branze": [
+  {
+   "slug": "gastro",
+   "nazwa": "Gastronomia"
+  },
+  {
+   "slug": "handel",
+   "nazwa": "Handel i sklepy"
+  },
+  {
+   "slug": "noclegi",
+   "nazwa": "Hotele i pensjonaty"
+  },
+  {
+   "slug": "uslugi",
+   "nazwa": "Biura i usługi"
+  },
+  {
+   "slug": "szkoly",
+   "nazwa": "Szkoły i instytucje"
+  },
+  {
+   "slug": "zdrowie",
+   "nazwa": "Zdrowie i uzdrowiska"
+  }
+ ],
+ "marki": [
+  {
+   "marka": "Posnet",
+   "slug": "posnet",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Polski producent kas i drukarek fiskalnych online, terminali POS i akcesoriów sklepowych.",
+   "opis": [
+    "Posnet Polska S.A. działa od 1993 roku – firma powstała, gdy weszła w życie ustawa nakładająca obowiązek stosowania kas fiskalnych. Siedziba mieści się w Warszawie, a według producenta firma ma 6 oddziałów w Polsce i sieć ok. 1500 dealerów. Posnet jest też właścicielem Lubelskich Fabryk Wag FAWAG i dystrybutorem urządzeń innych producentów.",
+    "W naszym katalogu Posnet to przede wszystkim kasy fiskalne online (Ergo, Neo, Mobile, Mobile 2, Bingo), drukarki fiskalne (Thermal HD/HX/XL2, Temo, Trio), terminale z fiskalizacją (Vero, Evo, Pospay 2 z terminalem płatniczym), szuflady, wyświetlacz POS, weryfikatory cen i klawiatura kuchenna. To sprzęt dla sklepów, gastronomii, punktów usługowych i sprzedaży mobilnej.",
+    "Przy wyborze kasy lub drukarki zacznij od tego, jak sprzedajesz: kasa samodzielna wystarczy w małym punkcie, a drukarka fiskalna pracuje z programem sprzedaży na komputerze lub POS (np. PC-POS, PC-Gastronom, NFHotel – producenci tych programów wymieniają drukarki Posnet na listach zgodności). Do kasy dobierz szufladę, skaner (np. FAWAGscan) i ewentualnie wagę."
+   ],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "1993",
+     "zrodlo": "https://www.posnet.com.pl/o-nas"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Warszawa, ul. Municypalna 33",
+     "zrodlo": "https://www.posnet.com.pl/produkty/product/619/fawagscan"
+    },
+    {
+     "k": "Sieć sprzedaży",
+     "v": "ok. 1500 dealerów i przedstawicieli, 6 oddziałów w Polsce",
+     "zrodlo": "https://www.posnet.com.pl/o-nas"
+    },
+    {
+     "k": "Grupa",
+     "v": "właściciel Lubelskich Fabryk Wag FAWAG S.A.",
+     "zrodlo": "https://www.posnet.com.pl/o-nas"
+    }
+   ],
+   "linie_produktow": [
+    "kasy fiskalne online: Ergo, Neo, Mobile, Mobile 2, Bingo Max2",
+    "drukarki fiskalne online: Thermal HD, Thermal HX, Thermal XL2, Temo, Trio",
+    "POS i terminale: Vero, Evo, Pospay 2, Trio + TrioTAB, bileterka e-podróżnik",
+    "akcesoria: szuflady SKL / MK330 / MK350 / FT460, wyświetlacz POS, weryfikatory cen Veri Basic i WeriON, klawiatura BB10S"
+   ],
+   "kategorie_w_katalogu": [
+    "kasy",
+    "druk",
+    "pos",
+    "mob",
+    "akc"
+   ],
+   "strona_producenta": "https://www.posnet.com.pl/",
+   "logo_url": "https://www.posnet.com.pl/img/logo_posnet.jpg",
+   "zrodla": [
+    {
+     "url": "https://www.posnet.com.pl/o-nas",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.posnet.com.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 24,
+   "logo": "logo-posnet.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Fawag",
+   "slug": "fawag",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Marka Lubelskich Fabryk Wag z grupy Posnet – kasa, drukarka fiskalna, waga i skaner.",
+   "opis": [
+    "FAWAG, czyli Lubelskie Fabryki Wag, to producent z Lublina, który na swojej stronie podkreśla 140 lat tradycji w produkcji wag. Jedynym akcjonariuszem spółki jest Posnet Polska S.A., więc urządzenia Fawag są projektowane i sprzedawane w ekosystemie Posnet.",
+    "W naszym katalogu marka Fawag to kasa fiskalna Fawag Lite Online, drukarka fiskalna Fawag Box Online, waga kontrolna WS-1 oraz skaner kodów FAWAGscan. To prosty zestaw dla małego sklepu, kiosku, piekarni czy punktu usługowego.",
+    "Producent poleca FAWAGscan szczególnie z kasą Fawag Lite i drukarką Fawag Box, ale skaner współpracuje z dowolnym urządzeniem fiskalnym (USB, USB-COM, RS-232). Przy wagach do sprzedaży na wagę pamiętaj o legalizacji – dobieramy model do zakresu ważenia."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "Lublin (Lubelskie Fabryki Wag FAWAG S.A.)",
+     "zrodlo": "https://www.fawag.pl/"
+    },
+    {
+     "k": "Tradycja",
+     "v": "140 lat (wg producenta)",
+     "zrodlo": "https://www.fawag.pl/"
+    },
+    {
+     "k": "Właściciel",
+     "v": "Posnet Polska S.A. – jedyny akcjonariusz",
+     "zrodlo": "https://www.fawag.pl/"
+    },
+    {
+     "k": "Dystrybucja",
+     "v": "oferta prezentowana na posnet.com.pl",
+     "zrodlo": "https://www.posnet.com.pl/o-nas"
+    }
+   ],
+   "linie_produktow": [
+    "kasa fiskalna Fawag Lite Online",
+    "drukarka fiskalna Fawag Box Online",
+    "waga kontrolna WS-1",
+    "skaner FAWAGscan"
+   ],
+   "kategorie_w_katalogu": [
+    "kasy",
+    "druk",
+    "wagi",
+    "kody"
+   ],
+   "strona_producenta": "https://www.fawag.pl/",
+   "logo_url": "https://www.fawag.pl/uploads/images/logo.png",
+   "zrodla": [
+    {
+     "url": "https://www.fawag.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.posnet.com.pl/o-nas",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.posnet.com.pl/produkty/product/619/fawagscan",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 4,
+   "logo": "logo-fawag.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Elzab",
+   "slug": "elzab",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Producent kas i drukarek fiskalnych z Zabrza, a także wag, szuflad i oprogramowania dla handlu.",
+   "opis": [
+    "ELZAB wywodzi się z zakładu założonego w 1969 roku w Zabrzu. Od 1993 roku produkuje urządzenia fiskalne – terminal ELZAB Xcel 260 uzyskał pierwsze w Polsce dopuszczenie Ministerstwa Finansów dla urządzeń fiskalnych. Od 2011 roku firma należała do Grupy Comp, a w grudniu 2023 roku połączyła się z COMP SA.",
+    "W katalogu ELZAB to kasy fiskalne online (Jota, K10, Mini, K1 Slim, Mini LT), drukarki fiskalne (Zeta, Cube, Mera, DF-6), terminale T10 i K2 Pay, wagi i wagoskaner (Neptun 2, Prima 2), szuflady, drukarki paragonowe, sprawdzarki cen, czytnik BS80, fiskalizacja automatów KW3 i aplikacja elzAPP MAG. ELZAB jest też polskim dystrybutorem marek Godex, Sunmi, Zebra i Dibal.",
+    "Przy wyborze zwróć uwagę na współpracę z programem sprzedaży i terminalem płatniczym – ELZAB publikuje listę terminali współpracujących z jego kasami. Aplikacja elzAPP MAG łączy kolektory z PC-Market i innymi programami. Producent podaje, że sprzedał ponad 1,3 mln kas i drukarek fiskalnych."
+   ],
+   "fakty": [
+    {
+     "k": "Początki",
+     "v": "1969, Zabrze",
+     "zrodlo": "https://www.elzab.com.pl/pl/swiat-elzab/historia"
+    },
+    {
+     "k": "Urządzenia fiskalne",
+     "v": "od 1993 (pierwsze dopuszczenie MF dla ELZAB Xcel 260)",
+     "zrodlo": "https://www.elzab.com.pl/pl/swiat-elzab/historia"
+    },
+    {
+     "k": "Grupa",
+     "v": "połączenie z COMP SA w grudniu 2023",
+     "zrodlo": "https://www.elzab.com.pl/pl/swiat-elzab/historia"
+    },
+    {
+     "k": "Sprzedaż",
+     "v": "ponad 1,3 mln kas i drukarek fiskalnych (wg producenta)",
+     "zrodlo": "https://www.elzab.com.pl/pl/swiat-elzab/historia"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "czytnik BS80: 12 miesięcy; wagi Neptun/Prima: 24 miesiące",
+     "zrodlo": "https://www.elzab.com.pl/pl/kody-kreskowe/czytniki-kodow-kreskowych/reczne2d/elzab-bs80-2d"
+    }
+   ],
+   "linie_produktow": [
+    "kasy online: Jota, K10, Mini, Mini LT, K1 Slim",
+    "drukarki fiskalne: Zeta, Cube, Mera, DF-6",
+    "POS i terminale: T10, K2 Pay",
+    "wagi: Neptun 2, Prima 2, wagoskaner Neptun 2",
+    "akcesoria: szuflady ELZ, drukarki paragonowe ELZ, sprawdzarki cen, wyświetlacz klienta",
+    "kody: czytnik BS80 2D",
+    "vending: moduł fiskalny KW3",
+    "oprogramowanie: elzAPP MAG"
+   ],
+   "kategorie_w_katalogu": [
+    "kasy",
+    "druk",
+    "pos",
+    "mob",
+    "akc",
+    "wagi",
+    "kody",
+    "vend",
+    "progb"
+   ],
+   "strona_producenta": "https://www.elzab.com.pl/pl/",
+   "logo_url": "https://www.elzab.com.pl/templates/intellect/img/logo_elzab.svg",
+   "zrodla": [
+    {
+     "url": "https://www.elzab.com.pl/pl/swiat-elzab/historia",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.elzab.com.pl/pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 26,
+   "logo": "logo-elzab.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Sunmi",
+   "slug": "sunmi",
+   "kraj_pochodzenia": "Chiny",
+   "opis_krotki": "Producent terminali POS z Androidem, kolektorów, kiosków i skanerów dla handlu i gastronomii.",
+   "opis": [
+    "SUNMI powstało w 2013 roku z siedzibą w Szanghaju; w 2024 roku otworzyło globalną centralę w Singapurze, a w 2026 roku weszło na główny rynek giełdy w Hongkongu. Firma produkuje urządzenia z systemem SUNMI OS opartym na Androidzie i platformę do zdalnego zarządzania nimi.",
+    "W katalogu Sunmi to terminale POS (D3 PRO, T2s Lite), mobilne terminale V3 i V3 MIX (także w zestawie GoPOS All in One), kolektory L2s Pro, L2Ks i L3, kiosk K2, ekran kuchenny FLEX 3 KDS, drukarka NT311 oraz skanery 2D i Blink. To sprzęt dla restauracji, kawiarni, sklepów, magazynów i punktów z samoobsługą.",
+    "Urządzenia Sunmi działają z aplikacjami na Androida – przy wyborze sprawdź, czy Twój program (np. system gastronomiczny) ma wersję na Sunmi. W Polsce część urządzeń dystrybuuje ELZAB; specyfikacje u dystrybutora i producenta mogą się różnić wersją pamięci lub szczelności, więc wariant potwierdzamy przy zamówieniu."
+   ],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "2013, Szanghaj",
+     "zrodlo": "https://www.sunmi.com/en/about-us/"
+    },
+    {
+     "k": "Globalna centrala",
+     "v": "Singapur (od 2024)",
+     "zrodlo": "https://www.sunmi.com/en/about-us/"
+    },
+    {
+     "k": "Giełda",
+     "v": "HKEX Main Board, 2026 (HK.06810)",
+     "zrodlo": "https://www.sunmi.com/en/about-us/"
+    },
+    {
+     "k": "Dystrybutor w Polsce",
+     "v": "ELZAB (m.in. L2s Pro, L2Ks, L3, Blink, skaner 2D)",
+     "zrodlo": "https://www.elzab.com.pl/pl/kody-kreskowe/kolektory-danych/z-systemem-android/sunmi-l3"
+    }
+   ],
+   "linie_produktow": [
+    "POS: D3 PRO, T2s Lite",
+    "mobilne: V3, V3 MIX (także GoPOS All in One)",
+    "kolektory: L2s Pro, L2Ks, L3",
+    "kioski i KDS: K2, FLEX 3 KDS",
+    "akcesoria i skanery: NT311, skaner 2D, Blink / Blink 2"
+   ],
+   "kategorie_w_katalogu": [
+    "pos",
+    "mob",
+    "kiosk",
+    "akc",
+    "kody"
+   ],
+   "strona_producenta": "https://www.sunmi.com/en/",
+   "logo_url": "https://www.sunmi.com/en/materials/",
+   "zrodla": [
+    {
+     "url": "https://www.sunmi.com/en/about-us/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.sunmi.com/en/materials/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 12,
+   "logo": "logo-sunmi.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Dibal",
+   "slug": "dibal",
+   "kraj_pochodzenia": "Hiszpania",
+   "opis_krotki": "Hiszpański producent wag sklepowych, wag z drukarką etykiet i urządzeń do etykietowania.",
+   "opis": [
+    "Dibal projektuje i produkuje wagi sklepowe oraz przemysłowe urządzenia do ważenia i etykietowania od 1985 roku. Siedziba firmy znajduje się w Derio (Vizcaya) w Hiszpanii.",
+    "W katalogu Dibal to wagi kalkulacyjne i etykietujące: SPC, G-325, D-545/S-545, D-955, W-025, miernik wagowy DMI-610 oraz wagi kontrolne VC/PVC/PS. Sprawdzą się w sklepach spożywczych, mięsnych, piekarniach, na stoiskach z warzywami i w małej produkcji.",
+    "Przy wadze do sprzedaży na wagę liczą się legalizacja, zakres ważenia i to, czy waga ma drukować etykiety lub paragony. W Polsce wagi Dibal oferuje m.in. ELZAB. Wagę można połączyć z programem sprzedaży (np. kody ważone w PC-POS)."
+   ],
+   "fakty": [
+    {
+     "k": "Działalność od",
+     "v": "1985",
+     "zrodlo": "https://www.dibal.com/en/"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Derio (Vizcaya), Hiszpania",
+     "zrodlo": "https://www.dibal.com/en/"
+    },
+    {
+     "k": "Dystrybucja w Polsce",
+     "v": "m.in. ELZAB",
+     "zrodlo": "https://www.elzab.com.pl/pl/wagi/kalkulacyjne/dibal-spc-s-rs"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "D-955: 24 miesiące (wg ELZAB)",
+     "zrodlo": "https://www.elzab.com.pl/pl/wagi/kalkulacyjne/dibal-spc-s-rs"
+    }
+   ],
+   "linie_produktow": [
+    "wagi kalkulacyjne: SPC, G-325, W-025",
+    "wagi etykietujące i POS: D-545 / S-545, D-955",
+    "miernik wagowy: DMI-610",
+    "wagi kontrolne: VC-50, VC-80 INOX, PVC-50, PS-50"
+   ],
+   "kategorie_w_katalogu": [
+    "wagi"
+   ],
+   "strona_producenta": "https://www.dibal.com/en/",
+   "logo_url": "https://www.dibal.com/media/imagenes/dibal-logo.png",
+   "zrodla": [
+    {
+     "url": "https://www.dibal.com/en/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.elzab.com.pl/pl/wagi/kalkulacyjne/dibal-spc-s-rs",
+     "typ": "dystrybutor",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 7,
+   "logo": "logo-dibal.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Godex",
+   "slug": "godex",
+   "kraj_pochodzenia": "Tajwan",
+   "opis_krotki": "Tajwański producent drukarek etykiet – biurkowych, przemysłowych i mobilnych.",
+   "opis": [
+    "GoDEX International Co., Ltd. ma siedzibę w New Taipei City na Tajwanie, a w Europie działa przez GoDEX Europe GmbH w Niemczech. Według producenta zaczynał ok. 20 lat temu od produkcji drukarek kodów kreskowych dla innych marek (OEM/ODM).",
+    "W katalogu Godex to drukarki etykiet: termiczne DT2x/DT4x/DT200, termotransferowe biurkowe GE300/GE330, G500/G530, kompaktowe RT200/RT230 oraz przemysłowe EZ2250i/EZ2350i i GX4200i/GX4300i/GX4600i. Dla sklepów, aptek, gabinetów, magazynów i produkcji.",
+    "Drukarki Godex rozumieją języki EZPL, GEPL i GZPL (zgodny z Zebrą), więc łatwo je podłączyć do programów sprzedaży i magazynowych; etykiety projektuje się w programie Godex GoLabel. W Polsce dystrybuuje je ELZAB, który podaje 3 lata gwarancji na biurkowe modele (głowica 6 miesięcy)."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "New Taipei City, Tajwan",
+     "zrodlo": "https://www.godexintl.com/contactus"
+    },
+    {
+     "k": "Europa",
+     "v": "GoDEX Europe GmbH, Radevormwald, Niemcy",
+     "zrodlo": "https://www.godexintl.com/about/15324244540073946"
+    },
+    {
+     "k": "Dystrybutor w Polsce",
+     "v": "ELZAB",
+     "zrodlo": "https://www.elzab.com.pl/pl/kody-kreskowe/drukarki-etykiet/biurkowe/godex-dt2x"
+    },
+    {
+     "k": "Gwarancja (biurkowe)",
+     "v": "3 lata, głowica 6 miesięcy (wg ELZAB)",
+     "zrodlo": "https://www.elzab.com.pl/pl/kody-kreskowe/drukarki-etykiet/biurkowe/godex-dt2x"
+    }
+   ],
+   "linie_produktow": [
+    "termiczne biurkowe: DT2x, DT4x, DT200",
+    "termotransferowe biurkowe: GE300/GE330, G500/G530, RT200/RT230",
+    "przemysłowe: EZ2250i/EZ2350i, GX4200i/GX4300i/GX4600i"
+   ],
+   "kategorie_w_katalogu": [
+    "kody"
+   ],
+   "strona_producenta": "https://www.godexintl.com/",
+   "logo_url": "https://www.godexintl.com/",
+   "zrodla": [
+    {
+     "url": "https://www.godexintl.com/contactus",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.godexintl.com/about/15324244540073946",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.elzab.com.pl/pl/kody-kreskowe/drukarki-etykiet/biurkowe/godex-dt2x",
+     "typ": "dystrybutor",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 7,
+   "logo": "logo-godex.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Zebra",
+   "slug": "zebra",
+   "kraj_pochodzenia": "USA",
+   "opis_krotki": "Producent drukarek etykiet i kart, skanerów oraz komputerów mobilnych dla handlu i logistyki.",
+   "opis": [
+    "Zebra Technologies to spółka notowana na NASDAQ (ZBRA), z adresem korporacyjnym w Lincolnshire w stanie Illinois (USA). Według producenta zatrudnia pracowników w 57 krajach i współpracuje z partnerami w ok. 179 krajach.",
+    "W katalogu Zebra to biurkowe drukarki etykiet ZD230 i ZD421, drukarki kart ZC100/ZC300, ręczne skanery DS2208/DS2278 oraz komputery mobilne TC22/TC27. Dla sklepów internetowych, aptek, magazynów, hoteli, firm kurierskich i biur.",
+    "Drukarki Zebra używają języków ZPL i EPL, które obsługuje większość programów i platform kurierskich. Gwarancja zależy od modelu – np. ZD230/ZD421: 2 lata, DS2208: 5 lat. W Polsce sprzęt Zebra oferują m.in. ELZAB i Posnet."
+   ],
+   "fakty": [
+    {
+     "k": "Adres korporacyjny",
+     "v": "Lincolnshire, IL 60069, USA",
+     "zrodlo": "https://investors.zebra.com/overview/default.aspx"
+    },
+    {
+     "k": "Giełda",
+     "v": "NASDAQ: ZBRA",
+     "zrodlo": "https://investors.zebra.com/"
+    },
+    {
+     "k": "Zasięg",
+     "v": "pracownicy w 57 krajach, partnerzy w ok. 179 krajach",
+     "zrodlo": "https://www.zebra.com/us/en/about-zebra.html"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "ZD230/ZD421: 2 lata; DS2208: 60 miesięcy",
+     "zrodlo": "https://www.zebra.com/us/en/products/spec-sheets/scanners/general-purpose-scanners/handheld/ds2200-series.html"
+    },
+    {
+     "k": "Dystrybucja w Polsce",
+     "v": "m.in. ELZAB, Posnet",
+     "zrodlo": "https://www.elzab.com.pl/pl/kody-kreskowe/drukarki-etykiet/biurkowe/zebra-zd421"
+    }
+   ],
+   "linie_produktow": [
+    "drukarki etykiet: ZD230, ZD421",
+    "drukarki kart: ZC100, ZC300",
+    "skanery: DS2208, DS2278",
+    "komputery mobilne: TC22, TC27"
+   ],
+   "kategorie_w_katalogu": [
+    "kody"
+   ],
+   "strona_producenta": "https://www.zebra.com/",
+   "logo_url": "https://www.zebra.com/content/experience-fragments/zebra1/us/en/header/master/_jcr_content/root/image.coreimg.svg/1757099569592/zebra-logo-horizontal.svg",
+   "zrodla": [
+    {
+     "url": "https://investors.zebra.com/overview/default.aspx",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.zebra.com/us/en/about-zebra.html",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 5,
+   "logo": "logo-zebra.svg",
+   "strona_marki": true
+  },
+  {
+   "marka": "SATO",
+   "slug": "sato",
+   "kraj_pochodzenia": "Japonia",
+   "opis_krotki": "Japoński producent drukarek etykiet i ręcznych metkownic.",
+   "opis": [
+    "SATO to japońska firma z siedzibą w Tokio, która według producenta sprzedaje drukarki etykiet w ponad 90 krajach i ma osobną centralę europejską.",
+    "W naszym katalogu SATO to ręczne metkownice JUDO 26 (dwa rzędy) i KENDO 26 (jeden rząd) – do szybkiego naklejania cen i dat w małym sklepie, piekarni, kiosku czy na stoisku.",
+    "Metkownice nie potrzebują prądu ani komputera; dobiera się do nich etykiety i wałki tuszujące. Gdy cen jest dużo albo potrzebny jest kod kreskowy, lepsza będzie drukarka etykiet (np. Godex lub Zebra)."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "Tokio, Japonia (Tamachi Station Tower N)",
+     "zrodlo": "https://www.sato-global.com/about/company/location/"
+    },
+    {
+     "k": "Zasięg",
+     "v": "drukarki sprzedawane w ponad 90 krajach",
+     "zrodlo": "https://www.sato-global.com/about/"
+    },
+    {
+     "k": "Europa",
+     "v": "osobna centrala europejska (wg strony lokalizacji)",
+     "zrodlo": "https://www.sato-global.com/about/company/location/"
+    }
+   ],
+   "linie_produktow": [
+    "metkownice JUDO 26",
+    "metkownice KENDO 26"
+   ],
+   "kategorie_w_katalogu": [
+    "kody"
+   ],
+   "strona_producenta": "https://www.sato-global.com/",
+   "logo_url": "https://www.sato-global.com/",
+   "zrodla": [
+    {
+     "url": "https://www.sato-global.com/about/company/location/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.sato-global.com/about/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Roku założenia nie odczytano ze strony producenta.",
+   "liczba_produktow": 1,
+   "logo": "logo-sato.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "PolCard",
+   "slug": "polcard",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Marka płatności Fiserv Polska – terminale płatnicze i aplikacja PolCard Go.",
+   "opis": [
+    "PolCard to znak towarowy Fiserv Polska S.A., krajowej instytucji płatniczej z siedzibą w Warszawie. Firma podaje, że działa na polskim rynku od ponad 30 lat i wprowadziła w Polsce pierwsze terminale oraz rodzime karty płatnicze; w 2021 roku First Data Polska połączyła się z Fiserv Polska.",
+    "W katalogu PolCard to terminale płatnicze (na urządzeniach Ingenico) i aplikacja PolCard Go, która zamienia telefon w terminal. Dla sklepów, gastronomii, usług, sprzedaży mobilnej i hoteli.",
+    "Terminal to usługa – obok urządzenia liczy się umowa na akceptację płatności. Przy wyborze sprawdź, czy terminal ma współpracować z kasą lub programem sprzedaży; producent PC-Gastronom wymienia PolCard wśród obsługiwanych akceptantów."
+   ],
+   "fakty": [
+    {
+     "k": "Właściciel marki",
+     "v": "Fiserv Polska S.A.",
+     "zrodlo": "https://www.polcard.pl/o-nas/"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Al. Jerozolimskie 100, Warszawa",
+     "zrodlo": "https://www.polcard.pl/o-nas/"
+    },
+    {
+     "k": "Na rynku",
+     "v": "ponad 30 lat (wg firmy)",
+     "zrodlo": "https://www.polcard.pl/o-nas/"
+    },
+    {
+     "k": "Nadzór",
+     "v": "krajowa instytucja płatnicza (KNF)",
+     "zrodlo": "https://www.polcard.pl/o-nas/"
+    }
+   ],
+   "linie_produktow": [
+    "terminale płatnicze PolCard (Ingenico)",
+    "PolCard Go (SoftPOS)"
+   ],
+   "kategorie_w_katalogu": [
+    "term"
+   ],
+   "strona_producenta": "https://www.polcard.pl/",
+   "logo_url": "https://www.polcard.pl/content/dam/polcard_pl/pl/pl/logo/PolCard_Logo_RGB.svg",
+   "zrodla": [
+    {
+     "url": "https://www.polcard.pl/o-nas/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.polcard.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 2,
+   "logo": "logo-polcard.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Ingenico",
+   "slug": "ingenico",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Producent terminali płatniczych, na których działają terminale PolCard.",
+   "opis": [
+    "Ingenico produkuje terminale płatnicze, m.in. rodzinę AXIUM z Androidem. W Polsce klienci najczęściej spotykają je jako terminale udostępniane przez operatorów płatności.",
+    "W naszym katalogu Ingenico występuje jako sprzęt terminali płatniczych PolCard – stacjonarnych i przenośnych – dla sklepów, gastronomii i usług.",
+    "Terminal Ingenico zamawia się razem z usługą operatora (np. PolCard), który odpowiada za umowę, rozliczenia i serwis terminala. Przy wyborze liczy się sposób pracy (stacjonarny / mobilny) i ewentualna integracja z kasą."
+   ],
+   "fakty": [
+    {
+     "k": "Przykładowa linia",
+     "v": "terminale AXIUM",
+     "zrodlo": "https://ingenico.com/en"
+    },
+    {
+     "k": "Terminal w Polsce",
+     "v": "np. Ingenico Move 2500 w ofercie PolCard",
+     "zrodlo": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-2500/"
+    }
+   ],
+   "linie_produktow": [
+    "terminale płatnicze (w ofercie PolCard)"
+   ],
+   "kategorie_w_katalogu": [],
+   "strona_producenta": "https://ingenico.com/",
+   "logo_url": "https://ingenico.com/en",
+   "zrodla": [
+    {
+     "url": "https://ingenico.com/en",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.polcard.pl/rozwiazania-platnicze/ingenico-move-2500/",
+     "typ": "dystrybutor",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Strona „about us” Ingenico nie wczytała się – kraju siedziby i roku założenia nie potwierdzono.",
+   "liczba_produktow": 0,
+   "logo": null,
+   "strona_marki": false,
+   "uwaga_strona": "Brak kart w katalogu — informacje pokazać na stronie PolCard (terminale Ingenico)."
+  },
+  {
+   "marka": "Lenovo",
+   "slug": "lenovo",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Producent laptopów, komputerów stacjonarnych i monitorów dla firm i domu.",
+   "opis": [
+    "Lenovo zostało założone w 1984 roku, a od 1994 roku jest notowane na giełdzie w Hongkongu. Według firmy zatrudnia ok. 77 000 osób i zajmuje 196. miejsce w rankingu Fortune Global 500.",
+    "W katalogu Lenovo to laptopy biznesowe ThinkPad (E, L, T, X, P, X1) i ThinkBook, laptopy V i IdeaPad do prostych zadań, Yoga dla osób, które potrzebują lekkiego sprzętu premium, komputery ThinkCentre neo (wieże, małe, Tiny, All-in-One) oraz monitory ThinkVision. Dla biur, księgowości, recepcji, szkół i handlowców.",
+    "Przy wyborze zwróć uwagę na serię: ThinkPad i ThinkBook to linie biznesowe (np. TPM, czytnik linii papilarnych, opcje gwarancji z naprawą u klienta), a V i IdeaPad są prostsze. Komputery łatwo połączyć z monitorami ThinkVision przez USB-C, a licencje Windows i Microsoft 365 dobieramy osobno."
+   ],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "1984",
+     "zrodlo": "https://investor.lenovo.com/en/about/profile.php"
+    },
+    {
+     "k": "Giełda",
+     "v": "Hongkong, od 1994",
+     "zrodlo": "https://investor.lenovo.com/en/about/profile.php"
+    },
+    {
+     "k": "Zatrudnienie",
+     "v": "ok. 77 000 osób (wg firmy)",
+     "zrodlo": "https://www.lenovo.com/us/en/about/"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "ThinkBook: 1 lub 2 lata bazowo wg PSREF",
+     "zrodlo": "https://psref.lenovo.com/"
+    }
+   ],
+   "linie_produktow": [
+    "ThinkPad E / L / T / X / P / X1",
+    "ThinkBook 14 / 16",
+    "V15 / V17, IdeaPad Slim 3 / Slim 5",
+    "Yoga 7 / Slim 7 / 9 / Pro",
+    "ThinkCentre neo 30s / 50t / 50s / 50q / 50a",
+    "ThinkVision E / T / P"
+   ],
+   "kategorie_w_katalogu": [
+    "komp"
+   ],
+   "strona_producenta": "https://www.lenovo.com/pl/pl/",
+   "logo_url": "https://news.lenovo.com/",
+   "zrodla": [
+    {
+     "url": "https://investor.lenovo.com/en/about/profile.php",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.lenovo.com/us/en/about/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Kraju siedziby nie zapisano – strona profilu potwierdza notowania w Hongkongu, ale nie odczytano wprost siedziby.",
+   "liczba_produktow": 30,
+   "logo": "logo-lenovo.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Dell",
+   "slug": "dell",
+   "kraj_pochodzenia": "USA",
+   "opis_krotki": "Producent laptopów, komputerów, monitorów i serwerów PowerEdge dla firm.",
+   "opis": [
+    "Dell Technologies ma siedzibę w Round Rock w Teksasie (USA). Marka Dell obejmuje komputery osobiste, monitory i infrastrukturę serwerową.",
+    "W katalogu Dell to laptopy (Dell 14/16, Dell Pro, Pro Precision, XPS), komputery Dell Pro (Tower, Slim, Micro, All-in-One), monitory Dell Pro i UltraSharp – także z hubem USB-C i kamerą – oraz serwery PowerEdge w obudowie wieżowej i rack. Dla biur, firm z serwerownią, projektantów i szkół.",
+    "Przy serwerach liczy się nie tylko konfiguracja, ale i gwarancja z naprawą u klienta — wariant gwarancji Dell dobieramy przy wycenie. Do serwera dobierz UPS (np. APC Smart-UPS) i licencje Windows Server."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "One Dell Way, Round Rock, TX, USA",
+     "zrodlo": "https://investors.delltechnologies.com/"
+    }
+   ],
+   "linie_produktow": [
+    "laptopy: Dell 14 / 16, Dell Pro 14 / 16 (Essential), Pro Precision 5, XPS 13 / 14 / 16",
+    "komputery: Dell Pro Tower / Slim / Micro / 24 All-in-One",
+    "monitory: Dell Pro E / P, Pro Plus z USB-C, UltraSharp, z kamerą",
+    "serwery: PowerEdge T160 / T360 / T560, R360 / R570 / R660 / R760xs / R7625"
+   ],
+   "kategorie_w_katalogu": [
+    "komp",
+    "serw"
+   ],
+   "strona_producenta": "https://www.dell.com/pl-pl",
+   "logo_url": "https://www.dell.com/pl-pl",
+   "zrodla": [
+    {
+     "url": "https://investors.delltechnologies.com/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 22,
+   "logo": "logo-dell.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Konica Minolta",
+   "slug": "konica-minolta",
+   "kraj_pochodzenia": "Japonia",
+   "opis_krotki": "Japoński producent urządzeń wielofunkcyjnych bizhub do biur.",
+   "opis": [
+    "Konica Minolta ma siedzibę w Tokio. Jako datę założenia firma podaje kwiecień 1873 roku, a spółka w obecnej formie powstała w 1936 roku.",
+    "W katalogu Konica Minolta to urządzenia wielofunkcyjne bizhub – monochromatyczne (4221i, 5021i, 4051i) i kolorowe (C3301i, C3321i, C3351i, C251i, C301i, C268i). Drukują, kopiują i skanują – dla biur, kancelarii, szkół, przychodni i recepcji hotelowych.",
+    "Przy wyborze liczą się miesięczny wolumen wydruków, format (A4/A3), kolor i skanowanie do e-maila lub folderu. Koszt eksploatacji (tonery, serwis) warto porównać z ceną zakupu; urządzenia podłączysz do sieci firmowej i serwera NAS."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "JP TOWER, Marunouchi, Tokio, Japonia",
+     "zrodlo": "https://www.konicaminolta.com/global-en/corporate/outline.html"
+    },
+    {
+     "k": "Założenie",
+     "v": "kwiecień 1873; spółka od 22.12.1936",
+     "zrodlo": "https://www.konicaminolta.com/global-en/corporate/outline.html"
+    }
+   ],
+   "linie_produktow": [
+    "bizhub mono A4: 4221i, 5021i, 4051i",
+    "bizhub kolor: C3301i, C3321i, C3351i",
+    "bizhub A3: C251i, C301i, C268i"
+   ],
+   "kategorie_w_katalogu": [
+    "mfp"
+   ],
+   "strona_producenta": "https://www.konicaminolta.pl/",
+   "logo_url": "https://www.konicaminolta.pl/",
+   "zrodla": [
+    {
+     "url": "https://www.konicaminolta.com/global-en/corporate/outline.html",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 9,
+   "logo": "logo-konica-minolta.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Kyocera",
+   "slug": "kyocera",
+   "kraj_pochodzenia": "Japonia",
+   "opis_krotki": "Japoński producent drukarek i urządzeń wielofunkcyjnych ECOSYS i TASKalfa.",
+   "opis": [
+    "Kyocera to japońska grupa z globalną siedzibą w Japonii. Urządzenia drukujące oferuje przez spółkę Kyocera Document Solutions, która ma także polski oddział.",
+    "W katalogu Kyocera to urządzenia wielofunkcyjne ECOSYS – monochromatyczne MA4000, MA4500, MA5500/MA6000 i kolorowe MA3500ci/MA4000cix – oraz TASKalfa MA3500ci/MA4500ci. Dla biur, księgowości, szkół i gabinetów.",
+    "Przy wyborze porównaj prędkość druku, wyposażenie (faks, Wi-Fi, ekran dotykowy) i koszt tonera na stronę. Urządzenia łączą się z siecią firmową i serwerem NAS (skanowanie do folderu)."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba grupy",
+     "v": "Japonia (Global Headquarters)",
+     "zrodlo": "https://global.kyocera.com/company/"
+    },
+    {
+     "k": "Polska",
+     "v": "Kyocera Document Solutions Polska",
+     "zrodlo": "https://www.kyoceradocumentsolutions.pl/"
+    }
+   ],
+   "linie_produktow": [
+    "ECOSYS MA4000 / MA4500 / MA5500 / MA6000",
+    "ECOSYS MA3500ci / MA4000cix",
+    "TASKalfa MA3500ci / MA4500ci"
+   ],
+   "kategorie_w_katalogu": [
+    "mfp"
+   ],
+   "strona_producenta": "https://www.kyoceradocumentsolutions.pl/",
+   "logo_url": "https://www.kyoceradocumentsolutions.pl/",
+   "zrodla": [
+    {
+     "url": "https://global.kyocera.com/company/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.kyoceradocumentsolutions.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Miasta siedziby i roku założenia nie odczytano ze strony.",
+   "liczba_produktow": 5,
+   "logo": "logo-kyocera.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Synology",
+   "slug": "synology",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Producent serwerów NAS do kopii zapasowych, udostępniania plików i monitoringu.",
+   "opis": [
+    "Synology zostało założone w 2000 roku i specjalizuje się w serwerach NAS oraz rozwiązaniach do przechowywania i kopii zapasowych. Producent podaje ponad 13 mln instalacji i sześć oddziałów na świecie.",
+    "W katalogu Synology to serwery DiskStation Plus (2–8 zatok), RackStation do szafy rack, prostsze serie Value i J oraz dyski HAT i obudowy rozszerzające. Dla biur, księgowości, gabinetów, szkół i firm, które chcą mieć pliki i kopie zapasowe u siebie.",
+    "NAS to podstawa kopii zapasowych – ale sam w sobie nie jest kopią, jeśli stoi obok komputera. Dobierz dyski z listy zgodności, UPS (np. APC) i drugą lokalizację kopii. Seria Plus ma 3 lata gwarancji z opcją przedłużenia do 5 lat."
+   ],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "2000",
+     "zrodlo": "https://www.synology.com/en-global/company"
+    },
+    {
+     "k": "Instalacje",
+     "v": "ponad 13 mln (wg producenta)",
+     "zrodlo": "https://www.synology.com/en-global/company"
+    },
+    {
+     "k": "Gwarancja (seria Plus)",
+     "v": "3 lata, przedłużenie do 5 lat (płatne)",
+     "zrodlo": "https://www.synology.com/"
+    },
+    {
+     "k": "Brand",
+     "v": "zasady prezentacji marki na stronie Branding",
+     "zrodlo": "https://www.synology.com/company/branding"
+    }
+   ],
+   "linie_produktow": [
+    "DiskStation Plus: DS225+, DS425+, DS725+, DS925+, DS1525+, DS1825+",
+    "RackStation: RS422+, RS826RP+, RS1221+, RS1226RP+",
+    "Value / J: DS124, DS223j, DS223, DS423",
+    "dyski HAT3300/HAT5300, obudowy DX525, RX426, RX418"
+   ],
+   "kategorie_w_katalogu": [
+    "serw"
+   ],
+   "strona_producenta": "https://www.synology.com/pl-pl",
+   "logo_url": "https://www.synology.com/company/branding",
+   "zrodla": [
+    {
+     "url": "https://www.synology.com/en-global/company",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.synology.com/company/branding",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Strona firmy pokazuje zdjęcie siedziby bez nazwy miasta – kraju nie wpisano.",
+   "liczba_produktow": 5,
+   "logo": "logo-synology.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "QNAP",
+   "slug": "qnap",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Producent serwerów NAS dla biur i firm – od 2 zatok po modele do szafy rack.",
+   "opis": [
+    "QNAP Systems produkuje serwery NAS i oprogramowanie do przechowywania danych, kopii zapasowych i wirtualizacji.",
+    "W katalogu QNAP to serwery 2–4 zatokowe do biura (TS-233, TS-264, TS-464 i inne), wydajne modele 6–8 zatok (TS-664, TS-873A) oraz modele do szafy rack 19\" (TS-433eU, TS-464U, TS-873AeU i inne). Dla biur, firm projektowych, szkół i firm z monitoringiem.",
+    "Gwarancja zależy od modelu – 2 lub 3 lata. Do NAS dobierz dyski z listy zgodności, zasilacz awaryjny i plan kopii poza firmą."
+   ],
+   "fakty": [
+    {
+     "k": "Gwarancja",
+     "v": "2 lub 3 lata zależnie od modelu",
+     "zrodlo": "https://www.qnap.com/pl-pl/"
+    },
+    {
+     "k": "Strona marki",
+     "v": "Poznaj naszą markę – qnap.com/pl-pl/about-qnap",
+     "zrodlo": "https://www.qnap.com/pl-pl/about-qnap"
+    }
+   ],
+   "linie_produktow": [
+    "NAS 2–4 zatoki: TS-233, TS-216G, TS-264, TS-433, TS-364, TS-464, TS-473A",
+    "NAS 6–8 zatok: TS-664, TS-AI642, TS-632X, TS-673A, TS-832PX, TS-873A",
+    "NAS rack: TS-433eU, TS-432XeU, TS-464eU, TS-464U, TS-864eU, TS-873AeU, TS-1273AU-RP"
+   ],
+   "kategorie_w_katalogu": [
+    "serw"
+   ],
+   "strona_producenta": "https://www.qnap.com/pl-pl/",
+   "logo_url": "https://www.qnap.com/assets/img/header/2025/qnap-logo.svg",
+   "zrodla": [
+    {
+     "url": "https://www.qnap.com/pl-pl/about-qnap",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.qnap.com/pl-pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Strona „o firmie” nie podała w odczycie siedziby ani roku założenia.",
+   "liczba_produktow": 3,
+   "logo": "logo-qnap.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "APC",
+   "slug": "apc",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Zasilacze awaryjne UPS marki APC by Schneider Electric – do kasy, komputera i serwera.",
+   "opis": [
+    "APC to marka zasilaczy awaryjnych należąca do Schneider Electric. Schneider Electric podaje, że zatrudnia ok. 160 000 osób i działa w ponad 100 krajach.",
+    "W katalogu APC to UPS-y Back-UPS BXR (kasa, komputer), Back-UPS Pro (stanowisko biurowe), Smart-UPS w wersji wieżowej i rack 2U (serwer, NAS, szafa sieciowa, monitoring) oraz Smart-UPS On-Line SRT do sprzętu krytycznego. Dla sklepów, biur, gabinetów i firm z serwerem.",
+    "UPS dobiera się do mocy podłączonych urządzeń i wymaganego czasu podtrzymania. Do serwera i NAS warto wybrać model z komunikacją, który bezpiecznie wyłączy sprzęt. Gwarancja: Back-UPS 2 lata, Smart-UPS SMT 3 lata na urządzenie i 2 lata na akumulator."
+   ],
+   "fakty": [
+    {
+     "k": "Właściciel marki",
+     "v": "Schneider Electric",
+     "zrodlo": "https://www.se.com/ww/en/about-us/"
+    },
+    {
+     "k": "Skala grupy",
+     "v": "ok. 160 000 pracowników, ponad 100 krajów",
+     "zrodlo": "https://www.se.com/ww/en/about-us/"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "Back-UPS: 2 lata; Smart-UPS SMT: 3 lata (akumulator 2 lata)",
+     "zrodlo": "https://www.se.com/"
+    }
+   ],
+   "linie_produktow": [
+    "Back-UPS BXR",
+    "Back-UPS Pro",
+    "Smart-UPS SMC / SMT (wieża)",
+    "Smart-UPS rack 2U",
+    "Smart-UPS On-Line SRT"
+   ],
+   "kategorie_w_katalogu": [
+    "serw"
+   ],
+   "strona_producenta": "https://www.se.com/pl/pl/",
+   "logo_url": "https://www.se.com/pl/pl/",
+   "zrodla": [
+    {
+     "url": "https://www.se.com/ww/en/about-us/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Kraju siedziby Schneider Electric nie odczytano wprost.",
+   "liczba_produktow": 5,
+   "logo": null,
+   "strona_marki": true
+  },
+  {
+   "marka": "Samsung",
+   "slug": "samsung",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Ekrany informacyjne Samsung Smart Signage i monitory interaktywne dla firm.",
+   "opis": [
+    "Samsung Electronics produkuje elektronikę użytkową, półprzewodniki i rozwiązania wyświetlające. Historia firmy na polskiej stronie Samsunga opisuje rozwój centrów badawczych i fabryk w Korei Południowej.",
+    "W katalogu Samsung to ekrany Smart Signage: QBC (praca 16/7), QMC i QHC (praca 24/7, QHC jaśniejszy – 700 nitów), ekrany do witryn i na zewnątrz (OMB, OMN-S, OHDX) oraz monitory interaktywne WAF/WAFX-P z Androidem. Dla sklepów, restauracji (menu), hoteli, recepcji i szkół.",
+    "Przy ekranie informacyjnym liczą się jasność (witryna wymaga dużo jaśniejszego ekranu), dopuszczalny czas pracy na dobę i sposób zarządzania treścią. Do ekranu dobierz uchwyt i sposób wgrywania treści (np. z pendrive’a lub przez sieć)."
+   ],
+   "fakty": [
+    {
+     "k": "Historia",
+     "v": "rozwój zakładów i R&D w Korei Południowej (wg strony Samsung PL)",
+     "zrodlo": "https://www.samsung.com/pl/about-us/company-info/"
+    }
+   ],
+   "linie_produktow": [
+    "QBC",
+    "QMC",
+    "QHC",
+    "OMB / OMN-S / OHDX",
+    "WAF / WAFX-P (interaktywne)"
+   ],
+   "kategorie_w_katalogu": [
+    "av"
+   ],
+   "strona_producenta": "https://www.samsung.com/pl/business/displays/",
+   "logo_url": "https://www.samsung.com/pl/",
+   "zrodla": [
+    {
+     "url": "https://www.samsung.com/pl/about-us/company-info/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Siedziby i roku założenia nie odczytano wprost.",
+   "liczba_produktow": 5,
+   "logo": null,
+   "strona_marki": true
+  },
+  {
+   "marka": "Sharp/NEC",
+   "slug": "sharp-nec",
+   "kraj_pochodzenia": "Japonia",
+   "opis_krotki": "Projektory Sharp/NEC do klas, sal konferencyjnych i instalacji.",
+   "opis": [
+    "Sharp NEC Display Solutions to producent projektorów i wyświetlaczy, który łączy marki Sharp i NEC; strona firmy wskazuje Japonię jako kraj siedziby. W Europie oferta prezentowana jest na sharpdisplays.eu.",
+    "W katalogu Sharp/NEC to projektory do sal lekcyjnych i biur (ME403U, P554U, PE506UL, P547UL), laserowe do dużych sal i aul (P627UL, P601Q, P721Q) oraz instalacyjne z wymienną optyką (PV710UL, PV800UL, PA803U i inne). Dla szkół, hoteli z salami konferencyjnymi i firm.",
+    "Projektor laserowy nie wymaga wymiany lampy – producent daje na laser 3 lata lub 10 000 h, a na lampę 6 miesięcy lub 1000 h. Dobierz jasność do wielkości sali i oświetlenia oraz ekran projekcyjny."
+   ],
+   "fakty": [
+    {
+     "k": "Kraj",
+     "v": "Japonia",
+     "zrodlo": "https://sharp-displays.jp.sharp/global/company/"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "projektor 3 lata; laser 3 lata lub 10 000 h; lampa 6 mies. lub 1000 h",
+     "zrodlo": "https://www.sharpdisplays.eu/"
+    }
+   ],
+   "linie_produktow": [
+    "projektory szkolne i biurowe: ME403U, P554U, PE506UL, P547UL",
+    "projektory laserowe: P627UL, P601Q, P721Q",
+    "projektory instalacyjne: PV710UL, PV800UL, PA803U, PA804UL, PA1004UL"
+   ],
+   "kategorie_w_katalogu": [
+    "av"
+   ],
+   "strona_producenta": "https://www.sharpdisplays.eu/",
+   "logo_url": "https://www.sharpdisplays.eu/",
+   "zrodla": [
+    {
+     "url": "https://sharp-displays.jp.sharp/global/company/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.sharpdisplays.eu/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 3,
+   "logo": "logo-sharp-nec.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Ubiquiti",
+   "slug": "ubiquiti",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Sprzęt sieciowy UniFi – Wi-Fi, routery, switche PoE i monitoring zarządzane z jednej aplikacji.",
+   "opis": [
+    "Ubiquiti Inc. to spółka giełdowa produkująca sprzęt sieciowy pod markami m.in. UniFi, airMAX i UISP. Urządzenia UniFi zarządza się z jednej aplikacji, także zdalnie.",
+    "W katalogu Ubiquiti to punkty dostępowe Wi-Fi 7 (U7 Pro, U7 Pro Max), konsole i routery (UniFi Express, Dream Router 7, Cloud Gateway Max, Dream Machine SE) oraz switche PoE (Pro 24 PoE, Pro Max 24 PoE). Dla restauracji, sklepów, pensjonatów, hoteli, biur i szkół.",
+    "Sieć UniFi buduje się z konsoli, switcha PoE i punktów dostępowych – dobór zależy od liczby urządzeń i metrażu. Konsole UniFi mogą też nagrywać obraz z kamer UniFi Protect."
+   ],
+   "fakty": [
+    {
+     "k": "Spółka",
+     "v": "Ubiquiti Inc. (relacje inwestorskie ir.ui.com)",
+     "zrodlo": "https://ir.ui.com/"
+    },
+    {
+     "k": "Zarządzanie",
+     "v": "aplikacja UniFi Network",
+     "zrodlo": "https://techspecs.ui.com/unifi/wifi/u7-pro"
+    }
+   ],
+   "linie_produktow": [
+    "punkty dostępowe: U7 Pro, U7 Pro Max",
+    "konsole i routery: UniFi Express, Dream Router 7, Cloud Gateway Max, Dream Machine SE",
+    "switche: USW-Pro-24-PoE, USW-Pro-Max-24-PoE"
+   ],
+   "kategorie_w_katalogu": [
+    "siec"
+   ],
+   "strona_producenta": "https://www.ui.com/",
+   "logo_url": "https://www.ui.com/",
+   "zrodla": [
+    {
+     "url": "https://ir.ui.com/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://techspecs.ui.com/unifi/wifi/u7-pro",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Adresu siedziby nie odczytano ze strony relacji inwestorskich.",
+   "liczba_produktow": 8,
+   "logo": "logo-ubiquiti.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "TP-Link",
+   "slug": "tp-link",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Sieć firmowa TP-Link Omada – Wi-Fi, routery VPN, switche PoE i kontrolery.",
+   "opis": [
+    "TP-Link produkuje sprzęt sieciowy od ponad 20 lat (wg polskiej strony firmy). Linia Omada to rozwiązania dla firm z centralnym zarządzaniem przez kontroler sprzętowy lub w chmurze.",
+    "W katalogu TP-Link Omada to punkty dostępowe sufitowe Wi-Fi 6 i 7 (EAP650, EAP670, EAP723, EAP772), ścienne i zewnętrzne (EAP615-Wall, EAP725-Wall, EAP610/650-Outdoor), routery i bramy VPN (ER605, ER707-M2, ER7206, ER7212PC), switche PoE (SG2210MP, SG2428P, SG3428MP, SG3210XHP-M2) i kontrolery OC200/OC220/OC300. Dla pensjonatów, restauracji, sklepów i biur.",
+    "Omada to alternatywa dla UniFi przy podobnym układzie sieci: kontroler, switch PoE, punkty dostępowe. Kontroler można mieć jako urządzenie lub w chmurze – wybór wpływa na zdalne zarządzanie."
+   ],
+   "fakty": [
+    {
+     "k": "Na rynku",
+     "v": "ponad 20 lat (wg firmy)",
+     "zrodlo": "https://www.tp-link.com/pl/about-us/corporate-profile/"
+    },
+    {
+     "k": "Strona linii Omada",
+     "v": "omadanetworks.com/pl",
+     "zrodlo": "https://www.omadanetworks.com/pl/business-networking/all-omada/"
+    }
+   ],
+   "linie_produktow": [
+    "punkty dostępowe EAP650 / EAP670 / EAP723 / EAP772",
+    "EAP615-Wall / EAP725-Wall / EAP610-Outdoor / EAP650-Outdoor",
+    "routery ER605 / ER707-M2 / ER7206 / ER7212PC",
+    "switche SG2210MP / SG2428P / SG3428MP / SG3210XHP-M2",
+    "kontrolery OC200 / OC220 / OC300, Omada w chmurze"
+   ],
+   "kategorie_w_katalogu": [
+    "siec"
+   ],
+   "strona_producenta": "https://www.omadanetworks.com/pl/",
+   "logo_url": "https://www.omadanetworks.com/pl/",
+   "zrodla": [
+    {
+     "url": "https://www.tp-link.com/pl/about-us/corporate-profile/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.omadanetworks.com/pl/business-networking/all-omada/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Siedziby nie odczytano ze strony „Kim jesteśmy”.",
+   "liczba_produktow": 5,
+   "logo": null,
+   "strona_marki": true
+  },
+  {
+   "marka": "Microsoft",
+   "slug": "microsoft",
+   "kraj_pochodzenia": "USA",
+   "opis_krotki": "Windows, Microsoft 365, Office i Windows Server – licencje dla firm.",
+   "opis": [
+    "Microsoft został założony w 1975 roku, a od 1986 roku ma siedzibę w kampusie w Redmond w stanie Waszyngton (USA).",
+    "W katalogu Microsoft to Windows 11 Pro i Home, Microsoft 365 dla firm (Business Basic, Standard, Premium, Apps for business), Office 2024 dla firm oraz Windows Server 2025 z licencjami CAL. Dla każdej firmy, która pracuje na komputerach – od jednoosobowej działalności po szkołę i biuro.",
+    "Przy wyborze ustal, czy wolisz subskrypcję (Microsoft 365: aktualizacje, poczta, OneDrive, Teams) czy licencję jednorazową (Office 2024). Do serwera z Windows Server potrzebne są licencje CAL dla użytkowników lub urządzeń. Programy księgowe i sprzedaży (np. InsERT, Comarch) wymagają Windows."
+   ],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "1975",
+     "zrodlo": "https://news.microsoft.com/facts-about-microsoft/"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Redmond, WA 98052, USA",
+     "zrodlo": "https://news.microsoft.com/facts-about-microsoft/"
+    }
+   ],
+   "linie_produktow": [
+    "Windows 11 Pro / Home / Pro for Workstations",
+    "Microsoft 365 Business Basic / Standard / Premium, Apps for business",
+    "Office Home & Business 2024, Office LTSC 2024",
+    "Windows Server 2025 + CAL"
+   ],
+   "kategorie_w_katalogu": [
+    "m365"
+   ],
+   "strona_producenta": "https://www.microsoft.com/pl-pl/",
+   "logo_url": "https://www.microsoft.com/pl-pl/",
+   "zrodla": [
+    {
+     "url": "https://news.microsoft.com/facts-about-microsoft/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 4,
+   "logo": "logo-microsoft.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "InsERT",
+   "slug": "insert",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Wrocławski producent programów dla firm: Subiekt, Rachmistrz, Rewizor, Gratyfikant.",
+   "opis": [
+    "InsERT S.A. to polski producent oprogramowania dla firm z siedzibą we Wrocławiu przy ul. Jerzmanowskiej 2. Programy sprzedaje i wdraża przez sieć autoryzowanych partnerów.",
+    "W katalogu InsERT to programy do sprzedaży i magazynu (Subiekt 123, Subiekt GT, Subiekt nexo / nexo PRO), księgowości (Rachmistrz – KPiR, Rewizor – pełna księgowość), kadr i płac (Gratyfikant), CRM (Gestor) oraz dla biur rachunkowych (Biuro). Dla sklepów, hurtowni, firm usługowych i biur rachunkowych.",
+    "Programy InsERT współpracują z drukarkami fiskalnymi i wymieniają dane między sobą (np. Subiekt z Rachmistrzem lub Rewizorem). Program hotelowy NFHotel eksportuje faktury do InsERT nexo. Wybór między linią GT a nexo zależy od potrzeb i sposobu pracy – ustalamy go przy wdrożeniu."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "ul. Jerzmanowska 2, Wrocław",
+     "zrodlo": "https://www.insert.com.pl/o_firmie.html"
+    },
+    {
+     "k": "Forma",
+     "v": "InsERT S.A.",
+     "zrodlo": "https://www.insert.com.pl/o_firmie.html"
+    },
+    {
+     "k": "Sprzedaż",
+     "v": "przez autoryzowanych partnerów",
+     "zrodlo": "https://www.insert.com.pl/o_firmie.html"
+    },
+    {
+     "k": "Integracja",
+     "v": "eksport faktur z NFHotel do InsERT nexo",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    }
+   ],
+   "linie_produktow": [
+    "Subiekt 123, Subiekt GT, Subiekt nexo / nexo PRO",
+    "Rachmistrz nexo / GT",
+    "Rewizor nexo / GT",
+    "Gratyfikant nexo / GT",
+    "Gestor nexo / GT",
+    "Biuro nexo / GT"
+   ],
+   "kategorie_w_katalogu": [
+    "progs"
+   ],
+   "strona_producenta": "https://www.insert.com.pl/",
+   "logo_url": "https://www.insert.com.pl/",
+   "zrodla": [
+    {
+     "url": "https://www.insert.com.pl/o_firmie.html",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://nfhotel.pl/produkt",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 9,
+   "logo": "logo-insert.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Comarch",
+   "slug": "comarch",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Polski producent oprogramowania, m.in. programu Comarch ERP Optima.",
+   "opis": [
+    "Comarch SA powstał w 1993 roku i jest notowany na Giełdzie Papierów Wartościowych w Warszawie. Według firmy grupa ma 53 spółki i działa w ponad 100 krajach.",
+    "W katalogu Comarch to Comarch ERP Optima – program do faktur, magazynu, księgowości, kadr i płac, z obsługą KSeF, dostępny stacjonarnie lub w chmurze Comarch. Dla małych i średnich firm oraz biur rachunkowych.",
+    "Optima pracuje na Windows z Microsoft SQL Server albo w chmurze. Integruje się z drukarkami i kasami fiskalnymi, bankami i e-sklepem, a program hotelowy NFHotel eksportuje do niej faktury."
+   ],
+   "fakty": [
+    {
+     "k": "Rok powstania",
+     "v": "1993",
+     "zrodlo": "https://www.comarch.pl/o-firmie/"
+    },
+    {
+     "k": "Giełda",
+     "v": "GPW w Warszawie",
+     "zrodlo": "https://www.comarch.pl/o-firmie/"
+    },
+    {
+     "k": "Skala",
+     "v": "53 spółki, ponad 100 krajów (wg firmy)",
+     "zrodlo": "https://www.comarch.pl/o-firmie/"
+    },
+    {
+     "k": "Integracja",
+     "v": "eksport faktur z NFHotel do Comarch Optima",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    }
+   ],
+   "linie_produktow": [
+    "Comarch ERP Optima (stacjonarnie i w chmurze)"
+   ],
+   "kategorie_w_katalogu": [
+    "progs"
+   ],
+   "strona_producenta": "https://www.comarch.pl/erp/comarch-optima/",
+   "logo_url": "https://www.comarch.pl/files-pl/file_3/logo_comarch_dark_blue_w240.svg",
+   "zrodla": [
+    {
+     "url": "https://www.comarch.pl/o-firmie/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.comarch.pl/erp/comarch-optima/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 1,
+   "logo": "logo-comarch.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Insoft",
+   "slug": "insoft",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Krakowski producent programów dla sklepów i gastronomii: PC-Market, PC-POS, PC-Gastronom.",
+   "opis": [
+    "INSOFT Sp. z o.o. to producent oprogramowania z Krakowa (ul. Jasna 3A). Firma podkreśla ponad 30-letnią tradycję programu PC-Market.",
+    "W katalogu Insoft to PC-Market 7 i Faktury Lite (zarządzanie sklepem, faktury KSeF), Mini-Market (sklepy w sieci), PC-POS (program kasowy) i PC-Gastronom (restauracje i bary). Dla sklepów spożywczych, marketów, sieci sklepów i lokali gastronomicznych.",
+    "Programy Insoft współpracują z drukarkami fiskalnymi m.in. Elzab i Posnet, wagami, kolektorami i drukarkami etykiet; aplikacja elzAPP MAG wymienia dane z PC-Market. Obsługa KSeF wymaga aktualnej wersji i subskrypcji."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "ul. Jasna 3A, 31-227 Kraków",
+     "zrodlo": "https://www.insoft.com.pl/kontakt"
+    },
+    {
+     "k": "Forma",
+     "v": "INSOFT Sp. z o.o., KRS 0000197667",
+     "zrodlo": "https://www.insoft.com.pl/kontakt"
+    },
+    {
+     "k": "Tradycja",
+     "v": "ponad 30 lat PC-Market (wg producenta)",
+     "zrodlo": "https://www.insoft.com.pl/pc-market"
+    },
+    {
+     "k": "KSeF",
+     "v": "PC-Market od wersji 7.9.131.154, PC-POS od 7.9.67.145",
+     "zrodlo": "https://insoft.com.pl/ksef"
+    }
+   ],
+   "linie_produktow": [
+    "PC-Market 7, Faktury Lite",
+    "Mini-Market",
+    "PC-POS 7 (Premium, SCO, mPOS)",
+    "PC-Gastronom (Standard, Premium, Net)"
+   ],
+   "kategorie_w_katalogu": [
+    "progs",
+    "progb"
+   ],
+   "strona_producenta": "https://www.insoft.com.pl/",
+   "logo_url": "https://www.insoft.com.pl/",
+   "zrodla": [
+    {
+     "url": "https://www.insoft.com.pl/kontakt",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.insoft.com.pl/pc-market",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://insoft.com.pl/ksef",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 4,
+   "logo": "logo-insoft.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "GoPOS",
+   "slug": "gopos",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Krakowski system POS w chmurze dla gastronomii – kasa, zamówienia online, kiosk, KDS, magazyn.",
+   "opis": [
+    "GoPOS Sp. z o.o. to polski producent systemu sprzedaży dla gastronomii z siedzibą w Krakowie (ul. Krakusa 11).",
+    "W katalogu GoPOS to system POS oraz moduły: E-Menu, GoOrder (zamówienia online), GoKiosk (samoobsługa), GoKDS (ekran kuchenny), GoStock (magazyn), GoHub i system numerkowy. Dla restauracji, kawiarni, barów, food trucków i sieci lokali.",
+    "GoPOS łączy się z programem hotelowym NFHotel (rachunek z restauracji na pokój). Przy wdrożeniu dobieramy sprzęt POS, drukarkę fiskalną, drukarki kuchenne i terminal płatniczy zgodne z GoPOS."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "ul. Krakusa 11, 30-535 Kraków",
+     "zrodlo": "https://gopos.pl/contact"
+    },
+    {
+     "k": "Forma",
+     "v": "GoPOS Sp. z o.o.",
+     "zrodlo": "https://gopos.pl/contact"
+    },
+    {
+     "k": "Integracja",
+     "v": "NFHotel – rachunki restauracji na pokój",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    }
+   ],
+   "linie_produktow": [
+    "GoPOS (POS)",
+    "E-Menu",
+    "GoOrder",
+    "GoKiosk",
+    "GoKDS",
+    "GoStock",
+    "GoHub",
+    "system numerkowy"
+   ],
+   "kategorie_w_katalogu": [
+    "progb"
+   ],
+   "strona_producenta": "https://gopos.pl/",
+   "logo_url": "https://gopos.pl/",
+   "zrodla": [
+    {
+     "url": "https://gopos.pl/contact",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://nfhotel.pl/produkt",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 10,
+   "logo": "logo-gopos.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "NFHotel",
+   "slug": "nfhotel",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Program hotelowy w chmurze z channel managerem i silnikiem rezerwacji dla obiektów noclegowych.",
+   "opis": [
+    "NFHotel to program hotelowy (PMS) działający w chmurze. Producent podaje, że korzysta z niego ponad 1000 obiektów.",
+    "W katalogu NFHotel to PMS (grafik rezerwacji, meldunek, faktury z KSeF, opłata miejscowa, raporty) i Booking Engine – moduł rezerwacji na stronie obiektu. Dla hoteli, pensjonatów, apartamentów, domków i kwater.",
+    "NFHotel współpracuje z drukarkami fiskalnymi Posnet i Elzab, z GoPOS (rachunek z restauracji na pokój), zamkami (TTLock, Tayama, Be-Tech) oraz eksportuje faktury do Comarch Optima i InsERT nexo. Producent daje 14 dni testu pełnej wersji."
+   ],
+   "fakty": [
+    {
+     "k": "Liczba obiektów",
+     "v": "ponad 1000 (wg producenta)",
+     "zrodlo": "https://nfhotel.pl/"
+    },
+    {
+     "k": "Sposób pracy",
+     "v": "w chmurze",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    },
+    {
+     "k": "Okres testowy",
+     "v": "14 dni",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    },
+    {
+     "k": "Drukarki fiskalne",
+     "v": "Posnet, Elzab",
+     "zrodlo": "https://nfhotel.pl/produkt"
+    }
+   ],
+   "linie_produktow": [
+    "NFHotel PMS",
+    "Booking Engine",
+    "Channel Manager, CRM, Apartments Manager, Guest Assistant"
+   ],
+   "kategorie_w_katalogu": [
+    "progb"
+   ],
+   "strona_producenta": "https://nfhotel.pl/",
+   "logo_url": "https://nfhotel.pl/",
+   "zrodla": [
+    {
+     "url": "https://nfhotel.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://nfhotel.pl/produkt",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Danych spółki (siedziba) nie odczytano – strona kontaktowa przekierowuje.",
+   "liczba_produktow": 1,
+   "logo": "logo-nfhotel.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "ESET",
+   "slug": "eset",
+   "kraj_pochodzenia": "Słowacja",
+   "opis_krotki": "Słowacki producent oprogramowania antywirusowego i ochrony firm ESET PROTECT.",
+   "opis": [
+    "ESET ma globalną siedzibę w Bratysławie na Słowacji; nota prawna na stronie producenta obejmuje lata od 1992. Firma tworzy oprogramowanie zabezpieczające dla domów i firm.",
+    "W katalogu ESET to pakiety ESET PROTECT dla firm – Entry, Advanced, Complete, Enterprise, Elite i Mail Plus – oraz prostszy ESET Small Business Security. Chronią komputery, serwery plików i telefony; dla biur, sklepów, gabinetów, szkół i hoteli.",
+    "Dla małej firmy wybór to zwykle Entry lub Advanced (szyfrowanie dysków, ochrona przed ransomware). W oficjalnym sklepie ESET w Polsce pakiety Entry–Complete są na 5–99 stanowisk i 1–3 lata. Ochronę komputerów warto połączyć z zaporą sieciową i kopiami zapasowymi na NAS."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "Bratysława, Słowacja",
+     "zrodlo": "https://www.eset.com/int/about/"
+    },
+    {
+     "k": "Działalność od",
+     "v": "1992 (nota prawna)",
+     "zrodlo": "https://www.eset.com/int/about/"
+    },
+    {
+     "k": "Licencje w PL",
+     "v": "pakiety Entry–Complete: 5–99 stanowisk, 1–3 lata",
+     "zrodlo": "https://sklep.eset.pl/product/eset-protect-entry"
+    }
+   ],
+   "linie_produktow": [
+    "ESET PROTECT Entry / Advanced / Complete",
+    "ESET PROTECT Enterprise / Elite",
+    "ESET PROTECT Mail Plus",
+    "ESET Small Business Security"
+   ],
+   "kategorie_w_katalogu": [
+    "ochr"
+   ],
+   "strona_producenta": "https://www.eset.com/pl/",
+   "logo_url": "https://www.eset.com/pl/",
+   "zrodla": [
+    {
+     "url": "https://www.eset.com/int/about/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://sklep.eset.pl/",
+     "typ": "dystrybutor",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 1,
+   "logo": "logo-eset.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Stormshield",
+   "slug": "stormshield",
+   "kraj_pochodzenia": "Francja",
+   "opis_krotki": "Europejskie zapory sieciowe Stormshield SN – firewall, VPN i ochrona ruchu dla firm.",
+   "opis": [
+    "Stormshield to producent rozwiązań cyberbezpieczeństwa, w całości należący do Airbus Defence and Space Cyber Programmes. Zespoły projektowe pracują we Francji i za granicą.",
+    "W katalogu Stormshield to zapory sieciowe SN170, SN220, SN320, SN520 i SN720 – od małego biura po większe organizacje. Dla biur rachunkowych, gabinetów, przychodni, szkół i firm z oddziałami.",
+    "Zapora chroni sieć przed atakami i umożliwia bezpieczną pracę zdalną (VPN). Zakres ochrony zależy od licencji. Produkty Stormshield mają kwalifikację francuskiej agencji ANSSI. Zaporę warto uzupełnić antywirusem na komputerach (np. ESET)."
+   ],
+   "fakty": [
+    {
+     "k": "Właściciel",
+     "v": "Airbus Defence and Space Cyber Programmes (100%)",
+     "zrodlo": "https://www.stormshield.com/about-us/"
+    },
+    {
+     "k": "Kraj",
+     "v": "Francja (zespoły we Francji)",
+     "zrodlo": "https://www.stormshield.com/about-us/"
+    },
+    {
+     "k": "Certyfikacja",
+     "v": "kwalifikacja ANSSI „Standard” (np. SN220)",
+     "zrodlo": "https://www.stormshield.com/products/sn-s-series-220/"
+    }
+   ],
+   "linie_produktow": [
+    "SN170 (SN XS)",
+    "SN220 / SN320 (SN S)",
+    "SN520 / SN720 (SN M)"
+   ],
+   "kategorie_w_katalogu": [
+    "ochr"
+   ],
+   "strona_producenta": "https://www.stormshield.com/",
+   "logo_url": "https://www.stormshield.com/",
+   "zrodla": [
+    {
+     "url": "https://www.stormshield.com/about-us/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://www.stormshield.com/products/sn-s-series-220/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 1,
+   "logo": "logo-stormshield.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "EuroCert",
+   "slug": "eurocert",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Kwalifikowany dostawca podpisów i pieczęci elektronicznych – na karcie i w chmurze.",
+   "opis": [
+    "EuroCert to polski dostawca usług zaufania z siedzibą w Warszawie (ul. Puławska 472). Wydaje kwalifikowane podpisy i pieczęcie elektroniczne zgodne z eIDAS.",
+    "W katalogu EuroCert to kwalifikowany podpis elektroniczny (zestaw Token, Classic, sama karta, w chmurze ECSigner) i kwalifikowana pieczęć elektroniczna dla firm i instytucji (na karcie lub w chmurze). Dla właścicieli firm, księgowych, spółek, szkół i urzędów.",
+    "Podpis lub pieczęć przydaje się do KSeF, ZUS, e-KRS, JPK i umów elektronicznych. Certyfikat wydaje się na 1–3 lata; weryfikacja tożsamości odbywa się w punkcie, u klienta lub online. Przed wyborem podpisu w chmurze warto sprawdzić zgodność z używanym programem."
+   ],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "ul. Puławska 472, 02-884 Warszawa",
+     "zrodlo": "https://eurocert.pl/o-nas/"
+    },
+    {
+     "k": "Okres certyfikatu",
+     "v": "1, 2 lub 3 lata",
+     "zrodlo": "https://sklep.eurocert.pl/pl/p/Kwalifikowany-Podpis-Elektroniczny/88"
+    },
+    {
+     "k": "Podstawa",
+     "v": "kwalifikowana usługa zaufania eIDAS",
+     "zrodlo": "https://eurocert.pl/kwalifikowana-pieczec-elektroniczna-do-ksef/"
+    }
+   ],
+   "linie_produktow": [
+    "kwalifikowany podpis: Token, Classic, karta, nowy certyfikat",
+    "ECSigner (podpis w chmurze)",
+    "kwalifikowana pieczęć: na karcie, w chmurze ECSigner"
+   ],
+   "kategorie_w_katalogu": [
+    "podpis"
+   ],
+   "strona_producenta": "https://eurocert.pl/",
+   "logo_url": "https://eurocert.pl/",
+   "zrodla": [
+    {
+     "url": "https://eurocert.pl/o-nas/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://sklep.eurocert.pl/",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 2,
+   "logo": "logo-eurocert.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Avtek",
+   "slug": "avtek",
+   "kraj_pochodzenia": "Polska",
+   "opis_krotki": "Monitory interaktywne i rozwiązania AV dla szkół i firm – marka VIDIS SA.",
+   "opis": [
+    "Avtek to marka sprzętu audiowizualnego firmy VIDIS SA z siedzibą w Bielanach Wrocławskich (Kobierzyce). Sprzedaje produkty przez sieć partnerów.",
+    "W katalogu Avtek to monitory interaktywne TouchScreen (8 Lite G, 9 Lite G, 9 Mate G i 8.1 Mate G, 8.1 Easy, 8 Connect, 7.1 Lite) z komputerami OPS i akcesoriami – dla szkół, sal szkoleniowych i sal konferencyjnych w hotelach i biurach.",
+    "Przy wyborze monitora interaktywnego liczą się przekątna do wielkości sali, system (Android z certyfikatem Google lub komputer OPS z Windows) i sposób montażu. Na stronie modelu 86\" TS 8 Lite G producent podaje 5 lat gwarancji."
+   ],
+   "fakty": [
+    {
+     "k": "Właściciel marki",
+     "v": "VIDIS SA",
+     "zrodlo": "https://avtek.pl/kontakt"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Logistyczna 4, Bielany Wrocławskie, 55-040 Kobierzyce",
+     "zrodlo": "https://avtek.pl/kontakt"
+    },
+    {
+     "k": "Gwarancja (przykład)",
+     "v": "TS 8 Lite G 86: 5 lat (2 lata wymiana 1:1)",
+     "zrodlo": "https://avtek.eu/products/interactive-flat-panel-avtek-ts-8-lite-g-86,1tv357"
+    }
+   ],
+   "linie_produktow": [
+    "monitory interaktywne TouchScreen: 8 Lite G, 9 Lite G, 9 Mate G / 8.1 Mate G, 8.1 Easy, 8 Connect, 7.1 Lite",
+    "komputery OPS",
+    "akcesoria: statywy, kamera CAM4K, klucz Android"
+   ],
+   "kategorie_w_katalogu": [
+    "av"
+   ],
+   "strona_producenta": "https://avtek.pl/",
+   "logo_url": "https://avtek.pl/",
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/kontakt",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    },
+    {
+     "url": "https://avtek.eu/products/interactive-flat-panel-avtek-ts-8-lite-g-86,1tv357",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "",
+   "liczba_produktow": 8,
+   "logo": "logo-avtek.webp",
+   "strona_marki": true
+  },
+  {
+   "marka": "Adobe",
+   "slug": "adobe",
+   "kraj_pochodzenia": null,
+   "opis_krotki": "Oprogramowanie Adobe Acrobat do pracy z dokumentami PDF w zespole.",
+   "opis": [
+    "Adobe działa od 1982 roku i tworzy oprogramowanie do pracy z dokumentami, grafiką i wideo, m.in. Acrobat do plików PDF.",
+    "W katalogu Adobe to Adobe Acrobat Pro for teams – licencja zespołowa na rok do tworzenia, edycji, podpisywania i porównywania dokumentów PDF. Dla biur, kancelarii, księgowości i działów sprzedaży.",
+    "Licencja zespołowa jest przypisana do użytkowników i zarządzana centralnie przez administratora. Do podpisu z mocą prawną podpisu odręcznego potrzebny jest kwalifikowany podpis elektroniczny (np. EuroCert)."
+   ],
+   "fakty": [
+    {
+     "k": "Działalność od",
+     "v": "1982",
+     "zrodlo": "https://www.adobe.com/about-adobe.html"
+    }
+   ],
+   "linie_produktow": [
+    "Adobe Acrobat Pro for teams"
+   ],
+   "kategorie_w_katalogu": [
+    "m365"
+   ],
+   "strona_producenta": "https://www.adobe.com/pl/",
+   "logo_url": "https://www.adobe.com/pl/",
+   "zrodla": [
+    {
+     "url": "https://www.adobe.com/about-adobe.html",
+     "typ": "producent",
+     "sprawdzono": "2026-10-25"
+    }
+   ],
+   "uwagi": "Siedziby nie odczytano ze strony „About Adobe”.",
+   "liczba_produktow": 1,
+   "logo": null,
+   "strona_marki": true
+  },
+  {
+   "marka": "PRO-KOM",
+   "slug": "pro-kom",
+   "logo": "brand-prokom-biznes-jasne.svg",
+   "liczba_produktow": 13,
+   "strona_marki": false,
+   "uwaga_strona": "Usługi własne — nie liczyć jako marki w licznikach."
+  }
+ ],
+ "marki_usuniete": [
+  "honeywell",
+  "storagecraft"
+ ],
+ "logo_brak": [
+  "apc",
+  "samsung",
+  "tp-link",
+  "adobe"
+ ],
+ "kolejnosc_wyroznionych": [
+  "ergo",
+  "k10",
+  "pol",
+  "d3",
+  "hx",
+  "lenovo-thinkbook-14-g8-g9",
+  "euro",
+  "synology-diskstation-plus-2-4"
+ ]
+}

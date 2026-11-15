@@ -1,0 +1,184 @@
+'use client'
+
+import { useState, type MouseEvent } from 'react'
+
+import { cx } from '@/components/ui/cx'
+import { cartActions, useCart } from '@/lib/cart/store'
+
+import { flyToCart } from './motion/flyToCart'
+
+type Props = {
+  slug: string
+  name: string
+  className?: string
+  /**
+   * `icon`: square "+ / ✓" (search results, suggestions);
+   * `label`: "+ Do zapytania" / "✓ W zapytaniu" of the catalog cards (spec. §5.3);
+   * `primary`: the big switch of the product box, "Dodaj do zapytania" / "✓ Na liście" (§6.2);
+   * `onDark`: the same on a navy panel, "Dodaj do zapytania" / "✓ W zapytaniu" (/insert picker).
+   */
+  variant?: 'icon' | 'label' | 'primary' | 'onDark' | 'card'
+  /** After the switch, e.g. to move focus when this button leaves the page. */
+  onToggle?: () => void
+  /** Adding sends a dot flying to the shell's counter (`flyToCart`; home „Najczęściej wybierane”). */
+  fly?: boolean
+}
+
+const PLUS = 'M12 5v14M5 12h14'
+const CHECK = 'M5 12l5 5L20 7'
+
+/** R2: after the visitor's own click the tick draws itself (`data-check`); never on load. */
+function Mark({
+  on,
+  size,
+  stroke,
+  drawn,
+}: {
+  on: boolean
+  size: number
+  stroke: number
+  drawn: boolean
+}) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
+      <path
+        key={on ? 'check' : 'plus'}
+        d={on ? CHECK : PLUS}
+        pathLength={1}
+        data-check={on && drawn ? '' : undefined}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={stroke}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+/** Switch of a product on the inquiry list: adds, or removes when already there. */
+export function AddToCartButton({
+  slug,
+  name,
+  className,
+  variant = 'icon',
+  onToggle,
+  fly = false,
+}: Props) {
+  const on = useCart().some((item) => item.id === slug)
+  const [clicked, setClicked] = useState(false)
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
+    setClicked(true)
+    if (fly && !on) flyToCart(event.currentTarget)
+    cartActions.toggle(slug, name)
+    onToggle?.()
+  }
+
+  if (variant === 'primary') {
+    const label = on ? 'Na liście' : 'Dodaj do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl px-5 font-display text-base font-extrabold transition-colors font-stretch-106%',
+          on
+            ? 'bg-surface-2 text-ok-text shadow-[inset_0_0_0_1px_var(--border)] hover:text-warn'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} drawn={clicked} size={18} stroke={2.6} />
+        {label}
+      </button>
+    )
+  }
+
+  if (variant === 'onDark') {
+    const label = on ? 'W zapytaniu' : 'Dodaj do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-2xl px-6 font-extrabold transition-colors',
+          // Light surfaces in both themes: the panel is navy at day and at night.
+          on
+            ? 'bg-ok-text text-surface hover:bg-white hover:text-surface-dark'
+            : 'bg-white text-surface-dark hover:bg-white/85',
+          className,
+        )}
+      >
+        <Mark on={on} drawn={clicked} size={16} stroke={2.6} />
+        {label}
+      </button>
+    )
+  }
+
+  if (variant === 'card') {
+    // Board `.addb`: in the corner of the card picture, accent until added, then green.
+    const label = on ? 'W zapytaniu' : 'Do zapytania'
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[13px] px-3.5 text-sm font-extrabold whitespace-nowrap transition-colors',
+          on
+            ? 'bg-ok-text text-surface'
+            : 'bg-accent-text text-accent-ink hover:bg-ink hover:text-surface',
+          className,
+        )}
+      >
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
+        {/* Only the „+” on a phone: the picture is small there (`aria-label` names it). */}
+        <span className="max-sm:hidden">{label}</span>
+      </button>
+    )
+  }
+
+  if (variant === 'label') {
+    const label = on ? 'W zapytaniu' : 'Do zapytania'
+    // The visible words start the accessible name (WCAG 2.5.3); the product name follows.
+    return (
+      <button
+        type="button"
+        aria-pressed={on}
+        aria-label={`${label}: ${name}`}
+        onClick={toggle}
+        className={cx(
+          'inline-flex min-h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-3.5 text-sm font-extrabold transition-colors',
+          on
+            ? 'bg-surface-2 text-ok-text hover:text-warn'
+            : 'bg-surface-2 text-ink hover:bg-accent-text hover:text-accent-ink',
+          className,
+        )}
+      >
+        <Mark on={on} drawn={clicked} size={15} stroke={2.6} />
+        {label}
+      </button>
+    )
+  }
+
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      aria-label={`${on ? 'Usuń z zapytania' : 'Dodaj do zapytania'}: ${name}`}
+      onClick={toggle}
+      className={cx(
+        'inline-flex size-9 shrink-0 items-center justify-center rounded-xl',
+        on ? 'bg-accent-text text-accent-ink' : 'bg-surface-2 text-ink hover:bg-surface-3',
+        className,
+      )}
+    >
+      <Mark on={on} drawn={clicked} size={17} stroke={2.4} />
+    </button>
+  )
+}

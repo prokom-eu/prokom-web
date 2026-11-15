@@ -2,6 +2,7 @@
 
 - **Status:** przyjęta
 - **Data:** 2026-10-14
+- **Uzupełnienie (17.10.2026):** kolory neutralne per linia, gradienty w wyznaczonych miejscach i tryb ciemny — **ADR-013** (przyjęta 17.10.2026).
 
 ## Kontekst
 Wszystkie strony mają wyglądać jak jedna firma (wspólny pasek marki, nagłówek, stopka, formularze, fonty, odstępy), a różnić się kolorem linii i treścią. Część kolorów linii nie spełnia WCAG AA dla zwykłego tekstu (patrz `docs/marka.md`).
@@ -17,3 +18,6 @@ Wszystkie strony mają wyglądać jak jedna firma (wspólny pasek marki, nagłó
 ## Konsekwencje
 - Komponent nigdy nie zna koloru konkretnej linii.
 - Hub pro-kom.eu używa linii `prokom` (zieleń).
+
+## Uzupełnienie (03.11.2026)
+Reguły tokenów linii Instalacje (`[data-line='instalacje']`) są w `src/styles/tokens-instalacje.css`, ładowanym tylko z arkusza tej linii (ADR-023 „CSS per linia”). Wartości kolorów nadal tylko w `src/styles/tokens*.css`; testy kontrastu czytają oba pliki.
