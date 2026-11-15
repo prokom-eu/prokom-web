@@ -285,7 +285,7 @@
       "key": "agd",
       "title": "RTV i AGD dla firm",
       "lines": "PRO-KOM Biznes",
-      "line": "prokom",
+      "line": "biznes",
       "note": "Dostawa pod wskazany adres, bez montażu. Tylko dla firm i instytucji.",
       "items": [
         {
@@ -451,7 +451,7 @@
         {
           "title": "Pokoje",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "Telewizory",
@@ -730,7 +730,7 @@
         {
           "title": "Sala i socjalny",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "Telewizor do sali",
@@ -806,7 +806,7 @@
         {
           "title": "Standard lokali",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "AGD do zabudowy",
@@ -982,7 +982,7 @@
         {
           "title": "Każdy lokal",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "Telewizory",
@@ -1005,7 +1005,7 @@
         {
           "title": "Wyposażenie",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "Drobne AGD",
@@ -1115,7 +1115,7 @@
         {
           "title": "Wyposażenie",
           "lines": "RTV i AGD",
-          "line": "prokom",
+          "line": "biznes",
           "items": [
             {
               "title": "Telewizory",
@@ -1485,7 +1485,7 @@
     {
       "title": "RTV i AGD",
       "lines": "PRO-KOM Biznes",
-      "line": "prokom",
+      "line": "biznes",
       "heading": "Jedna dostawa zamiast wielu zamówień.",
       "lead": "RTV i AGD dla firm i instytucji dobieramy do obiektu i dostarczamy pod wskazany adres. Bez montażu.",
       "items": [
@@ -1698,7 +1698,7 @@
     {
       "title": "RTV i AGD dla firm",
       "lines": "PRO-KOM Biznes",
-      "line": "prokom",
+      "line": "biznes",
       "text": "Telewizory, lodówki, AGD do zabudowy i drobne AGD do pokoi, lokali, biur i zaplecza.",
       "tags": [
         "Telewizory",
@@ -1775,7 +1775,7 @@
       "title": "RTV i AGD",
       "other": "osobny sprzedawca",
       "ours": "w tej samej ofercie",
-      "line": "prokom"
+      "line": "biznes"
     },
     {
       "title": "Monitoring i sieć",

@@ -1143,7 +1143,8 @@ function forBusiness() {
     next: {
       // :602–611
       eyebrow: 'Co dalej?',
-      title: 'Cztery miejsca, do których warto zajrzeć.',
+      // No number: v1.1 pages switched off drop out of the list (audit 15.11 — two of four showed).
+      title: 'Gdzie jeszcze warto zajrzeć.',
       items: [
         [
           'Inwestycje i dostawy',
@@ -1354,9 +1355,23 @@ function forHome() {
   }
 }
 
+/**
+ * RTV i AGD is sold by Biznes (spec §3, Krystian 15.11): the board paints those cards and rows in
+ * the hub's green — here they take Biznes blue. Only entries that name RTV i AGD change.
+ */
+function rtvAgdToBiznes(value) {
+  if (Array.isArray(value)) return value.map(rtvAgdToBiznes)
+  if (!value || typeof value !== 'object') return value
+  const entry = Object.fromEntries(Object.entries(value).map(([k, v]) => [k, rtvAgdToBiznes(v)]))
+  const named = [entry.title, entry.lines, entry.name].some(
+    (text) => typeof text === 'string' && text.includes('RTV i AGD'),
+  )
+  return named && entry.line === 'prokom' ? { ...entry, line: 'biznes' } : entry
+}
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
-  ['Dostawy', deliveries()],
+  ['Dostawy', rtvAgdToBiznes(deliveries())],
   ['Wspolpraca', cooperation()],
   ['Main', home()],
   ['Marki', brands()],
