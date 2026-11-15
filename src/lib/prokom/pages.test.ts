@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { HUB_OPTIONAL_PAGES, isHubLinkLive, NO_OPTIONAL_PAGES } from './pages'
+import { HUB_OPTIONAL_PAGES, hubMapPages, isHubLinkLive, NO_OPTIONAL_PAGES } from './pages'
 
 describe('hub pages of v1.1 (spec §2.2: no dead links)', () => {
   it('lists the eight pages of „if time allows” and starts with all of them off', () => {
@@ -31,5 +31,15 @@ describe('hub pages of v1.1 (spec §2.2: no dead links)', () => {
 
   it('shows a page once it is switched on', () => {
     expect(isHubLinkLive('/pomoc', { ...NO_OPTIONAL_PAGES, help: true })).toBe(true)
+  })
+})
+
+describe('hubMapPages', () => {
+  it('lists v1 pages always and a v1.1 page only when switched on', () => {
+    const off = hubMapPages(NO_OPTIONAL_PAGES).map((page) => page.href)
+    expect(off).toContain('/inwestycje-i-dostawy')
+    expect(off).not.toContain('/dla-domu')
+    const on = hubMapPages({ ...NO_OPTIONAL_PAGES, forHome: true }).map((page) => page.href)
+    expect(on).toContain('/dla-domu')
   })
 })

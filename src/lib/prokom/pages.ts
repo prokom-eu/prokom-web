@@ -36,3 +36,26 @@ export function isHubLinkLive(href: string, flags: HubPageFlags): boolean {
   const key = OPTIONAL_BY_PATH.get(top)
   return key === undefined || flags[key]
 }
+
+/** Built pages of the hub for the site maps (`/mapa-strony`, `sitemap.xml`; spec §4 „Indeks”). */
+const HUB_MAP_PAGES = [
+  { path: '/', label: 'Strona główna' },
+  { path: '/linie', label: 'Cała oferta' },
+  { path: '/dla-firm', label: 'Dla firm' },
+  { path: '/dla-domu', label: 'Dla domu' },
+  { path: '/inwestycje-i-dostawy', label: 'Inwestycje i dostawy' },
+  { path: '/wspolpraca', label: 'Współpraca' },
+  { path: '/kontakt', label: 'Kontakt' },
+  { path: '/o-firmie', label: 'O firmie' },
+] as const
+
+/** Hub pages for the maps: v1 always, a v1.1 page only while switched on (no 404 in the map). */
+export function hubMapPages(flags: HubPageFlags): { href: string; label: string }[] {
+  return HUB_MAP_PAGES.filter((page) => isHubLinkLive(page.path, flags)).map((page) => ({
+    href: page.path,
+    label: page.label,
+  }))
+}
+
+/** Panel pages of the hub kept out of the maps and search until accepted (spec §6.13). */
+export const HUB_NOINDEX_SLUGS = ['polityka-prywatnosci', 'cookies', 'dostepnosc'] as const

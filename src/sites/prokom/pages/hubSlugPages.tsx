@@ -28,7 +28,10 @@ export async function hubSlugMetadata(tenant: SiteTenant, slug: string): Promise
   const title = TITLES[slug]
   if (title) {
     const shared = await getSharedData(tenant.id)
-    return { title: { absolute: title(shared?.company.address ?? null) } }
+    return {
+      title: { absolute: title(shared?.company.address ?? null) },
+      alternates: { canonical: `/${slug}` },
+    }
   }
   if (LEGAL.has(slug)) return { robots: pageRobots(getEnv().SITE_ENV, false) }
   return null

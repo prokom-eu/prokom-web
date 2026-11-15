@@ -26,6 +26,7 @@ import { toolGroups } from './toolGroups'
 /** Title of the start page (spec §4); SEO of every page is finished in H6-2. */
 export const HOME_METADATA: Metadata = {
   title: { absolute: 'PRO-KOM Rabka-Zdrój — IT dla firm, instalacje, serwis' },
+  alternates: { canonical: '/' },
 }
 
 /** Three newest posts of the line sites (spec §6.1 pkt 9). */

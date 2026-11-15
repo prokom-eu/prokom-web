@@ -10,6 +10,8 @@ import { buildPlanScenes } from '../catalog/floorPlan'
 import { AREA_TOWNS } from '../instalacje/area'
 import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
+import { getHubSettings } from '../prokom/data'
+import { HUB_NOINDEX_SLUGS, hubMapPages } from '../prokom/pages'
 import { getPostList } from '../posts/data'
 import {
   getCityList,
@@ -62,7 +64,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
   const indexed = new Map((index?.products ?? []).map((product) => [product.slug, product]))
   // Bundles shown on the site (`listBundle`); in the maps only those „Gotowe” (K3c).
   const bundles = listBundles(allBundles, new Set(indexed.keys()))
-  return buildSiteMap({
+  const sections = buildSiteMap({
     pages,
     catalog: index && {
       categories: index.categories,
@@ -95,4 +97,25 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     objectPages,
     areaPages: instalacje ? AREA_TOWNS : null,
   })
+  return tenant.line === 'prokom' ? withHubPages(sections, tenant.id) : sections
+}
+
+/**
+ * pro-kom.eu: its own pages (routes, not panel pages) lead the maps; its legal pages stay out until
+ * a lawyer accepts them (spec §4, §6.13). A v1.1 page is listed only while switched on.
+ */
+async function withHubPages(sections: SiteMapSection[], tenantId: number) {
+  const { pages } = await getHubSettings(tenantId)
+  const hidden = new Set<string>(HUB_NOINDEX_SLUGS.map((slug) => `/${slug}`))
+  const hub = hubMapPages(pages)
+  const known = new Set(hub.map((page) => page.href))
+  return [
+    { id: 'hub', title: 'PRO-KOM', links: hub },
+    ...sections
+      .map((section) => ({
+        ...section,
+        links: section.links.filter((link) => !hidden.has(link.href) && !known.has(link.href)),
+      }))
+      .filter((section) => section.links.length > 0 || section.groups?.length),
+  ]
 }
