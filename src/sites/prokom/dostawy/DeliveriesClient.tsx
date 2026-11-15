@@ -15,12 +15,18 @@ type Page = HubDeliveries['page']
 const positions = (count: number) => plural(count, ['pozycja', 'pozycje', 'pozycji'])
 
 /** „Dla kogo zamawiasz?” (spec §6.5 pkt 1): six segments; the choice changes the panel and the form. */
+/** What the picker needs of a segment (`/inwestycje-i-dostawy`) or a role (`/wspolpraca`). */
+type Choice = Pick<
+  HubDeliveries['segments'][number],
+  'key' | 'name' | 'sub' | 'line' | 'eyebrow' | 'heading' | 'start' | 'points'
+> & { cta?: { label: string; href: string } }
+
 export function SegmentPicker({
   texts,
   segments,
 }: {
-  texts: Page['hero']
-  segments: HubDeliveries['segments']
+  texts: { segmentsLabel: string; segmentsHint: string; start: string }
+  segments: Choice[]
 }) {
   const { segment, setSegment } = useDeliveries()
   const panelId = useId()
@@ -70,9 +76,11 @@ export function SegmentPicker({
           <span className="pk-area__lead">
             {texts.start} {current.start}
           </span>
-          <a href={current.cta.href} className="pk-hbtn pk-hbtn--line">
-            {current.cta.label}
-          </a>
+          {current.cta && (
+            <a href={current.cta.href} className="pk-hbtn pk-hbtn--line">
+              {current.cta.label}
+            </a>
+          )}
         </div>
       </div>
     </div>
