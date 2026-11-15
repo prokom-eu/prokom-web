@@ -23,7 +23,7 @@ test.describe('pro-kom.eu — /inwestycje-i-dostawy (spec §6.5)', () => {
     await plus.nth(0).click()
     await plus.nth(1).click()
     await plus.nth(2).click()
-    await expect(page.locator('.pk-dsum__totals')).toContainText('3 szt.')
+    await expect(page.locator('#lista .pk-dsum__totals')).toContainText('3 szt.')
     await expect(page.locator('.pk-dbar')).toBeVisible()
 
     const restaurant = page.locator('#obiekty .pk-ind__item', { hasText: 'Restauracja' })
@@ -31,7 +31,7 @@ test.describe('pro-kom.eu — /inwestycje-i-dostawy (spec §6.5)', () => {
     await expect(restaurant).toHaveAttribute('aria-pressed', 'true')
     await page.locator('#obiekty button', { hasText: 'Wczytaj przykład' }).click()
     // The „Restauracja” preset of the seed: 18 pieces in 7 positions.
-    await expect(page.locator('.pk-dsum__totals')).toContainText('18 szt. · 7 pozycji')
+    await expect(page.locator('#lista .pk-dsum__totals')).toContainText('18 szt. · 7 pozycji')
 
     await page.locator('#lista button', { hasText: 'Kopiuj listę' }).click()
     await expect(page.locator('#lista [role="status"]')).toHaveText('Skopiowano listę')
@@ -48,13 +48,13 @@ test.describe('pro-kom.eu — /inwestycje-i-dostawy (spec §6.5)', () => {
     const plus = page.locator('#lista .pk-qty__ctl button', { hasText: /^\+10$/ })
     await hydrated(plus.first())
     await plus.first().click()
-    await expect(page.locator('.pk-dsum__totals')).toContainText('10 szt.')
+    await expect(page.locator('#lista .pk-dsum__totals')).toContainText('10 szt.')
     await page.reload()
-    await expect(page.locator('.pk-dsum__totals')).toContainText('10 szt.')
+    await expect(page.locator('#lista .pk-dsum__totals')).toContainText('10 szt.')
     const clear = page.locator('#lista button', { hasText: 'Wyczyść' })
     await hydrated(clear)
     await clear.click()
-    await expect(page.locator('.pk-dsum__totals')).toContainText('0 szt.')
+    await expect(page.locator('#lista .pk-dsum__totals')).toContainText('0 szt.')
   })
 
   test('is not a page of the line domains', async ({ page }) => {
