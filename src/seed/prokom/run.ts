@@ -10,6 +10,7 @@ import {
   hubCooperation,
   hubDeliveries,
   hubHome,
+  hubOffer,
   hubHelp,
   hubPlans,
   hubServices,
@@ -103,6 +104,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
     brands: hubBrands(),
     deliveries: hubDeliveries(),
     cooperation: hubCooperation(),
+    offer: hubOffer(),
   }
   if (!hubSettings) {
     await payload.create({

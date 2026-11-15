@@ -36,6 +36,10 @@ export const RESERVED_PAGE_SLUGS: readonly string[] = [
   'zestawy',
   // Search results of pro-kom.eu (H1-3, spec §5.6).
   'szukaj',
+  // Pages of pro-kom.eu (H3, spec §6.2–§6.4).
+  'linie',
+  'dla-firm',
+  'dla-domu',
 ]
 
 export function isValidPageSlug(slug: string): boolean {
