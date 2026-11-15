@@ -41,8 +41,10 @@ test.describe('pro-kom.eu — 404 (spec §6.15)', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ta strona się rozłączyła.')
     await expect(page.locator('.pk-404__line')).toHaveCount(5)
     await expect(page.locator('.pk-404 a[href^="tel:"]')).toHaveCount(2)
-    await page.getByLabel('Czego potrzebujesz?').fill('kamery')
-    await page.getByRole('button', { name: 'Szukaj' }).click()
+    // The header has its own „Szukaj” — the 404's form only.
+    const form = page.locator('.pk-404 form[role="search"]')
+    await form.getByLabel('Czego potrzebujesz?').fill('kamery')
+    await form.getByRole('button', { name: 'Szukaj' }).click()
     await expect(page).toHaveURL(/\/szukaj\?q=kamery$/)
   })
 
