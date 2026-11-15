@@ -1559,7 +1559,92 @@ a.pk-mqi:hover {
     transform: none;
   }
 }
+/* „Załatw od razu” (15.11): four tools of the lines as glass buttons in their colours, above the
+   call to action; two by two, one column on narrow phones. */
+.pk-hq2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.pk-hq2__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.pk-hq2__item {
+  position: relative;
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ln) 28%, var(--w09));
+  border-radius: 16px;
+  padding: 8px 12px 8px 8px;
+  background:
+    radial-gradient(
+      120% 140% at 0% 0%,
+      color-mix(in srgb, var(--ln) 16%, transparent),
+      transparent 60%
+    ),
+    var(--w03);
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.3s;
+}
+.pk-hq2__item:hover {
+  border-color: var(--ln);
+  transform: translateY(-2px);
+}
+.pk-hq2__icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  box-shadow: 0 8px 20px -10px var(--ln);
+}
+.pk-hq2__text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq2__title {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq2__line {
+  color: var(--ln-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+.pk-hq2__go {
+  color: var(--k-ink3);
+  font-weight: 800;
+  transition: transform 0.3s var(--ease);
+}
+.pk-hq2__item:hover .pk-hq2__go {
+  color: var(--ln-text);
+  transform: translate(2px, -2px);
+}
+@media (max-width: 420px) {
+  .pk-hq2__list {
+    grid-template-columns: 1fr;
+  }
+}
 /* The call to action sits at the bottom of the tile. */
+.pk-hq2 + .pk-hb-main__cta,
 .pk-hch-list + .pk-hb-main__cta {
   margin-top: auto;
 }

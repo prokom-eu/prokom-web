@@ -10,7 +10,7 @@ import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { splitLastSentence } from './heroText'
 import { HeroTiles } from './HomeIslands'
-import type { HomeLine } from './model'
+import type { HomeLine, QuickTool } from './model'
 
 type Props = {
   home: HubHome
@@ -18,10 +18,21 @@ type Props = {
   /** Company facts visible here (on production: approved only, spec §3). */
   facts: { value: string; label: string }[]
   company: SharedCompany
+  /** „Załatw od razu” — four tools of the lines (`quickTools`). */
+  quick: QuickTool[]
   /** The company's phones (`SiteSettings` of the hub). */
   phone: string | null
   phone2: string | null
   now: string
+}
+
+/** Icon of a quick tool by its line. */
+const QUICK_ICONS: Record<QuickTool['line'], IconName> = {
+  biznes: 'pc',
+  instalacje: 'home',
+  software: 'site',
+  tech: 'wrench',
+  gaming: 'spark',
 }
 
 const LINE_STRIPES = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as const
@@ -32,7 +43,7 @@ const LINE_STRIPES = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as c
  * five line tiles with slides; company numbers; and the trust bar. Numbers and trust items tied to
  * a fact show only while the fact is visible (`withVisibleFacts`).
  */
-export function Hero({ home, lines, facts, company, phone, phone2, now }: Props) {
+export function Hero({ home, lines, facts, company, quick, phone, phone2, now }: Props) {
   const { hero } = home
   const tel = phone ? toTelHref(phone) : null
   const tel2 = phone2 ? toTelHref(phone2) : null
@@ -119,6 +130,31 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
                     </li>
                   ))}
                 </ul>
+                {hero.quick && quick.length > 0 && (
+                  <nav className="pk-hq2" aria-labelledby="pk-hq2-h">
+                    <p id="pk-hq2-h" className="pk-eb">
+                      {hero.quick.title}
+                    </p>
+                    <ul className="pk-hq2__list">
+                      {quick.map((tool) => (
+                        <li key={tool.key} style={lineStyle(tool.line)}>
+                          <a href={tool.url} className="pk-hq2__item">
+                            <span className="pk-hq2__icon" aria-hidden="true">
+                              <Icon name={QUICK_ICONS[tool.line]} />
+                            </span>
+                            <span className="pk-hq2__text">
+                              <span className="pk-hq2__title">{tool.title}</span>
+                              <span className="pk-hq2__line">{tool.lineName}</span>
+                            </span>
+                            <span className="pk-hq2__go" aria-hidden="true">
+                              ↗
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )}
                 <div className="pk-hb-main__cta">
                   <a href="#dobierz" className="pk-hcta">
                     {hero.cta} <span aria-hidden="true">→</span>

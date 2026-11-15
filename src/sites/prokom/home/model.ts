@@ -220,3 +220,25 @@ export function faqItems(
     return missing ? [] : [{ question: item.question, answer: fillTokens(item.answer, tokens) }]
   })
 }
+
+/** A button of „Załatw od razu” in the PRO-KOM tile. */
+export type QuickTool = { key: string; title: string; url: string; line: HubLine; lineName: string }
+
+/**
+ * The tools of „Załatw od razu” in the order of `keys`: a tool missing from the records, or one
+ * whose line is not on the page, is left out; without its own address it leads to the line's site.
+ */
+export function quickTools(
+  keys: readonly string[],
+  tools: readonly HubToolView[],
+  lines: readonly Pick<HomeLine, 'key' | 'name' | 'url'>[],
+): QuickTool[] {
+  return keys.flatMap((key) => {
+    const tool = tools.find((entry) => entry.key === key)
+    const line = tool && lines.find((entry) => entry.key === tool.line)
+    const url = tool?.url ?? line?.url
+    return tool && line && url
+      ? [{ key, title: tool.title, url, line: tool.line, lineName: line.name }]
+      : []
+  })
+}

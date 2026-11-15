@@ -19,7 +19,7 @@ import { Faq } from './Faq'
 import { Final } from './Final'
 import { Hero } from './Hero'
 import { Choose, HelpPicker, LineScene } from './HomeIslands'
-import { choosePlans, faqTokens, helpCases, homeLines, teamExamples } from './model'
+import { choosePlans, faqTokens, helpCases, homeLines, quickTools, teamExamples } from './model'
 import { News } from './News'
 import { Tools } from './Tools'
 import { toolGroups } from './toolGroups'
@@ -77,6 +77,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             lines={lines}
             facts={settings.trust}
             company={shared.company}
+            quick={home.hero.quick ? quickTools(home.hero.quick.tools, hub.tools, lines) : []}
             phone={phone}
             phone2={phone2}
             now={now}

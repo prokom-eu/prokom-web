@@ -5,6 +5,15 @@
     "title": "Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.",
     "lead": "Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.",
     "unsure": "Nie mamy pewności, która linia. Zadzwoń — pokierujemy.",
+    "quick": {
+      "title": "Załatw od razu",
+      "tools": [
+        "tech-zglos-naprawe",
+        "instalacje-zaplanuj-instalacje",
+        "software-policz-swoj-projekt",
+        "gaming-konfigurator"
+      ]
+    },
     "cta": "Dobierz w 10 sekund",
     "hints": [
       {

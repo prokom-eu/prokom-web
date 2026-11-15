@@ -502,6 +502,16 @@ function home() {
       title: 'Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.',
       lead: 'Pięć linii, każda ze swoim zespołem. Wybierz linię obok albo napisz, czego potrzebujesz.',
       unsure: 'Nie mamy pewności, która linia. Zadzwoń — pokierujemy.',
+      // Krystian 15.11: four most used tools of the lines in the PRO-KOM tile (keys of HubTools).
+      quick: {
+        title: 'Załatw od razu',
+        tools: [
+          'tech-zglos-naprawe',
+          'instalacje-zaplanuj-instalacje',
+          'software-policz-swoj-projekt',
+          'gaming-konfigurator',
+        ],
+      },
       cta: 'Dobierz w 10 sekund',
       hints: PH.map(([hint, key]) => ({ text: hint.replace('np. ', ''), line: key })),
       chips: r.chips.map((c) => ({ label: c.label, line: line(c.c) })),
