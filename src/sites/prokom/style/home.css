@@ -432,57 +432,6 @@
 .pk-hq__go:hover {
   transform: translateY(-1px);
 }
-/* Company numbers in the PRO-KOM tile (15.11): one row of four facts above the call to action,
-   split by thin rules; the numbers count up once (CountUp). Two by two on narrow tiles. */
-.pk-hfacts {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-top: auto;
-  border-top: 1px solid var(--w09);
-}
-.pk-hfacts li {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 6px;
-  padding: 16px 14px 2px 0;
-}
-.pk-hfacts li + li {
-  border-left: 1px solid var(--w09);
-  padding-left: 14px;
-}
-.pk-hfacts__value {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 2.3vw, 36px);
-  font-stretch: 118%;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
-}
-.pk-hfacts__value::after {
-  display: block;
-  width: 22px;
-  height: 3px;
-  margin-top: 8px;
-  border-radius: 2px;
-  background: var(--k-g);
-  content: '';
-}
-.pk-hfacts__label {
-  color: var(--k-ink3);
-  font-size: 12.5px;
-  line-height: 1.35;
-}
-@media (max-width: 560px) {
-  .pk-hfacts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .pk-hfacts li:nth-child(3) {
-    border-left: none;
-    padding-left: 0;
-  }
-}
 .pk-hch-list {
   display: flex;
   flex-wrap: wrap;
@@ -1152,6 +1101,32 @@
 }
 
 /* Counters. */
+
+.pk-hcn {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 6px;
+  border-top: 1px solid var(--w12);
+}
+.pk-hcn li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 20px 0 0;
+}
+.pk-hcn__value {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-stretch: 118%;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+}
+.pk-hcn__label {
+  color: var(--k-ink3);
+  font-size: 14.5px;
+}
 
 /* --- Trust bar ------------------------------------------------------------------------------ */
 .pk-mqw {

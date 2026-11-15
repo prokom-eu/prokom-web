@@ -747,7 +747,17 @@ function brands() {
       {
         line: 'biznes',
         title: 'Sprzęt i programy dla firm',
-        brands: ['Lenovo', 'Dell', 'Microsoft', 'ESET', 'Synology', 'QNAP', 'Fellowes', 'Kobra'],
+        // Krystian 15.11: brands with a logo in the repo (Biznes package) instead of Fellowes and Kobra.
+        brands: [
+          'Lenovo',
+          'Dell',
+          'Microsoft',
+          'ESET',
+          'Synology',
+          'QNAP',
+          'Kyocera',
+          'Konica Minolta',
+        ],
         text: 'Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa, konfiguracja na życzenie.',
       },
       {

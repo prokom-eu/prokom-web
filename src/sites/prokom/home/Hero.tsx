@@ -119,20 +119,6 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
                     </li>
                   ))}
                 </ul>
-                {/* Company numbers inside the tile (Krystian 15.11: instead of the steps and of a
-                    separate strip under the hero) — only the facts visible here. */}
-                {counters.length > 0 && (
-                  <ul className="pk-hfacts">
-                    {counters.map((counter) => (
-                      <li key={counter.label}>
-                        <span className="pk-hfacts__value">
-                          <CountUp text={counter.value} />
-                        </span>
-                        <span className="pk-hfacts__label">{counter.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
                 <div className="pk-hb-main__cta">
                   <a href="#dobierz" className="pk-hcta">
                     {hero.cta} <span aria-hidden="true">→</span>
@@ -154,6 +140,19 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
               </div>
             </div>
           </HeroTiles>
+
+          {counters.length > 0 && (
+            <ul className="pk-hcn">
+              {counters.map((counter) => (
+                <li key={counter.label}>
+                  <span className="pk-hcn__value">
+                    <CountUp text={counter.value} />
+                  </span>
+                  <span className="pk-hcn__label">{counter.label}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
