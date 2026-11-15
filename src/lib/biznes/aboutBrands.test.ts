@@ -28,27 +28,27 @@ const BRANDS: Brand[] = [
 ]
 
 describe('aboutBrands („Marki, które sprzedajemy, wdrażamy i serwisujemy”)', () => {
-  it('rows of statuses in the K4-FINAL §1 order, names in K4 order', () => {
+  it('rows of statuses in the K4-FINAL §1 order, names in K4 order; Optivendi and COMEX without a row (15.11)', () => {
     const { rows } = aboutBrands(BRANDS)
     expect(rows.map((row) => [row.label, row.brands.map((b) => b.name)])).toEqual([
       ['Autoryzowany serwis', ['Posnet', 'Elzab']],
       ['Autoryzowany partner', ['Gopos', 'Insert']],
-      ['Partner', ['Optivendi']],
-      ['We współpracy', ['Comex']],
     ])
   })
 
   it('the wall: other brands with a logo, by name, linked to their page when it exists', () => {
     const { others } = aboutBrands(BRANDS)
     expect(others.map((b) => [b.name, b.href])).toEqual([
+      ['Comex', null],
       ['Dell', null],
       ['Lenovo', '/marki/lenovo'],
+      ['Optivendi', null],
     ])
   })
 
   it('a status row without a brand with a logo is left out', () => {
-    const { rows } = aboutBrands(BRANDS.filter((b) => b.slug !== 'optivendi'))
-    expect(rows.map((row) => row.label)).not.toContain('Partner')
+    const { rows } = aboutBrands(BRANDS.filter((b) => b.slug !== 'gopos' && b.slug !== 'insert'))
+    expect(rows.map((row) => row.label)).not.toContain('Autoryzowany partner')
   })
 
   it('a salon brand leads to its salon', () => {

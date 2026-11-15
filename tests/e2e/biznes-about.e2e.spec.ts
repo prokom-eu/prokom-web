@@ -60,14 +60,13 @@ test.describe('Biznes /o-firmie (own view, runda 1411 R6)', () => {
     await expect(brands.getByRole('heading', { level: 2 })).toHaveText(
       'Marki, które sprzedajemy, wdrażamy i serwisujemy',
     )
-    // Runda 1411 (OFirmie): four authorisation cards, Optivendi and COMEX with their badge in the
-    // wall of the other brands, „+ N marek” to /marki.
+    // Runda 1411 (OFirmie): four authorisation cards, the wall of the other brands without the
+    // „Partner” / „We współpracy” badges (decision of Krystian 15.11), „+ N marek” to /marki.
     const cards = brands.locator('ul').first().locator(':scope > li')
     await expect(cards.filter({ hasText: 'Autoryzowany serwis' })).toHaveCount(2)
     await expect(cards.filter({ hasText: 'Autoryzowany partner' })).toHaveCount(2)
     const wall = brands.getByRole('list', { name: 'Pozostałe marki w ofercie' })
-    await expect(wall.getByText('Partner', { exact: true })).toBeVisible()
-    await expect(wall.getByText('We współpracy', { exact: true })).toBeVisible()
+    await expect(wall.getByText(/^(Partner|We współpracy)$/)).toHaveCount(0)
     await expect(wall.getByRole('link', { name: /\+ \d+ marek/ })).toHaveAttribute('href', '/marki')
     await expect(brands.getByText('Logotypy należą do ich właścicieli.')).toBeVisible()
     // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): „Nie musisz wierzyć nam na słowo” is gone.

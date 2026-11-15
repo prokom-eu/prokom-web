@@ -13,6 +13,9 @@ import { type AboutAuth, BzAboutView } from '../../components/about/BzAboutView'
 
 type Props = { tenantId: number }
 
+/** Brands that lead the wall of the other brands (formerly with their badge, §1 „/marki”). */
+const WALL_LEAD = ['optivendi', 'comex']
+
 /**
  * One sentence on each authorisation (board `OFirmie.dc.html`) — the facts the site already says
  * on the brands' pages, no new promise. TODO(krystian): potwierdzić zdania (PRZEKAZANIE §7 pkt 3).
@@ -58,11 +61,12 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
         ]
       : []
   })
-  const { rows, others } = aboutBrands(index.brands)
-  // „Partner” and „We współpracy” (Optivendi, COMEX): in the wall with their badge (§1 „/marki”).
-  const tagged = rows
-    .filter((row) => row.label === 'Partner' || row.label === 'We współpracy')
-    .flatMap((row) => row.brands.map((brand) => ({ ...brand, status: row.label })))
+  const { others } = aboutBrands(index.brands)
+  // Optivendi and COMEX lead the wall, without the „Partner” / „We współpracy” badges (decision
+  // of Krystian 15.11); the rest by name.
+  const lead = (slug: string) =>
+    WALL_LEAD.includes(slug) ? WALL_LEAD.indexOf(slug) : WALL_LEAD.length
+  const wall = [...others].sort((a, b) => lead(a.slug) - lead(b.slug))
   return (
     <BzAboutView
       shared={shared}
@@ -70,8 +74,7 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
       now={new Date().toISOString()}
       siteEnv={env.SITE_ENV}
       auth={auth}
-      tagged={tagged}
-      others={others}
+      others={wall}
       brandTotal={brandCount(index)}
     />
   )

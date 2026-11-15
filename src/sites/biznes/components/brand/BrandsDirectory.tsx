@@ -24,7 +24,7 @@ const EYEBROW = 'flex items-center gap-2.5 text-xs font-extrabold tracking-[0.16
  * `/marki` of Biznes (runda 1411 R7, board `Marki.dc.html`): the dark header with the search,
  * „Producenci, z którymi pracujemy” — the four authorisations with status, scope and a link — and
  * „Pozostałe marki w ofercie”: one even grid (6 columns, 3 on a phone) by the number of items,
- * Optivendi and COMEX in it with their badge. The search filters both live by name and
+ * Optivendi and COMEX in it without a badge (15.11). The search filters both live by name and
  * description without diacritics; everything renders on the server too — the island only filters.
  */
 export function BrandsDirectory({

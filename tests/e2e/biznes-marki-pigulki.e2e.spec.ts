@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // PREMIUM-1011 (audit 10.11 §9): in the home brand tiles the status pill („Autoryzowany serwis”,
-// „We współpracy”) and the description under the logo share the bottom band — they must never be
+// „Autoryzowany partner”) and the description under the logo share the bottom band — they must never be
 // visible at the same time: at rest the pill, on hover the description, the pill leaving first.
 
 const visible = (opacity: string) => Number(opacity) > 0.05
