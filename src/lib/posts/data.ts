@@ -5,6 +5,7 @@ import { getPayload, type Where } from 'payload'
 import { catalogTag } from '../catalog/tags'
 import { PAGE_CACHE_SECONDS } from '../pages/data'
 import { postListCards, type PostListCard } from './cards'
+import { readingMinutes, type RichTextData } from './content'
 import { ksefPanel, type KsefPanel } from './ksefPanel'
 import { publishedUntil } from './publishedAt'
 import type { Line } from '../tenant/lines'
@@ -40,6 +41,8 @@ const publicPosts = (tenantId: number): Where => ({
 
 export type PostListItem = PostListCard & {
   categoryValue: PostCategory
+  /** Reading time, counted like on the post page (`buildPostView`). */
+  minutes: number
   /** For the sitemap. */
   updatedAt: string
 }
@@ -68,6 +71,9 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
           publishedAt: true,
           updatedAt: true,
           lead: true,
+          summary: true,
+          // For the reading time only: the cached result keeps the number, not the content.
+          content: true,
           cover: true,
         },
         overrideAccess: true,
@@ -75,7 +81,9 @@ export const getPostList = (tenantId: number, line?: Line | null): Promise<PostL
       const cards = new Map(postListCards(docs, tenantId, line).map((card) => [card.slug, card]))
       return docs.flatMap((doc) => {
         const card = cards.get(doc.slug)
-        return card ? [{ ...card, categoryValue: doc.category, updatedAt: doc.updatedAt }] : []
+        if (!card) return []
+        const minutes = readingMinutes(doc.content as RichTextData, [card.lead, doc.summary])
+        return [{ ...card, categoryValue: doc.category, minutes, updatedAt: doc.updatedAt }]
       })
     },
     ['post-list', String(tenantId), line ?? ''],
