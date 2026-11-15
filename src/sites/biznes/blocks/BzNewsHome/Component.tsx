@@ -13,6 +13,8 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import { getSiteSettings } from '@/lib/site/data'
 import type { BzNewsHomeBlock as BzNewsHomeBlockData } from '@/payload-types'
 
+import { homeNewsMix } from '@/lib/biznes/newsMix'
+
 import { SplitHead } from '../../components/home/SplitHead'
 
 /** The featured post plus three in the list (runda 1411, board `Aktualnosci.dc.html`). */
@@ -78,8 +80,8 @@ function Cover({ post }: { post: PostListCard }) {
  * „Aktualności” of the Biznes home page, `#aktualnosci` (runda 1411, board `Aktualnosci.dc.html`;
  * plan 0611 §7.1 pkt 12 before): the newest Biznes post featured — a navy cover with its picture
  * and, for a KSeF post, the deadline from `SiteSettings → KSeF` — and three posts beside it, equal
- * in height, each with the line's coloured dot and name instead of a logo. With fewer Biznes posts
- * the posts of Instalacje and Software link to their own sites. Phone (§5): the featured post on
+ * in height, each with the line's coloured dot and name instead of a logo: one more Biznes post,
+ * the newest of Instalacje and of Software, linked to their own sites (`homeNewsMix`, 15.11). Phone (§5): the featured post on
  * top, the three as a list with a 72 px thumbnail. No post at all = nothing.
  */
 export async function BzNewsHomeBlock({
@@ -91,14 +93,17 @@ export async function BzNewsHomeBlock({
 }) {
   const own = (await getPostList(tenantId, 'biznes')).slice(0, LIST + 1)
   const { SITE_ENV } = getEnv()
-  const sister = await getSisterLinePostLinks(tenantId, LIST + 1 - own.length, {
+  // Enough posts of the other lines to find one of Instalacje and one of Software (15.11).
+  const sisterAll = await getSisterLinePostLinks(tenantId, (LIST + 1) * 2, {
     siteEnv: SITE_ENV,
     port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
   })
-  if (own.length + sister.length === 0) return null
+  if (own.length + sisterAll.length === 0) return null
   const [shared, settings] = await Promise.all([getSharedData(tenantId), getSiteSettings(tenantId)])
   const color = (key: string) => shared?.lines.find((line) => line.key === key)?.color ?? null
-  const [featured, ...rest] = own
+  // The featured post: the newest of Biznes, else nothing featured and four in the list.
+  const [featured, ...afterFeatured] = own
+  const { own: rest, sister } = homeNewsMix(afterFeatured, sisterAll, featured ? LIST : LIST + 1)
   const deadline = postDate(settings?.biznes?.ksef?.deadline)
   const ksef = Boolean(featured?.category && /ksef/i.test(featured.category))
 
@@ -229,7 +234,7 @@ export async function BzNewsHomeBlock({
                   </article>
                 </li>
               ))}
-              {sister.slice(0, LIST - rest.length).map((link) => {
+              {sister.map((link) => {
                 const published = postDate(link.publishedAt)
                 return (
                   <li key={link.href} className="flex" data-sister-line={link.line}>
