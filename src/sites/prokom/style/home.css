@@ -1548,6 +1548,549 @@ a.pk-mqi:hover {
   animation-duration: 1.3s;
 }
 
+/* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
+   The big tiles' pictures fill the free height (no gap above the title); every picture is a small,
+   tailored screen of its line. Tokens only; reduced motion stops the movement (global rule). */
+.pk-ht--big .pk-vg {
+  min-height: 120px;
+  max-height: none;
+  flex: 1 1 140px;
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln) 14%, transparent),
+      transparent 65%
+    ),
+    var(--w05);
+  box-shadow: inset 0 1px 0 var(--w09);
+}
+.pk-tick {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+/* A small app window: title bar, rows with icons and ticked statuses, a sync line. */
+.pk-app {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 10px 12px 10px;
+}
+.pk-app__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--w09);
+  padding-bottom: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.pk-app__logo {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-app__bar em {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  color: var(--ln-text);
+  font-style: normal;
+}
+.pk-app__bar em i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ln);
+  animation: pk-blink 2.4s ease-in-out infinite;
+}
+.pk-app__rows {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.pk-app__row {
+  gap: 10px;
+}
+.pk-app__ico {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+}
+.pk-app__ico svg {
+  width: 13px;
+  height: 13px;
+}
+.pk-app__label {
+  overflow: hidden;
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-app .pk-vp {
+  gap: 5px;
+  color: var(--k-white);
+}
+.pk-app .pk-vp .pk-tick {
+  color: var(--ln-text);
+}
+.pk-app__sync {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--w09);
+}
+.pk-app__sync i {
+  width: 35%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--ln);
+  animation: pk-flw 2.6s ease-in-out infinite;
+}
+
+/* Cameras: a scene behind a viewfinder, REC and LIVE. */
+.pk-cam {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    var(--w09),
+    color-mix(in srgb, var(--k-dim) 70%, transparent)
+  );
+}
+.pk-cam__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pk-cam__shape {
+  fill: var(--w16);
+}
+.pk-cam__shade {
+  fill: var(--w09);
+}
+.pk-cam__line {
+  stroke: var(--w16);
+  stroke-width: 1;
+}
+.pk-cam__walker {
+  fill: color-mix(in srgb, var(--ln) 55%, var(--w22));
+  animation: pk-walk 7s ease-in-out infinite;
+}
+@keyframes pk-walk {
+  0%,
+  10% {
+    transform: translateX(-14px);
+  }
+  55%,
+  65% {
+    transform: translateX(22px);
+  }
+  100% {
+    transform: translateX(-14px);
+  }
+}
+/* Viewfinder corners. */
+.pk-cam__vf {
+  position: absolute;
+  inset: 8px;
+  background:
+    linear-gradient(var(--w60), var(--w60)) left top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right top / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) left bottom / 1.5px 8px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 8px 1.5px no-repeat,
+    linear-gradient(var(--w60), var(--w60)) right bottom / 1.5px 8px no-repeat;
+  opacity: 0.55;
+}
+.pk-cam__live {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: var(--w12);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.pk-tl2 .pk-cam b {
+  z-index: 1;
+}
+.pk-tl2 b .pk-rec {
+  animation: pk-blink 1.4s steps(2) infinite;
+}
+.pk-tl2 em {
+  z-index: 1;
+}
+
+/* Alarm: a shield, „Uzbrojony”, rings going out. */
+.pk-alarm {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-alarm__ico {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  color: var(--ln-text);
+}
+.pk-alarm small {
+  position: relative;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: color-mix(in srgb, var(--ln) 26%, transparent);
+  font-size: 9px;
+  font-weight: 800;
+}
+.pk-alarm__rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.pk-alarm__rings i {
+  position: absolute;
+  top: -22px;
+  left: -22px;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ln);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pk-ring 2.6s ease-out infinite;
+}
+.pk-alarm__rings i + i {
+  animation-delay: 1.3s;
+}
+@keyframes pk-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Wi-Fi: arcs lighting up from the router, the strength under them. */
+.pk-wifi {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-wifi__arcs {
+  width: 40px;
+  height: 30px;
+  fill: none;
+  stroke: var(--ln);
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+.pk-wifi__arcs path {
+  animation: pk-arc 2.4s ease-in-out infinite;
+}
+.pk-wifi__arcs path:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.pk-wifi__arcs path:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes pk-arc {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.pk-wifi small {
+  color: var(--ln-text);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Website: a nav, a headline with a button and a picture block with a chart. */
+.pk-vg__chrome span {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: var(--w60);
+  font-size: 9px;
+  font-weight: 700;
+}
+.pk-web__nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 0;
+}
+.pk-web__nav i {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w16);
+}
+.pk-web__nav .pk-web__logo {
+  width: 14px;
+  height: 14px;
+  margin-right: auto;
+  border-radius: 4px;
+  background: var(--ln);
+}
+.pk-web__nav .pk-web__cta {
+  width: 30px;
+  height: 12px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ln) 60%, transparent);
+}
+.pk-sk--half {
+  width: 60%;
+}
+.pk-web__shot {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--ln) 42%, transparent),
+    color-mix(in srgb, var(--ln) 10%, transparent)
+  );
+}
+.pk-web__shot > i {
+  position: absolute;
+  top: 18%;
+  right: 14%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--w22);
+}
+.pk-web__shot .pk-vg__chart {
+  margin-top: auto;
+  background: none;
+}
+
+/* Kanban: counted columns, tagged cards with an avatar, one card travelling to „Gotowe”. */
+.pk-kc em {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pk-kc em b {
+  border-radius: 999px;
+  padding: 0 5px;
+  background: var(--w12);
+  font-size: 9px;
+}
+.pk-kd {
+  position: relative;
+  display: flex;
+  height: auto;
+  min-height: 22px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px 6px;
+  background: var(--w09);
+}
+.pk-kd i {
+  width: 70%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w22);
+}
+.pk-kd u {
+  width: 30%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ln);
+  text-decoration: none;
+}
+.pk-kd[data-tag='b'] u {
+  background: var(--w22);
+}
+.pk-kd::after {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--w22);
+  content: '';
+}
+.pk-kd--moving {
+  min-height: 22px;
+  background: var(--ln);
+  animation: pk-move 5s var(--ease) infinite;
+}
+.pk-kd--moving::after {
+  background: var(--w60);
+}
+@keyframes pk-move {
+  0%,
+  30% {
+    transform: none;
+  }
+  55%,
+  85% {
+    transform: translateX(calc(100% + 6px));
+  }
+  100% {
+    transform: none;
+  }
+}
+.pk-vg__kanban {
+  overflow: hidden;
+}
+.pk-kc {
+  overflow: visible;
+}
+
+/* Flow: nodes with icons, the last one ticked. */
+.pk-fn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pk-fn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Tech: the device of the slide pops in beside the stages. */
+.pk-tech {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+.pk-tech__dev {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  place-items: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+  animation: pk-pop 0.6s var(--ease) both;
+}
+.pk-tech__dev svg {
+  width: 18px;
+  height: 18px;
+}
+.pk-tech__track {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Gaming: the frames with a readout that changes with the slide. */
+.pk-game2 {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+.pk-game2 .pk-ht__eq {
+  flex: 1;
+}
+.pk-game2__read {
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--ln) 45%, transparent);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  animation: pk-pop 0.6s var(--ease) both;
+}
+
+/* Compact rows so three fit with the bar and the sync line in the smaller tiles. */
+.pk-app .pk-vr {
+  padding: 4px 0;
+  font-size: 11.5px;
+}
+.pk-app .pk-vp {
+  padding: 2px 7px;
+  font-size: 10px;
+}
+.pk-app__ico {
+  width: 20px;
+  height: 20px;
+}
+.pk-app__ico svg {
+  width: 11px;
+  height: 11px;
+}
+/* Flow in a tall tile: nodes stacked, the signal running down between them. */
+.pk-vg__flow {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 16px;
+}
+.pk-vg__flow .pk-fl {
+  width: 2px;
+  min-width: 0;
+  height: auto;
+  min-height: 10px;
+  flex: 1 1 14px;
+  max-height: 26px;
+  margin-left: 18px;
+}
+.pk-vg__flow .pk-fl::after {
+  width: 100%;
+  height: 40%;
+  animation-name: pk-flw-down;
+}
+@keyframes pk-flw-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(250%);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .pk-home *,
   .pk-home *::before,

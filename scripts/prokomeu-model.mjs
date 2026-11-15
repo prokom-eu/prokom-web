@@ -505,11 +505,12 @@ function home() {
       // Krystian 15.11: four most used tools of the lines in the PRO-KOM tile (keys of HubTools).
       quick: {
         title: 'Załatw od razu',
+        // Krystian 15.11: Biznes, Instalacje, Software and Tech (no Gaming).
         tools: [
-          'tech-zglos-naprawe',
+          'biznes-konfigurator',
           'instalacje-zaplanuj-instalacje',
           'software-policz-swoj-projekt',
-          'gaming-konfigurator',
+          'tech-zglos-naprawe',
         ],
       },
       cta: 'Dobierz w 10 sekund',

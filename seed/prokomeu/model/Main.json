@@ -8,10 +8,10 @@
     "quick": {
       "title": "Załatw od razu",
       "tools": [
-        "tech-zglos-naprawe",
+        "biznes-konfigurator",
         "instalacje-zaplanuj-instalacje",
         "software-policz-swoj-projekt",
-        "gaming-konfigurator"
+        "tech-zglos-naprawe"
       ]
     },
     "cta": "Dobierz w 10 sekund",
