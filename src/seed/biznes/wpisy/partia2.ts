@@ -203,7 +203,7 @@ export const REGISTER_FISCALIZATION: BiznesGuidePost = {
   category: 'kasy',
   lead: 'Kupiłeś kasę online i chcesz zacząć sprzedaż? Zanim wydrukujesz pierwszy paragon, kasę trzeba zafiskalizować. Pokazujemy, jak to wygląda, kto co robi i dlaczego przy kasie online nie trzeba już chodzić do urzędu skarbowego.',
   summary:
-    'Fiskalizację kasy online robi serwisant przed rozpoczęciem ewidencji. Kasa łączy się z Centralnym Repozytorium Kas, które samo nadaje numer ewidencyjny. Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego.',
+    'Fiskalizację kasy online robi serwisant przed rozpoczęciem ewidencji. Kasa łączy się z Centralnym Repozytorium Kas, które samo nadaje numer ewidencyjny. Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego — chyba że chcesz skorzystać z ulgi na kasę.',
   content: [
     h2('Krok 1. Wybór kasy i miejsca'),
     p(
@@ -215,7 +215,12 @@ export const REGISTER_FISCALIZATION: BiznesGuidePost = {
     ),
     h2('Krok 3. Bez wizyty w urzędzie'),
     p(
-      'Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego — dane trafiają do CRK automatycznie. Zgłoszenie w ciągu 7 dni od fiskalizacji dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii.',
+      'Przy kasie online nie ma obowiązku zgłaszania kasy do naczelnika urzędu skarbowego — dane trafiają do CRK automatycznie. Zgłoszenie w ciągu 7 dni od fiskalizacji dotyczyło kas starego typu, z papierowym albo elektronicznym zapisem kopii. Wyjątek: jeśli chcesz skorzystać z ulgi na zakup kasy, przed rozpoczęciem ewidencji złóż w urzędzie skarbowym zgłoszenie o liczbie i miejscu używania kas — to warunek ulgi.',
+    ),
+    p(
+      'Więcej w poradniku ',
+      { text: 'o błędach przy uldze', href: '/aktualnosci/ulga-na-kase-fiskalna-bledy' },
+      '.',
     ),
     h2('Krok 4. Ustawienia przed sprzedażą'),
     ul(
@@ -248,6 +253,11 @@ export const REGISTER_FISCALIZATION: BiznesGuidePost = {
     {
       name: 'Rejestracja kasy fiskalnej — biznes.gov.pl',
       url: 'https://www.biznes.gov.pl/pl/portal/ou1575',
+    },
+    {
+      // Art. 111 ust. 4: the notice of the number and place of the registers — the relief's condition.
+      name: 'ustawa o VAT (art. 111 ust. 4)',
+      url: 'https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20040540535',
     },
   ],
   products: ['posnet-ergo-online', 'elzab-k10-online', 'posnet-neo-online', 'elzab-k1-slim-online'],
