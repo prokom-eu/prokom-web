@@ -1056,6 +1056,10 @@
 .pk-ht__eq {
   height: 30px;
 }
+/* H9: the gaming tile's equalizer spans the tile instead of a short stub. */
+.pk-ht__eq i {
+  max-width: none;
+}
 
 /* Slides. */
 .pk-ht__slides {
