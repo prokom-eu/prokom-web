@@ -304,12 +304,68 @@ function cooperation() {
       tag: s.tag,
       items: s.items.map(([title, text, when]) => ({ title, text, when })),
     })),
-    facts: r.facts.map((f) => ({ value: f.v, label: f.l })),
+    facts: fixTexts(
+      r.facts.map((f) => ({ value: f.v, label: f.l })),
+      { 'na odpowiedź w dni robocze': 'na odpowiedź linii Instalacje w dni robocze' },
+    ),
     deliveries: titled(r.deliv),
     suppliers: titled(r.supp),
-    rules: titled(r.rules),
+    // Spec §3: no promise beyond the agreed ones (24 h is Instalacje only), no street address.
+    rules: fixTexts(titled(r.rules), {
+      'Odpowiedź w 24 godziny': 'Odpowiadamy w dni robocze',
+      'W dni robocze oddzwaniamy albo odpisujemy na każde zgłoszenie.':
+        'Oddzwaniamy albo odpisujemy na każde zgłoszenie — czas odpowiedzi linii podajemy przy jej numerze.',
+      'Ul. Orkana 16B w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu.':
+        'W salonie w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu.',
+    }),
     faq: faq(FQ),
     next: next(r.next),
+    // Headings and labels of the page (board 16 HTML); phones, e-mail and promises from the panels.
+    page: {
+      hero: {
+        eyebrow: 'Dla architektów · deweloperów · wykonawców · instytucji · dostawców',
+        title: 'Projektujesz, budujesz albo zamawiasz? Zróbmy to razem.',
+        lead: 'Instalacje, sprzęt i oprogramowanie od jednej firmy z Rabki-Zdroju. Wchodzimy w projekt wcześnie, bierzemy cały zakres i zostajemy po odbiorze. Wybierz, kim jesteś — pokażemy, od czego zaczynamy.',
+        cta: 'Wyślij rzuty albo zapytanie',
+        rolesLabel: 'Kim jesteś?',
+        rolesHint: 'kliknij — plan zmienia się obok',
+        start: 'Zaczynamy od:',
+      },
+      stages: {
+        eyebrow: 'Kiedy nas włączyć',
+        title: 'Im wcześniej, tym mniej kucia ścian.',
+        lead: 'Pięć etapów inwestycji: co robimy my, a czego potrzebujemy od Ciebie.',
+        we: 'Co robimy my',
+        you: 'Czego potrzebujemy od Ciebie',
+      },
+      scope: {
+        eyebrow: 'Co wnosimy do projektu',
+        title: 'Jeden wykonawca na wszystko, co ma kabel, ekran albo program.',
+        architectsTitle: 'Pełna strona dla architektów i deweloperów',
+        architectsText:
+          'Przekrój domu, nowe rozwiązania do projektów, checklista projektanta i przepisy — na stronie linii Instalacje.',
+        architectsPath: '/dla-architektow',
+      },
+      deliveries: {
+        eyebrow: 'Instytucje i większe dostawy',
+        title: 'Sto komputerów albo wyposażenie całego obiektu? Też.',
+        lead: 'Dla szkół, urzędów, gmin, hoteli i firm dostarczamy sprzęt w większych ilościach. Pełny zakres, lista zapytania i przykłady obiektów są na osobnej stronie.',
+        cta: 'Inwestycje i dostawy',
+      },
+      suppliers: {
+        eyebrow: 'Dostawcy i producenci',
+        title: 'Masz produkt, który pasuje do naszej oferty?',
+        lead: 'Sprzedajemy, montujemy i serwisujemy — więc szukamy sprzętu, za który możemy ręczyć. Napisz, co oferujesz. Odpowiadamy na każdą konkretną propozycję.',
+      },
+      rules: { eyebrow: 'Zasady współpracy', title: 'Krótko i na piśmie.' },
+      faq: { eyebrow: 'Pytania', title: 'Zanim napiszesz.' },
+      form: {
+        eyebrow: 'Napisz do nas',
+        note: 'Formularz dopasowuje się do tego, kim jesteś.',
+        to: 'Trafia do:',
+      },
+      next: { eyebrow: 'Co dalej', title: 'Inne drogi do tej samej firmy.' },
+    },
   }
 }
 

@@ -4,11 +4,10 @@ import { createContext, type ReactNode, useContext, useEffect, useMemo, useState
 
 import type { HubDeliveries } from '@/lib/prokom/deliveries'
 
+import { ChoiceState } from './ChoiceState'
 import { changeQty, fromPreset, loadList, type RequestList, saveList } from './list'
 
 type State = {
-  segment: string
-  setSegment: (key: string) => void
   list: RequestList
   change: (item: string, delta: number) => void
   loadPreset: (preset: readonly { item: string; qty: number }[]) => void
@@ -21,7 +20,7 @@ type State = {
 
 const DeliveriesContext = createContext<State | null>(null)
 
-/** The page's shared state: chosen segment, the request list (kept in `sessionStorage`), services, term. */
+/** The page's shared state: chosen segment (`ChoiceState`), the request list (kept in `sessionStorage`), services, term. */
 export function DeliveriesState({
   groups,
   firstSegment,
@@ -31,7 +30,6 @@ export function DeliveriesState({
   firstSegment: string
   children: ReactNode
 }) {
-  const [segment, setSegment] = useState(firstSegment)
   const [list, setList] = useState<RequestList>({})
   const [services, setServices] = useState<string[]>([])
   const [term, setTerm] = useState<string | null>(null)
@@ -52,8 +50,6 @@ export function DeliveriesState({
 
   const value = useMemo<State>(
     () => ({
-      segment,
-      setSegment,
       list,
       change: (item, delta) => setList((current) => changeQty(current, item, delta)),
       loadPreset: (preset) => setList(fromPreset(preset)),
@@ -66,9 +62,13 @@ export function DeliveriesState({
       term,
       setTerm,
     }),
-    [segment, list, services, term],
+    [list, services, term],
   )
-  return <DeliveriesContext.Provider value={value}>{children}</DeliveriesContext.Provider>
+  return (
+    <ChoiceState first={firstSegment}>
+      <DeliveriesContext.Provider value={value}>{children}</DeliveriesContext.Provider>
+    </ChoiceState>
+  )
 }
 
 export function useDeliveries(): State {

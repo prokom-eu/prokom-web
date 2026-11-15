@@ -86,7 +86,15 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
                 </li>
               ))}
             </ol>
-            <SegmentPicker texts={page.hero} segments={data.segments} />
+            <SegmentPicker
+              texts={page.hero}
+              segments={data.segments.map((segment) =>
+                // A segment's button to a page that is still off (v1.1 `/wspolpraca`) is left out.
+                isHubLinkLive(segment.cta.href, settings.pages)
+                  ? segment
+                  : { ...segment, cta: undefined },
+              )}
+            />
             {data.facts.length > 0 && (
               <ul className="pk-bfacts" role="list">
                 {data.facts.map((fact) => (
