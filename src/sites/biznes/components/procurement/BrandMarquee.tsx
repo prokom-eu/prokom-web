@@ -55,7 +55,8 @@ const DRAG_REST_MS = 900
  * not a CSS animation, so it eases to a stop under the mouse and starts again from the same
  * place. Stops on keyboard focus inside and with the pause button (WCAG 2.2.2); with reduced
  * motion it stands still and the button goes. The second copy (for the loop) is `aria-hidden`
- * and `inert`, so screen readers and the Tab key get one list. The loop runs only while the
+ * with its links out of the Tab order, so screen readers and the Tab key get one list — and
+ * clickable, since half the strip in view is often the copy. The loop runs only while the
  * strip is on screen. With `draggable` the pointer moves `x` (also with reduced motion: the strip
  * stands, but can be dragged); with `paused` the parent owns the pause.
  */
@@ -71,6 +72,7 @@ export function BrandMarquee({
 }: Props) {
   const rowRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const copyRef = useRef<HTMLUListElement>(null)
   const pausedRef = useRef(false)
   const aimRef = useRef<() => void>(() => {})
   const [pausedOwn, setPaused] = useState(false)
@@ -214,6 +216,17 @@ export function BrandMarquee({
     }
   }, [speed, direction, moving, draggable])
 
+  // The loop's copy takes clicks (`inert` made every tile of it dead while it was in view — audit
+  // 15.11 „sometimes a brand cannot be clicked”), but stays out of the Tab order and the
+  // accessibility tree (`aria-hidden` on the list).
+  useEffect(() => {
+    for (const element of copyRef.current?.querySelectorAll<HTMLElement>(
+      'a, button, input, select, textarea, [tabindex]',
+    ) ?? []) {
+      element.tabIndex = -1
+    }
+  }, [children])
+
   // A pause owned by the parent: follow it and ease the strip to a stop (or back to speed).
   useEffect(() => {
     if (!controlled) return
@@ -237,7 +250,7 @@ export function BrandMarquee({
       <div ref={rowRef} className="zp-marq-view" data-draggable={draggable ? '' : undefined}>
         <div ref={trackRef} className="zp-marq-track">
           <ul className="zp-marq-group">{children}</ul>
-          <ul className="zp-marq-group" aria-hidden="true" inert>
+          <ul ref={copyRef} className="zp-marq-group" aria-hidden="true" data-marquee-copy="">
             {children}
           </ul>
         </div>

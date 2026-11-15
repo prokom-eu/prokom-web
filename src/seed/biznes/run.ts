@@ -1,3 +1,4 @@
+import { SAMPLE_PARTNER_NAME } from '../sample'
 import { existsSync } from 'fs'
 import { readFile } from 'fs/promises'
 import path from 'path'
@@ -892,6 +893,29 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       await payload.update({
         collection: 'partners',
         id: existing.id,
+        data: { tenants: tenants.filter((id) => id !== tenant.id) },
+        ...local,
+      })
+    }
+  }
+  // The sample partner of `pnpm seed` („Partner przykładowy”) came to staging and production
+  // with the first base: off the Biznes line (decision of Krystian 15.11), record kept.
+  const { docs: samples } = await payload.find({
+    collection: 'partners',
+    where: { name: { equals: SAMPLE_PARTNER_NAME } },
+    limit: 5,
+    ...local,
+  })
+  for (const sample of samples) {
+    const tenants = (sample.tenants ?? []).map((item) =>
+      typeof item === 'number' ? item : item.id,
+    )
+    const shown = tenants.includes(tenant.id)
+    count('partners sample hidden', shown)
+    if (shown) {
+      await payload.update({
+        collection: 'partners',
+        id: sample.id,
         data: { tenants: tenants.filter((id) => id !== tenant.id) },
         ...local,
       })
