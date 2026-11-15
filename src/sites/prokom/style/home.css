@@ -1371,3 +1371,15 @@ a.pk-mqi:hover {
 .pk-hch-list + .pk-hb-main__cta {
   margin-top: auto;
 }
+/* Narrow phones (H9 review): both numbers keep a margin at 360 px; below that they may wrap. */
+@media (max-width: 400px) {
+  .pk-hphones {
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .pk-hphone {
+    min-height: 50px;
+    padding: 0 12px;
+    font-size: 16px;
+  }
+}

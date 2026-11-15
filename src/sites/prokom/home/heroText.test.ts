@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { splitLastSentence } from './Hero'
+import { splitLastSentence } from './heroText'
 
 describe('splitLastSentence (H9)', () => {
   it('takes the last sentence apart', () => {

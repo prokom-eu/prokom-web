@@ -95,9 +95,12 @@ export function toolGroups(
   lines: readonly HomeLine[],
   tools: readonly HubToolView[],
 ): { groups: ToolGroup[]; counts: ToolCount[]; total: number } {
-  const ordered = [...lines].sort(
-    (a, b) => TOOL_GROUP_ORDER.indexOf(a.key) - TOOL_GROUP_ORDER.indexOf(b.key),
-  )
+  // A line missing from the order (a future sixth one) goes last, not first.
+  const rank = (key: HubLine) => {
+    const index = TOOL_GROUP_ORDER.indexOf(key)
+    return index === -1 ? TOOL_GROUP_ORDER.length : index
+  }
+  const ordered = [...lines].sort((a, b) => rank(a.key) - rank(b.key))
   const groups = ordered.flatMap((line) => {
     const own = tools
       .filter((tool) => tool.line === line.key && tool.featuredOnHome)

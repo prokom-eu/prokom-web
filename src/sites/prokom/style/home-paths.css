@@ -692,8 +692,9 @@ a.pk-tlc:hover {
   flex: none;
   place-items: center;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--ln) 22%, transparent);
-  color: var(--ln-text);
+  /* A solid circle: the line's text colour on its own tint missed AA in light (H9 review). */
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
   font-size: 12px;
 }
 .pk-own__go {

@@ -8,6 +8,7 @@ import { toTelHref } from '@/lib/site/link'
 
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
+import { splitLastSentence } from './heroText'
 import { HeroTiles } from './HomeIslands'
 import type { HomeLine } from './model'
 
@@ -121,7 +122,7 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
                 {hero.steps && (
                   <ol className="pk-hsteps" aria-label="Jak to działa">
                     {hero.steps.map((step, index) => (
-                      <li key={step}>
+                      <li key={index}>
                         <b aria-hidden="true">{String(index + 1).padStart(2, '0')}</b>
                         <span>{step}</span>
                       </li>
@@ -205,15 +206,6 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
       )}
     </>
   )
-}
-
-/**
- * „Sprzęt, instalacje, oprogramowanie i serwis. W jednej firmie.” → the last sentence apart, so it
- * gets the accent and its own line (no „W” left at the end of a line).
- */
-export function splitLastSentence(text: string): [string, string | null] {
-  const match = text.match(/^(.*[.!?])\s+([^.!?]+[.!?]?)$/)
-  return match?.[1] && match[2] ? [match[1], match[2]] : [text, null]
 }
 
 /** Icon of a trust-bar item: the company, an authorization, or the line's offer. */

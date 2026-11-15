@@ -152,7 +152,7 @@ function OwnTool({ texts }: { texts: NonNullable<HubHome['tools']['own']> }) {
           <p className="pk-tlc__desc">{texts.text}</p>
           <ol className="pk-own__steps">
             {texts.steps.map((step, index) => (
-              <li key={step}>
+              <li key={index}>
                 <b aria-hidden="true">{index + 1}</b>
                 {step}
               </li>

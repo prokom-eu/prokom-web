@@ -183,7 +183,9 @@
   font-size: 13.5px;
   font-weight: 800;
 }
-/* --- Logos and products (H9): full-colour logos on light plates, products on the line's glow. */
+/* --- Logos and products (H9): full-colour logos on light plates, products on the line's glow.
+   The plates use the base `--c-white`, not a hub `--k-*` role: they stay white in both themes,
+   because the logo files are drawn for white. A thin rule keeps them apart from a white card. */
 .pk-auth__art {
   display: flex;
   flex-direction: column;
@@ -195,6 +197,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 16px;
+  border: 1px solid var(--w09);
   padding: 0 18px;
   background: var(--c-white);
   box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--ln) 80%, transparent);
@@ -243,6 +246,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
+  border: 1px solid var(--w09);
   padding: 0 12px;
   background: var(--c-white);
 }
