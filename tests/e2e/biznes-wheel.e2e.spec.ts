@@ -3,20 +3,21 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { setTheme, site } from './helpers'
 
-// KOLO-HERO v3 (03.11): the department wheel of the Biznes hero — at most 8 bubbles (audit
-// 14.11) on one ring that does not turn, shown from 1080 px, the departments in the middle of their runs, one tooltip above everything,
-// switching every 6.5 s also under the pointer; only the pause button and keyboard focus stop
-// it. Data from `pnpm seed` (`kolo_hero`).
+// Runda 1411 (board `Main.dc.html`): the department wheel of the Biznes hero — five departments
+// with three products each (all photos), shown from 1080 px, one tooltip above everything; a
+// product bubble picks its department, the core links to the three products; switching every
+// 6.5 s also under the pointer; the round pause button and keyboard focus stop it. Data from
+// `pnpm seed` (`wheel1411.ts`).
 
 const AUTO_MS = 6500
 
 const wheel = (page: Page) => page.locator('#start .bzw')
 const tabs = (page: Page) => page.getByRole('tablist', { name: 'Działy oferty' }).getByRole('tab')
 const bubbles = (page: Page) =>
-  page.getByRole('list', { name: 'Przykładowe produkty działów' }).getByRole('link')
+  page.getByRole('list', { name: 'Przykładowe produkty działów' }).getByRole('button')
 // The hero's own button: the home page has another pause (brand strips, B2-3a).
 const pauseButton = (page: Page) =>
-  page.locator('#start').getByRole('button', { name: /animację$/ })
+  page.locator('#start').getByRole('button', { name: /animację koła$/ })
 
 /** The wheel island is lazy (ADR-023): wait until it answers clicks. */
 async function ready(page: Page) {
@@ -64,6 +65,15 @@ function measure(page: Page) {
           const nx = Math.max(o.r.left, Math.min(cx, o.r.right))
           const ny = Math.max(o.r.top, Math.min(cy, o.r.bottom))
           gap = Math.hypot(nx - cx, ny - cy) - cr
+        } else if (circle(a.el) !== circle(b.el)) {
+          // A bubble or an icon against a label: the circle's own distance to the box.
+          const c = circle(a.el) ? a : b
+          const box = c === a ? b : a
+          const x = c.r.left + c.r.width / 2
+          const y = c.r.top + c.r.height / 2
+          const nx = Math.max(box.r.left, Math.min(x, box.r.right))
+          const ny = Math.max(box.r.top, Math.min(y, box.r.bottom))
+          gap = Math.hypot(nx - x, ny - y) - c.r.width / 2
         } else if (circle(a.el) && circle(b.el)) {
           gap =
             Math.hypot(
@@ -98,43 +108,52 @@ function measure(page: Page) {
 }
 
 test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
-  test('8 bubbles, each clickable at its centre and leading to a live page', async ({ page }) => {
+  test('15 photo bubbles, 3 a department; a bubble picks its department', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
     await pauseButton(page).click()
-    await expect(bubbles(page)).toHaveCount(8)
+    await expect(bubbles(page)).toHaveCount(15)
     await expect(tabs(page)).toHaveCount(5)
+    // Every bubble a photo (runda 1411: no icons, KSeF is a picture too).
+    await expect(page.locator('#start .bzw-bub img')).toHaveCount(15)
+    await expect(page.locator('#start .bzw-glyph')).toHaveCount(0)
 
-    // Each bubble in the middle of the window first: not under the sticky header, not below it.
-    const links = await bubbles(page).evaluateAll((els) =>
-      els.map((el) => {
-        el.scrollIntoView({ block: 'center', behavior: 'instant' })
-        const r = el.getBoundingClientRect()
-        const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-        return { href: el.getAttribute('href')!, own: Boolean(hit && el.contains(hit)) }
-      }),
-    )
-    expect(links.filter((link) => !link.own).map((link) => link.href)).toEqual([])
-    // The page bubble picked in the panel survives the cut to 8.
-    expect(links.map((link) => link.href)).toContain('/opieka-it')
-    expect(links.map((link) => link.href)).toContain('/produkt/apple-iphone-18-pro?kolor=burgund')
-
-    const statuses = await page.evaluate(
-      (hrefs) => Promise.all(hrefs.map((href) => fetch(href).then((r) => r.status))),
-      links.map((link) => link.href),
-    )
-    expect(statuses.every((status) => status === 200)).toBe(true)
+    // Each bubble in the middle of the window first, then clicked at its centre.
+    for (const [i, group] of [
+      [12, 4],
+      [7, 2],
+      [0, 0],
+    ] as const) {
+      const bubble = bubbles(page).nth(i)
+      await bubble.scrollIntoViewIfNeeded()
+      await bubble.click()
+      await expect(tabs(page).nth(group)).toHaveAttribute('aria-selected', 'true')
+      await expect(bubble).toHaveAttribute('aria-pressed', 'true')
+    }
   })
 
-  test('the iPhone bubble opens the card in burgundy', async ({ page }) => {
+  test('the core names the department’s three products and links to them, no count', async ({
+    page,
+  }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
-    await page.locator('#start a[href="/produkt/apple-iphone-18-pro?kolor=burgund"]').click()
-    await expect(page).toHaveURL(/apple-iphone-18-pro\?kolor=burgund/)
-    await expect(page.getByRole('button', { name: 'burgund', exact: true })).toHaveAttribute(
-      'aria-pressed',
-      'true',
+    await pauseButton(page).click()
+    const core = page.locator('#start').getByRole('tabpanel')
+    await expect(core).toContainText('Dział 1 z 5')
+    await expect(core).not.toContainText(/pozycj|poz\./)
+    const names = core.getByRole('list').getByRole('link')
+    await expect(names).toHaveCount(3)
+    await expect(names.first()).toHaveText('Posnet Ergo Online')
+    const hrefs = await names.evaluateAll((els) => els.map((el) => el.getAttribute('href')!))
+    const statuses = await page.evaluate(
+      (list) => Promise.all(list.map((href) => fetch(href).then((r) => r.status))),
+      hrefs,
     )
+    expect(statuses.every((status) => status === 200)).toBe(true)
+    // The service department: KSeF, fiskalizacja and the Opieka IT page.
+    await tabs(page).nth(4).click()
+    await expect(names).toHaveCount(3)
+    await expect(names.last()).toHaveAttribute('href', '/opieka-it')
   })
 
   for (const width of [1080, 1280, 1440]) {
@@ -205,7 +224,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     })
 
     await pauseButton(page).click()
-    await expect(pauseButton(page)).toHaveText('Wznów animację')
+    await expect(pauseButton(page)).toHaveAccessibleName('Wznów animację koła')
+    await expect(pauseButton(page)).toHaveAttribute('aria-pressed', 'true')
     const selected = await tabs(page).evaluateAll((els) =>
       els.findIndex((el) => el.getAttribute('aria-selected') === 'true'),
     )
@@ -213,7 +233,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(tabs(page).nth(selected)).toHaveAttribute('aria-selected', 'true')
 
     await pauseButton(page).click()
-    await expect(pauseButton(page)).toHaveText('Wstrzymaj animację')
+    await expect(pauseButton(page)).toHaveAccessibleName('Wstrzymaj animację koła')
     await expect(tabs(page).nth((selected + 1) % 5)).toHaveAttribute('aria-selected', 'true', {
       timeout: AUTO_MS + 2000,
     })
@@ -238,6 +258,15 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     )
     await page.waitForTimeout(AUTO_MS + 1000)
     await expect(tabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
+  })
+
+  test('out of view the wheel stops switching', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    await ready(page)
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight }))
+    await expect(wheel(page)).toHaveAttribute('data-hold', '')
+    await page.waitForTimeout(AUTO_MS + 1000)
+    await expect(tabs(page).first()).toHaveAttribute('aria-selected', 'true')
   })
 
   test('reduced motion: nothing switches or floats, and no axe violations', async ({ browser }) => {

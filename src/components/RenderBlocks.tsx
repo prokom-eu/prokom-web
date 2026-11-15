@@ -206,7 +206,16 @@ export function RenderBlocks({ page, tenant }: Props) {
               />
             )
           case 'bzHero':
-            return <BzHeroBlock key={key} block={block} isFirst={i === 0} tenantId={tenant.id} />
+            return (
+              <BzHeroBlock
+                key={key}
+                block={block}
+                isFirst={i === 0}
+                tenantId={tenant.id}
+                // Runda 1411: the hero's authorisations bar shows the numbers of „Od 2004”.
+                stats={blocks.find((item) => item.blockType === 'bzFacts')?.stats}
+              />
+            )
           case 'bzNeeds':
             // v150 (K36 §11): the need tiles became „Szybki start” — the block keeps its place.
             return (

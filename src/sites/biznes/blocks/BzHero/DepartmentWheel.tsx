@@ -29,7 +29,7 @@ type Props = {
   planLabel?: string | null
 }
 
-/** KOLO-HERO v3: the wheel moves on to the next department every 6.5 s. */
+/** The wheel moves on to the next department every 6.5 s (KOLO-HERO v3, runda 1411). */
 const AUTO_MS = 6500
 
 type State = {
@@ -79,12 +79,15 @@ const tabName = (group: WheelGroup) =>
   `${group.label === group.name ? group.name : `${group.label} (${group.name})`}, ${positions(group.count)}`
 
 /**
- * Department wheel of the Biznes hero (KOLO-HERO.md, wersja 3; prototype `kolo/prototyp.html`):
- * one even ring of product bubbles that does not turn, the departments in the middle of their
- * runs, the active one in the core. Every 6.5 s (the ring around the core, `animationend`) the
- * next department — also under the pointer (decision 03.11); a click starts the 6.5 s from zero.
- * Only „Wstrzymaj animację” (WCAG 2.2.2) and keyboard focus inside stop it; reduced motion: no
- * switching, floating or drift. One tooltip above the whole wheel names the pointed bubble.
+ * Department wheel of the Biznes hero (runda 1411, board `Main.dc.html`; KOLO-HERO v3 before):
+ * the five departments on the inner circle, each with its three products fanned out right behind
+ * it on the outer ring; the active department's products grow, take its colour, get a dashed line
+ * from the icon and float. The core names the department, its three products (links to them) and
+ * „Zobacz dział”. Every 6.5 s (the ring around the core, `animationend`) the next department; a
+ * click on a department or on one of its products picks it and starts the 6.5 s from zero. The
+ * round pause button (WCAG 2.2.2), keyboard focus inside, the wheel out of view and a hidden tab
+ * stop it; reduced motion: no switching, floating or turning. One tooltip names the pointed
+ * bubble.
  */
 export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   const layout = wheelLayout(groups.map((group) => group.items.length))
@@ -96,6 +99,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   })
   const [paused, setPaused] = useState(false)
   const [held, setHeld] = useState(false)
+  /** Out of view or in a hidden tab: nothing moves, nothing switches. */
+  const [idle, setIdle] = useState(false)
   const [arrive, setArrive] = useState(true)
   const [tip, setTip] = useState<{ name: string; el: HTMLElement } | null>(null)
   const wheelRef = useRef<HTMLDivElement>(null)
@@ -113,6 +118,27 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   useEffect(() => {
     const timer = window.setTimeout(() => setArrive(false), 1600)
     return () => window.clearTimeout(timer)
+  }, [])
+
+  // Auto-stop out of view (IntersectionObserver) and in a hidden tab (`visibilitychange`).
+  useEffect(() => {
+    const wheel = wheelRef.current
+    if (!wheel) return
+    let visible = true
+    const update = () => setIdle(!visible || document.visibilityState === 'hidden')
+    const observer =
+      typeof IntersectionObserver === 'undefined'
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            visible = entry?.isIntersecting ?? true
+            update()
+          })
+    observer?.observe(wheel)
+    document.addEventListener('visibilitychange', update)
+    return () => {
+      observer?.disconnect()
+      document.removeEventListener('visibilitychange', update)
+    }
   }, [])
 
   // Parallax after the pointer, mouse only (CSS variables, no re-render).
@@ -171,7 +197,14 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
 
   const current = groups[state.active] ?? groups[0]
   if (!current) return null
-  const running = !paused
+  const running = !paused && !idle
+  const active = layout.groups[state.active]
+  // Dashed lines from the active department's icon to each of its products (board).
+  const links = active
+    ? active.items
+        .map((at) => `M ${C + active.x} ${C + active.y} L ${C + at.x} ${C + at.y}`)
+        .join(' ')
+    : ''
 
   const onTabKey = (event: KeyboardEvent) => {
     const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key]
@@ -198,7 +231,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         ref={wheelRef}
         className="bzw"
         data-arrive={arrive ? '' : undefined}
-        data-hold={held || paused ? '' : undefined}
+        data-hold={held || !running ? '' : undefined}
         style={vars({ '--tint': current.gradient[0], '--auto': `${AUTO_MS}ms` })}
         onFocus={(event) => {
           if (event.target.matches(':focus-visible')) setHeld(true)
@@ -208,9 +241,14 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         }}
       >
         <div className="bzw-halo" aria-hidden="true" />
-        <svg className="bzw-rings" viewBox="0 0 640 640" aria-hidden="true">
-          <circle className="bzw-orbit" cx={C} cy={C} r={WHEEL.orbit} />
-          <circle className="bzw-inner" cx={C} cy={C} r={180} />
+        <svg className="bzw-rings" viewBox={`0 0 ${WHEEL.size} ${WHEEL.size}`} aria-hidden="true">
+          <g className="bzw-turn">
+            <circle className="bzw-orbit" cx={C} cy={C} r={WHEEL.orbit} />
+            <circle className="bzw-spark" cx={C} cy={C - WHEEL.orbit} r={3} />
+            <circle className="bzw-spark" cx={C} cy={C + WHEEL.orbit} r={2} />
+          </g>
+          <circle className="bzw-inner" cx={C} cy={C} r={WHEEL.node} />
+          <path key={`links-${state.active}`} className="bzw-links" d={links} />
           <g className="bzw-sweep" style={{ transform: `rotate(${state.rot}deg)` }}>
             <path
               key={`arc-${state.active}-${state.run}`}
@@ -233,10 +271,11 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                   className="bzw-at"
                   style={vars({ '--x': at.x, '--y': at.y, '--i': n })}
                 >
-                  <Link
-                    href={item.href}
-                    prefetch={false}
-                    aria-label={`${item.name} — ${item.key.startsWith('link:') ? 'zobacz stronę' : 'zobacz produkt'}`}
+                  <button
+                    type="button"
+                    aria-label={`${item.name} — pokaż dział ${group.label}`}
+                    aria-pressed={i === state.active}
+                    onClick={() => pick(i, true)}
                     data-group={i}
                     data-on={i === state.active ? '' : undefined}
                     className="bzw-bub"
@@ -273,7 +312,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                         </span>
                       )}
                     </span>
-                  </Link>
+                  </button>
                 </li>
               )
             }),
@@ -298,16 +337,17 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                 aria-label={tabName(group)}
                 tabIndex={on ? 0 : -1}
                 className="bzw-node bzw-at"
-                data-above={at.labelAbove ? '' : undefined}
                 style={vars({
                   '--x': at.x,
                   '--y': at.y,
+                  '--lx': at.labelShift,
                   '--i': i,
                   '--g1': group.gradient[0],
                   '--g2': group.gradient[1],
                 })}
                 onClick={() => pick(i, true)}
               >
+                {on && <span className="bzw-wave" aria-hidden="true" />}
                 <span className="bzw-dot">
                   <Icon name={group.icon} strokeWidth={2.1} />
                 </span>
@@ -352,6 +392,17 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
             <span className="bzw-nm" style={vars({ '--fs': nameSize(current.name) })}>
               {current.name}
             </span>
+            {current.items.length > 0 && (
+              <ul className="bzw-names" aria-label={`Przykłady: ${current.name}`}>
+                {current.items.map((item) => (
+                  <li key={item.key}>
+                    <Link href={item.href} prefetch={false}>
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
             <Link href={current.href} className="bzw-cta">
               Zobacz dział
               <span className="bzw-go">
@@ -374,9 +425,13 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         <button
           type="button"
           className="bzw-pause bzw-motion-only"
+          aria-label={paused ? 'Wznów animację koła' : 'Wstrzymaj animację koła'}
+          aria-pressed={paused}
           onClick={() => setPaused((value) => !value)}
         >
-          {paused ? 'Wznów animację' : 'Wstrzymaj animację'}
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d={paused ? 'M7 4l14 8-14 8z' : 'M6 4h4v16H6zM14 4h4v16h-4z'} />
+          </svg>
         </button>
       </p>
     </div>
