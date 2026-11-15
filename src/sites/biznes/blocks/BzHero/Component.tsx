@@ -66,9 +66,18 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
   // The four authorisations (K4-FINAL §1 order) with logo and status from `Partners`.
   const auth = K4_ORDER.flatMap((slug) => {
     const brand = index.brands.find((item) => item.slug === slug)
+    const authorized =
+      brand?.status === 'authorized-service' || brand?.status === 'authorized-partner'
     const status = partnerStatusLabel(brand?.status)
-    return brand?.logo && status?.startsWith('Autoryzowany')
-      ? [{ name: brand.name, status, logo: brand.logo, service: status.endsWith('serwis') }]
+    return brand?.logo && authorized && status
+      ? [
+          {
+            name: brand.name,
+            status,
+            logo: brand.logo,
+            service: brand.status === 'authorized-service',
+          },
+        ]
       : []
   })
   const numbers = (stats ?? []).slice(0, 2)
@@ -227,7 +236,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
       {(auth.length > 0 || numbers.length > 0) && (
         <Container wide className="mt-6 min-[1080px]:mt-2">
           <div
-            className="flex items-stretch gap-3 rounded-[26px] border border-border bg-surface-2 p-3 max-[1079px]:-mx-4 max-[1079px]:overflow-x-auto max-[1079px]:rounded-none max-[1079px]:border-x-0 max-[1079px]:px-4 max-[1079px]:[scrollbar-width:none] min-[1080px]:max-[1279px]:flex-wrap min-[1360px]:pl-7"
+            className="flex items-stretch gap-3 rounded-[26px] border border-border bg-surface-2 p-3 max-[1079px]:-mx-4 max-[1079px]:snap-x max-[1079px]:snap-mandatory max-[1079px]:overflow-x-auto max-[1079px]:rounded-none max-[1079px]:border-x-0 max-[1079px]:px-4 max-[1079px]:[scrollbar-width:none] min-[1080px]:max-[1279px]:flex-wrap min-[1360px]:pl-7"
             data-auth-bar
           >
             <p className="flex w-[118px] shrink-0 items-center text-[11px] leading-normal font-extrabold tracking-[0.16em] text-ink-2 uppercase max-[1359px]:hidden">
@@ -235,7 +244,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
             </p>
             {auth.length > 0 && (
               <ul
-                className="grid flex-1 grid-cols-4 gap-2.5 max-[1079px]:flex max-[1079px]:snap-x max-[1079px]:snap-mandatory min-[1080px]:max-[1279px]:basis-full"
+                className="grid flex-1 grid-cols-4 gap-2.5 max-[1079px]:flex min-[1080px]:max-[1279px]:basis-full"
                 aria-label="Uprawnienia producentów"
               >
                 {auth.map((item) => (

@@ -13,8 +13,8 @@ const AUTO_MS = 6500
 
 const wheel = (page: Page) => page.locator('#start .bzw')
 const tabs = (page: Page) => page.getByRole('tablist', { name: 'Działy oferty' }).getByRole('tab')
-const bubbles = (page: Page) =>
-  page.getByRole('list', { name: 'Przykładowe produkty działów' }).getByRole('button')
+// Pointer-only shortcuts (aria-hidden, out of the Tab order): the tabs speak for them.
+const bubbles = (page: Page) => page.locator('#start [data-bubbles] .bzw-bub')
 // The hero's own button: the home page has another pause (brand strips, B2-3a).
 const pauseButton = (page: Page) =>
   page.locator('#start').getByRole('button', { name: /animację koła$/ })
@@ -128,7 +128,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       await bubble.scrollIntoViewIfNeeded()
       await bubble.click()
       await expect(tabs(page).nth(group)).toHaveAttribute('aria-selected', 'true')
-      await expect(bubble).toHaveAttribute('aria-pressed', 'true')
+      await expect(bubble).toHaveAttribute('data-on', '')
+      await expect(bubble).toHaveAttribute('tabindex', '-1')
     }
   })
 
@@ -225,7 +226,6 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
 
     await pauseButton(page).click()
     await expect(pauseButton(page)).toHaveAccessibleName('Wznów animację koła')
-    await expect(pauseButton(page)).toHaveAttribute('aria-pressed', 'true')
     const selected = await tabs(page).evaluateAll((els) =>
       els.findIndex((el) => el.getAttribute('aria-selected') === 'true'),
     )
@@ -265,8 +265,12 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await ready(page)
     await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight }))
     await expect(wheel(page)).toHaveAttribute('data-hold', '')
+    // The department active once the wheel left the view stays active.
+    const selected = await tabs(page).evaluateAll((els) =>
+      els.findIndex((el) => el.getAttribute('aria-selected') === 'true'),
+    )
     await page.waitForTimeout(AUTO_MS + 1000)
-    await expect(tabs(page).first()).toHaveAttribute('aria-selected', 'true')
+    await expect(tabs(page).nth(selected)).toHaveAttribute('aria-selected', 'true')
   })
 
   test('reduced motion: nothing switches or floats, and no axe violations', async ({ browser }) => {

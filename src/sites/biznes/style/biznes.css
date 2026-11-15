@@ -127,7 +127,8 @@
   pointer-events: none;
 }
 [data-line='biznes'] .bzw-turn {
-  transform-origin: 340px 340px;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 [data-line='biznes'] .bzw-orbit {
   fill: none;
@@ -437,8 +438,8 @@
   margin: calc(3 * var(--u)) 0 0;
   padding: 0;
   list-style: none;
-  font-size: calc(9 * var(--u));
-  line-height: 1.25;
+  font-size: calc(9.5 * var(--u));
+  line-height: 1.15;
   color: color-mix(in srgb, var(--c-white) 78%, transparent);
 }
 [data-line='biznes'] .bzw-names li + li::before {
@@ -446,6 +447,8 @@
   margin-right: calc(5 * var(--u));
 }
 [data-line='biznes'] .bzw-names a {
+  display: inline-block;
+  padding-block: calc(1 * var(--u));
   color: inherit;
   text-decoration: none;
 }

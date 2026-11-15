@@ -260,7 +260,9 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
           </g>
         </svg>
 
-        <ul className="bzw-bubbles" aria-label="Przykładowe produkty działów">
+        {/* The bubbles are a pointer shortcut to their department: the tabs and the product
+            links in the core say the same to the keyboard and screen readers (runda 1411). */}
+        <ul className="bzw-bubbles" aria-hidden="true" data-bubbles>
           {groups.flatMap((group, i) =>
             group.items.map((item, k) => {
               const at = layout.groups[i]!.items[k]!
@@ -273,8 +275,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                 >
                   <button
                     type="button"
+                    tabIndex={-1}
                     aria-label={`${item.name} — pokaż dział ${group.label}`}
-                    aria-pressed={i === state.active}
                     onClick={() => pick(i, true)}
                     data-group={i}
                     data-on={i === state.active ? '' : undefined}
@@ -287,11 +289,6 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                     })}
                     onPointerEnter={(event) => showTip(item, event.currentTarget)}
                     onPointerLeave={() => setTip(null)}
-                    onFocus={(event) => {
-                      if (event.currentTarget.matches(':focus-visible'))
-                        showTip(item, event.currentTarget)
-                    }}
-                    onBlur={() => setTip(null)}
                   >
                     <span className="bzw-bub-inner">
                       {item.image ? (
@@ -426,7 +423,6 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
           type="button"
           className="bzw-pause bzw-motion-only"
           aria-label={paused ? 'Wznów animację koła' : 'Wstrzymaj animację koła'}
-          aria-pressed={paused}
           onClick={() => setPaused((value) => !value)}
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
