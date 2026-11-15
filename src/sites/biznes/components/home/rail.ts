@@ -64,6 +64,8 @@ const RAIL: Record<string, Entry[]> = {
   ],
   bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'users' }],
   bzNewsHome: [{ id: 'aktualnosci', label: 'Aktualności', icon: 'mega' }],
+  // Runda 1411 R4: „Inne linie PRO-KOM”.
+  bzLines: [{ id: 'linie', label: 'Inne linie', icon: 'users' }],
   faq: [{ id: 'faq', label: 'Pytania', icon: 'q' }],
   bzContact: [{ id: 'kontakt', label: 'Kontakt', icon: 'phone' }],
 }

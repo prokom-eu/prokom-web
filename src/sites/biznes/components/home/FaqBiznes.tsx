@@ -26,15 +26,17 @@ type Props = {
 const DEFAULT_HEADING = 'Najczęstsze pytania'
 
 /**
- * Biznes look of the shared FAQ block (spec. §4 pkt 12, ZMIANY-v20 §2.8): a sticky left column
- * with a small contact card, numbered question cards on the right, the first one open.
- * `<details>` works without JavaScript; `FAQPage` JSON-LD as in the shared block.
+ * Biznes look of the shared FAQ block (runda 1411, board `Koniec.dc.html`; ZMIANY-v20 §2.8
+ * before): a sticky navy panel on the left — label, heading, lead, both numbers and the hours —
+ * and the numbered accordion on the right, the first one open. `<details>` works without
+ * JavaScript; `FAQPage` JSON-LD as in the shared block. Phone (§5): the panel above the questions.
  */
 export async function FaqBiznes({ block, tenantId, aside }: Props) {
   const [settings, company] = await Promise.all([getSiteSettings(tenantId), getCompanyData()])
-  const phone = settings?.phone ?? null
-  const tel = phone ? toTelHref(phone) : null
-  const email = settings?.email ?? null
+  const phones = [settings?.phone, settings?.phone2].flatMap((number) => {
+    const href = number ? toTelHref(number) : null
+    return number && href ? [{ number, href }] : []
+  })
   const hours = company?.locations[0]?.hours ?? []
 
   return (
@@ -52,52 +54,67 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
             : 'min-[1080px]:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]',
         )}
       >
-        <div
-          className={cx(
-            aside
-              ? 'min-[1080px]:col-start-1'
-              : 'min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start',
-          )}
-        >
-          {block.eyebrow && (
-            <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase max-md:hidden">
-              {block.eyebrow}
-            </p>
-          )}
-          <h2 id="faq-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
-            {block.heading || DEFAULT_HEADING}
-          </h2>
-          {block.lead && (
-            <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>{block.lead}</p>
-          )}
-          {!aside && (phone || email) && (
-            // Phone (boards App-*): the questions only; the contact card is one tap away
-            // under „Kontakt” in the tab bar.
-            <div className="mt-6 max-w-[420px] rounded-[22px] bg-card p-5 shadow-[0_24px_48px_-32px_var(--glow),inset_0_0_0_1px_var(--border)] max-md:hidden">
-              <LiveHours hours={hours} className="text-sm text-ink" />
-              {phone && tel && (
-                <a
-                  href={tel}
-                  className="mt-3 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-accent-text text-[17px] font-extrabold text-accent-ink transition-colors hover:bg-ink hover:text-surface"
-                >
-                  <Icon name="phone" className="size-5" />
-                  {phone}
-                </a>
-              )}
-              {email && (
-                <p className="mt-3 text-sm font-extrabold">
-                  <a
-                    href={`mailto:${email}`}
-                    className="inline-flex items-center gap-1.5 text-ink hover:underline"
-                  >
-                    <Icon name="mail" className="size-4 text-accent-text" />
-                    {email}
-                  </a>
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+        {aside ? (
+          <div className="min-[1080px]:col-start-1">
+            {block.eyebrow && (
+              <p className="mb-3 text-[13px] font-extrabold tracking-[0.08em] text-accent-text uppercase max-md:hidden">
+                {block.eyebrow}
+              </p>
+            )}
+            <h2 id="faq-h" className={cx(BZ_H2, 'max-md:text-[22px] max-md:leading-[1.1]')}>
+              {block.heading || DEFAULT_HEADING}
+            </h2>
+            {block.lead && (
+              <p className={`${BZ_LEAD} mt-4 max-w-[46ch] text-ink-2 max-md:hidden`}>
+                {block.lead}
+              </p>
+            )}
+          </div>
+        ) : (
+          <div
+            data-surface="dark"
+            className="relative isolate flex flex-col gap-4 overflow-hidden rounded-[28px] bg-surface-dark p-8 text-white max-md:p-6 min-[1080px]:sticky min-[1080px]:top-28 min-[1080px]:self-start"
+            data-faq-panel
+          >
+            {block.eyebrow && (
+              <p className="text-[12px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase">
+                {block.eyebrow}
+              </p>
+            )}
+            <h2
+              id="faq-h"
+              className={cx(BZ_H2, 'text-white max-md:text-[26px] max-md:leading-[1.1]')}
+            >
+              {block.heading || DEFAULT_HEADING}
+            </h2>
+            {block.lead && (
+              <p className="max-w-[46ch] text-[15.5px] leading-relaxed text-white/80">
+                {block.lead}
+              </p>
+            )}
+            {phones.length > 0 && (
+              <ul className="mt-2 grid gap-2.5">
+                {phones.map((item, i) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      className={cx(
+                        'flex min-h-[52px] items-center gap-3 rounded-2xl px-4 font-display text-[19px] font-extrabold whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+                        i === 0
+                          ? 'bg-white text-surface-dark'
+                          : 'text-white shadow-[inset_0_0_0_1.5px_color-mix(in_srgb,var(--c-white)_28%,transparent)]',
+                      )}
+                    >
+                      <Icon name="phone" className="size-[18px]" />
+                      {item.number}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <LiveHours hours={hours} className="text-sm text-white/80" />
+          </div>
+        )}
         <ol
           className={cx(
             'flex flex-col gap-2.5 max-md:gap-2',
@@ -111,7 +128,10 @@ export async function FaqBiznes({ block, tenantId, aside }: Props) {
                 className="group rounded-[18px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow open:shadow-[0_20px_40px_-28px_var(--glow),inset_0_0_0_1.5px_var(--accent-text)]"
               >
                 <summary className="flex min-h-[68px] cursor-pointer list-none items-center gap-4 px-5 py-4 max-md:min-h-14 max-md:gap-3 max-md:px-4 max-md:py-3 [&::-webkit-details-marker]:hidden">
-                  <span className="font-display text-sm font-extrabold text-accent-text">
+                  <span
+                    aria-hidden="true"
+                    className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-surface-2 font-display text-[13px] font-extrabold text-accent-text group-open:bg-accent-text group-open:text-accent-ink"
+                  >
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="flex-1 text-[16.5px] leading-snug font-extrabold text-ink max-md:text-[15px]">

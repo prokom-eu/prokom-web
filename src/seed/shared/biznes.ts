@@ -40,6 +40,7 @@ export const BIZNES_SHARED: SharedGroup = {
       { anchorId: 'marki', label: 'Marki', icon: 'star' },
       { anchorId: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' },
       { anchorId: 'aktualnosci', label: 'Aktualności', icon: 'mega' },
+      { anchorId: 'linie', label: 'Inne linie', icon: 'users' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
       { anchorId: 'kontakt', label: 'Kontakt', icon: 'phone' },
     ],

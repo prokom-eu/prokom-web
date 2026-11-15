@@ -30,6 +30,7 @@ import { BzNewsHomeBlock } from '@/sites/biznes/blocks/BzNewsHome/Component'
 import { QuickStart } from '@/sites/biznes/components/home/QuickStart'
 import { BzOfferBlock } from '@/sites/biznes/blocks/BzOffer/Component'
 import { BzSystemsBlock } from '@/sites/biznes/blocks/BzSystems/Component'
+import { BzLinesBlock } from '@/sites/biznes/blocks/BzLines/Component'
 import { BzOrderFlowBlock } from '@/sites/biznes/blocks/BzOrderFlow/Component'
 import { BzPlanBlock } from '@/sites/biznes/blocks/BzPlan/Component'
 import { BzReferencesBlock } from '@/sites/biznes/blocks/BzReferences/Component'
@@ -230,6 +231,8 @@ export function RenderBlocks({ page, tenant }: Props) {
             return <BzOfferBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzSystems':
             return <BzSystemsBlock key={key} block={block} tenantId={tenant.id} />
+          case 'bzLines':
+            return <BzLinesBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzFeatured':
             return <BzFeaturedBlock key={key} block={block} tenantId={tenant.id} />
           case 'bzPlan':

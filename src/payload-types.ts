@@ -2426,6 +2426,7 @@ export interface Page {
         | BzProcurementBlock
         | BzNewsHomeBlock
         | BzSystemsBlock
+        | BzLinesBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3608,6 +3609,26 @@ export interface BzSystemsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzSystems';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLinesBlock".
+ */
+export interface BzLinesBlock {
+  eyebrow?: string | null;
+  heading: string;
+  note?: string | null;
+  lines?:
+    | {
+        line: 'instalacje' | 'software' | 'tech';
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzLines';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6854,6 +6875,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzProcurement?: T | BzProcurementBlockSelect<T>;
         bzNewsHome?: T | BzNewsHomeBlockSelect<T>;
         bzSystems?: T | BzSystemsBlockSelect<T>;
+        bzLines?: T | BzLinesBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -7471,6 +7493,25 @@ export interface BzSystemsBlockSelect<T extends boolean = true> {
               tone?: T;
               id?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzLinesBlock_select".
+ */
+export interface BzLinesBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  note?: T;
+  lines?:
+    | T
+    | {
+        line?: T;
+        title?: T;
+        text?: T;
         id?: T;
       };
   id?: T;

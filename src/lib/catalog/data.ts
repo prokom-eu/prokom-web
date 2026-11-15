@@ -19,6 +19,8 @@ import { readWizardRules } from './wizardRules'
 import { buildProductView, isIndexableProduct, type ProductView } from './product'
 import { isSafeSvg } from './svg'
 import { catalogTag } from './tags'
+import { publicImage } from '../media/public'
+import { pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
 
 /** Far above the catalog of stage 1 (~70); past ~500 the index is reconsidered (ADR-012 §2.4). */
@@ -628,5 +630,48 @@ export const getSalonSlugOfBrand = (tenantId: number, brandSlug: string): Promis
       return docs[0]?.slug ?? null
     },
     ['salon-of-brand', String(tenantId), brandSlug],
+    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+  )()
+
+/**
+ * Cut-out product photos of the hero wheel (`k4-kolo-<slug>.webp`, uploaded by the seed) by product
+ * slug, for other home sections that show the same products (runda 1411 „Od 2004”). Only public
+ * images of the tenant; a missing file is left out. Cached like the index.
+ */
+export const getWheelPhotos = (
+  tenantId: number,
+  slugs: readonly string[],
+): Promise<Record<string, { url: string; width: number; height: number }>> =>
+  cacheQuery(
+    async () => {
+      const payload = await getPayload({ config })
+      const { docs } = await payload.find({
+        collection: 'media',
+        where: {
+          and: [
+            { tenant: { equals: tenantId } },
+            { filename: { in: slugs.map((slug) => `k4-kolo-${slug}.webp`) } },
+          ],
+        },
+        limit: slugs.length,
+        overrideAccess: true,
+        depth: 0,
+      })
+      return Object.fromEntries(
+        docs.flatMap((doc) => {
+          const image = publicImage(doc, tenantId)
+          const slug = doc.filename?.replace(/^k4-kolo-/, '').replace(/\.webp$/, '')
+          return image && slug
+            ? [
+                [
+                  slug,
+                  { url: pickSource(image.sources, 480), width: image.width, height: image.height },
+                ],
+              ]
+            : []
+        }),
+      )
+    },
+    ['wheel-photos', String(tenantId), slugs.join(',')],
     { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )()
