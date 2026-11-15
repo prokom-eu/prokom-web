@@ -175,8 +175,9 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   ))
   const pause = (on: boolean) => () => setPaused(on)
   // Premium pass 15.11: the mouse lights the glass under it (`--mx`/`--my` of that panel) and
-  // moves the building a few pixels against the sky (`--px`/`--py` of the section); once per
-  // frame, never for a touch or with reduced motion (the CSS needs a fine pointer as well).
+  // moves the building a few pixels against the sky (`--px`/`--py` on the stage only, so the
+  // scene's styles stay put); once per frame, never for a touch or with reduced motion (the CSS
+  // needs a fine pointer as well). Both boxes are read before anything is written.
   const followPointer = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType !== 'mouse' || reduced) return
     const host = event.currentTarget
@@ -185,18 +186,20 @@ export function LiveObjectHero({ backdrop, children }: Props) {
     cancelAnimationFrame(lightFrame.current)
     lightFrame.current = requestAnimationFrame(() => {
       const box = host.getBoundingClientRect()
-      host.style.setProperty('--px', (((clientX - box.left) / box.width) * 2 - 1).toFixed(3))
-      host.style.setProperty('--py', (((clientY - box.top) / box.height) * 2 - 1).toFixed(3))
-      if (!glass) return
-      const pane = glass.getBoundingClientRect()
+      const pane = glass?.getBoundingClientRect()
+      const stage = host.querySelector<HTMLElement>('.hxstage')
+      stage?.style.setProperty('--px', (((clientX - box.left) / box.width) * 2 - 1).toFixed(3))
+      stage?.style.setProperty('--py', (((clientY - box.top) / box.height) * 2 - 1).toFixed(3))
+      if (!glass || !pane) return
       glass.style.setProperty('--mx', ((clientX - pane.left) / pane.width).toFixed(3))
       glass.style.setProperty('--my', ((clientY - pane.top) / pane.height).toFixed(3))
     })
   }
   const leavePointer = (event: PointerEvent<HTMLElement>) => {
     cancelAnimationFrame(lightFrame.current)
-    event.currentTarget.style.setProperty('--px', '0')
-    event.currentTarget.style.setProperty('--py', '0')
+    const stage = event.currentTarget.querySelector<HTMLElement>('.hxstage')
+    stage?.style.setProperty('--px', '0')
+    stage?.style.setProperty('--py', '0')
     setPaused(false)
   }
   // A camera point opens the preview where it has no room by the right edge.

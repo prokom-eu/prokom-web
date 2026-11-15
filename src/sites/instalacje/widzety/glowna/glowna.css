@@ -1998,7 +1998,8 @@
    loops anyway; the phone keeps its resting scene (report 11.11, part 2) and its H1 (LCP). */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   [data-line='instalacje'] {
-    & :is(.hotabs, .hmodes, .hxpause) {
+    /* The tabs and the times already stand relative (`ruch.css`). */
+    & .hxpause {
       position: relative;
     }
     & .hx .glass {
@@ -2030,6 +2031,10 @@
         var(--hx-accent-2),
         transparent 70%
       );
+      -webkit-mask:
+        linear-gradient(var(--hx-accent) 0 0) content-box,
+        linear-gradient(var(--hx-accent) 0 0);
+      -webkit-mask-composite: xor;
       mask:
         linear-gradient(var(--hx-accent) 0 0) content-box exclude,
         linear-gradient(var(--hx-accent) 0 0);
@@ -2081,6 +2086,15 @@
     }
   }
 }
+/* The visitor's pause (`.hx.still` pauses every animation): what comes in while paused shows
+   at once instead of standing on its first frame (invisible object, a ring left on a chip). */
+[data-line='instalacje'] {
+  & .hx.still :is(.hxobj, .hxdtx, .hxli, .pip, .hchk path),
+  & .hx.still .hotab.on::after,
+  & .hx.still .hchip.on::after {
+    animation: none !important;
+  }
+}
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
   [data-line='instalacje'] {
     /* A new object (or the first one) comes in out of a soft blur, from just below its place. */
@@ -2109,7 +2123,7 @@
   }
   100% {
     opacity: 0;
-    transform: scale(1.18, 1.35);
+    transform: scale(1.1, 1.12);
   }
 }
 @keyframes inst-hx-swap-blur {
