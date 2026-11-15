@@ -459,3 +459,23 @@
   outline: 2px solid var(--accent-text);
   outline-offset: 2px;
 }
+
+/* --- /kontakt (audit H8 pkt 7): the salon card's map follows the page theme like the dark map of
+   /o-firmie — the shared template draws it light, which glared on the hub's dark default. Night
+   palette of `.addr-map[data-variant='dark']` (wspolne.css); the shared template stays as it is. */
+[data-line='prokom'][data-theme='dark'] [data-address-card] .addr-map[data-variant='light'] {
+  --am-land: var(--c-software-night-map-land);
+  --am-water: var(--c-software-night-map-water);
+  --am-road: var(--c-software-night-map-road);
+  --am-road-main: var(--c-software-night-map-road-main);
+  --am-block: var(--c-software-night-map-block);
+  --am-block-line: var(--c-software-night-map-block-line);
+  --am-park: var(--c-software-night-map-park);
+  --am-wood: var(--c-software-night-map-wood);
+  --am-parking: var(--c-software-night-map-parking);
+  --am-casing: var(--c-software-night-map-casing);
+  --am-path: var(--c-software-night-map-path);
+  --am-rail: var(--c-software-night-map-rail);
+  --am-label: var(--c-software-night-map-label);
+  --am-card: var(--c-papier);
+}
