@@ -10,6 +10,7 @@ import { biznesServiceJsonLd, breadcrumbJsonLd, serializeJsonLd } from '@/lib/se
 import { heroCrumb } from '@/lib/software/pageCrumbs'
 import { getSiteSettings } from '@/lib/site/data'
 import { pagePath, slugFromSegment } from '@/lib/pages/slug'
+import { hubSlugMetadata, hubSlugPage } from '@/sites/prokom/pages/hubSlugPages'
 
 import { requestOrigin, requireTenant } from '../tenant'
 
@@ -30,11 +31,14 @@ async function load(params: Props['params']) {
   const tenant = await requireTenant(params)
   const slug = slugFromSegment((await params).slug)
   const page = slug ? await getPublishedPage(tenant.id, slug) : null
-  return { tenant, page }
+  return { tenant, page, slug }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { tenant, page } = await load(params)
+  const { tenant, page, slug } = await load(params)
+  // pro-kom.eu answers `/kontakt` and `/o-firmie` itself; its legal pages are noindex (spec §6.13).
+  const hub = tenant.line === 'prokom' && slug ? await hubSlugMetadata(tenant, slug) : null
+  if (hub && !page) return hub
   if (!page) return {}
   const settings = await getSiteSettings(tenant.id)
   const metadata = pageMetadata(page, {
@@ -43,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ...(tenant.line === 'biznes' && { line: tenant.line }),
   })
   // A Biznes page that sells (services, procurement) names the region (SEO lokalne 14.11).
-  return localPageMeta(tenant.line, page, metadata)
+  return localPageMeta(tenant.line, page, hub ? { ...metadata, ...hub } : metadata)
 }
 
 /**
@@ -52,7 +56,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * price list, audit and legal pages (SEO etap 1; contact and about have their own).
  */
 export default async function TenantPage({ params }: Props) {
-  const { tenant, page } = await load(params)
+  const { tenant, page, slug } = await load(params)
+  if (tenant.line === 'prokom' && slug) {
+    const hub = await hubSlugPage(tenant, slug, requestOrigin)
+    if (hub) return hub
+  }
   if (!page) notFound()
   const crumbs =
     tenant.line === 'biznes'

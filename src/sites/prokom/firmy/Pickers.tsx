@@ -11,6 +11,7 @@ import { lineStyle } from '../lineColors'
 import { Mark } from '../home/Mark'
 import { linesCount, plural } from '../home/model'
 import type { Area, BusinessLineInfo, Industry } from './model'
+import { useChoice } from '../dostawy/ChoiceState'
 import { OptionalLink } from './OptionalLink'
 
 /**
@@ -37,7 +38,7 @@ export function IndustryPicker({
   tel: string | null
 }) {
   const panelId = useId()
-  const [picked, setPicked] = useState(items[0]?.key ?? '')
+  const { segment: picked, setSegment: setPicked } = useChoice()
   const plan = items.find((item) => item.key === picked) ?? items[0]
   if (!plan) return null
   const callPhone = plan.call?.phone ?? phone

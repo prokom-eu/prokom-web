@@ -53,7 +53,11 @@ export function DeliveriesState({
       list,
       change: (item, delta) => setList((current) => changeQty(current, item, delta)),
       loadPreset: (preset) => setList(fromPreset(preset)),
-      clear: () => setList({}),
+      clear: () => {
+        setList({})
+        setServices([])
+        setTerm(null)
+      },
       services,
       toggleService: (key) =>
         setServices((current) =>

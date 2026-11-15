@@ -67,9 +67,12 @@ test.describe('pro-kom.eu — /dla-firm (spec §6.3)', () => {
     await expect(page.locator('#sytuacje .pk-situation__order li')).toHaveCount(3)
   })
 
-  test('the form section leads to the contact page with the topic', async ({ page }) => {
+  test('the form section has the hub form with consent', async ({ page }) => {
     await page.goto(site(HUB, '/dla-firm#formularz'))
-    await expect(page.locator('#formularz a[href="/kontakt?temat=dla-firm"]')).toBeVisible()
+    const form = page.locator('#formularz form')
+    await expect(form).toBeVisible()
+    await expect(form.getByLabel('Imię i firma')).toBeVisible()
+    await expect(form.getByRole('button', { name: 'Opisz swoją firmę' })).toBeVisible()
   })
 
   for (const theme of ['dark', 'light'] as const) {

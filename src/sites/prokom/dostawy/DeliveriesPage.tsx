@@ -20,6 +20,8 @@ import {
   SegmentPicker,
 } from './DeliveriesClient'
 import { DeliveriesState } from './DeliveriesState'
+import { DeliveriesFormPart } from '../form/FormParts'
+import { HubForm } from '../form/HubForm'
 
 /** The Biznes subpages for the details of an area (spec §6.5 „Związek z Biznesem”). */
 const BIZNES_DETAILS: Record<string, string> = {
@@ -314,7 +316,26 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
           <div className="pk-contact">
             <FormListSummary texts={page} groups={data.listGroups} segments={data.segments} />
             <div className="pk-contact__write">
-              {/* TODO(krystian): H4-2 — the `hub-dostawy` form (list, services and term in the payload). */}
+              <HubForm
+                shared={shared}
+                sendLabel={page.form.cta}
+                placeholder={data.segments[0]?.form.descPlaceholder}
+                prefill={
+                  <DeliveriesFormPart
+                    label={page.form.eyebrow}
+                    data={{
+                      segments: data.segments,
+                      listGroups: data.listGroups,
+                      services: data.services,
+                      labels: {
+                        pcs: page.list.pcs,
+                        yours: page.list.yours,
+                        segments: page.hero.segmentsLabel,
+                      },
+                    }}
+                  />
+                }
+              />
               <p className="pk-plan__note">{page.form.note}</p>
             </div>
           </div>
