@@ -97,6 +97,8 @@ export function PostCard({ post, headingLevel = 'h3', eager = false }: CardProps
 type GridProps = {
   posts: readonly NewsCardData[]
   headingLevel?: 'h2' | 'h3'
+  /** Load the first card's cover at once: only when the grid opens the page (a category view). */
+  eagerFirst?: boolean
   /**
    * Alone on the page: 3 columns from 1080 px. Next to the topics column: 3 from 1280 px, and only
    * with 3+ posts — two posts take the row in halves, no empty third slot.
@@ -105,7 +107,12 @@ type GridProps = {
 }
 
 /** Grid of post cards; on a phone a list of compact rows. */
-export function PostCards({ posts, headingLevel = 'h3', wide = true }: GridProps) {
+export function PostCards({
+  posts,
+  headingLevel = 'h3',
+  wide = true,
+  eagerFirst = false,
+}: GridProps) {
   return (
     <ul
       className={cx(
@@ -115,7 +122,7 @@ export function PostCards({ posts, headingLevel = 'h3', wide = true }: GridProps
     >
       {posts.map((post, position) => (
         <li key={post.slug} className="flex">
-          <PostCard post={post} headingLevel={headingLevel} eager={position === 0} />
+          <PostCard post={post} headingLevel={headingLevel} eager={eagerFirst && position === 0} />
         </li>
       ))}
     </ul>

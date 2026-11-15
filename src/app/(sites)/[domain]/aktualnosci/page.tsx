@@ -125,7 +125,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
         <section aria-label="Wpisy" className="pb-14 sm:pb-20">
           <Container wide>
             {shown.length > 0 ? (
-              <PostCards posts={shown} headingLevel="h2" />
+              <PostCards posts={shown} headingLevel="h2" eagerFirst />
             ) : (
               <p className="rounded-[28px] bg-surface-2 p-8 text-lg text-ink-2">
                 {NEWS_TEXTS.empty}
@@ -144,7 +144,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
           {posts.length === 0 && (
             <Container wide className="pb-14">
               <p className="rounded-[28px] bg-surface-2 p-8 text-lg text-ink-2">
-                {NEWS_TEXTS.empty}
+                {NEWS_TEXTS.emptyAll}
               </p>
             </Container>
           )}

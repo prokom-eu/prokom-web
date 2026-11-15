@@ -12,6 +12,7 @@ export const NEWS_TEXTS = {
     'Przepisy, terminy i programy dla małych firm z Podhala: KSeF, kasy, terminale, dofinansowania. Każdy wpis ze źródłem i datą sprawdzenia.',
   all: 'Wszystkie',
   empty: 'Nie ma jeszcze wpisów w tej kategorii.',
+  emptyAll: 'Nie ma jeszcze wpisów.',
   contactHeading: 'Masz pytanie do któregoś wpisu?',
   contactLead: 'Napisz, czego dotyczy, a odpowiemy na konkretnym przykładzie Twojej firmy.',
   readAlso: 'Czytaj też',

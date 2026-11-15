@@ -96,7 +96,7 @@ export function NewsGroups({ groups, totals }: Props) {
                       </span>
                       <div>
                         <h2 id={`${id}-h`} className={BZ_H2}>
-                          {group.label}
+                          {group.label}{' '}
                           <span className="ml-3 align-middle text-[14px] font-bold tracking-normal text-ink-2 font-stretch-100%">
                             {count(total)}
                           </span>

@@ -24,7 +24,8 @@ const CHIP =
  * Head of `/aktualnosci` (board `Aktualnosci`, redesign 15.11): breadcrumbs, H1, lead, the facts
  * counted from the posts and the category chips with their counts. Chips are links
  * (`?kategoria=`), so a category view has its own address and works without JS. On a phone the
- * chips stick to the top and scroll sideways (MOBILE-APLIKACJA §2) — outside the hero, whose
+ * chips stick under the header capsule (the top once it hides while scrolling down, as the
+ * Software legal chips) and scroll sideways (MOBILE-APLIKACJA §2) — outside the hero, whose
  * `overflow-hidden` would stop `sticky`.
  */
 export function NewsHero({ chips, current, total, last }: Props) {
@@ -76,7 +77,7 @@ export function NewsHero({ chips, current, total, last }: Props) {
       {chips.length > 1 && (
         <nav
           aria-label="Kategorie wpisów"
-          className="z-20 pb-6 max-sm:sticky max-sm:top-0 max-sm:border-b max-sm:border-border max-sm:bg-surface/90 max-sm:py-2.5 max-sm:backdrop-blur-md sm:pb-10"
+          className="z-20 pb-6 max-sm:sticky max-sm:top-[76px] max-sm:transition-[top] max-sm:duration-(--dur-state) max-sm:ease-(--ease-out) max-sm:[:root:has(.cap-wrap[data-hidden])_&]:top-0 max-sm:border-b max-sm:border-border max-sm:bg-surface/90 max-sm:py-2.5 max-sm:backdrop-blur-md sm:pb-10"
         >
           <Container wide>
             <ul className="flex gap-2.5 max-sm:-mx-4 max-sm:overflow-x-auto max-sm:px-4 max-sm:[scrollbar-width:none] sm:flex-wrap">
@@ -95,7 +96,7 @@ export function NewsHero({ chips, current, total, last }: Props) {
                             : 'bg-card text-ink shadow-[inset_0_0_0_1.5px_var(--border)] hover:shadow-[inset_0_0_0_1.5px_var(--ink-3)]',
                         )}
                       >
-                        {label}
+                        {label}{' '}
                         <span
                           className={cx(
                             'text-[13px] tabular-nums',
@@ -103,6 +104,7 @@ export function NewsHero({ chips, current, total, last }: Props) {
                           )}
                         >
                           {count}
+                          <span className="sr-only"> {plural(count, NEWS_TEXTS.posts)}</span>
                         </span>
                       </Link>
                     </li>
