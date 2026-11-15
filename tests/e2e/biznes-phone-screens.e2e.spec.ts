@@ -29,13 +29,14 @@ for (const { path, section } of PAGES) {
   })
 }
 
-test('O firmie on a phone: the visit card leads to Kontakt', async ({ page }) => {
+test('O firmie on a phone: the visit card leads to the form of Kontakt (runda 1411 R6)', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto(biznes('/o-firmie'))
-  await expect(page.locator('#wizyta').getByRole('link', { name: 'Kontakt' })).toHaveAttribute(
-    'href',
-    '/kontakt',
-  )
+  await expect(
+    page.locator('#wizyta').getByRole('link', { name: 'Napisz do nas' }),
+  ).toHaveAttribute('href', '/kontakt#formularz')
 })
 
 test('KSeF: the button under the penalties on a phone, in the hero on a computer', async ({
