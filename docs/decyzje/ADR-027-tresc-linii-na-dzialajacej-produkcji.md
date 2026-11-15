@@ -32,3 +32,12 @@ Import paczki jednej linii (`pnpm seed:biznes`) **zapisuje prosto do bazy produk
 - **Kolejność dla Biznesu:** wdrożenie obrazu ze stagingu na produkcję (`deploy.sh prod`, runbook §3) → `prod-line-content.sh biznes` (pierwszy raz z `ZAMIEN_STRONY=gopos,insert,opieka-it,automaty-vendingowe`) → domena `prokombiznes.pl` w tenancie (panel produkcji) → certyfikat `--expand` i `PROD_SITE_HOSTS` / `PROD_WWW_HOSTS` → smoke, `porownaj-tresc --po-imporcie`, §3a.1.
 - **Po starcie linii** treść edytuje się w panelu produkcji. Ponowny import nadpisze pola z paczki (karty: „pola z paczki wygrywają z edycją w panelu”), więc po starcie Biznesu ten skrypt nie jest zwykłym narzędziem: każde użycie wymaga decyzji Krystiana, jak na stagingu.
 - Seed na produkcji dalej jest zablokowany (`NODE_ENV=production`). Skrypt uruchamia go na komputerze z `NODE_ENV=development`, tak jak `staging-content.sh`.
+
+## Rozstrzygnięcia 15.11 — wpisy Biznesu po starcie linii
+Audyt produkcji 15.11 (P1-3), decyzja Krystiana: 24 wpisy Biznesu, publikowane od razu, na produkcję skryptem, który tylko dodaje brakujące.
+
+- **Tryb `biznes-wpisy`** w `scripts/prod-line-content.sh`: te same bezpieczniki (commit produkcji, migracje, blokada wdrożeń, kopia `predeploy`, tunel, potwierdzenie `prokom-prod`), ale uruchamia tylko `pnpm seed:biznes-wpisy`.
+- **Zakres zapisu:** wyłącznie nowe rekordy `posts` tenanta Biznes — wpis o slugu, którego w bazie nie ma (także jako szkic), z listy `src/seed/biznes/wpisy/`. Istniejącego wpisu nie zmienia, niczego nie usuwa, nie dotyka zdjęć, kart ani stron. Dlatego działa na żywej linii bez `PO_STARCIE`.
+- **Wycofany wpis** (usunięty albo przemianowany w panelu) trafia do `RETIRED_GUIDE_SLUGS` — inaczej skrypt utworzyłby go ponownie.
+- Produkty pod wpisem są szukane po slugu karty w bazie produkcji; brakująca karta jest pomijana z ostrzeżeniem w logu.
+- **Daty publikacji:** wpisy jednego przebiegu dostają daty co minutę wstecz od chwili importu, w kolejności `BIZNES_GUIDE_POSTS` (pierwszy = najnowszy, wyróżniony na głównej). Partia uruchomiona później jest w całości nowsza od wcześniejszych — jeśli na górze ma zostać konkretny wpis (np. o KSeF), zmień mu datę w panelu albo uruchom partie razem.
