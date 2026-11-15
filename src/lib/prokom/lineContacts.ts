@@ -28,6 +28,17 @@ export type HubLineContact = {
 const isTenantLine = (value: unknown): value is TenantLine =>
   (TENANT_LINES as readonly unknown[]).includes(value)
 
+/**
+ * One way of showing a Polish number on the hub (audit H8 pkt 5): with or without `+48`, spaced
+ * or not, it reads as three groups of three digits, no prefix. Anything else (a foreign or short number) stays as typed;
+ * `tel:` links are built from the raw value (`toTelHref`), so they do not change.
+ */
+export function hubPhone(phone: string | null): string | null {
+  if (!phone) return null
+  const digits = phone.replace(/\D/g, '').replace(/^(?:0048|48)(?=\d{9}$)/, '')
+  return digits.length === 9 ? digits.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') : phone.trim()
+}
+
 type LineFields = Pick<SharedLineData, 'phone' | 'email' | 'hours' | 'responsePromise'>
 
 /**
@@ -50,7 +61,7 @@ export function toHubLineContacts(
         name: line.name,
         domain: line.domain,
         url: line.url,
-        phone: site?.phone || line.phone,
+        phone: hubPhone(site?.phone || line.phone),
         email: site?.email || line.email,
         hours: site?.hours || line.hours,
         promise: site?.responsePromise || line.promise,

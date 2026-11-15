@@ -6,7 +6,8 @@ vi.mock('../shared/getSharedData', () => ({ getSharedData: vi.fn() }))
 vi.mock('../posts/data', () => ({ getTenantPostRows: vi.fn(), getLineTenantRows: vi.fn() }))
 
 import type { SharedLine } from '../shared/project'
-import { toHubLineContacts } from './lineContacts'
+import { toTelHref } from '../site/link'
+import { hubPhone, toHubLineContacts } from './lineContacts'
 import { linePostLinks } from '../posts/sister'
 import { TENANT_LINES } from './lineContacts'
 
@@ -108,5 +109,27 @@ describe('hub news (linePostLinks of the three line sites)', () => {
       news([{ tenant: tenant(1, 'biznes', null), posts: [post('a', '2026-11-01')] }], 3, place),
     ).toEqual([])
     expect(news([{ tenant: tenant(1, 'biznes', 'x.pl'), posts: [] }], 3, place)).toEqual([])
+  })
+})
+
+describe('hubPhone (audit H8 pkt 5)', () => {
+  it.each([
+    ['+48 889 003 889', '889 003 889'],
+    ['+48889003889', '889 003 889'],
+    ['0048 889 003 889', '889 003 889'],
+    ['889003889', '889 003 889'],
+    ['889 003 889', '889 003 889'],
+    ['+44 20 7946 0958', '+44 20 7946 0958'],
+  ])('%s → %s', (raw, shown) => {
+    expect(hubPhone(raw)).toBe(shown)
+  })
+
+  it('keeps the tel: link the same for both forms', () => {
+    expect(toTelHref('+48 889 003 889')).toBe(toTelHref(hubPhone('+48 889 003 889') ?? ''))
+  })
+
+  it('nothing stays nothing', () => {
+    expect(hubPhone(null)).toBeNull()
+    expect(hubPhone('')).toBeNull()
   })
 })
