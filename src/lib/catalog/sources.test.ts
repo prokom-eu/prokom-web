@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { isProducerSource, publicSources, validateHttpsUrls, validateHttpUrls } from './sources'
+import {
+  isProducerSource,
+  isShopLink,
+  publicSources,
+  validateHttpsUrls,
+  validateHttpUrls,
+} from './sources'
 
 describe('validateHttpUrls (Products.sources)', () => {
   it('accepts no value and http(s) links', () => {
@@ -70,5 +76,35 @@ describe('publicSources (K31-ZMIANY §4 pkt 9, ADR-012 rozstrz. 19)', () => {
     expect(publicSources({ productPages: ['https://www.gopos.pl/cennik'] })).toEqual({
       productPages: ['https://www.gopos.pl/cennik'],
     })
+  })
+})
+
+describe('isShopLink (audyt 15.11 P1-2: brand pages never send a customer to a shop)', () => {
+  it('shops and resellers named by the audit', () => {
+    for (const link of [
+      'https://brothersklep.pl/',
+      'https://store.brother.pl/drukarki',
+      'https://sklep.eset.pl/product/eset-protect-entry',
+      'https://sklep.eurocert.pl/pl/p/',
+      'https://www.argo.pl/niszczarki',
+      'https://kyocerasklep.pl/x.html',
+      'https://sklepqnap.pl/duza-firma',
+      'https://eu.store.ui.com/eu/en',
+      'https://shop.example.com/',
+    ]) {
+      expect(isShopLink(link), link).toBe(true)
+    }
+  })
+
+  it("producers' company pages stay", () => {
+    for (const link of [
+      'https://www.brother.pl/o-firmie',
+      'https://www.eset.com/pl/o-nas/',
+      'https://eurocert.pl/',
+      'https://www.fellowes.com/pl/pl/',
+      'https://www.apple.com/pl/',
+    ]) {
+      expect(isShopLink(link), link).toBe(false)
+    }
   })
 })

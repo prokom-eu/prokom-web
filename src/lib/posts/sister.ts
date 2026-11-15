@@ -21,6 +21,8 @@ export type SisterPostLink<L extends Line = SisterLine> = {
   href: string
   publishedAt: string
   line: L
+  /** The post's category, when the row carries it (the Biznes home filter, audyt 15.11). */
+  category?: string
 }
 
 export type SisterDomain = { host?: string | null; environment?: string | null }
@@ -36,6 +38,7 @@ export type SisterPostRow = {
   title: string
   publishedAt?: string | null
   lead?: string | null
+  category?: string | null
 }
 
 /** A lead cut at a word to `max` characters, with „…” when cut. */
@@ -78,7 +81,7 @@ export function sisterTenants<T extends SisterTenant>(
 }
 
 /**
- * Newest first, at most `limit`, each reduced to `SisterPostLink` (only its five fields — the
+ * Newest first, at most `limit`, each reduced to `SisterPostLink` (only its fields — the
  * lead as a short teaser — whatever the rows carry). Rows of the excluded tenant or another line are dropped.
  */
 export function sisterPostLinks(
@@ -118,6 +121,7 @@ export function linePostLinks<L extends Line>(
         href: `${origin}${postHref(post.slug, line)}`,
         publishedAt: post.publishedAt,
         line,
+        ...(post.category ? { category: post.category } : {}),
       })
     }
   }

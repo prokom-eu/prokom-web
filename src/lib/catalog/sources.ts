@@ -93,6 +93,23 @@ const isPricePage = (link: string) => PRICE_PATH.test(new URL(link).pathname)
  */
 const SHOP_HOST = /^(?:[a-z0-9-]+.)?(?:store|sklep|shop)./
 
+/** Resellers and distributors with no „sklep” or „store” in the name (audyt 15.11 P1-2). */
+const RESELLER_DOMAINS = ['argo.pl']
+
+/**
+ * A shop or a reseller (audyt 15.11 P1-2): any host with „sklep”, „store” or „shop” in it
+ * (`brothersklep.pl`, `store.brother.pl`, `sklepqnap.pl`) or a known reseller. Links a brand page
+ * shows (the producer's site, a fact's source) skip these: the customer buys through us.
+ * Deliberately wider than `SHOP_HOST` (it also hides „photoshop” or „datastore” hosts): a hidden
+ * link costs nothing, a link to a shop sends the customer away.
+ */
+export function isShopLink(link: string): boolean {
+  if (!isHttpUrl(link)) return false
+  const host = new URL(link).hostname.toLowerCase()
+  if (/sklep|store|shop/.test(host)) return true
+  return RESELLER_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))
+}
+
 export function isProducerSource(link: string): boolean {
   if (!isHttpUrl(link)) return false
   const host = new URL(link).hostname.toLowerCase()

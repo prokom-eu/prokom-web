@@ -586,7 +586,7 @@ export function BzAboutView({ shared, origin, now, siteEnv, auth, others, brandT
             <div className="flex flex-col gap-3">
               <p className={KICKER}>Jedna firma</p>
               <h2 id="o-firmie-linie" className={BZ_H2}>
-                {lineCount} {plural(lineCount, ['linia', 'linie', 'linii'])} PRO-KOM
+                Linie PRO-KOM
               </h2>
             </div>
             <p className="max-w-[40ch] text-ink-2">

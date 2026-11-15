@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   GUARANTEES_1411,
   HOME_ORDER_1411,
+  LINES_BLOCK_1411,
   STEPS_GETS_1411,
   SYSTEMS_HEAD,
   upgradeHome1411,
@@ -159,5 +160,13 @@ describe('upgradeHomeSections1411 (R4: Jak pracujemy, Inne linie)', () => {
     expect((out[0] as Block & { guarantees: unknown }).guarantees).toEqual([
       { text: 'Coś od szefa' },
     ])
+  })
+})
+
+describe('Inne linie PRO-KOM: no line count (audyt 15.11 P2-1)', () => {
+  it('the eyebrow names the lines without a number', () => {
+    const eyebrow = LINES_BLOCK_1411.eyebrow
+    expect(eyebrow).toBe('Jedna firma — linie PRO-KOM')
+    expect(eyebrow).not.toMatch(/\d|jedna linia|dwie|trzy|cztery|pięć|sześć/i)
   })
 })

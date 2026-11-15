@@ -157,6 +157,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - **Do decyzji (TODO(krystian)):** (1) panel stagingu — `panel.staging.prokombiznes.pl` czy w pro-kom.eu; czy strefa pro-kom.eu jest już w Seohost; (2) usługi Sentry i monitoringu. **Polityka prywatności:** projekt z B11b wymienia hosting Seohost (ADR-002) — dostawca serwera to teraz webh.pl, poprawić przed akceptacją prawnika.
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
+- **15.11 po południu — poprawki po audycie produkcji 15.11, PR 1 (`fix/biznes-audyt-1511-tresci`)**: P1-1, P1-2, P2-1, P2-6, P3-4 audytu (`tmp/AUDYT-BIZNES-PROD-1511.md`, lokalnie).
+  - Aktualności na głównej: wpisy innych linii tylko „dla firm” (`isForBusiness` w `lib/biznes/newsMix.ts`: Software zawsze, Instalacje z kategorią `noclegi` albo ze słowem firmowym i bez „dom…”); brak takich = mniej kart. Software nie ma dziś na produkcji żadnego opublikowanego wpisu (treść, nie kod).
+  - Strony marek i salonów bez linków do sklepów i dystrybutorów (`isShopLink`) — działa po samym wdrożeniu.
+  - Nagłówki linii bez liczby, nowy tekst uprawnień w bzFacts, źródła Apple `apple.com/pl` — w seedzie i `TEXT_FIXES`. **Na produkcji po wdrożeniu poprawić w panelu:** nagłówek bloku „Inne linie PRO-KOM” na głównej („Jedna firma — linie PRO-KOM”), lead sekcji „Od 2004 roku…”, źródło Apple na 9 kartach i salonie Apple.
+  - **Następny krok:** PR 2 audytu `fix/biznes-audyt-1511-telefon` (P2-2…P2-5) — **po** wpisach. Decyzje Krystiana 15.11 o wpisach: 24 wpisy Biznesu (plan tematów w tej sesji: KSeF 5, Kasy 7, Terminale 3, Programy 6, IT w firmie 3), publikacja od razu, nowa kategoria „IT w firmie” (migracja dodająca wartość), na produkcję skryptem, który tylko dodaje brakujące wpisy.
 - **15.11 rano — runda 1411 NA PRODUKCJI (akceptacja szefa przekazana przez Krystiana 15.11).**
   - Staging: `staging-content.sh biznes` przy `ad67352` (kopia `predeploy`, smoke zielony), §2b zielone: `--po-imporcie` (mapa 574, kart 455, uwagi: brak) i `--widocznosc` (20 stron × 1440/390).
   - Produkcja: `deploy.sh prod ad67352` (kopia `predeploy`, smoke 3 domen zielony) → `PO_STARCIE=1 SEED_KEEP_COMPANY_DATA=1 prod-line-content.sh biznes` z `prokom-web-tresc` przy `ad67352` (134 karty zaktualizowane, główna wg rundy 1411, opis `/kontakt`, 0 nowych zdjęć, kontrola plików bez braków, Dane firmy „kept, differs”).

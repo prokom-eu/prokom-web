@@ -33,6 +33,11 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
     'Pomożemy wyrobić podpis albo pieczęć EuroCert.',
   ],
   ['Wydajemy EuroCert na miejscu.', 'Pomożemy wyrobić podpis EuroCert.'],
+  // Audyt 15.11 P2-6: on a phone the authorizations stand below the text, not beside it.
+  [
+    'Uprawnienia producentów widzisz obok — to one pozwalają nam serwisować kasy i wdrażać programy.',
+    'Uprawnienia producentów to podstawa — pozwalają nam serwisować kasy i wdrażać programy.',
+  ],
   // Redaction (audit of 01.11.2026, prompt 5): parts of longer sentences. Headings and other
   // short texts change only as a whole field (`WHOLE_TEXT_FIXES`), so a phrase reused elsewhere
   // in the panel stays. Dashes inside other sentences change with a fresh seed only.
@@ -71,6 +76,8 @@ type Fix = readonly [from: string, to: string]
  * same phrase written inside another text in the panel stays.
  */
 export const WHOLE_TEXT_FIXES: readonly Fix[] = [
+  // Audyt 15.11 P2-1: no line count in a heading (the footer shows six tiles, /o-firmie five).
+  ['Jedna firma · cztery linie', 'Jedna firma — linie PRO-KOM'],
   // Client count — Krystian's decision of 14.11.2026: „10 000+ klientów” (was „100+ klientów
   // firmowych” / „firm pod stałą opieką”). Whole fields only: „100+” inside a sentence stays.
   ['100+', '10\u00a0000+'],
@@ -156,7 +163,9 @@ export const WHOLE_TEXT_FIXES: readonly Fix[] = [
     'Bez obietnic z ulotki — tak pracujemy na co dzień.',
     'Bez obietnic z ulotki, tylko to, jak pracujemy.',
   ],
-  ['Jedna firma, cztery linie.', 'Jedna firma, cztery linie'],
+  // Audyt 15.11 P2-1: no line count (was „Jedna firma, cztery linie”).
+  ['Jedna firma, cztery linie.', 'Jedna firma — linie PRO-KOM'],
+  ['Jedna firma, cztery linie', 'Jedna firma — linie PRO-KOM'],
   ['Najczęstsze sprawy — od razu wiesz, co dalej', 'Najczęstsze sprawy i co dalej'],
   ['Sprzedaż, która działa całą dobę.', 'Automaty vendingowe dla firm.'],
   ['Bez obsługi.', 'Sprzedaż przez całą dobę.'],
