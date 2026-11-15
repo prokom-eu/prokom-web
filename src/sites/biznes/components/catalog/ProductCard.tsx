@@ -14,6 +14,7 @@ import { fallbackTile } from '@/lib/catalog/purchase'
 
 import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
+import { cardCover } from '@/lib/catalog/cover'
 
 const BADGE: Record<BadgeTone, string> = {
   service: 'bg-ink text-surface',
@@ -116,7 +117,11 @@ export function ProductCard({
               )}
             />
           ) : (
-            <StageFallback icon={cardIcon(product, index)} tile={fallbackTile(product)} />
+            <StageFallback
+              icon={cardIcon(product, index)}
+              tile={fallbackTile(product)}
+              cover={cardCover(product, index)}
+            />
           )}
         </Link>
         {brand?.logo && (

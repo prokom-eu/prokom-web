@@ -315,8 +315,8 @@ test.describe('Biznes product page 2.0', () => {
   test('a service without a photo still has a page, without WCAG violations', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/produkt/przeglad-kasy-fiskalnej'))
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Przegląd kasy fiskalnej')
-    // The navy tile instead of „Zdjęcie producenta pojawi się wkrótce” (K36 §5).
-    await expect(page.getByText('Usługa PRO-KOM · u Ciebie w firmie')).toBeVisible()
+    // The navy cover instead of „Zdjęcie producenta pojawi się wkrótce” (K36 §5, runda 1411 R8).
+    await expect(page.locator('[data-cover="service"]').first()).toContainText('Usługa')
     const results = await new AxeBuilder({ page }).withTags(WCAG).analyze()
     expect(results.violations).toEqual([])
   })

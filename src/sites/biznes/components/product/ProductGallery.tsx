@@ -15,6 +15,7 @@ import { useSwap } from '../motion/useSwap'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { GalleryZoom } from './GalleryZoom'
 import { useProductConfig } from './ProductConfig'
+import type { CardCover } from '@/lib/catalog/cover'
 
 type Props = {
   name: string
@@ -28,6 +29,8 @@ type Props = {
   colorSlides?: (number | null)[]
   /** Tile in place of a missing photo (`fallbackTile`). */
   tile?: FallbackTile
+  /** Cover of a licence or a service without a photo (runda 1411 R8). */
+  cover?: CardCover | null
 }
 
 const SWIPE = 40
@@ -51,6 +54,7 @@ export function ProductGallery({
   videoTarget,
   colorSlides = [],
   tile = null,
+  cover = null,
 }: Props) {
   const [active, setActive] = useState(0)
   // A colour picked in the hero turns the gallery to its picture (adjusted while rendering).
@@ -191,7 +195,7 @@ export function ProductGallery({
                 )}
               />
             ) : (
-              <StageFallback icon={icon} size="lg" name={name} tile={tile} />
+              <StageFallback icon={icon} size="lg" name={name} tile={tile} cover={cover} />
             )}
           </ProductStage>
           {image && (
@@ -207,7 +211,8 @@ export function ProductGallery({
           )}
           {/* The logo loads at once (audit 01.11: a lazy one left an empty white badge); on a
               phone too, as on the board App-Produkt. */}
-          {brand && (
+          {/* A cover names the producer itself (runda 1411 R8): no second logo over it. */}
+          {brand && !(cover && !image) && (
             <span className="absolute top-4 left-4 inline-flex h-10 items-center rounded-xl bg-white px-3 shadow-[0_8px_20px_-14px_var(--shd),inset_0_0_0_1px_var(--border)] sm:top-5 sm:left-5">
               {brand.logo ? (
                 <Image

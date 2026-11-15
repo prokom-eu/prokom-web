@@ -12,6 +12,7 @@ import { ProductAddButton } from './ProductAddButton'
 import { PathIcon, productIconPath } from './PathIcon'
 import { ProductGallery } from './ProductGallery'
 import { VersionChips, YourVersion } from './ProductVersionPicker'
+import type { CardCover } from '@/lib/catalog/cover'
 
 /** Three highlights from `features` (K31-ZMIANY §4 pkt 1). */
 export const HIGHLIGHTS = 3
@@ -33,6 +34,8 @@ type Props = {
   colorSlides: (number | null)[]
   /** „Potrzebujesz kilku sztuk? Policz stanowiska” (plan 0611 §6.4 #3) — IT categories only. */
   supply?: { label: string; href: string } | null
+  /** Cover of a licence or a service without a photo (runda 1411 R8, `cardCover`). */
+  cover?: CardCover | null
 }
 
 /**
@@ -50,6 +53,7 @@ export function ProductHero({
   gallery,
   colorSlides,
   supply = null,
+  cover = null,
 }: Props) {
   const { brand, category } = product
   const highlights = product.features.slice(0, HIGHLIGHTS)
@@ -69,6 +73,7 @@ export function ProductHero({
         videoTarget={videoTarget}
         colorSlides={colorSlides}
         tile={fallbackTile({ kind: product.kind, brand: brand?.slug ?? null })}
+        cover={cover}
       />
 
       <div className="flex min-w-0 flex-col gap-5 max-md:gap-4">
