@@ -758,18 +758,22 @@ function brands() {
       {
         line: 'biznes',
         title: 'Sprzęt i programy dla firm',
-        // Krystian 15.11: brands with a logo in the repo (Biznes package) instead of Fellowes and Kobra.
+        // Krystian 15.11: the brands of Biznes, each with its logo (Apple waits for its file).
         brands: [
           'Lenovo',
           'Dell',
           'Microsoft',
           'ESET',
-          'Synology',
-          'QNAP',
-          'Kyocera',
-          'Konica Minolta',
+          'GoPOS',
+          'InsERT',
+          'Eurocert',
+          'Sunmi',
+          'Posnet',
+          'Elzab',
+          'Apple',
+          'Ubiquiti',
         ],
-        text: 'Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa, konfiguracja na życzenie.',
+        text: 'Komputery, kasy i terminale, programy, licencje i podpis kwalifikowany — dostawa, konfiguracja i szkolenie na życzenie.',
       },
       {
         line: 'instalacje',
@@ -791,9 +795,10 @@ function brands() {
       },
       {
         line: 'tech',
-        title: 'Serwis i ochrona ekranów',
-        brands: ['Hammer Glass'],
-        text: 'Folia cięta ploterem pod Twój model i zakładana od ręki w salonie w Rabce-Zdroju.',
+        // Krystian 15.11: the phone makers Tech repairs (no status — not an authorization).
+        title: 'Naprawy telefonów i tabletów',
+        brands: ['Apple', 'Samsung', 'Xiaomi', 'Motorola'],
+        text: 'Telefony i tablety tych marek naprawiamy w salonie w Rabce-Zdroju. Bezpłatna diagnoza i wycena, naprawy też kurierem.',
       },
     ],
     note: 'Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.',
