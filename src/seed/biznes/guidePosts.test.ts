@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { POST_CATEGORIES } from '../../lib/catalog/options'
+import { isProducerSource } from '../../lib/catalog/sources'
 import { guidePostData, postsToSeed, publishedDates } from './guidePosts'
 import { BIZNES_GUIDE_POSTS, type BiznesGuidePost, RETIRED_GUIDE_SLUGS } from './wpisy'
 
@@ -34,15 +35,18 @@ function links(post: BiznesGuidePost): string[] {
 }
 
 /** Amounts of the regulations the posts may quote (K4-FINAL §1: no product prices). */
-const LEGAL_AMOUNTS = ['700 zł', '300 zł', '450 zł', '20 000 zł', '10 000 zł']
+const LEGAL_AMOUNTS = ['700 zł', '300 zł', '450 zł', '20 000 zł', '10 000 zł', '15 000 zł']
 
 /** Official sources (spec. §6.9): MF, government portals, the acts. */
 const GOV = /^https:\/\/([a-z0-9-]+\.)*gov\.pl\//
+/** Categories of legal facts (KSeF, cash registers, the relief): government sources only. */
+const LEGAL_CATEGORIES: readonly string[] = ['ksef', 'kasy', 'dofinansowania']
 /**
- * A producer's own site — only for facts about its program (category `programy`, e.g. InsERT on
- * KSeF in Subiekt), never a shop or a blog. Legal facts of other posts need government sources.
+ * Other posts (programs, terminals, IT) may also cite a producer's own site — the list of
+ * `isProducerSource`, never a shop or a reseller (ADR-012 rozstrz. 19).
  */
-const PRODUCER = /^https:\/\/([a-z0-9-]+\.)*insert\.com\.pl\//
+const sourceAllowed = (url: string, category: string) =>
+  GOV.test(url) || (!LEGAL_CATEGORIES.includes(category) && isProducerSource(url))
 
 describe('Biznes guide posts — content rules (audyt 15.11 P1-3)', () => {
   it('unique slugs, Biznes categories', () => {
@@ -75,8 +79,7 @@ describe('Biznes guide posts — content rules (audyt 15.11 P1-3)', () => {
     (_, post) => {
       expect(post.sources.length).toBeGreaterThan(0)
       for (const { url } of post.sources) {
-        const allowed = GOV.test(url) || (post.category === 'programy' && PRODUCER.test(url))
-        expect(allowed, url).toBe(true)
+        expect(sourceAllowed(url, post.category), url).toBe(true)
       }
       expect(post.verifiedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/)
       for (const href of links(post)) expect(href, href).toMatch(/^\/[a-z0-9/#?=-]*$/)
