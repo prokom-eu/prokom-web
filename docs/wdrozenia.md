@@ -79,6 +79,7 @@ Wpisy poradnika Software są w repo jako Markdown (`seed/prokomsoftware/wpisy/*.
 2. Podgląd: `pnpm software:posts https://<panel> --out=docs/tresci/software-posts-<data>.md` — tabela „utworzyć / bez zmian / różni się / szkic”.
 3. Zapis: `pnpm software:posts https://<panel> --write --yes`. Przebieg jest powtarzalny: drugi niczego nie dubluje.
 4. Poprawka tekstu po publikacji: w pliku `.md` i `--write --update --only=<slug> --yes` (`--only` ogranicza przebieg do tych wpisów, więc nie cofa edycji innych wpisów z panelu), albo w panelu (wtedy plik w repo trzeba poprawić tak samo, inaczej następne `--update` cofnie zmianę).
+5. Kolejność wpisów z jednego dnia niesie godzina w `publishedAt` pliku (`2026-11-15 12:00`, czas polski). Pole w panelu pokazuje sam dzień, więc ręczna zmiana daty może zgubić godzinę. Kolejność przywraca `--write --update --only=<slug> --yes`.
 
 ## Realizacje Instalacji w panelu
 Realizacje ze zdjęciami tworzy lokalnie tylko seed, więc na produkcji `/realizacje` i pas „Realizacje” na głównej były puste (12.11). Przenosi je `pnpm inst:realizacje` (`src/seed/instalacje/inst-realizacje.ts`, REST panelu): tworzy brakujące realizacje (opublikowane, ze zgodą klientów, decyzja szefa 01.11) i wgrywa ich zdjęcia z repo. Realizacji z panelu nie nadpisuje, zdjęcia dodaje tylko tym bez zdjęć, a szkice pomija.
