@@ -1,13 +1,14 @@
 import Link from 'next/link'
 
 import { getHubSettings } from '@/lib/prokom/data'
+import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { toTelHref } from '@/lib/site/link'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
 import { SegmentPicker } from '../dostawy/DeliveriesClient'
-import { DeliveriesState } from '../dostawy/DeliveriesState'
+import { ChoiceState } from '../dostawy/ChoiceState'
 import { Faq } from '../home/Faq'
 import { faqTokens } from '../home/model'
 import { lineStyle } from '../lineColors'
@@ -21,9 +22,10 @@ import { RoleFormSummary } from './RoleFormSummary'
  * phones and e-mail from the panels. No „opiekun” promise (spec §6.6).
  */
 export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
-  const [shared, settings] = await Promise.all([
+  const [shared, settings, contacts] = await Promise.all([
     getSharedData(tenant.id),
     getHubSettings(tenant.id),
+    getHubLineContacts(tenant.id),
   ])
   const data = settings.cooperation
   if (!data || !shared) {
@@ -38,7 +40,7 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
   const tel = phone ? toTelHref(phone) : null
 
   return (
-    <DeliveriesState groups={[]} firstSegment={data.roles[0]?.key ?? ''}>
+    <ChoiceState first={data.roles[0]?.key ?? ''}>
       <div className="pk-home pk-business">
         <section aria-labelledby="wspolpraca-h" className="pk-ohero">
           <div aria-hidden="true" className="pk-hero__dots" />
@@ -70,8 +72,8 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
             />
             {data.facts.length > 0 && (
               <ul className="pk-bfacts" role="list">
-                {data.facts.map((fact) => (
-                  <li key={fact.value}>
+                {data.facts.map((fact, index) => (
+                  <li key={`${index}-${fact.value}`}>
                     <span className="pk-bfacts__value">{fact.value}</span>
                     <span className="pk-bfacts__label">{fact.label}</span>
                   </li>
@@ -243,7 +245,19 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
           className={`pk-sect ${HUB_CONTAINER}`}
         >
           <div className="pk-contact">
-            <RoleFormSummary texts={page.form} roles={data.roles} />
+            <RoleFormSummary
+              texts={page.form}
+              roles={data.roles}
+              phones={Object.fromEntries(
+                data.roles.flatMap((role) => {
+                  const contact = contacts.find((line) => line.key === role.line)
+                  const roleTel = contact?.phone ? toTelHref(contact.phone) : null
+                  return contact?.phone && roleTel
+                    ? [[role.key, { phone: contact.phone, tel: roleTel }]]
+                    : []
+                }),
+              )}
+            />
             <div className="pk-contact__write">
               {/* TODO(krystian): H6-1 — the `hub-wspolpraca` form (field „link do rzutów”, no upload). */}
               <p className="pk-plan__note">{page.form.note}</p>
@@ -256,6 +270,6 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
           pages={settings.pages}
         />
       </div>
-    </DeliveriesState>
+    </ChoiceState>
   )
 }

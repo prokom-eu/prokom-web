@@ -377,7 +377,7 @@
     },
     {
       "value": "24 godziny",
-      "label": "na odpowiedź w dni robocze"
+      "label": "na odpowiedź linii Instalacje w dni robocze"
     },
     {
       "value": "Jedna firma",
@@ -438,8 +438,8 @@
       "text": "Z zakresem i terminem. Cen nie podajemy na stronie, bo każdy obiekt jest inny."
     },
     {
-      "title": "Odpowiedź w 24 godziny",
-      "text": "W dni robocze oddzwaniamy albo odpisujemy na każde zgłoszenie."
+      "title": "Odpowiadamy w dni robocze",
+      "text": "Oddzwaniamy albo odpisujemy na każde zgłoszenie — czas odpowiedzi linii podajemy przy jej numerze."
     },
     {
       "title": "24 miesiące gwarancji na montaż",
@@ -451,7 +451,7 @@
     },
     {
       "title": "Spotkanie w salonie",
-      "text": "Ul. Orkana 16B w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu."
+      "text": "W salonie w Rabce-Zdroju. Przyjdź z rzutami — omówimy projekt na miejscu."
     }
   ],
   "faq": [

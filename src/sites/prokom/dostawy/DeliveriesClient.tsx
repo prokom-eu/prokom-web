@@ -7,6 +7,7 @@ import type { HubDeliveries } from '@/lib/prokom/deliveries'
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { plural } from '../home/model'
+import { useChoice } from './ChoiceState'
 import { useDeliveries } from './DeliveriesState'
 import { listText, listTotals } from './list'
 
@@ -14,13 +15,13 @@ type Page = HubDeliveries['page']
 
 const positions = (count: number) => plural(count, ['pozycja', 'pozycje', 'pozycji'])
 
-/** „Dla kogo zamawiasz?” (spec §6.5 pkt 1): six segments; the choice changes the panel and the form. */
 /** What the picker needs of a segment (`/inwestycje-i-dostawy`) or a role (`/wspolpraca`). */
 type Choice = Pick<
   HubDeliveries['segments'][number],
   'key' | 'name' | 'sub' | 'line' | 'eyebrow' | 'heading' | 'start' | 'points'
 > & { cta?: { label: string; href: string } }
 
+/** „Dla kogo zamawiasz?” (spec §6.5 pkt 1) / „Kim jesteś?” (§6.6): the choice changes the panel and the form. */
 export function SegmentPicker({
   texts,
   segments,
@@ -28,7 +29,7 @@ export function SegmentPicker({
   texts: { segmentsLabel: string; segmentsHint: string; start: string }
   segments: Choice[]
 }) {
-  const { segment, setSegment } = useDeliveries()
+  const { segment, setSegment } = useChoice()
   const panelId = useId()
   const current = segments.find((entry) => entry.key === segment) ?? segments[0]
   if (!current) return null
@@ -519,7 +520,8 @@ export function FormListSummary({
   groups: HubDeliveries['listGroups']
   segments: HubDeliveries['segments']
 }) {
-  const { list, segment } = useDeliveries()
+  const { list } = useDeliveries()
+  const { segment } = useChoice()
   const current = segments.find((entry) => entry.key === segment) ?? segments[0]
   const totals = listTotals(list, groups)
   return (
