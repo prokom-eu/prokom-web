@@ -18,7 +18,7 @@ type Props = {
 }
 
 const CHIP =
-  'inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-5 text-[15px] font-bold whitespace-nowrap transition-[background-color,box-shadow]'
+  'relative inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-5 text-[15px] font-bold whitespace-nowrap transition-[background-color,box-shadow]'
 
 /**
  * Head of `/aktualnosci` (board `Aktualnosci`, redesign 15.11): breadcrumbs, H1, lead, the facts
