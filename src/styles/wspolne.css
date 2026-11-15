@@ -96,6 +96,96 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .oh-status--pill .oh-status__dot {
   margin-top: calc((1lh - 7px) / 2);
 }
+/* A pulse around the dot (Kontakt hero, runda 1411): only transform and opacity. */
+.oh-status[data-pulse] .oh-status__dot {
+  position: relative;
+}
+.oh-status[data-pulse] .oh-status__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--oh-dot);
+  /* Three pulses, then still (WCAG 2.2.2: no motion longer than 5 s without a pause). */
+  animation: oh-pulse 2.2s ease-out 3;
+}
+@keyframes oh-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oh-status[data-pulse] .oh-status__dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+/* The salon on the rings map (runda 1411, Obszar): transform and opacity only. */
+.area-pulse {
+  transform: translate(-50%, -50%);
+  animation: area-pulse 2.4s ease-out 2 forwards;
+}
+@keyframes area-pulse {
+  from {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.7;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .area-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+/* Call tiles of the Kontakt hero (runda 1411): lift on hover, the icon rings once. */
+.call-tile {
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.3s;
+}
+.call-tile:hover {
+  transform: translateY(-3px);
+}
+.call-tile:hover .call-tile__icon {
+  animation: call-ring 0.9s ease;
+}
+@keyframes call-ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-14deg);
+  }
+  40% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-8deg);
+  }
+  80% {
+    transform: rotate(4deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .call-tile,
+  .call-tile:hover {
+    transition: none;
+    transform: none;
+  }
+  .call-tile:hover .call-tile__icon {
+    animation: none;
+  }
+}
 .oh-status__short {
   display: none;
 }

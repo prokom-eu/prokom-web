@@ -247,7 +247,16 @@ const serviceZonesField: Field = {
   type: 'array',
   fields: [
     { name: 'name', label: 'Nazwa strefy', type: 'text', required: true },
-    { name: 'towns', label: 'Miejscowości', type: 'text', hasMany: true },
+    {
+      name: 'towns',
+      label: 'Miejscowości',
+      type: 'text',
+      hasMany: true,
+      admin: {
+        description:
+          'Na mapie Kontaktu (Biznes) miejscowość staje w swoim pierścieniu tylko ze współrzędnymi z `src/lib/shared/townGeo.ts` — nowa bez nich trafia do „Pozostałe”.',
+      },
+    },
     { name: 'note', label: 'Uwaga', type: 'text' },
   ],
 }

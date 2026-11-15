@@ -21,6 +21,8 @@ export type MenuSheetProps = {
   lines: readonly SharedLine[]
   current: SharedLineKey
   phone: string | null
+  /** The line's second number (Biznes, runda 1411): „Zadzwoń” then offers both. */
+  phone2?: string | null
   hours: OpeningHours
   holidays: readonly string[]
   now: string
@@ -82,6 +84,7 @@ export function MenuSheet({
   lines,
   current,
   phone,
+  phone2,
   hours,
   holidays,
   now,
@@ -100,6 +103,7 @@ export function MenuSheet({
     requestSearch()
   }, [open])
   const tel = phone ? toTelHref(phone) : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
 
   return (
     <BottomSheet
@@ -127,7 +131,43 @@ export function MenuSheet({
           </button>
         )}
         {children}
-        {phone && tel && (
+        {phone && tel && phone2 && tel2 && (
+          <div
+            className="flex flex-col gap-2.5 rounded-2xl bg-line-dark px-3.5 py-3 text-line-dark-ink"
+            data-menu-call-card
+          >
+            <OpeningStatus
+              hours={hours}
+              holidays={holidays}
+              now={now}
+              onDark
+              className="text-xs whitespace-normal!"
+            />
+            <ul className="flex flex-col gap-2">
+              {[
+                { label: 'Numer główny', number: phone, href: tel },
+                { label: 'Drugi numer', number: phone2, href: tel2 },
+              ].map((item) => (
+                <li key={item.href} className="flex items-center justify-between gap-3">
+                  <span className="flex min-w-0 flex-col">
+                    <span className="text-xs font-bold text-line-dark-text">{item.label}</span>
+                    <span className="font-display text-[19px] font-extrabold whitespace-nowrap">
+                      {item.number}
+                    </span>
+                  </span>
+                  <a
+                    href={item.href}
+                    aria-label={`Zadzwoń: ${item.number}`}
+                    className="inline-flex min-h-11 shrink-0 items-center rounded-[14px] bg-on-dark px-4 font-extrabold text-on-dark-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-dark-text"
+                  >
+                    Zadzwoń
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {phone && tel && !(phone2 && tel2) && (
           <div
             className="flex items-center justify-between gap-3 rounded-2xl bg-line-dark px-3.5 py-3 text-line-dark-ink"
             data-menu-call-card

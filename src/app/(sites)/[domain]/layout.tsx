@@ -64,7 +64,12 @@ export default async function TenantLayout({ children, params }: Props) {
     organizationJsonLd({
       company,
       tenant,
-      contact: { phone: settings?.phone ?? null, email: settings?.email ?? null },
+      contact: {
+        phone: settings?.phone ?? null,
+        email: settings?.email ?? null,
+        // Runda 1411: Biznes names both numbers (`contactPoint`); other lines as before.
+        phone2: tenant.line === 'biznes' ? (settings?.phone2 ?? null) : null,
+      },
       origin,
       // Biznes: the towns of the panel (SEO lokalne 13.11); the regions are added by the function.
       areaServed: settings?.biznes?.serviceAreas,

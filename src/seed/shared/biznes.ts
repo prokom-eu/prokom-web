@@ -15,6 +15,8 @@ const BIZNES_TOPICS = [
 ] as const
 
 export const BIZNES_SHARED: SharedGroup = {
+  // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): no CEIDG links nor „Sprawdź nas” cards.
+  verifyLinks: false,
   phoneLabel: 'Biznes:',
   responsePromise: 'Oddzwaniamy w godzinach pracy',
   brandBarSlot: { label: 'Konfigurator', href: '/konfigurator' },
@@ -85,14 +87,14 @@ export const BIZNES_SHARED: SharedGroup = {
     // Plan 0611 §8.2: H1, the facts bar and „Z czym dzwonisz?” — 4 matters, each picks its
     // topic in the form (`?temat=`, the topics below) and scrolls to it.
     h1: 'Powiedz, czego potrzebuje firma. Resztę ustalimy na miejscu.',
-    lead: 'Kasy, programy, komputery i opieka IT — jeden numer do wszystkiego. Wycenę przygotujemy na piśmie.',
+    lead: 'Kasy, programy, komputery i opieka IT — jedna rozmowa do wszystkiego. Wycenę przygotujemy i wyślemy mailem.',
     writeCta: 'Napisz do nas',
     placeKind: 'salon',
+    // Runda 1411 (KontaktHero): both numbers are tiles of their own, so the bar is e-mail ·
+    // hours (from the salon) · „Oddzwonimy w 60 minut” (D18, odstępstwo Biznesu od szablonów).
     facts: [
       { kind: 'email', label: 'E-mail', icon: 'mail' },
-      { kind: 'phone2', label: 'Drugi numer', icon: 'phone' },
-      // D18: „Oddzwonimy w 60 minut” (odstępstwo Biznesu od szablonów).
-      { kind: 'text', label: 'Odpowiedź', value: 'Oddzwonimy w 60 minut', icon: 'clock' },
+      { kind: 'text', label: 'Oddzwonimy w', value: '60 minut', icon: 'clock' },
     ],
     routes: [
       {
@@ -131,8 +133,9 @@ export const BIZNES_SHARED: SharedGroup = {
       { title: 'Wycena na piśmie', text: 'Bez zobowiązań, z terminem realizacji.' },
       { title: 'Wdrożenie i serwis', text: 'Na miejscu w Rabce albo u Ciebie.' },
     ],
-    mapTitle: 'Dojeżdżamy na całe Podhale i Małopolskę.',
-    mapLead: 'Salon jest w Rabce-Zdroju. Do firm przyjeżdżamy z kasą, sprzętem i programem.',
+    mapTitle: 'Z Rabki-Zdroju do firm z całego Podhala',
+    mapLead:
+      'Salon i serwis przy ul. Orkana 16B. Do klientów dojeżdżamy z wdrożeniem, przeglądem i serwisem.',
     salonKeys: ['rabka'],
     // „Zanim zadzwonisz” — the four questions of the board Web-kontakt (K4), its answers; hours and
     // „60 minut” as everywhere else in Biznes (D18, decision 01.11).
