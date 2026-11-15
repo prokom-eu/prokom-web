@@ -10,7 +10,8 @@ import { ogImages } from '@/lib/pages/metadata'
 import { postOutline } from '@/lib/posts/content'
 import { getPostList, getPostView } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
-import { articleJsonLd, breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
+import { postFaq } from '@/lib/posts/faq'
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
@@ -30,6 +31,9 @@ import { NEWS_TEXTS } from '@/sites/biznes/components/news/texts'
 import { SoftwarePost } from '@/sites/software/components/news/SoftwarePost'
 import { SOFTWARE_NEWS_TEXTS } from '@/sites/software/components/news/texts'
 import { getSolutionsIndex } from '@/lib/software/data'
+import { fillText } from '@/lib/software/facts'
+import { fillPostContent } from '@/lib/software/postText'
+import { softwareTextContext } from '@/sites/software/components/textContext'
 import type { PostView } from '@/lib/posts/view'
 import { isPostCategory, newsListHref } from '@/lib/posts/list'
 import { metaDescription } from '@/lib/seo/description'
@@ -193,13 +197,25 @@ export default async function PostPage({ params }: Props) {
 
 const WARSAW_DAY = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' })
 
-/** The Software post (board `Wpis`, SW11b): JSON-LD like Biznes, the look of the line. */
-async function SoftwarePostPage({ tenantId, post }: { tenantId: number; post: PostView }) {
-  const [posts, index, origin] = await Promise.all([
+/**
+ * The Software post (board `Wpis`, SW11b): JSON-LD like Biznes (+ `FAQPage` from the text), the
+ * look of the line.
+ */
+async function SoftwarePostPage({ tenantId, post: stored }: { tenantId: number; post: PostView }) {
+  const [posts, index, origin, context] = await Promise.all([
     getPostList(tenantId),
     getSolutionsIndex(tenantId),
     requestOrigin(),
+    softwareTextContext(tenantId),
   ])
+  // Prices, terms and facts of the panel in the text (`{cena:<slug>}`, `[FAKT]`): one change of a
+  // price changes the posts too. Title, lead and SEO hold no tokens (`seed/software/posts.test`).
+  const post: PostView = {
+    ...stored,
+    content: fillPostContent(stored.content, context),
+    summary: fillText(stored.summary, context),
+  }
+  const faq = postFaq(post.content)
   const own = posts.find((item) => item.slug === post.slug)
   const category = own && isPostCategory(own.categoryValue) ? own.categoryValue : null
   // Same category first, then the newest of the rest.
@@ -228,6 +244,8 @@ async function SoftwarePostPage({ tenantId, post }: { tenantId: number; post: Po
       dateModified: post.updated?.dateTime ?? post.published?.dateTime ?? null,
       images: coverUrl ? [new URL(coverUrl, origin).href] : [],
     }),
+    // The „Najczęstsze pytania” section of the text (`postFaq`), when the post has one.
+    ...(faq.length > 0 ? [faqJsonLd(faq)] : []),
   ]
   return (
     <>
