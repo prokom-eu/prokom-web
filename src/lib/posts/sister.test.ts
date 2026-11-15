@@ -67,10 +67,29 @@ describe('sisterPostLinks — title, link and a short teaser (SEO: no copied bod
     ])
   })
 
-  it('never returns body or cover — exactly five fields, the lead as a teaser', () => {
+  it('never returns body or cover — only the link fields, the lead as a teaser', () => {
     for (const link of sisterPostLinks(groups, BIZNES.id, 10, PROD)) {
       expect(Object.keys(link).sort()).toEqual(['href', 'lead', 'line', 'publishedAt', 'title'])
     }
+  })
+
+  it('carries the category when the row has one (the Biznes home filter, audyt 15.11)', () => {
+    const [withCategory, without] = sisterPostLinks(
+      [
+        {
+          tenant: INSTALACJE,
+          posts: [
+            { ...row('pensjonat', '2026-11-05T10:00:00.000Z'), category: 'noclegi' },
+            { ...row('dom', '2026-11-04T10:00:00.000Z'), category: null },
+          ],
+        },
+      ],
+      BIZNES.id,
+      10,
+      PROD,
+    )
+    expect(withCategory?.category).toBe('noclegi')
+    expect(without && 'category' in without).toBe(false)
   })
 
   it('teaser: at most 140 characters, cut at a word with „…”; no lead = null', () => {

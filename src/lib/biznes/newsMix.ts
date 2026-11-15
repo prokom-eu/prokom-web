@@ -37,9 +37,14 @@ export function homeNewsMix<O, S extends { line: SisterLine }>(
 
 /** Instalacje categories whose posts are always for businesses (guests, not a home). */
 const BUSINESS_CATEGORIES: readonly string[] = ['noclegi']
+// Word starts only (`(?<!\p{L})` with `u`: plain `\b` treats ą, ó, ł as word breaks), and none of
+// the look-alikes: „firmware”, „biurko”, „obiektyw”, „lokalizacja”. No „budowa” or „magazyn”:
+// in Polish they are as often a house (budowa domu, magazyn energii) as a business.
 const BUSINESS_WORDS =
-  /firm|biur|sklep|pensjonat|hotel|restaurac|apartament|obiekt|lokal|magazyn|gmin|szkoł|parafi|deweloper|budow/i
-const HOME_WORDS = /\bdom(u|ek|ku|y|ach|owy|owe|owa)?\b|mieszka/i
+  /(?<!\p{L})(firm(?!ware)|biur(?!k)|sklep|pensjonat|hotel|restaurac|apartament|obiekt(?!yw)|lokal(?!iz)|gmin|szkoł|parafi|deweloper)/iu
+// Any word starting with „dom” (domu, domowej, domem, domków) but not „domofon”/„domena”,
+// „przydomowy”, „mieszkanie”, „mieszkańcy”, and the English „home” of „smart home”.
+const HOME_WORDS = /(?<!\p{L})(dom(?!ofon|en)|przydom|mieszka|home(?!\p{L}))/iu
 
 /**
  * Whether a post of another line belongs in the news of a B2B site (audyt 15.11 P1-1): every

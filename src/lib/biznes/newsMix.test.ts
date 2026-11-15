@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
+import { teaser } from '@/lib/posts/sister'
+import { GUIDE_POSTS } from '@/sites/instalacje/dane/wpisy'
+
 import { homeNewsMix, isForBusiness } from './newsMix'
 
 const inst = (n: number) => ({ id: `i${n}`, line: 'instalacje' as const })
@@ -59,5 +62,35 @@ describe('isForBusiness (audyt 15.11: only posts „dla firm” on the B2B home)
 
   it('a business word does not save a home post', () => {
     expect(isForBusiness(post('instalacje', 'Biuro w domu: kamera do mieszkania'))).toBe(false)
+  })
+})
+
+describe('isForBusiness on the real Instalacje guide posts (as the home reads them)', () => {
+  it('only the posts for businesses pass — a new guide post forces a decision here', () => {
+    const passed = GUIDE_POSTS.filter((post) =>
+      isForBusiness({
+        line: 'instalacje',
+        title: post.title,
+        lead: teaser(post.lead),
+        category: post.category,
+      }),
+    ).map((post) => post.slug)
+    expect(passed.sort()).toEqual(['kamery-w-pensjonacie', 'wifi-w-pensjonacie'])
+  })
+
+  it('look-alike words and Polish forms (przegląd 15.11)', () => {
+    const forBusiness = (title: string) => isForBusiness({ line: 'instalacje', title })
+    // Business look-alikes are not business words.
+    expect(forBusiness('Kamera z obudową IP67 i firmware 2.0')).toBe(false)
+    expect(forBusiness('Obiektyw i lokalizacja kamery')).toBe(false)
+    expect(forBusiness('Biurko z ładowarką')).toBe(false)
+    // Home forms with Polish letters still mark a home post.
+    expect(forBusiness('Kamera do domowej sieci w firmie')).toBe(false)
+    expect(forBusiness('Domofon z kamerą przed domem w sklepie')).toBe(false)
+    expect(forBusiness('Smart home w hotelu')).toBe(false)
+    expect(forBusiness('Przydomowa stacja w sklepie')).toBe(false)
+    // „Domofon” alone is not a home word.
+    expect(forBusiness('Domofon w biurze')).toBe(true)
+    expect(forBusiness('Monitoring dla firm z Podhala')).toBe(true)
   })
 })
