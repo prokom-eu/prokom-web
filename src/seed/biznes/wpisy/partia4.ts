@@ -11,7 +11,7 @@ export const GOPOS_GASTRO: BiznesGuidePost = {
   slug: 'gopos-system-pos-dla-gastronomii',
   title: 'GoPOS w lokalu gastronomicznym — co potrafi system POS i od czego zacząć',
   category: 'programy',
-  lead: 'Kelner przyjmuje zamówienie na terminalu, kuchnia widzi je na ekranie, a zamówienia z Pyszne.pl czy Glovo wpadają do tego samego systemu. Tak działa GoPOS. Pokazujemy, z czego się składa i co ustawić przed startem.',
+  lead: 'Kelner przyjmuje zamówienie na terminalu, kuchnia widzi je na ekranie, a zamówienia z Pyszne.pl czy Glovo wpadają do tego samego systemu. Tak może działać GoPOS z dodatkowymi modułami. Pokazujemy, z czego się składa i co ustawić przed startem.',
   summary:
     'GoPOS to system sprzedaży dla gastronomii na terminalach z Androidem: sprzedaż, paragony fiskalne, ekran kuchenny, zamówienia online i platformy dostaw w jednym miejscu, raporty w chmurze. Przy chwilowym braku internetu sprzedaż trwa dalej. Faktury wystawia się na POS albo w aplikacji webowej.',
   content: [
@@ -27,7 +27,7 @@ export const GOPOS_GASTRO: BiznesGuidePost = {
       ],
       [{ bold: 'GoKDS' }, ' — ekran w kuchni zamiast papierowych bonów,'],
       [{ bold: 'GoOrder' }, ' — zamówienia online ze strony lokalu,'],
-      [{ bold: 'kiosk' }, ' — samoobsługowe składanie zamówień,'],
+      [{ bold: 'GoKiosk' }, ' — samoobsługowe składanie zamówień,'],
       [{ bold: 'GoStock' }, ' — stany magazynowe i koszty produktów,'],
       [{ bold: 'GoCRM' }, ' — karty stałego klienta i vouchery.'],
     ),
@@ -41,9 +41,9 @@ export const GOPOS_GASTRO: BiznesGuidePost = {
     ),
     h2('Faktury i KSeF'),
     p(
-      'Faktury wystawia się bezpośrednio na POS albo w aplikacji webowej. Do połączenia z KSeF potrzebny jest token KSeF 2.0 z Aplikacji Podatnika, wklejony w ustawieniach faktur. Na dzień sprawdzenia GoPOS pracuje nad pełną obsługą trybów offline, która wymaga ',
+      'Faktury wystawia się bezpośrednio na POS albo w aplikacji webowej. Do połączenia z KSeF potrzebny jest token KSeF 2.0 z Aplikacji Podatnika, wklejony w ustawieniach faktur. Tryby offline KSeF wymagają ',
       { text: 'certyfikatu KSeF', href: '/aktualnosci/certyfikat-ksef-typ-1-i-typ-2' },
-      '.',
+      '; według producenta GoPOS pracuje nad ich wdrożeniem (stan na dzień sprawdzenia).',
     ),
     p(
       'Jako autoryzowany partner GoPOS dobierzemy urządzenia, skonfigurujemy menu, drukarki, platformy dostaw i KSeF, a potem pokażemy obsłudze, jak z tego korzystać. Zobacz ',
@@ -105,7 +105,7 @@ export const NFHOTEL_PENSION: BiznesGuidePost = {
     ),
     h2('Meldunek online i opłata miejscowa'),
     p(
-      'Gość może opłacić pobyt i zameldować się online przed przyjazdem. Program nalicza opłatę miejscową albo o niej informuje — w miejscowościach turystycznych to mniej pracy dla recepcji.',
+      'Gość może opłacić pobyt i zameldować się online przed przyjazdem. Przy rezerwacji program nalicza opłatę miejscową — w miejscowościach turystycznych to mniej pracy dla recepcji.',
     ),
     h2('Faktury i KSeF'),
     p(
@@ -184,7 +184,7 @@ export const GOPOS_NFHOTEL: BiznesGuidePost = {
       ['jak rozliczasz gościa przy wymeldowaniu: paragon czy faktura.'],
     ),
     p(
-      'Jako autoryzowany partner GoPOS wdrożymy oba systemy i połączymy je ze sobą. Zobacz ',
+      'Wdrożymy oba systemy i połączymy je ze sobą — GoPOS jako jego autoryzowany partner. Zobacz ',
       { text: 'GoPOS', href: '/gopos' },
       ' i ',
       { text: 'NFHotel', href: '/marki/nfhotel' },
@@ -220,13 +220,13 @@ export const INSERT_ACCOUNTING: BiznesGuidePost = {
   slug: 'gratyfikant-rachmistrz-rewizor-ktory-program',
   title: 'Gratyfikant, Rachmistrz czy Rewizor — który program InsERT do kadr i księgowości',
   category: 'programy',
-  lead: 'Subiekt do sprzedaży już jest, a teraz trzeba wybrać program do płac albo do księgowości. InsERT ma trzy: Gratyfikanta, Rachmistrza i Rewizora. Wyjaśniamy, czym się różnią i jak współpracują z Subiektem i KSeF.',
+  lead: 'Subiekt do sprzedaży już jest, a teraz trzeba wybrać program do płac albo do księgowości. InsERT ma trzy: Gratyfikanta, Rachmistrza i Rewizora. Wyjaśniamy, czym się różnią i który wybrać.',
   summary:
     'Gratyfikant nexo służy do kadr i płac (także PPK i współpraca z programem Płatnik), Rachmistrz nexo do książki przychodów i rozchodów albo ryczałtu, a Rewizor nexo do pełnej księgowości z pobieraniem faktur z KSeF. Biuro rachunkowe dla wielu firm dokłada Biuro nexo.',
   content: [
     h2('Gratyfikant nexo — kadry i płace'),
     p(
-      'Program do kadr i płac w małych i średnich firmach: umowy o pracę i cywilnoprawne, listy płac, ewidencja czasu pracy i nieobecności, zgłoszenia i wpłaty do PPK. Deklaracje ZUS przygotowuje we współpracy z programem Płatnik, a deklaracje podatkowe, np. PIT-11 i PIT-4R, wysyła elektronicznie.',
+      'Program do kadr i płac w małych i średnich firmach: umowy o pracę i cywilnoprawne, listy płac, ewidencja czasu pracy i nieobecności, zgłoszenia i raporty z wpłatami do PPK. Deklaracje ZUS przygotowuje we współpracy z programem Płatnik, a deklaracje podatkowe, np. PIT-11 i PIT-4R, wysyła elektronicznie.',
     ),
     p(
       'Wersja nexo PRO dodaje m.in. hierarchiczną strukturę firmy, rejestr wypadków i własne staże urlopowe.',
@@ -321,7 +321,9 @@ export const MICROSOFT_365: BiznesGuidePost = {
     ul(
       ['poczta Exchange ze skrzynką 50 GB i adresem we własnej domenie,'],
       ['1 TB miejsca w OneDrive na użytkownika,'],
-      ['Microsoft Teams do spotkań i wspólnej pracy nad plikami.'],
+      [
+        'Microsoft Teams do spotkań i wspólnej pracy — w wersji planu z Teams (Microsoft sprzedaje plany także bez Teams).',
+      ],
     ),
     h2('Business Basic — przeglądarka i telefon'),
     p(
