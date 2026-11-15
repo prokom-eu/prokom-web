@@ -126,14 +126,17 @@ export function plural(count: number, [one, few, many]: readonly [string, string
 export const linesCount = (count: number) => plural(count, ['linia', 'linie', 'linii'])
 
 /** What a card of a plan links to: the line's own site (from its panel). */
-type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'>
+type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url' | 'promise'> & {
+  scene?: Pick<HomeScene, 'steps'>
+}
 
 export type ChoosePlan = {
   persona: string
   name: string
   sub: string | null
   title: string
-  groups: (LineLink & { points: string[] })[]
+  /** Per line: its points for the persona and how the line starts (titles of its scene steps). */
+  groups: (Omit<LineLink, 'scene'> & { points: string[]; steps: string[] })[]
 }
 
 /**
@@ -151,7 +154,11 @@ export function choosePlans(
     if (!plan) return []
     const groups = plan.groups.flatMap((group) => {
       const line = lines.find((entry) => entry.key === group.line)
-      return line && group.points.length ? [{ ...line, points: group.points }] : []
+      if (!line || !group.points.length) return []
+      const { scene, ...link } = line
+      return [
+        { ...link, points: group.points, steps: scene?.steps.map((step) => step.title) ?? [] },
+      ]
     })
     if (!groups.length) return []
     return [{ persona, name: plan.name, sub: sub ?? null, title: plan.title ?? plan.name, groups }]

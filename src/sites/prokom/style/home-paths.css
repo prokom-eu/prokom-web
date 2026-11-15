@@ -955,12 +955,63 @@ a.pk-ccard:hover {
   color: var(--k-ink3);
 }
 
+/* Desktop (Krystian 15.11): the plan as tall as the list of personas, its line cards filling it
+   evenly — points on top, the line's promise and its site at the foot of each card. */
 @media (min-width: 1024px) {
-  /* The plan stays in view while the visitor runs through the personas. */
   .pk-plan {
-    position: sticky;
-    top: 96px;
+    align-self: stretch;
   }
+  .pk-plan__grid {
+    flex: 1;
+    grid-auto-rows: 1fr;
+  }
+  .pk-lcard {
+    gap: 18px;
+    padding: 26px 22px 22px;
+    background:
+      radial-gradient(
+        90% 55% at 50% 110%,
+        color-mix(in srgb, var(--ln) 22%, transparent),
+        transparent 70%
+      ),
+      var(--ln-dark);
+  }
+  .pk-lcard .pk-dots {
+    gap: 14px;
+    font-size: 16px;
+  }
+}
+/* How the line starts — its three steps, at the foot of the card above its site. */
+.pk-lcard__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  border-top: 1px solid var(--w09);
+  padding-top: 16px;
+  color: var(--w82);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.pk-lcard__steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pk-lcard__steps b {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  color: var(--ln-text);
+  font-size: 11px;
+}
+.pk-lcard__steps + .pk-chip-go {
+  margin-top: 0;
 }
 
 /* --- Phone ---------------------------------------------------------------------------------- */
