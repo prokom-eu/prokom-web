@@ -10,6 +10,9 @@ vi.mock('@/lib/site/data', () => ({
 }))
 // Runda 1411: the product photos of the tiles come from the wheel's cut-outs (no database here).
 vi.mock('@/lib/catalog/data', () => ({ getWheelPhotos: async () => ({}) }))
+vi.mock('@/lib/partners/data', () => ({
+  getBrandStripData: async () => ({ brands: [], homeIds: [] }),
+}))
 
 const { BzFactsBlock } = await import('./Component')
 
