@@ -77,6 +77,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             lines={lines}
             facts={settings.trust}
             company={shared.company}
+            synonyms={shared.line.rail?.synonyms ?? []}
             quick={home.hero.quick ? quickTools(home.hero.quick.tools, hub.tools, lines) : []}
             phone={phone}
             phone2={phone2}

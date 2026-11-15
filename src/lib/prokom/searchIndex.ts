@@ -293,3 +293,42 @@ export function searchHub(
   })).filter((group) => group.results.length > 0)
   return { query: query.trim(), total: chosen.length, counts, best, groups }
 }
+
+/** Hits of the hero's live suggestions; `loose` when they match some words of the phrase only. */
+export type HubSuggestions = { results: HubSearchEntry[]; loose: boolean }
+
+/**
+ * Live suggestions of the hero's search (Krystian 15.11): the hits of `/szukaj` (the same engine and
+ * synonyms), best first. A phrase with few hits as a whole („kamery do pensjonatu”) is topped up
+ * from its words of three letters or more, ranked by how many of them each entry matches.
+ */
+export function suggestHub(
+  index: readonly HubSearchEntry[],
+  query: string,
+  synonyms: readonly string[] = [],
+  limit = 6,
+): HubSuggestions {
+  const flat = (page: HubSearchPage) =>
+    [page.best, ...page.groups.flatMap((group) => group.results)].filter(
+      (hit): hit is HubSearchEntry => hit !== null,
+    )
+  const whole = flat(searchHub(index, query, 'wszystko', synonyms))
+  if (whole.length >= limit) return { results: whole.slice(0, limit), loose: false }
+  const words = [...new Set(normalizeText(query).split(/\s+/))].filter((word) => word.length >= 3)
+  if (words.length < 2) return { results: whole, loose: false }
+  const score = new Map<HubSearchEntry, { hits: number; first: number }>()
+  let order = 0
+  for (const word of words) {
+    for (const hit of flat(searchHub(index, word, 'wszystko', synonyms))) {
+      const seen = score.get(hit)
+      if (seen) seen.hits += 1
+      else score.set(hit, { hits: 1, first: order++ })
+    }
+  }
+  const results = [...score.entries()]
+    .sort(([, a], [, b]) => b.hits - a.hits || a.first - b.first)
+    .map(([hit]) => hit)
+  // The whole phrase first; its few hits topped up with the closest ones by words.
+  const merged = [...whole, ...results.filter((hit) => !whole.includes(hit))]
+  return { results: merged.slice(0, limit), loose: whole.length === 0 && merged.length > 0 }
+}

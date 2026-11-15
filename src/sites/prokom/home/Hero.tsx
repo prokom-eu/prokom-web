@@ -9,6 +9,7 @@ import { toTelHref } from '@/lib/site/link'
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { splitLastSentence } from './heroText'
+import { HeroSearch } from './HeroSearch'
 import { HeroTiles } from './HomeIslands'
 import type { HomeLine, QuickTool } from './model'
 
@@ -18,6 +19,8 @@ type Props = {
   /** Company facts visible here (on production: approved only, spec §3). */
   facts: { value: string; label: string }[]
   company: SharedCompany
+  /** Groups of words from the panel (`shared.rail.synonyms`) for the hero's suggestions. */
+  synonyms: readonly string[]
   /** „Załatw od razu” — four tools of the lines (`quickTools`). */
   quick: QuickTool[]
   /** The company's phones (`SiteSettings` of the hub). */
@@ -43,7 +46,7 @@ const LINE_STRIPES = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as c
  * five line tiles with slides; company numbers; and the trust bar. Numbers and trust items tied to
  * a fact show only while the fact is visible (`withVisibleFacts`).
  */
-export function Hero({ home, lines, facts, company, quick, phone, phone2, now }: Props) {
+export function Hero({ home, lines, facts, company, synonyms, quick, phone, phone2, now }: Props) {
   const { hero } = home
   const tel = phone ? toTelHref(phone) : null
   const tel2 = phone2 ? toTelHref(phone2) : null
@@ -99,23 +102,7 @@ export function Hero({ home, lines, facts, company, quick, phone, phone2, now }:
               <p className="pk-hb-main__lead">{hero.lead}</p>
 
               <div className="pk-hb-main__body">
-                <form action="/szukaj" method="get" role="search" className="pk-hq">
-                  <Icon name="search" className="pk-hq__icon" />
-                  <label htmlFor="pk-hq" className="sr-only">
-                    Czego potrzebujesz?
-                  </label>
-                  <input
-                    id="pk-hq"
-                    name="q"
-                    type="search"
-                    autoComplete="off"
-                    placeholder={hero.hints[0] ? `np. ${hero.hints[0].text}` : undefined}
-                    className="pk-hq__input"
-                  />
-                  <button type="submit" className="pk-hq__go">
-                    Szukaj
-                  </button>
-                </form>
+                <HeroSearch hints={hero.hints} synonyms={synonyms} />
                 <ul className="pk-hch-list" aria-label="Najczęściej szukane">
                   {hero.chips.map((chip) => (
                     <li key={chip.label}>

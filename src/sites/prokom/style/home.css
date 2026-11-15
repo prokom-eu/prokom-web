@@ -2091,6 +2091,195 @@ a.pk-mqi:hover {
     transform: translateY(250%);
   }
 }
+/* --- Hero search, premium pass (15.11): a taller field with a glowing rim, a typed sample phrase
+   and live suggestions under it. */
+.pk-hq {
+  z-index: 5;
+  height: 68px;
+  border-radius: 22px;
+  padding: 0 8px 0 22px;
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--w16), var(--w16)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow:
+    0 18px 40px -26px color-mix(in srgb, var(--k-g) 70%, transparent),
+    inset 0 1px 0 var(--w05);
+  transition:
+    box-shadow 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+/* On focus the rim lights in the five line colours. */
+.pk-hq:focus-within {
+  background:
+    linear-gradient(var(--k-bg), var(--k-bg)) padding-box,
+    linear-gradient(110deg, var(--k-b), var(--k-i), var(--k-s), var(--k-t), var(--k-y)) border-box;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--k-g) 16%, transparent),
+    0 22px 50px -24px color-mix(in srgb, var(--k-g) 80%, transparent);
+}
+.pk-hq[data-open] {
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+.pk-hq__icon {
+  width: 22px;
+  height: 22px;
+}
+.pk-hq__field {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex: 1;
+  align-items: center;
+}
+.pk-hq__input {
+  font-size: 17px;
+}
+.pk-hq[data-sample] .pk-hq__input::placeholder {
+  color: transparent;
+}
+/* The typed sample phrase, in the colour of its line. */
+.pk-hq__sample {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  color: var(--k-ink3);
+  font-size: 17px;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pk-hq__sample b {
+  color: var(--ln-text);
+  font-weight: 700;
+}
+.pk-hq__caret {
+  width: 2px;
+  height: 20px;
+  background: var(--ln);
+  animation: pk-caret 1s steps(1) infinite;
+}
+.pk-hq__kbd {
+  flex: none;
+  border: 1px solid var(--w16);
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--k-ink3);
+  font: 700 12px var(--font-sans);
+}
+.pk-hq__go {
+  height: 50px;
+  padding: 0 22px;
+  font-size: 15px;
+  box-shadow: 0 10px 24px -14px var(--k-g);
+}
+@media (max-width: 760px) {
+  .pk-hq__kbd {
+    display: none;
+  }
+}
+
+/* Live suggestions. */
+.pk-hq__pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid var(--w12);
+  border-radius: 20px;
+  padding: 8px;
+  background: var(--k-card);
+  box-shadow: 0 30px 60px -24px color-mix(in srgb, var(--k-dim) 90%, transparent);
+  animation: pk-pop 0.35s var(--ease) both;
+}
+.pk-hq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  padding: 8px 12px;
+  transition: background 0.2s;
+}
+.pk-hq__list [aria-selected='true'] .pk-hq__hit,
+.pk-hq__hit:hover {
+  background: color-mix(in srgb, var(--ln) 14%, transparent);
+}
+.pk-hq__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ln);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ln) 70%, transparent);
+}
+.pk-hq__hit-text {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+.pk-hq__hit-title {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__hit-hint {
+  overflow: hidden;
+  color: var(--k-ink3);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pk-hq__kind {
+  flex: none;
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: var(--w05);
+  color: var(--ln-text);
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.pk-hq__note {
+  padding: 8px 12px 4px;
+  color: var(--k-ink3);
+  font-size: 13px;
+}
+.pk-hq__all {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--w09);
+  margin-top: 4px;
+  padding: 8px 12px 4px;
+  color: var(--k-gt);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+/* The tile must not cut the suggestions off. */
+.pk-hb-main:has(.pk-hq[data-open]) {
+  overflow: visible;
+  z-index: 3;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pk-home *,
   .pk-home *::before,
