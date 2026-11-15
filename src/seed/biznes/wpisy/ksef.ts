@@ -8,13 +8,13 @@ export const KSEF_PERMISSIONS: BiznesGuidePost = {
   slug: 'uprawnienia-ksef-dla-ksiegowej',
   title: 'Uprawnienia w KSeF dla księgowej i pracowników — krok po kroku',
   category: 'ksef',
-  lead: 'Od 1 lutego 2026 faktury zakupu przychodzą do firmy przez KSeF. Jeśli biuro rachunkowe i pracownicy nie mają uprawnień, nie zobaczą ich ani nie wystawią faktury. Pokazujemy, kto nadaje dostęp, komu i w jakiej kolejności.',
+  lead: 'Od 1 lutego 2026 firmy otrzymują faktury zakupu w KSeF. Jeśli biuro rachunkowe i pracownicy nie mają uprawnień, nie zobaczą ich ani nie wystawią faktury. Pokazujemy, kto nadaje dostęp, komu i w jakiej kolejności.',
   summary:
     'Uprawnienia nadaje się w Aplikacji Podatnika KSeF 2.0. Można je dać całemu biuru rachunkowemu, a biuro rozdzieli je swoim pracownikom. Spółka bez pieczęci kwalifikowanej zaczyna od formularza ZAW-FA w urzędzie skarbowym.',
   content: [
     h2('Dlaczego to pierwsza rzecz do zrobienia'),
     p(
-      'Od 1 lutego 2026 każda firma otrzymuje faktury w KSeF. Faktury zakupu nie przychodzą już mailem w PDF-ie, tylko leżą w systemie. Kto nie ma uprawnień, ten ich nie widzi. Dotyczy to też biura rachunkowego, które co miesiąc księguje Twoje koszty.',
+      'Od 1 lutego 2026 każda firma otrzymuje faktury w KSeF. Coraz więcej faktur zakupu nie przychodzi już mailem w PDF-ie, tylko czeka w systemie (do końca 2026 część firm może jeszcze wystawiać faktury poza KSeF). Kto nie ma uprawnień, ten faktur z KSeF nie widzi. Dotyczy to też biura rachunkowego, które co miesiąc księguje Twoje koszty.',
     ),
     h2('Krok 1. Pierwsza osoba z dostępem'),
     p(
@@ -41,7 +41,7 @@ export const KSEF_PERMISSIONS: BiznesGuidePost = {
     h2('Dwie pułapki, które widzimy najczęściej'),
     ul(
       [
-        { bold: 'ZAW-FA złożony przed 1 lutego 2026.' },
+        { bold: 'ZAW-FA z czasów KSeF 1.0 (przed 1 lutego 2026).' },
         ' Taka osoba dostała tylko prawo do zarządzania uprawnieniami. Żeby zobaczyć faktury, musi w zakładce „Uprawnienia” nadać je sobie samej.',
       ],
       [
@@ -111,7 +111,7 @@ export const KSEF_FAILURE: BiznesGuidePost = {
     ul(
       [
         { bold: 'Problem po Twojej stronie' },
-        ' (brak internetu, awaria komputera): tryb offline24. Fakturę wystawiasz w programie, a do KSeF wysyłasz ją najpóźniej w następnym dniu roboczym po wystawieniu.',
+        ' (brak internetu, awaria komputera): tryb offline24. Możesz go użyć zawsze, bez podawania przyczyny. Fakturę wystawiasz w programie, a do KSeF wysyłasz ją najpóźniej w następnym dniu roboczym po wystawieniu.',
       ],
       [
         { bold: 'Niedostępność KSeF' },
@@ -195,9 +195,9 @@ export const KSEF_RECEIPT_INVOICE: BiznesGuidePost = {
   slug: 'faktura-do-paragonu-od-2027',
   title: 'Faktura do paragonu od 1 stycznia 2027 — co zmienia się przy kasie',
   category: 'ksef',
-  lead: 'Do końca 2026 paragon z NIP do 450 zł jest fakturą uproszczoną, a fakturę można wydrukować z kasy. Od 1 stycznia 2027 to się kończy. Sprawdź, jak będzie wyglądać sprzedaż dla firm w sklepie, restauracji czy pensjonacie.',
+  lead: 'Do końca 2026 paragon z NIP do 450 zł jest fakturą uproszczoną, a fakturę można wydrukować z kasy — obie poza KSeF. Od 1 stycznia 2027 to się kończy. Sprawdź, jak będzie wyglądać sprzedaż dla firm w sklepie, restauracji czy pensjonacie.',
   summary:
-    'Od 1 stycznia 2027 kasa nie wystawi już faktury, a paragon z NIP nabywcy przestaje być fakturą uproszczoną. Firma, która chce faktury, dostaje ją z programu przez KSeF. Kasa dalej drukuje paragony dla wszystkich klientów.',
+    'Od 1 stycznia 2027 kasa nie wystawi już faktury, a faktura dla firmy — także do paragonu z NIP — musi trafić do KSeF. Paragon z NIP do 450 zł nie zastąpi już faktury poza KSeF. Kasa dalej drukuje paragony dla wszystkich klientów.',
   content: [
     h2('Co działa do 31 grudnia 2026'),
     ul(
@@ -209,7 +209,7 @@ export const KSEF_RECEIPT_INVOICE: BiznesGuidePost = {
     h2('Co zmienia się 1 stycznia 2027'),
     ul(
       ['Kasa rejestrująca nie wystawi już faktury.'],
-      ['Paragon z NIP nabywcy nie jest już fakturą, niezależnie od kwoty.'],
+      ['Paragon z NIP do 450 zł nie zastąpi już faktury poza KSeF.'],
       ['Fakturę dla firmy wystawiasz w programie albo w aplikacji podłączonej do KSeF.'],
     ),
     p(
@@ -279,7 +279,7 @@ export const KSEF_RECEIPT_INVOICE: BiznesGuidePost = {
   seo: {
     title: 'Faktura do paragonu od 2027 a KSeF',
     description:
-      'Od 1 stycznia 2027 kasa nie wystawi faktury, a paragon z NIP do 450 zł przestaje być fakturą. Jak wystawiać faktury do paragonów w KSeF w sklepie i lokalu.',
+      'Od 1 stycznia 2027 kasa nie wystawi faktury, a faktura do paragonu z NIP idzie przez KSeF. Jak to zorganizować w sklepie, lokalu i pensjonacie.',
   },
 }
 

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
 import { POST_CATEGORIES } from '../../lib/catalog/options'
-import { guidePostData, publishedDates } from './guidePosts'
-import { BIZNES_GUIDE_POSTS, type BiznesGuidePost } from './wpisy'
+import { guidePostData, postsToSeed, publishedDates } from './guidePosts'
+import { BIZNES_GUIDE_POSTS, type BiznesGuidePost, RETIRED_GUIDE_SLUGS } from './wpisy'
 
 type Node = { text?: string; children?: Node[]; fields?: { url?: string } }
 
@@ -115,5 +115,16 @@ describe('guidePostData and publishedDates', () => {
       '2026-11-15T11:59:00.000Z',
       '2026-11-15T11:58:00.000Z',
     ])
+  })
+})
+
+describe('postsToSeed (przegląd 15.11: a withdrawn post never comes back)', () => {
+  it('skips retired slugs, keeps the order', () => {
+    const [a, b, c] = BIZNES_GUIDE_POSTS
+    expect(postsToSeed([a!, b!, c!], [b!.slug]).map((post) => post.slug)).toEqual([
+      a!.slug,
+      c!.slug,
+    ])
+    expect(postsToSeed().length).toBe(BIZNES_GUIDE_POSTS.length - RETIRED_GUIDE_SLUGS.length)
   })
 })

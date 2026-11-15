@@ -1,6 +1,7 @@
 /**
  * Audyt 15.11 (decyzja Krystiana): the Biznes post category „IT w firmie” — the enum gets one
- * value, nothing is removed. Down fails while a post uses the value (move it first).
+ * value, nothing is removed. Down fails while a post or an old version in `_posts_v` still uses
+ * the value: change the category of those posts and delete their old versions first.
  */
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 

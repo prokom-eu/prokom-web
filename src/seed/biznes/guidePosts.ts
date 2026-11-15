@@ -3,7 +3,7 @@ import type { Payload } from 'payload'
 import type { Post } from '../../payload-types'
 import { SEED_CONTEXT } from '../config'
 import { richText } from './lexical'
-import { BIZNES_GUIDE_POSTS, type BiznesGuidePost } from './wpisy'
+import { BIZNES_GUIDE_POSTS, type BiznesGuidePost, RETIRED_GUIDE_SLUGS } from './wpisy'
 
 type Report = (name: string, changed: boolean) => void
 
@@ -49,9 +49,20 @@ export function publishedDates(count: number, now: Date): string[] {
 }
 
 /**
+ * The posts the seed may create: the list without the retired slugs. A post deleted in the panel
+ * (or given a new slug) would otherwise come back on the next import, published.
+ */
+export function postsToSeed(
+  posts: readonly BiznesGuidePost[] = BIZNES_GUIDE_POSTS,
+  retired: readonly string[] = RETIRED_GUIDE_SLUGS,
+): BiznesGuidePost[] {
+  return posts.filter((post) => !retired.includes(post.slug))
+}
+
+/**
  * Biznes guide posts (audyt 15.11 P1-3): a missing post is created and published, an existing one
  * is never touched — after the import the post belongs to the panel. Products are found by their
- * slug in this tenant; a missing card is skipped. Reports `posts <slug>`.
+ * slug in this tenant; a missing card is skipped with a warning. Reports `posts <slug>`.
  */
 export async function seedBiznesGuidePosts(
   payload: Payload,
@@ -59,22 +70,21 @@ export async function seedBiznesGuidePosts(
   report: Report,
   now = new Date(),
 ): Promise<void> {
+  const posts = postsToSeed()
+  if (posts.length === 0) return
   const { docs: existing } = await payload.find({
     collection: 'posts',
     where: {
-      and: [
-        { tenant: { equals: tenantId } },
-        { slug: { in: BIZNES_GUIDE_POSTS.map((post) => post.slug) } },
-      ],
+      and: [{ tenant: { equals: tenantId } }, { slug: { in: posts.map((post) => post.slug) } }],
     },
-    limit: BIZNES_GUIDE_POSTS.length,
+    limit: posts.length,
     select: { slug: true },
     draft: true,
     ...local,
   })
   const stored = new Set(existing.map((post) => post.slug))
-  const missing = BIZNES_GUIDE_POSTS.filter((post) => !stored.has(post.slug))
-  for (const post of BIZNES_GUIDE_POSTS) report(`posts ${post.slug}`, !stored.has(post.slug))
+  const missing = posts.filter((post) => !stored.has(post.slug))
+  for (const post of posts) report(`posts ${post.slug}`, !stored.has(post.slug))
   if (missing.length === 0) return
 
   const slugs = [...new Set(missing.flatMap((post) => post.products))]
@@ -92,6 +102,9 @@ export async function seedBiznesGuidePosts(
   for (const post of missing) {
     const ids = post.products.flatMap((slug) => {
       const id = productId.get(slug)
+      // Slugs only, never personal data: a renamed card is fixed in the post's data file.
+      if (id === undefined)
+        payload.logger.warn(`Seed (Biznes): post ${post.slug} — no card ${slug}`)
       return id === undefined ? [] : [id]
     })
     const date = dates[BIZNES_GUIDE_POSTS.indexOf(post)]!

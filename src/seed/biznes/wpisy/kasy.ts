@@ -93,7 +93,7 @@ export const CASH_REGISTER_RELIEF: BiznesGuidePost = {
   content: [
     h2('Ile wynosi ulga i kto może z niej skorzystać'),
     p(
-      'Ulga wynosi 90% ceny netto kasy, nie więcej niż 700 zł na jedno urządzenie. Przysługuje wyłącznie przy zakupie kasy online firmom, które zaczynają ewidencję sprzedaży na kasie. Czynny podatnik VAT odlicza ją w deklaracji, a zwolniony z VAT składa wniosek do naczelnika urzędu skarbowego. Szczegóły opisujemy na stronie ',
+      'Ulga wynosi 90% ceny netto kasy, nie więcej niż 700 zł na jedno urządzenie. Przysługuje przy zakupie kasy online firmom, które zaczynają ewidencję sprzedaży na kasie. Czynny podatnik VAT odlicza ją w deklaracji, a zwolniony z VAT składa wniosek do naczelnika urzędu skarbowego. Szczegóły opisujemy na stronie ',
       { text: 'ulga na kasę fiskalną', href: '/ulga-na-kase-fiskalna' },
       '.',
     ),
@@ -103,11 +103,11 @@ export const CASH_REGISTER_RELIEF: BiznesGuidePost = {
     ),
     h2('Błąd 2. Za późny zakup albo brak zgłoszenia'),
     p(
-      'Kasę trzeba kupić i zacząć na niej ewidencję w terminie: nie później niż 6 miesięcy od rozpoczęcia ewidencji. Kasa musi być też zgłoszona naczelnikowi urzędu skarbowego. Zachowaj fakturę zakupu i dowód zapłaty całej kwoty — bez nich ulgi nie odliczysz.',
+      'Ulga obejmuje kasy, na których zaczniesz ewidencję najpóźniej 6 miesięcy po uruchomieniu pierwszej kasy. Przed rozpoczęciem ewidencji kasy trzeba też zgłosić naczelnikowi urzędu skarbowego. Zachowaj fakturę zakupu i dowód zapłaty całej kwoty — bez nich ulgi nie odliczysz.',
     ),
     h2('Błąd 3. Kasa odstawiona przed upływem 3 lat'),
     p(
-      'Jeśli w ciągu 3 lat od rozpoczęcia ewidencji przestaniesz używać kasy, ulgę trzeba zwrócić. Dotyczy to też zamknięcia albo zawieszenia działalności w tym okresie — przed taką decyzją porozmawiaj z księgową.',
+      'Jeśli w ciągu 3 lat od rozpoczęcia ewidencji przestaniesz używać kasy, ulgę trzeba zwrócić. Dotyczy to też zamknięcia działalności w tym okresie. Zawieszenie również może oznaczać zwrot — przed taką decyzją porozmawiaj z księgową.',
     ),
     h2('Błąd 4. Pominięty przegląd techniczny'),
     p(
@@ -121,10 +121,10 @@ export const CASH_REGISTER_RELIEF: BiznesGuidePost = {
     ),
     h2('Kiedy oddaje się ulgę'),
     p(
-      'Zwrot rozlicza się w deklaracji VAT za okres, w którym powstał obowiązek zwrotu, zwykle do 25. dnia następnego miesiąca. Najprościej ustalić to z księgową.',
+      'Czynny podatnik VAT rozlicza zwrot w deklaracji za okres, w którym powstał obowiązek zwrotu. Termin i sposób zwrotu najlepiej ustalić z księgową.',
     ),
     p(
-      'Sprzedajemy i fiskalizujemy kasy online Posnet i Elzab, robimy przeglądy i pilnujemy połączenia kasy z siecią. Dzięki temu warunki ulgi masz spełnione od pierwszego dnia.',
+      'Sprzedajemy i fiskalizujemy kasy online Posnet i Elzab, robimy przeglądy i sprawdzamy połączenie kasy z siecią. Powiemy też, czego pilnować, żeby nie stracić ulgi.',
     ),
   ],
   verifiedAt: VERIFIED,
@@ -147,7 +147,7 @@ export const CASH_REGISTER_RELIEF: BiznesGuidePost = {
   cta: {
     eyebrow: 'Kasa z ulgą',
     title: 'Kasa online z fiskalizacją i przeglądami',
-    text: 'Dobierzemy kasę Posnet albo Elzab, zgłosimy fiskalizację i przypilnujemy warunków ulgi.',
+    text: 'Dobierzemy kasę Posnet albo Elzab, przeprowadzimy fiskalizację i podpowiemy, jak nie stracić ulgi.',
     link: { label: 'Zapytaj o kasę online', href: '/ulga-na-kase-fiskalna' },
   },
   contact: {
@@ -196,7 +196,7 @@ export const WHO_NEEDS_REGISTER: BiznesGuidePost = {
       ['świadczą usługi fryzjerskie, kosmetyczne, budowlane, medyczne albo prawnicze.'],
     ),
     p(
-      'Firmy spoza tych branż mogą używać starszej kasy, dopóki działa. Nowe kasy są dziś kasami online.',
+      'Firmy spoza tych branż mogą używać dotychczasowej kasy, jeśli przepisy na to pozwalają. Kupując nową, wybierasz już kasę online.',
     ),
     h2('Kasa, drukarka fiskalna czy system POS?'),
     ul(
@@ -211,7 +211,7 @@ export const WHO_NEEDS_REGISTER: BiznesGuidePost = {
       ],
     ),
     p(
-      'Pomożemy wybrać urządzenie do Twojej branży, zfiskalizujemy je i podpowiemy, jak skorzystać z ',
+      'Pomożemy wybrać urządzenie do Twojej branży, przeprowadzimy fiskalizację i podpowiemy, jak skorzystać z ',
       { text: 'ulgi na kasę', href: '/ulga-na-kase-fiskalna' },
       '.',
     ),

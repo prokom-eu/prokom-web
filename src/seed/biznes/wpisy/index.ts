@@ -14,3 +14,9 @@ export const BIZNES_GUIDE_POSTS: readonly BiznesGuidePost[] = [
   KSEF_POSTS[0],
   KSEF_POSTS[1],
 ]
+
+/**
+ * Slugs of posts withdrawn on purpose (deleted in the panel or renamed there): the seed never
+ * creates them again. Withdrawing a post = its slug here, not only a delete in the panel.
+ */
+export const RETIRED_GUIDE_SLUGS: readonly string[] = []
