@@ -113,8 +113,11 @@ export async function seedProkom(payload: Payload): Promise<void> {
     offer: hubOffer(),
     forBusiness: hubForBusiness(),
     forHome: hubForHome(),
-    extraPhones: PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone })),
-    branch: { ...PROKOM_BRANCH },
+    // Contact data: the package only fills empty fields — later edits in the panel stay.
+    extraPhones: hubSettings?.extraPhones?.length
+      ? hubSettings.extraPhones.map(({ label, number }) => ({ label, number }))
+      : PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone })),
+    branch: hubSettings?.branch?.street ? hubSettings.branch : { ...PROKOM_BRANCH },
   }
   if (!hubSettings) {
     await payload.create({

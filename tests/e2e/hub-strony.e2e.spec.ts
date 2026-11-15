@@ -40,8 +40,8 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     page,
   }) => {
     await page.goto(site(HUB, '/kontakt'))
-    await expect(page.getByRole('link', { name: '18 267 65 11' })).toBeVisible()
-    await expect(page.getByRole('link', { name: '18 541 20 55' })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Biuro.*18 267 65 11/ })).toBeVisible()
+    await expect(page.getByRole('link', { name: /Serwis.*18 541 20 55/ })).toBeVisible()
     await expect(
       page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/).first(),
     ).toBeVisible()
