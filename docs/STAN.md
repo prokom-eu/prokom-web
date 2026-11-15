@@ -154,6 +154,13 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - **Do decyzji (TODO(krystian)):** (1) panel stagingu — `panel.staging.prokombiznes.pl` czy w pro-kom.eu; czy strefa pro-kom.eu jest już w Seohost; (2) usługi Sentry i monitoringu. **Polityka prywatności:** projekt z B11b wymienia hosting Seohost (ADR-002) — dostawca serwera to teraz webh.pl, poprawić przed akceptacją prawnika.
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
+- **15.11 rano — runda 1411 NA PRODUKCJI (akceptacja szefa przekazana przez Krystiana 15.11).**
+  - Staging: `staging-content.sh biznes` przy `ad67352` (kopia `predeploy`, smoke zielony), §2b zielone: `--po-imporcie` (mapa 574, kart 455, uwagi: brak) i `--widocznosc` (20 stron × 1440/390).
+  - Produkcja: `deploy.sh prod ad67352` (kopia `predeploy`, smoke 3 domen zielony) → `PO_STARCIE=1 SEED_KEEP_COMPANY_DATA=1 prod-line-content.sh biznes` z `prokom-web-tresc` przy `ad67352` (134 karty zaktualizowane, główna wg rundy 1411, opis `/kontakt`, 0 nowych zdjęć, kontrola plików bez braków, Dane firmy „kept, differs”).
+  - Sprawdzone na `https://prokombiznes.pl`: smoke (`PANEL_HOST=panel.prokombiznes.pl`) zielony, `--po-imporcie` (sitemap 574 = mapa 574, kart 455, uwagi: brak), `--widocznosc` wszystkie sekcje widoczne, opis `/kontakt` i `/favicon.ico` 200.
+  - **Świadome odstępstwo od runbooka §3:** Lighthouse stagingu czerwony tylko przez główną Software (0,82–0,84, dług sprzed rundy) — jak 14.11. Wydanie `develop` → `main` pominięte jak przy poprzednich wdrożeniach (`main` nieaktualizowany od początku — do uporządkowania).
+  - **Cofnięcie (§4 A):** `APP_IMAGE_TAG=e78d3b4e4351b0c251e95025058d6b75f251d5ac` w `.env.prod` → `$prod up -d app` → smoke (migracje rundy tylko dodają). Treść: §4 B z kopii `predeploy` 15.11 tylko przy zepsutych danych.
+  - `Następny krok:` Krystian — jedno próbne zapytanie z `/kontakt`, przejrzenie „do przejrzenia rano” 1–21 niżej, decyzja Office 2024; Lighthouse głównej Software (sesja Software).
 - **15.11 noc — runda 1411 (aktualizacja działającej strony), Sesja A (R0, R1, R2)** wg `docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md` (plan §7.4 w `docs/zadania/prokombiznes.md`, ADR-017 „Rozstrzygnięcia 15.11”). Praca nocna bez pytań (zasady nocne 15.11: decyzje wg rekomendacji, samodzielne scalanie przy zielonym CI).
   - **Raport nocny 15.11 — Sesja A:**
     - R0 #635 (scalony): pakiet w `docs/design/prokombiznes/runda-1411/`, ADR-017 „Rozstrzygnięcia 15.11”, INDEKS, §7.4.
