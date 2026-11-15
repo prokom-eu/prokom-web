@@ -101,7 +101,7 @@ export function HeroStage({
   const swipe = useRef<number | null>(null)
   const offscreen = useRef(false)
   const cmd = useRef<HTMLDivElement>(null)
-  const flow = useRef<HTMLDivElement>(null)
+  const deck = useRef<HTMLDivElement>(null)
   const lightFrame = useRef(0)
   useEffect(() => () => cancelAnimationFrame(lightFrame.current), [])
 
@@ -198,23 +198,24 @@ export function HeroStage({
   }
 
   /** Premium pass 15.11: the mouse lights the panel (`--mx`/`--my`) and tilts the carousel a
-   * little (`--tx`/`--ty`); once per frame, never for a touch or with reduced motion. */
+   * little (`--tx`/`--ty` on the deck only, so the windows' styles stay put); once per frame,
+   * never for a touch or with reduced motion. Both boxes are read before anything is written. */
   function onPointerMove(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType !== 'mouse' || still) return
     const { clientX, clientY } = event
     cancelAnimationFrame(lightFrame.current)
     lightFrame.current = requestAnimationFrame(() => {
       const panel = cmd.current
-      if (panel) {
-        const box = panel.getBoundingClientRect()
-        panel.style.setProperty('--mx', ((clientX - box.left) / box.width).toFixed(3))
-        panel.style.setProperty('--my', ((clientY - box.top) / box.height).toFixed(3))
+      const stage = deck.current
+      const p = panel?.getBoundingClientRect()
+      const s = stage?.getBoundingClientRect()
+      if (panel && p) {
+        panel.style.setProperty('--mx', ((clientX - p.left) / p.width).toFixed(3))
+        panel.style.setProperty('--my', ((clientY - p.top) / p.height).toFixed(3))
       }
-      const stage = flow.current
-      if (stage) {
-        const box = stage.getBoundingClientRect()
-        const x = Math.max(-1, Math.min(1, ((clientX - box.left) / box.width) * 2 - 1))
-        const y = Math.max(-1, Math.min(1, ((clientY - box.top) / box.height) * 2 - 1))
+      if (stage && s) {
+        const x = Math.max(-1, Math.min(1, ((clientX - s.left) / s.width) * 2 - 1))
+        const y = Math.max(-1, Math.min(1, ((clientY - s.top) / s.height) * 2 - 1))
         stage.style.setProperty('--tx', x.toFixed(3))
         stage.style.setProperty('--ty', y.toFixed(3))
       }
@@ -223,8 +224,8 @@ export function HeroStage({
 
   function onPointerLeave() {
     cancelAnimationFrame(lightFrame.current)
-    flow.current?.style.setProperty('--tx', '0')
-    flow.current?.style.setProperty('--ty', '0')
+    deck.current?.style.setProperty('--tx', '0')
+    deck.current?.style.setProperty('--ty', '0')
   }
 
   const slide = slides[current] ?? slides[0]
@@ -338,7 +339,6 @@ export function HeroStage({
 
       <div id={`${ids}-stage`} role="tabpanel" aria-labelledby={`${ids}-tab-${current}`}>
         <div
-          ref={flow}
           className="hx-flow"
           onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
@@ -353,7 +353,7 @@ export function HeroStage({
             data-moving={moving ? '' : undefined}
             data-far={farJump(move.from, current, count) ? '' : undefined}
           >
-            <div className="hx-deck-in">
+            <div ref={deck} className="hx-deck-in">
               {windows.map((mockup, index) => {
                 const rank = rankOf(index, current, count)
                 return (

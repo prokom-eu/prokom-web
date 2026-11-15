@@ -2233,9 +2233,11 @@
       var(--hv-edge),
       transparent 70%
     );
-    mask:
-      linear-gradient(var(--hero-black) 0 0) content-box exclude,
+    -webkit-mask:
+      linear-gradient(var(--hero-black) 0 0) content-box,
       linear-gradient(var(--hero-black) 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
   .hx-cmd:hover::before,
   .hx-cmd:hover::after {
@@ -2270,9 +2272,15 @@
     transform: translateX(-120%) skewX(-18deg);
     animation: hx-sheen 0.9s var(--ease-out) 0.05s;
   }
-  /* The caption after a change: number, name and price come in one after another; the price
-     gets one sheen. */
-  .hx-cap[data-swap] > :is(.ic, .hx-cap-t, .div) {
+  /* The caption after a change: its number comes in again. */
+  .hx-cap[data-swap] > .ic {
+    animation: hx-cap-in 0.5s var(--ease-out) backwards;
+  }
+}
+/* From 601 px name and price follow one after another and the price gets one sheen (up to
+   600 px their boxes are `display: contents`: nothing to move or clip). */
+@media (min-width: 601px) and (prefers-reduced-motion: no-preference) {
+  .hx-cap[data-swap] > :is(.hx-cap-t, .div) {
     animation: hx-cap-in 0.5s var(--ease-out) backwards;
   }
   .hx-cap[data-swap] > .hx-cap-t {
