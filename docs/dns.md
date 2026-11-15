@@ -19,7 +19,7 @@ Sprawdzenie rekordu z PowerShell: `Resolve-DnsName prokombiznes.pl -Type A` (typ
 | prokomsoftware.pl | Seohost; DNS `dns1/dns2.microhost.pl` | PRO-KOM | TODO | 31.10.2027 | strona Software (tenant `software`) |
 | prokomgaming.pl | Seohost; DNS `dns1/dns2.microhost.pl` (od 2.11) | PRO-KOM | TODO | 31.10.2027 | Gaming (osobne repo); tu tylko DNS i poczta |
 | prokomserwis.pl | cyber_Folks → transfer do Seohost (w toku); DNS `dns1/dns2.microhost.pl` (od 14.11) | **prywatny (Krystian)** → zmiana na firmę zaraz po transferze | TODO | 28.04.2027 | PRO-KOM Tech — serwis (repo `prokom-system`); tu DNS i Nginx |
-| pro-kom.eu | `TODO(krystian)`: nazwa.pl czy już Seohost? (migracja — ADR-002) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel produkcji przeniesiony na `panel.prokombiznes.pl` (09.11) |
+| pro-kom.eu | **nazwa.pl**; DNS `ns1/ns2/ns3.nazwa.pl` (potwierdzone 15.11) | PRO-KOM | TODO | TODO | obecna strona + **poczta firmy**; panel produkcji przeniesiony na `panel.prokombiznes.pl` (09.11) |
 
 Serwer: **VPS webh.pl** (ADR-019, `vm280605`, Łódź), IPv4 **`194.28.50.70`**, IPv6 — brak (nie dodajemy rekordów AAAA; gdyby VPS dostał IPv6, dopisujemy AAAA obok każdego A). Kolumny TODO w tabeli wyżej — z panelu Seohost.
 
@@ -62,7 +62,36 @@ Strefy założone 31.10 w panelu Seohost (DNS → Strefy DNS); formularz wymaga 
 Produkcja: **`panel.prokombiznes.pl`** (`PANEL_HOST`, decyzja Krystiana 09.11, ADR-006 „Rozstrzygnięcie 09.11”; A → `<IP>` w strefie prokombiznes.pl). Dawny plan `panel.pro-kom.eu` odłożony: ta nazwa wskazuje dziś inny serwer (`85.128.169.153`), a strefa pro-kom.eu z pocztą firmy nie jest u nas — można ją dodać później jako drugi adres panelu. Panel stagingu: **`panel.staging.prokombiznes.pl`** (31.10, A → `<IP>` w strefie prokombiznes.pl). Dlaczego nie w pro-kom.eu — jeśli strefa pro-kom.eu jest jeszcze w nazwa.pl, zmiana tam to rekord w strefie z pocztą firmy; prościej na start `panel.staging.prokombiznes.pl` (A → `<IP>`, strefa w Seohost), a `panel.pro-kom.eu` dopiero przy produkcji. Wybrany adres trafia do `STAGING_PANEL_HOST` w `.env.proxy` i `PANEL_HOST` w `.env.staging`, do certyfikatu `prokom-staging` i do tabeli niżej.
 
 ### pro-kom.eu
-Strefa: `TODO(krystian)` — nazwa.pl albo Seohost (tabela „Domeny”). **Nie zmieniamy MX/SPF/DKIM/DMARC bez osobnego planu migracji poczty (ADR-002).** Przed pierwszą zmianą: przepisać tutaj aktualny stan strefy 1:1 (to jest nasz punkt powrotu).
+Strefa: **nazwa.pl** (decyzja Krystiana 15.11; NS `ns1/ns2/ns3.nazwa.pl`). **Nie zmieniamy MX/SPF/DKIM/DMARC bez osobnego planu migracji poczty (ADR-002).**
+
+**Stan 15.11.2026 — punkt powrotu** (z publicznego DNS, `nslookup … 8.8.8.8` i `ns1.nazwa.pl`; pełną listę rekordów przepisać z panelu nazwa.pl przed pierwszą zmianą — panel może mieć rekordy, których zapytania nie pokażą, np. DKIM pod nieznaną nazwą):
+
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| NS | @ | `ns1.nazwa.pl`, `ns2.nazwa.pl`, `ns3.nazwa.pl` | — | strefa w nazwa.pl | bez zmian |
+| A | @ | `85.128.169.153` (serwer nazwa.pl) | 3600 | obecna strona **i poczta** (MX wskazuje na `pro-kom.eu`) | dziś |
+| A | `*` (wildcard) | `85.128.169.153` | 3600 | każda inna nazwa, w tym `www`, `mail`, `poczta`, `smtp`, `imap`, `autodiscover`, `panel` | dziś |
+| MX | @ | `10 pro-kom.eu` | — | **poczta firmy — na nazwę domeny, nie na `mail.`** | dziś |
+| TXT | @ | `v=spf1 mx a ~all` | — | SPF (`a` = adres `@`) | dziś |
+| TXT | @ | `MS=AC454E958B767FB1A3311B03785AFB887F793F49` | — | weryfikacja Microsoft — **nie usuwać** | dziś |
+| TXT | _dmarc | `v=DMARC1; p=quarantine;` | — | DMARC | dziś |
+
+**Uwaga przed przełączeniem strony (H7-2):** MX wskazuje na `pro-kom.eu`, a SPF ma `a` — samo przestawienie `A @` na `194.28.50.70` **przeniosłoby pocztę firmy na VPS** (VPS nie ma serwera poczty — poczta przestałaby dochodzić) i dopisało VPS do SPF. Dlatego najpierw, **co najmniej 24 h przed zmianą `A @`** (TODO(krystian): decyzja — to zmiana poczty, ADR-002):
+1. `A mail` → `85.128.169.153` jako jawny rekord (dziś działa tylko przez wildcard);
+2. `MX @` → `10 mail.pro-kom.eu` (zamiast `pro-kom.eu`);
+3. SPF → `v=spf1 mx ip4:85.128.169.153 ~all` (zamiast `a` — po przełączeniu `a` oznaczałby VPS);
+4. sprawdzić: `nslookup -type=MX pro-kom.eu 8.8.8.8`, wysłać i odebrać mail z i na adres `@pro-kom.eu` (w tym z Gmaila), nagłówki SPF/DMARC „pass”.
+Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL 300 na T−48 h. Wildcard i pozostałe nazwy zostają na nazwa.pl. **Hosting poczty jest na tym samym koncie nazwa.pl co obecna strona** — koniec abonamentu (grudzień, ADR-H001) nie może wyłączyć poczty: TODO(krystian) — sprawdzić w nazwa.pl, czy poczta to osobna usługa, zanim abonament strony wygaśnie.
+
+Po przełączeniu (cel):
+
+| Typ | Nazwa | Wartość | TTL | Po co | Stan |
+|---|---|---|---|---|---|
+| A | @ | `194.28.50.70` | 3600 (T−48 h: 300) | nowa pro-kom.eu (hub, tenant `prokom`) | do zrobienia (H7-2) |
+| A | www | `194.28.50.70` | 3600 (T−48 h: 300) | 301 na `pro-kom.eu` (Nginx `PROD_WWW_HOSTS`) | do zrobienia (H7-2) |
+| A | mail | `85.128.169.153` | 3600 | serwer poczty nazwa.pl | do zrobienia przed `A @` |
+| MX | @ | `10 mail.pro-kom.eu` | 3600 | poczta firmy bez zmiany serwera | do zrobienia przed `A @` |
+| TXT | @ | `v=spf1 mx ip4:85.128.169.153 ~all` | 3600 | SPF bez `a` | do zrobienia przed `A @` |
 
 ### prokomserwis.pl (PRO-KOM Tech, repo `prokom-system`)
 Strefa w Seohost od 14.11 (przeniesiona 1:1 z cyber_Folks; szczegóły, stan „przed/po” i TXT: `prokom-system/docs/tech/DNS-PROKOMSERWIS.md`). Do przełączenia (niedziela **29.11.2026**) `@` i `www` wskazują **stary serwer Hetzner `62.238.0.240`** — nie `<IP>`.
