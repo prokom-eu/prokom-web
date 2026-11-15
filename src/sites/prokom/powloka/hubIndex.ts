@@ -1,4 +1,4 @@
-import type { HubSearchEntry } from '@/lib/prokom/searchIndex'
+import type { HubSearchEntry } from '@/lib/prokom/searchQuery'
 
 const INDEX_URL = '/api/hub-search-index'
 

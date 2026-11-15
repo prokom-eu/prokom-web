@@ -4,7 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 
 
 import { Icon } from '@/components/ui/Icon'
 import type { HubLine } from '@/lib/prokom/lines'
-import { HUB_GROUPS, suggestHub, type HubSearchEntry } from '@/lib/prokom/searchIndex'
+import { HUB_GROUPS, suggestHub, type HubSearchEntry } from '@/lib/prokom/searchQuery'
 
 import { lineStyle } from '../lineColors'
 import { loadHubIndex } from '../powloka/hubIndex'
