@@ -83,7 +83,7 @@ export function CompanyCard({
           ],
         ] as [string, ReactNode][])
       : []),
-    ...(phone2 && tel2
+    ...(phone && tel && phone2 && tel2
       ? ([
           [
             'Drugi telefon',

@@ -4,6 +4,8 @@ import type { ServiceZone } from './zones'
 
 type Geo = { lat: number; lng: number }
 
+export type Box = { x: number; y: number; width: number; height: number }
+
 /** The rings of the Kontakt map (runda 1411, Obszar), km in a straight line from the salon. */
 export const AREA_RINGS = [15, 35, 55] as const
 
@@ -73,17 +75,23 @@ export function areaRings(zones: readonly ServiceZone[], salon: Geo, salonTown =
   return { center: { ...CENTER }, towns, unplaced }
 }
 
-export type Box = { x: number; y: number; width: number; height: number }
-
 export type PlacedLabel = RingTown & {
   /** Top-left corner of the label in box units. */
   label: Box
   side: 'left' | 'right'
 }
 
-const LABEL_HEIGHT = 22
+/**
+ * Labels are HTML of a fixed 12 px, shown from a drawing 680 px wide (`ServiceAreaRings`): in box
+ * units they are up to 760 / 680 larger than in pixels, so the layout counts them that big.
+ */
+const LABEL_SCALE = AREA_BOX.width / 680
+const LABEL_HEIGHT = 22 * LABEL_SCALE
+
+/** The salon's card on the drawing: left of and above the centre, kept free of labels. */
+export const AREA_CARD: Box = { x: 80, y: 150, width: 160, height: 92 }
 /** Width of a 12 px bold label: ~6.7 px a letter plus the pill's padding. */
-export const labelWidth = (text: string) => Math.ceil(text.length * 6.7 + 18)
+export const labelWidth = (text: string) => Math.ceil((text.length * 6.7 + 18) * LABEL_SCALE)
 
 const overlaps = (a: Box, b: Box, gap = 3) =>
   a.x < b.x + b.width + gap &&
@@ -98,7 +106,7 @@ const inside = (box: Box) =>
   box.y + box.height <= AREA_BOX.height
 
 /** Vertical shifts tried for a label, nearest first. */
-const SHIFTS = [0, -14, 14, -28, 28, -42, 42]
+const SHIFTS = [0, -14, 14, -28, 28, -42, 42, -56, 56, -70, 70]
 
 /**
  * Labels without overlaps (runda 1411 „etykiety bez nakładania”): each town, nearest first, tries

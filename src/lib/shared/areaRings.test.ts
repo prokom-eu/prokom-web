@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { COMPANY_ZONES } from '../../seed/shared/company'
-import { AREA_BOX, areaRings, distanceKm, placeLabels, type Box } from './areaRings'
+import { AREA_BOX, AREA_CARD, areaRings, distanceKm, placeLabels, type Box } from './areaRings'
 import { TOWN_GEO } from './townGeo'
 
 /** The salon (ul. Orkana 16B), as in the company seed. */
@@ -68,7 +68,7 @@ describe('placeLabels', () => {
     a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height
 
   it('gives every seed town a label that overlaps no other label and no obstacle', () => {
-    const card: Box = { x: 90, y: 170, width: 150, height: 62 }
+    const card = AREA_CARD
     const labels = placeLabels(areaRings(zones, SALON, 'Rabka-Zdrój').towns, [card])
     expect(labels).toHaveLength(zones.flatMap((z) => z.towns).length - 1)
     for (const [i, a] of labels.entries()) {

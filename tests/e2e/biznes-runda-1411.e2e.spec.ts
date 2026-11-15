@@ -63,8 +63,10 @@ test.describe('Biznes runda 1411 — numbers, CEIDG, Kontakt (R1)', () => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
     await page.goto(site('biznes.localhost', '/kontakt'))
     const bar = page.locator('[data-contact-bar]')
-    await bar.getByRole('button', { name: /Kopiuj/ }).click()
-    await expect(bar.getByRole('button', { name: /Kopiuj/ })).toHaveText('Skopiowano')
+    const copy = bar.locator('[data-copy-email]')
+    await expect(copy).toHaveAccessibleName(/^Kopiuj adres kontakt@prokombiznes\.pl$/)
+    await copy.click()
+    await expect(copy).toContainText('Skopiowano')
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
       'kontakt@prokombiznes.pl',
     )

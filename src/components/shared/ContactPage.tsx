@@ -122,13 +122,17 @@ export function ContactPage({
   const hours = salon?.hours ?? company.hours
   const tel = data.phone ? toTelHref(data.phone) : null
   const calls = heroLayout === 'calls'
-  const callNumbers = [
-    { label: 'Numer główny', number: data.phone, main: true },
-    { label: 'Drugi numer', number: data.phone2, main: false },
-  ].flatMap(({ number, ...rest }) => {
-    const href = number ? toTelHref(number) : null
-    return number && href ? [{ ...rest, number, href }] : []
-  })
+  // The first number there is the main tile (a line with only its second number still gets one).
+  const callNumbers = [data.phone, data.phone2]
+    .flatMap((number) => {
+      const href = number ? toTelHref(number) : null
+      return number && href ? [{ number, href }] : []
+    })
+    .map((item, i) => ({
+      ...item,
+      main: i === 0,
+      label: i === 0 ? 'Numer główny' : 'Drugi numer',
+    }))
   const consent = formConsent(company.consent)
   const where = salon ? `${salon.street}, ${salon.postalCode} ${salon.city}` : null
   const today = warsawWeekday(new Date(now))
@@ -141,6 +145,8 @@ export function ContactPage({
   const officeCard = salon !== null && salon.key === (shared.salons[0]?.key ?? null)
   const others = lines.filter((item) => item.key !== line)
   const ringsGeo = salon?.geo ?? company.geo
+  // Rings need the salon's place; without it the line falls back to the town field.
+  const areaMode = serviceArea === 'rings' && ringsGeo ? 'rings' : 'search'
   const jsonLd = pageBreadcrumbsJsonLd(origin, breadcrumbs)
 
   return (
@@ -522,34 +528,31 @@ export function ContactPage({
 
       {slots.afterForm}
 
-      {showServiceArea &&
-        company.serviceZones.length > 0 &&
-        serviceArea === 'rings' &&
-        ringsGeo && (
-          <section
-            id="dojazd"
-            aria-labelledby="kontakt-dojazd"
-            className={cx(CONTAINER, 'scroll-mt-28 py-16')}
-            data-rail-section="Dojazd"
-            data-rail-icon="map"
-          >
-            <ServiceAreaRings
-              zones={company.serviceZones}
-              salon={{
-                city: salon?.city ?? company.address?.city ?? '',
-                street: salon?.street ?? company.address?.street ?? '',
-                geo: ringsGeo,
-              }}
-              title={contact.mapTitle || 'Obszar działania'}
-              lead={contact.mapLead}
-              headingId="kontakt-dojazd"
-              phones={callNumbers.map((item) => item.number)}
-              headingEmClass={headingEmClass}
-            />
-          </section>
-        )}
+      {showServiceArea && company.serviceZones.length > 0 && areaMode === 'rings' && ringsGeo && (
+        <section
+          id="dojazd"
+          aria-labelledby="kontakt-dojazd"
+          className={cx(CONTAINER, 'scroll-mt-28 py-16')}
+          data-rail-section="Dojazd"
+          data-rail-icon="map"
+        >
+          <ServiceAreaRings
+            zones={company.serviceZones}
+            salon={{
+              city: salon?.city ?? company.address?.city ?? '',
+              street: salon?.street ?? company.address?.street ?? '',
+              geo: ringsGeo,
+            }}
+            title={contact.mapTitle || 'Obszar działania'}
+            lead={contact.mapLead}
+            headingId="kontakt-dojazd"
+            phones={callNumbers.map((item) => item.number)}
+            headingEmClass={headingEmClass}
+          />
+        </section>
+      )}
 
-      {showServiceArea && company.serviceZones.length > 0 && serviceArea === 'search' && (
+      {showServiceArea && company.serviceZones.length > 0 && areaMode === 'search' && (
         <section
           id="dojazd"
           aria-labelledby="kontakt-dojazd"

@@ -3,6 +3,7 @@ import { Fragment } from 'react'
 import { cx } from '@/components/ui/cx'
 import {
   AREA_BOX,
+  AREA_CARD as CARD,
   AREA_RINGS,
   AREA_SCALE,
   areaRings,
@@ -27,8 +28,6 @@ type Props = {
   className?: string
 }
 
-/** The salon's card on the drawing: left of and above the centre, reserved for the labels. */
-const CARD: Box = { x: 80, y: 150, width: 160, height: 92 }
 const pct = (value: number, of: number) => `${(value / of) * 100}%`
 const RING_FILL = [0.03, 0.05, 0.09]
 const RING_STROKE = [0.2, 0.26, 0.4]
@@ -58,11 +57,10 @@ export function ServiceAreaRings({
     label: i === 0 ? `Do ${limit} km` : `${AREA_RINGS[i - 1]}–${limit} km`,
     towns: rings.towns.filter((t) => t.ring === i).map((t) => t.town),
   }))
-  const farther = [
-    ...rings.towns.filter((t) => t.ring === AREA_RINGS.length).map((t) => t.town),
-    ...rings.unplaced,
-  ]
-  if (farther.length) groups.push({ label: 'Dalej', towns: farther })
+  const farther = rings.towns.filter((t) => t.ring === AREA_RINGS.length).map((t) => t.town)
+  if (farther.length) groups.push({ label: `Ponad ${AREA_RINGS.at(-1)} km`, towns: farther })
+  // Towns of the panel without known coordinates (`townGeo`): listed, never put in a ring.
+  if (rings.unplaced.length) groups.push({ label: 'Pozostałe', towns: rings.unplaced })
   const calls = phones.flatMap((phone) => {
     const href = toTelHref(phone)
     return href ? [{ phone, href }] : []

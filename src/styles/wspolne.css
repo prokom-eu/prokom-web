@@ -106,7 +106,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   inset: 0;
   border-radius: 50%;
   background: var(--oh-dot);
-  animation: oh-pulse 2.2s ease-out infinite;
+  /* Three pulses, then still (WCAG 2.2.2: no motion longer than 5 s without a pause). */
+  animation: oh-pulse 2.2s ease-out 3;
 }
 @keyframes oh-pulse {
   from {
@@ -127,7 +128,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 /* The salon on the rings map (runda 1411, Obszar): transform and opacity only. */
 .area-pulse {
   transform: translate(-50%, -50%);
-  animation: area-pulse 2.4s ease-out infinite;
+  animation: area-pulse 2.4s ease-out 2 forwards;
 }
 @keyframes area-pulse {
   from {
