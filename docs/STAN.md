@@ -179,6 +179,10 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
     12. Filtr „dla firm” dla wpisów Instalacji/Software w Aktualnościach pominięty — `Posts` nie ma takiego pola (wymaga migracji). Pomysł: pole odbiorcy we wpisach + filtr w `getSisterLinePostLinks`.
     13. „Inne linie PRO-KOM” usunięte w panelu wróci przy imporcie treści (jak Aktualności B3-2) — jeśli ma zniknąć na stałe, trzeba znacznika w ustawieniach.
   - `Następny krok:` R5 `feat/biznes-wybierane-1411` (3 rzędy × 8, pozycje z planszy — wszystkie 24 są w katalogu), potem Sesja C (R6–R8) — w tej sesji.
+  - **Raport nocny 15.11 — Sesja C (ta sama sesja Claude):**
+    - R6 `feat/biznes-o-firmie-1411`: `/o-firmie` Biznesu we własnym widoku `BzAboutView` wg planszy OFirmie (wizytówka z 2 numerami i 4 autoryzacjami, liczby, bento „Dlaczego my”, marki: 4 karty autoryzacji + ściana pozostałych z Optivendi/COMEX i ich statusem, kroki współpracy, inne linie, wizyta z mapą). Wspólny szablon O firmie bez zmian dla innych linii; bez migracji.
+  - **Do przejrzenia rano (Sesja C):**
+    16. TODO(krystian): zdania o autoryzacjach na `/o-firmie` (`AUTH_TEXT` w `BzAboutPage/Component.tsx`) — z planszy, tylko fakty ze stron marek (§7 pkt 3).
 - **14.11 noc — poprawki po audycie produkcji (`tmp/AUDYT-BIZNES-PRODUKCJA-1411.md`), 2 PR-y od `develop`:**
   - `feat/wsp-kontakt-waski-ekran` (strefa wspólna): Kontakt 360–390 px bez ucięcia, gdy firma zamknięta (siatka hero `grid-cols-1` + `min-w-0`, pigułka statusu się zawija); **decyzja Krystiana 14.11:** pigułka statusu poniżej 480 px pokazuje skrót „Zamknięte · pn 9:00” (`openingStatus().short`; dotyczy też hero pro-kom.eu; pełne zdanie w Menu, stopce i dla czytników — spec §5); O firmie: „Telefon” na linii numeru, „od&nbsp;2004”. e2e `wspolne-kontakt-waski` (3 linie × 360/390, sobota 22:00).
   - `fix/biznes-seo-kontakt`: opis `/kontakt` (seed uzupełnia pusty / stare brzmienie z „60 minut”), jeden `BreadcrumbList` na `/kontakt` i `/o-firmie`, `/favicon.ico` per linia przez `proxy.ts`. `ProductGroup` bez `offers` — bez zmian do pierwszego raportu Search Console.

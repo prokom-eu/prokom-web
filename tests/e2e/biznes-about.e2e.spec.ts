@@ -42,7 +42,7 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     await page.goto(site('biznes.localhost', ABOUT))
     const root = page.locator('[data-about-page]')
     await expect(root.locator('[data-stats-strip] li').first()).toContainText('2004')
-    for (const id of ['dlaczego', 'wspolpraca', 'linie', 'wizyta']) {
+    for (const id of ['dlaczego', 'marki', 'wspolpraca', 'linie', 'wizyta']) {
       await expect(root.locator(`#${id}`)).toHaveCount(1)
     }
     // Images on the page are logos and maps only (zasada 01.11: bez zdjęć ludzi).
@@ -52,7 +52,7 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     expect(pictures.every((alt) => !/zespół|właściciel|pracown/i.test(alt))).toBe(true)
   })
 
-  test('PREMIUM-1011: brands by status, no verify cards (runda 1411), talk band, no footer lines band', async ({
+  test('runda 1411: brands, no verify cards, the final call with both numbers, no footer lines band', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost', ABOUT))
@@ -60,20 +60,26 @@ test.describe('Biznes /o-firmie (shared template, §8.2)', () => {
     await expect(brands.getByRole('heading', { level: 2 })).toHaveText(
       'Marki, które sprzedajemy, wdrażamy i serwisujemy',
     )
-    // Statuses only from K4-FINAL §1, in its order.
-    await expect(brands.locator('[data-brand-row] dt')).toHaveText([
-      'Autoryzowany serwis',
-      'Autoryzowany partner',
-      'Partner',
-      'We współpracy',
-    ])
+    // Runda 1411 (OFirmie): four authorisation cards, Optivendi and COMEX with their badge in the
+    // wall of the other brands, „+ N marek” to /marki.
+    const cards = brands.locator('ul').first().locator(':scope > li')
+    await expect(cards.filter({ hasText: 'Autoryzowany serwis' })).toHaveCount(2)
+    await expect(cards.filter({ hasText: 'Autoryzowany partner' })).toHaveCount(2)
+    const wall = brands.getByRole('list', { name: 'Pozostałe marki w ofercie' })
+    await expect(wall.getByText('Partner', { exact: true })).toBeVisible()
+    await expect(wall.getByText('We współpracy', { exact: true })).toBeVisible()
+    await expect(wall.getByRole('link', { name: /\+ \d+ marek/ })).toHaveAttribute('href', '/marki')
     await expect(brands.getByText('Logotypy należą do ich właścicieli.')).toBeVisible()
     // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): „Nie musisz wierzyć nam na słowo” is gone.
     await expect(page.locator('[data-verify-cards]')).toHaveCount(0)
     await expect(page.locator('#sprawdz')).toHaveCount(0)
-    await expect(
-      page.locator('[data-talk-band]').getByRole('link', { name: 'Napisz do nas' }),
-    ).toHaveAttribute('href', '/kontakt#formularz')
+    const talk = page.locator('[data-talk-band]')
+    await expect(talk.getByRole('link', { name: 'Napisz do nas' })).toHaveAttribute(
+      'href',
+      '/kontakt#formularz',
+    )
+    await expect(talk.locator('a[href="tel:+48889003889"]')).toBeVisible()
+    await expect(talk.locator('a[href="tel:+48883200151"]')).toBeVisible()
     await expect(page.locator('[data-lines-band]')).toBeHidden()
   })
 
