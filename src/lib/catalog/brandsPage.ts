@@ -1,7 +1,9 @@
 import type { Partner } from '@/payload-types'
 
+import { k4Rank } from '@/lib/partners/badges'
+
 import { brandHref } from './brand'
-import type { CatalogIndex, IndexImage, IndexLogo } from './catalogIndex'
+import type { CatalogIndex, IndexLogo } from './catalogIndex'
 import { normalizeText } from './normalize'
 
 /**
@@ -9,9 +11,6 @@ import { normalizeText } from './normalize'
  * a tile per brand. A tile leads to the brand's showroom (a theme showroom too: Kyocera → Druk),
  * to its own page (GoPOS, InsERT, Optivendi) or to the offer filtered by the brand (HP).
  */
-
-/** Photos on a tile (board: 3). */
-const TILE_PHOTOS = 3
 
 /** Brands with their own page instead of a showroom (board), shown only when published. */
 const SPECIAL_PAGES: Record<string, string> = {
@@ -53,7 +52,6 @@ export type BrandTile = {
   logo: IndexLogo | null
   status: Partner['partnerStatus']
   count: number
-  photos: IndexImage[]
   href: string
   /** A showroom or an own page: the „Salon” badge and „Wejdź do salonu”. */
   salon: boolean
@@ -63,8 +61,6 @@ export type BrandTile = {
 
 export type BrandsGroup = {
   title: string
-  /** Tab label: the name up to the first comma („Kasy, POS i płatności” → „Kasy”). */
-  short: string
   iconPath: string | null
   description: string | null
   tiles: BrandTile[]
@@ -124,7 +120,6 @@ export function buildBrandsPage({
       logo: partner.logo,
       status: partner.status,
       count: products.length,
-      photos: products.flatMap((product) => product.image ?? []).slice(0, TILE_PHOTOS),
       href,
       salon: !href.startsWith('/oferta'),
       hay: normalizeText(`${partner.name} ${partner.description ?? ''}`),
@@ -139,7 +134,6 @@ export function buildBrandsPage({
     for (const tile of groupTiles) shown.set(tile.id, tile)
     result.push({
       title: group.title,
-      short: group.title.split(',')[0]!.trim(),
       iconPath: group.iconPath,
       description: group.description,
       tiles: groupTiles,
@@ -149,7 +143,10 @@ export function buildBrandsPage({
   return {
     total: shown.size,
     groups: result,
-    authorized: all.filter((tile) => HEADER_STATUSES.has(tile.status)),
+    // The four of K4-FINAL §1 in its order (Posnet, Elzab, GoPOS, InsERT), whatever the panel order.
+    authorized: all
+      .filter((tile) => HEADER_STATUSES.has(tile.status))
+      .sort((a, b) => k4Rank(a.slug) - k4Rank(b.slug)),
     others: all
       .filter((tile) => !HEADER_STATUSES.has(tile.status))
       .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'pl')),

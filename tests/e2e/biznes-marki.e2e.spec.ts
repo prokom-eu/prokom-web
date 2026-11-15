@@ -40,7 +40,7 @@ test.describe('Biznes /marki (K4f)', () => {
     for (const tile of await grid.locator('[data-brand-tile]').all()) {
       expect(
         (await tile.innerText()).trim().length,
-        await tile.getAttribute('href'),
+        (await tile.getAttribute('href')) ?? '',
       ).toBeGreaterThan(0)
       expect(await tile.locator('img, [aria-hidden="true"]').count()).toBeGreaterThan(0)
     }

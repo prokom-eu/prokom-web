@@ -38,6 +38,7 @@ const SITES: {
       '/zapytanie',
       '/cookies',
       '/dostepnosc',
+      '/marki',
       '/marki/dibal',
       '/marki/lenovo',
       '/marki/dell',

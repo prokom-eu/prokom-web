@@ -124,11 +124,7 @@ export function BrandsDirectory({
                 {shownOthers.length} {plural(shownOthers.length, ['marka', 'marki', 'marek'])}
               </span>
             </div>
-            <ul
-              data-others-grid=""
-              data-logo-cascade=""
-              className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6"
-            >
+            <ul data-others-grid="" className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
               {shownOthers.map((tile) => (
                 <li key={tile.id} className="flex min-w-0">
                   <BrandTileLink tile={tile} />
@@ -224,11 +220,7 @@ function AuthCard({ tile }: { tile: BrandTile }) {
         )}
       </span>
       <span className="flex min-w-0 flex-col gap-1">
-        <b className="font-extrabold text-ink">
-          {tile.name}
-          {/* The visible text names the link; the action is added for screen readers (WCAG 2.5.3). */}
-          <span className="sr-only"> — {tile.salon ? 'wejdź do salonu' : 'zobacz ofertę'}</span>
-        </b>
+        <b className="font-extrabold text-ink">{tile.name}</b>
         {tile.description && (
           <small className="text-sm leading-snug text-ink-2 max-sm:line-clamp-3 max-sm:text-xs">
             {tile.description}
@@ -236,7 +228,8 @@ function AuthCard({ tile }: { tile: BrandTile }) {
         )}
       </span>
       <span className="mt-auto inline-flex items-center gap-1 text-sm font-extrabold text-accent-text">
-        <span className="max-sm:hidden">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
+        {/* On a phone the action stays for screen readers only — said once, not twice. */}
+        <span className="max-sm:sr-only">{tile.salon ? 'Wejdź do salonu' : 'Zobacz ofertę'}</span>
         <Icon name="arrow" strokeWidth={2.4} className="size-4" />
       </span>
     </Link>
@@ -249,7 +242,6 @@ function BrandTileLink({ tile }: { tile: BrandTile }) {
   return (
     <Link
       href={tile.href}
-      data-logo-shine=""
       data-brand-tile={tile.slug}
       className={cx(
         'relative flex w-full min-w-0 flex-col items-center justify-center gap-1.5 rounded-[18px] bg-white px-2 pt-7 pb-2.5 transition-shadow hover:shadow-[inset_0_0_0_1.5px_var(--accent-text)] sm:min-h-[112px] sm:px-3',
@@ -289,9 +281,7 @@ function BrandTileLink({ tile }: { tile: BrandTile }) {
         <span className="sr-only">{tile.name}, </span>
         {tile.count > 0
           ? `${tile.count} ${plural(tile.count, ['pozycja', 'pozycje', 'pozycji'])}`
-          : tile.salon
-            ? 'Salon marki'
-            : 'Oferta'}
+          : 'Salon marki'}
       </span>
     </Link>
   )
