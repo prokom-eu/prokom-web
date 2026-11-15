@@ -6,32 +6,29 @@
  */
 import type { SearchResult } from '@/lib/shared/search/provider'
 import { contactWithPhrase } from '@/lib/shared/search/provider'
-import { prepareItems, searchItems } from '@/lib/shared/search/engine'
-import { type LineSearchEntry, synonymMap } from '@/lib/shared/search/lineProvider'
-import { normalizeText } from '@/lib/shared/search/normalize'
 import type { SharedLine } from '@/lib/shared/project'
 
 import type { HubHelpView, HubServiceView, HubToolView } from './data'
 import { iconForService } from './icons'
 import { type HubLine, isHubLine } from './lines'
 import { type HubPageFlags, isHubLinkLive } from './pages'
+import {
+  HUB_GROUPS,
+  type HubSearchEntry,
+  type HubSearchFilter,
+  type HubSearchKind,
+} from './searchQuery'
 
-export type HubSearchKind = 'line' | 'service' | 'tool' | 'help' | 'page'
-
-export type HubSearchEntry = LineSearchEntry & {
-  kind: HubSearchKind
-  /** The line of the entry; `prokom` for the hub's own pages. */
-  line: HubLine | 'prokom'
-}
-
-/** Group titles of the window and of `/szukaj` (board Szukaj, Naglowek). */
-export const HUB_GROUPS: Record<HubSearchKind, string> = {
-  service: 'Usługi',
-  tool: 'Załatw online',
-  help: 'Pomoc',
-  page: 'Strony pro-kom.eu',
-  line: 'Linie',
-}
+export {
+  HUB_GROUPS,
+  searchHub,
+  suggestHub,
+  type HubSearchEntry,
+  type HubSearchFilter,
+  type HubSearchKind,
+  type HubSearchPage,
+  type HubSuggestions,
+} from './searchQuery'
 
 const CONTACT_PATH = '/kontakt'
 
@@ -228,68 +225,8 @@ export function buildHubSearchIndex({
 }
 
 /** Filter of `/szukaj`: all, one line, or the hub's pages. */
-export type HubSearchFilter = 'wszystko' | HubLine | 'strony'
-
 export function parseFilter(value: unknown): HubSearchFilter {
   return value === 'strony' || isHubLine(value) ? value : 'wszystko'
 }
 
 /** How many entries each group of `/szukaj` shows (board Szukaj). */
-const PAGE_LIMITS: Partial<Record<HubSearchKind, number>> = {
-  service: 12,
-  tool: 6,
-  help: 6,
-  page: 6,
-  line: 5,
-}
-const GROUP_ORDER: readonly HubSearchKind[] = ['service', 'tool', 'help', 'page', 'line']
-
-export type HubSearchPage = {
-  query: string
-  /** Hits of the chosen filter. */
-  total: number
-  /** Hits per filter, for the tabs (counted on all hits). */
-  counts: Record<string, number>
-  /** „Najlepsze dopasowanie”: the first service, else the first tool, else the first hit. */
-  best: HubSearchEntry | null
-  groups: { kind: HubSearchKind; title: string; results: HubSearchEntry[] }[]
-}
-
-/** Results of `/szukaj?q=&linia=` on the server — the same engine and synonyms as the window. */
-export function searchHub(
-  index: readonly HubSearchEntry[],
-  query: string,
-  filter: HubSearchFilter,
-  synonyms: readonly string[] = [],
-): HubSearchPage {
-  const prepared = prepareItems(
-    index.map((item) => ({
-      item,
-      name: item.title,
-      hay: normalizeText([item.title, item.hint, item.text].filter(Boolean).join(' ')),
-      popularity: item.popularity,
-    })),
-    { synonyms: synonymMap(synonyms), stopWords: [] },
-  )
-  const found = searchItems(prepared, query) ?? []
-  const counts: Record<string, number> = { wszystko: found.length, strony: 0 }
-  for (const hit of found) {
-    const key = hit.kind === 'page' ? 'strony' : hit.line
-    counts[key] = (counts[key] ?? 0) + 1
-  }
-  const chosen = found.filter((hit) =>
-    filter === 'wszystko' ? true : filter === 'strony' ? hit.kind === 'page' : hit.line === filter,
-  )
-  const best =
-    chosen.find((hit) => hit.kind === 'service') ??
-    chosen.find((hit) => hit.kind === 'tool') ??
-    chosen[0] ??
-    null
-  const rest = chosen.filter((hit) => hit !== best)
-  const groups = GROUP_ORDER.map((kind) => ({
-    kind,
-    title: HUB_GROUPS[kind],
-    results: rest.filter((hit) => hit.kind === kind).slice(0, PAGE_LIMITS[kind]),
-  })).filter((group) => group.results.length > 0)
-  return { query: query.trim(), total: chosen.length, counts, best, groups }
-}
