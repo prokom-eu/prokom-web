@@ -146,7 +146,7 @@ test('on a wide monitor the rail stays next to the capsule, not at the window ed
 }) => {
   for (const [width, gap] of [
     [1440, null],
-    [1920, 48],
+    [1920, 96],
   ] as const) {
     await page.setViewportSize({ width, height: 1000 })
     await page.goto(site('software.localhost', '/_wspolne'))
@@ -156,8 +156,8 @@ test('on a wide monitor the rail stays next to the capsule, not at the window ed
       const cap = document.querySelector('.cap-wrap')!.getBoundingClientRect()
       return { left: wrap.left, capLeft: cap.left }
     })
-    // Up to 1600 px the window's 16 px; wider, 48 px off the capsule's box (`.cap-wrap`, 64 px rail;
-    // 16 px stuck it to the sections — Krystian 15.11).
+    // Up to 1696 px the window's 16 px; wider, 96 px off the capsule's box (`.cap-wrap`, 64 px rail;
+    // 16 and 48 px stuck it to the sections — Krystian 15.11).
     if (gap === null) expect(box.left).toBe(16)
     else expect(Math.round(box.capLeft - (box.left + 64))).toBe(gap)
   }
