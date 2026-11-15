@@ -37,3 +37,10 @@ describe('hub code has no contact or price literals (spec §3)', () => {
     expect(hits).toEqual([])
   })
 })
+
+describe('hub shows one e-mail (audit H8 pkt 3)', () => {
+  it('takes the hub line e-mail (like the footer), never `CompanyData.email`', () => {
+    const hits = files.filter((file) => /company\??\.email/.test(readFileSync(file, 'utf8')))
+    expect(hits).toEqual([])
+  })
+})
