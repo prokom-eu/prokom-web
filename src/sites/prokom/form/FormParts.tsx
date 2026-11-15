@@ -10,9 +10,25 @@ import { useChoice } from '../dostawy/ChoiceState'
 import { useDeliveries } from '../dostawy/DeliveriesState'
 import { listText, listTotals } from '../dostawy/list'
 
-/** The page the message came from (Dla firm, Dla domu) — the office sees it at the top. */
-export function PageFormPart({ label }: { label: string }) {
-  useEffect(() => registerFormAttachment(() => label), [label])
+/**
+ * The page the message came from (Dla firm, Dla domu) and the industry or situation chosen in its
+ * picker (`ChoiceState`) — the office sees them at the top.
+ */
+export function PageFormPart({
+  label,
+  choices,
+}: {
+  label: string
+  choices: { key: string; name: string }[]
+}) {
+  const { segment } = useChoice()
+  useEffect(() => {
+    const read = () => {
+      const chosen = choices.find((entry) => entry.key === segment)
+      return chosen ? `${label} — ${chosen.name}` : label
+    }
+    return registerFormAttachment(read)
+  }, [label, choices, segment])
   return null
 }
 
@@ -25,7 +41,10 @@ export function DeliveriesFormPart({
   data,
 }: {
   label: string
-  data: Pick<HubDeliveries, 'segments' | 'listGroups' | 'services' | 'page'>
+  data: Pick<HubDeliveries, 'segments' | 'listGroups' | 'services'> & {
+    /** Only the labels the part needs (a smaller page payload). */
+    labels: { pcs: string; yours: string; segments: string }
+  }
 }) {
   const { list, services, term, clear } = useDeliveries()
   const { segment } = useChoice()
@@ -35,9 +54,9 @@ export function DeliveriesFormPart({
       const text = listText(list, data.listGroups, {
         services: data.services.filter((s) => services.includes(s.key)).map((s) => s.title),
         term,
-        pcs: data.page.list.pcs,
+        pcs: data.labels.pcs,
       })
-      return [label, chosen ? `${data.page.hero.segmentsLabel} ${chosen.name}` : null, text]
+      return [label, chosen ? `${data.labels.segments} ${chosen.name}` : null, text]
         .filter(Boolean)
         .join('\n')
     }
@@ -46,7 +65,7 @@ export function DeliveriesFormPart({
   const totals = listTotals(list, data.listGroups)
   return totals.positions > 0 ? (
     <p className="pk-plan__note">
-      {data.page.list.yours}: {totals.pieces} {data.page.list.pcs}
+      {data.labels.yours}: {totals.pieces} {data.labels.pcs}
     </p>
   ) : null
 }

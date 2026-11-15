@@ -263,6 +263,7 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
             <div className="pk-contact__write">
               <HubForm
                 shared={shared}
+                placeholder={data.roles[0]?.form.descPlaceholder}
                 prefill={<CooperationFormPart label={page.form.eyebrow} roles={data.roles} />}
               />
               <p className="pk-plan__note">{page.form.note}</p>

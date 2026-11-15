@@ -81,8 +81,9 @@ export const PROKOM_SHARED: SharedGroup = {
       ],
     },
   ],
-  // `/kontakt` (spec §6.8, H5/H6): H1 of spec §4, topics for `?temat=` (the home page chips use
-  // the general topic and the line names), form texts. Contact data from the panel, never here.
+  // `/kontakt` (spec §6.8, H5/H6): H1 of spec §4, topics for `?temat=` — the home page chips use
+  // `home.contact.general` and the line names of `CompanyData.lines`: a renamed line must be renamed
+  // here too (e2e `hub-glowna` checks it). Form texts. Contact data from the panel, never here.
   contact: {
     h1: 'Jeden numer. Pokierujemy, gdzie trzeba.',
     lead: 'Dzwonisz albo piszesz raz — sprawę przekazujemy do linii, która się nią zajmuje.',

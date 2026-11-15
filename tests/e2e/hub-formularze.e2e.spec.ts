@@ -55,8 +55,19 @@ test.describe('pro-kom.eu — forms (spec §7)', () => {
     await expect(page.locator('#lista .pk-dsum__totals')).toContainText('0 szt.')
   })
 
-  test('the contact page picks the topic from the home page chip', async ({ page }) => {
+  test('the contact page picks the topic and sends it to the office', async ({ page, request }) => {
+    const marker = `E2E Kontakt hub ${Date.now()}`
+    await asNewVisitor(page)
     await page.goto(site(HUB, `/kontakt?temat=${encodeURIComponent('Instalacje')}#formularz`))
     await expect(page.getByRole('button', { name: 'Instalacje', pressed: true })).toBeVisible()
+    const form = page.locator('#formularz form')
+    await form.getByLabel(/^Imię/).fill(marker)
+    await form.getByLabel(/^Telefon/).fill('600 100 200')
+    await form.getByLabel(/^Wiadomość/).fill('Kamery na posesji.')
+    await form.getByLabel(/Wyrażam zgodę/).check()
+    await page.waitForTimeout(FORM_MIN_FILL_MS + 500)
+    await form.getByRole('button', { name: /Wyślij/ }).click()
+    await expect(page.locator('#formularz [role="status"]')).toContainText(/PK-\d{4}-\d+/)
+    expect(await officeMail(request, marker)).toContain('Instalacje')
   })
 })

@@ -23,7 +23,8 @@ export const PROKOM_LEGAL_VERSION = '15 listopada 2026 r.'
 // until a lawyer accepts it — TODO(krystian): akceptacja prawnika przed publikacją (spec §6.13).
 // Browser keys of the hub: `pk-theme` (lib/brand/theme.ts), `pk-hub-request-list`
 // (sites/prokom/dostawy/list.ts, session), `pk-recent-prokom` (lib/shared/recent.ts, only with
-// `CompanyData.recentlyViewed`), session `pk-rail-home` / `pk-rail-pulse` (SiteRail).
+// `CompanyData.recentlyViewed`), `pk-sz-closed` (seasonal bar, lib/site/promo.ts), session
+// `pk-rail-home` / `pk-rail-pulse` (SiteRail).
 const PRIVACY = [
   p(
     'Ta polityka opisuje, jak PRO-KOM Tadeusz Wójciak przetwarza dane osobowe osób, które korzystają ze strony pro-kom.eu i wysyłają zapytania przez formularze. Piszemy ją zgodnie z art. 13 RODO (rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679).',
@@ -114,6 +115,7 @@ const COOKIES = [
       { bold: 'pk-recent-prokom' },
       ' — do pięciu ostatnio oglądanych stron, pokazywanych w wyszukiwarce. Dziś ta funkcja jest wyłączona i klucz nie powstaje.',
     ],
+    [{ bold: 'pk-sz-closed' }, ' — informacja, że zamknąłeś pasek z akcją sezonową.'],
     [
       { bold: 'pk-rail-home, pk-rail-pulse' },
       ' — stan bocznego paska nawigacji w bieżącej karcie; znikają po jej zamknięciu.',

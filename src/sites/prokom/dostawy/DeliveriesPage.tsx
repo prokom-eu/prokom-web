@@ -319,7 +319,22 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
               <HubForm
                 shared={shared}
                 sendLabel={page.form.cta}
-                prefill={<DeliveriesFormPart label={page.form.eyebrow} data={data} />}
+                placeholder={data.segments[0]?.form.descPlaceholder}
+                prefill={
+                  <DeliveriesFormPart
+                    label={page.form.eyebrow}
+                    data={{
+                      segments: data.segments,
+                      listGroups: data.listGroups,
+                      services: data.services,
+                      labels: {
+                        pcs: page.list.pcs,
+                        yours: page.list.yours,
+                        segments: page.hero.segmentsLabel,
+                      },
+                    }}
+                  />
+                }
               />
               <p className="pk-plan__note">{page.form.note}</p>
             </div>
