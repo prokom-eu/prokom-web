@@ -5,10 +5,13 @@ import { ContactPage } from '@/components/shared/ContactPage'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { hubOgImage } from '@/lib/prokom/data'
+import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { hubPageMetadata, type HubDescribedPath } from '@/lib/prokom/seo'
 import { pageRobots } from '@/lib/seo/robots'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+
+import { SaturdayNote } from './SaturdayNote'
 
 /**
  * Hub pages whose address the line sites use as panel pages (`/kontakt`, `/o-firmie`): a static
@@ -62,6 +65,7 @@ export async function hubSlugPage(
         now={new Date().toISOString()}
         formToken={issueFormToken(env.PAYLOAD_SECRET)}
         hoursLayout="week"
+        slots={{ heroAside: <SaturdayNote lines={await getHubLineContacts(tenant.id)} /> }}
       />
     )
   }

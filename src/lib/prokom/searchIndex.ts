@@ -66,7 +66,7 @@ export const HUB_SEARCH_PAGES: readonly {
   },
   {
     title: 'Załatw online',
-    hint: 'Zgłoszenia, statusy, wyceny i konfiguratory.',
+    hint: 'Zgłoszenia, wyceny i konfiguratory.',
     href: '/zalatw-online',
     words: 'online narzedzia zgloszenie status wycena konfigurator formularz',
   },

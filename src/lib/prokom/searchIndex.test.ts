@@ -86,7 +86,7 @@ describe('hub search index (ADR-H002 §4)', () => {
     // Gaming is unpublished: its 8 services, 4 tools and 2 situations wait with it.
     expect(count('line')).toBe(4)
     expect(count('service')).toBe(41)
-    expect(count('tool')).toBe(16)
+    expect(count('tool')).toBe(15)
     expect(count('help')).toBe(24)
     expect(index.filter((e) => e.kind === 'page').map((e) => e.href)).toEqual([
       '/dla-firm',
@@ -123,7 +123,10 @@ describe('hub search index (ADR-H002 §4)', () => {
     expect(tools.find((e) => e.title === 'Zaplanuj instalację')?.href).toBe(
       'https://prokominstalacje.pl/zaplanuj',
     )
-    expect(tools.find((e) => e.title === 'Status naprawy')?.href).toMatch(/^\/kontakt\?fraza=/)
+    expect(tools.find((e) => e.title === 'Katalog z wyszukiwarką')?.href).toMatch(
+      /^\/kontakt\?fraza=/,
+    )
+    expect(tools.find((e) => e.title === 'Status naprawy')).toBeUndefined()
   })
 
   it('stays under 50 KB gzip (the window fetches it once)', () => {

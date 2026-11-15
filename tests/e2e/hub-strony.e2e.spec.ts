@@ -31,6 +31,11 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     }
   })
 
+  test('/kontakt says that only Tech works on Saturday (decision 15.11)', async ({ page }) => {
+    await page.goto(site(HUB, '/kontakt'))
+    await expect(page.getByText(/Czynny tylko .*Tech.*sob\. 9:00–14:00/)).toBeVisible()
+  })
+
   test('the line sites keep their own /kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page).toHaveTitle(/PRO-KOM Biznes/)

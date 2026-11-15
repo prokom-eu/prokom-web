@@ -95,7 +95,7 @@ export const FEATURED_TOOLS: Record<HubLine, readonly string[]> = {
   biznes: ['Plan Twojej firmy', 'Konfigurator'],
   instalacje: ['Zaplanuj instalację', 'Zgłoś awarię instalacji'],
   software: ['Policz swój projekt', 'Darmowy audyt strony'],
-  tech: ['Zgłoś naprawę', 'Status naprawy'],
+  tech: ['Zgłoś naprawę', 'Konto klienta'],
   gaming: ['Konfigurator', 'Dobór pod grę'],
 }
 
@@ -111,7 +111,7 @@ export const TOOL_LINKS: Record<string, string> = {
   'software-policz-swoj-projekt': 'https://prokomsoftware.pl/dobierz',
   'software-darmowy-audyt-strony': 'https://prokomsoftware.pl/audyt',
   'tech-zglos-naprawe': 'https://prokomserwis.pl/zgloszenie',
-  // TODO(krystian): Status naprawy — prokomserwis.pl ma tylko /client/login; do decyzji.
+  'tech-konto-klienta': 'https://prokomserwis.pl/client/login',
   'gaming-konfigurator': 'https://prokomgaming.pl/konfigurator',
   'gaming-dobor-pod-gre': 'https://prokomgaming.pl/dobor-pod-gre',
 }

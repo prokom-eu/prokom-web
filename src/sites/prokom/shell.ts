@@ -53,7 +53,7 @@ const START: readonly (HubLink & { sub: string; icon: IconName })[] = [
   {
     label: 'Załatw online',
     href: '/zalatw-online',
-    sub: 'Zgłoszenia, wyceny, status naprawy',
+    sub: 'Zgłoszenia, wyceny, konfiguratory',
     icon: 'bolt',
   },
 ]

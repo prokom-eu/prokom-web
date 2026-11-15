@@ -178,7 +178,7 @@ a{color:inherit;text-decoration:none}a:hover{color:inherit}
 <nav aria-label="Okruszki" style="display: flex; gap: 8px; font-size: 13.5px; color: var(--k-ink3)"><a href="Main.dc.html"><span class="nb">PRO-KOM</span></a><span>/</span><span style="color: var(--k-ink); font-weight: 700">Załatw online</span></nav>
 <span class="eb" style="color: var(--k-gt)">Załatw online · {{total}} narzędzi na pięciu stronach</span>
 <h1 class="d" style="font-size: clamp(36px, 4.4vw, 68px); line-height: .96">Załatw to od razu.<br>Bez dzwonienia.</h1>
-<p style="font-size: 18px; line-height: 1.55; color: var(--k-ink2); max-width: 620px">Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii <span class="nb">PRO-KOM</span> w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.</p>
+<p style="font-size: 18px; line-height: 1.55; color: var(--k-ink2); max-width: 620px">Zgłoszenia, wyceny, plany i konfiguratory ze wszystkich linii <span class="nb">PRO-KOM</span> w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.</p>
 
 <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px">
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px">
@@ -473,8 +473,7 @@ class Component extends DCLogic {
       ['software', 'zapytaj', 'Twój projekt', 'Dodajesz rozwiązania do listy i wysyłasz całość do wyceny.', ['Wybrane pozycje', 'Na kiedy potrzebujesz'], 'Odpowiedź w 1 dzień roboczy.', 'Zbuduj listę', rows([['Strona firmowa', 'dodano'], ['Panel zleceń', 'dodano'], ['Opieka', 'dodano']]), ''],
       ['software', 'sprawdz', 'Podglądy na żywo', 'Oglądasz, jak może wyglądać Twoja strona albo system, zanim cokolwiek zamówisz.', ['Nic — wystarczy wejść'], 'Podgląd na komputerze i na telefonie.', 'Zobacz podglądy', win('twojafirma.pl'), ''],
       ['tech', 'zglos', 'Zgłoś naprawę', 'Wybierasz urządzenie, opisujesz usterkę, przynosisz sprzęt albo wysyłasz kurierem.', ['Model urządzenia', 'Opis usterki'], 'Bezpłatną diagnozę i wycenę.', 'Zgłoś naprawę', form(['Urządzenie', 'Model', 'Opis usterki']), ''],
-      ['tech', 'sprawdz', 'Status naprawy', 'Sprawdzasz, na jakim etapie jest Twoja naprawa.', ['Numer zlecenia albo konto klienta'], 'Aktualny etap: przyjęte, diagnoza, naprawa, do odbioru.', 'Sprawdź status', steps(['Przyjęte', 'Diagnoza', 'Naprawa', 'Do odbioru'], 3), ''],
-      ['tech', 'sprawdz', 'Konto klienta', 'Wszystkie Twoje naprawy w jednym miejscu.', ['E-mail i hasło'], 'Historię napraw i ich statusy.', 'Zaloguj się', rows([['Telefon', 'wydany'], ['Laptop', 'w naprawie'], ['Konsola', 'do odbioru']]), ''],
+      ['tech', 'sprawdz', 'Konto klienta', 'Wszystkie Twoje naprawy w jednym miejscu.', ['E-mail i hasło'], 'Historię swoich napraw.', 'Zaloguj się', rows([['Telefon', 'wydany'], ['Laptop', 'w naprawie'], ['Konsola', 'do odbioru']]), ''],
       ['gaming', 'policz', 'Konfigurator', 'Składasz komputer krok po kroku: obudowa, moc, pamięć, dysk.', ['Budżet albo gra, w którą grasz'], 'Cenę od razu, potem ofertę z listą części.', 'Otwórz konfigurator', grid(['Obudowa', 'Moc', 'Pamięć', 'Dysk']), ''],
       ['gaming', 'policz', 'Dobór pod grę', 'Wybierasz grę z 33 tytułów i monitor, widzisz pasujące zestawy.', ['Gra', 'Rozdzielczość monitora'], 'Zestawy z wynikiem klatek i źródłem pomiaru.', 'W co grasz?', rows([['FullHD', 'zestawy'], ['2K', 'zestawy'], ['4K', 'zestawy']]), '33 gry'],
       ['gaming', 'sprawdz', 'Porównaj zestawy', 'Zestawiasz do trzech komputerów obok siebie.', ['2–3 zestawy do porównania'], 'Różnice w częściach, cenie i klatkach.', 'Porównaj', grid(['Zestaw 1', 'Zestaw 2', 'Zestaw 3', '+ dodaj']), 'Do 3 naraz'],

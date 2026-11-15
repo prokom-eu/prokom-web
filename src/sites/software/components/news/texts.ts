@@ -41,6 +41,14 @@ export const SOFTWARE_NEWS_TEXTS = {
     link: { label: 'Dobierz w 60 sekund →', href: '/dobierz' },
     audit: { label: 'Darmowy audyt strony', href: '/audyt' },
   },
+  /** „Z poradnika” on /o-firmie and /kontakt (request of Krystian 15.11). */
+  fromGuide: {
+    eyebrow: 'Z poradnika',
+    title: 'Piszemy o tym,',
+    em: 'o co pytają klienci.',
+    lead: 'Ceny, umowy, bezpieczeństwo i systemy dla małych firm — krótko i bez żargonu.',
+    all: 'Wszystkie aktualności →',
+  },
   empty: 'Pierwsze wpisy są w drodze. Zajrzyj wkrótce albo zapytaj nas od razu.',
   minutes: 'min czytania',
   updated: 'aktualizacja:',

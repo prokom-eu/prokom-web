@@ -500,7 +500,7 @@ a{color:inherit;text-decoration:none}a:hover{color:inherit}
 </div>
 </div>
 <form class="crd" style="flex: 1.1 1 480px; min-width: 0; padding: clamp(22px, 2.6vw, 36px); display: flex; flex-direction: column; gap: 16px">
-<div style="display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: var(--k-gt)">Zapytanie ofertowe</span><h2 class="d" style="font-size: clamp(26px, 2.8vw, 38px)">{{seg.formH}}</h2><p style="font-size: 14.5px; color: var(--k-ink3)">Trafia do: {{seg.lines}}. Odpowiadamy w 24 godziny w dni robocze.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span class="eb" style="color: var(--k-gt)">Zapytanie ofertowe</span><h2 class="d" style="font-size: clamp(26px, 2.8vw, 38px)">{{seg.formH}}</h2><p style="font-size: 14.5px; color: var(--k-ink3)">Trafia do: {{seg.lines}}. Oddzwaniamy w 60 minut w godzinach pracy.</p></div>
 <div style="display: flex; flex-wrap: wrap; gap: 6px" role="group" aria-label="Dla kogo">
 <sc-for list="{{segs}}" as="r" hint-placeholder-count="6">
 <button type="button" aria-pressed="{{r.sel}}" onClick="{{r.pick}}" class="pill" style="border-color: {{r.bd}}; background: {{r.bg}}">{{r.name}}</button>
@@ -629,7 +629,7 @@ class Component extends DCLogic {
       ['Czy montujecie RTV i AGD?', 'Nie. RTV i AGD dostarczamy pod wskazany adres. Konfigurację i montaż ustalamy tylko dla sprzętu IT i instalacji — jeśli ich potrzebujesz.'],
       ['Czy RTV i AGD sprzedajecie osobom prywatnym?', 'Ta oferta jest dla firm, instytucji, inwestorów i deweloperów. Klientów prywatnych zapraszamy do salonu i serwisu.'],
       ['Czy odpowiadacie na przetargi i zapytania ofertowe?', 'Tak. Wyślij link do ogłoszenia albo SWZ — przygotujemy ofertę według wymagań zamawiającego.'],
-      ['Ile trwa przygotowanie oferty?', 'Odpowiadamy w 24 godziny w dni robocze. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej odpowiedzi.'],
+      ['Ile trwa przygotowanie oferty?', 'Oddzwaniamy w 60 minut w godzinach pracy. Termin pełnej oferty zależy od zakresu — podajemy go w pierwszej rozmowie.'],
       ['Gdzie dostarczacie?', 'Działamy głównie na Podhalu i w całej Małopolsce. Dostawę w inne miejsce ustalamy przy zapytaniu.'],
       ['Dlaczego nie ma cen na stronie?', 'Ceny zależą od ilości, parametrów i terminu. Każde zapytanie wyceniamy na piśmie.']
     ];
@@ -648,7 +648,7 @@ class Component extends DCLogic {
       ],
       after: [
         { t: 'Serwis w Rabce-Zdroju', d: 'Bezpłatna diagnoza i wycena naprawy. Naprawy także kurierem.', line: 'PRO-KOM Tech', c: 'var(--k-t)', ct: 'var(--k-tt)', ic: 'M14 6l4 4-9 9H5v-4zM13 7l4 4' },
-        { t: 'Opieka IT', d: 'Monitoring sprzętu, pomoc zdalna i bezpłatny przegląd IT na start.', line: 'PRO-KOM Biznes', c: 'var(--k-b)', ct: 'var(--k-bt)', ic: 'M4 5h16v11H4zM2 20h20M9 10l2 2 4-4' },
+        { t: 'Opieka IT', d: 'Monitoring sprzętu, pomoc zdalna i kopie zapasowe.', line: 'PRO-KOM Biznes', c: 'var(--k-b)', ct: 'var(--k-bt)', ic: 'M4 5h16v11H4zM2 20h20M9 10l2 2 4-4' },
         { t: 'Serwis kas', d: 'Autoryzowany serwis Posnet i Elzab. Oddzwaniamy w 60 minut w godzinach pracy.', line: 'PRO-KOM Biznes', c: 'var(--k-b)', ct: 'var(--k-bt)', ic: 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6' },
         { t: 'Serwis instalacji', d: 'Na wykonany przez nas montaż 24 miesiące gwarancji. Serwis u tej samej ekipy.', line: 'PRO-KOM Instalacje', c: 'var(--k-i)', ct: 'var(--k-it)', ic: 'M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z' }
       ],

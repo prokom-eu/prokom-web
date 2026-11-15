@@ -14,6 +14,7 @@ import type { ProjectSolution } from '@/lib/software/projectSummary'
 import type { SwSharedPageBlock as SwSharedPageBlockData } from '@/payload-types'
 
 import { CompareSection } from '../../components/home/HomeSections'
+import { FromGuide } from '../../components/news/FromGuide'
 import { ProjectPrefill } from '../../components/ProjectPrefill'
 import { TechBlockSection } from '../../components/v24home/HomeV24Blocks'
 
@@ -23,7 +24,8 @@ type Props = { block: SwSharedPageBlockData; tenantId: number }
  * `/kontakt` and `/o-firmie` of Software (SWA5b = L2-S) on the shared templates (spec §6.1–6.2):
  * texts from the line's `shared.contact` / `shared.about`. Own sections in the slots — Kontakt:
  * „Twój projekt” above the form (`formPrefill`, sent as the inquiry's list); O firmie: „Freelancer,
- * agencja czy PRO-KOM?” and the technical section of the start page after the rules.
+ * agencja czy PRO-KOM?” and the technical section of the start page after the rules. Both:
+ * „Z poradnika” (`FromGuide`, the newest posts) — Kontakt before the FAQ, O firmie before the visit.
  */
 export async function SwSharedPageBlock({ block, tenantId }: Props) {
   if (block.template === 'contact') return <SoftwareContact tenantId={tenantId} />
@@ -67,6 +69,8 @@ async function SoftwareContact({ tenantId }: { tenantId: number }) {
             <ProjectPrefill solutions={solutions} />
           </Suspense>
         ),
+        // The newest posts before the FAQ (request 15.11); nothing without a public post.
+        beforeFaq: <FromGuide tenantId={tenantId} id="z-poradnika" />,
       }}
     />
   )
@@ -100,6 +104,7 @@ async function SoftwareAbout({ tenantId }: { tenantId: number }) {
             <TechBlockSection tenantId={tenantId} />
           </>
         ),
+        beforeVisit: <FromGuide tenantId={tenantId} id="z-poradnika" />,
       }}
     />
   )

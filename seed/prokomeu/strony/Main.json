@@ -766,7 +766,7 @@
     "dark": "var(--k-td)",
     "ink": "var(--k-ti)",
     "short": "Naprawy telefonów i komputerów",
-    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
     "items": [
      "Telefony",
      "Laptopy",
@@ -1214,7 +1214,7 @@
     "dark": "var(--k-td)",
     "ink": "var(--k-ti)",
     "short": "Naprawy telefonów i komputerów",
-    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
     "items": [
      {
       "t": "Telefony i tablety",
@@ -1752,7 +1752,7 @@
     "dark": "var(--k-td)",
     "ink": "var(--k-ti)",
     "short": "Naprawy telefonów i komputerów",
-    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
     "items": [
      "Telefony",
      "Laptopy",
@@ -1952,7 +1952,7 @@
     "dark": "var(--k-td)",
     "ink": "var(--k-ti)",
     "short": "Naprawy telefonów i komputerów",
-    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
     "items": [
      "Telefony",
      "Laptopy",
@@ -2513,7 +2513,7 @@
     "dark": "var(--k-td)",
     "ink": "var(--k-ti)",
     "short": "Naprawy telefonów i komputerów",
-    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+    "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
     "items": [
      "Telefony",
      "Laptopy",
@@ -2579,7 +2579,7 @@
       "tab": "-1"
      },
      {
-      "t": "Status naprawy online",
+      "t": "Bezpłatna diagnoza",
       "d": "",
       "o": 0,
       "tf": "translateX(-36px)",
@@ -2600,7 +2600,7 @@
       "dur": "0s"
      },
      {
-      "label": "Slajd 3: Status naprawy online",
+      "label": "Slajd 3: Bezpłatna diagnoza",
       "w": "0%",
       "dur": "0s"
      }
@@ -3175,8 +3175,8 @@
    {
     "n": "06",
     "open": false,
-    "q": "Gdzie sprawdzę status naprawy?",
-    "a": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+    "q": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+    "a": "Tak. Naprawę zgłosisz na prokomserwis.pl, a sprzęt przyniesiesz do salonu w Rabce-Zdroju albo wyślesz kurierem."
    }
   ]
  },
@@ -3305,7 +3305,7 @@
    "dark": "var(--k-td)",
    "ink": "var(--k-ti)",
    "short": "Naprawy telefonów i komputerów",
-   "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+   "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
    "items": [
     "Telefony",
     "Laptopy",
@@ -3786,7 +3786,7 @@
     ""
    ],
    [
-    "Status naprawy online",
+    "Bezpłatna diagnoza",
     ""
    ]
   ],
@@ -4273,7 +4273,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -4339,7 +4339,7 @@
         "tab": "0"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(36px)",
@@ -4360,7 +4360,7 @@
         "dur": "4.2s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -4981,7 +4981,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -5047,7 +5047,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 1,
         "tf": "none",
@@ -5068,7 +5068,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "100%",
         "dur": "4.2s"
        }
@@ -5684,7 +5684,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -5750,7 +5750,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(-36px)",
@@ -5771,7 +5771,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -5896,7 +5896,7 @@
      "dark": "var(--k-td)",
      "ink": "var(--k-ti)",
      "short": "Naprawy telefonów i komputerów",
-     "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+     "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
      "items": [
       "Telefony",
       "Laptopy",
@@ -6390,7 +6390,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -6456,7 +6456,7 @@
         "tab": "0"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(36px)",
@@ -6477,7 +6477,7 @@
         "dur": "4.2s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -7091,7 +7091,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -7157,7 +7157,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 1,
         "tf": "none",
@@ -7178,7 +7178,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "100%",
         "dur": "4.2s"
        }
@@ -7752,7 +7752,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -7818,7 +7818,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(-36px)",
@@ -7839,7 +7839,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -8460,7 +8460,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -8526,7 +8526,7 @@
         "tab": "0"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(36px)",
@@ -8547,7 +8547,7 @@
         "dur": "4.2s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -9163,7 +9163,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -9229,7 +9229,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 1,
         "tf": "none",
@@ -9250,7 +9250,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "100%",
         "dur": "4.2s"
        }
@@ -9375,7 +9375,7 @@
      "dark": "var(--k-td)",
      "ink": "var(--k-ti)",
      "short": "Naprawy telefonów i komputerów",
-     "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+     "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
      "items": [
       "Telefony",
       "Laptopy",
@@ -9869,7 +9869,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -9935,7 +9935,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(-36px)",
@@ -9956,7 +9956,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -10570,7 +10570,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -10636,7 +10636,7 @@
         "tab": "0"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 0,
         "tf": "translateX(36px)",
@@ -10657,7 +10657,7 @@
         "dur": "4.2s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "0%",
         "dur": "0s"
        }
@@ -11231,7 +11231,7 @@
       "dark": "var(--k-td)",
       "ink": "var(--k-ti)",
       "short": "Naprawy telefonów i komputerów",
-      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+      "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
       "items": [
        "Telefony",
        "Laptopy",
@@ -11297,7 +11297,7 @@
         "tab": "-1"
        },
        {
-        "t": "Status naprawy online",
+        "t": "Bezpłatna diagnoza",
         "d": "",
         "o": 1,
         "tf": "none",
@@ -11318,7 +11318,7 @@
         "dur": "0s"
        },
        {
-        "label": "Slajd 3: Status naprawy online",
+        "label": "Slajd 3: Bezpłatna diagnoza",
         "w": "100%",
         "dur": "4.2s"
        }

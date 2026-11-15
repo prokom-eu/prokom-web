@@ -55,6 +55,11 @@ describe('publishedAtIso', () => {
     // November: CET (UTC+1); July: CEST (UTC+2).
     expect(publishedAtIso('2026-11-15 12:40')).toBe('2026-11-15T11:40:00.000Z')
     expect(publishedAtIso('2026-07-01 00:10')).toBe('2026-06-30T22:10:00.000Z')
+    // Days of the clock change: the offset of the moment itself.
+    expect(publishedAtIso('2026-03-29 01:30')).toBe('2026-03-29T00:30:00.000Z')
+    expect(publishedAtIso('2026-03-29 03:30')).toBe('2026-03-29T01:30:00.000Z')
+    expect(publishedAtIso('2026-10-25 01:30')).toBe('2026-10-24T23:30:00.000Z')
+    expect(publishedAtIso('2026-10-25 04:00')).toBe('2026-10-25T03:00:00.000Z')
   })
 
   it('refuses anything else', () => {

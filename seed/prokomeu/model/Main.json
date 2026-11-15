@@ -323,7 +323,7 @@
             "text": null
           },
           {
-            "title": "Status naprawy online",
+            "title": "Bezpłatna diagnoza",
             "text": null
           }
         ],
@@ -619,7 +619,7 @@
         ]
       },
       "tech": {
-        "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, status naprawy online.",
+        "lead": "Naprawy telefonów, laptopów, komputerów i konsol. Bezpłatna diagnoza i wycena, naprawy też kurierem.",
         "heading": "Naprawy telefonów, laptopów i konsol.",
         "who": "klienci indywidualni i firmy — w salonie w Rabce-Zdroju albo kurierem z całej Polski",
         "cta": "Zgłoś naprawę",
@@ -655,7 +655,7 @@
             "facts": []
           },
           {
-            "text": "Status naprawy online, bez dzwonienia",
+            "text": "Serwis telefonów i laptopów, naprawy też kurierem",
             "facts": []
           },
           {
@@ -935,7 +935,7 @@
     "all": {
       "eyebrow": "Załatw online · pięć linii",
       "title": "spraw załatwisz bez dzwonienia.",
-      "text": "Zgłoszenia, statusy, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.",
+      "text": "Zgłoszenia, wyceny, plany i konfiguratory ze wszystkich linii w jednym miejscu. Wybierasz sprawę, widzisz, co przygotować i co dostaniesz.",
       "cta": "Zobacz wszystkie narzędzia"
     },
     "own": {
@@ -1065,8 +1065,8 @@
         "answer": "Tak. Do firm i na montaże dojeżdżamy w całej Małopolsce. Strony i systemy robimy zdalnie, a komputery do gier wysyłamy do całej Polski."
       },
       {
-        "question": "Gdzie sprawdzę status naprawy?",
-        "answer": "Na stronie linii Tech, prokomserwis.pl — po numerze zlecenia albo po zalogowaniu na konto klienta."
+        "question": "Czy mogę wysłać sprzęt do naprawy kurierem?",
+        "answer": "Tak. Naprawę zgłosisz na prokomserwis.pl, a sprzęt przyniesiesz do salonu w Rabce-Zdroju albo wyślesz kurierem."
       }
     ]
   },
