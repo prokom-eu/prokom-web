@@ -120,6 +120,7 @@ import * as migration_20261115_015856_wsp_weryfikacja_linki from './20261115_015
 import * as migration_20261115_022657_biznes_kolo_zdjecie from './20261115_022657_biznes_kolo_zdjecie'
 import * as migration_20261115_031449_biznes_systemy from './20261115_031449_biznes_systemy'
 import * as migration_20261115_035438_biznes_linie from './20261115_035438_biznes_linie'
+import * as migration_20261115_121803_biznes_kategoria_it from './20261115_121803_biznes_kategoria_it'
 
 export const migrations = [
   {
@@ -731,5 +732,10 @@ export const migrations = [
     up: migration_20261115_035438_biznes_linie.up,
     down: migration_20261115_035438_biznes_linie.down,
     name: '20261115_035438_biznes_linie',
+  },
+  {
+    up: migration_20261115_121803_biznes_kategoria_it.up,
+    down: migration_20261115_121803_biznes_kategoria_it.down,
+    name: '20261115_121803_biznes_kategoria_it',
   },
 ]
