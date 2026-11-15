@@ -126,7 +126,7 @@ export function plural(count: number, [one, few, many]: readonly [string, string
 export const linesCount = (count: number) => plural(count, ['linia', 'linie', 'linii'])
 
 /** What a card of a plan links to: the line's own site (from its panel). */
-type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url' | 'promise'> & {
+type LineLink = Pick<HomeLine, 'key' | 'label' | 'domain' | 'url'> & {
   scene?: Pick<HomeScene, 'steps'>
 }
 
