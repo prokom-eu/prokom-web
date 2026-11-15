@@ -5,7 +5,7 @@ category: Poradnik
 publishedAt: 2026-11-23
 seoTitle: Umowa na stronę internetową: co sprawdzić
 seoDescription: Dziesięć punktów, które powinny być w umowie na wykonanie strony: zakres, termin, płatności, własność kodu i domeny, poprawki, opieka i wypowiedzenie.
-lead: Większość problemów ze stronami zaczyna się nie w kodzie, tylko w umowie, której nikt nie przeczytał. Przygotowaliśmy listę punktów, które warto sprawdzić, zanim złożysz podpis.
+lead: Wiele problemów ze stronami zaczyna się nie w kodzie, tylko w umowie, której nikt nie przeczytał. Przygotowaliśmy listę punktów, które warto sprawdzić, zanim złożysz podpis.
 summary: W umowie na stronę muszą być zapisane: zakres prac, termin, harmonogram płatności, liczba poprawek, własność domeny, kodu i treści, przekazanie dostępów, warunki opieki oraz zasady zakończenia współpracy. Jeśli czegoś nie ma na piśmie, przyjmij, że tego nie dostaniesz.
 relatedSolutions: przebudowa-starej-strony, opieka-nad-strona-i-systemem, przejecie-po-innym-wykonawcy
 cta: Zakres na piśmie | Chcesz konkretną wycenę? | Opisz, czego potrzebujesz. Zakres, cenę i termin dostaniesz na piśmie, zanim cokolwiek zapłacisz. | Opisz projekt | /kontakt

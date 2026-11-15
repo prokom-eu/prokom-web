@@ -17,7 +17,7 @@ cta: Cena od razu | Sprawdź, ile kosztuje Twoja strona | Cztery krótkie pytani
 
 Każda strona firmowa to kilka warstw pracy. Część z nich widać od razu, część wychodzi dopiero po starcie.
 
-- **Projekt i wygląd.** Układ, kolory, typografia i to, jak strona zachowuje się na telefonie. Większość klientów lokalnej firmy ogląda ją właśnie na telefonie, więc wersja mobilna nie jest dodatkiem.
+- **Projekt i wygląd.** Układ, kolory, typografia i to, jak strona zachowuje się na telefonie. Klienci lokalnych firm coraz częściej oglądają ją właśnie na telefonie, więc wersja mobilna nie jest dodatkiem.
 - **Liczba podstron.** Oferta, realizacje, opinie, kontakt, cennik. Każda podstrona to osobny układ i osobna treść.
 - **Panel do zmian.** Jeśli chcesz sam podmieniać zdjęcia, godziny otwarcia czy ceny, potrzebujesz panelu. Bez niego każdą zmianę zlecasz wykonawcy.
 - **Funkcje.** Formularz, mapa, rezerwacje, sklep, strefa klienta, kilka języków. To one najmocniej różnicują ceny.

@@ -79,10 +79,10 @@ Jeśli zdecydujesz się na sklep, sprawdź, czy będzie obsługiwał:
 - płatności online, w tym szybkie przelewy i płatności z telefonu,
 - dostawę i odbiór osobisty,
 - panel z zamówieniami widocznymi od razu po złożeniu,
-- wygodny zakup na telefonie – większość klientów kupuje właśnie z niego,
+- wygodny zakup na telefonie – coraz więcej klientów kupuje właśnie z niego,
 - powiadomienia mailowe dla klienta i dla Ciebie.
 
-Nasz [sklep internetowy](/rozwiazania/sklep-internetowy) zawiera te elementy w cenie, która zaczyna się od {cena:sklep-internetowy} netto, a realizacja trwa {termin:sklep-internetowy}. Jeśli wystarczy katalog z formularzem, zwykle zbudujemy go w ramach [strony firmowej z panelem](/rozwiazania/strona-firmowa-z-panelem). A gdy problemem nie jest sprzedaż, tylko pilnowanie stanów i zamówień w hurtowniach, lepiej sprawdzi się system [magazyn i zamówienia](/rozwiazania/magazyn-i-zamowienia).
+Nasz [sklep internetowy](/rozwiazania/sklep-internetowy) ma w cenie płatności online z BLIK, dostawę i odbiór osobisty oraz panel, w którym zamówienia widzisz od razu. Cena zaczyna się od {cena:sklep-internetowy} netto, a realizacja trwa {termin:sklep-internetowy}. Jeśli wystarczy katalog z formularzem, zwykle zbudujemy go w ramach [strony firmowej z panelem](/rozwiazania/strona-firmowa-z-panelem). A gdy problemem nie jest sprzedaż, tylko pilnowanie stanów i zamówień w hurtowniach, lepiej sprawdzi się system [magazyn i zamówienia](/rozwiazania/magazyn-i-zamowienia).
 
 ## Najczęstsze pytania
 

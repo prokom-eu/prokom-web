@@ -48,7 +48,7 @@ Obszar, który pojawia się w odpowiedziach najczęściej, to dobry kandydat. Po
 
 ## Płatności powiązane z etapami
 
-Budowa etapami to także bezpieczniejszy sposób płacenia. Zamiast dużej kwoty z góry płacisz za kolejne gotowe części. U nas zasada jest prosta: [ZASADY PŁATNOŚCI] Jeśli po pierwszym etapie uznasz, że nie chcesz iść dalej, masz działający moduł, a nie niedokończony projekt.
+Budowa etapami to także bezpieczniejszy sposób płacenia. Zamiast dużej kwoty z góry płacisz za kolejne gotowe części. U nas zasada jest prosta: [ZASADY PŁATNOŚCI] Każdy etap kończy się działającą częścią systemu, a o kolejnym decydujesz po odbiorze poprzedniego.
 
 ## Czego nie odkładać na później
 

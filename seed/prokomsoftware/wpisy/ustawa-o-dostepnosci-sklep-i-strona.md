@@ -6,7 +6,7 @@ publishedAt: 2027-01-11
 seoTitle: Ustawa o dostępności a sklep internetowy
 seoDescription: Od 28.06.2025 obowiązuje ustawa o dostępności produktów i usług. Sprawdź, czy dotyczy Twojego sklepu internetowego i od czego zacząć dostosowanie.
 lead: Od 28 czerwca 2025 roku w Polsce obowiązuje ustawa o zapewnianiu dostępności niektórych produktów i usług. Dotyczy między innymi sklepów internetowych. Wyjaśniamy po ludzku, o co w niej chodzi i od czego zacząć.
-summary: Ustawa z 26 kwietnia 2024 roku wdraża europejski akt o dostępności i obowiązuje od 28 czerwca 2025 roku. Obejmuje wybrane produkty i usługi, w tym usługi handlu elektronicznego, czyli sprzedaż przez internet. Najmniejsze firmy świadczące usługi są z części obowiązków zwolnione. Dostępna strona to jednak także lepsza strona dla wszystkich klientów.
+summary: Ustawa z 26 kwietnia 2024 roku wdraża europejski akt o dostępności i obowiązuje od 28 czerwca 2025 roku. Obejmuje wybrane produkty i usługi, w tym usługi handlu elektronicznego, czyli sprzedaż przez internet. Mikroprzedsiębiorcy świadczący usługi są z tych wymagań zwolnieni. Dostępna strona to jednak także lepsza strona dla wszystkich klientów.
 relatedSolutions: sklep-internetowy, audyt-strony-lub-programu
 cta: Audyt dostępności | Sprawdzimy dostępność Twojego sklepu | Audyt dostępności pokaże, co poprawić w sklepie lub na stronie, z planem naprawy i wyceną. | Zobacz audyt | /audyt
 source: Ustawa z dnia 26 kwietnia 2024 r. o zapewnianiu spełniania wymagań dostępności niektórych produktów i usług przez podmioty gospodarcze (Dz.U. 2024 poz. 731) | https://eli.gov.pl/eli/DU/2024/731/ogl | 2026-11-15
@@ -25,7 +25,7 @@ Ustawa nie dotyczy wszystkich stron internetowych. Obejmuje wybrane produkty i u
 Najważniejsze pytania, które warto sobie zadać:
 
 - **Czy sprzedajesz konsumentom przez internet?** Sklep internetowy, zamawianie usług online z płatnością, rezerwacje z zawarciem umowy na stronie – to typowe przykłady usług handlu elektronicznego.
-- **Jak duża jest Twoja firma?** Ustawa przewiduje zwolnienie dla mikroprzedsiębiorców świadczących usługi. Mikroprzedsiębiorca to w uproszczeniu firma zatrudniająca mniej niż 10 osób, z rocznym obrotem lub sumą bilansową nieprzekraczającą 2 milionów euro.
+- **Jak duża jest Twoja firma?** Mikroprzedsiębiorcy świadczący usługi są zwolnieni z wymagań dostępności dla tych usług. Mikroprzedsiębiorca to w uproszczeniu firma zatrudniająca mniej niż 10 osób, z rocznym obrotem lub sumą bilansową nieprzekraczającą 2 milionów euro.
 - **Czy strona tylko informuje, czy sprzedaje?** Zwykła strona-wizytówka z ofertą i formularzem kontaktowym to co innego niż sklep, w którym klient kupuje i płaci.
 
 Zwolnienie z obowiązku nie oznacza, że temat Cię nie dotyczy. Duzi kontrahenci, przetargi i sami klienci coraz częściej oczekują dostępnych stron.
@@ -75,7 +75,7 @@ Co do zasady obejmuje wybrane usługi, w tym handel elektroniczny, a nie każdą
 
 ### Czy mała firma musi dostosować sklep?
 
-Mikroprzedsiębiorcy świadczący usługi są zwolnieni z części obowiązków. Warto jednak potwierdzić swoją sytuację w treści ustawy albo u prawnika, bo liczą się zarówno zatrudnienie, jak i obrót lub suma bilansowa.
+Mikroprzedsiębiorcy świadczący usługi są zwolnieni z wymagań dostępności dla tych usług. Warto jednak potwierdzić swoją sytuację w treści ustawy albo u prawnika, bo liczą się zarówno zatrudnienie, jak i obrót lub suma bilansowa.
 
 ### Ile trwa audyt dostępności?
 

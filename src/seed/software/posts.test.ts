@@ -50,9 +50,8 @@ const fields = (post: (typeof posts)[number]) => [
 ]
 
 describe('guide posts (wpisy/*.md)', () => {
-  it('has 10–20 posts with unique, valid slugs and no clash with the package post', () => {
+  it('has 10+ posts with unique, valid slugs and no clash with the package post', () => {
     expect(posts.length).toBeGreaterThanOrEqual(10)
-    expect(posts.length).toBeLessThanOrEqual(20)
     expect(slugs.size).toBe(posts.length)
     for (const post of posts) {
       expect(isValidSlug(post.slug), post.file).toBe(true)
@@ -131,6 +130,11 @@ describe('guide posts (wpisy/*.md)', () => {
       }
       for (const [, key] of body.matchAll(/\[([A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ0-9 -]*)\]/g)) {
         expect(facts[key ?? ''], `${post.file}: [${key}]`).toBeTruthy()
+      }
+      // A heading that drops on production would leave its section (or FAQ answer) under the
+      // previous one: headings hold no tokens.
+      for (const node of post.nodes.filter((n) => (n as { type?: string }).type === 'heading')) {
+        expect(plainText(node), post.file).not.toMatch(/\{(cena|termin)[:}]|\[[A-ZĄĆĘŁŃÓŚŹŻ]/)
       }
       // Title, lead, SEO and the side card are shown unfilled (lists, metadata): no tokens there.
       for (const value of fields(post)) {

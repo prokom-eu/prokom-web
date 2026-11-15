@@ -78,7 +78,7 @@ Wpisy poradnika Software są w repo jako Markdown (`seed/prokomsoftware/wpisy/*.
 1. Kopia `predeploy` (produkcja). `INST_TEXTS_EMAIL` / `INST_TEXTS_PASSWORD` (admin panelu, ta sama para co `inst:texts`) tylko na czas uruchomienia, na stagingu także `INST_TEXTS_BASIC`.
 2. Podgląd: `pnpm software:posts https://<panel> --out=docs/tresci/software-posts-<data>.md` — tabela „utworzyć / bez zmian / różni się / szkic”.
 3. Zapis: `pnpm software:posts https://<panel> --write --yes`. Przebieg jest powtarzalny: drugi niczego nie dubluje.
-4. Poprawka tekstu po publikacji: w pliku `.md` i `--write --update --yes`, albo w panelu (wtedy plik w repo trzeba poprawić tak samo, inaczej następne `--update` cofnie zmianę).
+4. Poprawka tekstu po publikacji: w pliku `.md` i `--write --update --only=<slug> --yes` (`--only` ogranicza przebieg do tych wpisów, więc nie cofa edycji innych wpisów z panelu), albo w panelu (wtedy plik w repo trzeba poprawić tak samo, inaczej następne `--update` cofnie zmianę).
 
 ## Realizacje Instalacji w panelu
 Realizacje ze zdjęciami tworzy lokalnie tylko seed, więc na produkcji `/realizacje` i pas „Realizacje” na głównej były puste (12.11). Przenosi je `pnpm inst:realizacje` (`src/seed/instalacje/inst-realizacje.ts`, REST panelu): tworzy brakujące realizacje (opublikowane, ze zgodą klientów, decyzja szefa 01.11) i wgrywa ich zdjęcia z repo. Realizacji z panelu nie nadpisuje, zdjęcia dodaje tylko tym bez zdjęć, a szkice pomija.

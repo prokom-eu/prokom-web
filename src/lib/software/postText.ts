@@ -4,7 +4,7 @@ import { fillText, type TextContext } from './facts'
 type Node = { type?: string; text?: unknown; children?: unknown }
 
 /** Blocks dropped whole when one of their values is missing on production. */
-const BLOCKS = new Set(['paragraph', 'heading', 'listitem', 'quote'])
+const BLOCKS = new Set(['paragraph', 'heading', 'listitem', 'quote', 'list'])
 
 /**
  * A post's text with `{cena:<slug>}`, `{termin:<slug>}` and `[FAKT]` filled from the solutions
@@ -37,5 +37,7 @@ function fillNode(node: unknown, context: TextContext): unknown {
     // A text or inline node lost its value: the whole block goes, not half a sentence.
     if (!BLOCKS.has((child as Node | null)?.type ?? '')) return null
   }
+  // A list whose every item went would render as an empty `<ul>`: it goes too.
+  if (source.type === 'list' && children.length === 0) return null
   return { ...source, children }
 }

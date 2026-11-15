@@ -15,7 +15,7 @@ Strona zrobiona kilka lat temu mogła być wtedy bardzo dobra. Problem w tym, ż
 
 ## 1. Na telefonie trzeba powiększać tekst palcami
 
-Jeśli na telefonie widać pomniejszoną wersję komputerową, a przyciski są za małe, żeby w nie trafić – klienci szybko wychodzą. Większość osób szukających lokalnych usług robi to z telefonu, często w drodze albo wieczorem na kanapie.
+Jeśli na telefonie widać pomniejszoną wersję komputerową, a przyciski są za małe, żeby w nie trafić – klienci szybko wychodzą. Wiele osób szuka lokalnych usług z telefonu, często w drodze albo wieczorem na kanapie.
 
 ## 2. Strona ładuje się dłużej niż kilka sekund
 

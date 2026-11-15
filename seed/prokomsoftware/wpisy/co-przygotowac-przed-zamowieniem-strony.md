@@ -101,4 +101,4 @@ Zwykle kilka wieczorów. Najdłużej trwa zebranie zdjęć realizacji i opinii k
 
 ## Co dalej
 
-Gdy masz już większość materiałów, sprawdź w [kreatorze](/dobierz), jaki rodzaj strony pasuje do Twojej firmy. Jeśli potrzebujesz kilku podstron i chcesz sam zmieniać treści, zobacz rozwiązanie [strona firmowa z panelem](/rozwiazania/strona-firmowa-z-panelem). Podgląd swojej strony zobaczysz po [DNI] dniach od startu prac.
+Gdy masz już większość materiałów, sprawdź w [kreatorze](/dobierz), jaki rodzaj strony pasuje do Twojej firmy. Jeśli potrzebujesz kilku podstron i chcesz sam zmieniać treści, zobacz rozwiązanie [strona firmowa z panelem](/rozwiazania/strona-firmowa-z-panelem). Podgląd swojej strony zobaczysz po [DNI] dniach od rozmowy – zanim podpiszesz umowę i zapłacisz zaliczkę.

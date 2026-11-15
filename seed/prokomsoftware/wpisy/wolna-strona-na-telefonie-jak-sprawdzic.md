@@ -45,7 +45,7 @@ Wszystkie trzy wartości liczy się dla większości wizyt, a nie dla najlepszeg
 
 ## Co najczęściej spowalnia stronę
 
-Z audytów, które robimy, wynika, że przyczyny powtarzają się bardzo często:
+Przyczyny powolnego działania powtarzają się bardzo często:
 
 1. **Za duże zdjęcia.** Zdjęcie prosto z aparatu ma kilka megabajtów, a na telefonie wystarczy jego mała, dobrze skompresowana wersja.
 2. **Wtyczki i dodatki.** Każdy dodatek ładuje własne pliki, nawet jeśli na danej podstronie nie jest potrzebny.
@@ -79,7 +79,7 @@ Jest jednym z wielu czynników. Sama szybkość nie wypchnie słabej treści na 
 
 ### Mam dobry wynik na komputerze, a słaby na telefonie. Dlaczego?
 
-Test na telefon symuluje słabszy procesor i wolniejsze łącze. To normalne, że wynik jest niższy. Liczy się jednak telefon, bo z niego korzysta większość osób szukających usług.
+Test na telefon symuluje słabszy procesor i wolniejsze łącze. To normalne, że wynik jest niższy. Liczy się jednak telefon, bo z niego coraz częściej korzystają osoby szukające usług.
 
 ### Jak często sprawdzać szybkość?
 

@@ -3,7 +3,7 @@ slug: zlecenia-i-grafik-ekip-bez-telefonow
 title: Od telefonu klienta do faktury – jak uporządkować zlecenia i grafik ekip
 category: Systemy
 publishedAt: 2026-12-21
-seoTitle: Zlecenia i grafik ekip bez chaosu
+seoTitle: Jak uporządkować zlecenia i grafik ekip
 seoDescription: Jak firma budowlana, instalacyjna lub serwisowa może uporządkować zlecenia i grafik ekip: jeden obieg od zgłoszenia do faktury i mniej telefonów.
 lead: Zgłoszenie zapisane na kartce, ekipa umówiona przez telefon, zdjęcia z budowy w prywatnym komunikatorze, faktura wystawiona tydzień później. Brzmi znajomo? Pokazujemy, jak poukładać cały obieg zlecenia.
 summary: Uporządkowany obieg zlecenia ma kilka kroków: przyjęcie zgłoszenia w jednym miejscu, zaplanowanie ekipy w grafiku, praca w terenie z dostępem z telefonu, zamknięcie z protokołem i zdjęciami, faktura bez przepisywania. Klient może sprawdzać status pod linkiem, zamiast dzwonić.

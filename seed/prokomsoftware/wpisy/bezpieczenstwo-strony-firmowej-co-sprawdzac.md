@@ -11,7 +11,7 @@ relatedSolutions: opieka-nad-strona-i-systemem, audyt-strony-lub-programu
 cta: Spokój co miesiąc | Opieka nad stroną | Kopia co noc, aktualizacje i serwer w Polsce. Czas reakcji zapisany w umowie. | Zobacz poziomy opieki | /rozwiazania/opieka-nad-strona-i-systemem
 ---
 
-Właściciele małych firm często mówią: „Kto by się włamywał na moją stronę? Nic tam nie ma”. To błąd w myśleniu. Większość ataków robią programy, które przeszukują internet w poszukiwaniu stron ze znanymi lukami. Nie interesuje ich, czyja to strona – tylko to, czy da się ją wykorzystać do rozsyłania spamu, podszywania się albo ukrywania złośliwego kodu.
+Właściciele małych firm często mówią: „Kto by się włamywał na moją stronę? Nic tam nie ma”. To błąd w myśleniu. Wiele ataków przeprowadzają programy, które przeszukują internet w poszukiwaniu stron ze znanymi lukami. Nie interesuje ich, czyja to strona – tylko to, czy da się ją wykorzystać do rozsyłania spamu, podszywania się albo ukrywania złośliwego kodu.
 
 ## Czym grozi zaniedbana strona
 
@@ -35,7 +35,7 @@ Kopia powinna leżeć w innym miejscu niż sama strona. Jeśli serwer padnie alb
 
 System strony, motyw i wszystkie dodatki powinny być aktualne. Największe ryzyko to dodatki, których nikt nie używa, ale wciąż są zainstalowane. Usuń je – każdy z nich to potencjalna luka.
 
-Jeśli Twoja strona jest zbudowana na popularnym systemie z wieloma wtyczkami, aktualizacje są szczególnie ważne. Większość znanych luk w takich stronach dotyczy właśnie dodatków od różnych autorów, a nie samego systemu.
+Jeśli Twoja strona jest zbudowana na popularnym systemie z wieloma wtyczkami, aktualizacje są szczególnie ważne. Znane luki w takich stronach często dotyczą właśnie dodatków od różnych autorów, a nie samego systemu.
 
 ### Certyfikat i adres z kłódką
 
@@ -62,7 +62,7 @@ Najlepiej zabezpieczony serwer nie pomoże, jeśli hasło do panelu brzmi jak na
 - logowanie dwuetapowe jest włączone w panelu strony, domenie i poczcie,
 - po odejściu pracownika zmieniasz hasła do kont, z których korzystał.
 
-To bezpłatne kroki, a zamykają większość najprostszych dróg włamania.
+To bezpłatne kroki, a zamykają najprostsze drogi włamania.
 
 ## Sygnały, że coś jest nie tak
 

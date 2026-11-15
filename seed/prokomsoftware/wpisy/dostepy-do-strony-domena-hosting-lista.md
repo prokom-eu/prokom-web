@@ -63,13 +63,13 @@ Konta w systemach płatności, rezerwacji, newsletterach i mediach społecznośc
 
 Jeśli po przejściu listy okazuje się, że do czegoś nie masz dostępu, nie panikuj. W większości przypadków da się go odzyskać, bo to Ty jesteś właścicielem firmy i strony. Trzeba jednak działać metodycznie: najpierw domena, potem serwer i kopia strony, na końcu panel i pozostałe konta.
 
-Robimy to w ramach rozwiązania [przejęcie po innym wykonawcy](/rozwiazania/przejecie-po-innym-wykonawcy). Zaczyna się od {cena:przejecie-po-innym-wykonawcy} netto, a pierwsze efekty są zwykle {termin:przejecie-po-innym-wykonawcy}. Po zakończeniu dostajesz komplet dostępów zapisanych na Twoją firmę.
+Robimy to w ramach rozwiązania [przejęcie po innym wykonawcy](/rozwiazania/przejecie-po-innym-wykonawcy). Zaczyna się od {cena:przejecie-po-innym-wykonawcy} netto, a realizacja trwa {termin:przejecie-po-innym-wykonawcy}. Po zakończeniu dostajesz komplet dostępów zapisanych na Twoją firmę.
 
 ## Jak tego uniknąć w przyszłości
 
 Najprościej: ustal zasady przy zamawianiu strony. Zapisz w umowie, że domena i wszystkie konta należą do Twojej firmy, a wykonawca przekazuje dostępy po zakończeniu prac. Więcej o tym piszemy w poradniku o tym, [co sprawdzić w umowie na stronę](/aktualnosci/umowa-na-strone-internetowa-co-sprawdzic).
 
-Jeśli nie chcesz pilnować tego sam, możesz powierzyć to [opiece nad stroną](/rozwiazania/opieka-nad-strona-i-systemem). W ramach opieki dbamy o domenę, serwer, kopie i aktualizacje, a dostępy zawsze zostają u Ciebie.
+Jeśli nie chcesz pilnować tego sam, możesz powierzyć to [opiece nad stroną](/rozwiazania/opieka-nad-strona-i-systemem). W ramach opieki dbamy o domenę, serwer, kopie i aktualizacje, a domena, kod i dane pozostają Twoje.
 
 ## Najczęstsze pytania
 
