@@ -10,6 +10,7 @@ import { brandPageHref } from '@/lib/catalog/brand'
 import { BUNDLES_PATH, bundleCard, bundlesWithProduct, listBundles } from '@/lib/catalog/bundle'
 import { cardIcon, productHref } from '@/lib/catalog/card'
 import { categoryHref } from '@/lib/catalog/category'
+import { cardCover } from '@/lib/catalog/cover'
 import { getBundles, getCatalogIndex, getProductView } from '@/lib/catalog/data'
 import { CATALOG_PATH, catalogHref, parseCatalogState, updateState } from '@/lib/catalog/filters'
 import { productTitle, uniqueVersions, variantKey, variantSlug } from '@/lib/catalog/productName'
@@ -267,6 +268,15 @@ export default async function ProductPage({ params }: Props) {
           <ProductHero
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
+            cover={cardCover(
+              {
+                slug: product.slug,
+                name: product.name,
+                kind: product.kind,
+                brand: product.brand?.slug ?? null,
+              },
+              index,
+            )}
             brandHref={brandLink}
             categoryHref={categoryLink}
             phone={phone}

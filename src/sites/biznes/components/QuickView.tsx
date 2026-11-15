@@ -12,6 +12,7 @@ import { cartActions, openCartDrawer, useCart } from '@/lib/cart/store'
 import { fallbackTile } from '@/lib/catalog/purchase'
 
 import { ProductStage, StageFallback } from './ProductStage'
+import { cardCover } from '@/lib/catalog/cover'
 
 type Props = {
   /** Products the preview steps through (the search results); `null` = closed. */
@@ -87,6 +88,7 @@ export function QuickView({ products, current, index, onMove }: Props) {
                 icon={cardIcon(product, index)}
                 name={product.name}
                 tile={fallbackTile(product)}
+                cover={cardCover(product, index)}
               />
             )}
           </ProductStage>

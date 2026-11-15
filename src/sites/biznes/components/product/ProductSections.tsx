@@ -14,6 +14,7 @@ import { AddToCartButton } from '../AddToCartButtonLazy'
 import { ProductStage, STAGE_SHADOW, StageFallback } from '../ProductStage'
 import { ProductAddButton } from './ProductAddButton'
 import { ProductSection } from './ProductSection'
+import { cardCover } from '@/lib/catalog/cover'
 
 /**
  * „Czym różnią się wersje” (PRODUKCJA-BIZNES-1211 §1): with parameters given per version
@@ -167,7 +168,11 @@ function ProductTile({
               className={`relative max-h-[72%] w-auto max-w-[78%] object-contain ${STAGE_SHADOW}`}
             />
           ) : (
-            <StageFallback icon={cardIcon(product, index)} tile={fallbackTile(product)} />
+            <StageFallback
+              icon={cardIcon(product, index)}
+              tile={fallbackTile(product)}
+              cover={cardCover(product, index)}
+            />
           )}
         </ProductStage>
         <AddToCartButton

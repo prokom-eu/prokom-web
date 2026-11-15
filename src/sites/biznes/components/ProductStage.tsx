@@ -3,7 +3,10 @@ import type { ReactNode } from 'react'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { IconName } from '@/lib/catalog/options'
+import type { CardCover } from '@/lib/catalog/cover'
 import type { FallbackTile } from '@/lib/catalog/purchase'
+
+import { CardCoverView } from './CardCover'
 
 /** Studio gradient (K31-ZMIANY §3) — also for a stage that is not a single photo. */
 export const STAGE_BG =
@@ -103,6 +106,7 @@ export function StageFallback({
   size = 'md',
   name,
   tile = null,
+  cover = null,
 }: {
   icon: IconName
   size?: FallbackSize
@@ -113,7 +117,13 @@ export function StageFallback({
    * light tile with „Licencja elektroniczna” (`fallbackTile`).
    */
   tile?: FallbackTile
+  /**
+   * The cover of a licence or a service (runda 1411 R8, `cardCover`): wins over the tile, so no
+   * card of the catalog shows the empty stand-in.
+   */
+  cover?: CardCover | null
 }) {
+  if (cover) return <CardCoverView cover={cover} icon={icon} size={size} />
   if (tile === 'service') return <ServiceTile icon={icon} size={size} name={name} />
   const badge = (
     <span
