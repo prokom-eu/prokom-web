@@ -11,7 +11,7 @@ const HOST = 'software.localhost'
 const pageWidth = (page: Page) => page.evaluate(() => document.scrollingElement!.scrollWidth)
 
 test.describe('Software /aktualnosci', () => {
-  test('the list in the Software look (no public post yet: the empty state)', async ({ page }) => {
+  test('the list in the Software look', async ({ page }) => {
     const response = await page.goto(site(HOST, '/aktualnosci'))
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
@@ -81,7 +81,7 @@ test.describe('Software /aktualnosci with the seed posts', () => {
       const art = await cards.first().locator('.sw-post-card-art').boundingBox()
       expect(art!.width).toBeLessThan(100)
       await expect(cards.first().locator('.sw-post-lead')).toBeHidden()
-      for (const chip of await page.locator('main .sw-chip').all()) {
+      for (const chip of await page.locator('main .sw-chip:visible').all()) {
         expect((await chip.boundingBox())!.height).toBeGreaterThanOrEqual(44)
       }
     })

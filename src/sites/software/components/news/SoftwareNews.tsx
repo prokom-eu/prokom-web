@@ -13,7 +13,8 @@ import { SOFTWARE_NEWS_TEXTS as T } from './texts'
 
 type Props = { view: NewsListView<PostListItem>; category: PostCategory | null }
 
-/** Cards before the band to the picker (decision 15.11: after the 6th card of a long page). */
+/** Posts of a page before the band to the picker (decision 15.11: after the 6th card of a long
+ * page, „Najnowsze” beside the featured one counted in). */
 const BAND_AFTER = 6
 
 const primaryButton =
@@ -30,8 +31,9 @@ const secondaryButton =
  */
 export function SoftwareNews({ view, category }: Props) {
   const { chips, total, featured, latest, cards, page, pages } = view
-  const before = cards.length > BAND_AFTER ? cards.slice(0, BAND_AFTER) : cards
-  const after = cards.length > BAND_AFTER ? cards.slice(BAND_AFTER) : []
+  const bandAt = BAND_AFTER - latest.length
+  const before = cards.length > bandAt ? cards.slice(0, bandAt) : cards
+  const after = cards.length > bandAt ? cards.slice(bandAt) : []
 
   return (
     <>
@@ -55,7 +57,12 @@ export function SoftwareNews({ view, category }: Props) {
                     className="sw-chip"
                   >
                     {chip.label}
-                    {chip.count ? <span className="sw-chip-n">{chip.count}</span> : null}
+                    {chip.count ? (
+                      <>
+                        <span className="sr-only">, </span>
+                        <span className="sw-chip-n">{chip.count}</span>
+                      </>
+                    ) : null}
                   </Link>
                 ))}
               </nav>

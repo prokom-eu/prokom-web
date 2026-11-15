@@ -36,9 +36,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const page = tenant.line === 'software' ? (parsePage(query[PAGE_PARAM]) ?? 1) : 1
   const title = page > 1 ? `${listTitle} – strona ${page}` : listTitle
   const canonical = filtered ? NEWS_PATH : newsPageHref(null, page)
+  const description = page > 1 ? `Strona ${page}. ${texts.description}` : texts.description
   return {
     title,
-    description: texts.description,
+    description,
     alternates: { canonical },
     // A category view is the list again, filtered: not indexed, the list is its canonical.
     robots:
@@ -49,7 +50,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       siteName: tenant.name,
       url: canonical,
       title,
-      description: texts.description,
+      description,
       // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
       images: ogImages(
         settings?.seo.ogImage ?? null,
