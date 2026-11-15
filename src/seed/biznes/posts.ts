@@ -56,9 +56,9 @@ function ksefPost(refs: Refs) {
       p(
         'Właściciel nadaje uprawnienia w Aplikacji Podatnika KSeF 2.0: kto wystawia, kto odbiera, kto może nadawać dalej. Bez tego biuro rachunkowe nie zobaczy faktur zakupu.',
       ),
-      h2('3. Certyfikat KSeF, zanim skończy się token'),
+      h2('3. Certyfikat KSeF do programu i do trybu offline'),
       p(
-        'Certyfikat typu 1 służy do uwierzytelniania programu (Subiekt, PC-Market, NFHotel, GoPOS). Typ 2 jest potrzebny do trybu offline24, czyli faktur wystawianych bez połączenia, wysyłanych następnego dnia roboczego. Stary token działa tylko do końca 2026 r.',
+        'Certyfikat typu 1 służy do uwierzytelniania programu (Subiekt, PC-Market, NFHotel, GoPOS). Typ 2 jest potrzebny do trybu offline24, czyli faktur wystawianych bez połączenia, wysyłanych następnego dnia roboczego. Token zostaje — MF utrzymało go bezterminowo.',
       ),
       h2('4. Program podłączony do KSeF 2.0'),
       p(
@@ -129,7 +129,7 @@ const KSEF_PANEL: KsefGroup = {
     },
     {
       title: 'Certyfikat KSeF',
-      text: 'Typ 1 do programu, typ 2 do trybu offline24 na wypadek awarii. Token działa tylko do końca 2026.',
+      text: 'Typ 1 do programu, typ 2 do trybu offline24 na wypadek awarii. Token MF utrzymało bezterminowo.',
     },
     {
       title: 'Program',

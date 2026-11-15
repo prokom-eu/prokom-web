@@ -1,12 +1,23 @@
 import { expect, test } from '@playwright/test'
 
+import { POST_CATEGORIES } from '../../src/lib/catalog/options'
+import { BIZNES_GUIDE_POSTS } from '../../src/seed/biznes/wpisy'
 import { site } from './helpers'
 
 // B11a: `/aktualnosci` and the post page — one route for the lines with news (ADR-012 rozstrz. 5,
-// change 22.10.2026; today Biznes only). Content from `pnpm seed`: the KSeF post from the board
-// and the KSeF panel in the Biznes settings.
+// change 22.10.2026; today Biznes only). Content from `pnpm seed`: the KSeF post from the board,
+// the guide posts of `src/seed/biznes/wpisy` (audyt 15.11) and the KSeF panel in the settings.
 const LIST = '/aktualnosci'
 const POST = '/aktualnosci/ksef-od-1-stycznia-2027'
+
+/** Posts of a category after `pnpm seed`: the guide posts, plus the board's KSeF post. */
+const postsIn = (category: string) =>
+  BIZNES_GUIDE_POSTS.filter((post) => post.category === category).length +
+  (category === 'ksef' ? 1 : 0)
+/** A Biznes category still without posts, if any is left. */
+const emptyCategory = POST_CATEGORIES.find(
+  (category) => category.line === 'biznes' && postsIn(category.value) === 0,
+)?.value
 
 type JsonLd = { '@type'?: string; [key: string]: unknown }
 
@@ -46,10 +57,14 @@ test.describe('Biznes news', () => {
       site('biznes.localhost', LIST),
     )
     await expect(page.locator('#ksef')).toHaveCount(0)
-    await expect(page.getByRole('region', { name: 'Wpisy' }).getByRole('article')).toHaveCount(1)
+    await expect(page.getByRole('region', { name: 'Wpisy' }).getByRole('article')).toHaveCount(
+      postsIn('ksef'),
+    )
 
-    await page.goto(site('biznes.localhost', `${LIST}?kategoria=kasy`))
-    await expect(page.getByText('Nie ma jeszcze wpisów w tej kategorii.')).toBeVisible()
+    if (emptyCategory) {
+      await page.goto(site('biznes.localhost', `${LIST}?kategoria=${emptyCategory}`))
+      await expect(page.getByText('Nie ma jeszcze wpisów w tej kategorii.')).toBeVisible()
+    }
   })
 
   test('the post has its outline, sources, side column, products and JSON-LD', async ({ page }) => {

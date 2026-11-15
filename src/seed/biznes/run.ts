@@ -131,6 +131,7 @@ import {
 } from './footer'
 import { seedBiznesCategoryContent } from './category'
 import { seedBiznesIndustries } from './industries'
+import { seedBiznesGuidePosts } from './guidePosts'
 import { seedBiznesNews } from './posts'
 import { seedBiznesLegal } from './legal'
 import { serviceAreasUpdate, upsertBiznesContact } from './contact'
@@ -1448,6 +1449,7 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
 
   // --- news (B11): the KSeF post from the board and the KSeF panel of the list ---
   await seedBiznesNews(payload, tenant.id, pageRefs, pageReport)
+  await seedBiznesGuidePosts(payload, tenant.id, pageReport)
 
   // --- legal pages (B11b): privacy policy, cookies, accessibility (drafts to approve) ---
   await seedBiznesLegal(payload, tenant.id, pageReport)
