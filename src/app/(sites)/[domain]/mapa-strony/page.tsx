@@ -14,6 +14,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { restOfSiteMap, softwareSiteMapGroups } from '@/lib/software/siteMap'
 import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 import { SoftwareSiteMap } from '@/sites/software/components/sitemap/SoftwareSiteMap'
 
 import { requestOrigin, requireTenant } from '../tenant'
@@ -106,6 +107,10 @@ export default async function SiteMapPage({ params }: Props) {
           <Breadcrumbs items={crumbs} />
           <BreadcrumbJsonLd items={crumbs} origin={await requestOrigin()} />
         </div>
+      )}
+      {/* pro-kom.eu: `BreadcrumbList` of its subpages (spec §4), crumbs as on the boards. */}
+      {tenant.line === 'prokom' && (
+        <HubBreadcrumbJsonLd name={TITLE} path={SITE_MAP_PATH} origin={await requestOrigin()} />
       )}
       <Heading level={1} size="xl">
         {/* pro-kom.eu: the H1 of spec §4; the title stays „Mapa strony”. */}

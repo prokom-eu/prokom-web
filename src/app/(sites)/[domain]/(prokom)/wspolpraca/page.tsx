@@ -6,8 +6,9 @@ import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { isHubLinkLive } from '@/lib/prokom/pages'
 import { hubPageMetadata } from '@/lib/prokom/seo'
 import { CooperationPage } from '@/sites/prokom/wspolpraca/CooperationPage'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -29,5 +30,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 /** `/wspolpraca` of pro-kom.eu (spec §6.6) — a v1.1 page: 404 until `HubSettings.pages.cooperation`. */
 export default async function HubCooperationRoute({ params }: Props) {
-  return <CooperationPage tenant={await liveTenant(params)} />
+  const tenant = await liveTenant(params)
+  return (
+    <>
+      <HubBreadcrumbJsonLd name="Współpraca" path="/wspolpraca" origin={await requestOrigin()} />
+      <CooperationPage tenant={tenant} />
+    </>
+  )
 }

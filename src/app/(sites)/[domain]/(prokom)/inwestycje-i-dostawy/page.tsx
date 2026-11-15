@@ -4,8 +4,9 @@ import { hubOgImage } from '@/lib/prokom/data'
 import { hubPageMetadata } from '@/lib/prokom/seo'
 
 import { DeliveriesPage } from '@/sites/prokom/dostawy/DeliveriesPage'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -22,5 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /** `/inwestycje-i-dostawy` of pro-kom.eu (spec §6.5). */
 export default async function HubDeliveriesRoute({ params }: Props) {
   const tenant = await requireLine(params, 'prokom')
-  return <DeliveriesPage tenant={tenant} />
+  return (
+    <>
+      <HubBreadcrumbJsonLd
+        name="Inwestycje i dostawy"
+        path="/inwestycje-i-dostawy"
+        origin={await requestOrigin()}
+      />
+      <DeliveriesPage tenant={tenant} />
+    </>
+  )
 }

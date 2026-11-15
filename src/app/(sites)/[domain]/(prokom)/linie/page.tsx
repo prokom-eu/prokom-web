@@ -4,8 +4,9 @@ import { hubOgImage } from '@/lib/prokom/data'
 import { hubPageMetadata } from '@/lib/prokom/seo'
 
 import { OfferPage } from '@/sites/prokom/linie/OfferPage'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -25,5 +26,10 @@ export async function generateMetadata({ params }: Pick<Props, 'params'>): Promi
 /** `/linie?q=&dla=&linia=&u=` of pro-kom.eu (spec §6.2): the catalog state comes from the address. */
 export default async function HubOfferRoute({ params, searchParams }: Props) {
   const tenant = await requireLine(params, 'prokom')
-  return <OfferPage tenant={tenant} params={await searchParams} />
+  return (
+    <>
+      <HubBreadcrumbJsonLd name="Oferta" path="/linie" origin={await requestOrigin()} />
+      <OfferPage tenant={tenant} params={await searchParams} />
+    </>
+  )
 }

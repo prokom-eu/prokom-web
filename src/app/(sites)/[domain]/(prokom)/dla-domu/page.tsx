@@ -6,8 +6,9 @@ import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { isHubLinkLive } from '@/lib/prokom/pages'
 import { hubPageMetadata } from '@/lib/prokom/seo'
 import { HomeOfferPage } from '@/sites/prokom/dom/HomeOfferPage'
+import { HubBreadcrumbJsonLd } from '@/sites/prokom/HubBreadcrumbs'
 
-import { requireLine } from '../../tenant'
+import { requestOrigin, requireLine } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -28,5 +29,10 @@ export default async function HubHomeOfferRoute({ params }: Props) {
   const tenant = await requireLine(params, 'prokom')
   const settings = await getHubSettings(tenant.id)
   if (!isHubLinkLive('/dla-domu', settings.pages)) notFound()
-  return <HomeOfferPage tenant={tenant} />
+  return (
+    <>
+      <HubBreadcrumbJsonLd name="Dla domu" path="/dla-domu" origin={await requestOrigin()} />
+      <HomeOfferPage tenant={tenant} />
+    </>
+  )
 }
