@@ -784,3 +784,97 @@
     transform: none;
   }
 }
+
+/* --- 404 (spec §6.15, board E404): message + search, then the five lines. -------------------- */
+.pk-404 {
+  padding-block: clamp(48px, 8vw, 112px);
+}
+.pk-404__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+}
+.pk-404__code {
+  flex: 0 1 auto;
+  color: var(--k-gt);
+  font-family: var(--font-display);
+  font-size: clamp(96px, 16vw, 240px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+}
+.pk-404__body {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 480px;
+  flex-direction: column;
+  gap: 18px;
+}
+.pk-404__search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pk-404__field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-404__field input {
+  min-height: 52px;
+  min-width: 0;
+  flex: 1 1 260px;
+  border: 1.5px solid var(--border-input);
+  border-radius: 16px;
+  background: var(--k-card);
+  padding: 0 18px;
+  color: var(--k-ink);
+  font-size: 16px;
+}
+.pk-404__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-404__lines {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.pk-404__line {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--w12);
+  border-top: 4px solid var(--ln);
+  border-radius: 18px;
+  background: var(--k-card);
+  padding: 20px;
+  transition: transform 0.4s var(--ease);
+}
+.pk-404__line:hover {
+  transform: translateY(-4px);
+}
+.pk-404__name {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.pk-404__desc {
+  color: var(--k-ink2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.pk-404__domain {
+  margin-top: auto;
+  color: var(--ln-text);
+  font-size: 13px;
+  font-weight: 800;
+}
