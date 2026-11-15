@@ -533,6 +533,94 @@
   font-weight: 700;
 }
 
+/* --- /dla-domu ---------------------------------------------------------------------------- */
+.pk-trio {
+  min-height: 0;
+}
+.pk-plan__lead {
+  color: var(--k-ink2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.pk-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 12px;
+}
+.pk-point {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--ln) 30%, transparent);
+  border-radius: 24px;
+  padding: 20px;
+  background: var(--k-card);
+}
+.pk-point__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pk-point__top b {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ln-dark);
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+.pk-point__where {
+  color: var(--ln-text);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pk-ltabs--topics {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.pk-ltabs--topics .pk-ltab {
+  min-height: 84px;
+}
+.pk-tile {
+  flex-direction: column;
+}
+.pk-hcare {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+.pk-hcare__items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.pk-hcare__items .pk-lcard {
+  min-height: 0;
+}
+.pk-hcare__value {
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-stretch: 118%;
+  font-weight: 800;
+}
+.pk-final__numbers {
+  width: 100%;
+}
+.pk-final__link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* --- Tablet and phone ----------------------------------------------------------------------- */
 @media (max-width: 1023px) {
   .pk-bhero,
@@ -545,6 +633,12 @@
   .pk-area__steps {
     grid-template-columns: 1fr;
   }
+  .pk-ltabs--topics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pk-hcare {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 640px) {
   .pk-ind {
@@ -554,12 +648,18 @@
   .pk-situation {
     flex-basis: 100%;
   }
+  .pk-hcare__items {
+    grid-template-columns: 1fr;
+  }
   .pk-ltab {
     min-height: 0;
   }
   .pk-ltab__short,
   .pk-ltab__top .pk-mark {
     display: none;
+  }
+  .pk-ltabs--topics .pk-ltab {
+    min-height: 44px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

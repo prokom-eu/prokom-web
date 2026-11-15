@@ -6056,6 +6056,18 @@ export interface HubSetting {
     | boolean
     | null;
   /**
+   * Teksty strony /dla-domu (strona v1.1 — widoczna po włączeniu „Dla domu” w stronach). Sytuacje w kolekcji Plany huba (typ sytuacja-dom), telefony, obietnice, adres i godziny z paneli.
+   */
+  forHome?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
    * Na produkcji widać tylko zatwierdzone fakty (spec §3). Źródło jest wewnętrzne — nie pokazujemy go.
    */
   trust?:
@@ -9864,6 +9876,7 @@ export interface HubSettingsSelect<T extends boolean = true> {
   cooperation?: T;
   offer?: T;
   forBusiness?: T;
+  forHome?: T;
   trust?:
     | T
     | {
