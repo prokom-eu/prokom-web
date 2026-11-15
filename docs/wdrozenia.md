@@ -87,6 +87,123 @@ Realizacje ze zdjęciami tworzy lokalnie tylko seed, więc na produkcji `/realiz
 2. Podgląd: `pnpm inst:realizacje https://<panel> --out=docs/tresci/inst-realizacje-<data>.md` — tabela „utworzyć / dodać zdjęcia / bez zmian” i realizacje z panelu bez pary w repo (możliwy duplikat).
 3. Zapis: `pnpm inst:realizacje https://<panel> --write --yes`. Uruchomienie jest powtarzalne: drugi przebieg niczego nie dubluje.
 
+## pro-kom.eu — dzień startu
+
+Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instalacje, Software). Plan i kolejność: `docs/STAN.md` → „pro-kom.eu (hub)” → H7-2, `docs/dns.md` → „pro-kom.eu”, `docs/strony/prokomeu-seo-przeniesienie.md`. Polecenia z komputera Krystiana (Git Bash). Wszędzie `ssh` = `/c/Windows/System32/OpenSSH/ssh.exe` (klucz z agenta Windows).
+
+**Warunki wejścia — bez nich STOP:**
+
+- [ ] Zadanie Asany „SZEF · Akceptacja nowej pro-kom.eu” odhaczone.
+- [ ] Poczta przestawiona w nazwa.pl **co najmniej 24 h wcześniej** (`docs/dns.md` → „pro-kom.eu”, kroki (a) i (b)):
+  - `A mail`;
+  - MX `mail.pro-kom.eu`;
+  - SPF bez `a`;
+  - test poczty w obie strony;
+  - programy pocztowe pracowników przestawione;
+  - TTL `A @` i `A www` = 300.
+- [ ] Ostatni przebieg „Lighthouse” po wdrożeniu stagingu tym obrazem zielony dla adresów `staging.pro-kom.eu` (runbook §3). Gdy czerwona jest strona innej linii — decyduje Krystian.
+- [ ] Na produkcji tenant `prokom` z Ustawieniami strony. Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
+- [ ] Najlepiej dzień roboczy rano: ktoś odbiera telefony.
+
+**Kroki:**
+
+1. **Zapisz dwa obrazy.**
+   - Obraz do wydania = SHA stagingu: `ssh prokom-vps "docker inspect prokom-staging-app-1 --format '{{.Config.Image}}'"` (część po `:`).
+   - Punkt powrotu = obecny obraz produkcji: to samo dla `prokom-prod-app-1`.
+2. **Kod na produkcję.** `scripts/deploy.sh` robi kopię `predeploy`, ustawia tag, uruchamia migracje przy starcie, robi smoke test i automatycznie wraca do poprzedniego obrazu, jeśli nowe migracje nie weszły:
+
+   ```bash
+   ssh prokom-vps 'cd /srv/prokom/prokom-web && bash scripts/deploy.sh prod <SHA stagingu>'
+   ```
+
+   Pliki `docker/` i `scripts/` na serwerze są z tego samego commita co staging (bramka stagingu je podmieniła), więc `deploy.sh` i smoke test pasują do obrazu. Wynik: ostatnia linia `../deploys.log` = `prod <stary> -> <SHA> ok`.
+
+3. **Treść huba** (runbook §3a „Kolejna linia później”). Uruchamiasz z checkoutu commita produkcji, bez `.env`:
+
+   ```bash
+   git fetch && git worktree add --detach ../prokom-web-tresc <SHA stagingu>
+   cd ../prokom-web-tresc && pnpm install --frozen-lockfile
+   SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-line-content.sh prokom
+   cd - && git worktree remove ../prokom-web-tresc
+   ```
+
+   Skrypt robi kopię `predeploy`, otwiera tunel do bazy produkcji i uruchamia `seed:prokom` z `SEED_KEEP_COMPANY_DATA=1`. Wgrywa: teksty huba, narzędzia, pomoc, plany, 301 starej strony, numery stacjonarne i Zakopane. Potwierdzasz wpisując `prokom-prod`.
+
+   Uruchom **przed** krokiem 6 (domena tenanta). Gdy tenant ma już domenę produkcji, skrypt odmawia; `PO_STARCIE=1` tylko z decyzji Krystiana.
+
+4. **DNS w nazwa.pl.** Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”. **Nie** zmieniaj trybu u góry strony.
+   - Rekordy: `A @` → `194.28.50.70` i `A www` → `194.28.50.70`.
+   - Czekaj na propagację: najpierw `nslookup pro-kom.eu ns1.nazwa.pl`, potem `nslookup pro-kom.eu 8.8.8.8`.
+   - Od tej chwili pro-kom.eu na nowym IP odpowiada 444 (Nginx nie ma jeszcze bloku tej domeny). Dlatego kroki 5–7 robisz od razu po propagacji.
+5. **Certyfikat** `prokom-prod`, poszerzony o `pro-kom.eu` i `www.pro-kom.eu` (runbook §0 „Nowy certyfikat bez zatrzymywania Nginx”). Let's Encrypt sprawdza domenę przez HTTP na nowym IP, więc tylko po kroku 4.
+   - Obecne domeny certyfikatu (15.11): `prokomsoftware.pl panel.prokombiznes.pl prokombiznes.pl prokominstalacje.pl www.prokombiznes.pl www.prokominstalacje.pl www.prokomsoftware.pl`.
+   - Przed poszerzeniem sprawdź listę: `… run --rm --entrypoint certbot certbot certificates`.
+
+   ```bash
+   ssh prokom-vps
+   cd /srv/prokom/prokom-web
+   docker exec prokom-proxy-nginx-1 nginx -t      # błąd „snippets”: runbook §0, --force-recreate
+   docker exec prokom-proxy-nginx-1 sh -c 'printf "server {\n  listen 80;\n  server_name pro-kom.eu www.pro-kom.eu;\n  include /etc/nginx/snippets/acme.conf;\n}\n" > /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+   docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
+     certonly --webroot -w /var/www/certbot --cert-name prokom-prod --expand --non-interactive --agree-tos \
+     -d prokomsoftware.pl -d panel.prokombiznes.pl -d prokombiznes.pl -d prokominstalacje.pl \
+     -d www.prokombiznes.pl -d www.prokominstalacje.pl -d www.prokomsoftware.pl -d pro-kom.eu -d www.pro-kom.eu
+   docker exec prokom-proxy-nginx-1 sh -c 'rm -f /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+   ```
+
+6. **Nginx i domena tenanta.**
+   - W `.env.proxy`: `pro-kom.eu` do `PROD_SITE_HOSTS`, `www.pro-kom.eu` do `PROD_WWW_HOSTS`. Najpierw kopia: `cp -p .env.proxy .env.proxy.bak-hub`.
+   - Test i start z pełnym zestawem nakładek. Lista z 15.11 jest niżej. Sprawdź ją przed startem: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
+
+     ```bash
+     P="docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml -f docker/compose.proxy.tech-staging.yml"
+     $P run --rm --no-deps nginx nginx -t        # dalej tylko po „test is successful”:
+     $P up -d --force-recreate --no-deps nginx   # kilka sekund przerwy wszystkich domen
+     $P ps nginx
+     ```
+
+   - Panel produkcji (`panel.prokombiznes.pl`) → Strony → `prokom` → Domeny: `pro-kom.eu`, środowisko „Produkcja”. Bez `www` — 301 z `www` robi Nginx.
+
+7. **Sprawdzenie** (plan SEO, „W dniu przełączenia”):
+
+   ```bash
+   for p in / /firma /produkt/reseller/kasy-fiskalne /index.php/firma /index.php /uslugi/serwis /produkty/muzyczne/ambiset; do
+     curl -sI "https://pro-kom.eu$p" | grep -iE "^(HTTP|location)"; done
+   curl -sI http://www.pro-kom.eu/firma | grep -iE "^(HTTP|location)"
+   curl -s https://pro-kom.eu/robots.txt
+   ssh prokom-vps 'cd /srv/prokom/prokom-web && PANEL_HOST=panel.prokombiznes.pl bash scripts/smoke.sh https://127.0.0.1 pro-kom.eu www.pro-kom.eu'
+   ```
+
+   Oczekiwane:
+   - `/` → 200;
+   - stare adresy → 301 jednym skokiem;
+   - produkt sklepu → 404;
+   - `robots.txt` produkcji: bez `Disallow: /`, z adresem sitemap.
+
+   Potem ręcznie:
+   - strony `/`, `/linie`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt` (numery, Zakopane, sobota), `/o-firmie`;
+   - jedno zapytanie z formularza → wpis w Zapytaniach i mail na skrzynkę huba;
+   - mail testowy na adres `@pro-kom.eu` (poczta dalej działa).
+
+8. **Search Console i monitoring.**
+   - Search Console: właściwość domeny `pro-kom.eu` (rekord TXT — najpierw wpis w `docs/dns.md`).
+   - Mapy witryn: `https://pro-kom.eu/sitemap.xml`.
+   - Sprawdzanie adresu URL, prośba o zindeksowanie: `/`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt`, `/o-firmie`.
+   - Better Stack: monitor `https://pro-kom.eu/api/health`.
+   - Umami: dopisać hub do `UMAMI_WEBSITES`.
+
+**STOP — cofnięcie** (runbook §4):
+
+- **Strona po starcie nie działa:** najszybciej przywrócić DNS w nazwa.pl. Usuń jawne `A @` i `A www` (albo ustaw je na `85.128.169.153`). Stara strona wraca po TTL (300 s). Poczta działa niezależnie (MX na `mail.pro-kom.eu`).
+- **Wada kodu po kroku 2:** runbook §4 A. Poprzedni tag (z kroku 1) do `.env.prod`, `$prod up -d app`, zdrowie, smoke test. Migracja huba z 15.11 (`hub_kontakt_zakopane`) tylko dodaje, więc obraz można cofnąć bez cofania bazy.
+- **Zepsute dane po kroku 3:** runbook §4 B, kopia `predeploy` z kroku 3. Ostateczność: kasuje zapytania i edycje żywych linii od chwili kopii.
+
+**Po starcie (4–8 tygodni):**
+
+- Codziennie przez tydzień, potem co tydzień: Search Console → „Nie znaleziono (404)” i „Strona z przekierowaniem” oraz logi Nginx (404 na `pro-kom.eu`).
+- Brakujące reguły dopisujesz tylko w panelu (Przekierowania, tenant `prokom`). Reguł 301 nie usuwasz.
+- Stary hosting nazwa.pl zostaje, bo trzyma pocztę: przedłużyć do 14.12.2026, decyzja o poczcie po listopadzie.
+
 ## Cofnięcie wdrożenia
 Tylko obraz (migracje zgodne wstecz) albo obraz + baza z kopii `predeploy` — `docs/runbook.md` §4 i zasada migracji §5.
 
