@@ -22,6 +22,7 @@ import { BzProcurementPageBlock } from '../sites/biznes/blocks/BzProcurementPage
 import { BzProcurementBlock } from '../sites/biznes/blocks/BzProcurement/config'
 import { BzNewsHomeBlock } from '../sites/biznes/blocks/BzNewsHome/config'
 import { BzSystemsBlock } from '../sites/biznes/blocks/BzSystems/config'
+import { BzLinesBlock } from '../sites/biznes/blocks/BzLines/config'
 import { InstContactBlock } from '../sites/instalacje/blocks/InstContact/config'
 import { InstHomeBlock } from '../sites/instalacje/blocks/InstHome/config'
 import { InstPlannerBlock } from '../sites/instalacje/blocks/InstPlanner/config'
@@ -89,6 +90,8 @@ export const BIZNES_BLOCKS: Block[] = [
   BzNewsHomeBlock,
   // Runda 1411 R3: „Systemy, które u Ciebie wdrożymy” after „Oferta”
   BzSystemsBlock,
+  // Runda 1411 R4: „Inne linie PRO-KOM” before the FAQ
+  BzLinesBlock,
 ]
 
 /**

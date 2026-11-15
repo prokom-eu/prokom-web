@@ -6,6 +6,7 @@ import { Icon } from '@/components/ui/Icon'
 import { CountUp } from '@/components/motion/CountUp'
 import { countsUp } from '@/lib/motion/countUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
+import { getCatalogIndex } from '@/lib/catalog/data'
 import { partnerStatusLabel } from '@/lib/partners/badges'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
@@ -63,32 +64,84 @@ function Heading({ text, accent }: { text: string; accent?: string | null }) {
 type Logos = ReturnType<typeof authorizations>
 
 /**
- * „O firmie” without the owner's word (POPRAWKI-0311 §C, prototype `sekcje.html` §3): one card
- * — the visible H2 with its accent, the lead and the link on the left; two numbers and the four
- * authorizations with their status from Partners on the right.
+ * The product photo and the scope of each authorisation (runda 1411, board `Zaufanie.dc.html`):
+ * Posnet → Ergo, Elzab → K10, GoPOS → the set, InsERT → nexo; the scope is one line under the
+ * status. Facts the site already states (the brands' pages and the statuses of K4-FINAL §1).
+ */
+const SHOWCASE: Record<string, { product: string; scope: string }> = {
+  posnet: { product: 'ergo', scope: 'kasy i drukarki fiskalne' },
+  elzab: { product: 'k10', scope: 'kasy i drukarki fiskalne' },
+  gopos: { product: 'gopos', scope: 'system dla gastronomii' },
+  insert: { product: 'nexo', scope: 'programy dla firm i KSeF' },
+}
+
+type Photo = { url: string; alt: string; width: number; height: number }
+
+/**
+ * „Od 2004” without the owner's word (runda 1411, board `Zaufanie.dc.html`): on the left the
+ * heading, the lead, the navy „10 000+ klientów” and „2004 w Rabce-Zdroju” (`stats`) and the link
+ * to the company page; on the right a 2 × 2 grid — a light panel with the product photo and the
+ * brand's logo on a white plaque in its corner, under it the status and the scope in one line.
+ * No CEIDG, no Optivendi / COMEX row. Phone (§5): the left column above, the tiles 2 × 2.
  */
 function FactsCard({
   block,
   stats,
   logos,
+  photos,
 }: {
   block: BzFactsBlockData
   stats: NonNullable<BzFactsBlockData['stats']>
   logos: Logos
+  photos: ReadonlyMap<string, Photo>
 }) {
+  const [first, second] = stats
   return (
-    <div className="grid items-center gap-x-12 gap-y-6 rounded-[28px] bg-surface-2 p-[clamp(24px,4vw,48px)] min-[981px]:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+    <div className="relative isolate grid items-center gap-x-14 gap-y-8 overflow-hidden rounded-[30px] bg-surface-2 p-[clamp(24px,4vw,56px)] min-[981px]:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-10 -left-4 -z-[1] font-display text-[clamp(140px,18vw,260px)] leading-none font-extrabold text-transparent font-stretch-120% [-webkit-text-stroke:1.5px_var(--border)]"
+      >
+        {block.owner?.year || '2004'}
+      </span>
       <div>
+        <p className="mb-3 flex items-center gap-2.5 text-[12px] font-extrabold tracking-[0.16em] text-accent-text uppercase">
+          <span aria-hidden="true" className="h-0.5 w-[22px] bg-current" />O firmie
+        </p>
         <h2 id="fakty-h" className={`${BZ_H2} text-ink`}>
           <Heading text={block.heading} accent={block.headingAccent} />
         </h2>
         {block.lead && (
           <p className="mt-4 text-[16.5px] leading-relaxed text-pretty text-ink-2">{block.lead}</p>
         )}
+        {(first || second) && (
+          <dl className="mt-6 grid grid-cols-2 gap-3">
+            {[second, first].map((stat, i) =>
+              stat ? (
+                <div
+                  key={stat.id ?? i}
+                  className={
+                    i === 0
+                      ? 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-surface-dark px-5 py-[18px] text-white'
+                      : 'flex flex-col-reverse gap-1.5 rounded-[20px] bg-card px-5 py-[18px] shadow-[inset_0_0_0_1px_var(--border)]'
+                  }
+                  data-surface={i === 0 ? 'dark' : undefined}
+                >
+                  <dt className={i === 0 ? 'text-[14px] text-white/75' : 'text-[14px] text-ink-2'}>
+                    {stat.label}
+                  </dt>
+                  <dd className="font-display text-[clamp(2rem,3.2vw,2.75rem)] leading-none font-extrabold tracking-[-0.01em] whitespace-nowrap font-stretch-112%">
+                    <Figure text={stat.value} />
+                  </dd>
+                </div>
+              ) : null,
+            )}
+          </dl>
+        )}
         {block.contactLink?.label && block.contactLink.href && (
           <Link
             href={block.contactLink.href}
-            className="group/more mt-3 inline-flex min-h-11 items-center gap-2 font-extrabold text-ink"
+            className="group/more mt-4 inline-flex min-h-11 items-center gap-2 font-extrabold text-ink"
           >
             {block.contactLink.label}
             <span
@@ -100,64 +153,74 @@ function FactsCard({
           </Link>
         )}
       </div>
-      <div>
-        {stats.length > 0 && (
-          <dl className="mb-3 grid grid-cols-2 gap-3">
-            {stats.slice(0, 2).map((stat, i) => (
-              <div
-                key={stat.id ?? i}
-                className="flex flex-col-reverse gap-2 rounded-[20px] bg-card px-5 py-[18px] shadow-[inset_0_0_0_1px_var(--border)]"
-              >
-                <dt className="text-[14.5px] font-semibold text-ink-2">{stat.label}</dt>
-                <dd className="font-display text-[clamp(2.125rem,3.4vw,2.875rem)] leading-none font-extrabold tracking-[-0.01em] text-ink font-stretch-112%">
-                  <Figure text={stat.value} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        {logos.length > 0 && (
+      {logos.length > 0 && (
+        <div>
+          <p className="mb-3 text-[12px] font-extrabold tracking-[0.16em] text-ink-2 uppercase">
+            Uprawnienia producentów
+          </p>
           <ul
             aria-label="Autoryzacje i partnerstwa"
             data-reveal-cards=""
-            data-logo-cascade=""
-            className="grid grid-cols-2 gap-3 min-[561px]:grid-cols-4"
+            className="grid grid-cols-2 gap-3.5"
           >
-            {logos.map((item) => (
-              <li
-                key={item.id}
-                data-logo-shine=""
-                className="grid justify-items-center gap-2.5 rounded-[18px] bg-card px-3 pt-4 pb-3.5 shadow-[inset_0_0_0_1px_var(--border)] transition-[translate,box-shadow] duration-300 hover:-translate-y-[3px] hover:shadow-[0_18px_30px_-22px_var(--glow),inset_0_0_0_1px_var(--border)] motion-reduce:transition-none"
-              >
-                <span
-                  data-logo-plate=""
-                  className="flex h-10 w-full items-center justify-center rounded-[10px] bg-white px-2.5 py-1.5"
+            {logos.map((item) => {
+              const showcase = SHOWCASE[item.name.toLowerCase()]
+              const photo = showcase ? photos.get(showcase.product) : undefined
+              const service = item.status?.endsWith('serwis') ?? false
+              return (
+                <li
+                  key={item.id}
+                  className="bzc group/bzc flex flex-col overflow-hidden rounded-[22px] bg-card shadow-[inset_0_0_0_1px_var(--border)]"
                 >
-                  <Image
-                    src={item.logo.url}
-                    alt={item.name}
-                    width={item.logo.width}
-                    height={item.logo.height}
-                    unoptimized
-                    className="h-auto max-h-[26px] w-auto max-w-full object-contain"
-                  />
-                </span>
-                {item.status && (
-                  <small className="inline-flex items-center gap-1.5 text-center text-[12px] leading-tight font-extrabold text-ok-text">
-                    <span
-                      aria-hidden="true"
-                      className="flex size-3.5 shrink-0 items-center justify-center rounded-full bg-ok text-white"
-                    >
-                      <Icon name="check" strokeWidth={3.4} className="size-2.5" />
+                  {/* The photo in its own light panel: no text ever sits on it. */}
+                  <span className="relative flex h-[150px] items-center justify-center bg-accent-soft max-md:h-24">
+                    <span className="absolute top-2.5 left-2.5 z-[1] flex h-9 items-center rounded-[10px] bg-white px-2.5 shadow-[0_6px_14px_-10px_var(--glow)] max-md:h-7 max-md:px-2">
+                      <Image
+                        src={item.logo.url}
+                        alt={item.name}
+                        width={item.logo.width}
+                        height={item.logo.height}
+                        unoptimized
+                        className="h-auto max-h-[20px] w-auto max-w-[84px] object-contain max-md:max-h-4 max-md:max-w-[64px]"
+                      />
                     </span>
-                    {item.status}
-                  </small>
-                )}
-              </li>
-            ))}
+                    {photo && (
+                      <Image
+                        src={photo.url}
+                        alt=""
+                        width={photo.width}
+                        height={photo.height}
+                        unoptimized
+                        loading="lazy"
+                        className="bzc-photo h-[78%] w-auto max-w-[70%] object-contain"
+                      />
+                    )}
+                  </span>
+                  {item.status && (
+                    <span className="flex items-center gap-2 px-4 py-3 max-md:px-3">
+                      <Icon
+                        name={service ? 'shield' : 'check'}
+                        strokeWidth={2.4}
+                        className="size-4 shrink-0 text-ok-text"
+                      />
+                      <span className="flex min-w-0 flex-col">
+                        <b className="text-[14px] leading-tight font-extrabold whitespace-nowrap text-ink max-[399px]:text-[12px]">
+                          {item.status}
+                        </b>
+                        {showcase && (
+                          <span className="truncate text-[13px] text-ink-2 max-md:text-[12px]">
+                            {showcase.scope}
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                  )}
+                </li>
+              )
+            })}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -178,10 +241,17 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
   const showOwner = Boolean(settings?.biznes?.showOwnerQuote)
 
   if (!showOwner) {
+    const index = await getCatalogIndex(tenantId)
+    const photos = new Map(
+      Object.values(SHOWCASE).flatMap(({ product }) => {
+        const image = index.products.find((item) => item.slug === product)?.image
+        return image ? [[product, image] as const] : []
+      }),
+    )
     return (
       <section id="fakty" aria-labelledby="fakty-h" className="py-12 sm:py-16">
         <Container wide>
-          <FactsCard block={block} stats={stats} logos={logos} />
+          <FactsCard block={block} stats={stats} logos={logos} photos={photos} />
         </Container>
       </section>
     )

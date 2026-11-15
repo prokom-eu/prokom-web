@@ -1,6 +1,6 @@
 import type { IconName } from '../../lib/catalog/options'
 import type { Page } from '../../payload-types'
-import { BIZNES_CONTACT } from './contact'
+import { GUARANTEES_1411, STEPS_GETS_1411 } from './home1411'
 
 /**
  * Start content of B7c, v150 (K4c): „Plan Twojej firmy” with „Dla kogo”, „Jak pracujemy”. Texts 1:1
@@ -182,7 +182,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
       blockType: 'bzSteps',
       // v150 (board `#s4-jak`).
       eyebrow: 'Jak pracujemy · ludzie, nie infolinia',
-      heading: 'Od pierwszej rozmowy do serwisu',
+      heading: 'Od pierwszej rozmowy do serwisu na lata',
       lead: 'Cztery kroki i ten sam zespół z Rabki-Zdroju. Na każdym etapie wiesz, kto się Tobą zajmuje i co dostajesz.',
       getsLabel: 'Dostajesz',
       steps: [
@@ -190,7 +190,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Rozmowa',
           icon: 'phone',
           text: 'Telefon, wiadomość albo wizyta w Rabce. Pytamy, jak pracuje firma i co ma się poprawić.',
-          gets: 'listę potrzeb, także tego, czego nie musisz kupować',
+          gets: STEPS_GETS_1411[0],
           role: 'Doradca PRO-KOM',
           label: 'Pierwszy kontakt',
         },
@@ -198,7 +198,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Oferta',
           icon: 'doc',
           text: 'Dobieramy sprzęt i programy do skali firmy. Kilka wariantów, każdy z uzasadnieniem.',
-          gets: 'kilka wariantów z uzasadnieniem',
+          gets: STEPS_GETS_1411[1],
           role: 'ten sam doradca',
           label: 'Warianty',
         },
@@ -206,7 +206,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Wdrożenie',
           icon: 'wrench',
           text: 'Konfigurujemy przed dostawą, montujemy, fiskalizujemy kasy, przenosimy dane i szkolimy zespół.',
-          gets: 'działające stanowiska od pierwszego dnia',
+          gets: STEPS_GETS_1411[2],
           role: 'Wdrożeniowiec',
           label: 'U Ciebie w firmie',
         },
@@ -214,7 +214,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
           title: 'Opieka',
           icon: 'shield',
           text: 'Serwis, przeglądy kas z przypomnieniem, aktualizacje i pomoc, gdy coś przestaje działać.',
-          gets: `jeden numer do wszystkiego: ${BIZNES_CONTACT.phone}`,
+          gets: STEPS_GETS_1411[3],
           role: 'Serwisant i opiekun IT',
           label: 'Na lata',
         },
@@ -222,12 +222,7 @@ export function planBlocks(industry: (seedSlug: string) => number | undefined): 
       commitmentsEyebrow: 'Nasze zobowiązania',
       commitmentsHeading: 'Tak pracujemy na co dzień',
       // „Nasze zobowiązania”: title — note (`BzSteps/commitment.ts`).
-      guarantees: [
-        { text: '60 minut — oddzwaniamy w godzinach pracy' },
-        { text: 'Wycena — pod Twoją firmę, w kilku wariantach' },
-        { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
-        { text: `Jeden numer — ${BIZNES_CONTACT.phone}, oferty i serwis` },
-      ],
+      guarantees: GUARANTEES_1411.map((text) => ({ text })),
     },
   ]
 }

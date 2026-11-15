@@ -1,48 +1,86 @@
 import Link from 'next/link'
 
 import { MediaImage } from '@/components/MediaImage'
-import { LineLogo } from '@/components/shared/LineLogo'
 import { Container } from '@/components/ui/Container'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import { getEnv } from '@/lib/env'
-import { coverIsWordmark, postDate } from '@/lib/posts/cards'
+import { coverIsWordmark, postDate, type PostListCard } from '@/lib/posts/cards'
 import { getPostList, getSisterLinePostLinks } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
 import type { SisterLine } from '@/lib/posts/sister'
+import { getSharedData } from '@/lib/shared/getSharedData'
+import { getSiteSettings } from '@/lib/site/data'
 import type { BzNewsHomeBlock as BzNewsHomeBlockData } from '@/payload-types'
 
 import { SplitHead } from '../../components/home/SplitHead'
 
-/** Cards on the home page (plan 0611 §7.1 pkt 12). */
-const CARDS = 3
+/** The featured post plus three in the list (runda 1411, board `Aktualnosci.dc.html`). */
+const LIST = 3
 
-const LINE_NAME: Record<SisterLine, string> = {
+const LINE_NAME: Record<SisterLine | 'biznes', string> = {
+  biznes: 'PRO-KOM Biznes',
   instalacje: 'PRO-KOM Instalacje',
   software: 'PRO-KOM Software',
 }
 
-const CARD =
-  'relative flex w-full flex-col overflow-hidden rounded-[28px] transition-shadow has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-accent-text hover:shadow-[0_24px_48px_-28px_var(--glow)]'
 const TITLE =
-  'font-display text-[1.3rem] leading-[1.12] font-extrabold tracking-[-0.01em] font-stretch-112%'
+  'font-display leading-[1.15] font-extrabold tracking-[-0.01em] text-ink font-stretch-112%'
 const STRETCH = 'outline-hidden after:absolute after:inset-0 after:content-[""]'
+const CARD =
+  'relative flex overflow-hidden rounded-[24px] bg-card shadow-[inset_0_0_0_1px_var(--border)] transition-shadow has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-accent-text hover:shadow-[0_24px_48px_-28px_var(--glow),inset_0_0_0_1px_var(--border)]'
 
-/** Columns by the number of cards: no empty cell (1 → one wide card, 2 → two, 3 → three). */
-const GRID: Record<number, string> = {
-  1: 'grid-cols-1',
-  2: 'min-[640px]:grid-cols-2',
-  // Two columns on a tablet: the third card takes the whole second row.
-  3: 'min-[640px]:grid-cols-2 min-[640px]:[&>li:nth-child(3)]:col-span-2 min-[1080px]:grid-cols-3 min-[1080px]:[&>li:nth-child(3)]:col-span-1',
+/** „Linia · kategoria” with the line's coloured dot (no logo, board). */
+function LineLabel({
+  name,
+  color,
+  extra,
+}: {
+  name: string
+  color: string | null
+  extra?: string | null
+}) {
+  return (
+    <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] font-extrabold text-ink-2">
+      <span
+        aria-hidden="true"
+        className="size-2 shrink-0 rounded-full"
+        style={{ background: color ?? 'var(--accent)' }}
+      />
+      {name}
+      {extra && <> · {extra}</>}
+    </span>
+  )
+}
+
+function Cover({ post }: { post: PostListCard }) {
+  if (!post.cover) return null
+  return coverIsWordmark(post.cover) ? (
+    <span className="flex h-16 items-center justify-center rounded-2xl bg-white px-5 shadow-[0_14px_30px_-18px_var(--glow)]">
+      <MediaImage
+        image={post.cover}
+        sizes="160px"
+        eager={false}
+        className="h-auto max-h-8 w-auto max-w-[150px] object-contain"
+      />
+    </span>
+  ) : (
+    <MediaImage
+      image={post.cover}
+      sizes="(min-width: 1080px) 30vw, 90vw"
+      eager={false}
+      className="h-full max-h-[200px] w-auto max-w-full object-contain drop-shadow-[0_24px_28px_var(--glow)]"
+    />
+  )
 }
 
 /**
- * „Aktualności” of the Biznes home page, `#aktualnosci` (plan 0611 §7.1 pkt 12, D8; NAPRAWA-0911
- * §4): the newest Biznes posts first, each with its picture (the cover, or a tile with the line's
- * icon) and a two-line lead. With fewer than three, compact cards of Instalacje and Software link
- * to their own sites: the line's mark, the title, a short teaser (≤ 140 characters) and „Czytaj
- * na stronie linii ↗” — no cover, no body. Cards are as tall as their content (no empty fields).
- * No post at all = nothing.
+ * „Aktualności” of the Biznes home page, `#aktualnosci` (runda 1411, board `Aktualnosci.dc.html`;
+ * plan 0611 §7.1 pkt 12 before): the newest Biznes post featured — a navy cover with its picture
+ * and, for a KSeF post, the deadline from `SiteSettings → KSeF` — and three posts beside it, equal
+ * in height, each with the line's coloured dot and name instead of a logo. With fewer Biznes posts
+ * the posts of Instalacje and Software link to their own sites. Phone (§5): the featured post on
+ * top, the three as a list with a 72 px thumbnail. No post at all = nothing.
  */
 export async function BzNewsHomeBlock({
   block,
@@ -51,17 +89,19 @@ export async function BzNewsHomeBlock({
   block: BzNewsHomeBlockData
   tenantId: number
 }) {
-  const own = (await getPostList(tenantId, 'biznes')).slice(0, CARDS)
-  // Links to the other lines' sites in this environment (tenant domains). Locally one app serves
-  // every domain on its own port; reading the request host would make the home page dynamic.
+  const own = (await getPostList(tenantId, 'biznes')).slice(0, LIST + 1)
   const { SITE_ENV } = getEnv()
-  const sister = await getSisterLinePostLinks(tenantId, CARDS - own.length, {
+  const sister = await getSisterLinePostLinks(tenantId, LIST + 1 - own.length, {
     siteEnv: SITE_ENV,
     port: SITE_ENV === 'local' ? (process.env.PORT ?? '3000') : null,
   })
-  const count = own.length + sister.length
-  if (count === 0) return null
-  const wide = count === 1
+  if (own.length + sister.length === 0) return null
+  const [shared, settings] = await Promise.all([getSharedData(tenantId), getSiteSettings(tenantId)])
+  const color = (key: string) => shared?.lines.find((line) => line.key === key)?.color ?? null
+  const [featured, ...rest] = own
+  const deadline = postDate(settings?.biznes?.ksef?.deadline)
+  const ksef = Boolean(featured?.category && /ksef/i.test(featured.category))
+
   return (
     <section
       id="aktualnosci"
@@ -85,104 +125,155 @@ export async function BzNewsHomeBlock({
             </Link>
           )}
         </SplitHead>
-        <ul
-          className={cx('grid items-start gap-3.5', GRID[count])}
+        <div
+          className={cx(
+            'grid gap-4',
+            featured && 'min-[1080px]:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]',
+          )}
           data-news-home
-          data-reveal-cards=""
         >
-          {own.map((post) => (
-            <li key={post.slug} className="flex">
-              <article
-                className={cx(CARD, 'bg-surface-2', wide && 'min-[768px]:flex-row')}
-                data-news-card=""
+          {featured && (
+            <article className={cx(CARD, 'flex-col')} data-news-card="" data-news-featured="">
+              <div
+                data-surface="dark"
+                className="relative flex h-[230px] items-center justify-between gap-6 overflow-hidden bg-surface-dark px-7 text-white max-md:h-[180px] max-md:px-5"
               >
-                <div
-                  className={cx(
-                    'flex h-[180px] shrink-0 items-center justify-center p-5',
-                    wide && 'min-[768px]:h-auto min-[768px]:w-[40%]',
-                  )}
-                >
-                  {post.cover && coverIsWordmark(post.cover) ? (
-                    // A wordmark (KSeF): small on a white tile, like the line's mark below.
-                    <span className="flex h-20 items-center justify-center rounded-[24px] bg-plate px-6 shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]">
-                      <MediaImage
-                        image={post.cover}
-                        sizes="160px"
-                        eager={false}
-                        className="h-auto max-h-9 w-auto max-w-[160px] object-contain"
-                      />
+                {ksef && deadline && (
+                  <span className="flex max-w-[55%] flex-col gap-1">
+                    <span className="text-[12px] font-extrabold tracking-[0.16em] text-accent-on-dark uppercase">
+                      Termin
                     </span>
-                  ) : post.cover ? (
-                    <MediaImage
-                      image={post.cover}
-                      sizes="(min-width: 1080px) 30vw, (min-width: 640px) 45vw, 90vw"
-                      eager={false}
-                      className="h-full max-h-[180px] w-auto max-w-full object-contain drop-shadow-[0_24px_28px_var(--glow)]"
-                    />
-                  ) : (
-                    // No cover: a tile with the line's mark — never an empty field.
-                    <span
-                      aria-hidden="true"
-                      className="flex h-20 items-center justify-center rounded-[24px] bg-card px-6 shadow-[0_14px_30px_-18px_var(--glow),inset_0_0_0_1px_var(--border)]"
+                    <time
+                      dateTime={deadline.dateTime}
+                      className="font-display text-[clamp(30px,3vw,40px)] leading-none font-extrabold font-stretch-115%"
                     >
-                      <LineLogo line="biznes" alt="" height={28} />
-                    </span>
+                      {deadline.date}
+                    </time>
+                  </span>
+                )}
+                <span className="flex h-full flex-1 items-center justify-center py-6">
+                  <Cover post={featured} />
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col gap-2.5 p-6 max-md:p-5">
+                <p className="flex flex-wrap items-center justify-between gap-2">
+                  <LineLabel
+                    name={LINE_NAME.biznes}
+                    color={color('biznes')}
+                    extra={featured.category}
+                  />
+                  {featured.dateTime && (
+                    <time
+                      dateTime={featured.dateTime}
+                      className="text-[12.5px] font-bold text-ink-2"
+                    >
+                      {featured.date}
+                    </time>
                   )}
-                </div>
-                <div className="flex flex-1 flex-col gap-2 p-[22px] pt-4">
-                  <p className="text-[13px] font-extrabold text-accent-text">
-                    {post.category && `${post.category} · `}
-                    {post.dateTime && <time dateTime={post.dateTime}>{post.date}</time>}
+                </p>
+                <h3 className={cx(TITLE, 'text-[clamp(1.35rem,2vw,1.65rem)]')}>
+                  <Link href={featured.href} className={STRETCH}>
+                    {featured.title}
+                  </Link>
+                </h3>
+                {featured.lead && (
+                  <p className="line-clamp-3 text-[15px] leading-relaxed text-ink-2">
+                    {featured.lead}
                   </p>
-                  <h3 className={TITLE}>
-                    <Link href={post.href} className={STRETCH}>
-                      {post.title}
-                    </Link>
-                  </h3>
-                  {post.lead && (
-                    <p className="line-clamp-2 text-[14px] leading-snug text-ink-2">{post.lead}</p>
-                  )}
-                </div>
-              </article>
-            </li>
-          ))}
-          {sister.map((link) => {
-            const published = postDate(link.publishedAt)
-            return (
-              <li key={link.href} className="flex" data-sister-line={link.line}>
-                <article
-                  className={cx(CARD, 'bg-card shadow-[inset_0_0_0_1px_var(--border)]')}
-                  data-news-card=""
+                )}
+                <span
+                  aria-hidden="true"
+                  className="mt-auto pt-2 text-[14px] font-extrabold text-accent-text"
                 >
-                  <div className="flex flex-1 flex-col gap-2 p-[22px]">
-                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-extrabold text-ink-2">
-                      {/* The name is in the link („strona …”): the mark is decoration here. */}
-                      <LineLogo line={link.line} alt="" height={20} />
-                      {published && <time dateTime={published.dateTime}>{published.date}</time>}
-                    </p>
-                    <h3 className={TITLE}>
-                      <a href={link.href} className={STRETCH}>
-                        {link.title}
-                        <span className="sr-only"> (strona {LINE_NAME[link.line]})</span>
-                      </a>
-                    </h3>
-                    {link.lead && (
-                      <p className="line-clamp-2 text-[14px] leading-snug text-ink-2">
-                        {link.lead}
-                      </p>
-                    )}
-                    <span
-                      aria-hidden="true"
-                      className="pt-1 text-[14px] font-extrabold text-accent-text"
-                    >
-                      Czytaj na stronie linii ↗
+                  Czytaj poradnik →
+                </span>
+              </div>
+            </article>
+          )}
+          {(rest.length > 0 || sister.length > 0) && (
+            <ul className="grid auto-rows-fr gap-3" data-reveal-cards="">
+              {rest.map((post) => (
+                <li key={post.slug} className="flex">
+                  <article className={cx(CARD, 'w-full items-stretch')} data-news-card="">
+                    <span className="flex w-[120px] shrink-0 items-center justify-center bg-surface-2 p-3 max-md:w-[72px]">
+                      {post.cover && !coverIsWordmark(post.cover) ? (
+                        <MediaImage
+                          image={post.cover}
+                          sizes="120px"
+                          eager={false}
+                          className="max-h-[84px] w-auto max-w-full object-contain"
+                        />
+                      ) : (
+                        <Icon name="doc" className="size-7 text-accent-text" />
+                      )}
                     </span>
-                  </div>
-                </article>
-              </li>
-            )
-          })}
-        </ul>
+                    <span className="flex min-w-0 flex-1 flex-col gap-1.5 p-4">
+                      <LineLabel
+                        name={LINE_NAME.biznes}
+                        color={color('biznes')}
+                        extra={post.category}
+                      />
+                      <h3 className={cx(TITLE, 'text-[17px]')}>
+                        <Link href={post.href} className={STRETCH}>
+                          {post.title}
+                        </Link>
+                      </h3>
+                      {post.lead && (
+                        <p className="line-clamp-2 text-[14px] leading-snug text-ink-2 max-md:hidden">
+                          {post.lead}
+                        </p>
+                      )}
+                    </span>
+                  </article>
+                </li>
+              ))}
+              {sister.slice(0, LIST - rest.length).map((link) => {
+                const published = postDate(link.publishedAt)
+                return (
+                  <li key={link.href} className="flex" data-sister-line={link.line}>
+                    <article className={cx(CARD, 'w-full items-stretch')} data-news-card="">
+                      <span
+                        aria-hidden="true"
+                        className="w-1.5 shrink-0"
+                        style={{ background: color(link.line) ?? 'var(--accent)' }}
+                      />
+                      <span className="flex min-w-0 flex-1 flex-col gap-1.5 p-4">
+                        <span className="flex flex-wrap items-center justify-between gap-2">
+                          <LineLabel name={LINE_NAME[link.line]} color={color(link.line)} />
+                          {published && (
+                            <time
+                              dateTime={published.dateTime}
+                              className="text-[12.5px] font-bold text-ink-2"
+                            >
+                              {published.date}
+                            </time>
+                          )}
+                        </span>
+                        <h3 className={cx(TITLE, 'text-[17px]')}>
+                          <a href={link.href} className={STRETCH}>
+                            {link.title}
+                            <span className="sr-only"> (strona {LINE_NAME[link.line]})</span>
+                          </a>
+                        </h3>
+                        {link.lead && (
+                          <p className="line-clamp-2 text-[14px] leading-snug text-ink-2 max-md:hidden">
+                            {link.lead}
+                          </p>
+                        )}
+                        <span
+                          aria-hidden="true"
+                          className="text-[13.5px] font-extrabold text-accent-text"
+                        >
+                          Czytaj na stronie linii ↗
+                        </span>
+                      </span>
+                    </article>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
       </Container>
     </section>
   )

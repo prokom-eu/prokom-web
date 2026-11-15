@@ -29,6 +29,7 @@ const BIZNES_HOME = [
   { blockType: 'partners' },
   { blockType: 'bzProcurement' },
   { blockType: 'bzNewsHome' },
+  { blockType: 'bzLines' },
   { blockType: 'faq' },
   { blockType: 'bzContact' },
 ]

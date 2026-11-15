@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
-import { HOME_ORDER_1411, SYSTEMS_HEAD, upgradeHome1411 } from './home1411'
+import {
+  GUARANTEES_1411,
+  HOME_ORDER_1411,
+  STEPS_GETS_1411,
+  SYSTEMS_HEAD,
+  upgradeHome1411,
+  upgradeHomeSections1411,
+} from './home1411'
+import { BIZNES_CONTACT } from './contact'
 
 type Block = { blockType: string; variant?: unknown; [key: string]: unknown }
 
@@ -91,5 +99,65 @@ describe('upgradeHome1411 (PRZEKAZANIE-RUNDA-1411 §1 — nowa kolejność)', ()
     expect(upgradeHome1411([])).toBeNull()
     expect(upgradeHome1411(null)).toBeNull()
     expect(new Set(HOME_ORDER_1411).size).toBe(HOME_ORDER_1411.length)
+  })
+})
+
+describe('upgradeHomeSections1411 (R4: Jak pracujemy, Inne linie)', () => {
+  const steps: Block = {
+    blockType: 'bzSteps',
+    heading: 'Od pierwszej rozmowy do serwisu',
+    steps: [
+      { title: 'Rozmowa', gets: 'listę potrzeb, także tego, czego nie musisz kupować' },
+      { title: 'Oferta', gets: 'mój własny tekst z panelu' },
+      { title: 'Wdrożenie', gets: 'działające stanowiska od pierwszego dnia' },
+      { title: 'Opieka', gets: `jeden numer do wszystkiego: ${BIZNES_CONTACT.phone}` },
+    ],
+    guarantees: [
+      { text: '60 minut — oddzwaniamy w godzinach pracy' },
+      { text: 'Wycena na mailu — pod Twoją firmę, w kilku wariantach' },
+      { text: 'Kasa gotowa do pracy — fiskalizacja, programowanie, szkolenie' },
+      { text: `Jeden numer — ${BIZNES_CONTACT.phone}, oferty i serwis` },
+    ],
+  }
+  const layout: Block[] = [
+    { blockType: 'bzHero' },
+    steps,
+    { blockType: 'faq' },
+    { blockType: 'bzContact' },
+  ]
+  const next = upgradeHomeSections1411(layout)!
+
+  it('takes the new texts where the old seed ones stand, keeps a panel edit', () => {
+    const upgraded = next.find((block) => block.blockType === 'bzSteps') as Block & {
+      steps: { gets: string }[]
+      guarantees: { text: string }[]
+    }
+    expect(upgraded.heading).toBe('Od pierwszej rozmowy do serwisu na lata')
+    expect(upgraded.steps.map((step) => step.gets)).toEqual([
+      STEPS_GETS_1411[0],
+      'mój własny tekst z panelu',
+      STEPS_GETS_1411[2],
+      STEPS_GETS_1411[3],
+    ])
+    expect(upgraded.guarantees.map((row) => row.text)).toEqual([...GUARANTEES_1411])
+  })
+
+  it('puts „Inne linie PRO-KOM” before the FAQ, once', () => {
+    expect(next.map((block) => block.blockType)).toEqual([
+      'bzHero',
+      'bzSteps',
+      'bzLines',
+      'faq',
+      'bzContact',
+    ])
+    expect(upgradeHomeSections1411(next)).toBeNull()
+  })
+
+  it('leaves edited commitments alone', () => {
+    const edited = { ...steps, guarantees: [{ text: 'Coś od szefa' }] }
+    const out = upgradeHomeSections1411([edited, { blockType: 'bzLines' }])!
+    expect((out[0] as Block & { guarantees: unknown }).guarantees).toEqual([
+      { text: 'Coś od szefa' },
+    ])
   })
 })
