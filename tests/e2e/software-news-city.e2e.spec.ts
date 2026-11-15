@@ -65,6 +65,23 @@ test.describe('Software /aktualnosci with the seed posts', () => {
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
   })
 
+  test('„Z poradnika” on /o-firmie and /kontakt: the newest posts and the link to the list', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, '/aktualnosci'))
+    const posts = await page.locator('main .sw-post-featured, main .sw-post-card').count()
+    test.skip(posts === 0, 'no public post in this database')
+    for (const path of ['/o-firmie', '/kontakt']) {
+      await page.goto(site(HOST, path))
+      const section = page.locator('#z-poradnika')
+      await expect(section.getByRole('heading', { level: 2 }), path).toContainText('Piszemy o tym')
+      await expect(section.locator('a[href="/aktualnosci"]'), path).toBeVisible()
+      const cards = await section.locator('.sw-post-card').count()
+      expect(cards, path).toBeGreaterThanOrEqual(1)
+      expect(cards, path).toBeLessThanOrEqual(3)
+    }
+  })
+
   test.describe('phone', () => {
     test.use({ viewport: { width: 360, height: 780 }, isMobile: true, hasTouch: true })
 
