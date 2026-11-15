@@ -15,7 +15,7 @@ export const CASH_REGISTER_REVIEW: BiznesGuidePost = {
   category: 'kasy',
   lead: 'Obowiązkowy przegląd kasy fiskalnej łatwo przeoczyć, bo zdarza się raz na dwa lata. Spóźnienie kosztuje karę i może oznaczać zwrot ulgi na kasę. Sprawdź, jak policzyć termin i jak przebiega przegląd.',
   summary:
-    'Kasę trzeba oddać do przeglądu co najmniej raz na 2 lata, licząc od fiskalizacji albo od ostatniego przeglądu. Serwisant ma na niego 3 dni od zgłoszenia i wpisuje go do książki kasy. Za brak przeglądu w terminie urząd skarbowy może nałożyć karę 300 zł.',
+    'Kasę trzeba oddać do przeglądu co najmniej raz na 2 lata, licząc od fiskalizacji albo od ostatniego przeglądu. Serwisant wpisuje go do książki kasy — zgłoś go z wyprzedzeniem, najlepiej miesiąc przed terminem. Za brak przeglądu w terminie urząd skarbowy może nałożyć karę 300 zł.',
   content: [
     h2('Jak policzyć termin'),
     p(
@@ -26,7 +26,7 @@ export const CASH_REGISTER_REVIEW: BiznesGuidePost = {
     ),
     h2('Kto robi przegląd'),
     p(
-      'Przegląd robi serwisant uprawniony do serwisu danej marki kasy, na podstawie Twojego zgłoszenia. Powinien go wykonać w ciągu 3 dni od zgłoszenia, więc nie zostawiaj tego na ostatni dzień terminu.',
+      'Przegląd robi serwisant uprawniony do serwisu danej marki kasy, na podstawie Twojego zgłoszenia. Zgłoś go z wyprzedzeniem, najlepiej miesiąc przed terminem — nie zostawiaj tego na ostatni dzień.',
     ),
     h2('Co sprawdza serwisant'),
     ul(

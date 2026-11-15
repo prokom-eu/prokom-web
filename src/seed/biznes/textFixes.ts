@@ -40,6 +40,8 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
   ],
   // KSeF token kept with no end date (MF, ksef.podatki.gov.pl „Certyfikaty KSeF”, 01.09.2026).
   ['Certyfikat KSeF, zanim skończy się token', 'Certyfikat KSeF do programu i do trybu offline'],
+  // The same heading as the package has it, with a dash (audyt 15.11 wieczorem §3.1).
+  ['Certyfikat KSeF — zanim skończy się token', 'Certyfikat KSeF do programu i do trybu offline'],
   ['Stary token działa tylko do końca 2026 r.', 'Token zostaje — MF utrzymało go bezterminowo.'],
   ['Token działa tylko do końca 2026.', 'Token MF utrzymało bezterminowo.'],
   // Redaction (audit of 01.11.2026, prompt 5): parts of longer sentences. Headings and other

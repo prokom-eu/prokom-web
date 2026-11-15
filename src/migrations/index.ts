@@ -121,6 +121,7 @@ import * as migration_20261115_022657_biznes_kolo_zdjecie from './20261115_02265
 import * as migration_20261115_031449_biznes_systemy from './20261115_031449_biznes_systemy'
 import * as migration_20261115_035438_biznes_linie from './20261115_035438_biznes_linie'
 import * as migration_20261115_121803_biznes_kategoria_it from './20261115_121803_biznes_kategoria_it'
+import * as migration_20261115_201236_biznes_teksty_1511 from './20261115_201236_biznes_teksty_1511'
 
 export const migrations = [
   {
@@ -737,5 +738,10 @@ export const migrations = [
     up: migration_20261115_121803_biznes_kategoria_it.up,
     down: migration_20261115_121803_biznes_kategoria_it.down,
     name: '20261115_121803_biznes_kategoria_it',
+  },
+  {
+    up: migration_20261115_201236_biznes_teksty_1511.up,
+    down: migration_20261115_201236_biznes_teksty_1511.down,
+    name: '20261115_201236_biznes_teksty_1511',
   },
 ]

@@ -56,20 +56,24 @@ describe('pageMetadata', () => {
 })
 
 describe('ogImages fallback (audit 01.11)', () => {
-  it('falls back to the line mark only for a line that passes it', () => {
+  it('falls back only for a line that passes it: Biznes the generated card, others the mark', () => {
+    // Audyt 15.11 wieczorem §3.3: a 1200 × 630 card instead of the 512 px square mark.
     expect(ogImages(null, 'biznes')).toEqual([
-      { url: '/brand/prokom-biznes_icon-512.png', width: 512, height: 512, alt: '' },
+      { url: '/og/strona', width: 1200, height: 630, alt: '' },
+    ])
+    expect(ogImages(null, 'instalacje')).toEqual([
+      { url: '/brand/prokom-instalacje_icon-512.png', width: 512, height: 512, alt: '' },
     ])
     expect(ogImages(null)).toEqual([])
   })
 
-  it('puts the mark on a Biznes page without a site picture', () => {
+  it('puts the generated card on a Biznes page without a site picture', () => {
     const metadata = pageMetadata(
       { title: 'Kontakt', slug: 'kontakt' },
       { name: 'PRO-KOM Biznes', ogImage: null, line: 'biznes' },
     )
     expect(metadata.openGraph?.images).toEqual([
-      { url: '/brand/prokom-biznes_icon-512.png', width: 512, height: 512, alt: '' },
+      { url: '/og/strona', width: 1200, height: 630, alt: '' },
     ])
   })
 })
