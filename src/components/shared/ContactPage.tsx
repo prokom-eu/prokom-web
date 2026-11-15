@@ -346,7 +346,8 @@ export function ContactPage({
                           className="text-[11px] leading-tight tracking-[-0.02em] whitespace-nowrap tabular-nums"
                         >
                           {/* A closed day: a dash — „zamkn.” needed 10.5 px to fit seven tiles in
-                              360 px (audyt 15.11 P2-5: nothing under 11 px); the full text is
+                              360 px (audyt 15.11 P2-5: nothing under 11 px; §4 says 12, the
+                              seven tiles do not fit it); the full text is
                               in the label above for screen readers. */}
                           {day.compact ?? '—'}
                         </span>
@@ -434,13 +435,15 @@ export function ContactPage({
           </h2>
           {routeChips && (
             <ul className="mt-4 -mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] min-[700px]:hidden">
+              {/* A chip is the route's link itself, so it needs only the address (a card shows its
+                  link with the CTA label). */}
               {routes
                 .filter((route) => route.href)
                 .map((route, i) => (
                   <li key={i} className="flex">
                     <a
                       href={route.href ?? undefined}
-                      className="relative inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-card px-4 text-[15px] font-bold whitespace-nowrap text-ink shadow-[inset_0_0_0_1.5px_var(--border)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
+                      className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-card px-4 text-[15px] font-bold whitespace-nowrap text-ink shadow-[inset_0_0_0_1.5px_var(--border)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
                     >
                       {route.title}
                       <Icon name="arrow" className="size-4 text-accent-text" />
