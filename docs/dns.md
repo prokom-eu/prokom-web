@@ -85,6 +85,12 @@ Strefa: **nazwa.pl** (decyzja Krystiana 15.11; NS `ns1/ns2/ns3.nazwa.pl`). **Nie
 6. **nadawcy `@pro-kom.eu` w SPF:** w nagłówkach obecnego maila sprawdzić, z jakiego IP wysyła nazwa.pl (czy `85.128.169.153`), i czy rekord `MS=` oznacza Microsoft 365 wysyłający jako `@pro-kom.eu` (wtedy `include:spf.protection.outlook.com`). Jeśli formularze huba mają wysyłać z adresu `@pro-kom.eu` przez inny serwer (np. hosting poczty Seohost, `MAIL_SENDERS` — dziś bez `prokom`), dopisać go do SPF (`include:`/`ip4:`) **przed** startem — przy `_dmarc p=quarantine` maile bez SPF trafią do spamu. TODO(krystian): adres i SMTP nadawcy huba.
 Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL 300 na T−48 h. Wildcard i pozostałe nazwy zostają na nazwa.pl. **Hosting poczty jest na tym samym koncie nazwa.pl co obecna strona** — koniec abonamentu (grudzień, ADR-H001) nie może wyłączyć poczty: TODO(krystian) — sprawdzić w nazwa.pl, czy poczta to osobna usługa, zanim abonament strony wygaśnie.
 
+**Ustalone w panelu nazwa.pl 15.11:**
+- Strefa pro-kom.eu jest w trybie „Przekierowanie na usługę w nazwa.pl” → hosting `pro-kom.nazwa.pl`. Rekordy A/CNAME/TXT/SRV dla subdomen dodaje się w Panelu Klienta: Domeny → pro-kom.eu → „Konfiguruj domenę” → „Dodatkowy rekord DNS”. **Nie zmieniać trybu** u góry tej strony, bo przestawiłby `@`, MX i pocztę.
+- Strona i poczta firmy to **jedna usługa**: „Hosting Cloud Start” `pro-kom.nazwa.pl`, ważna do **14.12.2026**. Na tym hostingu są też `dhnet.pl`, `sklepdlafirm.pl/.com`, `pro-kom24.pl`, `muzykanawesele.com.pl` i subdomeny pro-kom.eu (sklep, komis, extranet, test, demo…). Nie wypowiadać przed decyzją o poczcie i tych domenach (ADR-002). TODO(krystian): przedłużenie do 14.12.
+- Dysk poczty i baz danych w CloudHosting Panel: **124,7 GB zajęte, 0,3 GB wolne** (15.11). Pełny dysk = poczta przestaje przyjmować wiadomości. TODO(krystian): porządki w skrzynkach albo „Dodatkowy dysk”.
+- CAA zezwala na `letsencrypt.org` (certyfikat `prokom-staging` z `--expand` przejdzie), DNSSEC aktywny.
+
 **Decyzja 15.11 (audyt gotowości):** domena i poczta pro-kom.eu zostają w nazwa.pl **co najmniej do końca listopada 2026**. Przełączenie strony tylko w tej kolejności — kolejny krok dopiero, gdy poprzedni jest sprawdzony:
 
 | Krok | Co | Kiedy | Sprawdzenie |
@@ -99,7 +105,7 @@ Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
 |---|---|---|---|---|---|
-| A | staging | `194.28.50.70` | 3600 | staging huba za hasłem (`noindex`), tenant `prokom` | do zrobienia (H7-2 krok 1) |
+| A | staging | `194.28.50.70` | 3600 | staging huba za hasłem (`noindex`), tenant `prokom` | **dodany 15.11** (Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”, zapis tylko tej sekcji; MX/SPF/DKIM/DMARC bez zmian) |
 
 Kolejność na serwerze (runbook §0 i §2, jak przy stagingu Tech): (1) panel stagingu → Strony → tenant `prokom` → Domeny: `staging.pro-kom.eu` (środowisko „Staging”) — **przed** dopisaniem hosta, bo smoke test wdrożenia sprawdza każdą domenę z `STAGING_SITE_HOSTS`; (2) po propagacji rekordu certyfikat `prokom-staging` z `--expand` i pełną listą jego domen + `staging.pro-kom.eu`; (3) `staging.pro-kom.eu` w `STAGING_SITE_HOSTS` (`.env.proxy`), przeładowanie Nginx; (4) `bash scripts/staging-content.sh prokom`.
 
