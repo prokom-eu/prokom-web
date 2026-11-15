@@ -4,9 +4,10 @@
 # commit production runs, without .env files (e.g. the prokom-web-tresc worktree):
 #   SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-line-content.sh biznes
 #   ZAMIEN_STRONY=gopos,insert SSH=… bash scripts/prod-line-content.sh biznes   # §2a, once
+#   SSH=… bash scripts/prod-line-content.sh prokom      # pro-kom.eu hub (`seed:prokom`, H7-2)
 # Unlike scripts/staging-content.sh there is no database swap: production keeps taking inquiries
 # and panel edits of the live lines, and a swap would lose those of the import window. Instead the
-# line's import (`pnpm seed:biznes`, idempotent, tenant-scoped; never touches users, tenants,
+# line's import (`pnpm seed:<line>`, idempotent, tenant-scoped; never touches users, tenants,
 # inquiries) writes straight into the production database through an ssh tunnel, with
 # SEED_KEEP_COMPANY_DATA=1 (the shared company data stays as edited in the production panel).
 # Media: production's files are downloaded first (unique file names are chosen against them); the
@@ -19,8 +20,10 @@ export MSYS_NO_PATHCONV=1
 
 line="${1:-}"
 case "$line" in
-  biznes) ;; # the only line with a package import into a live production so far
-  *) echo "usage: scripts/prod-line-content.sh biznes" >&2; exit 2 ;;
+  # Lines with a package import into a live production: Biznes (K4 catalogue) and the pro-kom.eu
+  # hub (texts, services, tools, help, plans, legal pages, 301 from the old pro-kom.eu).
+  biznes | prokom) ;;
+  *) echo "usage: scripts/prod-line-content.sh biznes|prokom" >&2; exit 2 ;;
 esac
 
 SSH="${SSH:-ssh}" # Git Bash on Windows: SSH=/c/Windows/System32/OpenSSH/ssh.exe (key in the agent)
@@ -63,6 +66,15 @@ live="$(prod_sql "select count(*) from tenants_domains d join tenants t on t.id 
 if [ "$live" != 0 ] && [ "${PO_STARCIE:-}" != 1 ]; then
   echo "$line already has a production domain: the import would overwrite its panel edits." >&2
   echo "Only on Krystian's decision: PO_STARCIE=1 bash scripts/prod-line-content.sh $line" >&2
+  exit 1
+fi
+# The import fills a tenant that exists (created by `pnpm seed` locally); on production the tenant
+# and its site settings are made once in the panel — the seed never creates tenants there.
+has_tenant="$(prod_sql "select count(*) from tenants t join site_settings s on s.tenant_id = t.id
+  where t.slug = '$line'")"
+if [ "$has_tenant" = 0 ]; then
+  echo "Production has no tenant '$line' with site settings. First, in the production panel:" >&2
+  echo "Strony → nowa (slug $line, linia $line, e-mail powiadomień), then Ustawienia strony of it." >&2
   exit 1
 fi
 ! port_open || { echo "Port $port is taken (an old tunnel?) — close it first." >&2; exit 1; }
@@ -175,7 +187,7 @@ export SEED_KEEP_COMPANY_DATA=1
 unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_PROKOM SMTP_PASS_BIZNES SMTP_PASS_SOFTWARE \
   SMTP_PASS_INSTALACJE SENTRY_DSN SEED_GALLERY_LIMIT UMAMI_URL UMAMI_WEBSITES \
   PAYLOAD_DROP_DATABASE PAYLOAD_MIGRATING PAYLOAD_FORCE_DRIZZLE_PUSH
-export ZAMIEN_STRONY="${ZAMIEN_STRONY:-}"
+export ZAMIEN_STRONY="${ZAMIEN_STRONY:-}" # Biznes only (§2a); the hub import ignores it
 started=1
 pnpm "seed:$line"
 kill "$tunnel" 2>/dev/null || true
