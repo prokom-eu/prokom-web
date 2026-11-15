@@ -50,6 +50,8 @@
 }
 
 /* --- Cards: white with the line's wash and its light underneath ----------------------------- */
+/* Selectors in these lists carry no state: `:is()` takes the strongest one's weight, and a state
+   selector here would beat the base rules for chosen and hovered cards (states: end of file). */
 [data-line='prokom'][data-theme='light']
   :is(
     .pk-ht,
@@ -62,14 +64,35 @@
     .pk-ccard,
     .pk-auth__card,
     .pk-bgroup,
-    .pk-ltab[aria-selected='true'],
     .pk-area
   ) {
   border-color: color-mix(in srgb, var(--ln, var(--k-g)) 20%, transparent);
   background:
     radial-gradient(
       90% 70% at 100% 0%,
-      color-mix(in srgb, var(--ln, var(--k-g)) 13%, transparent),
+      color-mix(in srgb, var(--ln, var(--k-g)) 10%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      80% 60% at 0% 100%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 7%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      160deg,
+      var(--k-card) 30%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 6%, var(--k-card))
+    );
+  box-shadow:
+    var(--lt-elev-2),
+    0 34px 64px -44px color-mix(in srgb, var(--ln, var(--k-g)) 55%, transparent);
+}
+[data-line='prokom'][data-theme='light'] .pk-ltab[aria-selected='true'] {
+  border-color: color-mix(in srgb, var(--ln, var(--k-g)) 20%, transparent);
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 10%, transparent),
       transparent 62%
     ),
     radial-gradient(
@@ -92,20 +115,28 @@
     .pk-hb-main,
     .pk-plan,
     .pk-coop,
-    .pk-salon,
     .pk-reach__map,
     .pk-fq,
-    .pk-contact,
-    .pk-pt:not([aria-pressed='true']),
     .pk-bstate,
-    .pk-ind__item:not([aria-pressed='true']),
-    .pk-ltab:not([aria-selected='true']),
     .pk-situation,
     .pk-roll__step,
     .pk-cmp-wrap,
     .pk-onx
   ) {
   border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}
+/* Choice tiles until chosen (the chosen keep their fill from the base rules). */
+[data-line='prokom'][data-theme='light'] .pk-pt:not([aria-pressed='true']),
+[data-line='prokom'][data-theme='light'] .pk-ind__item:not([aria-pressed='true']),
+[data-line='prokom'][data-theme='light'] .pk-ltab:not([aria-selected='true']) {
+  border-color: var(--lt-hair);
+  background-color: var(--k-card);
+  box-shadow: var(--lt-elev-1);
+}
+/* Salon and contact keep their green frame; white and lifted. */
+[data-line='prokom'][data-theme='light'] .pk-salon {
   background-color: var(--k-card);
   box-shadow: var(--lt-elev-1);
 }
@@ -139,7 +170,7 @@
     transparent 60%
   );
 }
-[data-line='prokom'][data-theme='light'] :is(.pk-svc, .pk-tlc, .pk-hq2__item, .pk-lcard):hover {
+[data-line='prokom'][data-theme='light'] :is(.pk-svc, .pk-tlc, .pk-hq2__item, a.pk-lcard):hover {
   box-shadow:
     var(--lt-elev-2),
     0 22px 44px -26px color-mix(in srgb, var(--ln, var(--k-g)) 60%, transparent);
@@ -168,7 +199,7 @@
 }
 /* Camera feeds and the gaming readout stay screens: dark, like the real thing. */
 [data-line='prokom'][data-theme='light']
-  :is(.pk-tl2[data-kind='cam'], .pk-cb:not([data-kind='wifi']), .pk-ht__eq, .pk-game, .pk-game2) {
+  :is(.pk-tl2[data-kind='cam'], .pk-cb:not([data-kind='wifi']), .pk-game, .pk-game2) {
   --k-white: var(--lt-screen-ink);
   --w03: color-mix(in srgb, var(--lt-screen-ink) 3%, transparent);
   --w05: color-mix(in srgb, var(--lt-screen-ink) 5%, transparent);
@@ -197,11 +228,9 @@
     ),
     linear-gradient(165deg, var(--lt-screen-2), var(--lt-screen));
 }
-[data-line='prokom'][data-theme='light'] :is(.pk-game, .pk-game2) .pk-game__fps {
-  color: var(--k-y);
-}
-[data-line='prokom'][data-theme='light'] .pk-game2__read {
-  color: var(--k-y);
+/* On the dark screen the line's text is the gold of the dark theme (the light one is too dark). */
+[data-line='prokom'][data-theme='light'] :is(.pk-game, .pk-game2) {
+  --ln-text: var(--lt-screen-accent);
 }
 
 /* Line name behind the scene panel: a crisper outline on the light wash. */
@@ -219,7 +248,7 @@
 [data-line='prokom'][data-theme='light']
   :is(
     .pk-bx,
-    .pk-hphone,
+    .pk-hphones,
     .pk-btn-phone,
     .pk-hbtn:not(.pk-hbtn--accent, .pk-hbtn--line, .pk-hbtn--on-dark)
   ) {
@@ -279,9 +308,7 @@
 }
 
 /* Subpages: the big panel of a line keeps its stripe on top; its service cards as white panes. */
-[data-line='prokom'][data-theme='light'] .pk-area {
-  border-top-color: var(--ln, var(--k-g));
-}
+
 [data-line='prokom'][data-theme='light'] .pk-osv:not([aria-pressed='true']) {
   border-color: var(--lt-hair);
   box-shadow: var(--lt-elev-1);
@@ -297,4 +324,49 @@
   border-color: var(--lt-hair);
   background: var(--k-card);
   box-shadow: var(--lt-elev-1);
+}
+
+/* --- States: chosen, open and hovered cards keep their cue ----------------------------------- */
+[data-line='prokom'][data-theme='light']
+  :is(.pk-sit[aria-pressed='true'], .pk-lt[aria-selected='true'], .pk-ltab[aria-selected='true']) {
+  border-color: var(--ln, var(--k-g));
+  background:
+    radial-gradient(
+      90% 80% at 100% 0%,
+      color-mix(in srgb, var(--ln, var(--k-g)) 16%, transparent),
+      transparent 65%
+    ),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--ln, var(--k-g)) 6%, var(--k-card)),
+      color-mix(in srgb, var(--ln, var(--k-g)) 12%, var(--k-card))
+    );
+}
+[data-line='prokom'][data-theme='light']
+  :is(.pk-ht:hover, .pk-ht:focus-within, .pk-hq2__item:hover) {
+  border-color: var(--ln, var(--k-g));
+}
+[data-line='prokom'][data-theme='light'] .pk-cb[aria-pressed='true'] {
+  border-color: var(--ln, var(--k-g));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--ln, var(--k-g)) 35%, transparent),
+    0 10px 22px -14px var(--lt-sh3);
+}
+[data-line='prokom'][data-theme='light'] .pk-area {
+  border-top-color: var(--ln, var(--k-g));
+}
+[data-line='prokom'][data-theme='light'] .pk-fq[open] {
+  border-color: color-mix(in srgb, var(--k-g) 38%, transparent);
+}
+[data-line='prokom'][data-theme='light'] :is(.pk-svc:hover, .pk-clr:hover, .pk-osv:hover) {
+  border-color: color-mix(in srgb, var(--ln, var(--k-g)) 55%, transparent);
+}
+[data-line='prokom'][data-theme='light']
+  :is(.pk-pt:not([aria-pressed='true']):hover, .pk-ind__item:not([aria-pressed='true']):hover) {
+  border-color: color-mix(in srgb, var(--k-ink) 22%, transparent);
+}
+[data-line='prokom'][data-theme='light'] .pk-onx:hover {
+  box-shadow:
+    var(--lt-elev-2),
+    0 22px 44px -26px color-mix(in srgb, var(--ln, var(--k-g)) 60%, transparent);
 }

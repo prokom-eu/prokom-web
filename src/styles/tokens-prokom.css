@@ -106,10 +106,11 @@
   --lt-sh1: rgba(18, 22, 19, 0.05);
   --lt-sh2: rgba(18, 22, 19, 0.09);
   --lt-sh3: rgba(18, 22, 19, 0.16);
-  --lt-glass: rgba(255, 255, 255, 0.72);
   --lt-screen: #101512;
   --lt-screen-2: #1b231d;
   --lt-screen-ink: #eef1ec;
+  /* Gold of the dark theme for text on those screens (≥ 9:1 on `--lt-screen`). */
+  --lt-screen-accent: #f2c230;
 }
 
 [data-line='prokom'][data-theme='dark'] {
