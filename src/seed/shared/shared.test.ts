@@ -17,16 +17,17 @@ const anchors = (shared: SharedGroup) =>
 
 /** The Biznes home page with every section rendered (all optional ones filled). */
 const BIZNES_HOME = [
+  // Runda 1411 §1: the new order, „Systemy” of its own, no KSeF band.
   { blockType: 'bzHero' },
-  { blockType: 'bzOffer', systems: [{ title: 'GoPOS' }] },
-  { blockType: 'bzProcurement' },
-  { blockType: 'partners' },
+  { blockType: 'bzOffer' },
+  { blockType: 'bzSystems' },
   { blockType: 'bzFeatured' },
-  { blockType: 'bzKsef', variant: 'band' },
   { blockType: 'bzPlan', industries: { heading: 'Dla firm', tiles: [{ name: 'Sklep' }] } },
   { blockType: 'bzSteps' },
   { blockType: 'bzReferences', reviews: [{ quote: 'Polecam.', author: 'E. S.' }] },
   { blockType: 'bzFacts' },
+  { blockType: 'partners' },
+  { blockType: 'bzProcurement' },
   { blockType: 'bzNewsHome' },
   { blockType: 'faq' },
   { blockType: 'bzContact' },

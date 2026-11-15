@@ -1,8 +1,100 @@
-import type { Block } from 'payload'
+import type { Block, Field } from 'payload'
 
 import { linkGroup } from '../../../../blocks/fields'
 import { tenantImageFilter } from '../../../../lib/media/access'
 import { tenantIdOf } from '../../../../lib/tenant/id'
+
+/**
+ * The three flagship cards (GoPOS, InsERT, Opieka IT): one definition for „Systemy, które u Ciebie
+ * wdrożymy” (`bzSystems`, runda 1411) and the old copy in „Oferta” (no longer shown, kept so no
+ * panel data is lost).
+ */
+export const systemsField: Field = {
+  name: 'systems',
+  label: 'Karty systemów',
+  type: 'array',
+  maxRows: 3,
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'partner',
+          label: 'Partner (logo i status)',
+          type: 'relationship',
+          relationTo: 'partners',
+          // Only partners shown on this site; the page is checked again when rendered.
+          filterOptions: ({ data }) => {
+            const tenant = tenantIdOf(data?.tenant)
+            return tenant === null ? false : { tenants: { in: [tenant] } }
+          },
+          admin: {
+            description:
+              'Plakietka to status partnera z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki. Puste = znak PRO-KOM Biznes.',
+          },
+        },
+        {
+          name: 'badge',
+          label: 'Plakietka (karta bez partnera)',
+          type: 'text',
+          maxLength: 30,
+          admin: {
+            condition: (_, sibling) => !sibling?.partner,
+            description: 'Np. „Usługa PRO-KOM”.',
+          },
+        },
+      ],
+    },
+    { name: 'title', label: 'Tytuł', type: 'text', required: true },
+    { name: 'text', label: 'Opis', type: 'textarea', required: true, maxLength: 220 },
+    linkGroup('link', 'Link', true),
+    {
+      name: 'mode',
+      label: 'Górna część karty',
+      type: 'radio',
+      defaultValue: 'image',
+      options: [
+        { label: 'Obraz', value: 'image' },
+        { label: 'Paski statusu (np. Opieka IT)', value: 'statuses' },
+      ],
+    },
+    {
+      name: 'image',
+      label: 'Obraz',
+      type: 'upload',
+      relationTo: 'media',
+      filterOptions: tenantImageFilter,
+      admin: { condition: (_, sibling) => sibling?.mode !== 'statuses' },
+    },
+    {
+      name: 'statuses',
+      label: 'Paski statusu',
+      type: 'array',
+      maxRows: 3,
+      admin: { condition: (_, sibling) => sibling?.mode === 'statuses' },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'label', label: 'Etykieta', type: 'text', required: true, maxLength: 48 },
+            { name: 'value', label: 'Wartość', type: 'text', required: true, maxLength: 24 },
+            {
+              name: 'tone',
+              label: 'Kropka',
+              type: 'select',
+              required: true,
+              defaultValue: 'ok',
+              options: [
+                { label: 'Zielona', value: 'ok' },
+                { label: 'Pomarańczowa', value: 'warn' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
 
 /**
  * „Oferta” of the Biznes home page (spec. §4 pkt 4, ZMIANY-v20 §2.2): the five department
@@ -71,91 +163,6 @@ export const BzOfferBlock: Block = {
         { name: 'systemsNote', label: 'Dopisek po prawej', type: 'text' },
       ],
     },
-    {
-      name: 'systems',
-      label: 'Karty systemów',
-      type: 'array',
-      maxRows: 3,
-      fields: [
-        {
-          type: 'row',
-          fields: [
-            {
-              name: 'partner',
-              label: 'Partner (logo i status)',
-              type: 'relationship',
-              relationTo: 'partners',
-              // Only partners shown on this site; the page is checked again when rendered.
-              filterOptions: ({ data }) => {
-                const tenant = tenantIdOf(data?.tenant)
-                return tenant === null ? false : { tenants: { in: [tenant] } }
-              },
-              admin: {
-                description:
-                  'Plakietka to status partnera z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki. Puste = znak PRO-KOM Biznes.',
-              },
-            },
-            {
-              name: 'badge',
-              label: 'Plakietka (karta bez partnera)',
-              type: 'text',
-              maxLength: 30,
-              admin: {
-                condition: (_, sibling) => !sibling?.partner,
-                description: 'Np. „Usługa PRO-KOM”.',
-              },
-            },
-          ],
-        },
-        { name: 'title', label: 'Tytuł', type: 'text', required: true },
-        { name: 'text', label: 'Opis', type: 'textarea', required: true, maxLength: 220 },
-        linkGroup('link', 'Link', true),
-        {
-          name: 'mode',
-          label: 'Górna część karty',
-          type: 'radio',
-          defaultValue: 'image',
-          options: [
-            { label: 'Obraz', value: 'image' },
-            { label: 'Paski statusu (np. Opieka IT)', value: 'statuses' },
-          ],
-        },
-        {
-          name: 'image',
-          label: 'Obraz',
-          type: 'upload',
-          relationTo: 'media',
-          filterOptions: tenantImageFilter,
-          admin: { condition: (_, sibling) => sibling?.mode !== 'statuses' },
-        },
-        {
-          name: 'statuses',
-          label: 'Paski statusu',
-          type: 'array',
-          maxRows: 3,
-          admin: { condition: (_, sibling) => sibling?.mode === 'statuses' },
-          fields: [
-            {
-              type: 'row',
-              fields: [
-                { name: 'label', label: 'Etykieta', type: 'text', required: true, maxLength: 48 },
-                { name: 'value', label: 'Wartość', type: 'text', required: true, maxLength: 24 },
-                {
-                  name: 'tone',
-                  label: 'Kropka',
-                  type: 'select',
-                  required: true,
-                  defaultValue: 'ok',
-                  options: [
-                    { label: 'Zielona', value: 'ok' },
-                    { label: 'Pomarańczowa', value: 'warn' },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    systemsField,
   ],
 }
