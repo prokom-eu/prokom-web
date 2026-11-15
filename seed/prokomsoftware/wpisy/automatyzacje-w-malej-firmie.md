@@ -2,7 +2,7 @@
 slug: automatyzacje-w-malej-firmie
 title: 10 rzeczy, które mała firma może przestać robić ręcznie
 category: Automatyzacje
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 11:30
 seoTitle: Automatyzacja w małej firmie: 10 przykładów
 seoDescription: Dziesięć codziennych czynności, które mała firma może zautomatyzować: przypomnienia, faktury, oferty PDF, potwierdzenia terminów i raporty.
 lead: Automatyzacja kojarzy się z wielkimi fabrykami, a w małej firmie najczęściej oznacza coś prostego: żeby ta sama informacja nie była wpisywana trzy razy, a przypomnienie wysyłało się samo. Oto dziesięć przykładów z codziennej pracy.

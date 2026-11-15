@@ -2,7 +2,7 @@
 slug: kiedy-przebudowac-stara-strone
 title: Kiedy przebudować starą stronę? 8 sygnałów, że czas na zmianę
 category: Strony
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 10:10
 seoTitle: Kiedy przebudować starą stronę firmy
 seoDescription: Osiem sygnałów, że strona firmy wymaga przebudowy: wolne ładowanie, zła wersja na telefon, brak zapytań. I jak przy tym nie stracić pozycji w Google.
 lead: Stara strona rzadko psuje się z dnia na dzień. Częściej po cichu przestaje przynosić klientów. Oto osiem sygnałów, które warto sprawdzić, zanim zdecydujesz, czy ją poprawiać, czy budować od nowa.

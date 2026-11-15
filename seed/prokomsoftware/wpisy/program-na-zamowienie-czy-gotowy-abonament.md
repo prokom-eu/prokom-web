@@ -2,7 +2,7 @@
 slug: program-na-zamowienie-czy-gotowy-abonament
 title: Program na zamówienie czy gotowy w abonamencie – jak policzyć, co się opłaca
 category: Systemy
-publishedAt: 2026-12-14
+publishedAt: 2026-11-15 11:00
 seoTitle: Program na zamówienie czy gotowy?
 seoDescription: Kiedy wybrać gotowy program w abonamencie, a kiedy system pisany pod firmę. Koszt w kilka lat, dopasowanie, własność danych i ryzyko zmiany dostawcy.
 lead: Gotowe programy w abonamencie są szybkie na start, ale nie zawsze pasują do sposobu pracy firmy. System na zamówienie pasuje idealnie, ale wymaga inwestycji. Pokazujemy, jak porównać oba podejścia uczciwie.

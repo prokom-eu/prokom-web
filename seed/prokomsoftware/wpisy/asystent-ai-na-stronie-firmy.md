@@ -2,7 +2,7 @@
 slug: asystent-ai-na-stronie-firmy
 title: Asystent AI w firmie – kiedy pomaga, a kiedy szkodzi
 category: Automatyzacje
-publishedAt: 2027-01-04
+publishedAt: 2026-11-15 10:40
 seoTitle: Asystent AI w firmie: kiedy ma sens
 seoDescription: Kiedy asystent AI pomaga małej firmie obsługiwać zapytania i maile, a kiedy szkodzi. Jak go bezpiecznie wdrożyć, żeby nie wprowadzał klientów w błąd.
 lead: Narzędzia AI potrafią dziś napisać odpowiedź na maila w kilka sekund. Kuszące jest postawić czat na stronie i zapomnieć o zapytaniach. Wyjaśniamy, gdzie AI naprawdę oszczędza czas, a gdzie może narobić kłopotów.

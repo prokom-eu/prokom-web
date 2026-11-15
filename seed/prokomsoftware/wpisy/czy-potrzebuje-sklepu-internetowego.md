@@ -2,7 +2,7 @@
 slug: czy-potrzebuje-sklepu-internetowego
 title: Czy potrzebuję sklepu internetowego? Sklep, katalog czy formularz zamówienia
 category: Strony
-publishedAt: 2026-12-07
+publishedAt: 2026-11-15 09:40
 seoTitle: Czy firma potrzebuje sklepu internetowego?
 seoDescription: Kiedy sklep internetowy ma sens, a kiedy wystarczy katalog produktów z formularzem zamówienia. Koszty, obsługa i pytania przed decyzją o sprzedaży online.
 lead: Sprzedaż przez internet kusi, ale sklep to nie tylko strona z koszykiem. To codzienna obsługa zamówień, płatności i wysyłek. Pomagamy ocenić, czy go potrzebujesz, czy wystarczy coś prostszego.

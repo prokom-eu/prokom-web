@@ -2,7 +2,7 @@
 slug: co-przygotowac-przed-zamowieniem-strony
 title: Co przygotować, zanim zamówisz stronę: teksty, zdjęcia, domena
 category: Poradnik
-publishedAt: 2026-11-19
+publishedAt: 2026-11-15 10:50
 seoTitle: Co przygotować przed zamówieniem strony
 seoDescription: Lista rzeczy do przygotowania przed zamówieniem strony firmowej: dane, oferta, zdjęcia, opinie, domena i dostępy. Szybciej, taniej i bez nerwów.
 lead: Najwięcej czasu przy budowie strony nie zajmuje programowanie, tylko czekanie na teksty i zdjęcia. Oto lista, dzięki której ruszysz szybciej i unikniesz dopłat za zmiany w ostatniej chwili.

@@ -2,7 +2,7 @@
 slug: rezerwacje-bezposrednie-w-pensjonacie
 title: Rezerwacje bezpośrednie w pensjonacie – jak zbierać je bez prowizji portali
 category: Strony
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 09:50
 seoTitle: Rezerwacje bezpośrednie w pensjonacie
 seoDescription: Jak pensjonat lub dom gościnny może zbierać więcej rezerwacji bezpośrednio, bez prowizji portali: strona, zapytanie o termin, języki i stali goście.
 lead: Portale rezerwacyjne przyprowadzają gości, ale biorą prowizję od każdego pobytu. Dla wielu pensjonatów na Podhalu to spora część przychodu. Pokazujemy, jak przenieść choć część rezerwacji na własną stronę.

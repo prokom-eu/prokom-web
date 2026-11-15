@@ -2,7 +2,7 @@
 slug: firma-w-mapach-google-lokalna-widocznosc
 title: Firma w Mapach Google i na stronie – jak być widocznym w swojej okolicy
 category: Poradnik
-publishedAt: 2026-12-03
+publishedAt: 2026-11-15 10:30
 seoTitle: Firma w Mapach Google: lokalna widoczność
 seoDescription: Jak lokalna firma z Podhala może być lepiej widoczna w Google: profil w Mapach, opinie, spójne dane i strona z podstronami usług. Praktyczne kroki.
 lead: Gdy ktoś wpisuje „hydraulik Nowy Targ” albo „pensjonat Rabka”, Google pokazuje najpierw mapę z kilkoma firmami. Wyjaśniamy, od czego zależy, kto się na niej znajdzie, i co możesz zrobić sam.

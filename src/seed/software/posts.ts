@@ -25,13 +25,44 @@ const CATEGORY: Record<string, Post['category']> = {
 }
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/
+/** `publishedAt` of a post: a day, optionally with the Polish time (the order of one day). */
+const DATE_TIME = /^(\d{4})-(\d{2})-(\d{2})(?: ([01]\d|2[0-3]):([0-5]\d))?$/
+
+/**
+ * `publishedAt` of a file as stored: a day alone → noon UTC (the same day in Polish time); a day
+ * with `HH:MM` → that moment in Polish time (CET/CEST), so posts of one day keep the order of
+ * their hours on the list („najnowsze” = `-publishedAt`).
+ */
+export function publishedAtIso(value: string): string {
+  const match = DATE_TIME.exec(value)
+  if (!match) throw new Error(`publishedAt „${value}”: RRRR-MM-DD albo RRRR-MM-DD GG:MM.`)
+  const [, y, m, d, hh, mm] = match.map(Number) as [number, number, number, number, number, number]
+  if (match[4] === undefined) return `${match[1]}-${match[2]}-${match[3]}T12:00:00.000Z`
+  // The Warsaw offset at that moment: the guess read back in Polish time, minus the guess.
+  const guess = Date.UTC(y, m - 1, d, hh, mm)
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Warsaw',
+      hourCycle: 'h23',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+      .formatToParts(new Date(guess))
+      .map((part) => [part.type, Number(part.value)]),
+  ) as Record<string, number>
+  const local = Date.UTC(parts.year!, parts.month! - 1, parts.day!, parts.hour!, parts.minute!)
+  return new Date(guess - (local - guess)).toISOString()
+}
 
 export type GuidePost = {
   file: string
   slug: string
   title: string
   category: Post['category']
-  /** `YYYY-MM-DD`; saved as noon UTC, the same day in Polish time. */
+  /** `YYYY-MM-DD` (saved as noon UTC) or `YYYY-MM-DD HH:MM` in Polish time (`publishedAtIso`). */
   publishedAt: string
   lead: string
   summary: string
@@ -60,7 +91,8 @@ export function guidePostOf(file: string, source: string): GuidePost {
   const category = CATEGORY[required(meta, 'category', file)]
   if (!category) throw new Error(`${file}: nieznana kategoria „${meta.category}”.`)
   const publishedAt = required(meta, 'publishedAt', file)
-  if (!DATE.test(publishedAt)) throw new Error(`${file}: publishedAt jako RRRR-MM-DD.`)
+  if (!DATE_TIME.test(publishedAt))
+    throw new Error(`${file}: publishedAt jako RRRR-MM-DD albo RRRR-MM-DD GG:MM.`)
   // Required: the side card leads to the offer (an empty one would show the audit card instead).
   const ctaParts = split(required(meta, 'cta', file))
   if (ctaParts.length !== 5)
@@ -114,7 +146,7 @@ export function guidePostData(post: GuidePost, solution: SolutionRef): PostData 
     title: post.title,
     slug: post.slug,
     category: post.category,
-    publishedAt: `${post.publishedAt}T12:00:00.000Z`,
+    publishedAt: publishedAtIso(post.publishedAt),
     lead: post.lead,
     summary: post.summary,
     content: richText<Post['content']>(post.nodes),

@@ -2,7 +2,7 @@
 slug: ile-kosztuje-strona-internetowa-dla-firmy
 title: Ile kosztuje strona internetowa dla firmy i od czego zależy cena
 category: Poradnik
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 12:00
 seoTitle: Ile kosztuje strona internetowa dla firmy
 seoDescription: Od czego zależy cena strony firmowej: liczba podstron, panel, języki, teksty i opieka. Jak porównać oferty i nie dopłacać za to, czego nie używasz.
 lead: Rozpiętość cen stron internetowych potrafi zaskoczyć. Wyjaśniamy, za co naprawdę płacisz, co podnosi koszt, a co można spokojnie odłożyć na później.
