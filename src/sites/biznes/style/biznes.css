@@ -1724,24 +1724,31 @@
   }
 }
 
-/* --- „Inne linie PRO-KOM” (runda 1411, `Koniec.dc.html`): the tile lifts, the arrow moves. --- */
+/* --- „Inne linie PRO-KOM” (runda 1411, 15.11): the tile lifts in its line's light, the glow in
+   the corner grows, the arrow turns to the line's site. `--line` = the line's colour (panel). --- */
 [data-line='biznes'] .bzl {
   transition:
     translate 0.35s var(--ease-out),
     box-shadow 0.35s var(--ease-out);
 }
+[data-line='biznes'] .bzl-glow {
+  transition: scale 0.5s var(--ease-out);
+}
 [data-line='biznes'] .bzl-arrow {
-  transition: translate 0.3s var(--ease-out);
+  transition: rotate 0.3s var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   [data-line='biznes'] .bzl:hover {
     translate: 0 -6px;
     box-shadow:
-      0 36px 60px -34px color-mix(in srgb, var(--surface-dark) 45%, transparent),
-      inset 0 0 0 1px var(--border);
+      0 32px 56px -32px color-mix(in srgb, var(--line) 50%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--line) 35%, var(--border));
+  }
+  [data-line='biznes'] .bzl:hover .bzl-glow {
+    scale: 1.25;
   }
   [data-line='biznes'] .bzl:hover .bzl-arrow {
-    translate: 3px -3px;
+    rotate: 45deg;
   }
 }
 

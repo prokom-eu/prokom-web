@@ -54,8 +54,9 @@ describe('partnerStatusLabel', () => {
   it('names only a status confirmed in the panel', () => {
     expect(partnerStatusLabel('authorized-partner')).toBe('Autoryzowany partner')
     expect(partnerStatusLabel('authorized-service')).toBe('Autoryzowany serwis')
-    expect(partnerStatusLabel('partner')).toBe('Partner')
-    expect(partnerStatusLabel('cooperation')).toBe('We współpracy')
+    // Decision of Krystian 15.11: Optivendi and COMEX without a badge.
+    expect(partnerStatusLabel('partner')).toBeNull()
+    expect(partnerStatusLabel('cooperation')).toBeNull()
     expect(partnerStatusLabel('none')).toBeNull()
     expect(partnerStatusLabel(null)).toBeNull()
   })
@@ -74,7 +75,6 @@ describe('partnerStatusesByName', () => {
     ).toEqual({
       GoPOS: 'Autoryzowany partner',
       Posnet: 'Autoryzowany serwis',
-      COMEX: 'We współpracy',
     })
   })
 })

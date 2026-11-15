@@ -31,8 +31,7 @@ type Props = {
   /** `SITE_ENV`: on `production` a number flagged in the panel is left out (`visibleStats`). */
   siteEnv: string
   auth: readonly AboutAuth[]
-  /** Optivendi („Partner”), COMEX („We współpracy”): their badge in the wall of other brands. */
-  tagged: readonly (AboutBrand & { status: string })[]
+  /** The wall of the other brands, in order (Optivendi and COMEX first, without a badge — 15.11). */
   others: readonly AboutBrand[]
   /** All brands of the catalog (the „+ N marek” tile). */
   brandTotal: number
@@ -80,16 +79,7 @@ function phonesOf(line: SharedData['line']) {
  * panel or the catalog (`shared`, `Partners`); the shared template stays as it is for the other
  * lines.
  */
-export function BzAboutView({
-  shared,
-  origin,
-  now,
-  siteEnv,
-  auth,
-  tagged,
-  others,
-  brandTotal,
-}: Props) {
+export function BzAboutView({ shared, origin, now, siteEnv, auth, others, brandTotal }: Props) {
   const { company, lines } = shared
   const about = shared.line.about ?? {}
   const phones = phonesOf(shared.line)
@@ -135,7 +125,7 @@ export function BzAboutView({
     },
     company.hours.length > 0 && { label: 'Godziny', value: hoursSummary(company.hours) },
   ].filter((field): field is { label: string; value: string; href?: string } => Boolean(field))
-  const wall = [...tagged, ...others.map((brand) => ({ ...brand, status: null }))].slice(0, 11)
+  const wall = others.slice(0, 11)
   const more = Math.max(0, brandTotal - auth.length - wall.length)
 
   return (
@@ -489,7 +479,6 @@ export function BzAboutView({
                 aria-label="Pozostałe marki w ofercie"
               >
                 {wall.map((brand) => {
-                  const status = brand.status
                   const tile = (
                     <>
                       <Image
@@ -500,11 +489,6 @@ export function BzAboutView({
                         unoptimized
                         className="bzo-logo max-h-7 w-auto max-w-[80%] object-contain"
                       />
-                      {status && (
-                        <span className="absolute top-1.5 right-1.5 rounded-md bg-surface-dark px-1.5 py-0.5 text-[11px] font-extrabold text-white">
-                          {status}
-                        </span>
-                      )}
                     </>
                   )
                   const box =

@@ -6,12 +6,13 @@ import type { Partner } from '@/payload-types'
 export type AboutBrand = { slug: string; name: string; logo: IndexLogo; href: string | null }
 export type AboutBrandRow = { label: string; brands: AboutBrand[] }
 
-/** Status rows in the order of K4-FINAL §1 — the only statuses Biznes may show. */
+/**
+ * Status rows in the order of K4-FINAL §1 — the only statuses Biznes shows. Optivendi („Partner”)
+ * and COMEX („We współpracy”) stand in the wall without a badge (decision of Krystian 15.11).
+ */
 const ROWS: readonly NonNullable<Partner['partnerStatus']>[] = [
   'authorized-service',
   'authorized-partner',
-  'partner',
-  'cooperation',
 ]
 
 /**

@@ -216,3 +216,26 @@ export async function getSisterLinePostLinks(
   )
   return sisterPostLinks(groups, excludeTenantId, limit, place)
 }
+
+/**
+ * The newest `perLine` posts of each other line (Instalacje, Software), newest first overall —
+ * so a line with fewer recent posts still has its card in the Biznes home news (15.11; a merged
+ * top N left Software out when Instalacje had N newer posts).
+ */
+export async function getSisterLinePostLinksPerLine(
+  excludeTenantId: number,
+  perLine: number,
+  place: SitePlace,
+): Promise<SisterPostLink[]> {
+  if (perLine <= 0) return []
+  const tenants = sisterTenants(await getSisterTenantRows(), excludeTenantId)
+  const groups = await Promise.all(
+    tenants.map(async (tenant) => ({
+      tenant,
+      posts: await getTenantPostRows(tenant.id, perLine),
+    })),
+  )
+  return groups
+    .flatMap((group) => sisterPostLinks([group], excludeTenantId, perLine, place))
+    .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
+}

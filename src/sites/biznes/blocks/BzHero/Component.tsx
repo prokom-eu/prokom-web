@@ -250,29 +250,35 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
                 {auth.map((item) => (
                   <li
                     key={item.name}
-                    className="flex min-h-[84px] min-w-0 flex-col justify-center gap-2 rounded-[18px] border border-border bg-white px-3.5 max-[1079px]:w-[190px] max-[1079px]:shrink-0 max-[1079px]:snap-start"
+                    className={`grid min-w-0 grid-rows-[28px_auto] content-center gap-2 rounded-[18px] border border-border bg-white px-4 py-3 max-[1079px]:w-[190px] max-[1079px]:shrink-0 max-[1079px]:snap-start ${
+                      item.service
+                        ? 'text-[var(--c-biznes-tone-green-tag)]'
+                        : 'text-[var(--c-biznes-text)]'
+                    }`}
                   >
-                    {/* Brand logos stay on a white plaque in both themes (K35 §6). */}
-                    <Image
-                      src={item.logo.url}
-                      alt={item.name}
-                      width={item.logo.width}
-                      height={item.logo.height}
-                      unoptimized
-                      className="h-[22px] w-auto self-start object-contain"
-                    />
-                    <span
-                      className={`flex items-center gap-1.5 text-[12px] font-extrabold whitespace-nowrap ${
-                        item.service
-                          ? 'text-[var(--c-biznes-tone-green-tag)]'
-                          : 'text-[var(--c-biznes-text)]'
-                      }`}
-                    >
-                      <Icon
-                        name={item.service ? 'shield' : 'check'}
-                        className="size-3.5 shrink-0"
-                        strokeWidth={2.6}
+                    {/* Brand logos stay on a white plaque in both themes (K35 §6); one height box,
+                        so a tall mark and a flat word mark read the same size (15.11). */}
+                    <span className="flex min-w-0 items-center justify-between gap-2">
+                      <Image
+                        src={item.logo.url}
+                        alt={item.name}
+                        width={item.logo.width}
+                        height={item.logo.height}
+                        unoptimized
+                        className="max-h-[24px] w-auto max-w-[calc(100%-36px)] object-contain object-left"
                       />
+                      <span
+                        aria-hidden="true"
+                        className="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,currentColor_12%,transparent)]"
+                      >
+                        <Icon
+                          name={item.service ? 'shield' : 'check'}
+                          className="size-3.5"
+                          strokeWidth={2.6}
+                        />
+                      </span>
+                    </span>
+                    <span className="text-[12.5px] leading-tight font-extrabold text-balance">
                       {item.status}
                     </span>
                   </li>
@@ -280,7 +286,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
               </ul>
             )}
             {numbers.length > 0 && (
-              <dl className="flex shrink-0 items-center gap-7 rounded-[18px] bg-surface-dark px-[26px] py-3 text-white min-[1080px]:max-[1279px]:basis-full">
+              <dl className="flex shrink-0 items-center gap-6 rounded-[18px] bg-surface-dark px-6 py-3 text-white min-[1080px]:max-[1279px]:basis-full">
                 {numbers.map((stat) => (
                   <div key={stat.id ?? stat.value} className="flex flex-col-reverse gap-[3px]">
                     <dt className="text-[12px] text-white/75">{stat.label}</dt>

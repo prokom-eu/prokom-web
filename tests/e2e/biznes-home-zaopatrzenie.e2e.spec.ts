@@ -67,16 +67,16 @@ test.describe('Biznes home: Zaopatrzenie firm and the brand strips (B2-3)', () =
     const total = json.totalDocs as number
     await page.goto(site('biznes.localhost'))
     const brands = page.locator('#marki')
-    // The second copy of each strip (the loop) is `aria-hidden` and `inert`.
+    // The second copy of each strip (the loop) is `aria-hidden`, its links out of the Tab order —
+    // but not `inert`: in view it must take clicks like the first (audit 15.11).
     const tiles = brands.locator('.zp-marq-group:not([aria-hidden]) > li > a')
     await expect(tiles).toHaveCount(total)
     for (const tile of await tiles.all()) {
       await expect(tile).toHaveAttribute('href', /^\//)
     }
-    await expect(brands.locator('.zp-marq-group[aria-hidden="true"]').first()).toHaveAttribute(
-      'inert',
-      '',
-    )
+    const copy = brands.locator('.zp-marq-group[aria-hidden="true"]').first()
+    await expect(copy).not.toHaveAttribute('inert')
+    await expect(copy.locator('a').first()).toHaveAttribute('tabindex', '-1')
   })
 
   test('a strip stands under the mouse and after the pause button', async ({ page }) => {

@@ -25,15 +25,15 @@ test.describe('Biznes /marki (K4f)', () => {
     await expect(auth.filter({ hasText: 'GoPOS' })).toContainText('Autoryzowany partner')
     await expect(auth.filter({ hasText: 'InsERT' })).toContainText('Autoryzowany partner')
 
-    // „Pozostałe marki”: one grid, no group rows; Optivendi and COMEX in it with their status.
+    // „Pozostałe marki”: one grid, no group rows; Optivendi and COMEX in it without a badge
+    // (decision of Krystian 15.11).
     const grid = page.locator('[data-others-grid]')
     await expect(page.getByRole('group', { name: 'Grupy marek' })).toHaveCount(0)
-    await expect(grid.locator('[data-brand-tile="optivendi"] [data-brand-status]')).toHaveText(
-      'Partner',
-    )
-    await expect(grid.locator('[data-brand-tile="comex"] [data-brand-status]')).toHaveText(
-      'We współpracy',
-    )
+    for (const slug of ['optivendi', 'comex']) {
+      await expect(grid.locator(`[data-brand-tile="${slug}"]`)).toHaveCount(1)
+      await expect(grid.locator(`[data-brand-tile="${slug}"] [data-brand-status]`)).toHaveCount(0)
+    }
+    await expect(grid.getByText(/^(Partner|We współpracy)$/)).toHaveCount(0)
     await expect(grid.locator('[data-brand-tile="posnet"]')).toHaveCount(0)
     await expect(page.getByText('Logotypy należą do ich właścicieli.')).toBeVisible()
     // No empty tile: each one shows a logo or the name, and its number of items or a label.

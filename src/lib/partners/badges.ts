@@ -46,9 +46,8 @@ export function partnerBadges(
 export function partnerStatusLabel(status: Partner['partnerStatus'] | null | undefined) {
   if (status === 'authorized-partner') return 'Autoryzowany partner'
   if (status === 'authorized-service') return 'Autoryzowany serwis'
-  // K4-FINAL §1: Optivendi and COMEX — never „Autoryzowany”.
-  if (status === 'partner') return 'Partner'
-  if (status === 'cooperation') return 'We współpracy'
+  // Optivendi („Partner”) and COMEX („We współpracy”): no badge at all (decision of Krystian
+  // 15.11) — the statuses stay in the panel, never shown as „Autoryzowany” (K4-FINAL §1).
   return null
 }
 
