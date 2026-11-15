@@ -18,6 +18,7 @@ import { iconForService } from '@/lib/prokom/icons'
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { stepIndex } from './autoplay'
+import { CamScene, Tick, WifiArcs } from './art'
 import { Mark } from './Mark'
 import type { HomeLine, TeamExample } from './model'
 import { useAutoplay } from './useAutoplay'
@@ -226,6 +227,9 @@ function LinePanel({
   const href = line.url
   return (
     <>
+      <span aria-hidden="true" className="pk-pn__mark">
+        {line.name}
+      </span>
       <div className="pk-pn__main">
         <span className="pk-pn__top">
           <Mark label={line.label} size="md" />
@@ -342,6 +346,9 @@ function LinePanel({
   )
 }
 
+/** Icons of the rows of the Biznes app window, by place (illustration only). */
+const SCENE_ROW_ICONS = ['bolt', 'pc', 'site', 'shield'] as const
+
 /** The picture on the right of a line: decorative, except the cameras and the repair stages. */
 function LineVisual({
   line,
@@ -359,19 +366,31 @@ function LineVisual({
   switch (line.key) {
     case 'biznes':
       return (
-        <div aria-hidden="true" className="pk-pn pk-pn--rows">
-          <span className="pk-pn__caption">
-            TWOJA FIRMA<span>STAN</span>
+        <div aria-hidden="true" className="pk-pn pk-app pk-app--big">
+          <span className="pk-app__bar">
+            <i className="pk-app__logo" />
+            <span>Twoja firma</span>
+            <em>
+              <i /> wszystko działa
+            </em>
           </span>
-          {line.scene.status.map((row, i) => (
-            <span key={row.label} className="pk-vr pk-vr--big">
-              <span>{row.label}</span>
-              <span className="pk-vp">
-                <i className="pk-rec" style={{ animationDelay: `${i * 0.4}s` }} />
-                {row.state}
+          <span className="pk-app__rows">
+            {line.scene.status.map((row, i) => (
+              <span key={row.label} className="pk-vr pk-vr--big pk-app__row">
+                <b className="pk-app__ico">
+                  <Icon name={SCENE_ROW_ICONS[i % SCENE_ROW_ICONS.length] ?? 'check'} />
+                </b>
+                <span className="pk-app__label">{row.label}</span>
+                <span className="pk-vp">
+                  <Tick />
+                  {row.state}
+                </span>
               </span>
-            </span>
-          ))}
+            ))}
+          </span>
+          <span className="pk-app__sync">
+            <i />
+          </span>
         </div>
       )
     case 'instalacje':
@@ -397,18 +416,12 @@ function LineVisual({
                 onClick={() => setCamera(i)}
               >
                 {cam.kind === 'cam' ? (
-                  <b aria-hidden="true">
-                    <i className="pk-rec" />
-                    REC
-                  </b>
+                  <span aria-hidden="true" className="pk-cb__feed">
+                    <CamScene scene={i % 2} />
+                  </span>
                 ) : (
-                  <span aria-hidden="true" className="pk-bars pk-cb__wifi">
-                    {[30, 55, 78, 100].map((height, j) => (
-                      <i
-                        key={height}
-                        style={{ height: `${height}%`, animationDelay: `${j * 0.2}s` }}
-                      />
-                    ))}
+                  <span aria-hidden="true" className="pk-cb__feed pk-cb__feed--wifi">
+                    <WifiArcs strength={96} />
                   </span>
                 )}
                 <em>{cam.label}</em>
@@ -429,14 +442,37 @@ function LineVisual({
               <i />
               <span />
             </span>
+            <span className="pk-web__nav">
+              <i className="pk-web__logo" />
+              <i />
+              <i />
+              <i />
+              <i className="pk-web__cta" />
+            </span>
             <span className="pk-soft__body">
-              <i className="pk-soft__title" />
-              <i className="pk-sk" />
-              <i className="pk-sk pk-sk--short" />
-              <span className="pk-soft__btns">
-                <i />
-                <i />
+              <span className="pk-soft__copy">
+                <i className="pk-soft__title" />
+                <i className="pk-soft__title pk-sk--half" />
+                <i className="pk-sk" />
+                <i className="pk-sk pk-sk--short" />
+                <span className="pk-soft__btns">
+                  <i />
+                  <i />
+                </span>
               </span>
+              <span className="pk-web__shot">
+                <i />
+                <span className="pk-bars pk-vg__chart">
+                  {[40, 70, 55, 90, 75].map((height, j) => (
+                    <i key={j} style={{ height: `${height}%`, animationDelay: `${j * 0.2}s` }} />
+                  ))}
+                </span>
+              </span>
+            </span>
+            <span className="pk-soft__cards">
+              <i />
+              <i />
+              <i />
             </span>
           </span>
           <span className="pk-pn pk-soft__phone">
@@ -494,6 +530,17 @@ function LineVisual({
                 style={{ height: `${45 + ((i * 37) % 55)}%`, animationDelay: `${i * 0.12}s` }}
               />
             ))}
+          </span>
+          <span className="pk-game__foot">
+            <span className="pk-game__fps">
+              FPS<small>średnio w teście</small>
+            </span>
+            <span className="pk-game__parts">
+              <i>CPU</i>
+              <i>GPU</i>
+              <i>RAM</i>
+              <i>SSD</i>
+            </span>
           </span>
         </div>
       )
