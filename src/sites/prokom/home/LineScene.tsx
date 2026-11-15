@@ -530,7 +530,7 @@ function LineVisual({
           </span>
           <span className="pk-game__foot">
             <span className="pk-game__fps">
-              144<small>FPS</small>
+              FPS<small>mierzone w grze</small>
             </span>
             <span className="pk-game__parts">
               <i>CPU</i>
