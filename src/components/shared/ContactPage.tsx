@@ -83,6 +83,12 @@ export type ContactPageProps = {
    * Obszar) — rings of 15 / 35 / 55 km with the towns at their true place (needs the salon's geo).
    */
   serviceArea?: 'search' | 'rings'
+  /**
+   * „Z czym dzwonisz?” on a phone (< 700 px): `cards` (default) — the big numbered cards; `chips`
+   * (Biznes, audyt 15.11 P2-3) — one row of chips over the form, each the route's link
+   * (`?temat=…#formularz`): the form's own topic choice repeats the cards, so the phone skips them.
+   */
+  routesOnPhone?: 'cards' | 'chips'
 }
 
 const H2 =
@@ -113,6 +119,7 @@ export function ContactPage({
   hoursLayout = 'tiles',
   heroLayout = 'number',
   serviceArea = 'search',
+  routesOnPhone = 'cards',
 }: ContactPageProps) {
   const { company, lines } = shared
   const data = shared.line
@@ -140,6 +147,7 @@ export function ContactPage({
   const week = hours.length && hoursLayout === 'week' && !calls ? weekHours(hours, today) : []
   const days = hours.length && calls ? dayTiles(hours, today) : []
   const routes = contact.routes ?? []
+  const routeChips = routesOnPhone === 'chips'
   // The map drawing is of the office (Orkana 16B) and the route is `CompanyData.mapsUrl` — shown only
   // when the card is that salon; another first salon gets its address and hours without a map.
   const officeCard = salon !== null && salon.key === (shared.salons[0]?.key ?? null)
@@ -335,9 +343,13 @@ export function ContactPage({
                         </b>
                         <span
                           aria-hidden="true"
-                          className="text-[11px] leading-tight whitespace-nowrap tabular-nums max-[399px]:text-[10.5px] max-[399px]:tracking-[-0.02em]"
+                          className="text-[11px] leading-tight tracking-[-0.02em] whitespace-nowrap tabular-nums"
                         >
-                          {day.compact ?? 'zamkn.'}
+                          {/* A closed day: a dash — „zamkn.” needed 10.5 px to fit seven tiles in
+                              360 px (audyt 15.11 P2-5: nothing under 11 px; §4 says 12, the
+                              seven tiles do not fit it); the full text is
+                              in the label above for screen readers. */}
+                          {day.compact ?? '—'}
                         </span>
                       </li>
                     ))}
@@ -411,17 +423,40 @@ export function ContactPage({
         <section
           id="z-czym-dzwonisz"
           aria-labelledby="kontakt-sprawy"
-          className={cx(CONTAINER, 'scroll-mt-28 py-16')}
+          className={cx(CONTAINER, 'scroll-mt-28 py-16', routeChips && 'max-[699px]:py-6')}
           data-rail-section="Sprawy"
           data-rail-icon="compass"
         >
-          <h2 id="kontakt-sprawy" className={H2}>
+          <h2
+            id="kontakt-sprawy"
+            className={cx(H2, routeChips && 'max-[699px]:text-[26px] max-[699px]:leading-tight')}
+          >
             <AccentText text="Z czym **dzwonisz?**" emClass={headingEmClass} />
           </h2>
+          {routeChips && (
+            <ul className="mt-4 -mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] min-[700px]:hidden">
+              {/* A chip is the route's link itself, so it needs only the address (a card shows its
+                  link with the CTA label). */}
+              {routes
+                .filter((route) => route.href)
+                .map((route, i) => (
+                  <li key={i} className="flex">
+                    <a
+                      href={route.href ?? undefined}
+                      className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-card px-4 text-[15px] font-bold whitespace-nowrap text-ink shadow-[inset_0_0_0_1.5px_var(--border)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
+                    >
+                      {route.title}
+                      <Icon name="arrow" className="size-4 text-accent-text" />
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          )}
           {/* Three routes in a row; four (Biznes, plan 0611 §8.2) two by two, then in one row. */}
           <ul
             className={cx(
               'mt-8 grid gap-3',
+              routeChips && 'max-[699px]:hidden',
               routes.length === 4
                 ? 'min-[700px]:grid-cols-2 min-[1200px]:grid-cols-4'
                 : 'min-[900px]:grid-cols-3',

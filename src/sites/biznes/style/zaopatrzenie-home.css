@@ -585,7 +585,10 @@
   }
   .zh-tile-status {
     bottom: 9px;
-    font-size: 9.5px;
+    /* 11 px: audyt 15.11 P2-5 floor (MOBILE-APLIKACJA §4 asks 12 px — the longest status would not
+       fit the 158 px tile); at 11 px it does. */
+    padding-inline: 7px;
+    font-size: 11px;
   }
   .zh-strip .zp-marq-group {
     gap: 10px;

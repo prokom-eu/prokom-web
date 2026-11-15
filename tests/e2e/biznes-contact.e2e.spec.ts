@@ -73,7 +73,10 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     page,
   }) => {
     await page.goto(site('biznes.localhost', CONTACT))
-    const routes = page_(page).locator('a[href*="temat="]')
+    // Cards on a desktop; the phone's chip row (audyt 15.11 P2-3) is in the DOM, hidden here.
+    const routes = page_(page)
+      .locator('#z-czym-dzwonisz a[href*="temat="]')
+      .filter({ visible: true })
     await expect(routes).toHaveCount(4)
     const href = (await routes.nth(1).getAttribute('href'))!
     expect(href).toMatch(/^\/kontakt\?temat=.+#formularz$/)
@@ -83,6 +86,19 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
       'aria-pressed',
       'true',
     )
+  })
+
+  test('on a phone the matters are one row of chips and the area keeps only the list', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', CONTACT))
+    const chips = page.locator('#z-czym-dzwonisz a[href*="temat="]').filter({ visible: true })
+    await expect(chips).toHaveCount(4)
+    const box = await page.locator('#z-czym-dzwonisz').boundingBox()
+    expect(box?.height ?? 999).toBeLessThan(260)
+    await expect(page.locator('#dojazd figure')).toBeHidden()
+    await expect(page.locator('#dojazd [data-ring-group]').first()).toBeVisible()
   })
 
   test('sent with the topic and the inquiry list: the record, the mail, the list emptied', async ({

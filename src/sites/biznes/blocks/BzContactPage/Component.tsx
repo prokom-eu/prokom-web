@@ -27,7 +27,8 @@ const FORM_PROMISES = [
 /**
  * `/kontakt` of Biznes (plan 0611 §8.2, Web-kontakt) = the shared Kontakt template on
  * `shared.contact`: phone first, the salon card (Rabka only) with the week's hours and „dziś”,
- * „Z czym dzwonisz?” (4 matters, each picks the form's topic through `?temat=`), the form of the
+ * „Z czym dzwonisz?” (4 matters, each picks the form's topic through `?temat=`; on a phone a row
+ * of chips — audyt 15.11 P2-3), the form of the
  * home page (`ContactPanelCard`: navy column with „Co dalej” and the phone, icons in the fields,
  * topic chips) with the inquiry list attached, service area, the other lines, „Zanim zadzwonisz”
  * with „Masz listę pozycji z katalogu?” beside it.
@@ -52,6 +53,7 @@ export async function BzContactPageBlock({ tenantId }: Props) {
       hoursLayout="week"
       heroLayout="calls"
       serviceArea="rings"
+      routesOnPhone="chips"
       slots={{
         form: (
           <ContactPanelCard

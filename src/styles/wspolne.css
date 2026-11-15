@@ -360,7 +360,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   border-radius: 999px;
   background: color-mix(in srgb, var(--am-land) 80%, transparent);
   color: var(--am-label);
-  font-size: 10px;
+  /* 11 px: audyt 15.11 P2-5 floor (MOBILE-APLIKACJA §4 asks 12 px; 11 is the audit's minimum). */
+  font-size: 11px;
   font-weight: 600;
 }
 /* With the route button at the bottom (footer mini map) the credit moves to the top corner. */

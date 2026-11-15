@@ -77,7 +77,7 @@ export function LinesBand({ lines, current, className }: LinesBandProps) {
                     </b>
                   )}
                   {isCurrent ? (
-                    <span className="rounded-full bg-on-dark px-[7px] py-[3px] text-[10.5px] font-extrabold whitespace-nowrap text-on-dark-ink">
+                    <span className="rounded-full bg-on-dark px-[7px] py-[3px] text-[11px] font-extrabold whitespace-nowrap text-on-dark-ink">
                       Jesteś tutaj
                     </span>
                   ) : (
