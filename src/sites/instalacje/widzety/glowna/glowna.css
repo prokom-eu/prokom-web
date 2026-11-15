@@ -1988,3 +1988,165 @@
     }
   }
 }
+
+/* --- Hero motion, premium pass (15.11, after the pro-kom.eu hub H10) ----------------------------
+   The live scene stays the star (RUNDA-V5 §0: transform, opacity, filter only; reduced motion =
+   nothing moves): the mouse lights the glass panel under it and its 1 px rim in the scene's
+   accent, and moves the building a few pixels against the sky (`followPointer` in
+   `LiveObjectHero`); a new object comes in out of a blur, the chosen tab gets one sheen, a layer
+   turning on sends one ring. The heavier parts (blur, depth) only from 1024 px, where the scene
+   loops anyway; the phone keeps its resting scene (report 11.11, part 2) and its H1 (LCP). */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* The tabs and the times already stand relative (`ruch.css`). */
+    & .hxpause {
+      position: relative;
+    }
+    & .hx .glass {
+      isolation: isolate;
+    }
+    & .hx .glass::before,
+    & .hx .glass::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease-out);
+    }
+    & .hx .glass::before {
+      z-index: -1;
+      background: radial-gradient(
+        240px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--hx-accent-tint),
+        transparent 65%
+      );
+    }
+    & .hx .glass::after {
+      z-index: 4;
+      padding: 1px;
+      background: radial-gradient(
+        180px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--hx-accent-2),
+        transparent 70%
+      );
+      -webkit-mask:
+        linear-gradient(var(--hx-accent) 0 0) content-box,
+        linear-gradient(var(--hx-accent) 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(var(--hx-accent) 0 0) content-box exclude,
+        linear-gradient(var(--hx-accent) 0 0);
+    }
+    & .hx .glass:hover::before,
+    & .hx .glass:hover::after {
+      opacity: 1;
+    }
+    /* Depth: the building drifts against the cursor, the sky stays (a pause stops it too). */
+    & .hxstage {
+      translate: calc(var(--px, 0) * -10px) calc(var(--py, 0) * -6px);
+      transition: translate 0.9s var(--ease-out);
+    }
+    & .hx.still .hxstage {
+      translate: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* The chosen object tab: one band of light across it (also on each step of the autoplay). */
+    & .hotab {
+      overflow: hidden;
+    }
+    & .hotab.on::after {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 45%;
+      background: linear-gradient(100deg, transparent, var(--hx-accent-glow), transparent);
+      content: '';
+      pointer-events: none;
+      transform: translateX(-120%) skewX(-18deg);
+      animation: inst-hx-sheen 0.9s var(--ease-out) 0.1s;
+    }
+    /* A layer turning on: one ring opens around its chip. */
+    & .hchip {
+      position: relative;
+    }
+    & .hchip.on::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: 0 0 0 2px var(--hx-accent);
+      content: '';
+      opacity: 0;
+      pointer-events: none;
+      animation: inst-hx-ping 0.9s var(--ease-out);
+    }
+  }
+}
+/* The visitor's pause (`.hx.still` pauses every animation): what comes in while paused shows
+   at once instead of standing on its first frame (invisible object, a ring left on a chip). */
+[data-line='instalacje'] {
+  & .hx.still :is(.hxobj, .hxdtx, .hxli, .pip, .hchk path),
+  & .hx.still .hotab.on::after,
+  & .hx.still .hchip.on::after {
+    animation: none !important;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  [data-line='instalacje'] {
+    /* A new object (or the first one) comes in out of a soft blur, from just below its place. */
+    & .hxobj {
+      animation: inst-hx-swap-blur 0.55s var(--ease-out);
+    }
+    /* The dock's status line: the new text rises out of a blur. */
+    & .hxdock .hxdtx {
+      animation: inst-hx-rise-blur 0.45s var(--ease-out);
+    }
+  }
+}
+
+@keyframes inst-hx-sheen {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(300%) skewX(-18deg);
+  }
+}
+@keyframes inst-hx-ping {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1, 1.12);
+  }
+}
+@keyframes inst-hx-swap-blur {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+@keyframes inst-hx-rise-blur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

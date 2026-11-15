@@ -3,6 +3,7 @@
 import {
   type CSSProperties,
   type KeyboardEvent,
+  type PointerEvent,
   type ReactNode,
   useEffect,
   useRef,
@@ -76,6 +77,8 @@ export function LiveObjectHero({ backdrop, children }: Props) {
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const objectTabs = useRef<HTMLDivElement>(null)
   const modeTabs = useRef<HTMLDivElement>(null)
+  const lightFrame = useRef(0)
+  useEffect(() => () => cancelAnimationFrame(lightFrame.current), [])
 
   useEffect(() => {
     const narrowQuery = window.matchMedia(NARROW)
@@ -171,6 +174,34 @@ export function LiveObjectHero({ backdrop, children }: Props) {
     />
   ))
   const pause = (on: boolean) => () => setPaused(on)
+  // Premium pass 15.11: the mouse lights the glass under it (`--mx`/`--my` of that panel) and
+  // moves the building a few pixels against the sky (`--px`/`--py` on the stage only, so the
+  // scene's styles stay put); once per frame, never for a touch or with reduced motion (the CSS
+  // needs a fine pointer as well). Both boxes are read before anything is written.
+  const followPointer = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== 'mouse' || reduced) return
+    const host = event.currentTarget
+    const glass = (event.target as Element).closest<HTMLElement>('.glass')
+    const { clientX, clientY } = event
+    cancelAnimationFrame(lightFrame.current)
+    lightFrame.current = requestAnimationFrame(() => {
+      const box = host.getBoundingClientRect()
+      const pane = glass?.getBoundingClientRect()
+      const stage = host.querySelector<HTMLElement>('.hxstage')
+      stage?.style.setProperty('--px', (((clientX - box.left) / box.width) * 2 - 1).toFixed(3))
+      stage?.style.setProperty('--py', (((clientY - box.top) / box.height) * 2 - 1).toFixed(3))
+      if (!glass || !pane) return
+      glass.style.setProperty('--mx', ((clientX - pane.left) / pane.width).toFixed(3))
+      glass.style.setProperty('--my', ((clientY - pane.top) / pane.height).toFixed(3))
+    })
+  }
+  const leavePointer = (event: PointerEvent<HTMLElement>) => {
+    cancelAnimationFrame(lightFrame.current)
+    const stage = event.currentTarget.querySelector<HTMLElement>('.hxstage')
+    stage?.style.setProperty('--px', '0')
+    stage?.style.setProperty('--py', '0')
+    setPaused(false)
+  }
   // A camera point opens the preview where it has no room by the right edge.
   const camButtons = compact && !narrow && has('kam')
   const togglePip = (opener: Element) => {
@@ -197,7 +228,8 @@ export function LiveObjectHero({ backdrop, children }: Props) {
       className={userPaused ? `hx ${scene.mode} still` : `hx ${scene.mode}`}
       data-hx-time={scene.mode}
       onPointerEnter={pause(true)}
-      onPointerLeave={pause(false)}
+      onPointerMove={followPointer}
+      onPointerLeave={leavePointer}
       // Focus pauses the autoplay, except on the pause button itself: after „resume” the show
       // must move again while the button still has the focus.
       onFocus={(event) => {
