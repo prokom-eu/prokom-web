@@ -175,6 +175,7 @@ function toLineData(settings: SiteSetting | null, companyEmail: string): SharedL
     phoneLabel: shared.phoneLabel ?? null,
     hours: shared.hours ?? null,
     responsePromise: shared.responsePromise ?? null,
+    verifyLinks: shared.verifyLinks ?? null,
     brandBarSlot: shared.brandBarSlot ?? null,
     headerCta: shared.headerCta ?? null,
     tabBar: shared.tabBar ?? null,
@@ -218,9 +219,14 @@ export function toSharedData(
   if (!company.name || hasMarker(company.name) || hasMarker(company.nip)) return null
   // Salons first: the company address is the first salon still shown after the markers.
   const salons = stripMarked(toSalons(company.locations ?? []))
+  const line = resolveFacts(stripMarked(toLineData(settings, company.email)))
+  const companyData = stripMarked(toCompany(company, salons))
+  // A line with verification links off (Biznes, runda 1411): no CEIDG link anywhere and no
+  // „Sprawdź nas” cards — one switch here, so no component has to remember it.
+  const verifyOff = line.verifyLinks === false
   return {
-    company: stripMarked(toCompany(company, salons)),
-    line: resolveFacts(stripMarked(toLineData(settings, company.email))),
+    company: verifyOff ? { ...companyData, ceidgUrl: null } : companyData,
+    line: verifyOff && line.about ? { ...line, about: { ...line.about, verify: [] } } : line,
     lines: stripMarked(toLines(company.lines)),
     salons,
   }

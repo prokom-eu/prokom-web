@@ -316,6 +316,10 @@ export interface SiteSetting {
      * Krótko, pod przyciskiem formularza i w stopce.
      */
     responsePromise?: string | null;
+    /**
+     * Wyłączone: bez „Sprawdź w CEIDG” w Kontakcie i O firmie i bez kart „Nie musisz wierzyć nam na słowo”. NIP zostaje jako tekst.
+     */
+    verifyLinks?: boolean | null;
     brandBarSlot?: {
       label?: string | null;
       href?: string | null;
@@ -6449,6 +6453,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         phoneLabel?: T;
         hours?: T;
         responsePromise?: T;
+        verifyLinks?: T;
         brandBarSlot?:
           | T
           | {

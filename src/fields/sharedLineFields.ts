@@ -242,6 +242,18 @@ export const sharedLineFields: Field = {
       ...text('responsePromise', 'Obietnica odpowiedzi'),
       admin: { description: 'Krótko, pod przyciskiem formularza i w stopce.' },
     },
+    {
+      // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): Biznes shows no CEIDG links nor „Sprawdź
+      // nas” cards. On = as before, so a line that never touches it keeps them.
+      name: 'verifyLinks',
+      label: 'Pokazuj linki weryfikacji (CEIDG)',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: {
+        description:
+          'Wyłączone: bez „Sprawdź w CEIDG” w Kontakcie i O firmie i bez kart „Nie musisz wierzyć nam na słowo”. NIP zostaje jako tekst.',
+      },
+    },
     link('brandBarSlot', 'Pasek marki — odnośnik linii'),
     {
       name: 'headerCta',
