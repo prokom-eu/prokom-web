@@ -2194,3 +2194,143 @@
     animation: none;
   }
 }
+
+/* --- Hero motion, premium pass (15.11, after the pro-kom.eu hub H10) ----------------------------
+   Aurora already drifts, glints and flies in 3D; this adds what answers the visitor: the slide's
+   light under the cursor on the choice panel and its lit 1 px rim, a small tilt of the whole
+   carousel after the mouse (`onPointerMove` in HeroStage), the caption coming in again with each
+   slide and one sheen over the chosen tile and the price. Rules of ZMIANY-v24 §5.3: transform
+   and opacity (filter only from 1024 px, like `sw-rise-blur`), nothing infinite added, reduced
+   motion has none of it (the mouse is not followed either). */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hx-cmd {
+    isolation: isolate;
+  }
+  .hx-cmd::before,
+  .hx-cmd::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-hx-fade) var(--ease-out);
+  }
+  .hx-cmd::before {
+    z-index: -1;
+    background: radial-gradient(
+      320px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      color-mix(in srgb, var(--hv) 20%, transparent),
+      transparent 65%
+    );
+  }
+  .hx-cmd::after {
+    z-index: 3;
+    inset: -1px;
+    padding: 1px;
+    background: radial-gradient(
+      240px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+      var(--hv-edge),
+      transparent 70%
+    );
+    -webkit-mask:
+      linear-gradient(var(--hero-black) 0 0) content-box,
+      linear-gradient(var(--hero-black) 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .hx-cmd:hover::before,
+  .hx-cmd:hover::after {
+    opacity: 1;
+  }
+  /* The carousel leans a little towards the cursor (its flattened image: the windows keep their
+     own 3D places and their slide). */
+  .hx-deck-in {
+    transform: perspective(1800px) rotateY(calc(var(--tx, 0) * 2.5deg))
+      rotateX(calc(var(--ty, 0) * -1.6deg));
+    transition: transform 0.8s var(--ease-out);
+  }
+  .hx[data-hold] .hx-deck-in {
+    transition-duration: 1.2s;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The chosen tile: one band of light across it as it is chosen (by the clock or by hand). */
+  .hx-tile[aria-selected='true']::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 45%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      color-mix(in srgb, var(--hv) 30%, transparent),
+      transparent
+    );
+    pointer-events: none;
+    transform: translateX(-120%) skewX(-18deg);
+    animation: hx-sheen 0.9s var(--ease-out) 0.05s;
+  }
+  /* The caption after a change: its number comes in again. */
+  .hx-cap[data-swap] > .ic {
+    animation: hx-cap-in 0.5s var(--ease-out) backwards;
+  }
+}
+/* From 601 px name and price follow one after another and the price gets one sheen (up to
+   600 px their boxes are `display: contents`: nothing to move or clip). */
+@media (min-width: 601px) and (prefers-reduced-motion: no-preference) {
+  .hx-cap[data-swap] > :is(.hx-cap-t, .div) {
+    animation: hx-cap-in 0.5s var(--ease-out) backwards;
+  }
+  .hx-cap[data-swap] > .hx-cap-t {
+    animation-delay: 0.06s;
+  }
+  .hx-cap[data-swap] > .div {
+    position: relative;
+    overflow: hidden;
+    animation-delay: 0.12s;
+  }
+  .hx-cap[data-swap] > .div::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 60%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      color-mix(in srgb, var(--hero-white) 24%, transparent),
+      transparent
+    );
+    pointer-events: none;
+    transform: translateX(-120%) skewX(-18deg);
+    animation: hx-sheen 1s var(--ease-out) 0.35s;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .hx-cap[data-swap] > :is(.ic, .hx-cap-t, .div) {
+    animation-name: hx-cap-in-blur;
+  }
+}
+
+@keyframes hx-sheen {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(280%) skewX(-18deg);
+  }
+}
+@keyframes hx-cap-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes hx-cap-in-blur {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(6px);
+  }
+}
