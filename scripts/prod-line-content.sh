@@ -5,6 +5,7 @@
 #   SSH=/c/Windows/System32/OpenSSH/ssh.exe bash scripts/prod-line-content.sh biznes
 #   ZAMIEN_STRONY=gopos,insert SSH=… bash scripts/prod-line-content.sh biznes   # §2a, once
 #   SSH=… bash scripts/prod-line-content.sh prokom      # pro-kom.eu hub (`seed:prokom`, H7-2)
+#   SSH=… bash scripts/prod-line-content.sh biznes-wpisy  # only the missing Biznes guide posts
 # Unlike scripts/staging-content.sh there is no database swap: production keeps taking inquiries
 # and panel edits of the live lines, and a swap would lose those of the import window. Instead the
 # line's import (`pnpm seed:<line>`, idempotent, tenant-scoped; never touches users, tenants,
@@ -15,6 +16,9 @@
 # the database already points at them. Nothing on the server is deleted. The deploy lock is held
 # for the whole run. Refuses once the line has a production domain (its panel edits would be
 # overwritten) unless PO_STARCIE=1.
+# `biznes-wpisy` (ADR-027 „Rozstrzygnięcia 15.11”): only `seed:biznes-wpisy` — creates the
+# Biznes guide posts that are missing, never changes an existing one and has no media, so it runs
+# on the live line without PO_STARCIE and without the media download.
 set -euo pipefail
 export MSYS_NO_PATHCONV=1
 
@@ -22,8 +26,10 @@ line="${1:-}"
 case "$line" in
   # Lines with a package import into a live production: Biznes (K4 catalogue) and the pro-kom.eu
   # hub (texts, services, tools, help, plans, legal pages, 301 from the old pro-kom.eu).
-  biznes | prokom) ;;
-  *) echo "usage: scripts/prod-line-content.sh biznes|prokom" >&2; exit 2 ;;
+  biznes | prokom) tenant="$line" seed="$line" media=1 ;;
+  # Only adds posts (no media, no change to anything stored): safe on the live Biznes.
+  biznes-wpisy) tenant=biznes seed=biznes-wpisy media=0 ;;
+  *) echo "usage: scripts/prod-line-content.sh biznes|prokom|biznes-wpisy" >&2; exit 2 ;;
 esac
 
 SSH="${SSH:-ssh}" # Git Bash on Windows: SSH=/c/Windows/System32/OpenSSH/ssh.exe (key in the agent)
@@ -62,8 +68,8 @@ pending="$(comm -23 \
 [ -z "$pending" ] || { echo "Migrations not applied on production: $pending" >&2; exit 1; }
 # A live line is edited in the production panel; the package would overwrite those edits.
 live="$(prod_sql "select count(*) from tenants_domains d join tenants t on t.id = d._parent_id
-  where t.slug = '$line' and d.environment = 'production'")"
-if [ "$live" != 0 ] && [ "${PO_STARCIE:-}" != 1 ]; then
+  where t.slug = '$tenant' and d.environment = 'production'")"
+if [ "$live" != 0 ] && [ "$media" = 1 ] && [ "${PO_STARCIE:-}" != 1 ]; then
   echo "$line already has a production domain: the import would overwrite its panel edits." >&2
   echo "Only on Krystian's decision: PO_STARCIE=1 bash scripts/prod-line-content.sh $line" >&2
   exit 1
@@ -71,10 +77,10 @@ fi
 # The import fills a tenant that exists (created by `pnpm seed` locally); on production the tenant
 # and its site settings are made once in the panel — the seed never creates tenants there.
 has_tenant="$(prod_sql "select count(*) from tenants t join site_settings s on s.tenant_id = t.id
-  where t.slug = '$line'")"
+  where t.slug = '$tenant'")"
 if [ "$has_tenant" = 0 ]; then
-  echo "Production has no tenant '$line' with site settings. First, in the production panel:" >&2
-  echo "Strony → nowa (slug $line, linia $line, e-mail powiadomień), then Ustawienia strony of it." >&2
+  echo "Production has no tenant '$tenant' with site settings. First, in the production panel:" >&2
+  echo "Strony → nowa (slug $tenant, linia $tenant, e-mail powiadomień), then Ustawienia strony of it." >&2
   exit 1
 fi
 ! port_open || { echo "Port $port is taken (an old tunnel?) — close it first." >&2; exit 1; }
@@ -88,6 +94,7 @@ read -r -p "Type prokom-prod to go on: " answer
 
 work="$(mktemp -d "${TMPDIR:-/tmp}/prod-line-content-XXXXXX")"
 lock='' tunnel='' started=0 uploaded=0
+[ "$media" = 1 ] || uploaded=1 # no media in this import: nothing to upload
 # Media the import added: up to the server (additive), owned by the app's user. Called on success
 # and from the exit trap — whatever happens after the import started, the files must get there.
 upload_media() {
@@ -148,13 +155,15 @@ pnpm install --frozen-lockfile --reporter=silent
 log "backup of production (predeploy, to B2)"
 remote_sh "cd $remote && scripts/backup.sh prod predeploy" | tail -1
 
-log "download: media of production"
 mkdir "$work/media"
-helper="$(remote_sh "docker inspect -f '{{.Config.Image}}' $pg")"
-remote_sh "docker run --rm -v $volume:/m:ro $helper tar -C /m -cf - ." | tar -C "$work/media" -xf -
-touch "$work/before"
-sleep 1 # file times have a resolution of a second on some file systems
-echo "   media $(du -sh "$work/media" | cut -f1)"
+if [ "$media" = 1 ]; then
+  log "download: media of production"
+  helper="$(remote_sh "docker inspect -f '{{.Config.Image}}' $pg")"
+  remote_sh "docker run --rm -v $volume:/m:ro $helper tar -C /m -cf - ." | tar -C "$work/media" -xf -
+  touch "$work/before"
+  sleep 1 # file times have a resolution of a second on some file systems
+  echo "   media $(du -sh "$work/media" | cut -f1)"
+fi
 
 log "tunnel to the production database on 127.0.0.1:$port"
 read -r -a ips <<<"$(remote_sh "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' $pg" | tr -d '\r')"
@@ -189,10 +198,11 @@ unset MAIL_SENDERS SMTP_USER SMTP_PASS SMTP_PASS_PROKOM SMTP_PASS_BIZNES SMTP_PA
   PAYLOAD_DROP_DATABASE PAYLOAD_MIGRATING PAYLOAD_FORCE_DRIZZLE_PUSH
 export ZAMIEN_STRONY="${ZAMIEN_STRONY:-}" # Biznes only (§2a); the hub import ignores it
 started=1
-pnpm "seed:$line"
+pnpm "seed:$seed"
 kill "$tunnel" 2>/dev/null || true
 tunnel=''
 
+if [ "$media" = 1 ]; then
 log "upload: media the import added"
 upload_media
 
@@ -210,8 +220,9 @@ if [ -n "$missing" ]; then
   exit 1
 fi
 echo "   all files present"
+fi
 
 log "app cache: fetch-cache cleared (the in-memory part expires on its own — no restart)"
 remote_sh "docker exec $app sh -c 'rm -rf /app/.next/cache/fetch-cache/*'"
-remote_sh "echo \"\$(date -u +%Y-%m-%dT%H:%M:%SZ) prod content of $line imported at ${tag:0:7}\" >>$remote/../deploys.log"
+remote_sh "echo \"\$(date -u +%Y-%m-%dT%H:%M:%SZ) prod content of $seed imported at ${tag:0:7}\" >>$remote/../deploys.log"
 log "done — next: runbook §3a (domain in the panel, smoke, porownaj-tresc --po-imporcie, §3a.1)"
