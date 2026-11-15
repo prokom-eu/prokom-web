@@ -11,7 +11,7 @@ const HOST = 'software.localhost'
 const pageWidth = (page: Page) => page.evaluate(() => document.scrollingElement!.scrollWidth)
 
 test.describe('Software /aktualnosci', () => {
-  test('the list in the Software look (no public post yet: the empty state)', async ({ page }) => {
+  test('the list in the Software look', async ({ page }) => {
     const response = await page.goto(site(HOST, '/aktualnosci'))
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
@@ -28,6 +28,63 @@ test.describe('Software /aktualnosci', () => {
   test('a category of another line is ignored', async ({ page }) => {
     await page.goto(site(HOST, '/aktualnosci?kategoria=kasy'))
     await expect(page.locator('h1')).toHaveText('Aktualności bez lania wody.')
+  })
+
+  test('a page that is not there is 404, not the list again', async ({ page }) => {
+    for (const query of ['?strona=99', '?strona=abc', '?strona=0']) {
+      const response = await page.goto(site(HOST, `/aktualnosci${query}`))
+      expect(response?.status(), query).toBe(404)
+    }
+  })
+
+  test('the closing CTA: the picker first, the free audit beside it', async ({ page }) => {
+    await page.goto(site(HOST, '/aktualnosci'))
+    const cta = page.locator('[data-final-cta]')
+    await expect(cta.locator('a[href="/dobierz"]')).toHaveText('Dobierz w 60 sekund →')
+    await expect(cta.locator('a[href="/audyt"]')).toBeVisible()
+  })
+})
+
+test.describe('Software /aktualnosci with the seed posts', () => {
+  test('featured post, reading time, a category view with its chip current', async ({ page }) => {
+    await page.goto(site(HOST, '/aktualnosci'))
+    const posts = page.locator('main .sw-post-featured, main .sw-post-card')
+    test.skip((await posts.count()) === 0, 'no public post in this database')
+    await expect(page.locator('main .sw-post-featured')).toHaveCount(1)
+    await expect(page.locator('main .sw-post-meta').first()).toContainText('min czytania')
+    const chips = page.getByRole('navigation', { name: 'Kategorie' })
+    test.skip((await chips.count()) === 0, 'posts of one category only')
+    const chip = chips.getByRole('link').nth(1)
+    const href = await chip.getAttribute('href')
+    await page.goto(site(HOST, href!))
+    await expect(
+      page.getByRole('navigation', { name: 'Kategorie' }).locator('[aria-current="page"]'),
+    ).toHaveAttribute('href', href!)
+    // A category view is a plain grid, no featured post.
+    await expect(page.locator('main .sw-post-featured')).toHaveCount(0)
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
+  })
+
+  test.describe('phone', () => {
+    test.use({ viewport: { width: 360, height: 780 }, isMobile: true, hasTouch: true })
+
+    test('no sideways scroll; cards are rows; chips and cards are 44 px targets', async ({
+      page,
+    }) => {
+      await page.goto(site(HOST, '/aktualnosci'))
+      expect(await pageWidth(page)).toBeLessThanOrEqual(360)
+      const cards = page.locator('main .sw-post-card')
+      test.skip((await cards.count()) === 0, 'no card on the list')
+      const box = await cards.first().boundingBox()
+      expect(box!.height).toBeGreaterThanOrEqual(44)
+      // A row: the picture beside the text, the lead hidden.
+      const art = await cards.first().locator('.sw-post-card-art').boundingBox()
+      expect(art!.width).toBeLessThan(100)
+      await expect(cards.first().locator('.sw-post-lead')).toBeHidden()
+      for (const chip of await page.locator('main .sw-chip:visible').all()) {
+        expect((await chip.boundingBox())!.height).toBeGreaterThanOrEqual(44)
+      }
+    })
   })
 })
 
@@ -66,7 +123,8 @@ test.describe('Software post (published for the test, removed after)', () => {
       category: 'poradnik',
       lead: 'Wstęp wpisu testowego.',
       summary: 'Krótko o wpisie testowym.',
-      publishedAt: '2026-10-17T12:00:00.000Z',
+      // Now (a minute ago): the newest post, featured on page 1 however many the seed publishes.
+      publishedAt: new Date(Date.now() - 60_000).toISOString(),
       content: {
         root: node('root', [
           h2('Pierwsza część'),

@@ -7,6 +7,7 @@ import { ogImages } from '@/lib/pages/metadata'
 import { getKsefPanel, getPostList } from '@/lib/posts/data'
 import { postGroups, splitFeatured } from '@/lib/posts/groups'
 import { NEWS_PATH, parseCategory, CATEGORY_PARAM } from '@/lib/posts/list'
+import { newsListView, newsPageHref, PAGE_PARAM, parsePage } from '@/lib/posts/newsList'
 import { breadcrumbJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
@@ -35,11 +36,17 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const [settings, query] = await Promise.all([getSiteSettings(tenant.id), searchParams])
   const filtered = Boolean(query[CATEGORY_PARAM])
   const texts = tenant.line === 'software' ? SOFTWARE_NEWS_TEXTS : NEWS_TEXTS
-  const title = 'seoTitle' in texts ? texts.seoTitle : texts.title
+  const listTitle = 'seoTitle' in texts ? texts.seoTitle : texts.title
+  // Software pages its list (`?strona=`): a page from 2 up is its own address with its own
+  // canonical and title (not the first page again); a category view stays `noindex`.
+  const page = tenant.line === 'software' ? (parsePage(query[PAGE_PARAM]) ?? 1) : 1
+  const title = page > 1 ? `${listTitle} – strona ${page}` : listTitle
+  const canonical = filtered ? NEWS_PATH : newsPageHref(null, page)
+  const description = page > 1 ? `Strona ${page}. ${texts.description}` : texts.description
   return {
     title,
-    description: texts.description,
-    alternates: { canonical: NEWS_PATH },
+    description,
+    alternates: { canonical },
     // A category view is the list again, filtered: not indexed, the list is its canonical.
     robots:
       robotsMeta(getEnv().SITE_ENV) ?? (filtered ? { index: false, follow: true } : undefined),
@@ -47,9 +54,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       type: 'website',
       locale: 'pl_PL',
       siteName: tenant.name,
-      url: NEWS_PATH,
+      url: canonical,
       title,
-      description: texts.description,
+      description,
       // Biznes opted in to the line's mark when no picture is set (audit 0611 P1-9).
       images: ogImages(
         settings?.seo.ogImage ?? null,
@@ -62,7 +69,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 /**
  * News list `/aktualnosci` (spec. §6.9, board `Aktualnosci`) — a route of all lines with news,
  * each in its own look (Software: SW11b, spec. §6.8). Posts of this tenant only; the category
- * comes from `?kategoria=`, only one of the tenant's line.
+ * comes from `?kategoria=`, only one of the tenant's line; Software pages the list (`?strona=`).
  */
 export default async function NewsPage({ params, searchParams }: Props) {
   const tenant = await requireNewsTenant(params)
@@ -72,6 +79,11 @@ export default async function NewsPage({ params, searchParams }: Props) {
       searchParams,
       requestOrigin(),
     ])
+    const category = parseCategory(query[CATEGORY_PARAM], tenant.line)
+    const page = parsePage(query[PAGE_PARAM])
+    // A page that is not there (`?strona=9`, `?strona=abc`) is 404, not the first page again.
+    const view = page === null ? null : newsListView(posts, category, page)
+    if (!view) notFound()
     return (
       <>
         <script
@@ -85,7 +97,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
             ),
           }}
         />
-        <SoftwareNews posts={posts} category={parseCategory(query[CATEGORY_PARAM], tenant.line)} />
+        <SoftwareNews view={view} category={category} />
       </>
     )
   }

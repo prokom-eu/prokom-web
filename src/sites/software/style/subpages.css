@@ -1206,6 +1206,7 @@
 .sw-art[data-cat='systemy'] .sw-art-dot {
   border-radius: 4px;
 }
+/* Featured post: picture beside the text; with „Najnowsze” beside it (the list) it stacks. */
 .sw-post-featured {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1214,6 +1215,61 @@
 }
 .sw-post-featured-art {
   min-height: 300px;
+}
+.sw-post-featured-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 40px;
+}
+.sw-post-featured-title {
+  font-size: 34px;
+}
+.sw-post-more {
+  margin-top: auto;
+  padding-top: 8px;
+}
+.sw-post-meta {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+.sw-chip-n {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--glass);
+  color: var(--ink-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.sw-chip[aria-current='page'] .sw-chip-n {
+  color: var(--accent-text);
+}
+.sw-news-lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.sw-news-lead .sw-post-featured {
+  grid-template-columns: 1fr;
+  grid-template-rows: 220px 1fr;
+}
+.sw-news-lead .sw-post-featured-art {
+  min-height: 0;
+}
+.sw-news-lead .sw-post-featured-body {
+  padding: 28px 32px 32px;
+}
+.sw-news-latest {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.sw-news-latest > .sw-eyebrow {
+  margin: 4px 0 0 4px;
 }
 .sw-post-grid {
   display: grid;
@@ -1233,6 +1289,96 @@
 .sw-post-card-art {
   height: 160px;
   border-radius: 14px;
+  flex: none;
+}
+.sw-post-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 4px 4px;
+}
+.sw-post-card-body .sw-post-meta {
+  margin-top: auto;
+}
+.sw-post-card-title {
+  font-size: 18px;
+}
+/* The two posts beside the featured one: as tall as it together, the picture takes the rest
+   (no lead). On the phone they turn into rows like every card. */
+.sw-post-grid-compact {
+  grid-template-columns: 1fr;
+  flex: 1;
+  grid-auto-rows: 1fr;
+  gap: 12px;
+}
+.sw-post-grid-compact .sw-post-card-art {
+  height: auto;
+  flex: 1;
+  min-height: 96px;
+}
+.sw-post-grid-compact .sw-post-card-body {
+  flex: none;
+  padding-top: 14px;
+  gap: 6px;
+}
+.sw-post-grid-compact .sw-post-card-title {
+  font-size: 17px;
+}
+.sw-post-grid-compact .sw-post-lead {
+  display: none;
+}
+.sw-news-band {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  padding: 20px 20px 20px 28px;
+}
+.sw-news-band-text {
+  flex: 1 1 320px;
+  font-weight: 700;
+}
+.sw-news-band .sw-eyebrow {
+  flex-basis: 100%;
+}
+.sw-news-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sw-news-pages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.sw-news-pages-list {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sw-news-page {
+  justify-content: center;
+  min-width: 44px;
+  font-variant-numeric: tabular-nums;
+}
+.sw-news-pages-of {
+  display: none;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+@media (max-width: 1080px) {
+  .sw-news-lead {
+    grid-template-columns: 1fr;
+  }
+  .sw-news-latest .sw-post-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 960px) {
   .sw-post-featured {
@@ -1241,14 +1387,88 @@
   .sw-post-featured-art {
     min-height: 200px;
   }
+  .sw-post-featured-body {
+    padding: 28px;
+  }
+  .sw-post-featured-title {
+    font-size: 28px;
+  }
   .sw-post-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 600px) {
-  .sw-post-grid {
+  .sw-news-lead .sw-post-featured {
+    grid-template-rows: 150px 1fr;
+  }
+  .sw-post-featured-body,
+  .sw-news-lead .sw-post-featured-body {
+    gap: 10px;
+    padding: 20px 20px 22px;
+  }
+  .sw-post-featured-title {
+    font-size: 23px;
+  }
+  .sw-post-grid,
+  .sw-news-latest .sw-post-grid-compact {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
+  }
+  /* Every card a row on the phone (same as the compact ones). */
+  .sw-post-card {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px 10px 10px;
+  }
+  .sw-post-card-art,
+  .sw-post-grid-compact .sw-post-card-art {
+    height: auto;
+    flex: none;
+    min-height: 72px;
+    align-self: stretch;
+    border-radius: 12px;
+  }
+  .sw-post-card-body,
+  .sw-post-grid-compact .sw-post-card-body {
+    flex: 1;
+    padding: 2px 0;
+    gap: 4px;
+  }
+  .sw-post-card-title,
+  .sw-post-grid-compact .sw-post-card-title {
+    font-size: 15.5px;
+  }
+  .sw-post-card .sw-post-lead {
+    display: none;
+  }
+  .sw-post-card .sw-eyebrow {
+    font-size: 11px;
+  }
+  .sw-news-band {
+    padding: 20px;
+  }
+  .sw-news-band a,
+  .sw-news-cta-actions a {
+    width: 100%;
+  }
+  /* Phone: newer / „Strona 1 z 2” / older — no row of numbers. */
+  .sw-news-pages {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .sw-news-pages-list {
+    display: none;
+  }
+  .sw-news-pages-of {
+    display: block;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .sw-post-card:hover .sw-post-card-title,
+  .sw-post-featured:hover .sw-post-featured-title {
+    color: var(--accent-text);
   }
 }
 
