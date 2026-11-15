@@ -126,8 +126,9 @@ export async function ContactPanelCard({
         {lead && <p className="leading-relaxed text-white/80">{lead}</p>}
         {steps && (
           <>
-            {/* Phone: the steps fold away, the form starts sooner (audyt 15.11 P2-3). */}
-            <details className="group/steps rounded-2xl bg-white/[0.06] ring-1 ring-white/10 ring-inset sm:hidden">
+            {/* Phone (< 700 px, as the matter chips): the steps fold away, the form starts sooner
+                (audyt 15.11 P2-3). */}
+            <details className="group/steps rounded-2xl bg-white/[0.06] ring-1 ring-white/10 ring-inset min-[700px]:hidden">
               <summary className="flex min-h-[52px] cursor-pointer list-none items-center justify-between gap-3 px-5 font-extrabold [&::-webkit-details-marker]:hidden">
                 Co dalej po wysłaniu
                 <Icon
@@ -138,7 +139,7 @@ export async function ContactPanelCard({
               </summary>
               <div className="px-5 pb-5">{steps}</div>
             </details>
-            <div className="max-sm:hidden">{steps}</div>
+            <div className="max-[699px]:hidden">{steps}</div>
           </>
         )}
         {place && <ContactPlace shared={place} map={placeMap} />}

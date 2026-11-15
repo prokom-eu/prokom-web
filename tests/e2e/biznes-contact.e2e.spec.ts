@@ -98,7 +98,7 @@ test.describe('Biznes /kontakt (shared template, §8.2)', () => {
     const box = await page.locator('#z-czym-dzwonisz').boundingBox()
     expect(box?.height ?? 999).toBeLessThan(260)
     await expect(page.locator('#dojazd figure')).toBeHidden()
-    await expect(page.locator('#dojazd').getByText('Nowy Targ').first()).toBeVisible()
+    await expect(page.locator('#dojazd [data-ring-group]').first()).toBeVisible()
   })
 
   test('sent with the topic and the inquiry list: the record, the mail, the list emptied', async ({

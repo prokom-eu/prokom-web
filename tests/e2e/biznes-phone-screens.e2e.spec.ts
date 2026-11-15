@@ -132,8 +132,9 @@ for (const path of ['/zestawy', '/produkt/lenovo-thinkbook-14-g8-g9']) {
   })
 }
 
-// Audyt 15.11 P2-5 (MOBILE-APLIKACJA §4): no visible text under 11 px on a 360 px phone. Text
-// hidden for screen readers only (`sr-only`, clipped) does not count.
+// Audyt 15.11 P2-5: no visible text under 11 px on a 360 px phone (the audit's floor; MOBILE-APLIKACJA
+// §4 asks 12). Text for screen readers only (`sr-only`, clipped) does not count. Not covered: a
+// child of `sr-only` larger than 1 px (`clip` is not inherited) and SVG text scaled by its viewBox.
 for (const path of ['/', '/kontakt', '/oferta', '/oferta/microsoft-365-licencje']) {
   test(`${path}: no visible text under 11 px at 360 px`, async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 740 })
@@ -152,7 +153,8 @@ for (const path of ['/', '/kontakt', '/oferta', '/oferta/microsoft-365-licencje'
           style.display === 'none' ||
           style.clipPath === 'inset(50%)' ||
           style.clip === 'rect(0px, 0px, 0px, 0px)' ||
-          (element as HTMLElement).offsetParent === null
+          // Hidden ancestors too; unlike `offsetParent`, keeps `position: fixed` (tab bar).
+          !element.checkVisibility()
         if (!ownText || hidden || parseFloat(style.fontSize) >= 11) return []
         return [`${element.textContent?.trim().slice(0, 30)} (${style.fontSize})`]
       }),
