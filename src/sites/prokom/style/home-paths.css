@@ -956,7 +956,7 @@ a.pk-ccard:hover {
 }
 
 /* Desktop (Krystian 15.11): the plan as tall as the list of personas, its line cards filling it
-   evenly — points on top, the line's promise and its site at the foot of each card. */
+   evenly — points on top, how the line starts and its site at the foot of each card. */
 @media (min-width: 1024px) {
   .pk-plan {
     align-self: stretch;

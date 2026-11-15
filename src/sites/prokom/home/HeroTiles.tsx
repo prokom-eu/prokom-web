@@ -374,6 +374,7 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
 
 /** Tech: the device of the slide (phone, laptop, finished ticket) beside the repair stages. */
 function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
+  // By the slide order of the package (telefony, laptopy i konsole, status naprawy).
   const devices: IconName[] = ['phone', 'pc', 'check']
   return (
     <div aria-hidden="true" className="pk-ht__stages pk-tech">
@@ -404,7 +405,8 @@ function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
 
 /** Gaming: the measured frames with a readout that follows the slide. */
 function GamingVisual({ slide }: { slide: number }) {
-  const readouts = ['RGB · chłodzenie', 'CPU · GPU · RAM', '144 FPS']
+  // By the slide order of the package (Komputery, Konfigurator, Dobór pod grę) — no figures.
+  const readouts = ['RGB · chłodzenie', 'CPU · GPU · RAM', 'Test w grze']
   return (
     <div aria-hidden="true" className="pk-game2">
       <Bars count={14} className="pk-ht__eq" />

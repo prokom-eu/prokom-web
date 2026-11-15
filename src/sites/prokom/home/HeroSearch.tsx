@@ -33,14 +33,24 @@ const HOLD_MS = 1800
 export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
   const id = useId()
   const listId = `${id}-list`
-  const input = useRef<HTMLInputElement>(null)
+  const form = useRef<HTMLFormElement>(null)
+  const blurTimer = useRef<number | undefined>(undefined)
   const [query, setQuery] = useState('')
-  const [entries, setEntries] = useState<HubSearchEntry[]>([])
+  const [index, setIndex] = useState<{
+    entries: HubSearchEntry[]
+    state: 'idle' | 'ok' | 'failed'
+  }>({ entries: [], state: 'idle' })
+  const entries = index.entries
   const [open, setOpen] = useState(false)
+  const [focused, setFocused] = useState(false)
   const [active, setActive] = useState(-1)
-  const sample = useTypedSample(hints, query === '')
+  // The sample is typed only into an empty field without focus, and only while the form is seen.
+  const sample = useTypedSample(hints, query === '' && !focused, form)
 
-  const load = () => void loadHubIndex().then((index) => setEntries(index.entries))
+  const load = () =>
+    void loadHubIndex().then((result) =>
+      setIndex({ entries: result.entries, state: result.ok ? 'ok' : 'failed' }),
+    )
   const ready = query.trim().length >= MIN_CHARS
   const { results, loose } = useMemo(
     () => (ready ? suggestHub(entries, query, synonyms) : { results: [], loose: false }),
@@ -51,8 +61,16 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
 
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
+      // In a search field Escape would also clear the text: only close the list while it is open.
+      if (expanded) event.preventDefault()
       setOpen(false)
       setActive(-1)
+      return
+    }
+    // Arrow down opens a closed list again (APG combobox).
+    if (!expanded && ready && event.key === 'ArrowDown') {
+      event.preventDefault()
+      setOpen(true)
       return
     }
     if (!expanded || !results.length) return
@@ -79,6 +97,7 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
       className="pk-hq"
       data-open={expanded ? '' : undefined}
       data-sample={sample ? '' : undefined}
+      ref={form}
       onSubmit={() => setOpen(false)}
     >
       <Icon name="search" className="pk-hq__icon" />
@@ -87,14 +106,13 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
       </label>
       <span className="pk-hq__field">
         <input
-          ref={input}
           id={`${id}-q`}
           name="q"
           type="search"
           autoComplete="off"
           role="combobox"
           aria-expanded={expanded}
-          aria-controls={listId}
+          aria-controls={expanded && results.length ? listId : undefined}
           aria-autocomplete="list"
           aria-activedescendant={
             expanded && active >= 0 && active < results.length ? `${id}-r${active}` : undefined
@@ -104,10 +122,15 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
           value={query}
           maxLength={120}
           onFocus={() => {
+            window.clearTimeout(blurTimer.current)
             load()
+            setFocused(true)
             setOpen(true)
           }}
-          onBlur={() => window.setTimeout(() => setOpen(false), 150)}
+          onBlur={() => {
+            setFocused(false)
+            blurTimer.current = window.setTimeout(() => setOpen(false), 150)
+          }}
           onChange={(event) => {
             setQuery(event.target.value)
             setActive(-1)
@@ -164,9 +187,11 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
             </>
           ) : (
             <p id={listId} className="pk-hq__note" role="status">
-              {entries.length
-                ? 'Nic nie pasuje — zobacz wszystkie wyniki albo napisz do nas.'
-                : 'Szukam…'}
+              {index.state === 'failed'
+                ? 'Podpowiedzi chwilowo niedostępne — Enter pokaże wszystkie wyniki.'
+                : index.state === 'ok'
+                  ? 'Nic nie pasuje — zobacz wszystkie wyniki albo napisz do nas.'
+                  : 'Szukam…'}
             </p>
           )}
           <a
@@ -185,10 +210,16 @@ export function HeroSearch({ hints, synonyms, submitLabel = 'Szukaj' }: Props) {
 
 /**
  * The sample phrase typed letter by letter into the empty field, then the next one. Off while the
- * field has text or focus would make it noise; with reduced motion the first phrase stays still.
+ * field has text or focus, and while it is off screen; with reduced motion the first phrase stays.
  */
-function useTypedSample(hints: Props['hints'], empty: boolean) {
-  const [state, setState] = useState({ hint: 0, length: 0 })
+function useTypedSample(
+  hints: Props['hints'],
+  empty: boolean,
+  target: React.RefObject<HTMLElement | null>,
+) {
+  // The first phrase whole on the server and the first paint (also without JavaScript).
+  const [state, setState] = useState({ hint: 0, length: hints[0]?.text.length ?? 0 })
+  const [seen, setSeen] = useState(true)
   const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
@@ -198,7 +229,7 @@ function useTypedSample(hints: Props['hints'], empty: boolean) {
   }, [])
 
   useEffect(() => {
-    if (!empty || hints.length === 0 || reduced) return
+    if (!empty || hints.length === 0 || reduced || !seen) return
     const full = hints[state.hint]?.text.length ?? 0
     const done = state.length >= full
     const timer = window.setTimeout(
@@ -211,7 +242,16 @@ function useTypedSample(hints: Props['hints'], empty: boolean) {
       done ? HOLD_MS : TYPE_MS,
     )
     return () => window.clearTimeout(timer)
-  }, [empty, hints, reduced, state])
+  }, [empty, hints, reduced, seen, state])
+
+  // No typing while the hero is off screen or the tab hidden.
+  useEffect(() => {
+    const node = target.current
+    if (!node || typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver(([entry]) => setSeen(Boolean(entry?.isIntersecting)))
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [target])
 
   if (!empty || hints.length === 0) return null
   const hint = hints[state.hint] ?? hints[0]!
