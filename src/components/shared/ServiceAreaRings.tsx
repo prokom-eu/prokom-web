@@ -37,7 +37,8 @@ const RING_STROKE = [0.2, 0.26, 0.4]
  * rings of 15 / 35 / 55 km, the towns of `CompanyData.serviceZones` at their true place (known
  * coordinates, `townGeo`), labels placed without overlaps; beside it the towns grouped by ring and
  * the line's numbers. Drawn on the server — no motion but a soft pulse at the salon (none with
- * reduced motion). Phone: the drawing at full width with dots only, the lists under it.
+ * reduced motion). Under 600 px no drawing (its labels would not fit: dots only — audyt 15.11
+ * P2-4), only the lists.
  */
 export function ServiceAreaRings({
   zones,
@@ -138,7 +139,7 @@ export function ServiceAreaRings({
         </p>
       )}
 
-      <figure className="m-0 flex min-w-0 flex-col gap-2 max-[1199px]:row-start-2 min-[1200px]:col-start-2 min-[1200px]:row-span-3 min-[1200px]:row-start-1">
+      <figure className="m-0 flex min-w-0 flex-col gap-2 max-[599px]:hidden max-[1199px]:row-start-2 min-[1200px]:col-start-2 min-[1200px]:row-span-3 min-[1200px]:row-start-1">
         <div
           className="@container relative mx-auto aspect-[19/16] w-full max-w-[760px]"
           role="img"

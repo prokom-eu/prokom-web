@@ -111,6 +111,19 @@ describe('ContactPage (spec §6.1)', () => {
     expect([...at].sort((a, b) => a - b)).toEqual(at)
   })
 
+  it('routes on a phone: cards by default, a row of chips with the same links when asked', () => {
+    const routes = (markup: string) =>
+      markup.slice(markup.indexOf('id="z-czym-dzwonisz"'), markup.indexOf('id="formularz"'))
+    // Cards only: one link per route.
+    expect(routes(contact()).match(/href="#formularz"/g)).toHaveLength(1)
+    const markup = contact({ routesOnPhone: 'chips' })
+    const section = routes(markup)
+    // The chip row (phone) and the cards (hidden on a phone) both link the route.
+    expect(section.match(/href="#formularz"/g)).toHaveLength(2)
+    expect(section).toContain('max-[699px]:hidden')
+    expect(section).toContain('min-[700px]:hidden')
+  })
+
   it('the optional sections switch off; the phone and JSON-LD come from the data', () => {
     const markup = contact({ showServiceArea: false, showOtherLines: false })
     expect(markup).not.toContain('id="dojazd"')
