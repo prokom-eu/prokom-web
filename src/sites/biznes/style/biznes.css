@@ -1766,6 +1766,34 @@
   }
 }
 
+/* --- /o-firmie (runda 1411 R6, `OFirmie.dc.html`): the quote mock-up floats, the logos of the
+   other brands go from grey to colour under the pointer or focus. Transform/opacity/filter. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] .bzo-float {
+    animation: bzo-float 6s ease-in-out infinite;
+  }
+}
+@keyframes bzo-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-3deg);
+  }
+}
+[data-line='biznes'] .bzo-logo {
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition:
+    filter 0.3s var(--ease-out),
+    opacity 0.3s var(--ease-out);
+}
+[data-line='biznes'] .bzo-brand:is(:hover, :focus-visible) .bzo-logo {
+  filter: none;
+  opacity: 1;
+}
+
 /* --- „Najczęściej wybierane” (runda 1411 R5, `Wybierane.dc.html`) -----------------------------
    A row holds its cards twice and moves by one card: `--i` is the first card in view, `--per`
    the cards in view. Only `transform` moves. Phone: a strip to swipe, no motion, no copies. */
