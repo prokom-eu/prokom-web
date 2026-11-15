@@ -346,6 +346,9 @@ function LinePanel({
   )
 }
 
+/** Icons of the rows of the Biznes app window, by place (illustration only). */
+const SCENE_ROW_ICONS = ['bolt', 'pc', 'site', 'shield'] as const
+
 /** The picture on the right of a line: decorative, except the cameras and the repair stages. */
 function LineVisual({
   line,
@@ -375,7 +378,7 @@ function LineVisual({
             {line.scene.status.map((row, i) => (
               <span key={row.label} className="pk-vr pk-vr--big pk-app__row">
                 <b className="pk-app__ico">
-                  <Icon name={(['bolt', 'pc', 'site', 'shield'] as const)[i % 4] ?? 'check'} />
+                  <Icon name={SCENE_ROW_ICONS[i % SCENE_ROW_ICONS.length] ?? 'check'} />
                 </b>
                 <span className="pk-app__label">{row.label}</span>
                 <span className="pk-vp">
@@ -530,7 +533,7 @@ function LineVisual({
           </span>
           <span className="pk-game__foot">
             <span className="pk-game__fps">
-              FPS<small>mierzone w grze</small>
+              FPS<small>średnio w teście</small>
             </span>
             <span className="pk-game__parts">
               <i>CPU</i>

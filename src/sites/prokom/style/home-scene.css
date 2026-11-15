@@ -281,14 +281,6 @@
   border-radius: 22px;
   background: var(--w05);
 }
-.pk-pn--rows {
-  padding: 4px 20px;
-}
-/* Board `.pn.sm`: the compact rows of the Biznes picture. */
-.pk-pn--rows .pk-vr--big {
-  padding: 8px 0;
-  font-size: 14px;
-}
 .pk-pn__caption {
   display: flex;
   justify-content: space-between;
@@ -339,11 +331,6 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-}
-.pk-cb__wifi {
-  width: 44px;
-  height: 46px;
-  margin: auto;
 }
 .pk-pn__note {
   margin-top: -4px;
@@ -968,6 +955,7 @@
   font-weight: 800;
   letter-spacing: -0.05em;
   line-height: 1;
+  white-space: nowrap;
   pointer-events: none;
   user-select: none;
   -webkit-text-stroke: 1px color-mix(in srgb, var(--ln) 22%, transparent);
@@ -1113,7 +1101,10 @@
 /* Service cards: the line's light under the card on hover. */
 .pk-svc {
   position: relative;
-  overflow: hidden;
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.3s;
   background:
     radial-gradient(
       120% 120% at 0% 0%,
@@ -1136,4 +1127,29 @@
 /* Steps: joined by a line, each number in the line's colour. */
 .pk-ss__n {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--ln) 14%, transparent);
+}
+
+/* Scan line of the camera tiles above the scene. */
+.pk-cb[data-kind='cam']::before {
+  z-index: 1;
+}
+.pk-cb em {
+  right: 9px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  /* Software on a phone: the page copy above its picture, not squeezed beside it. */
+  .pk-soft__body {
+    flex-direction: column;
+  }
+  .pk-soft__copy {
+    min-width: 0;
+  }
+  /* Small camera tiles keep only their picture — REC and LIVE on the chosen one. */
+  .pk-cb[aria-pressed='false'] .pk-cam__live,
+  .pk-cb[aria-pressed='false'] .pk-cam b {
+    display: none;
+  }
 }
