@@ -1,6 +1,8 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
+import { POST_COVER_MOTIFS } from '../../src/lib/software/postCovers'
+
 import { api, loginAsAdmin, site, tenantId } from './helpers'
 
 // SW11b: news in the Software look and the city pages (spec. §6.8–6.9). Data from `pnpm seed`:
@@ -52,6 +54,16 @@ test.describe('Software /aktualnosci with the seed posts', () => {
     test.skip((await posts.count()) === 0, 'no public post in this database')
     await expect(page.locator('main .sw-post-featured')).toHaveCount(1)
     await expect(page.locator('main .sw-post-meta').first()).toContainText('min czytania')
+    // Every post of the package its own cover (decision 15.11): no scene twice on a page. A post
+    // added by hand falls back to its category's scene, so only the mapped posts count.
+    const covers = await page.locator('main a[data-card]').evaluateAll((cards) =>
+      cards.map((card) => ({
+        slug: card.getAttribute('href')?.split('/').pop() ?? '',
+        cover: card.querySelector('[data-cover]')?.getAttribute('data-cover') ?? '',
+      })),
+    )
+    const mapped = covers.filter(({ slug }) => slug in POST_COVER_MOTIFS).map(({ cover }) => cover)
+    expect(new Set(mapped).size).toBe(mapped.length)
     const chips = page.getByRole('navigation', { name: 'Kategorie' })
     test.skip((await chips.count()) === 0, 'posts of one category only')
     const chip = chips.getByRole('link').nth(1)
@@ -140,8 +152,9 @@ test.describe('Software post (published for the test, removed after)', () => {
       category: 'poradnik',
       lead: 'Wstęp wpisu testowego.',
       summary: 'Krótko o wpisie testowym.',
-      // Now (a minute ago): the newest post, featured on page 1 however many the seed publishes.
-      publishedAt: new Date(Date.now() - 60_000).toISOString(),
+      // Late today in Polish time (21:59 UTC = 22:59 or 23:59 in Poland): public today and newer
+      // than the seed's posts of today, whatever their hours — featured on page 1.
+      publishedAt: `${new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' }).format(new Date())}T21:59:00.000Z`,
       content: {
         root: node('root', [
           h2('Pierwsza część'),

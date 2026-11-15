@@ -2,7 +2,7 @@
 slug: bezpieczenstwo-strony-firmowej-co-sprawdzac
 title: Bezpieczeństwo strony firmowej – co sprawdzić raz w miesiącu
 category: Bezpieczeństwo
-publishedAt: 2026-11-30
+publishedAt: 2026-11-15 11:20
 seoTitle: Bezpieczeństwo strony firmy: lista kontrolna
 seoDescription: Krótka lista kontrolna bezpieczeństwa strony firmowej: kopie zapasowe, aktualizacje, certyfikat, konta, formularze i domena. Kwadrans w miesiącu.
 lead: Atak na stronę małej firmy rzadko jest wymierzony w nią osobiście. To automaty, które szukają zaniedbanych stron. Oto krótka lista, dzięki której Twoja strona nie będzie łatwym celem.

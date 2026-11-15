@@ -2,7 +2,7 @@
 slug: dostepy-do-strony-domena-hosting-lista
 title: Kto ma hasła do Twojej strony? Lista dostępów, którą firma trzyma u siebie
 category: Bezpieczeństwo
-publishedAt: 2026-11-26
+publishedAt: 2026-11-15 10:00
 seoTitle: Dostępy do domeny i strony: lista dla firmy
 seoDescription: Domena, serwer, panel strony, poczta i konta Google. Sprawdź, które dostępy firma powinna mieć u siebie i jak je bezpiecznie przechowywać.
 lead: Wykonawca zmienił numer, poprzedni pracownik odszedł, a hasło do domeny było tylko u niego. Taka sytuacja zdarza się częściej, niż się wydaje. Przygotowaliśmy listę dostępów, które każda firma powinna mieć u siebie.

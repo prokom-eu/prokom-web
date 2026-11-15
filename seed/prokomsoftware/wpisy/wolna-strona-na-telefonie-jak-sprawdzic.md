@@ -2,7 +2,7 @@
 slug: wolna-strona-na-telefonie-jak-sprawdzic
 title: Strona wolno działa na telefonie – jak to sprawdzić i co poprawić
 category: Strony
-publishedAt: 2026-11-15
+publishedAt: 2026-11-15 11:10
 seoTitle: Wolna strona na telefonie: jak sprawdzić
 seoDescription: Jak samodzielnie zmierzyć szybkość strony na telefonie, co oznaczają wskaźniki LCP, INP i CLS oraz które poprawki dają najwięcej. Poradnik bez żargonu.
 lead: Klient z telefonem nie czeka. Jeśli strona ładuje się długo albo skacze podczas przewijania, zamyka ją i wybiera kolejną firmę z listy. Pokazujemy, jak sprawdzić swoją stronę i co zwykle ją spowalnia.

@@ -2,7 +2,7 @@
 slug: strona-wizytowka-czy-strona-z-panelem
 title: Strona wizytówka, strona z panelem czy landing page – co wybrać
 category: Strony
-publishedAt: 2026-11-16
+publishedAt: 2026-11-15 11:40
 seoTitle: Wizytówka, strona z panelem czy landing?
 seoDescription: Trzy rodzaje stron dla małej firmy i kiedy który ma sens. Porównanie zakresu, wygody zmian i tego, jak każda pracuje na telefony od klientów.
 lead: Jedna strona czy kilka podstron? Z panelem czy bez? Pokazujemy trzy najczęstsze rozwiązania dla małej firmy i pomagamy dobrać to, które będzie pracować na Twoje zlecenia.

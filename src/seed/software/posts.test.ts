@@ -8,7 +8,7 @@ import { postFaq } from '../../lib/posts/faq'
 import { META_DESCRIPTION_MAX } from '../../lib/seo/description'
 import { isValidSlug } from '../../lib/tenant/uniqueSlug'
 import { linksOf } from './markdown'
-import { guidePostData, guidePosts } from './posts'
+import { guidePostData, guidePosts, publishedAtIso } from './posts'
 
 /**
  * Checks of the guide posts in `seed/prokomsoftware/wpisy/*.md` (SEO 15.11) on the real files:
@@ -49,6 +49,25 @@ const fields = (post: (typeof posts)[number]) => [
   post.cta.text,
 ]
 
+describe('publishedAtIso', () => {
+  it('stores a day alone as noon UTC and a day with an hour in Polish time', () => {
+    expect(publishedAtIso('2026-11-15')).toBe('2026-11-15T12:00:00.000Z')
+    // November: CET (UTC+1); July: CEST (UTC+2).
+    expect(publishedAtIso('2026-11-15 12:40')).toBe('2026-11-15T11:40:00.000Z')
+    expect(publishedAtIso('2026-07-01 00:10')).toBe('2026-06-30T22:10:00.000Z')
+    // Days of the clock change: the offset of the moment itself.
+    expect(publishedAtIso('2026-03-29 01:30')).toBe('2026-03-29T00:30:00.000Z')
+    expect(publishedAtIso('2026-03-29 03:30')).toBe('2026-03-29T01:30:00.000Z')
+    expect(publishedAtIso('2026-10-25 01:30')).toBe('2026-10-24T23:30:00.000Z')
+    expect(publishedAtIso('2026-10-25 04:00')).toBe('2026-10-25T03:00:00.000Z')
+  })
+
+  it('refuses anything else', () => {
+    for (const value of ['15.11.2026', '2026-11-15 24:00', '2026-11-15T12:00', '2026-11-15 9:00'])
+      expect(() => publishedAtIso(value), value).toThrow()
+  })
+})
+
 describe('guide posts (wpisy/*.md)', () => {
   it('has 10+ posts with unique, valid slugs and no clash with the package post', () => {
     expect(posts.length).toBeGreaterThanOrEqual(10)
@@ -58,6 +77,11 @@ describe('guide posts (wpisy/*.md)', () => {
       expect(post.file, post.file).toBe(`${post.slug}.md`)
     }
     for (const item of wpisy.items) expect(slugs.has(item.slug)).toBe(false)
+  })
+
+  it('has one moment per post, so „najnowsze” has one order', () => {
+    const moments = posts.map((post) => publishedAtIso(post.publishedAt))
+    expect(new Set(moments).size).toBe(posts.length)
   })
 
   it('fits the field limits of the panel and of search results', () => {
@@ -94,13 +118,15 @@ describe('guide posts (wpisy/*.md)', () => {
         if (href.startsWith('https://')) continue
         const solution = /^\/rozwiazania\/([a-z0-9-]+)$/.exec(href)?.[1]
         const other = /^\/aktualnosci\/([a-z0-9-]+)$/.exec(href)?.[1]
-        // Another post: published on the same day or earlier (a future one is a 404 until then);
-        // the package post of `wpisy.json` is a draft, so it is never a link target.
+        // Another post: published on the same day or earlier (a future day is a 404 until then;
+        // the hour only orders one day); the package post of `wpisy.json` is a draft, so it is
+        // never a link target.
         const target = posts.find((item) => item.slug === other)
+        const day = (value: string) => value.slice(0, 10)
         const known =
           PAGES.has(href) ||
           (solution !== undefined && solutions.has(solution)) ||
-          (target !== undefined && target.publishedAt <= post.publishedAt)
+          (target !== undefined && day(target.publishedAt) <= day(post.publishedAt))
         expect(known, `${post.file}: ${href}`).toBe(true)
       }
       expect(links.includes('/dobierz'), `${post.file}: link do /dobierz`).toBe(true)

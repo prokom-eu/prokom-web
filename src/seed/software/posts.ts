@@ -25,13 +25,50 @@ const CATEGORY: Record<string, Post['category']> = {
 }
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/
+/** `publishedAt` of a post: a day, optionally with the Polish time (the order of one day). */
+const DATE_TIME = /^(\d{4})-(\d{2})-(\d{2})(?: ([01]\d|2[0-3]):([0-5]\d))?$/
+
+/**
+ * `publishedAt` of a file as stored: a day alone → noon UTC (the same day in Polish time); a day
+ * with `HH:MM` → that moment in Polish time (CET/CEST), so posts of one day keep the order of
+ * their hours on the list („najnowsze” = `-publishedAt`).
+ */
+export function publishedAtIso(value: string): string {
+  const match = DATE_TIME.exec(value)
+  if (!match) throw new Error(`publishedAt „${value}”: RRRR-MM-DD albo RRRR-MM-DD GG:MM.`)
+  const [, y, m, d, hh, mm] = match.map(Number) as [number, number, number, number, number, number]
+  if (match[4] === undefined) return `${match[1]}-${match[2]}-${match[3]}T12:00:00.000Z`
+  // The wall time read as UTC, corrected by the Warsaw offset — twice, so a time next to a
+  // change of the clock takes the offset of its own moment, not of the guess.
+  const guess = Date.UTC(y, m - 1, d, hh, mm)
+  return new Date(guess - warsawOffset(guess - warsawOffset(guess))).toISOString()
+}
+
+const WARSAW = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Warsaw',
+  hourCycle: 'h23',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
+/** Offset of Polish time from UTC at `ms`, in milliseconds (+1 h in winter, +2 h in summer). */
+function warsawOffset(ms: number): number {
+  const parts = Object.fromEntries(
+    WARSAW.formatToParts(new Date(ms)).map((part) => [part.type, Number(part.value)]),
+  ) as Record<string, number>
+  const local = Date.UTC(parts.year!, parts.month! - 1, parts.day!, parts.hour!, parts.minute!)
+  return local - Math.floor(ms / 60_000) * 60_000
+}
 
 export type GuidePost = {
   file: string
   slug: string
   title: string
   category: Post['category']
-  /** `YYYY-MM-DD`; saved as noon UTC, the same day in Polish time. */
+  /** `YYYY-MM-DD` (saved as noon UTC) or `YYYY-MM-DD HH:MM` in Polish time (`publishedAtIso`). */
   publishedAt: string
   lead: string
   summary: string
@@ -60,7 +97,8 @@ export function guidePostOf(file: string, source: string): GuidePost {
   const category = CATEGORY[required(meta, 'category', file)]
   if (!category) throw new Error(`${file}: nieznana kategoria „${meta.category}”.`)
   const publishedAt = required(meta, 'publishedAt', file)
-  if (!DATE.test(publishedAt)) throw new Error(`${file}: publishedAt jako RRRR-MM-DD.`)
+  if (!DATE_TIME.test(publishedAt))
+    throw new Error(`${file}: publishedAt jako RRRR-MM-DD albo RRRR-MM-DD GG:MM.`)
   // Required: the side card leads to the offer (an empty one would show the audit card instead).
   const ctaParts = split(required(meta, 'cta', file))
   if (ctaParts.length !== 5)
@@ -114,7 +152,7 @@ export function guidePostData(post: GuidePost, solution: SolutionRef): PostData 
     title: post.title,
     slug: post.slug,
     category: post.category,
-    publishedAt: `${post.publishedAt}T12:00:00.000Z`,
+    publishedAt: publishedAtIso(post.publishedAt),
     lead: post.lead,
     summary: post.summary,
     content: richText<Post['content']>(post.nodes),

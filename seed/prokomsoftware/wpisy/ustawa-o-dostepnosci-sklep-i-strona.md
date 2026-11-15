@@ -2,7 +2,7 @@
 slug: ustawa-o-dostepnosci-sklep-i-strona
 title: Dostępność sklepu i strony od 28 czerwca 2025 – kogo dotyczy nowa ustawa
 category: Strony
-publishedAt: 2027-01-11
+publishedAt: 2026-11-15 08:50
 seoTitle: Ustawa o dostępności a sklep internetowy
 seoDescription: Od 28.06.2025 obowiązuje ustawa o dostępności produktów i usług. Sprawdź, czy dotyczy Twojego sklepu internetowego i od czego zacząć dostosowanie.
 lead: Od 28 czerwca 2025 roku w Polsce obowiązuje ustawa o zapewnianiu dostępności niektórych produktów i usług. Dotyczy między innymi sklepów internetowych. Wyjaśniamy po ludzku, o co w niej chodzi i od czego zacząć.

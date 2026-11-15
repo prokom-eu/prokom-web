@@ -14,6 +14,7 @@ import { Breadcrumbs } from '../Breadcrumbs'
 import { SectionHead } from '../ui/SectionHead'
 import { SwCallToAction } from '../SwCallToAction'
 import { PostCardList } from './PostCards'
+import { PostCover } from './PostCover'
 import { SOFTWARE_NEWS_TEXTS as T } from './texts'
 
 type Props = {
@@ -48,7 +49,7 @@ function part(content: RichTextData, nodes: unknown[]): RichTextData {
 /**
  * A post in the Software v24 look (ZMIANY-v24 §9.4, §9.8 — no board: the subpage hero with its glow,
  * glass cards, the text in the shared post style): category · reading time · one date,
- * author, „W tym tekście” beside the text from 1081 px, „Krótko”, the text with the audit CTA in
+ * author, the cover (`PostCover`), „W tym tekście” beside the text from 1081 px, „Krótko”, the text with the audit CTA in
  * the middle, sources with their check dates (never a future day), the author box, 3 related
  * posts and the related solutions of this tenant.
  */
@@ -131,6 +132,12 @@ export function SoftwarePost({ post, category, readMore, index, today }: Props) 
                   </span>
                 </p>
               ) : null}
+              {/* The post's cover — the same scene as its card on the list (decision 15.11). */}
+              <PostCover
+                slug={post.slug}
+                category={category ?? 'poradnik'}
+                className="sw-post-hero-cover"
+              />
             </div>
           </Container>
         </header>

@@ -38,12 +38,16 @@
         "Dell",
         "Microsoft",
         "ESET",
-        "Synology",
-        "QNAP",
-        "Kyocera",
-        "Konica Minolta"
+        "GoPOS",
+        "InsERT",
+        "Eurocert",
+        "Sunmi",
+        "Posnet",
+        "Elzab",
+        "Apple",
+        "Ubiquiti"
       ],
-      "text": "Komputery, serwery, licencje, ochrona i urządzenia biurowe — dostawa, konfiguracja na życzenie."
+      "text": "Komputery, kasy i terminale, programy, licencje i podpis kwalifikowany — dostawa, konfiguracja i szkolenie na życzenie."
     },
     {
       "line": "instalacje",
@@ -65,11 +69,14 @@
     },
     {
       "line": "tech",
-      "title": "Serwis i ochrona ekranów",
+      "title": "Naprawy telefonów i tabletów",
       "brands": [
-        "Hammer Glass"
+        "Apple",
+        "Samsung",
+        "Xiaomi",
+        "Motorola"
       ],
-      "text": "Folia cięta ploterem pod Twój model i zakładana od ręki w salonie w Rabce-Zdroju."
+      "text": "Telefony i tablety tych marek naprawiamy w salonie w Rabce-Zdroju. Bezpłatna diagnoza i wycena, naprawy też kurierem."
     }
   ],
   "note": "Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.",
