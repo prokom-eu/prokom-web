@@ -49,6 +49,39 @@ test.describe('Biznes news', () => {
     await expect(page).toHaveURL(site('biznes.localhost', POST))
   })
 
+  test('the newest three on top, every other post under its topic, counts on the chips', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost', LIST))
+    const newest = page.getByRole('region', { name: 'Najnowsze' })
+    await expect(newest.getByRole('article')).toHaveCount(3)
+    await expect(newest.getByText(/\d+ min czytania/).first()).toBeVisible()
+
+    // Featured + topic sections = every post exactly once.
+    const all = BIZNES_GUIDE_POSTS.length + 1
+    const inTopics = page.getByRole('region', { name: 'Wpisy' }).getByRole('article')
+    await expect(inTopics).toHaveCount(all - 3)
+    await expect(page.getByRole('heading', { level: 2, name: /^KSeF/ })).toBeVisible()
+
+    const chips = page.getByRole('navigation', { name: 'Kategorie wpisów' })
+    await expect(chips.getByRole('link', { name: `Wszystkie ${all}` })).toBeVisible()
+    await expect(chips.getByRole('link', { name: `KSeF ${postsIn('ksef')}` })).toBeVisible()
+  })
+
+  test('on a phone the KSeF steps fold away and the chips stick to the top', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(site('biznes.localhost', LIST))
+    const steps = page.locator('#ksef details')
+    await expect(steps).toBeVisible()
+    await expect(steps.getByRole('listitem').first()).toBeHidden()
+    await steps.locator('summary').click()
+    await expect(steps.getByRole('listitem')).toHaveCount(6)
+
+    await page.mouse.wheel(0, 2500)
+    const box = await page.getByRole('navigation', { name: 'Kategorie wpisów' }).boundingBox()
+    expect(box?.y ?? -1).toBeLessThanOrEqual(1)
+  })
+
   test('a category view is noindex; an empty one says so', async ({ page }) => {
     await page.goto(site('biznes.localhost', `${LIST}?kategoria=ksef`))
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
