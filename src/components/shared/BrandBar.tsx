@@ -19,6 +19,8 @@ export type BrandBarProps = {
   /** The line's link next to the status (`shared.brandBarSlot`: „Konfigurator”, „Zgłoś awarię”…). */
   slot?: { label?: string | null; href?: string | null } | null
   phone: string | null
+  /** The line's second number, after the first (Biznes, runda 1411); none = as before. */
+  phone2?: string | null
   /** „Biznes:” — `shared.phoneLabel`. */
   phoneLabel?: string | null
   className?: string
@@ -37,10 +39,12 @@ export function BrandBar({
   now,
   slot,
   phone,
+  phone2,
   phoneLabel,
   className,
 }: BrandBarProps) {
   const tel = phone ? toTelHref(phone) : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
   return (
     <div
       className={cx(
@@ -102,6 +106,18 @@ export function BrandBar({
             <span>
               {phoneLabel && <>{phoneLabel} </>}
               <b className="font-extrabold text-nav-ink">{phone}</b>
+            </span>
+          </a>
+        )}
+        {phone && tel && phone2 && tel2 && (
+          <a
+            href={tel2}
+            className="-ml-3 flex items-center self-stretch rounded-md hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink"
+          >
+            <span>
+              <span aria-hidden="true">· </span>
+              <span className="sr-only">lub </span>
+              <b className="font-extrabold text-nav-ink">{phone2}</b>
             </span>
           </a>
         )}

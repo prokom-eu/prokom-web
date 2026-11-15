@@ -48,9 +48,10 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
       authLogos={authLogos}
       verifyLinkedOnly
       countStats
+      bothPhones
       slots={{
         afterRules: <AboutBrands rows={brands.rows} others={brands.others} />,
-        beforeVisit: <TalkBand phone={shared.line.phone} />,
+        beforeVisit: <TalkBand phone={shared.line.phone} phone2={shared.line.phone2} />,
       }}
     />
   )

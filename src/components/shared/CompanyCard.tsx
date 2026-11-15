@@ -14,6 +14,8 @@ type Props = {
   company: Pick<SharedCompany, 'name' | 'nip' | 'address' | 'ceidgUrl'>
   /** The line's phone and e-mail (not the company's). */
   phone: string | null
+  /** The line's second number (Biznes, runda 1411) — a row of its own under the first. */
+  phone2?: string | null
   email: string | null
   hours: OpeningHours
   /** „Autoryzacje i partnerstwa” — `shared.about.authTitle`. */
@@ -44,6 +46,7 @@ export type AuthLogo = {
 export function CompanyCard({
   company,
   phone,
+  phone2,
   email,
   hours,
   authTitle,
@@ -54,6 +57,7 @@ export function CompanyCard({
 }: Props) {
   const logos = authLogos?.length ? authLogos : null
   const tel = phone ? toTelHref(phone) : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
   const rows: [string, ReactNode][] = [
     ['Firma', company.name],
     ...(company.address
@@ -75,6 +79,20 @@ export function CompanyCard({
               className="inline-flex min-h-10 items-center font-bold underline-offset-2 hover:underline"
             >
               {phone}
+            </a>,
+          ],
+        ] as [string, ReactNode][])
+      : []),
+    ...(phone2 && tel2
+      ? ([
+          [
+            'Drugi telefon',
+            <a
+              key="tel2"
+              href={tel2}
+              className="inline-flex min-h-10 items-center font-bold whitespace-nowrap underline-offset-2 hover:underline"
+            >
+              {phone2}
             </a>,
           ],
         ] as [string, ReactNode][])

@@ -134,6 +134,22 @@ describe('organizationJsonLd', () => {
     })
   })
 
+  it('names the second number of the line as a ContactPoint (runda 1411)', () => {
+    const both = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM Biznes', line: 'biznes' },
+      contact: { phone: '+48 000 000 101', phone2: '000 000 102', email: null },
+      origin: 'https://prokombiznes.pl',
+    })
+    expect(both['@graph'][0]).toMatchObject({
+      telephone: '+48000000101',
+      contactPoint: [
+        { '@type': 'ContactPoint', telephone: '+48000000102', contactType: 'customer service' },
+      ],
+    })
+    expect(data['@graph'][0]).not.toHaveProperty('contactPoint')
+  })
+
   it('adds each branch as a LocalBusiness with opening hours', () => {
     const [, branch] = data['@graph']
     expect(branch).toMatchObject({

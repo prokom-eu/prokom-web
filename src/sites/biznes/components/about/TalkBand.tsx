@@ -16,8 +16,16 @@ const FOCUS =
  * „Opowiedz, jak pracuje Twoja firma.” (Web-o-firmie, slot `beforeVisit`): a navy band with the
  * line's phone from the panel and „Napisz do nas” to the Kontakt form. No phone — only the link.
  */
-export function TalkBand({ phone }: { phone: string | null | undefined }) {
+export function TalkBand({
+  phone,
+  phone2,
+}: {
+  phone: string | null | undefined
+  /** The second number (runda 1411: both numbers everywhere). */
+  phone2?: string | null
+}) {
   const tel = phone ? toTelHref(phone) : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
   return (
     <section
       aria-labelledby="o-firmie-rozmowa"
@@ -43,6 +51,12 @@ export function TalkBand({ phone }: { phone: string | null | undefined }) {
             >
               <Icon name="phone" className="size-4" strokeWidth={2.2} />
               {phone}
+            </a>
+          )}
+          {tel && phone2 && tel2 && (
+            <a href={tel2} className={cx(BTN_ON_DARK, 'whitespace-nowrap', FOCUS)}>
+              <Icon name="phone" className="size-4" strokeWidth={2.2} />
+              {phone2}
             </a>
           )}
           <Link href="/kontakt#formularz" className={cx(BTN_ON_DARK, FOCUS)}>

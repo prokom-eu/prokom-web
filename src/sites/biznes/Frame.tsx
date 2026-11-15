@@ -78,6 +78,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
           now={now}
           slot={shared.line.brandBarSlot}
           phone={shared.line.phone}
+          phone2={shared.line.phone2}
           phoneLabel={shared.line.phoneLabel}
         />
       )}
@@ -149,6 +150,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
             lines={shared.lines}
             current="biznes"
             phone={shared.line.phone}
+            phone2={shared.line.phone2}
             hours={shared.company.hours}
             holidays={shared.company.holidays}
             now={now}

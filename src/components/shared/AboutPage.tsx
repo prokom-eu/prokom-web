@@ -54,6 +54,8 @@ export type AboutPageProps = {
   /** The line's class for the highlighted word of the section H2s (Software: `sw-em`, AUDYT-0911
    * #1). Without it the H2s stay plain text. */
   headingEmClass?: string
+  /** Both of the line's numbers in the hero and the card (Biznes, runda 1411); off = the first only. */
+  bothPhones?: boolean
 }
 
 const H2 =
@@ -82,11 +84,14 @@ export function AboutPage({
   authLogos,
   cardHeading,
   headingEmClass,
+  bothPhones = false,
 }: AboutPageProps) {
   const { company, lines } = shared
   const data = shared.line
   const about = data.about ?? {}
   const tel = data.phone ? toTelHref(data.phone) : null
+  const phone2 = bothPhones ? data.phone2 : null
+  const tel2 = phone2 ? toTelHref(phone2) : null
   const { address } = company
   const where = address ? `${address.street}, ${address.postalCode} ${address.city}` : null
   const lineCount = lines.filter((item) => item.kind === 'linia').length
@@ -148,6 +153,18 @@ export function AboutPage({
                   {data.phone}
                 </a>
               )}
+              {tel && phone2 && tel2 && (
+                <a
+                  href={tel2}
+                  className={cx(
+                    'inline-flex min-h-12 items-center gap-2 rounded-[14px] border-[1.5px] border-line-dark-rule px-5 font-extrabold whitespace-nowrap text-line-dark-ink hover:bg-line-dark-current',
+                    FOCUS,
+                  )}
+                >
+                  <Icon name="phone" className="size-4" strokeWidth={2.2} />
+                  {phone2}
+                </a>
+              )}
               <a
                 href="#wspolpraca"
                 className={cx(
@@ -162,6 +179,7 @@ export function AboutPage({
           <CompanyCard
             company={company}
             phone={data.phone}
+            phone2={phone2}
             email={data.email}
             hours={company.hours}
             authTitle={about.authTitle}
