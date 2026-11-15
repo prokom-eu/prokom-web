@@ -1440,12 +1440,14 @@ a.pk-mqi:hover {
     filter 0.6s var(--ease) 0.15s;
 }
 .pk-hsl[data-on] .pk-hsl__title {
-  animation: pk-rise 0.7s var(--ease) 0.15s both;
+  animation: pk-lift 0.7s var(--ease) 0.15s both;
 }
 .pk-hsl[data-on] .pk-hsl__text {
-  animation: pk-rise 0.7s var(--ease) 0.28s both;
+  animation: pk-lift 0.7s var(--ease) 0.28s both;
 }
-@keyframes pk-rise {
+/* Transform only — not `pk-rise` of the line scene, which fades in from zero (and would hide
+   headings for LCP). */
+@keyframes pk-lift {
   from {
     transform: translateY(10px);
   }
