@@ -7,6 +7,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
+import { HeroArt } from '../subpages/HeroArt'
 import { SegmentPicker } from '../dostawy/DeliveriesClient'
 import { ChoiceState } from '../dostawy/ChoiceState'
 import { Faq } from '../home/Faq'
@@ -47,22 +48,25 @@ export async function CooperationPage({ tenant }: { tenant: SiteTenant }) {
         <section aria-labelledby="wspolpraca-h" className="pk-ohero">
           <div aria-hidden="true" className="pk-hero__dots" />
           <div className={`pk-ohero__inner ${HUB_CONTAINER}`}>
-            <div className="pk-ohero__intro">
-              <span className="pk-eb">{page.hero.eyebrow}</span>
-              <h1 id="wspolpraca-h" className="pk-h1">
-                {page.hero.title}
-              </h1>
-              <p className="pk-lead pk-lead--big">{page.hero.lead}</p>
-              <div className="pk-coop__links">
-                <a href="#formularz" className="pk-hbtn pk-hbtn--accent">
-                  {page.hero.cta} <span aria-hidden="true">↓</span>
-                </a>
-                {phone && tel && (
-                  <a href={tel} className="pk-hbtn pk-hbtn--phone">
-                    {phone}
+            <div className="pk-bhero">
+              <div className="pk-ohero__intro">
+                <span className="pk-eb">{page.hero.eyebrow}</span>
+                <h1 id="wspolpraca-h" className="pk-h1">
+                  {page.hero.title}
+                </h1>
+                <p className="pk-lead pk-lead--big">{page.hero.lead}</p>
+                <div className="pk-coop__links">
+                  <a href="#formularz" className="pk-hbtn pk-hbtn--accent">
+                    {page.hero.cta} <span aria-hidden="true">↓</span>
                   </a>
-                )}
+                  {phone && tel && (
+                    <a href={tel} className="pk-hbtn pk-hbtn--phone">
+                      {phone}
+                    </a>
+                  )}
+                </div>
               </div>
+              <HeroArt kind="cooperation" />
             </div>
             <SegmentPicker
               texts={{

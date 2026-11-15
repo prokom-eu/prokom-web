@@ -7,6 +7,7 @@ import type { SharedCompany } from '@/lib/shared/project'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 
 import { HUB_CONTAINER } from '../container'
+import { HeroArt } from '../subpages/HeroArt'
 import { lineStyle } from '../lineColors'
 import { OptionalLink } from '../firmy/OptionalLink'
 import type { BusinessLineInfo } from '../firmy/model'
@@ -38,23 +39,26 @@ export function HomeHero({
     <section aria-labelledby="dla-domu-h" className="pk-ohero">
       <div aria-hidden="true" className="pk-hero__dots" />
       <div className={`pk-ohero__inner ${HUB_CONTAINER}`}>
-        <div className="pk-ohero__intro">
-          <span className="pk-eb">{texts.eyebrow}</span>
-          <h1 id="dla-domu-h" className="pk-h1">
-            {texts.title}
-          </h1>
-          <p className="pk-lead pk-lead--big">{texts.lead}</p>
-          <div className="pk-coop__links">
-            <a href="#sytuacja" className="pk-hbtn pk-hbtn--accent">
-              {texts.choose} <span aria-hidden="true">↓</span>
-            </a>
-            {phone && tel && (
-              <a href={tel} className="pk-hbtn pk-hbtn--phone">
-                {phone}
+        <div className="pk-bhero">
+          <div className="pk-ohero__intro">
+            <span className="pk-eb">{texts.eyebrow}</span>
+            <h1 id="dla-domu-h" className="pk-h1">
+              {texts.title}
+            </h1>
+            <p className="pk-lead pk-lead--big">{texts.lead}</p>
+            <div className="pk-coop__links">
+              <a href="#sytuacja" className="pk-hbtn pk-hbtn--accent">
+                {texts.choose} <span aria-hidden="true">↓</span>
               </a>
-            )}
-            {hours && <span className="pk-plan__note">{hours}</span>}
+              {phone && tel && (
+                <a href={tel} className="pk-hbtn pk-hbtn--phone">
+                  {phone}
+                </a>
+              )}
+              {hours && <span className="pk-plan__note">{hours}</span>}
+            </div>
           </div>
+          <HeroArt kind="home" />
         </div>
         {trio.length > 0 && (
           <ul className="pk-o5" role="list">

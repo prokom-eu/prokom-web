@@ -7,6 +7,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
+import { HeroArt } from '../subpages/HeroArt'
 import { lineStyle } from '../lineColors'
 import { Faq } from '../home/Faq'
 import { faqTokens } from '../home/model'
@@ -58,22 +59,25 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
         <section aria-labelledby="dostawy-h" className="pk-ohero">
           <div aria-hidden="true" className="pk-hero__dots" />
           <div className={`pk-ohero__inner ${HUB_CONTAINER}`}>
-            <div className="pk-ohero__intro">
-              <span className="pk-eb">{page.hero.eyebrow}</span>
-              <h1 id="dostawy-h" className="pk-h1">
-                {page.hero.title}
-              </h1>
-              <p className="pk-lead pk-lead--big">{page.hero.lead}</p>
-              <div className="pk-coop__links">
-                <a href="#lista" className="pk-hbtn pk-hbtn--accent">
-                  {page.hero.cta} <span aria-hidden="true">↓</span>
-                </a>
-                {phone && tel && (
-                  <a href={tel} className="pk-hbtn pk-hbtn--phone">
-                    {phone}
+            <div className="pk-bhero">
+              <div className="pk-ohero__intro">
+                <span className="pk-eb">{page.hero.eyebrow}</span>
+                <h1 id="dostawy-h" className="pk-h1">
+                  {page.hero.title}
+                </h1>
+                <p className="pk-lead pk-lead--big">{page.hero.lead}</p>
+                <div className="pk-coop__links">
+                  <a href="#lista" className="pk-hbtn pk-hbtn--accent">
+                    {page.hero.cta} <span aria-hidden="true">↓</span>
                   </a>
-                )}
+                  {phone && tel && (
+                    <a href={tel} className="pk-hbtn pk-hbtn--phone">
+                      {phone}
+                    </a>
+                  )}
+                </div>
               </div>
+              <HeroArt kind="deliveries" />
             </div>
             <ol className="pk-dways">
               {page.hero.ways.map((way, index) => (

@@ -675,3 +675,238 @@
     transform: none;
   }
 }
+
+/* --- Subpage headings, premium pass (H13, Krystian 15.11) ----------------------------------------
+   Every hub subpage opens like the home page: the five line colours as a light behind the heading,
+   their stripe on top, the heading and its lead rising in; a picture beside the text where the
+   page had none (`HeroArt`). Transform only for motion; reduced motion stops it (global rule). */
+.pk-ohero {
+  isolation: isolate;
+}
+.pk-ohero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(
+      40% 55% at 92% 8%,
+      color-mix(in srgb, var(--k-s) 14%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 50% at 74% 0%,
+      color-mix(in srgb, var(--k-b) 14%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 45% at 100% 40%,
+      color-mix(in srgb, var(--k-i) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      34% 40% at 20% 0%,
+      color-mix(in srgb, var(--k-g) 10%, transparent),
+      transparent 70%
+    );
+  content: '';
+  pointer-events: none;
+  animation: pk-drift 18s ease-in-out infinite alternate;
+}
+/* The five line colours as a thin stripe over the heading. */
+.pk-ohero::after {
+  position: absolute;
+  top: 0;
+  right: clamp(20px, 3vw, 48px);
+  left: clamp(20px, 3vw, 48px);
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(
+    90deg,
+    var(--k-b) 0 20%,
+    var(--k-i) 20% 40%,
+    var(--k-s) 40% 60%,
+    var(--k-t) 60% 80%,
+    var(--k-y) 80% 100%
+  );
+  content: '';
+  opacity: 0.85;
+  pointer-events: none;
+}
+.pk-ohero__intro > * {
+  animation: pk-rise 0.8s var(--ease) both;
+}
+.pk-ohero__intro > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+.pk-ohero__intro > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+.pk-ohero__intro > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+/* A picture beside a subpage heading. */
+.pk-sart {
+  position: relative;
+  border: 1px solid var(--w12);
+  border-radius: 26px;
+  background:
+    radial-gradient(
+      90% 70% at 100% 0%,
+      color-mix(in srgb, var(--k-g) 12%, transparent),
+      transparent 65%
+    ),
+    var(--k-card);
+  box-shadow:
+    inset 0 1px 0 var(--w09),
+    0 40px 80px -46px color-mix(in srgb, var(--k-g) 55%, transparent);
+  animation: pk-pop 0.9s var(--ease) 0.2s both;
+}
+.pk-sart.pk-app--big {
+  padding: 18px 22px;
+}
+.pk-sart .pk-app__rows {
+  gap: 2px;
+}
+
+/* The request list. */
+.pk-slist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 22px;
+}
+.pk-slist__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pk-slist__row {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--w09);
+  border-radius: 12px;
+  padding: 0 12px;
+  background: var(--w03);
+  font-size: 14px;
+  font-weight: 700;
+}
+.pk-slist__row[data-new] {
+  border-color: color-mix(in srgb, var(--ln) 55%, transparent);
+  background: color-mix(in srgb, var(--ln) 10%, transparent);
+  animation: pk-pop 0.7s var(--ease) 0.9s both;
+}
+.pk-slist__dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ln);
+}
+.pk-slist__label {
+  flex: 1;
+}
+.pk-slist__row .pk-tv__ctl i {
+  width: 22px;
+  height: 22px;
+}
+.pk-slist__row .pk-tv__ctl b {
+  min-width: 26px;
+  font-size: 15px;
+}
+.pk-slist__sum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background: var(--k-g);
+  color: var(--k-gi);
+  font-size: 14px;
+  font-weight: 800;
+}
+.pk-slist__sum b {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-stretch: 118%;
+}
+
+/* The project timeline. */
+.pk-stl {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 22px;
+}
+.pk-stl__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pk-stl__list li {
+  position: relative;
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 14px;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+/* The thread between the stages. */
+.pk-stl__list li:not(:last-child)::after {
+  position: absolute;
+  top: 34px;
+  bottom: -18px;
+  left: 13px;
+  width: 2px;
+  background: var(--w12);
+  content: '';
+}
+.pk-stl__list li[data-state='done']:not(:last-child)::after {
+  background: var(--ln);
+}
+.pk-stl__mark {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  place-items: center;
+  border: 2px solid var(--w22);
+  border-radius: 50%;
+  background: var(--k-card);
+  color: var(--ln-ink);
+}
+.pk-stl__list li[data-state='done'] .pk-stl__mark {
+  border-color: var(--ln);
+  background: var(--ln-fill, var(--ln));
+}
+.pk-stl__list li[data-state='now'] .pk-stl__mark {
+  border-color: var(--ln);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--ln) 22%, transparent);
+  animation: pk-step 2.4s ease-in-out infinite;
+}
+.pk-stl__list li[data-state='next'] {
+  color: var(--k-ink3);
+}
+.pk-stl__title {
+  flex: 1;
+}
+.pk-stl__line {
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: color-mix(in srgb, var(--ln) 16%, transparent);
+  color: var(--ln-text);
+  font-size: 12px;
+  font-weight: 800;
+}
+@media (max-width: 900px) {
+  /* On a phone the picture follows the text, and keeps it short. */
+  .pk-sart {
+    max-width: 560px;
+  }
+}
