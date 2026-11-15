@@ -123,8 +123,9 @@ test.describe('Software post (published for the test, removed after)', () => {
       category: 'poradnik',
       lead: 'Wstęp wpisu testowego.',
       summary: 'Krótko o wpisie testowym.',
-      // Now (a minute ago): the newest post, featured on page 1 however many the seed publishes.
-      publishedAt: new Date(Date.now() - 60_000).toISOString(),
+      // Late today in Polish time (21:59 UTC = 22:59 or 23:59 in Poland): public today and newer
+      // than the seed's posts of today, whatever their hours — featured on page 1.
+      publishedAt: `${new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' }).format(new Date())}T21:59:00.000Z`,
       content: {
         root: node('root', [
           h2('Pierwsza część'),

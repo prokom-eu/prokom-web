@@ -38,23 +38,29 @@ export function publishedAtIso(value: string): string {
   if (!match) throw new Error(`publishedAt „${value}”: RRRR-MM-DD albo RRRR-MM-DD GG:MM.`)
   const [, y, m, d, hh, mm] = match.map(Number) as [number, number, number, number, number, number]
   if (match[4] === undefined) return `${match[1]}-${match[2]}-${match[3]}T12:00:00.000Z`
-  // The Warsaw offset at that moment: the guess read back in Polish time, minus the guess.
+  // The wall time read as UTC, corrected by the Warsaw offset — twice, so a time next to a
+  // change of the clock takes the offset of its own moment, not of the guess.
   const guess = Date.UTC(y, m - 1, d, hh, mm)
+  return new Date(guess - warsawOffset(guess - warsawOffset(guess))).toISOString()
+}
+
+const WARSAW = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Warsaw',
+  hourCycle: 'h23',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
+/** Offset of Polish time from UTC at `ms`, in milliseconds (+1 h in winter, +2 h in summer). */
+function warsawOffset(ms: number): number {
   const parts = Object.fromEntries(
-    new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/Warsaw',
-      hourCycle: 'h23',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-      .formatToParts(new Date(guess))
-      .map((part) => [part.type, Number(part.value)]),
+    WARSAW.formatToParts(new Date(ms)).map((part) => [part.type, Number(part.value)]),
   ) as Record<string, number>
   const local = Date.UTC(parts.year!, parts.month! - 1, parts.day!, parts.hour!, parts.minute!)
-  return new Date(guess - (local - guess)).toISOString()
+  return local - Math.floor(ms / 60_000) * 60_000
 }
 
 export type GuidePost = {
