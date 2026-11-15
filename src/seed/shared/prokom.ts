@@ -121,6 +121,8 @@ export const PROKOM_SHARED: SharedGroup = {
 /** Contact fields of the hub's `SiteSettings` (ADR-H002 §1, table „Firma (hub)”). */
 export const PROKOM_SITE = {
   phone: '883 200 151',
+  // Second company number on the whole hub (Krystian 15.11): brand bar, footer, sheet, contact.
+  phone2: '889 003 889',
   email: 'biuro@pro-kom.eu',
   footer: {
     // Board Stopka, brand block.

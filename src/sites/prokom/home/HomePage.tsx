@@ -64,6 +64,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
   const lines = home ? homeLines(contacts, home, hub.tools, settings.trust) : []
   const phone = shared?.line.phone ?? null
   const tel = phone ? toTelHref(phone) : null
+  const phone2 = shared?.line.phone2 ?? null
   const pages = settings.pages
   const live = (href: string) => (isHubLinkLive(href, pages) ? href : null)
 
@@ -143,7 +144,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             now={now}
             contactHref={CONTACT}
           />
-          <Final texts={home.final} phone={phone} tel={tel} contactHref={CONTACT} />
+          <Final texts={home.final} phone={phone} tel={tel} phone2={phone2} contactHref={CONTACT} />
         </>
       ) : (
         <h1 className={`py-10 font-display text-5xl font-extrabold ${HUB_CONTAINER}`}>PRO-KOM</h1>

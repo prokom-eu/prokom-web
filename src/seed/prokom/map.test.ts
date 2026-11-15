@@ -141,3 +141,12 @@ describe('hub seed — company facts (spec §3)', () => {
     expect(merged).toHaveLength(hubTrust().length + 1)
   })
 })
+
+describe('siteContactUpdate — hub contact (second number 15.11)', () => {
+  it('fills the second number while the panel has none, keeps one typed there', async () => {
+    const { siteContactUpdate } = await import('./run')
+    const base = { phone: '883 200 151', email: 'biuro@pro-kom.eu', footer: { text: 'Tekst.' } }
+    expect(siteContactUpdate({ ...base, phone2: null })).toEqual({ phone2: '889 003 889' })
+    expect(siteContactUpdate({ ...base, phone2: '600 000 000' })).toBeNull()
+  })
+})

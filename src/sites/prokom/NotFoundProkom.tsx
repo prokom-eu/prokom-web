@@ -24,6 +24,8 @@ export async function NotFoundProkom({ tenantId }: { tenantId: number }) {
   })
   const phone = hubPhone(shared?.line.phone ?? null)
   const tel = phone ? toTelHref(phone) : null
+  const phone2 = hubPhone(shared?.line.phone2 ?? null)
+  const tel2 = phone2 ? toTelHref(phone2) : null
 
   return (
     <div className="pk-home">
@@ -66,6 +68,11 @@ export async function NotFoundProkom({ tenantId }: { tenantId: number }) {
               {phone && tel && (
                 <a href={tel} className="pk-hbtn pk-hbtn--phone">
                   {phone}
+                </a>
+              )}
+              {phone2 && tel2 && (
+                <a href={tel2} className="pk-hbtn pk-hbtn--phone">
+                  {phone2}
                 </a>
               )}
             </div>

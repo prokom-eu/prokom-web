@@ -59,6 +59,12 @@ export async function hubSlugPage(
     )
   }
   return (
-    <AboutPage shared={shared} line={tenant.line} origin={await origin()} siteEnv={env.SITE_ENV} />
+    <AboutPage
+      shared={shared}
+      line={tenant.line}
+      origin={await origin()}
+      siteEnv={env.SITE_ENV}
+      bothPhones
+    />
   )
 }

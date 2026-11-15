@@ -40,7 +40,7 @@ test.describe('pro-kom.eu — 404 (spec §6.15)', () => {
     expect(response?.status()).toBe(404)
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ta strona się rozłączyła.')
     await expect(page.locator('.pk-404__line')).toHaveCount(5)
-    await expect(page.locator('.pk-404 a[href^="tel:"]')).toHaveCount(1)
+    await expect(page.locator('.pk-404 a[href^="tel:"]')).toHaveCount(2)
     await page.getByLabel('Czego potrzebujesz?').fill('kamery')
     await page.getByRole('button', { name: 'Szukaj' }).click()
     await expect(page).toHaveURL(/\/szukaj\?q=kamery$/)
