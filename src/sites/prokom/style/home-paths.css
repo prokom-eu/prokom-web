@@ -318,6 +318,11 @@ a.pk-lcard:hover {
   font-size: 14px;
 }
 
+/* A domain chip that is a link of its own (not a label inside a card link): a 44 px target. */
+a.pk-chip-go {
+  min-height: 44px;
+}
+
 /* --- Załatw online -------------------------------------------------------------------------- */
 .pk-tools {
   display: grid;
