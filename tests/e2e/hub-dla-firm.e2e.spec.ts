@@ -72,7 +72,7 @@ test.describe('pro-kom.eu — /dla-firm (spec §6.3)', () => {
     const form = page.locator('#formularz form')
     await expect(form).toBeVisible()
     await expect(form.getByLabel('Imię i firma')).toBeVisible()
-    await expect(form.getByRole('button', { name: /Wyślij/ })).toBeVisible()
+    await expect(form.getByRole('button', { name: 'Opisz swoją firmę' })).toBeVisible()
   })
 
   for (const theme of ['dark', 'light'] as const) {
