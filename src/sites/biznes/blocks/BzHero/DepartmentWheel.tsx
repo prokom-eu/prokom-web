@@ -386,11 +386,12 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
             <span className="bzw-k">
               Dział {state.active + 1} z {groups.length}
             </span>
-            <span className="bzw-nm" style={vars({ '--fs': nameSize(current.name) })}>
-              {current.name}
+            {/* The short label of the board („Sieć i ochrona”); the tab names the full one. */}
+            <span className="bzw-nm" style={vars({ '--fs': nameSize(current.label) })}>
+              {current.label}
             </span>
             {current.items.length > 0 && (
-              <ul className="bzw-names" aria-label={`Przykłady: ${current.name}`}>
+              <ul className="bzw-names" aria-label={`Przykłady: ${current.label}`}>
                 {current.items.map((item) => (
                   <li key={item.key}>
                     <Link href={item.href} prefetch={false}>
