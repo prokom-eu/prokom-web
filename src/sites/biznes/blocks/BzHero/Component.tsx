@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { CSSProperties } from 'react'
 
 import { Container } from '@/components/ui/Container'
 import { Icon } from '@/components/ui/Icon'
@@ -12,6 +13,7 @@ import { toTelHref } from '@/lib/site/link'
 import type { BzFactsBlock, BzHeroBlock as BzHeroBlockData } from '@/payload-types'
 
 import { DepartmentWheel } from './DepartmentWheelLazy'
+import { PointerLight } from './PointerLight'
 
 type Props = {
   block: BzHeroBlockData
@@ -86,8 +88,10 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
   return (
     <section
       id="start"
+      data-bz-hero
       className="relative overflow-hidden pt-4 pb-3 md:pt-10 md:pb-10 min-[1080px]:pb-12"
     >
+      <PointerLight />
       <Container
         wide
         className="relative grid items-center gap-7 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)]"
@@ -119,7 +123,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
           <div className="flex flex-wrap gap-3 max-md:hidden">
             <a
               href={block.cta.href}
-              className={`inline-flex min-h-14 items-center gap-3 rounded-2xl bg-accent-text py-2.5 pr-6 pl-3 font-bold text-accent-ink transition-colors hover:bg-ink hover:text-surface ${FOCUS}`}
+              className={`bz-sheen inline-flex min-h-14 items-center gap-3 rounded-2xl bg-accent-text py-2.5 pr-6 pl-3 font-bold text-accent-ink transition-colors hover:bg-ink hover:text-surface ${FOCUS}`}
             >
               <span
                 aria-hidden="true"
@@ -154,7 +158,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className={`inline-flex min-h-[52px] items-center gap-3 rounded-[15px] py-2 pr-[18px] pl-2 font-display text-[19px] font-extrabold tracking-[-0.01em] whitespace-nowrap max-md:w-full max-md:justify-center max-md:pl-[18px] ${
+                      className={`${i === 0 ? 'bz-sheen ' : ''}inline-flex min-h-[52px] items-center gap-3 rounded-[15px] py-2 pr-[18px] pl-2 font-display text-[19px] font-extrabold tracking-[-0.01em] whitespace-nowrap max-md:w-full max-md:justify-center max-md:pl-[18px] ${
                         i === 0
                           ? 'bg-surface-2 text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:bg-accent max-md:text-accent-ink max-md:shadow-none'
                           : 'bg-surface-2 text-ink shadow-[inset_0_0_0_1px_var(--border)] max-md:bg-white/10 max-md:text-white max-md:shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--c-white)_22%,transparent)]'
@@ -200,10 +204,14 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
             aria-label="Działy oferty"
             data-hero-departments
           >
-            {groups.map((group) => {
+            {groups.map((group, i) => {
               const thumb = group.items.find((item) => item.image)?.image
               return (
-                <li key={group.slug} className="w-[158px] shrink-0 snap-start">
+                <li
+                  key={group.slug}
+                  className="bz-dep w-[158px] shrink-0 snap-start"
+                  style={{ '--i': i } as CSSProperties}
+                >
                   <Link
                     href={group.href}
                     className={`flex h-full min-h-[132px] flex-col gap-2 rounded-[20px] border border-border bg-card p-3 ${FOCUS}`}
@@ -247,10 +255,12 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
                 className="grid flex-1 grid-cols-4 gap-2.5 max-[1079px]:flex min-[1080px]:max-[1279px]:basis-full"
                 aria-label="Uprawnienia producentów"
               >
-                {auth.map((item) => (
+                {auth.map((item, i) => (
                   <li
                     key={item.name}
-                    className={`grid min-w-0 grid-rows-[28px_auto] content-center gap-2 rounded-[18px] border border-border bg-white px-4 py-3 max-[1079px]:w-[190px] max-[1079px]:shrink-0 max-[1079px]:snap-start ${
+                    data-light
+                    style={{ '--i': i } as CSSProperties}
+                    className={`bz-auth grid min-w-0 grid-rows-[28px_auto] content-center gap-2 rounded-[18px] border border-border bg-white px-4 py-3 max-[1079px]:w-[190px] max-[1079px]:shrink-0 max-[1079px]:snap-start ${
                       item.service
                         ? 'text-[var(--c-biznes-tone-green-tag)]'
                         : 'text-[var(--c-biznes-text)]'
@@ -269,7 +279,7 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
                       />
                       <span
                         aria-hidden="true"
-                        className="grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,currentColor_12%,transparent)]"
+                        className="bz-stat grid size-7 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,currentColor_12%,transparent)]"
                       >
                         <Icon
                           name={item.service ? 'shield' : 'check'}
@@ -286,7 +296,10 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
               </ul>
             )}
             {numbers.length > 0 && (
-              <dl className="flex shrink-0 items-center gap-6 rounded-[18px] bg-surface-dark px-6 py-3 text-white min-[1080px]:max-[1279px]:basis-full">
+              <dl
+                data-light
+                className="bz-nums flex shrink-0 items-center gap-6 rounded-[18px] bg-surface-dark px-6 py-3 text-white min-[1080px]:max-[1279px]:basis-full"
+              >
                 {numbers.map((stat) => (
                   <div key={stat.id ?? stat.value} className="flex flex-col-reverse gap-[3px]">
                     <dt className="text-[12px] text-white/75">{stat.label}</dt>

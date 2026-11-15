@@ -255,5 +255,3 @@ export const WHO_NEEDS_REGISTER: BiznesGuidePost = {
       'Kiedy potrzebna jest kasa fiskalna, jak działa zwolnienie do 20 000 zł, kiedy nie działa i które branże muszą mieć kasę online. Poradnik dla małej firmy.',
   },
 }
-
-export const KASY_POSTS = [CASH_REGISTER_REVIEW, CASH_REGISTER_RELIEF, WHO_NEEDS_REGISTER] as const

@@ -20,6 +20,8 @@ export const BRAND_LOGOS: Record<string, BrandPicture> = {
   ESET: { src: '/prokom/marki/eset.webp', width: 404, height: 160 },
   Synology: { src: '/prokom/marki/synology.webp', width: 300, height: 78 },
   QNAP: { src: '/prokom/marki/qnap.webp', width: 883, height: 160 },
+  Kyocera: { src: '/prokom/marki/kyocera.webp', width: 480, height: 103 },
+  'Konica Minolta': { src: '/prokom/marki/konica-minolta.webp', width: 278, height: 160 },
   Dahua: { src: '/instalacje/marki/dahua.webp', width: 402, height: 120 },
   Hikvision: { src: '/instalacje/marki/hikvision.webp', width: 520, height: 66 },
   BCS: { src: '/instalacje/marki/bcs.webp', width: 370, height: 120 },

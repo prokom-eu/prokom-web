@@ -282,5 +282,3 @@ export const KSEF_RECEIPT_INVOICE: BiznesGuidePost = {
       'Od 1 stycznia 2027 kasa nie wystawi faktury, a faktura do paragonu z NIP idzie przez KSeF. Jak to zorganizować w sklepie, lokalu i pensjonacie.',
   },
 }
-
-export const KSEF_POSTS = [KSEF_PERMISSIONS, KSEF_FAILURE, KSEF_RECEIPT_INVOICE] as const

@@ -119,16 +119,6 @@ export function Hero({ home, lines, facts, company, phone, phone2, now }: Props)
                     </li>
                   ))}
                 </ul>
-                {hero.steps && (
-                  <ol className="pk-hsteps" aria-label="Jak to działa">
-                    {hero.steps.map((step, index) => (
-                      <li key={index}>
-                        <b aria-hidden="true">{String(index + 1).padStart(2, '0')}</b>
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-                )}
                 <div className="pk-hb-main__cta">
                   <a href="#dobierz" className="pk-hcta">
                     {hero.cta} <span aria-hidden="true">→</span>

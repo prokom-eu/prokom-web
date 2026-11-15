@@ -241,6 +241,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
         }}
       >
         <div className="bzw-halo" aria-hidden="true" />
+        {/* Premium pass 15.11: the department's light under the cursor (mouse only, CSS). */}
+        <div className="bzw-light" aria-hidden="true" />
         <svg className="bzw-rings" viewBox={`0 0 ${WHEEL.size} ${WHEEL.size}`} aria-hidden="true">
           <g className="bzw-turn">
             <circle className="bzw-orbit" cx={C} cy={C} r={WHEEL.orbit} />

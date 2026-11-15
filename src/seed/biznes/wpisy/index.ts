@@ -1,18 +1,49 @@
-import { KASY_POSTS } from './kasy'
-import { KSEF_POSTS } from './ksef'
+import { CASH_REGISTER_RELIEF, CASH_REGISTER_REVIEW, WHO_NEEDS_REGISTER } from './kasy'
+import { KSEF_FAILURE, KSEF_PERMISSIONS, KSEF_RECEIPT_INVOICE } from './ksef'
+import {
+  KSEF_CERTIFICATES,
+  KSEF_IN_SUBIEKT,
+  REGISTER_CLOSING,
+  REGISTER_FISCALIZATION,
+  REGISTER_OR_PRINTER,
+  REGISTER_REPORTS,
+} from './partia2'
+import {
+  BACKUP_321,
+  SEASON_CHECKLIST,
+  SHREDDER_GDPR,
+  SPLIT_PAYMENT_KSEF,
+  TERMINAL_WITH_REGISTER,
+  WINDOWS_10_END,
+} from './partia3'
 import type { BiznesGuidePost } from './types'
 
 export type { BiznesGuidePost } from './types'
 
 /**
  * Biznes guide posts written in the repo (audyt 15.11 P1-3), newest first: the first one gets the
- * latest date, so the home page features it. A KSeF post leads while the deadline is ahead.
+ * latest date, so the home page features it. A KSeF post leads while the deadline is ahead; the
+ * rest alternate KSeF, cash registers, terminals, programs and IT.
  */
 export const BIZNES_GUIDE_POSTS: readonly BiznesGuidePost[] = [
-  KSEF_POSTS[2],
-  ...KASY_POSTS,
-  KSEF_POSTS[0],
-  KSEF_POSTS[1],
+  KSEF_RECEIPT_INVOICE,
+  WINDOWS_10_END,
+  KSEF_CERTIFICATES,
+  REGISTER_FISCALIZATION,
+  TERMINAL_WITH_REGISTER,
+  SPLIT_PAYMENT_KSEF,
+  CASH_REGISTER_REVIEW,
+  BACKUP_321,
+  KSEF_IN_SUBIEKT,
+  CASH_REGISTER_RELIEF,
+  SEASON_CHECKLIST,
+  REGISTER_REPORTS,
+  KSEF_PERMISSIONS,
+  SHREDDER_GDPR,
+  WHO_NEEDS_REGISTER,
+  REGISTER_OR_PRINTER,
+  KSEF_FAILURE,
+  REGISTER_CLOSING,
 ]
 
 /**

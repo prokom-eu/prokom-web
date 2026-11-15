@@ -172,7 +172,8 @@
 .pk-hb {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(4, clamp(146px, calc((100svh - 222px) / 4), 214px));
+  /* Rows may grow with the PRO-KOM tile's content (short windows), never clip it. */
+  grid-template-rows: repeat(4, minmax(clamp(146px, calc((100svh - 222px) / 4), 214px), auto));
   gap: 14px;
 }
 
@@ -431,55 +432,7 @@
 .pk-hq__go:hover {
   transform: translateY(-1px);
 }
-/* „Jak to działa” (H9): three steps joined by a line, filling the tile above the call to action. */
-.pk-hsteps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 8px;
-  counter-reset: step;
-}
-.pk-hsteps li {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border: 1px solid var(--w09);
-  border-radius: 18px;
-  padding: 14px 14px 16px;
-  background: var(--w03);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-.pk-hsteps b {
-  color: var(--k-gt);
-  font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.1em;
-}
-.pk-hsteps li:not(:last-child)::after {
-  position: absolute;
-  top: 22px;
-  right: -11px;
-  width: 12px;
-  height: 2px;
-  background: var(--w22);
-  content: '';
-}
 @media (max-width: 560px) {
-  .pk-hsteps {
-    grid-template-columns: 1fr;
-  }
-  .pk-hsteps li {
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 14px;
-  }
-  .pk-hsteps li:not(:last-child)::after {
-    display: none;
-  }
   .pk-hq__go {
     padding: 0 14px;
   }
@@ -1307,6 +1260,12 @@ a.pk-mqi:hover {
   }
 }
 @media (max-width: 640px) {
+  .pk-hcn {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pk-hcn__value {
+    font-size: 36px;
+  }
   .pk-hb {
     gap: 10px;
   }
@@ -1348,12 +1307,245 @@ a.pk-mqi:hover {
   .pk-ht--big .pk-ht__slides {
     height: 64px;
   }
-  .pk-hcn {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* --- Hero motion, premium pass (H10, Krystian 15.11) -------------------------------------------
+   Transform, opacity and light filters only; the global reduced-motion rule below switches all of
+   it off. The cursor light and the tilt need a mouse (`trackPointer` in HeroTiles). */
+.pk-ht {
+  isolation: isolate;
+}
+/* A slow ambient glow of the line drifting in the tile's corner. */
+.pk-ht::before {
+  position: absolute;
+  z-index: -2;
+  inset: -20%;
+  background: radial-gradient(
+    38% 34% at 78% 18%,
+    color-mix(in srgb, var(--ln) 22%, transparent),
+    transparent 70%
+  );
+  content: '';
+  pointer-events: none;
+  animation: pk-drift 16s ease-in-out infinite alternate;
+}
+.pk-hb:not([data-running]) .pk-ht::before {
+  animation-play-state: paused;
+}
+@keyframes pk-drift {
+  to {
+    transform: translate(-14%, 10%) scale(1.12);
   }
-  .pk-hcn__value {
-    font-size: 36px;
+}
+/* The light under the cursor. */
+.pk-ht__light {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(
+    340px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%),
+    color-mix(in srgb, var(--ln) 26%, transparent),
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+/* The rim lit where the cursor is (a 1 px ring masked out of the light). */
+.pk-ht::after {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.3) * 100%),
+    var(--ln),
+    transparent 65%
+  );
+  content: '';
+  mask:
+    linear-gradient(var(--k-white) 0 0) content-box exclude,
+    linear-gradient(var(--k-white) 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pk-ht:hover .pk-ht__light,
+  .pk-ht:hover::after {
+    opacity: 1;
   }
+}
+/* The tilt only where motion is welcome — reduced motion keeps the plain lift of the tile. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pk-ht:hover {
+    transform: perspective(1100px) rotateX(calc((0.5 - var(--my, 0.5)) * 4deg))
+      rotateY(calc((var(--mx, 0.5) - 0.5) * 5deg)) translateY(-4px);
+    transition:
+      transform 0.2s ease-out,
+      border-color 0.4s;
+  }
+}
+/* One sheen across each tile as it comes in (transform only; it crosses the whole tile). */
+.pk-ht__top::before {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, var(--w12), transparent);
+  content: '';
+  pointer-events: none;
+  transform: translateX(-100%) skewX(-18deg);
+  animation: pk-sheen 1.6s var(--ease) both;
+}
+.pk-ht--biznes .pk-ht__top::before {
+  animation-delay: 0.5s;
+}
+.pk-ht--instalacje .pk-ht__top::before {
+  animation-delay: 0.62s;
+}
+.pk-ht--software .pk-ht__top::before {
+  animation-delay: 0.74s;
+}
+.pk-ht--tech .pk-ht__top::before {
+  animation-delay: 0.86s;
+}
+.pk-ht--gaming .pk-ht__top::before {
+  animation-delay: 0.98s;
+}
+@keyframes pk-sheen {
+  from {
+    transform: translateX(0) skewX(-18deg);
+  }
+  to {
+    transform: translateX(500%) skewX(-18deg);
+  }
+}
+
+/* Slides: a soft cross-fade with blur — the title first, then its line of text. */
+.pk-hsl {
+  filter: blur(6px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.55s var(--ease),
+    filter 0.4s ease;
+}
+.pk-hsl[data-on] {
+  filter: none;
+  transition:
+    opacity 0.55s var(--ease) 0.15s,
+    transform 0.7s var(--ease) 0.15s,
+    filter 0.6s var(--ease) 0.15s;
+}
+.pk-hsl[data-on] .pk-hsl__title {
+  animation: pk-rise 0.7s var(--ease) 0.15s both;
+}
+.pk-hsl[data-on] .pk-hsl__text {
+  animation: pk-rise 0.7s var(--ease) 0.28s both;
+}
+@keyframes pk-rise {
+  from {
+    transform: translateY(10px);
+  }
+}
+
+/* Vignettes: blur and scale between pictures, their rows coming in one by one. */
+.pk-vl {
+  filter: blur(8px);
+  transform: translateY(12px) scale(0.96);
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.8s var(--ease),
+    filter 0.6s var(--ease);
+}
+.pk-vl[data-on] {
+  filter: none;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn) {
+  animation: pk-pop 0.7s var(--ease) both;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn):nth-child(2),
+.pk-vl[data-on] .pk-fn:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc):nth-child(3),
+.pk-vl[data-on] .pk-fn:nth-child(5) {
+  animation-delay: 0.2s;
+}
+@keyframes pk-pop {
+  from {
+    transform: translateY(10px) scale(0.97);
+  }
+}
+/* A status lights up as its row arrives („wdrożony”, „działa”). */
+.pk-vl[data-on] .pk-vp {
+  animation: pk-glow 1.2s var(--ease) both;
+}
+.pk-vl[data-on] .pk-vr:nth-child(2) .pk-vp {
+  animation-delay: 0.15s;
+}
+.pk-vl[data-on] .pk-vr:nth-child(3) .pk-vp {
+  animation-delay: 0.3s;
+}
+@keyframes pk-glow {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ln) 0%, transparent);
+  }
+  40% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ln) 35%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ln) 0%, transparent);
+  }
+}
+.pk-vp i {
+  animation: pk-blink 2.4s ease-in-out infinite;
+}
+@keyframes pk-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Progress of the slides: the track of the running slide glows softly. */
+.pk-ht__seg[aria-pressed='true'] > span {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
+}
+
+/* Tech: the repair moves on through its stages; Gaming: bars with a less even beat. */
+.pk-stp {
+  position: relative;
+  overflow: hidden;
+}
+.pk-stp[data-state='now']::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--w60), transparent);
+  content: '';
+  /* Off the bar at rest, so reduced motion leaves no still streak. */
+  transform: translateX(-100%);
+  animation: pk-run 1.8s ease-in-out infinite;
+}
+@keyframes pk-run {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.pk-ht__eq i {
+  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 60%, transparent));
+  animation-duration: 1.6s;
+  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+}
+.pk-ht__eq i:nth-child(3n) {
+  animation-duration: 2.1s;
+}
+.pk-ht__eq i:nth-child(4n + 1) {
+  animation-duration: 1.3s;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1367,7 +1559,7 @@ a.pk-mqi:hover {
     transform: none;
   }
 }
-/* Without the steps (an older `home` in the panel) the call to action still sits at the bottom. */
+/* The call to action sits at the bottom of the tile. */
 .pk-hch-list + .pk-hb-main__cta {
   margin-top: auto;
 }
