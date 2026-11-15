@@ -124,6 +124,22 @@ export const homeSchema = z
       title: text(90),
       lead: text(200),
       all: z.object({ eyebrow: text(60), title: text(90), text: text(240), cta: text(40) }),
+      /**
+       * Remote help of the whole company (H9, Krystian 15.11): the sixth tile while „Załatw
+       * online” is off. The download page of the remote support program — an outside https link.
+       */
+      remote: z
+        .object({
+          eyebrow: text(60),
+          title: text(60),
+          text: text(240),
+          steps: z.array(text(40)).min(2).max(4),
+          cta: text(50),
+          url: z
+            .string()
+            .regex(/^https:\/\/[a-z0-9.-]+\.[a-z]{2,}(\/[\w./-]*)?$/i, 'adres https://…'),
+        })
+        .nullish(),
     }),
     help: z.object({
       eyebrow: text(40),

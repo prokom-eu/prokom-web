@@ -16,7 +16,7 @@ type Props = {
 }
 
 /**
- * „Załatw to od razu. Bez dzwonienia.” (spec §6.1 pkt 4, board 01 `#narzedzia`): per line its two
+ * „Załatw to od razu.” (spec §6.1 pkt 4, board 01 `#narzedzia`): per line its two
  * home tools with a small picture from the tool's `preview`, and the card of all tools with the
  * counts from the data. Server-rendered, no state.
  */
@@ -79,6 +79,7 @@ export function Tools({ texts, groups, counts, total, allHref }: Props) {
             </span>
           </a>
         )}
+        {!allHref && texts.remote && <RemoteHelp texts={texts.remote} />}
       </div>
     </section>
   )
@@ -109,6 +110,54 @@ function ToolCard({ tool }: { tool: ToolGroup['tools'][number] }) {
   )
 }
 
+/**
+ * „Pomoc zdalna” (H9): the sixth tile, in the company green, while the card of all tools waits for
+ * `/zalatw-online`. Steps as on the line cards; the button opens the program's download page.
+ */
+function RemoteHelp({ texts }: { texts: NonNullable<HubHome['tools']['remote']> }) {
+  return (
+    <div className="pk-tgr pk-tgr--remote" style={lineStyle('prokom')}>
+      <div className="pk-tgr__head">
+        <span className="pk-tgr__who">
+          <Mark size="sm" />
+          <span className="pk-tgr__promise">{texts.eyebrow}</span>
+        </span>
+      </div>
+      <div className="pk-remote">
+        <span aria-hidden="true" className="pk-tv pk-tv--remote">
+          <span className="pk-tv__screen">
+            <span className="pk-tv__cursor" />
+          </span>
+          <span className="pk-tv__ids">
+            <span>
+              ID <b>··· ··· ···</b>
+            </span>
+            <span>
+              Hasło <b>······</b>
+            </span>
+          </span>
+        </span>
+        <div className="pk-remote__body">
+          <h3 className="pk-tlc__title">{texts.title}</h3>
+          <p className="pk-tlc__desc">{texts.text}</p>
+          <ol className="pk-remote__steps">
+            {texts.steps.map((step, index) => (
+              <li key={step}>
+                <b aria-hidden="true">{index + 1}</b>
+                {step}
+              </li>
+            ))}
+          </ol>
+          <a href={texts.url} className="pk-tlc__go pk-remote__go" rel="noopener">
+            {texts.cta} <span aria-hidden="true">↗</span>
+            <span className="sr-only"> (inna strona)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /** The tool's small picture; its words are illustration only (hidden from readers). */
 function Preview({ preview }: { preview: ToolPreview }) {
   switch (preview.kind) {
@@ -116,7 +165,7 @@ function Preview({ preview }: { preview: ToolPreview }) {
       return (
         <span aria-hidden="true" className="pk-tv pk-tv--list">
           {preview.items.map((item, index) => (
-            <span key={item} className="pk-tv__row">
+            <span key={item} className="pk-tv__row" data-on={index === 0 ? '' : undefined}>
               <b>{String(index + 1).padStart(2, '0')}</b>
               <span>{item}</span>
               <i />
@@ -127,8 +176,10 @@ function Preview({ preview }: { preview: ToolPreview }) {
     case 'tiles':
       return (
         <span aria-hidden="true" className="pk-tv pk-tv--tiles">
-          {preview.items.map((item) => (
-            <span key={item}>{item}</span>
+          {preview.items.map((item, index) => (
+            <span key={item} data-on={index === 0 ? '' : undefined}>
+              {item}
+            </span>
           ))}
         </span>
       )
@@ -177,9 +228,13 @@ function Preview({ preview }: { preview: ToolPreview }) {
             <span>{preview.text}</span>
           </span>
           <span className="pk-tv__page">
-            <i className="pk-sk pk-sk--title" />
-            <i className="pk-sk" />
-            <i className="pk-sk pk-sk--short" />
+            <span className="pk-tv__copy">
+              <i className="pk-sk pk-sk--title" />
+              <i className="pk-sk" />
+              <i className="pk-sk pk-sk--short" />
+              <i className="pk-sk pk-sk--btn" />
+            </span>
+            <span className="pk-tv__shot" />
           </span>
         </span>
       )
