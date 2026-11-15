@@ -2,6 +2,7 @@ import { IntentLink as Link } from '@/components/shared/IntentLink'
 
 import { cx } from '@/components/ui/cx'
 
+import { PostCover } from './PostCover'
 import { SOFTWARE_NEWS_TEXTS as T } from './texts'
 
 export type SoftwarePostCard = {
@@ -15,26 +16,6 @@ export type SoftwarePostCard = {
   lead: string | null
   /** Reading time (the list); missing → only the date. */
   minutes?: number
-}
-
-/**
- * The picture of a news category (ZMIANY-v24 §1 pkt 4, §9.4; aurora.css `.au-pc-art`): orbs and a
- * ring in the category's colour (`--news-art-*`), no stock images. Decorative: the card's text
- * says it all.
- */
-export function PostArt({ category, className }: { category: string; className?: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      data-card-media
-      data-cat={category}
-      className={cx('sw-art', className)}
-    >
-      <i className="sw-art-ring" />
-      <i className="sw-art-orb" />
-      <i className="sw-art-dot" />
-    </span>
-  )
 }
 
 function Meta({ post, featured = false }: { post: SoftwarePostCard; featured?: boolean }) {
@@ -60,7 +41,7 @@ function MetaLine({ post }: { post: SoftwarePostCard }) {
 export function FeaturedPost({ post }: { post: SoftwarePostCard }) {
   return (
     <Link href={post.href} data-card className="sw-glass sw-glass-featured sw-post-featured">
-      <PostArt category={post.categoryValue} className="sw-post-featured-art" />
+      <PostCover slug={post.slug} category={post.categoryValue} className="sw-post-featured-art" />
       <span className="sw-post-featured-body">
         <Meta post={post} featured />
         <h2 className="sw-post-featured-title font-display font-black leading-tight tracking-tight">
@@ -100,7 +81,11 @@ export function PostCardList({
       {posts.map((post) => (
         <li key={post.slug}>
           <Link href={post.href} data-card className="sw-glass sw-post-card">
-            <PostArt category={post.categoryValue} className="sw-post-card-art" />
+            <PostCover
+              slug={post.slug}
+              category={post.categoryValue}
+              className="sw-post-card-art"
+            />
             <span className="sw-post-card-body">
               <Meta post={post} />
               <Title className="sw-post-card-title font-display font-extrabold leading-snug">

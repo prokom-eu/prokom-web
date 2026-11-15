@@ -1563,6 +1563,21 @@
   --news-art-automatyzacje-bg: #1c1a12;
   --news-art-bezpieczenstwo: rgba(226, 72, 58, 0.38);
   --news-art-bezpieczenstwo-bg: #1e1312;
+  /* Covers of the posts (decision 15.11, `news/PostCover`): scenes drawn on the dark category
+     panel — in both themes, like the panel itself. Glass and ink are white over the panel, the
+     solid hue of each category draws the scene's accent (`-ink`), the soft one its fills. */
+  --cover-glass: rgba(255, 255, 255, 0.06);
+  --cover-glass-2: rgba(255, 255, 255, 0.11);
+  --cover-line: rgba(255, 255, 255, 0.17);
+  --cover-ink: rgba(244, 245, 241, 0.92);
+  --cover-ink-2: rgba(244, 245, 241, 0.42);
+  --cover-ok: #5fd08a;
+  --cover-alert: #f0786b;
+  --news-art-poradnik-ink: #b39bf5;
+  --news-art-strony-ink: #5fd6c2;
+  --news-art-systemy-ink: #7fa8f7;
+  --news-art-automatyzacje-ink: #f2c14e;
+  --news-art-bezpieczenstwo-ink: #f0786b;
 }
 
 /* Dark theme — chosen by the visitor or the line's default (`data-theme`, lib/brand/theme.ts);

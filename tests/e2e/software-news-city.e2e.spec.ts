@@ -52,6 +52,11 @@ test.describe('Software /aktualnosci with the seed posts', () => {
     test.skip((await posts.count()) === 0, 'no public post in this database')
     await expect(page.locator('main .sw-post-featured')).toHaveCount(1)
     await expect(page.locator('main .sw-post-meta').first()).toContainText('min czytania')
+    // Every post its own cover (decision 15.11): no scene twice on a page.
+    const covers = await page
+      .locator('main [data-cover]')
+      .evaluateAll((nodes) => nodes.map((node) => node.getAttribute('data-cover')))
+    expect(new Set(covers).size).toBe(covers.length)
     const chips = page.getByRole('navigation', { name: 'Kategorie' })
     test.skip((await chips.count()) === 0, 'posts of one category only')
     const chip = chips.getByRole('link').nth(1)
