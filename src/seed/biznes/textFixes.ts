@@ -38,6 +38,10 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
     'Uprawnienia producentów widzisz obok — to one pozwalają nam serwisować kasy i wdrażać programy.',
     'Uprawnienia producentów to podstawa — pozwalają nam serwisować kasy i wdrażać programy.',
   ],
+  // KSeF token kept with no end date (MF, ksef.podatki.gov.pl „Certyfikaty KSeF”, 01.09.2026).
+  ['Certyfikat KSeF, zanim skończy się token', 'Certyfikat KSeF do programu i do trybu offline'],
+  ['Stary token działa tylko do końca 2026 r.', 'Token zostaje — MF utrzymało go bezterminowo.'],
+  ['Token działa tylko do końca 2026.', 'Token MF utrzymało bezterminowo.'],
   // Redaction (audit of 01.11.2026, prompt 5): parts of longer sentences. Headings and other
   // short texts change only as a whole field (`WHOLE_TEXT_FIXES`), so a phrase reused elsewhere
   // in the panel stays. Dashes inside other sentences change with a fresh seed only.
