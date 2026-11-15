@@ -10048,6 +10048,9 @@ export interface CompanyDatum {
   serviceZones?:
     | {
         name: string;
+        /**
+         * Na mapie Kontaktu (Biznes) miejscowość staje w swoim pierścieniu tylko ze współrzędnymi z `src/lib/shared/townGeo.ts` — nowa bez nich trafia do „Pozostałe”.
+         */
         towns?: string[] | null;
         note?: string | null;
         id?: string | null;
