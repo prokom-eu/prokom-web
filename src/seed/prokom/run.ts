@@ -134,7 +134,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
   // --- legal pages (H5): created while missing, then they belong to the panel ---
   await seedProkomLegal(payload, tenantId, count)
 
-  // --- 301 from the old pro-kom.eu (H6-2): the list is waiting for Krystian (see redirects.ts) ---
+  // --- 301 from the old pro-kom.eu (H6-2, list: redirects.ts) ---
   await seedProkomRedirects(payload, tenantId, count)
 
   // --- services: first without relations, then the relations by key ---
