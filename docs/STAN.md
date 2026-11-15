@@ -155,8 +155,19 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 
 ### prokombiznes.pl — folder `prokom-web-biznes`
 - **15.11 noc — runda 1411 (aktualizacja działającej strony), Sesja A (R0, R1, R2)** wg `docs/design/prokombiznes/runda-1411/PRZEKAZANIE-RUNDA-1411.md` (plan §7.4 w `docs/zadania/prokombiznes.md`, ADR-017 „Rozstrzygnięcia 15.11”). Praca nocna bez pytań (zasady nocne 15.11: decyzje wg rekomendacji, samodzielne scalanie przy zielonym CI).
-  - R0 `docs/biznes-runda-1411`: pakiet w `docs/design/prokombiznes/runda-1411/`, ADR-017, INDEKS, §7.4.
-  - `Następny krok:` R1 `feat/wsp-biznes-kontakt-1411` → R2 `feat/biznes-hero-1411` → Sesja B (R3–R5).
+  - **Raport nocny 15.11 — Sesja A:**
+    - R0 #635 (scalony): pakiet w `docs/design/prokombiznes/runda-1411/`, ADR-017 „Rozstrzygnięcia 15.11”, INDEKS, §7.4.
+    - R1 #638 (scalony, strefa wspólna): przełącznik `SiteSettings.shared.verifyLinks` („Pokazuj linki weryfikacji (CEIDG)”, domyślnie włączony, migracja dodająca; Biznes wyłącza w seedzie), drugi numer w pasku marki, arkuszu Menu, O firmie i JSON-LD (`contactPoint`), Kontakt: 2 kafle numerów + pasek z „Kopiuj” + 7 dni (`heroLayout="calls"`), mapa obszaru z pierścieniami 15/35/55 km (`serviceArea="rings"`). Instalacje/Software/hub bez zmian (domyślne propsy).
+    - R2 `feat/biznes-hero-1411` (PR w toku): koło 5 × 3 ze zdjęciami (`src/seed/biznes/wheel1411.ts` zamiast `kolo_hero` paczki; pole `wheelLink.image`, migracja dodająca), działy r 165 / produkty r 290 ±20°, okrągła pauza, auto-stop poza widokiem i w ukrytej karcie; w hero dwa numery + pasek uprawnień (4 marki z Partners, liczby z bloku „Od 2004”); telefon: dwa pełne przyciski, rząd 5 działów, pasek jako rząd.
+  - **Do przejrzenia rano (decyzje zachowawcze w nocy):**
+    1. Współrzędne miejscowości mapy Kontaktu są w kodzie (`src/lib/shared/townGeo.ts`), nie w panelu — nowa miejscowość dopisana w panelu bez wpisu trafia do „Pozostałe”. Pomysł: `lat/lng` przy miejscowości w `CompanyData` (migracja).
+    2. Dolny pasek telefonu nadal ma „Kontakt”; oba numery daje karta „Zadzwoń” w arkuszu Menu (zamiana pozycji paska dotyczyłaby wszystkich linii).
+    3. Bąble koła są skrótem dla myszy (wybierają dział, poza kolejnością Tab); do produktów prowadzą linki z nazwami w środku koła (9,5u — na 1080 px ok. 7 px; większe nie mieszczą się w rdzeniu 184u).
+    4. Pasek uprawnień bierze liczby z bloku „Od 2004” (`bzFacts.stats`, pierwsze dwie) — R4 przebudowuje ten blok: pilnuje tego e2e `biznes-home` (`dd` = 2004, 10 000+).
+    5. Pola `bzHero.trustItems` i `settings.biznes.trustLine` nie są już czytane w hero (pasek uprawnień je zastąpił) — do usunięcia w osobnej migracji (Pomysły na później).
+    6. Produkcja: CEIDG zniknie dopiero po imporcie treści Biznesu (`prod-line-content.sh biznes`, Sesja D) albo po odznaczeniu przełącznika w panelu.
+    7. Lighthouse/LCP głównej przed/po: lokalnie tylko serwer dev (niemiarodajny) — pomiar na stagingu po scaleniu (workflow Lighthouse) i w Sesji D.
+  - `Następny krok:` Sesja B (R3 `feat/biznes-glowna-uklad-1411`, R4, R5) — uruchomiona przez Sesję A po scaleniu R2.
 - **14.11 noc — poprawki po audycie produkcji (`tmp/AUDYT-BIZNES-PRODUKCJA-1411.md`), 2 PR-y od `develop`:**
   - `feat/wsp-kontakt-waski-ekran` (strefa wspólna): Kontakt 360–390 px bez ucięcia, gdy firma zamknięta (siatka hero `grid-cols-1` + `min-w-0`, pigułka statusu się zawija); **decyzja Krystiana 14.11:** pigułka statusu poniżej 480 px pokazuje skrót „Zamknięte · pn 9:00” (`openingStatus().short`; dotyczy też hero pro-kom.eu; pełne zdanie w Menu, stopce i dla czytników — spec §5); O firmie: „Telefon” na linii numeru, „od&nbsp;2004”. e2e `wspolne-kontakt-waski` (3 linie × 360/390, sobota 22:00).
   - `fix/biznes-seo-kontakt`: opis `/kontakt` (seed uzupełnia pusty / stare brzmienie z „60 minut”), jeden `BreadcrumbList` na `/kontakt` i `/o-firmie`, `/favicon.ico` per linia przez `proxy.ts`. `ProductGroup` bez `offers` — bez zmian do pierwszego raportu Search Console.

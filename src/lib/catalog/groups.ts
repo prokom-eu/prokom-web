@@ -84,36 +84,15 @@ export type WheelGroup = {
 }
 
 /**
- * Bubbles on the ring at most (audit 14.11 pkt 2): with every department's cards the ring had
- * a dozen and more small icons; eight still show each department and stay readable.
+ * Bubbles of one department on the wheel (runda 1411, PRZEKAZANIE §1 „Hero — koło”: exactly
+ * three a department, all photos). Replaces the cap of 8 on the whole ring (audit 14.11).
  */
-export const WHEEL_MAX = 8
+export const WHEEL_PER_GROUP = 3
 
 /**
- * Cuts the departments' bubbles to `max`, taking them in turns — the first of each department,
- * then the second, … — so every department keeps its run and the panel's order inside it.
- */
-function capInTurns<T>(lists: readonly T[][], max: number): T[][] {
-  const kept: T[][] = lists.map(() => [])
-  let left = max
-  for (let round = 0; left > 0; round++) {
-    let took = false
-    lists.forEach((list, i) => {
-      const item = list[round]
-      if (item === undefined || left === 0) return
-      kept[i]!.push(item)
-      left--
-      took = true
-    })
-    if (!took) break
-  }
-  return kept
-}
-
-/**
- * The departments of the hero wheel (KOLO-HERO v3): each with its wheel cards in the panel's
- * order and the extra page bubble last, at most `WHEEL_MAX` bubbles on the whole ring (taken in
- * turns, the page bubble first). Only what the client island draws — no index entries.
+ * The departments of the hero wheel (runda 1411): each with its first wheel cards in the panel's
+ * order and the extra page bubble last, `WHEEL_PER_GROUP` bubbles a department (the page bubble
+ * always among them). Only what the client island draws — no index entries.
  */
 export function wheelGroups(
   index: Pick<CatalogIndex, 'groups' | 'categories' | 'products'>,
@@ -144,26 +123,19 @@ export function wheelGroups(
       count: index.products.filter((product) => product.group === group.slug).length,
       gradient: group.gradient,
       href: groupHref(group.slug),
+      // The page bubble is the department's own pick in the panel: always kept, always last.
       items: link
         ? [
-            ...cards,
-            { key: `link:${link.href}`, name: link.label, href: link.href, icon: link.icon },
+            ...cards.slice(0, WHEEL_PER_GROUP - 1),
+            {
+              key: `link:${link.href}`,
+              name: link.label,
+              href: link.href,
+              ...(link.image ? { image: link.image } : { icon: link.icon }),
+            },
           ]
-        : cards,
+        : cards.slice(0, WHEEL_PER_GROUP),
     }
   })
-  // The page bubble is the department's own pick in the panel: it goes into the cut first and
-  // still stands last in its run.
-  const isLink = (item: WheelItem) => item.key.startsWith('link:')
-  const kept = capInTurns(
-    groups.map((group) => [
-      ...group.items.filter(isLink),
-      ...group.items.filter((i) => !isLink(i)),
-    ]),
-    WHEEL_MAX,
-  )
-  return groups.map((group, i) => {
-    const items = kept[i]!
-    return { ...group, items: [...items.filter((item) => !isLink(item)), ...items.filter(isLink)] }
-  })
+  return groups
 }

@@ -59,13 +59,13 @@
   }
 }
 
-/* --- Department wheel of the hero (KOLO-HERO v3, 03.11) -----------------------------------
-   Prototype `docs/design/prokombiznes/kolo/prototyp.html`, colours from tokens. Geometry in 640
-   design units (`--u`, from the wheel's own width: `container-type`); positions come from
-   `wheelGeometry.ts` as `--x` / `--y`. The ring does not turn; the 6.5 s ring around the core
-   (`bzw-prog`, `animationend`) switches the department. `data-hold` (pause button, keyboard
-   focus) stops every loop; reduced motion stops them all. Department colours (`--g1`, `--g2`,
-   `--tint`) are data from `CatalogGroups`. */
+/* --- Department wheel of the hero (runda 1411, `Main.dc.html`; KOLO-HERO v3 before) ----------
+   Colours from tokens. Geometry in 680 design units (`--u`, from the wheel's own width:
+   `container-type`); positions come from `wheelGeometry.ts` as `--x` / `--y`. The outer dashed
+   ring turns in 90 s; the 6.5 s ring around the core (`bzw-prog`, `animationend`) switches the
+   department. Only transform and opacity move in the loop: a bubble grows by `scale`, never by
+   its size. `data-hold` (pause, keyboard focus, out of view, hidden tab) stops every loop;
+   reduced motion stops them all. Department colours (`--g1`, `--g2`, `--tint`) are data. */
 @property --tint {
   syntax: '<color>';
   inherits: true;
@@ -73,11 +73,11 @@
 }
 
 [data-line='biznes'] .bzw {
-  --u: calc(100cqw / 640);
+  --u: calc(100cqw / 680);
   container-type: inline-size;
   position: relative;
   width: 100%;
-  max-width: 640px;
+  max-width: 680px;
   aspect-ratio: 1;
 }
 [data-line='biznes'] .bzw > * {
@@ -126,20 +126,35 @@
   overflow: visible;
   pointer-events: none;
 }
+[data-line='biznes'] .bzw-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+}
 [data-line='biznes'] .bzw-orbit {
   fill: none;
   stroke: color-mix(in srgb, var(--ink-3) 45%, transparent);
   stroke-width: 1.4;
-  stroke-dasharray: 2 7;
+  stroke-dasharray: 2 8;
   stroke-linecap: round;
+}
+[data-line='biznes'] .bzw-spark {
+  fill: color-mix(in srgb, var(--accent-text) 45%, transparent);
 }
 [data-line='biznes'] .bzw-inner {
   fill: none;
   stroke: var(--border);
-  stroke-width: 1;
+  stroke-width: 1.5;
+}
+[data-line='biznes'] .bzw-links {
+  fill: none;
+  stroke: var(--tint);
+  stroke-width: 1.6;
+  stroke-dasharray: 4 5;
+  opacity: 0.7;
+  transition: stroke 0.7s var(--ease-out);
 }
 [data-line='biznes'] .bzw-sweep {
-  transform-origin: 320px 320px;
+  transform-origin: 340px 340px;
   transition: transform 0.9s var(--ease-in-out);
 }
 [data-line='biznes'] .bzw-arc {
@@ -155,15 +170,20 @@
 
 /* Product bubbles: a cut-out photo on a porcelain disc tinted by the department. */
 [data-line='biznes'] .bzw-bub {
-  --s: 64;
+  /* Drawn at the active size (76) and scaled down to 54 when not active (only `scale` moves). */
+  --s: 76;
+  --off: calc(54 / 76);
   position: relative;
   z-index: 2;
   display: grid;
   place-items: center;
   width: calc(var(--s) * var(--u));
   height: calc(var(--s) * var(--u));
+  padding: 0;
+  border: 0;
   border-radius: 50%;
-  scale: 0.9;
+  cursor: pointer;
+  scale: var(--off);
   background: radial-gradient(
     circle at 50% 28%,
     var(--c-white) 0%,
@@ -231,11 +251,11 @@
   border-radius: 50%;
 }
 [data-line='biznes'] .bzw-bub[data-on] {
-  scale: 1.1;
+  scale: 1;
   box-shadow:
-    0 0 0 calc(4 * var(--u)) color-mix(in srgb, var(--g1) 14%, transparent),
-    0 calc(16 * var(--u)) calc(30 * var(--u)) calc(-12 * var(--u)) var(--glow),
-    inset 0 0 0 calc(2.2 * var(--u)) var(--g1);
+    0 0 0 calc(6 * var(--u)) color-mix(in srgb, var(--g1) 14%, transparent),
+    0 calc(18 * var(--u)) calc(30 * var(--u)) calc(-14 * var(--u)) var(--glow),
+    inset 0 0 0 calc(3 * var(--u)) var(--g1);
 }
 [data-line='biznes'] .bzw-bub[data-on] img {
   filter: drop-shadow(
@@ -281,6 +301,7 @@
 [data-line='biznes'] .bzw-node {
   z-index: 4;
   display: block;
+  isolation: isolate;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -308,6 +329,15 @@
   width: 44%;
   height: 44%;
 }
+/* A wave in the department's colour behind the active icon (only transform and opacity). */
+[data-line='biznes'] .bzw-wave {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--g1);
+  opacity: 0;
+}
 [data-line='biznes'] .bzw-node[aria-selected='true'] .bzw-dot {
   scale: 1.1;
   box-shadow:
@@ -319,7 +349,7 @@
   position: absolute;
   left: 50%;
   top: calc(100% + 8 * var(--u));
-  translate: -50% 0;
+  translate: calc(-50% + var(--lx, 0) * var(--u)) 0;
   width: max-content;
   padding: calc(5 * var(--u)) calc(10 * var(--u));
   border-radius: calc(10 * var(--u));
@@ -336,10 +366,6 @@
     color 0.35s var(--ease-out),
     box-shadow 0.35s var(--ease-out);
 }
-[data-line='biznes'] .bzw-node[data-above] .bzw-lab {
-  top: auto;
-  bottom: calc(100% + 8 * var(--u));
-}
 [data-line='biznes'] .bzw-node[aria-selected='true'] .bzw-lab {
   color: var(--c-white);
   background: var(--surface-dark);
@@ -355,8 +381,8 @@
   place-items: center;
   /* 170 (was 164): the smallest two-column wheel (1080 px, ~510 px wide) keeps the text and
      „Zobacz dział” inside the core with room to spare (audit 14.11, e2e). */
-  width: calc(170 * var(--u));
-  height: calc(170 * var(--u));
+  width: calc(184 * var(--u));
+  height: calc(184 * var(--u));
   border-radius: 50%;
   translate: calc(-50% + var(--px, 0) * -2 * var(--u)) calc(-50% + var(--py, 0) * -2 * var(--u));
   text-align: center;
@@ -401,12 +427,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(128 * var(--u));
+  width: calc(138 * var(--u));
+}
+/* The department's three products under its name (board: „Posnet Ergo · PolCard · Sunmi”). */
+[data-line='biznes'] .bzw-names {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 calc(5 * var(--u));
+  margin: calc(3 * var(--u)) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: calc(9.5 * var(--u));
+  line-height: 1.15;
+  color: color-mix(in srgb, var(--c-white) 78%, transparent);
+}
+[data-line='biznes'] .bzw-names li + li::before {
+  content: '·';
+  margin-right: calc(5 * var(--u));
+}
+[data-line='biznes'] .bzw-names a {
+  display: inline-block;
+  padding-block: calc(1 * var(--u));
+  color: inherit;
+  text-decoration: none;
+}
+[data-line='biznes'] .bzw-names a:hover {
+  color: var(--c-white);
+  text-decoration: underline;
 }
 [data-line='biznes'] .bzw-k {
-  margin-bottom: calc(3 * var(--u));
+  margin-bottom: calc(2 * var(--u));
   font-family: var(--font-display);
-  font-size: calc(9.5 * var(--u));
+  font-size: calc(9 * var(--u));
   font-weight: 800;
   line-height: normal;
   letter-spacing: 0.18em;
@@ -430,7 +483,7 @@
   display: inline-flex;
   align-items: center;
   gap: calc(7 * var(--u));
-  margin-top: calc(6 * var(--u));
+  margin-top: calc(5 * var(--u));
   padding: calc(3 * var(--u)) calc(3 * var(--u)) calc(3 * var(--u)) calc(11 * var(--u));
   border-radius: 999px;
   font-size: calc(11.5 * var(--u));
@@ -468,17 +521,33 @@
   font-weight: 800;
   color: var(--accent-text);
 }
+/* Round pause button (board): a 34 px disc in a 44 px tap area. */
 [data-line='biznes'] .bzw-pause {
-  padding: 0 2px;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: -12px 0;
+  padding: 0;
   border: 0;
-  border-radius: 4px;
-  background: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--card) 0 16px,
+    var(--border) 16px 17px,
+    transparent 17px
+  );
   cursor: pointer;
+}
+[data-line='biznes'] .bzw-pause svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
 }
 [data-line='biznes'] :is(.bzw-hint a, .bzw-pause):hover {
   text-decoration: underline;
 }
-[data-line='biznes'] :is(.bzw-node, .bzw-bub, .bzw-cta, .bzw-pause):focus-visible {
+[data-line='biznes'] :is(.bzw-node, .bzw-bub, .bzw-cta, .bzw-pause, .bzw-names a):focus-visible {
   outline: 3px solid var(--accent-text);
   outline-offset: 3px;
 }
@@ -486,7 +555,10 @@
 @media (hover: hover) and (pointer: fine) {
   [data-line='biznes'] .bzw-bub:hover {
     z-index: 8;
-    scale: 1.16;
+    scale: calc(var(--off) * 1.12);
+  }
+  [data-line='biznes'] .bzw-bub[data-on]:hover {
+    scale: 1.12;
   }
   [data-line='biznes'] .bzw-bub:hover img {
     scale: 1.06;
@@ -510,11 +582,15 @@
   [data-line='biznes'] .bzw-halo {
     animation: bzw-breathe 9s ease-in-out infinite;
   }
-  [data-line='biznes'] .bzw-orbit {
-    animation: bzw-drift 80s linear infinite;
+  [data-line='biznes'] .bzw-turn {
+    animation: bzw-spin 90s linear infinite;
   }
-  [data-line='biznes'] .bzw-bub-inner {
-    animation: bzw-bob var(--d, 7s) ease-in-out var(--dl, 0s) infinite;
+  /* Only the active department's products float (± 4 units). */
+  [data-line='biznes'] .bzw-bub[data-on] .bzw-bub-inner {
+    animation: bzw-bob 3.6s ease-in-out var(--dl, 0s) infinite;
+  }
+  [data-line='biznes'] .bzw-wave {
+    animation: bzw-wave 2.2s ease-out infinite;
   }
   [data-line='biznes'] .bzw-prog {
     animation: bzw-prog var(--auto) linear forwards;
@@ -525,7 +601,9 @@
   [data-line='biznes'] .bzw-cc[data-swap] {
     animation: bzw-swap 0.5s var(--ease-out) both;
   }
-  [data-line='biznes'] .bzw[data-hold] :is(.bzw-halo, .bzw-orbit, .bzw-bub-inner, .bzw-prog) {
+  [data-line='biznes']
+    .bzw[data-hold]
+    :is(.bzw-halo, .bzw-turn, .bzw-bub-inner, .bzw-prog, .bzw-wave) {
     animation-play-state: paused;
   }
   /* The first frame is complete; the arrival plays once on top of it. */
@@ -533,7 +611,7 @@
     animation: bzw-pop 0.7s var(--ease-spring) calc(var(--i) * 70ms + 120ms) backwards;
   }
   [data-line='biznes'] .bzw[data-arrive] .bzw-bubbles li {
-    animation: bzw-pop 0.7s var(--ease-spring) calc(var(--i) * 45ms + 350ms) backwards;
+    animation: bzw-pop 0.7s var(--ease-spring) calc(var(--i) * 60ms + 350ms) backwards;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -549,9 +627,19 @@
     scale: 1.04;
   }
 }
-@keyframes bzw-drift {
+@keyframes bzw-spin {
   to {
-    stroke-dashoffset: -900;
+    transform: rotate(360deg);
+  }
+}
+@keyframes bzw-wave {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.9);
+    opacity: 0;
   }
 }
 @keyframes bzw-bob {

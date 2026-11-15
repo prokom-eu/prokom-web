@@ -22,7 +22,7 @@ const HOME_ANCHORS = [
 ]
 
 test.describe('Biznes home page', () => {
-  test('hero: one h1, wizard CTA, the offer with its count, phone, trust line', async ({
+  test('hero: one h1, wizard CTA, the offer with its count, both numbers, authorisations', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
@@ -38,12 +38,24 @@ test.describe('Biznes home page', () => {
       'href',
       '/oferta',
     )
-    await expect(hero.locator('a[href^="tel:"]')).toBeVisible()
-    // Board v150: the trust line split into its statuses. The call-back promise by the phone
-    // comes from the panel only (plan 0611 §7.1 pkt 9) — the seed leaves it empty.
-    await expect(hero).toContainText('Autoryzowany serwis Posnet i Elzab')
-    await expect(hero).toContainText('Autoryzowany partner GoPOS i InsERT')
-    await expect(hero).toContainText('10\u00a0000+ klientów')
+    // Runda 1411 (Main.dc.html): both numbers with the call-back promise.
+    await expect(hero.locator('[data-hero-call="main"]')).toHaveAttribute(
+      'href',
+      'tel:+48889003889',
+    )
+    await expect(hero.locator('[data-hero-call="second"]')).toHaveAttribute(
+      'href',
+      'tel:+48883200151',
+    )
+    await expect(hero.locator('[data-hero-calls]')).toContainText('60 minut')
+    // The authorisations bar: four producers with their status in one line, the company's numbers.
+    const bar = hero.locator('[data-auth-bar]')
+    const auth = bar.getByRole('list', { name: 'Uprawnienia producentów' }).getByRole('listitem')
+    await expect(auth).toHaveCount(4)
+    await expect(auth.filter({ hasText: 'Autoryzowany serwis' })).toHaveCount(2)
+    await expect(auth.filter({ hasText: 'Autoryzowany partner' })).toHaveCount(2)
+    await expect(auth.locator('img')).toHaveCount(4)
+    await expect(bar.locator('dd')).toHaveText(['2004', '10\u00a0000+'])
     await expect(hero.getByRole('link', { name: 'Zobacz plan Twojej firmy ↓' })).toHaveAttribute(
       'href',
       '#plan',
@@ -120,7 +132,8 @@ test.describe('Biznes home page', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site('biznes.localhost'))
     const sections = await page.evaluate(
-      (ids) => ids.filter((id) => /60\s*min/.test(document.getElementById(id)?.innerText ?? '')),
+      // `i`: the hero's promise is an uppercase eyebrow (runda 1411), innerText follows the CSS.
+      (ids) => ids.filter((id) => /60\s*min/i.test(document.getElementById(id)?.innerText ?? '')),
       HOME_ANCHORS,
     )
     expect(sections.filter((id) => !['start', 'jak-pracujemy', 'kontakt'].includes(id))).toEqual([])
@@ -247,12 +260,21 @@ test.describe('Biznes home page: offer and featured', () => {
   test.describe('on a phone', () => {
     test.use({ viewport: { width: 390, height: 844 } })
 
-    test('App-Start: hero search, shortcuts, departments and products to swipe', async ({
+    test('App-Start: hero calls, departments row, shortcuts and products to swipe', async ({
       page,
     }) => {
       await page.goto(site('biznes.localhost'))
       const hero = page.locator('#start')
-      await expect(hero.getByRole('button', { name: /Szukaj: kasa/ })).toBeVisible()
+      // Runda 1411 §5 „Hero”: two full-width call buttons, the five departments as a row.
+      const calls = hero.locator('[data-hero-call]')
+      await expect(calls).toHaveCount(2)
+      const [first, second] = await Promise.all([
+        calls.nth(0).boundingBox(),
+        calls.nth(1).boundingBox(),
+      ])
+      expect(Math.round(first!.width)).toBe(Math.round(second!.width))
+      expect(first!.width).toBeGreaterThan(300)
+      await expect(hero.locator('[data-hero-departments] > li')).toHaveCount(5)
       await expect(hero.getByRole('link', { name: /^Przeglądaj ofertę/ })).toBeHidden()
       const start = page.getByRole('region', { name: 'Od czego zaczynasz?' })
       for (const name of ['KSeF 2027', 'Zestawy', 'Opieka IT']) {

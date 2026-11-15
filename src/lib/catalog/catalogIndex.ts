@@ -128,7 +128,7 @@ export type CatalogIndex = {
      */
     wheelCards?: { slug: string; name: string; color?: string; image?: IndexImage }[]
     /** One extra wheel bubble for a page (Opieka IT), server only. */
-    wheelLink?: { label: string; href: string; icon: IconName }
+    wheelLink?: { label: string; href: string; icon: IconName; image?: IndexImage }
     /** Short label of the department on the wheel, server only. */
     shortName?: string
     /** Top of the department (`dzTop9`): first in its rows of „Polecane” (K36 §10). */
@@ -410,9 +410,15 @@ export function buildCatalogIndex(input: CatalogSource): CatalogIndex {
         const link = group.wheelLink
         const linkLabel = optional(link?.label)
         const linkHref = optional(link?.href)
+        const linkImage = indexImages([link?.image], tenantId)[0]
         const wheelLink =
           linkLabel && linkHref?.startsWith('/') && link?.icon
-            ? { label: linkLabel, href: linkHref, icon: link.icon }
+            ? {
+                label: linkLabel,
+                href: linkHref,
+                icon: link.icon,
+                ...(linkImage && { image: linkImage }),
+              }
             : undefined
         const top = docs(group.topProducts)
           .map((product) => product.slug)

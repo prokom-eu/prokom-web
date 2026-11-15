@@ -862,7 +862,7 @@ export interface CatalogGroup {
    */
   topProducts?: (number | Product)[] | null;
   /**
-   * Do 6 produktów; koło rozkłada wszystkie pozycje równo.
+   * Na kole stoją 3 pozycje działu (runda 1411): pierwsze produkty z tej listy, a dodatkowa pozycja niżej jako ostatnia.
    */
   wheelProducts?: (number | Product)[] | null;
   /**
@@ -951,6 +951,10 @@ export interface CatalogGroup {
           | 'news'
         )
       | null;
+    /**
+     * Wycięte zdjęcie na białym kole; bez niego bąbel pokaże ikonę.
+     */
+    image?: (number | null) | Media;
   };
   /**
    * Mniejsza liczba = wcześniej.
@@ -8169,6 +8173,7 @@ export interface CatalogGroupsSelect<T extends boolean = true> {
         label?: T;
         href?: T;
         icon?: T;
+        image?: T;
       };
   order?: T;
   updatedAt?: T;
