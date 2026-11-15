@@ -36,8 +36,11 @@ function links(post: BiznesGuidePost): string[] {
 /** Amounts of the regulations the posts may quote (K4-FINAL §1: no product prices). */
 const LEGAL_AMOUNTS = ['700 zł', '300 zł', '450 zł', '20 000 zł', '10 000 zł']
 
-/** Official sources only (spec. §6.9): MF, government portals, the acts. */
-const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(gov\.pl|sejm\.gov\.pl)\//
+/**
+ * Official sources only (spec. §6.9): MF, government portals, the acts — and a producer's own
+ * site for facts about its program (InsERT on KSeF in Subiekt), never a shop or a blog.
+ */
+const OFFICIAL = /^https:\/\/([a-z0-9-]+\.)*(gov\.pl|insert\.com\.pl)\//
 
 describe('Biznes guide posts — content rules (audyt 15.11 P1-3)', () => {
   it('unique slugs, Biznes categories', () => {
