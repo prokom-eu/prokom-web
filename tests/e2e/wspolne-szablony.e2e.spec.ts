@@ -100,7 +100,8 @@ test.describe('/_wspolne/kontakt and /_wspolne/o-firmie — page templates', () 
     for (const host of HOSTS) {
       await page.goto(site(host, '/_wspolne/kontakt'))
       const region = page.getByRole('region', { name: 'Godziny otwarcia i kontakt' })
-      await expect(region.locator('a[href^="tel:"]')).toBeVisible()
+      // Biznes names its second number too (runda 1411): the first is the line's main one.
+      await expect(region.locator('a[href^="tel:"]').first()).toBeVisible()
     }
   })
 
