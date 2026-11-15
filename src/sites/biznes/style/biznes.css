@@ -1654,3 +1654,72 @@
     animation: none;
   }
 }
+
+/* --- „Systemy, które u Ciebie wdrożymy” (runda 1411, `Systemy.dc.html`) ---------------------
+   Navy cards: the picture over a grid that fades out from the middle, a glow under it, a slow
+   float (not below 600 px — battery, §5); hover lifts the card. Transform and opacity only. */
+[data-line='biznes'] .bzs {
+  transition:
+    translate 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+[data-line='biznes'] .bzs-stage {
+  background: radial-gradient(
+    90% 100% at 50% 100%,
+    color-mix(in srgb, var(--accent-on-dark) 45%, var(--surface-dark)) 0%,
+    color-mix(in srgb, var(--accent-on-dark) 14%, var(--surface-dark)) 55%,
+    var(--surface-dark) 100%
+  );
+}
+[data-line='biznes'] .bzs-grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent-on-dark) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent-on-dark) 9%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 26px 26px;
+  mask-image: radial-gradient(closest-side, var(--c-white), transparent);
+}
+[data-line='biznes'] .bzs-glow {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--accent-on-dark) 70%, transparent),
+    transparent
+  );
+}
+[data-line='biznes'] .bzs-arrow {
+  transition: translate 0.3s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-line='biznes'] .bzs:hover {
+    translate: 0 -8px;
+    box-shadow: 0 40px 70px -40px color-mix(in srgb, var(--surface-dark) 90%, transparent);
+  }
+  [data-line='biznes'] .bzs:hover .bzs-arrow {
+    translate: 4px 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 600px) {
+  [data-line='biznes'] .bzs-vis {
+    animation: bzs-float 6s ease-in-out infinite;
+  }
+  [data-line='biznes'] .bzs-glow {
+    animation: bzs-glow 4s ease-in-out infinite;
+  }
+}
+@keyframes bzs-float {
+  50% {
+    translate: 0 -6px;
+  }
+}
+@keyframes bzs-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}

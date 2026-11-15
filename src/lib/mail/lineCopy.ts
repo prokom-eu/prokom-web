@@ -48,7 +48,7 @@ const BIZNES: LineCopy = {
   subject: (number) => `Mamy Twoje zapytanie ${number}`,
   h1: 'Mamy Twoje zapytanie.',
   preheader: 'Oddzwonimy w 60 minut (w godzinach pracy). Co dalej — w środku.',
-  lead: 'Dziękujemy. W godzinach pracy oddzwonimy w ciągu 60 minut, a potem przygotujemy wycenę na piśmie. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
+  lead: 'Dziękujemy. W godzinach pracy oddzwonimy w ciągu 60 minut, a potem przygotujemy wycenę i wyślemy ją mailem. Poza godzinami pracy odezwiemy się następnego dnia roboczego rano.',
   steps: [
     {
       title: 'Sprawdzamy dostępność i wersje',
@@ -56,7 +56,7 @@ const BIZNES: LineCopy = {
     },
     { title: 'Dzwonimy, żeby doprecyzować', text: 'Krótko: liczba stanowisk, programy, termin.' },
     {
-      title: 'Wysyłamy wycenę na piśmie',
+      title: 'Wysyłamy wycenę na mailu',
       text: 'Z cenami, terminem i tym, co robimy na miejscu.',
     },
   ],

@@ -41,7 +41,7 @@ export function TalkBand({
           <h2 id="o-firmie-rozmowa" className={cx(BZ_H2, 'text-line-dark-ink')}>
             Opowiedz, jak pracuje Twoja firma.
           </h2>
-          <p>Przyjedziemy albo zadzwonimy. Wycenę dostajesz na piśmie, bez zobowiązań.</p>
+          <p>Przyjedziemy albo zadzwonimy. Wycenę dostajesz na mailu, bez zobowiązań.</p>
         </div>
         <div className="flex flex-wrap gap-3 max-sm:grid max-sm:grid-cols-1">
           {tel && (

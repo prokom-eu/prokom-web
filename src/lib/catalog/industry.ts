@@ -88,7 +88,7 @@ const DEFAULTS = {
   faq: { eyebrow: 'Pytania i odpowiedzi', title: 'Zanim zdecydujesz' },
   contact: {
     heading: 'Powiedz, czego potrzebujesz, a resztę dobierzemy',
-    lead: 'Przygotujemy zestaw na piśmie, bez zobowiązań.',
+    lead: 'Przygotujemy zestaw i wyślemy go mailem, bez zobowiązań.',
   },
 } as const
 

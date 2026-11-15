@@ -56,6 +56,11 @@ export const TEXT_FIXES: readonly (readonly [from: string, to: string])[] = [
     '; Ministerstwo Finansów zapowiedziało projekt przedłużenia do końca 2027 (stan na 15.10.2026, projekt nieuchwalony). Terminy',
     '. Terminy',
   ],
+  // Runda 1411 (ADR-017 „Rozstrzygnięcia 15.11”): „wycena na mailu”, never „na piśmie” — last,
+  // so the fixes above that still say „na piśmie” end up on the new wording too.
+  ['na piśmie', 'na mailu'],
+  ['Na piśmie', 'Na mailu'],
+  ['NA PIŚMIE', 'NA MAILU'],
 ]
 
 type Fix = readonly [from: string, to: string]
@@ -188,6 +193,26 @@ export const WHOLE_TEXT_FIXES: readonly Fix[] = [
     'Nie wiesz, która kasa? Zadzwoń, pomożemy wybrać.',
   ],
 ]
+
+/**
+ * Runda 1411: „na piśmie” → „na mailu” in every string inside `value` (a hard space kept), for
+ * the texts of the K4 package the seed writes as they are — the catalog cards — so the package
+ * files stay 1:1 with the handoff. Pages and posts get it through `TEXT_FIXES`.
+ */
+export function mailWording<T>(value: T): T {
+  if (typeof value === 'string') {
+    return value
+      .replace(/(n|N)a([  ])piśmie/g, '$1a$2mailu')
+      .replace(/NA([  ])PIŚMIE/g, 'NA$1MAILU') as T
+  }
+  if (Array.isArray(value)) return value.map((item: unknown) => mailWording(item)) as T
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, mailWording(item)]),
+    ) as T
+  }
+  return value
+}
 
 /**
  * Whole-field fixes of one industry page, by slug: the same old heading stood on two pages with
@@ -337,6 +362,9 @@ export function fixIndustryTexts<T extends Record<string, unknown>>(
 
 type Report = (name: string, changed: boolean) => void
 
+/** Pages whose wording is a legal text: never changed by the phrase fixes. */
+const LEGAL_SLUGS = new Set(['polityka-prywatnosci', 'cookies', 'dostepnosc', 'regulamin'])
+
 /**
  * Applies the fixes to the line's pages (layout), posts (lead, summary, content), the
  * KSeF panel of the Biznes settings, industries and categories; saved only when it changed.
@@ -359,11 +387,22 @@ export async function seedBiznesTextFixes(
     ...local,
   })
   for (const page of pages.docs) {
+    // Legal texts keep their exact wording (e.g. a complaint „na piśmie” is a legal form).
+    if (LEGAL_SLUGS.has(page.slug)) continue
     const layout = fixTexts(page.layout)
-    const changed = changedOf(page.layout, layout)
+    // Runda 1411: the SEO description too („wycena na mailu” in the meta of the home page).
+    const description = page.seo?.description
+      ? fixTexts(page.seo.description)
+      : page.seo?.description
+    const changed = changedOf(page.layout, layout) || description !== page.seo?.description
     report('pages text fixes', changed)
     if (changed) {
-      await payload.update({ collection: 'pages', id: page.id, data: { layout }, ...local })
+      await payload.update({
+        collection: 'pages',
+        id: page.id,
+        data: { layout, ...(page.seo && { seo: { ...page.seo, description } }) },
+        ...local,
+      })
     }
   }
 

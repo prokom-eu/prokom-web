@@ -6,6 +6,7 @@ import type { Payload } from 'payload'
 import file from '../../../seed/prokombiznes/k4/strony-k4.json'
 import { hasSameValues } from '../compare'
 import { upsertBiznesPage, type PageBlock } from './page'
+import { mailWording } from './textFixes'
 
 type Report = (name: string, changed: boolean) => void
 type Variant = 'agd' | 'it'
@@ -164,9 +165,11 @@ export async function seedBiznesProcurementPages(
   }
 
   for (const page of PROCUREMENT_PAGES.filter((item) => SEEDED.has(item.variant))) {
-    const { data, missing } = resolveProcurementImages(packageData[page.variant], (name) =>
-      ids.get(name),
-    )
+    const resolved = resolveProcurementImages(packageData[page.variant], (name) => ids.get(name))
+    const { missing } = resolved
+    // Runda 1411: „na mailu” in the package texts (`mailWording`), so the text fixes that run
+    // later find nothing to change and a second run writes nothing.
+    const data = mailWording(resolved.data)
     missing.forEach((name) => note('Zaopatrzenie: brak zdjęcia', name))
     const block = { blockType: 'bzProcurementPage', variant: page.variant, data }
     const {

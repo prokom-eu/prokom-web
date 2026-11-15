@@ -73,11 +73,13 @@ function insertAt<T extends Block>(layout: readonly T[], block: T, before: strin
 export function upgradeHomeKsefNews<T extends Block>(
   layout: readonly T[] | null | undefined,
   blocks: { band: T; news: T },
+  /** Runda 1411: the band left the home page (§1) — the seed no longer brings it back. */
+  { band: withBand = true }: { band?: boolean } = {},
 ): T[] | null {
   if (!layout || layout.length === 0) return null
   let next: T[] = [...layout]
   let changed = false
-  if (!next.some(isBand)) {
+  if (withBand && !next.some(isBand)) {
     const featured = next.findIndex((item) => item.blockType === 'bzFeatured')
     next =
       featured >= 0
@@ -146,10 +148,14 @@ export async function seedBiznesHomeKsefNews(
     ...local,
   })
   if (!home) return
-  const layout = upgradeHomeKsefNews<PageBlock>(home.layout, {
-    band: { ...KSEF_BAND_BLOCK, checklist: [...KSEF_BAND_BLOCK.checklist] } as PageBlock,
-    news: { ...NEWS_HOME_BLOCK } as PageBlock,
-  })
+  const layout = upgradeHomeKsefNews<PageBlock>(
+    home.layout,
+    {
+      band: { ...KSEF_BAND_BLOCK, checklist: [...KSEF_BAND_BLOCK.checklist] } as PageBlock,
+      news: { ...NEWS_HOME_BLOCK } as PageBlock,
+    },
+    { band: false },
+  )
   report('pages home (B3-2)', layout !== null)
   if (!layout) return
   await payload.update({

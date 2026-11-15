@@ -2425,6 +2425,7 @@ export interface Page {
         | BzProcurementPageBlock
         | BzProcurementBlock
         | BzNewsHomeBlock
+        | BzSystemsBlock
         | InstServiceBlock
         | InstHomeBlock
         | InstPlannerBlock
@@ -3566,6 +3567,47 @@ export interface BzNewsHomeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'bzNewsHome';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzSystemsBlock".
+ */
+export interface BzSystemsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  note?: string | null;
+  systems?:
+    | {
+        /**
+         * Plakietka to status partnera z kolekcji Partnerzy ([SZEF]); bez statusu — bez plakietki. Puste = znak PRO-KOM Biznes.
+         */
+        partner?: (number | null) | Partner;
+        /**
+         * Np. „Usługa PRO-KOM”.
+         */
+        badge?: string | null;
+        title: string;
+        text: string;
+        link: {
+          label: string;
+          href: string;
+        };
+        mode?: ('image' | 'statuses') | null;
+        image?: (number | null) | Media;
+        statuses?:
+          | {
+              label: string;
+              value: string;
+              tone: 'ok' | 'warn';
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bzSystems';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -6811,6 +6853,7 @@ export interface PagesSelect<T extends boolean = true> {
         bzProcurementPage?: T | BzProcurementPageBlockSelect<T>;
         bzProcurement?: T | BzProcurementBlockSelect<T>;
         bzNewsHome?: T | BzNewsHomeBlockSelect<T>;
+        bzSystems?: T | BzSystemsBlockSelect<T>;
         instService?: T | InstServiceBlockSelect<T>;
         instHome?: T | InstHomeBlockSelect<T>;
         instPlanner?: T | InstPlannerBlockSelect<T>;
@@ -7394,6 +7437,42 @@ export interface BzNewsHomeBlockSelect<T extends boolean = true> {
   heading?: T;
   lead?: T;
   allLabel?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BzSystemsBlock_select".
+ */
+export interface BzSystemsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  note?: T;
+  systems?:
+    | T
+    | {
+        partner?: T;
+        badge?: T;
+        title?: T;
+        text?: T;
+        link?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        mode?: T;
+        image?: T;
+        statuses?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              tone?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

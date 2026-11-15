@@ -155,8 +155,8 @@ export function CartDrawer({ phone }: Props) {
           </p>
           <p className="text-sm text-ink-2" aria-live="polite">
             {count > 0
-              ? `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na piśmie`
-              : 'bez cen, wycena na piśmie'}
+              ? `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na mailu`
+              : 'bez cen, wycena na mailu'}
           </p>
         </div>
         <button type="button" onClick={() => dialog.current?.close()} className={ICON_BUTTON}>

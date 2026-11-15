@@ -89,7 +89,7 @@ export function SectionShell({
   block: BzSectionData
   children: ReactNode
   head?: boolean
-  /** Next to the heading on the right (e.g. „bez cen — wycena na piśmie”). */
+  /** Next to the heading on the right (e.g. „bez cen — wycena na mailu”). */
   aside?: ReactNode
   className?: string
   /**

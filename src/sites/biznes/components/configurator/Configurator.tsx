@@ -793,7 +793,7 @@ export function Configurator({ data }: { data: ConfiguratorData }) {
                     [
                       ['Wysyłasz zapytanie', 'z listą i opisem firmy, bez rejestracji'],
                       [data.callbackTime ?? 'Odezwiemy się', 'w godzinach pracy'],
-                      ['Oferta na piśmie', 'warianty do wyboru, bez zobowiązań'],
+                      ['Oferta na mailu', 'warianty do wyboru, bez zobowiązań'],
                     ] as const
                   ).map(([title, text], n) => (
                     <li key={title} className="flex items-start gap-3">

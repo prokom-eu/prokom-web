@@ -37,6 +37,8 @@ const field = (value: unknown, key: string): unknown =>
 const RAIL: Record<string, Entry[]> = {
   bzHero: [{ id: 'start', label: 'Start', icon: 'rocket' }],
   bzOffer: [{ id: 'oferta', label: 'Oferta', icon: 'store' }],
+  // Runda 1411: „Systemy, które u Ciebie wdrożymy” — a block of its own after „Oferta”.
+  bzSystems: [{ id: 'systemy', label: 'Systemy', icon: 'shield' }],
   bzProcurement: [{ id: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' }],
   // On Biznes the shared Partners block is the brands section (`BrandsHome`).
   partners: [{ id: 'marki', label: 'Marki', icon: 'star' }],
@@ -60,7 +62,7 @@ const RAIL: Record<string, Entry[]> = {
         ).length > 0,
     },
   ],
-  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'shield' }],
+  bzFacts: [{ id: 'fakty', label: 'O firmie', icon: 'users' }],
   bzNewsHome: [{ id: 'aktualnosci', label: 'Aktualności', icon: 'mega' }],
   faq: [{ id: 'faq', label: 'Pytania', icon: 'q' }],
   bzContact: [{ id: 'kontakt', label: 'Kontakt', icon: 'phone' }],

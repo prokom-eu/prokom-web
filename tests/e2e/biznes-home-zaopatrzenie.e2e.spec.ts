@@ -7,12 +7,12 @@ import { api, hydrated, loginAsAdmin, site, tenantId } from './helpers'
 // both procurement pages published).
 
 test.describe('Biznes home: Zaopatrzenie firm and the brand strips (B2-3)', () => {
-  test('section right after the offer, before the brands', async ({ page }) => {
+  test('section after the brands, before the news (runda 1411 §1)', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     const order = await page
-      .locator('#oferta, #zaopatrzenie, #marki')
+      .locator('#oferta, #marki, #zaopatrzenie, #aktualnosci')
       .evaluateAll((elements) => elements.map((element) => element.id))
-    expect(order).toEqual(['oferta', 'zaopatrzenie', 'marki'])
+    expect(order).toEqual(['oferta', 'marki', 'zaopatrzenie', 'aktualnosci'])
     const section = page.locator('#zaopatrzenie')
     await expect(section.getByRole('heading', { level: 2 })).toContainText('Dostarczymy')
     await expect(section.getByRole('heading', { level: 3 })).toHaveCount(2)

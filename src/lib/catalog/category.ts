@@ -433,7 +433,7 @@ export const DEFAULTS = {
   },
   contact: {
     heading: 'Nie wiesz, co wybrać? Zadzwoń, pomożemy wybrać.',
-    lead: 'Powiedz, czego potrzebujesz. Przygotujemy propozycję na piśmie, bez zobowiązań.',
+    lead: 'Powiedz, czego potrzebujesz. Przygotujemy propozycję i wyślemy ją mailem, bez zobowiązań.',
   },
 } as const
 

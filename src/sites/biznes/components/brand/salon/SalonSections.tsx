@@ -100,7 +100,7 @@ function SectionHead({
       </div>
       {note && (
         <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 max-md:col-start-2 max-md:whitespace-nowrap max-md:row-start-1 max-md:self-center min-[768px]:self-end">
-          <span className="max-md:hidden">bez cen · oferta na piśmie</span>
+          <span className="max-md:hidden">bez cen · oferta na mailu</span>
           <span className="min-[768px]:hidden">bez cen</span>
         </span>
       )}

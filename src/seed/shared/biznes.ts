@@ -28,16 +28,17 @@ export const BIZNES_SHARED: SharedGroup = {
   rail: {
     sections: [
       // The order of plan 0611 §7.1 (B3-1; KSeF and „Aktualności” B3-2).
+      // Runda 1411 §1: the new order of the home page (no KSeF band; „Systemy” after „Oferta”).
       { anchorId: 'start', label: 'Start', icon: 'rocket' },
       { anchorId: 'oferta', label: 'Oferta', icon: 'store' },
-      { anchorId: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' },
-      { anchorId: 'marki', label: 'Marki', icon: 'star' },
+      { anchorId: 'systemy', label: 'Systemy', icon: 'shield' },
       { anchorId: 'wybierane', label: 'Najczęściej wybierane', icon: 'grid' },
-      { anchorId: 'ksef', label: 'KSeF', icon: 'doc' },
       { anchorId: 'plan', label: 'Plan Twojej firmy', icon: 'map' },
       { anchorId: 'jak-pracujemy', label: 'Jak pracujemy', icon: 'compass' },
       { anchorId: 'opinie', label: 'Opinie', icon: 'chat' },
-      { anchorId: 'fakty', label: 'O firmie', icon: 'shield' },
+      { anchorId: 'fakty', label: 'O firmie', icon: 'users' },
+      { anchorId: 'marki', label: 'Marki', icon: 'star' },
+      { anchorId: 'zaopatrzenie', label: 'Zaopatrzenie firm', icon: 'box' },
       { anchorId: 'aktualnosci', label: 'Aktualności', icon: 'mega' },
       { anchorId: 'faq', label: 'Pytania', icon: 'q' },
       { anchorId: 'kontakt', label: 'Kontakt', icon: 'phone' },
@@ -46,7 +47,7 @@ export const BIZNES_SHARED: SharedGroup = {
   footerPromises: [
     'Autoryzowany serwis Posnet i Elzab',
     'Autoryzowany partner GoPOS i InsERT',
-    'Wycena na piśmie',
+    'Wycena na mailu',
   ],
   footerColumns: [
     {
@@ -117,7 +118,7 @@ export const BIZNES_SHARED: SharedGroup = {
       },
       {
         title: 'Większa dostawa sprzętu',
-        text: 'Komputery, drukarki i sieć dla kilku stanowisk — wycena na piśmie.',
+        text: 'Komputery, drukarki i sieć dla kilku stanowisk — wycena na mailu.',
         cta: 'Zaznacz w formularzu',
         href: `/kontakt?temat=${encodeURIComponent(BIZNES_TOPICS[3])}#formularz`,
       },
@@ -130,7 +131,7 @@ export const BIZNES_SHARED: SharedGroup = {
     nextSteps: [
       { title: 'Oddzwaniamy w godzinach pracy', text: 'Dopytamy o branżę i to, co już masz.' },
       { title: 'Dobieramy sprzęt i program', text: 'Tylko to, czego naprawdę potrzebujesz.' },
-      { title: 'Wycena na piśmie', text: 'Bez zobowiązań, z terminem realizacji.' },
+      { title: 'Wycena na mailu', text: 'Bez zobowiązań, z terminem realizacji.' },
       { title: 'Wdrożenie i serwis', text: 'Na miejscu w Rabce albo u Ciebie.' },
     ],
     mapTitle: 'Z Rabki-Zdroju do firm z całego Podhala',
@@ -158,7 +159,7 @@ export const BIZNES_SHARED: SharedGroup = {
       {
         question: 'Czy dostanę wycenę bez wizyty?',
         answer:
-          'Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na piśmie.',
+          'Tak. Opisz firmę w formularzu albo zadzwoń — większość wycen przygotowujemy zdalnie, na mailu.',
       },
     ],
   },
@@ -179,7 +180,7 @@ export const BIZNES_SHARED: SharedGroup = {
     ],
     rules: [
       {
-        title: 'Wycena na piśmie, zanim zdecydujesz',
+        title: 'Wycena na mailu, zanim zdecydujesz',
         text: 'Zakres, termin i warunki dostajesz czarno na białym. Bez niespodzianek po fakcie.',
       },
       {
@@ -197,7 +198,7 @@ export const BIZNES_SHARED: SharedGroup = {
     steps: [
       { title: 'Rozmowa', text: 'Dopytamy o branżę i to, co już masz.' },
       { title: 'Dobór', text: 'Sprzęt i program pod Twoją firmę.' },
-      { title: 'Wycena na piśmie', text: 'Bez zobowiązań, z terminem.' },
+      { title: 'Wycena na mailu', text: 'Bez zobowiązań, z terminem.' },
       { title: 'Wdrożenie i serwis', text: 'Na miejscu, a potem stała opieka.' },
     ],
     verify: [

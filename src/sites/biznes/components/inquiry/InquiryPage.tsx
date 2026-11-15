@@ -480,7 +480,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
                     text: `w godzinach pracy${hours ? `, ${hours}` : ''}. Dopytamy o szczegóły`,
                   },
                   {
-                    title: 'Wycena na piśmie',
+                    title: 'Wycena na mailu',
                     text: 'z wariantami do wyboru i terminem realizacji',
                   },
                   {
