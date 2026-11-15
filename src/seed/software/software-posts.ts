@@ -7,6 +7,8 @@
  *
  *   pnpm software:posts <panel URL> [--out=<file.md>]                     — preview (the default)
  *   pnpm software:posts <panel URL> --write [--update] [--yes] [--out=…]  — write
+ *   --only=<slug>[,<slug>…] limits the run to these posts (a fix of one file with --update must
+ *   not take back the panel edits of the others)
  *   (= pnpm payload run src/seed/software/software-posts.ts -- …; flags after `--`, else
  *   `payload run` drops them and the run stays a preview)
  *
@@ -31,6 +33,12 @@ const write = args.includes('--write')
 const update = args.includes('--update')
 const confirmed = args.includes('--yes')
 const out = args.find((a) => a.startsWith('--out='))?.slice('--out='.length)
+const only = args
+  .find((a) => a.startsWith('--only='))
+  ?.slice('--only='.length)
+  .split(',')
+  .map((slug) => slug.trim())
+  .filter(Boolean)
 
 /** Only `*.localhost` and 127.0.0.1 count as this computer. */
 const LOCAL = /^http:\/\/(([^/@:]+\.)?localhost|127\.0\.0\.1)(:\d+)?$/
@@ -101,7 +109,10 @@ async function main() {
 
   type Row = { slug: string; date: string; action: string; run?: () => Promise<unknown> }
   const rows: Row[] = []
-  for (const post of guidePosts()) {
+  const files = guidePosts()
+  const unknown = only?.filter((slug) => !files.some((post) => post.slug === slug)) ?? []
+  if (unknown.length) throw new Error(`--only: nie ma wpisu ${unknown.join(', ')} w repo.`)
+  for (const post of files.filter((item) => !only || only.includes(item.slug))) {
     const data = { ...guidePostData(post, (slug) => solutionIds.get(slug)), _status: 'published' }
     const doc = postDocs.get(post.slug)
     const row = { slug: post.slug, date: post.publishedAt }

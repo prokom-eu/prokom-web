@@ -64,7 +64,7 @@ test.describe('Software brand bar and capsule', () => {
   }) => {
     await page.goto(site(HOST, '/audyt'))
     // The first element of each item: the hidden mega panel sits in the „Oferta” item too.
-    // „Aktualności” only with a published post — the seed has none (SWV8 P0 #3).
+    // The panel's menu has no „Aktualności”: the posts are reached from the footer (SWV8 P0 #3).
     await expect(mainNav(page).locator(':scope > ul > li > :first-child')).toHaveText([
       /^Oferta/,
       /^Kreator\s*60 s$/,
@@ -82,9 +82,9 @@ test.describe('Software brand bar and capsule', () => {
     await expect(cta(page)).toHaveAttribute('href', '/kontakt')
     await expect(cta(page)).toHaveAccessibleName('Bezpłatna wycena')
     await expect(capsule(page).getByRole('button', { name: 'Tryb ciemny' })).toBeVisible()
-    await expect(
-      page.locator('header a[href="/aktualnosci"], footer a[href="/aktualnosci"]'),
-    ).toHaveCount(0)
+    // The seed publishes posts: the footer leads to them (hidden without a published post).
+    await expect(page.locator('header a[href="/aktualnosci"]')).toHaveCount(0)
+    await expect(page.locator('footer a[href="/aktualnosci"]').first()).toBeAttached()
   })
 
   test('the capsule stays on screen while the page scrolls', async ({ page }) => {

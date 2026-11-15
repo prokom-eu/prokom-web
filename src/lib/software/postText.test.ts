@@ -47,6 +47,11 @@ describe('fillPostContent', () => {
     expect(fillPostContent(content, context(false))).toEqual(content)
   })
 
+  it('drops a list whose every item lost its value on production', () => {
+    const content = doc(paragraph(text('Zostaje.')), list('Brak {cena:nie-ma}'))
+    expect(fillPostContent(content, context(true))).toEqual(doc(paragraph(text('Zostaje.'))))
+  })
+
   it('never changes the stored content', () => {
     const content = doc(paragraph(text('{cena:strona-wizytowka}')))
     const copy = structuredClone(content)

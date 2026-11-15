@@ -150,7 +150,7 @@ test.describe('Software menu sheet', () => {
     await page.goto(site(HOST, SUBPAGE))
     await openMenu(page)
     const list = sheetList(page)
-    // „Aktualności” only with a published post — the seed has none (SWV8 P0 #3).
+    // „Aktualności” only with a published post — the seed publishes posts (SWV8 P0 #3).
     await expect(list.getByRole('listitem')).toHaveText([
       /^Oferta/,
       /^Kreator\s*60 s$/,
@@ -158,6 +158,7 @@ test.describe('Software menu sheet', () => {
       /^O firmie/,
       /^Kontakt/,
       /^Cennik/,
+      /^Aktualności/,
     ])
     await expect(list.getByRole('link', { name: /^Oferta/ })).toHaveAttribute(
       'href',
