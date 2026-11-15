@@ -40,3 +40,4 @@ Audyt produkcji 15.11 (P1-3), decyzja Krystiana: 24 wpisy Biznesu, publikowane o
 - **Zakres zapisu:** wyłącznie nowe rekordy `posts` tenanta Biznes — wpis o slugu, którego w bazie nie ma (także jako szkic), z listy `src/seed/biznes/wpisy/`. Istniejącego wpisu nie zmienia, niczego nie usuwa, nie dotyka zdjęć, kart ani stron. Dlatego działa na żywej linii bez `PO_STARCIE`.
 - **Wycofany wpis** (usunięty albo przemianowany w panelu) trafia do `RETIRED_GUIDE_SLUGS` — inaczej skrypt utworzyłby go ponownie.
 - Produkty pod wpisem są szukane po slugu karty w bazie produkcji; brakująca karta jest pomijana z ostrzeżeniem w logu.
+- **Daty publikacji:** wpisy jednego przebiegu dostają daty co minutę wstecz od chwili importu, w kolejności `BIZNES_GUIDE_POSTS` (pierwszy = najnowszy, wyróżniony na głównej). Partia uruchomiona później jest w całości nowsza od wcześniejszych — jeśli na górze ma zostać konkretny wpis (np. o KSeF), zmień mu datę w panelu albo uruchom partie razem.

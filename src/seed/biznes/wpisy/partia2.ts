@@ -104,7 +104,7 @@ export const KSEF_IN_SUBIEKT: BiznesGuidePost = {
   category: 'programy',
   lead: 'Subiekt nexo i Subiekt GT wysyłają faktury do KSeF prosto z programu. Żeby to działało, trzeba jednak podłączyć konto, uprawnienia i certyfikaty, a także zdecydować, czy faktury mają iść same, czy na żądanie.',
   summary:
-    'W Subiekcie nexo faktury sprzedaży trafiają do KSeF ręcznie albo automatycznie po zapisie. Paragony, faktury RR i noty korygujące do KSeF nie idą. Obsługa KSeF w programach InsERT wymaga abonamentu i InsPunktów.',
+    'W Subiekcie nexo faktury sprzedaży trafiają do KSeF ręcznie albo automatycznie po zapisie. Paragonów, faktur RR ani not korygujących Subiekt do KSeF nie wysyła. Obsługa KSeF w programach InsERT wymaga abonamentu i InsPunktów.',
   content: [
     h2('Co Subiekt wysyła do KSeF, a czego nie'),
     p('Według InsERT Subiekt nexo wysyła do KSeF:'),
@@ -153,7 +153,7 @@ export const KSEF_IN_SUBIEKT: BiznesGuidePost = {
     ),
     h2('Subiekt nexo czy GT?'),
     p(
-      'Oba programy są zintegrowane z KSeF. Subiekt nexo to nowsza linia, rozwijana najszybciej. Subiekt GT ma wielu wieloletnich użytkowników i też obsługuje KSeF. Jako autoryzowany partner InsERT pomożemy wybrać program, przenieść dane i skonfigurować KSeF — więcej na stronie ',
+      'Oba programy są zintegrowane z KSeF. Subiekt nexo to nowsza linia programów InsERT. Subiekt GT ma wielu wieloletnich użytkowników i też obsługuje KSeF. Jako autoryzowany partner InsERT pomożemy wybrać program, przenieść dane i skonfigurować KSeF — więcej na stronie ',
       { text: 'programów InsERT', href: '/insert' },
       '.',
     ),
@@ -416,13 +416,13 @@ export const REGISTER_OR_PRINTER: BiznesGuidePost = {
     ),
     h2('Drukarka fiskalna — razem z programem'),
     p(
-      'Drukarka fiskalna nie ma własnej bazy towarów — paragon wysyła do niej program sprzedaży na komputerze, na przykład Subiekt. Dzięki temu sprzedaż, magazyn i faktury są w jednym miejscu.',
+      'Drukarką fiskalną steruje program sprzedaży na komputerze, na przykład Subiekt — to on wysyła do niej paragon. Dzięki temu sprzedaż, magazyn i faktury są w jednym miejscu.',
     ),
     ul(
       ['wygodna przy setkach i tysiącach towarów,'],
       ['stany magazynowe zmieniają się przy każdej sprzedaży,'],
       [
-        'fakturę do paragonu wystawisz od razu w programie — od 2027 przez KSeF (więcej w poradniku ',
+        'fakturę do paragonu wystawisz od razu w programie i wyślesz do KSeF (więcej w poradniku ',
         { text: 'o fakturze do paragonu', href: '/aktualnosci/faktura-do-paragonu-od-2027' },
         ').',
       ],

@@ -87,8 +87,14 @@ fi
 remote_sh "grep -q '^DATABASE_URL=.*@postgres:5432/prokom_prod' $remote/.env.prod" ||
   { echo "DATABASE_URL in .env.prod does not point at postgres:5432/prokom_prod." >&2; exit 1; }
 
-echo "Production ${tag:0:7}: the $line package goes straight into its database (other lines and"
-echo "the shared company data stay as they are)${ZAMIEN_STRONY:+; pages replaced: $ZAMIEN_STRONY}."
+if [ "$media" = 1 ]; then
+  echo "Production ${tag:0:7}: the $line package goes straight into its database (other lines and"
+  echo "the shared company data stay as they are)${ZAMIEN_STRONY:+; pages replaced: $ZAMIEN_STRONY}."
+else
+  [ -z "${ZAMIEN_STRONY:-}" ] || { echo "ZAMIEN_STRONY is for the biznes import, not $line." >&2; exit 1; }
+  echo "Production ${tag:0:7}: only the missing Biznes guide posts are created, published at once"
+  echo "on the live prokombiznes.pl. Existing posts and everything else stay as they are."
+fi
 read -r -p "Type prokom-prod to go on: " answer
 [ "$answer" = prokom-prod ] || { echo "Aborted." >&2; exit 1; }
 
@@ -123,7 +129,12 @@ cleanup() {
     upload_media || echo "   UPLOAD FAILED — the files are in $work/media (newer than $work/before)" >&2
   fi
   [ -z "$lock" ] || kill "$lock" 2>/dev/null
-  if [ "$rc" -ne 0 ] && [ "$started" = 1 ]; then
+  if [ "$rc" -ne 0 ] && [ "$started" = 1 ] && [ "$media" = 0 ]; then
+    echo "Failed after the import started: some posts may already be published on the live site" >&2
+    echo "(the page cache was not cleared). Run again once the cause is fixed — it creates only" >&2
+    echo "the missing posts." >&2
+    rm -rf "$work"
+  elif [ "$rc" -ne 0 ] && [ "$started" = 1 ]; then
     echo "Failed after the import started: $work kept. The line is partly updated (no production" >&2
     echo "domain, nobody sees it) — run again (idempotent) once the cause is fixed." >&2
   else
@@ -225,4 +236,8 @@ fi
 log "app cache: fetch-cache cleared (the in-memory part expires on its own — no restart)"
 remote_sh "docker exec $app sh -c 'rm -rf /app/.next/cache/fetch-cache/*'"
 remote_sh "echo \"\$(date -u +%Y-%m-%dT%H:%M:%SZ) prod content of $seed imported at ${tag:0:7}\" >>$remote/../deploys.log"
-log "done — next: runbook §3a (domain in the panel, smoke, porownaj-tresc --po-imporcie, §3a.1)"
+if [ "$media" = 1 ]; then
+  log "done — next: runbook §3a (domain in the panel, smoke, porownaj-tresc --po-imporcie, §3a.1)"
+else
+  log "done — check https://prokombiznes.pl/aktualnosci (new posts, home page news)"
+fi
