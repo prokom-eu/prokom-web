@@ -45,9 +45,9 @@ test.describe('Biznes — twarde zasady (paczka 0611)', () => {
   test('the KSeF post drops the 450 zł sentence and says how the relief is settled', async ({
     page,
   }) => {
-    await page.goto(site('biznes.localhost', '/aktualnosci'))
-    const post = page.locator('main a[href^="/aktualnosci/"]').filter({ hasText: /KSeF/ }).first()
-    await page.goto(site('biznes.localhost', (await post.getAttribute('href')) ?? '/aktualnosci'))
+    // The board's KSeF post itself (D17): the guide post „Faktura do paragonu od 2027” quotes the
+    // 450 zł rule with its sources (K4-FINAL §1: „ze źródłem albo usunąć”), so not the first one.
+    await page.goto(site('biznes.localhost', '/aktualnosci/ksef-od-1-stycznia-2027'))
     const text = await page.locator('main').innerText()
     expect(text).not.toMatch(/450\s?zł/)
     expect(text).toContain('w deklaracji VAT')

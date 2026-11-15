@@ -99,6 +99,8 @@ export const POST_CATEGORIES = [
   { label: 'Terminale', value: 'terminale', line: 'biznes' },
   { label: 'Dofinansowania', value: 'dofinansowania', line: 'biznes' },
   { label: 'Programy', value: 'programy', line: 'biznes' },
+  // Audyt 15.11 (decyzja Krystiana): posts on computers, backups and data destruction.
+  { label: 'IT w firmie', value: 'it-w-firmie', line: 'biznes' },
   { label: 'Poradnik', value: 'poradnik', line: 'software' },
   // D7 (PRZEKAZANIE-v24 §0.1): „Nowości” → Poradnik, „Realizacje” → Strony (migration swa4_kategorie_wpisow).
   { label: 'Strony', value: 'strony', line: 'software' },
