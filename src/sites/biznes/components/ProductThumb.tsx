@@ -5,6 +5,7 @@ import { cardIcon } from '@/lib/catalog/card'
 import type { CatalogIndex, IndexProduct } from '@/lib/catalog/catalogIndex'
 
 import { ProductStage, STAGE_SHADOW, StageFallback } from './ProductStage'
+import { cardCover } from '@/lib/catalog/cover'
 
 /** "Kasy fiskalne · Posnet": main category and brand of a product, from the catalog index. */
 export function productSubtitle(product: IndexProduct, index: CatalogIndex): string {
@@ -46,7 +47,11 @@ export function ProductThumb({
             className={cx('relative max-h-[78%] w-auto max-w-[80%] object-contain', STAGE_SHADOW)}
           />
         ) : (
-          <StageFallback icon={cardIcon(product, index)} size="sm" />
+          <StageFallback
+            icon={cardIcon(product, index)}
+            size="sm"
+            cover={cardCover(product, index)}
+          />
         )}
       </ProductStage>
     </span>
