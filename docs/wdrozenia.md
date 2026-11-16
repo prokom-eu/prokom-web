@@ -132,7 +132,7 @@ Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instal
 
    Uruchom **przed** krokiem 6 (domena tenanta). Gdy tenant ma już domenę produkcji, skrypt odmawia; `PO_STARCIE=1` tylko z decyzji Krystiana.
 
-4. **DNS w nazwa.pl.** Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”. **Nie** zmieniaj trybu u góry strony.
+4. **DNS w nazwa.pl — telefonicznie z konsultantem** (801 33 22 33, ustalenie 16.11; ściąga: `docs/dns.md` → „Ustalenie z nazwa.pl”). Cel: `@` i `www` → `194.28.50.70`, poczta i MX bez zmian na `pro-kom.nazwa.pl`. Gdy konsultant każe zrobić to samemu w panelu: Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”. **Nie** zmieniaj trybu u góry strony.
    - Rekordy: `A @` → `194.28.50.70` i `A www` → `194.28.50.70`.
    - Czekaj na propagację: najpierw `nslookup pro-kom.eu ns1.nazwa.pl`, potem `nslookup pro-kom.eu 8.8.8.8`.
    - Od tej chwili pro-kom.eu na nowym IP odpowiada 444 (Nginx nie ma jeszcze bloku tej domeny). Dlatego kroki 5–7 robisz od razu po propagacji.
