@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   useCallback,
   useEffect,
@@ -83,8 +84,10 @@ const tabName = (group: WheelGroup) =>
  * the five departments on the inner circle, each with its three products fanned out right behind
  * it on the outer ring; the active department's products grow, take its colour, get a dashed line
  * from the icon and float. The core names the department, its three products (links to them) and
- * „Zobacz dział”. Every 6.5 s (the ring around the core, `animationend`) the next department; a
- * click on a department or on one of its products picks it and starts the 6.5 s from zero. The
+ * „Zobacz dział”. Every 6.5 s (the ring around the core, `animationend`) the next department.
+ * Pointer (16.11, Krystian): a product bubble is a link to its product, a department opens its
+ * page on a click and shows itself in the core on hover (mouse); the keyboard keeps the tabs —
+ * arrows pick a department, the core's links lead on. The
  * round pause button (WCAG 2.2.2), keyboard focus inside, the wheel out of view and a hidden tab
  * stop it; reduced motion: no switching, floating or turning. One tooltip names the pointed
  * bubble.
@@ -107,6 +110,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   const tipRef = useRef<HTMLDivElement>(null)
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
   const uid = useId()
+  const router = useRouter()
 
   const pick = useCallback(
     (index: number, byUser: boolean) =>
@@ -262,8 +266,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
           </g>
         </svg>
 
-        {/* The bubbles are a pointer shortcut to their department: the tabs and the product
-            links in the core say the same to the keyboard and screen readers (runda 1411). */}
+        {/* The bubbles are a pointer shortcut to their product: the tabs and the product links
+            in the core say the same to the keyboard and screen readers (runda 1411). */}
         <ul className="bzw-bubbles" aria-hidden="true" data-bubbles>
           {groups.flatMap((group, i) =>
             group.items.map((item, k) => {
@@ -275,12 +279,12 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                   className="bzw-at"
                   style={vars({ '--x': at.x, '--y': at.y, '--i': n })}
                 >
-                  <button
-                    type="button"
+                  <Link
+                    href={item.href}
+                    prefetch={false}
                     tabIndex={-1}
-                    aria-label={`${item.name} — pokaż dział ${group.label}`}
-                    onClick={() => pick(i, true)}
                     data-group={i}
+                    data-name={item.name}
                     data-on={i === state.active ? '' : undefined}
                     className="bzw-bub"
                     style={vars({
@@ -311,7 +315,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                         </span>
                       )}
                     </span>
-                  </button>
+                  </Link>
                 </li>
               )
             }),
@@ -344,7 +348,20 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                   '--g1': group.gradient[0],
                   '--g2': group.gradient[1],
                 })}
-                onClick={() => pick(i, true)}
+                onClick={(event) => {
+                  // Enter or Space (a click with no pointer, `detail` 0): the tab picks the
+                  // department, as the arrows do. A mouse or touch click opens its page.
+                  if (event.detail === 0) return pick(i, true)
+                  if (event.metaKey || event.ctrlKey || event.shiftKey) {
+                    window.open(group.href, '_blank', 'noopener')
+                    return
+                  }
+                  router.push(group.href)
+                }}
+                onPointerEnter={(event) => {
+                  // The mouse previews the department in the core (no announcement: not chosen).
+                  if (event.pointerType === 'mouse' && !on) pick(i, false)
+                }}
               >
                 {on && <span className="bzw-wave" aria-hidden="true" />}
                 <span className="bzw-dot">

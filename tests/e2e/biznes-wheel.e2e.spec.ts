@@ -19,13 +19,16 @@ const bubbles = (page: Page) => page.locator('#start [data-bubbles] .bzw-bub')
 const pauseButton = (page: Page) =>
   page.locator('#start').getByRole('button', { name: /animację koła$/ })
 
-/** The wheel island is lazy (ADR-023): wait until it answers clicks. */
+/**
+ * The wheel island is lazy (ADR-023): wait until it answers the pointer. A department is picked by
+ * hovering it — a click opens its page (16.11).
+ */
 async function ready(page: Page) {
   await expect(async () => {
-    await tabs(page).nth(1).click()
+    await tabs(page).nth(1).hover()
     await expect(tabs(page).nth(1)).toHaveAttribute('aria-selected', 'true', { timeout: 1000 })
   }).toPass()
-  await tabs(page).first().click()
+  await tabs(page).first().hover()
 }
 
 /**
@@ -108,7 +111,7 @@ function measure(page: Page) {
 }
 
 test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
-  test('15 photo bubbles, 3 a department; a bubble picks its department', async ({ page }) => {
+  test('15 photo bubbles, 3 a department; a bubble opens its product', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
     await pauseButton(page).click()
@@ -118,19 +121,21 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(page.locator('#start .bzw-bub img')).toHaveCount(15)
     await expect(page.locator('#start .bzw-glyph')).toHaveCount(0)
 
-    // Each bubble in the middle of the window first, then clicked at its centre.
-    for (const [i, group] of [
-      [12, 4],
-      [7, 2],
-      [0, 0],
-    ] as const) {
-      const bubble = bubbles(page).nth(i)
-      await bubble.scrollIntoViewIfNeeded()
-      await bubble.click()
-      await expect(tabs(page).nth(group)).toHaveAttribute('aria-selected', 'true')
-      await expect(bubble).toHaveAttribute('data-on', '')
-      await expect(bubble).toHaveAttribute('tabindex', '-1')
+    // Every bubble a link out of the tab order (the core's links serve the keyboard).
+    const hrefs = await bubbles(page).evaluateAll((els) =>
+      els.map((el) => [el.tagName, el.getAttribute('href'), el.getAttribute('tabindex')]),
+    )
+    for (const [tag, href, tabindex] of hrefs) {
+      expect(tag).toBe('A')
+      expect(href).toMatch(/^\/[a-z0-9/-]+$/)
+      expect(tabindex).toBe('-1')
     }
+    // Clicked at its centre, a bubble opens its product.
+    const bubble = bubbles(page).nth(0)
+    const href = (await bubble.getAttribute('href'))!
+    await bubble.scrollIntoViewIfNeeded()
+    await bubble.click()
+    await expect(page).toHaveURL(site('biznes.localhost', href))
   })
 
   test('the core names the department’s three products and links to them, no count', async ({
@@ -152,7 +157,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     )
     expect(statuses.every((status) => status === 200)).toBe(true)
     // The service department: KSeF, fiskalizacja and the Opieka IT page.
-    await tabs(page).nth(4).click()
+    await tabs(page).nth(4).hover()
     await expect(names).toHaveCount(3)
     await expect(names.last()).toHaveAttribute('href', '/opieka-it')
   })
@@ -167,7 +172,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
         await pauseButton(page).click()
         await wheel(page).scrollIntoViewIfNeeded()
         for (let i = 0; i < 5; i++) {
-          await tabs(page).nth(i).click()
+          await tabs(page).nth(i).hover()
           await page.mouse.move(0, 0)
           // Scale and colour transitions (≤ 0.9 s) settle.
           await page.waitForTimeout(1000)
@@ -199,7 +204,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       const bubble = bubbles(page).nth(i)
       await bubble.hover()
       await expect(tip).toHaveAttribute('data-show', '')
-      await expect(tip).toContainText((await bubble.getAttribute('aria-label'))!.split(' — ')[0]!)
+      await expect(tip).toContainText((await bubble.getAttribute('data-name'))!)
       const result = await tip.evaluate((el) => {
         const r = el.getBoundingClientRect()
         ;(el as HTMLElement).style.pointerEvents = 'auto'
@@ -217,8 +222,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
   test('keeps switching under the pointer; the pause button stops it', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
-    // A click starts the 6.5 s from zero; the pointer then rests on a bubble.
-    await tabs(page).first().click()
+    // The pointer rests on a bubble; the wheel keeps switching.
+    await tabs(page).first().hover()
     await bubbles(page).first().hover()
     await expect(tabs(page).nth(1)).toHaveAttribute('aria-selected', 'true', {
       timeout: AUTO_MS + 2000,
@@ -237,6 +242,27 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(tabs(page).nth((selected + 1) % 5)).toHaveAttribute('aria-selected', 'true', {
       timeout: AUTO_MS + 2000,
     })
+  })
+
+  test('a department: hover shows it, a click opens its page, Enter keeps the tab', async ({
+    page,
+  }) => {
+    await page.goto(site('biznes.localhost'))
+    await ready(page)
+    await pauseButton(page).click()
+    const core = page.locator('#start').getByRole('tabpanel')
+    await tabs(page).nth(2).hover()
+    await expect(tabs(page).nth(2)).toHaveAttribute('aria-selected', 'true')
+    const href = (await core.getByRole('link', { name: /Zobacz dział/ }).getAttribute('href'))!
+    // Enter on the focused tab picks, never leaves the page.
+    await tabs(page).nth(2).focus()
+    await page.keyboard.press('ArrowRight')
+    await expect(tabs(page).nth(3)).toHaveAttribute('aria-selected', 'true')
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(site('biznes.localhost', '/'))
+    // A click on the department opens its page.
+    await tabs(page).nth(2).click()
+    await expect(page).toHaveURL(site('biznes.localhost', href))
   })
 
   test('the keyboard moves through departments and holds the wheel', async ({ page }) => {
