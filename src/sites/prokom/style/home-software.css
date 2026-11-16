@@ -318,6 +318,12 @@
   border-radius: 22px;
   padding: 6px;
 }
+/* A phone screen is too narrow for both mockups: the site keeps the whole width. */
+@media (max-width: 640px) {
+  .pk-soft__mobile {
+    display: none;
+  }
+}
 .pk-ph2 {
   display: flex;
   width: 100%;

@@ -984,6 +984,8 @@
 .pk-ht__slides {
   position: relative;
   height: 48px;
+  /* Titles sized by the tile, not the window: a long word fits a narrow tile. */
+  container-type: inline-size;
   flex: none;
   margin-top: auto;
 }
@@ -1017,14 +1019,14 @@
 }
 .pk-hsl__title {
   font-family: var(--font-display);
-  font-size: clamp(15px, 1.35vw, 19px);
+  font-size: clamp(13px, 8.2cqi, 19px);
   font-stretch: 118%;
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.02;
 }
 .pk-ht--big .pk-hsl__title {
-  font-size: clamp(19px, 1.7vw, 24px);
+  font-size: clamp(18px, 8.4cqi, 24px);
 }
 .pk-hsl__text {
   color: var(--w72);
