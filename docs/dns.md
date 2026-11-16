@@ -37,6 +37,7 @@ Strefy założone 31.10 w panelu Seohost (DNS → Strefy DNS); formularz wymaga 
 | A | panel | `<IP>` | 3600 | panel produkcji (`PANEL_HOST`, decyzja 09.11 — ADR-006 „Rozstrzygnięcie 09.11”) | ustawione 9.11 |
 | A | @ | `<IP>` | 86400 | strona (Seohost tworzy przy zakładaniu strefy; do startu produkcji Nginx zamyka połączenie) | ustawione 31.10 |
 | A | www | `<IP>` | 86400 | `www` → przekierowanie 301 na wersję bez `www` (od produkcji) | ustawione 31.10 |
+| TXT | @ | `google-site-verification=r-td7u3He__tBLo4yWUaEQHUDLP_q_B7Kb2SlgksAns` | 3600 | weryfikacja Search Console (usługa typu Domena) — nie usuwać, Google sprawdza okresowo; obok istniejącego SPF | do ustawienia 16.11 |
 
 ### prokominstalacje.pl
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
@@ -224,4 +225,5 @@ Klucze DKIM (`x._domainkey`, wartość 1:1 z panelu hostingu):
 | 2.11.2026 | prokombiznes.pl, prokomsoftware.pl, prokominstalacje.pl | rekordy poczty: A `mail`, MX, SPF, DKIM `x._domainkey`, DMARC `p=none` (hosting poczty Seohost) | Krystian | S10d |
 | 2.11.2026 | prokomgaming.pl | delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl`; nowa strefa: A `@`/`www` → 194.28.50.70, rekordy poczty jak wyżej | Krystian | S10d |
 | 14.11.2026 | prokomsoftware.pl | TXT `google-site-verification=…` (Search Console, usługa typu Domena) | Krystian | SEO Software |
+| 16.11.2026 | prokombiznes.pl | TXT `google-site-verification=…` (Search Console, usługa typu Domena) | Krystian | SEO Biznes |
 | 31.10.2026 | prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl | strefy w Seohost (`@`, `www`, `staging`; prokombiznes.pl także `panel.staging`) → 194.28.50.70; delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl` | Krystian | #185 |
