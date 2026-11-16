@@ -4,7 +4,7 @@
 # Gmail / Outlook (spam check, docs/dns.md „Poczta”). Prints no password.
 #   ssh prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-test.sh staging <address> [line]'
 set -euo pipefail
-stack="${1:?usage: mail-test.sh <staging|prod> <to-address> [biznes|software|instalacje]}"
+stack="${1:?usage: mail-test.sh <staging|prod> <to-address> [biznes|software|instalacje|prokom]}"
 to="${2:?usage: mail-test.sh <staging|prod> <to-address> [line]}"
 only="${3:-}"
 case "$stack" in staging | prod) ;; *) echo "Unknown stack: $stack"; exit 2 ;; esac

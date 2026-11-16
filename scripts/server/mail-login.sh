@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Mail of a stack (S10d, docs/dns.md „Poczta”): SMTP of the Seohost mail hosting in .env.<stack>,
-# with the kontakt@ mailbox of every site as its sender. Run it yourself — the passwords are typed
+# with the kontakt@ mailbox of every site as its sender (the hub pro-kom.eu: biuro@prokombiznes.pl,
+# decision 16.11 — mail of the old pro-kom.eu stays at nazwa.pl). Run it yourself — the passwords are typed
 # here, checked with a real SMTP login and written only into the env file (never echoed):
 #   ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh staging'
 # Then restart the app: docker compose … up -d app (runbook §1.10).
@@ -15,7 +16,7 @@ host=srv128408.seohost.com.pl # the certificate of the mail server is issued for
 port=465
 default=kontakt@prokombiznes.pl
 declare -A box=([BIZNES]=kontakt@prokombiznes.pl [SOFTWARE]=kontakt@prokomsoftware.pl
-  [INSTALACJE]=kontakt@prokominstalacje.pl)
+  [INSTALACJE]=kontakt@prokominstalacje.pl [PROKOM]=biuro@prokombiznes.pl)
 
 # A real SMTP login, the password passed in the environment (not on the command line).
 check() {
@@ -30,7 +31,7 @@ PY
 }
 
 declare -A pass
-for line in BIZNES SOFTWARE INSTALACJE; do
+for line in BIZNES SOFTWARE INSTALACJE PROKOM; do
   read -rsp "Password of ${box[$line]} (paste: right click): " raw
   echo
   # Drop bracketed-paste escape codes and line ends around the value.
@@ -61,9 +62,10 @@ grep -q '^PAYLOAD_SECRET=' "$tmp" || { echo "$env_file has no PAYLOAD_SECRET —
   echo "SMTP_USER=$default"
   echo "SMTP_PASS='${pass[BIZNES]}'"
   echo "MAIL_FROM_ADDRESS=$default"
-  echo "MAIL_SENDERS=biznes=${box[BIZNES]},software=${box[SOFTWARE]},instalacje=${box[INSTALACJE]}"
+  echo "MAIL_SENDERS=biznes=${box[BIZNES]},software=${box[SOFTWARE]},instalacje=${box[INSTALACJE]},prokom=${box[PROKOM]}"
   echo "SMTP_PASS_SOFTWARE='${pass[SOFTWARE]}'"
   echo "SMTP_PASS_INSTALACJE='${pass[INSTALACJE]}'"
+  echo "SMTP_PASS_PROKOM='${pass[PROKOM]}'"
 } >>"$tmp"
 chmod 600 "$tmp"
 chown --reference="$env_file" "$tmp"

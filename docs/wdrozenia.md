@@ -102,7 +102,8 @@ Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instal
   - programy pocztowe pracowników przestawione;
   - TTL `A @` i `A www` = 300.
 - [ ] Ostatni przebieg „Lighthouse” po wdrożeniu stagingu tym obrazem zielony dla adresów `staging.pro-kom.eu` (runbook §3). Gdy czerwona jest strona innej linii — decyduje Krystian.
-- [ ] Na produkcji tenant `prokom` z Ustawieniami strony. Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
+- [ ] Na produkcji tenant `prokom` z Ustawieniami strony. Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień `biuro@prokombiznes.pl`; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
+- [ ] Poczta formularzy huba na produkcji: skrzynka `biuro@prokombiznes.pl` w Seohost i `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh prod'` (pyta też o hasło `biuro@`), potem `$prod up -d app` i `mail-test.sh prod <adres> prokom`.
 - [ ] Najlepiej dzień roboczy rano: ktoś odbiera telefony.
 
 **Kroki:**
