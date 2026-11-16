@@ -9,6 +9,7 @@ import type { HubHome } from '@/lib/prokom/home'
 
 import { lineStyle } from '../lineColors'
 import { stepIndex } from './autoplay'
+import { FpsGraph } from './LineMocks'
 import { CamScene, Tick, WifiArcs } from './art'
 import { FlowMock, WebMock } from './WebMock'
 import { Mark } from './Mark'
@@ -328,7 +329,7 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
   }
 }
 
-/** Tech: the device of the slide (phone, laptop, finished ticket) beside the repair stages. */
+/** Tech: the device of the slide beside the repair stages. */
 function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
   // By the slide order of the package (telefony, laptopy i konsole, bezpłatna diagnoza).
   const devices: IconName[] = ['phone', 'pc', 'check']
@@ -338,13 +339,9 @@ function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
         <Icon name={devices[slide % devices.length] ?? 'wrench'} />
       </span>
       <span className="pk-tech__track">
-        <span className="pk-ht__bars">
+        <span className="pk-nodes">
           {stages.map((stage, i) => (
-            <i
-              key={stage}
-              className="pk-stp"
-              data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined}
-            />
+            <i key={stage} data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined} />
           ))}
         </span>
         <span className="pk-ht__stage-names">
@@ -359,13 +356,13 @@ function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
   )
 }
 
-/** Gaming: the measured frames with a readout that follows the slide. */
+/** Gaming: the frame graph with a readout that follows the slide. */
 function GamingVisual({ slide }: { slide: number }) {
   // By the slide order of the package (Komputery, Konfigurator, Dobór pod grę) — no figures.
   const readouts = ['RGB · chłodzenie', 'CPU · GPU · RAM', 'Test w grze']
   return (
     <div aria-hidden="true" className="pk-game2">
-      <Bars count={14} className="pk-ht__eq" />
+      <FpsGraph size="sm" />
       <span className="pk-game2__read" key={slide}>
         {readouts[slide % readouts.length]}
       </span>

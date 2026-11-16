@@ -946,22 +946,6 @@
   flex-direction: column;
   gap: 5px;
 }
-.pk-ht__bars {
-  display: flex;
-  gap: 4px;
-}
-.pk-stp {
-  height: 5px;
-  flex: 1;
-  border-radius: 3px;
-  background: var(--w16);
-}
-.pk-stp[data-state] {
-  background: var(--ln);
-}
-.pk-stp[data-state='now'] {
-  animation: pk-pulse 1.4s infinite;
-}
 .pk-ht__stage-names {
   display: flex;
   justify-content: space-between;
@@ -971,13 +955,6 @@
 }
 .pk-ht__stage-names [data-now] {
   color: var(--ln-text);
-}
-.pk-ht__eq {
-  height: 30px;
-}
-/* H9: the gaming tile's equalizer spans the tile instead of a short stub. */
-.pk-ht__eq i {
-  max-width: none;
 }
 
 /* Slides. */
@@ -1484,20 +1461,7 @@ a.pk-mqi:hover {
   box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
 }
 
-/* Tech: the repair moves on through its stages; Gaming: bars with a less even beat. */
-.pk-stp {
-  position: relative;
-  overflow: hidden;
-}
-.pk-stp[data-state='now']::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, var(--w60), transparent);
-  content: '';
-  /* Off the bar at rest, so reduced motion leaves no still streak. */
-  transform: translateX(-100%);
-  animation: pk-run 1.8s ease-in-out infinite;
-}
+/* A light streak running along a track (Tech stages). */
 @keyframes pk-run {
   from {
     transform: translateX(-100%);
@@ -1505,17 +1469,6 @@ a.pk-mqi:hover {
   to {
     transform: translateX(100%);
   }
-}
-.pk-ht__eq i {
-  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 60%, transparent));
-  animation-duration: 1.6s;
-  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
-}
-.pk-ht__eq i:nth-child(3n) {
-  animation-duration: 2.1s;
-}
-.pk-ht__eq i:nth-child(4n + 1) {
-  animation-duration: 1.3s;
 }
 
 /* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
@@ -1967,12 +1920,20 @@ a.pk-mqi:hover {
 }
 .pk-tech__dev {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   flex: none;
   place-items: center;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ln) 45%, transparent);
+  border-radius: 12px;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--ln) 34%, transparent),
+    color-mix(in srgb, var(--ln) 10%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 var(--w16),
+    0 6px 16px -6px color-mix(in srgb, var(--ln) 60%, transparent);
   color: var(--ln-text);
   animation: pk-pop 0.6s var(--ease) both;
 }
@@ -1988,15 +1949,12 @@ a.pk-mqi:hover {
   gap: 5px;
 }
 
-/* Gaming: the frames with a readout that changes with the slide. */
+/* Gaming: the frame graph with a readout that changes with the slide. */
 .pk-game2 {
   position: relative;
   display: flex;
   align-items: flex-end;
   gap: 10px;
-}
-.pk-game2 .pk-ht__eq {
-  flex: 1;
 }
 .pk-game2__read {
   flex: none;

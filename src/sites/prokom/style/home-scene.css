@@ -369,17 +369,8 @@
   font-weight: 700;
   text-align: left;
 }
-.pk-stages__row button span {
-  display: block;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--w16);
-}
 .pk-stages__row button[data-state] {
   color: var(--k-white);
-}
-.pk-stages__row button[data-state] span {
-  background: var(--ln);
 }
 .pk-stages__row button[data-state='now'] {
   color: var(--ln-text);
@@ -396,18 +387,6 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2px 18px 14px;
-}
-.pk-game__bars {
-  height: 84px;
-  gap: 5px;
-  /* H9: the chart spans the panel, on faint grid lines like a benchmark graph. */
-  border-bottom: 1px solid var(--w16);
-  background: repeating-linear-gradient(to top, transparent 0 27px, var(--w05) 27px 28px);
-}
-.pk-game__bars i {
-  max-width: none;
-  border-radius: 3px 3px 1px 1px;
-  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 55%, transparent));
 }
 .pk-ig {
   display: grid;
@@ -957,20 +936,6 @@
 }
 .pk-cb em {
   z-index: 1;
-}
-
-/* Tech: the stages with ticks. */
-.pk-stages__row button span {
-  position: relative;
-  overflow: hidden;
-}
-.pk-stages__row button[data-state='now'] span::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, var(--w60), transparent);
-  content: '';
-  transform: translateX(-100%);
-  animation: pk-run 1.8s ease-in-out infinite;
 }
 
 /* Gaming: the measured frames with a readout and the parts. */
