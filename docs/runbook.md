@@ -22,6 +22,8 @@ docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compo
   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml \
   -f docker/compose.proxy.tech-staging.yml up -d nginx
 ```
+Od certyfikatu `prokom-hub-prod` (pro-kom.eu, `docs/wdrozenia.md` → „pro-kom.eu — dzień startu”, krok A5) dochodzi `-f docker/compose.proxy.hub-prod.yml` i `HUB_PROD_HOST` w `.env.proxy` — nie wcześniej, z tego samego powodu co niżej.
+
 Od przełączenia produkcji Tech (§9.2, 29.11) dochodzi `-f docker/compose.proxy.tech-prod.yml` — **nie wcześniej**: bez certyfikatu `prokom-tech-prod` Nginx nie wstanie i zdejmie wszystkie domeny.
 
 **Nowy zestaw nakładek albo zmiana szablonów — najpierw test na jednorazowym kontenerze**, potem start. `docker exec … nginx -t` po `up -d` nic nie zabezpiecza: zły szablon albo brak certyfikatu zdejmuje wszystkie domeny, a restartujący się kontener nie przyjmie `exec`. Ten sam zestaw `-f` co w poleceniu startu, `run` zamiast `up` (bez portów 80/443, szablony renderuje entrypoint obrazu):
