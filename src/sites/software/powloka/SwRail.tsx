@@ -90,14 +90,20 @@ export function SwRail({
 
   useEffect(() => {
     let alive = true
+    // The data (JSON) when the browser is idle; the window's code only once someone asks to search
+    // — it would count against the start page's JS budget (`software-wydajnosc`, 16.11). The
+    // first opening always goes through `requestSearch` (`LazySearch` loads the dialog then).
     const load = () => {
       void loadJson<SolutionsIndex>(INDEX_URL).then((loaded) => alive && loaded && setIndex(loaded))
       void loadJson<SearchExtras>(EXTRAS_URL).then((loaded) => alive && loaded && setExtras(loaded))
+    }
+    const open = () => {
+      load()
       void loadBundle().then((loaded) => alive && loaded && setBundle(() => loaded))
     }
     const idle = window.requestIdleCallback?.(load, { timeout: 4000 })
     const timer = idle === undefined ? window.setTimeout(load, 1500) : undefined
-    const off = onSearchRequest(load)
+    const off = onSearchRequest(open)
     return () => {
       alive = false
       if (idle !== undefined) window.cancelIdleCallback(idle)
