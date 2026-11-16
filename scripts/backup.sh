@@ -6,11 +6,15 @@
 # Result: one file prokom-<stack>-<UTC time>.tar.age (inside: db.dump from pg_dump -Fc,
 # media.tar, manifest.txt), in BACKUP_DIR/<stack>/<kind>/ and RCLONE_REMOTE/<stack>/<kind>/.
 # Kinds and retention: daily 14 days, monthly (the backup of the 1st) ~3 months, predeploy 30 days.
+# Off the server only the production (ADR-019, decision 16.11.2026: the B2 bucket stays in its free
+# 10 GB; staging is rebuilt from the code and its copies stay on the server). Staging copies sent
+# before are removed from B2 by each staging backup once Object Lock (14 days) lets them go.
 # Settings: `.env.backup` in the repo root (or BACKUP_ENV=<file>), see .env.example:
 #   AGE_RECIPIENT  public age key (the private one is only in the password manager)
 #   RCLONE_REMOTE  off-server target, e.g. offsite:prokom-backups (rclone config on the server)
 #   BACKUP_DIR     local copies (default ../backups, next to the repo)
 #   BACKUP_LOCAL_ONLY=1  skip the off-server copy (local tests only)
+#   BACKUP_OFFSITE_STAGING=1  send the staging copies off the server too (off by default)
 #   BACKUP_HEARTBEAT_URL_<STACK>  Better Stack heartbeat (S10c): pinged after a good backup, <url>/fail
 #                  on a failed one; no ping for a day = alert on the phone (runbook §1.8)
 # Restore: scripts/restore.sh, procedure: docs/runbook.md.
@@ -104,15 +108,30 @@ retention_days() {
   case "$1" in daily) echo 14 ;; monthly) echo 93 ;; predeploy) echo 30 ;; esac
 }
 
+offsite=0
+if [ -n "${RCLONE_REMOTE:-}" ] && { [ "$stack" = prod ] || [ "${BACKUP_OFFSITE_STAGING:-}" = 1 ]; }; then
+  offsite=1
+fi
+
 for k in "${kinds[@]}"; do
   days="$(retention_days "$k")"
-  if [ -n "${RCLONE_REMOTE:-}" ]; then
+  if [ "$offsite" = 1 ]; then
     log "off-server copy to $RCLONE_REMOTE/$stack/$k/"
     rclone copy "$backup_dir/$stack/$k/$name" "$RCLONE_REMOTE/$stack/$k/"
     rclone delete --min-age "${days}d" "$RCLONE_REMOTE/$stack/$k/"
   fi
   find "$backup_dir/$stack/$k" -name '*.tar.age' -mtime +"$days" -delete
 done
+
+# Staging no longer goes off the server: its older off-server copies go as soon as Object Lock
+# (14 days) allows. A locked or missing file is no failure of the backup.
+if [ "$offsite" = 0 ] && [ -n "${RCLONE_REMOTE:-}" ]; then
+  log "local only; old off-server copies of $stack removed after 14 days"
+  for k in daily monthly predeploy; do
+    rclone delete --min-age 14d "$RCLONE_REMOTE/$stack/$k/" 2>/dev/null ||
+      log "old off-server copies in $k: not removed yet (Object Lock or none)"
+  done
+fi
 
 ping_heartbeat ""
 log "done"
