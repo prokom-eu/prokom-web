@@ -5,11 +5,8 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { SearchDialog } from '@/components/shared/SearchDialog'
 import { SiteRail, type SiteRailProps } from '@/components/shared/SiteRail'
-import {
-  buildLineProvider,
-  type LineSearchEntry,
-  type LineSearchSettings,
-} from '@/lib/shared/search/lineProvider'
+import { buildInstSearchProvider } from '@/lib/instalacje/searchProvider'
+import type { LineSearchEntry, LineSearchSettings } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
 
@@ -45,7 +42,7 @@ function loadIndex(): Promise<LineSearchEntry[]> {
  * the rail knows whether the home page is open (anchors and smooth scroll there, „Na tej stronie”
  * on subpages); the window searches the line's index (`/api/inst-search-index`), fetched when the
  * browser is idle or at the first request to search, so it never weighs on the page itself.
- * Opened by the rail's „Szukaj”, the capsule's loupe, Ctrl/⌘K and „/”.
+ * Opened by the rail's „Szukaj”, the capsule's search field, Ctrl/⌘K and „/”.
  */
 export function InstRail({ sections, action, settings, actions, recentlyViewed, phone }: Props) {
   const onHome = usePathname() === '/'
@@ -65,7 +62,7 @@ export function InstRail({ sections, action, settings, actions, recentlyViewed, 
     }
   }, [])
 
-  const provider = useMemo(() => buildLineProvider(entries, settings), [entries, settings])
+  const provider = useMemo(() => buildInstSearchProvider(entries, settings), [entries, settings])
   return (
     <>
       <SiteRail sections={sections} onHome={onHome} action={action} />

@@ -637,6 +637,18 @@ html[data-line='instalacje'].pk-lock body {
     transition: top var(--dur-state) var(--ease-out);
   }
 }
+/* The header search field (16.11): „Szukaj” + Ctrl K from 1240 px; narrower desktops keep the
+   loupe only, so the menu and „Zaplanuj” stay on one row. */
+@media (min-width: 1081px) and (max-width: 1239px) {
+  [data-line='instalacje'] .isearch {
+    justify-content: center;
+    padding: 0;
+    & .isearch__label,
+    & kbd {
+      display: none;
+    }
+  }
+}
 /* The tablet search button (next to Menu, shown with it up to 1080 px): phones have the app bar. */
 @media (max-width: 767px) {
   [data-line='instalacje'] .isearch-t {
@@ -644,11 +656,8 @@ html[data-line='instalacje'].pk-lock body {
   }
 }
 @media (min-width: 1400px) {
-  [data-line='instalacje'] {
-    & .isearch,
-    & .anchors {
-      display: none;
-    }
+  [data-line='instalacje'] .anchors {
+    display: none;
   }
   /* The home hero is wider than `.wrap` (1440 px, 48 px gutter): its text and dock keep clear of
      the side rail (16 px + 64 px + 16 px) until the screen leaves room for both. */

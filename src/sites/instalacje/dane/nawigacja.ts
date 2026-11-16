@@ -86,7 +86,6 @@ export const navigation: Navigation = {
     { label: 'Dla architektów', href: '/dla-architektow', accent: true },
     { label: 'Realizacje', href: '/realizacje' },
     { label: 'Serwis', href: '/serwis' },
-    { label: 'Poradnik', href: '/poradnik' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Kontakt', href: '/kontakt' },
   ],

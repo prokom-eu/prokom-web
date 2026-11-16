@@ -186,10 +186,11 @@ test.describe('Instalacje side rail and search (1440 px)', () => {
     }).toPass()
     const field = search(page).getByRole('searchbox')
     await field.fill('monitorng')
+    // In the results' „Usługi” group: the empty window lists the services too („Na skróty”).
     await expect(
       search(page)
-        .getByRole('link', { name: /Monitoring i kamery/ })
-        .first(),
+        .getByRole('region', { name: 'Usługi' })
+        .getByRole('link', { name: /Monitoring i kamery/ }),
     ).toBeVisible()
     await field.fill('xyzqwerty')
     await expect(search(page).getByText(/Zapytaj o „xyzqwerty”/)).toBeVisible()
