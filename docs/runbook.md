@@ -24,11 +24,14 @@ docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compo
 ```
 Od certyfikatu `prokom-hub-prod` (pro-kom.eu, `docs/wdrozenia.md` → „pro-kom.eu — dzień startu”, krok A5) dochodzi `-f docker/compose.proxy.hub-prod.yml` i `HUB_PROD_HOST` w `.env.proxy` — nie wcześniej, z tego samego powodu co niżej.
 
-**Od przełączenia produkcji Tech (16.11.2026, §9.2) — zawsze z nakładką Tech prod** (certyfikat `prokom-tech-prod`, `TECH_PROD_HOST=prokomserwis.pl` w `.env.proxy`):
+**OBOWIĄZUJE od 16.11.2026 wieczór (Tech prod + pro-kom.eu) — jedyne polecenie startu proxy:** wszystkie siedem nakładek. Pominięcie `tech-prod.yml` zdejmuje `prokomserwis.pl`, pominięcie `hub-prod.yml` — `pro-kom.eu` (16.11 o 21:08 start Tech z poleceniem bez huba zdjął pro-kom.eu na ~10 min).
 ```bash
-docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml   -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml   -f docker/compose.proxy.tech-staging.yml -f docker/compose.proxy.tech-prod.yml up -d nginx
+docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml \
+  -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml \
+  -f docker/compose.proxy.tech-staging.yml -f docker/compose.proxy.tech-prod.yml \
+  -f docker/compose.proxy.hub-prod.yml up -d --force-recreate --no-deps nginx
 ```
-Pominięcie `tech-prod.yml` zdejmuje `prokomserwis.pl`.
+Przed `up` zawsze ten sam zestaw z `run --rm --no-deps nginx nginx -t` (niżej). Polecenia wyżej (9.11, Tech staging) są historyczne. Sprawdzenie, z czym wstał kontener: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
 
 **Nowy zestaw nakładek albo zmiana szablonów — najpierw test na jednorazowym kontenerze**, potem start. `docker exec … nginx -t` po `up -d` nic nie zabezpiecza: zły szablon albo brak certyfikatu zdejmuje wszystkie domeny, a restartujący się kontener nie przyjmie `exec`. Ten sam zestaw `-f` co w poleceniu startu, `run` zamiast `up` (bez portów 80/443, szablony renderuje entrypoint obrazu):
 ```bash
