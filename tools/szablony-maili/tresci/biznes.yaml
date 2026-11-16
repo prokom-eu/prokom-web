@@ -1,0 +1,312 @@
+# PRO-KOM Biznes — szablony tylko tej linii (dochodzą do wspólnych z wspolne.yaml).
+grupy:
+  gb1: "8 · Kasy fiskalne i terminale"
+  gb2: "9 · Komputery, programy, opieka IT"
+  gb3: "10 · Dostawy dla firm i przetargi"
+
+szablony:
+
+# ───────── Kasy fiskalne ─────────
+- id: kasa
+  grupa: gb1
+  nazwa: "Kasa fiskalna — co jest w cenie i jak to przebiega"
+  skrot: kasa
+  kiedy: "Pytanie o kasę. Ulgę na zakup kasy rozlicza księgowa klienta — nie my (decyzja szefa)."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o kasę fiskalną. Proponujemy **{I:model kasy}** — {I:dlaczego ten model (np. branża, ilość towarów, mobilność)}.
+
+    ::karta Kasa {I:model kasy}
+    Cena: {I:cena} zł brutto
+    W cenie: zgłoszenie kasy, fiskalizacja, zaprogramowanie towarów i szkolenie z obsługi
+    Gwarancja: {I:gwarancja producenta}
+    Gotowa do pracy: {I:kiedy}
+
+    ::kroki Jak to przebiega
+    1. Przesyłają Państwo dane firmy i listę towarów (może być w Excelu).
+    2. Programujemy kasę i przygotowujemy fiskalizację.
+    3. Fiskalizacja i szkolenie — na miejscu albo w naszym salonie w Rabce.
+
+    ::info Ulga na zakup kasy
+    Wniosek o ulgę rozlicza Państwa księgowa lub biuro rachunkowe — przekażemy wszystkie potrzebne dokumenty.
+
+    Pozdrawiamy serdecznie,
+
+- id: kasa-lista
+  grupa: gb1
+  nazwa: "Lista towarów do zaprogramowania kasy"
+  skrot: towary
+  kiedy: "Po zamówieniu kasy — prosimy o dane do programowania."
+  tresc: |
+    Dzień dobry,
+
+    żeby kasa była gotowa od pierwszego dnia, prosimy o listę towarów i usług. Najwygodniej w Excelu, w kolumnach:
+
+    ::lista
+    - nazwa towaru (tak, jak ma być na paragonie),
+    - cena brutto,
+    - stawka VAT (23%, 8%, 5%, 0% lub zw.),
+    - jednostka (szt., kg, usł.),
+    - kod kreskowy — jeśli używają Państwo skanera.
+
+    Do tego: **dane firmy z NIP, adres punktu sprzedaży** i informacja, kto będzie obsługiwał kasę (do szkolenia). Jeśli lista jest długa — może być zdjęcie cennika, przepiszemy.
+
+    Pozdrawiamy serdecznie,
+
+- id: przeglad
+  grupa: gb1
+  nazwa: "Przegląd techniczny kasy — przypomnienie"
+  skrot: przeglad
+  kiedy: "Przegląd techniczny kasy jest obowiązkowy co najmniej raz na 2 lata. Spóźniony przegląd może oznaczać zwrot ulgi na zakup kasy."
+  temat: "Przegląd techniczny kasy — termin {I:termin}"
+  tresc: |
+    Dzień dobry,
+
+    przypominamy o obowiązkowym przeglądzie technicznym kasy fiskalnej.
+
+    ::karta Kasa {I:model} · nr unikatowy {I:numer unikatowy}
+    Termin przeglądu: do {I:termin}
+    Gdzie: {S:gdzie|w naszym salonie w Rabce-Zdroju;u Państwa na miejscu}
+    Koszt: {I:koszt} zł brutto
+
+    ::uwaga Ważne
+    Przegląd trzeba zrobić co najmniej raz na 2 lata. Przekroczenie terminu może oznaczać obowiązek zwrotu ulgi na zakup kasy.
+
+    Prosimy o wybór dogodnego dnia — wystarczy odpisać albo zadzwonić: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: przejecie
+  grupa: gb1
+  nazwa: "Przejęcie serwisu kasy od innej firmy"
+  skrot: przejecie
+  kiedy: "Klient chce zmienić serwis kasy. Formalności załatwiamy my."
+  tresc: |
+    Dzień dobry,
+
+    chętnie przejmiemy serwis Państwa kasy — formalności załatwimy po naszej stronie. Jesteśmy autoryzowanym serwisem Posnet i Elzab.
+
+    ::kroki Jak to wygląda
+    1. Prosimy o dane: model kasy, numer unikatowy (z paragonu lub tabliczki), dane firmy.
+    2. Przygotowujemy dokumenty zmiany serwisu i zgłoszenie do urzędu skarbowego.
+    3. Od tego dnia w sprawie kasy dzwonią Państwo do nas: **{TEL}**.
+
+    {S:marka|Kasa jest marki, którą serwisujemy jako autoryzowany serwis.;Sprawdzimy, czy możemy serwisować ten model — odpowiemy dziś.}
+
+    Pozdrawiamy serdecznie,
+
+- id: terminal
+  grupa: gb1
+  nazwa: "Terminal płatniczy — zapytanie"
+  skrot: terminal
+  kiedy: "Klient pyta o terminal. Warunki operatora zawsze z aktualnej oferty, nie z pamięci."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o terminal płatniczy. Żeby dobrać ofertę, potrzebujemy trzech informacji:
+
+    ::lista
+    - przybliżony miesięczny obrót kartami,
+    - czy terminal ma być stacjonarny, przenośny (np. stoliki w lokalu), czy w telefonie,
+    - czy ma współpracować z kasą lub programem sprzedaży.
+
+    Po odpowiedzi przedstawimy aktualne warunki operatora na piśmie — z opłatami miesięcznymi i prowizją, bez niespodzianek.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Komputery, programy, opieka IT ─────────
+- id: przegladit
+  grupa: gb2
+  nazwa: "Bezpłatny przegląd IT — zaproszenie"
+  skrot: przegladit
+  kiedy: "Tylko Biznes (na pro-kom.eu tej obietnicy nie ma — decyzja 15.11)."
+  tresc: |
+    Dzień dobry,
+
+    proponujemy bezpłatny przegląd IT w Państwa firmie — bez zobowiązań.
+
+    ::karta Co sprawdzamy
+    Komputery: stan, aktualizacje, zabezpieczenia
+    Kopie zapasowe: czy są i czy da się z nich odtworzyć dane
+    Sieć i Wi-Fi: bezpieczeństwo, hasła, zasięg
+    Licencje: co kończy się w najbliższych miesiącach
+
+    Po przeglądzie dostają Państwo krótki raport: co działa, co warto poprawić i co jest pilne. Decyzja, co z tym zrobić, należy do Państwa.
+
+    Prosimy o wybór dogodnego terminu — ok. {I:ile czasu (np. 1–2 godziny)} na miejscu.
+
+    Pozdrawiamy serdecznie,
+
+- id: zdalna
+  grupa: gb2
+  nazwa: "Pomoc zdalna — jak się połączyć"
+  skrot: zdalna
+  kiedy: "Szybka pomoc przez AnyDesk lub TeamViewer. Nigdy nie prosimy o hasła mailem."
+  tresc: |
+    Dzień dobry,
+
+    pomożemy zdalnie — połączenie zajmie minutę.
+
+    ::kroki Jak się połączyć
+    1. Prosimy pobrać program {S:program|AnyDesk ze strony anydesk.com;TeamViewer QuickSupport ze strony teamviewer.com} (tylko z oficjalnej strony producenta).
+    2. Uruchomić go i podać nam przez telefon numer, który się wyświetli.
+    3. Zaakceptować połączenie, gdy program zapyta.
+
+    ::uwaga Bezpieczeństwo
+    Połączenie działa tylko, gdy Państwo je zaakceptują, i można je przerwać w każdej chwili. Nigdy nie prosimy o hasła w mailu.
+
+    Czekamy na telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: opieka-it
+  grupa: gb2
+  nazwa: "Opieka IT dla firmy — propozycja"
+  skrot: opiekait
+  kiedy: "Po przeglądzie IT albo przy kilku zgłoszeniach od jednej firmy. Zakres i cena zawsze z oferty."
+  tresc: |
+    Dzień dobry,
+
+    zgodnie z rozmową przesyłamy propozycję stałej opieki IT dla {I:nazwa firmy}.
+
+    ::karta Opieka IT — {I:nazwa firmy}
+    Zakres: {I:ile komputerów, serwer, sieć, drukarki}
+    W ramach opieki: {I:co obejmuje (np. pomoc zdalna, monitoring, kopie, aktualizacje, wizyty)}
+    Czas reakcji: w godzinach pracy do 1 godziny (telefon lub odpowiedź na zgłoszenie)
+    Cena: {I:kwota} zł netto miesięcznie
+    Umowa: {I:okres i wypowiedzenie}
+
+    ::ok Co Państwo zyskują
+    Jeden numer do wszystkiego, monitoring, zanim coś padnie, i kopie zapasowe, które naprawdę da się odtworzyć.
+
+    Szczegóły w załączniku. Chętnie odpowiemy na pytania: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: licencja
+  grupa: gb2
+  nazwa: "Licencja / abonament — kończy się termin"
+  skrot: licencja
+  kiedy: "30 dni przed końcem licencji programu, antywirusa, gwarancji rozszerzonej."
+  temat: "Kończy się {I:co} — {I:data}"
+  tresc: |
+    Dzień dobry,
+
+    przypominamy, że **{I:data}** kończy się:
+
+    ::karta {I:program / licencja}
+    Liczba stanowisk: {I:liczba}
+    Koniec: {I:data}
+    Przedłużenie: {I:cena} zł {S:netto czy brutto|netto;brutto} na {I:okres}
+
+    {S:skutek|Po tej dacie program przestanie otrzymywać aktualizacje, w tym zmiany wymagane przepisami.;Po tej dacie ochrona przestaje działać — komputery zostaną bez zabezpieczenia.;Po tej dacie kończy się wsparcie producenta.}
+
+    Czy przedłużamy? Wystarczy odpisać „tak” — wystawimy fakturę i zajmiemy się resztą.
+
+    Pozdrawiamy serdecznie,
+
+- id: insert
+  grupa: gb2
+  nazwa: "Program InsERT / GoPOS — wdrożenie"
+  skrot: wdrozenie
+  kiedy: "Wdrożenie programu sprzedażowego lub gastronomicznego. Jesteśmy autoryzowanym partnerem InsERT i GoPOS."
+  tresc: |
+    Dzień dobry,
+
+    jako autoryzowany partner {S:program|InsERT;GoPOS} przygotujemy wdrożenie programu **{I:nazwa programu}**.
+
+    ::kroki Jak przebiega wdrożenie
+    1. Krótka rozmowa o tym, jak dziś pracują Państwo z dokumentami i magazynem.
+    2. Instalacja i konfiguracja: firma, użytkownicy, dokumenty, drukarki.
+    3. Import danych (kontrahenci, towary) — jeśli są w innym programie lub w Excelu.
+    4. Szkolenie dla osób, które będą pracować w programie.
+
+    ::karta W skrócie
+    Licencja: {I:licencja, liczba stanowisk}
+    Wdrożenie: {I:zakres i cena wdrożenia}
+    Termin: {I:termin}
+
+    Pozdrawiamy serdecznie,
+
+- id: leasing
+  grupa: gb2
+  nazwa: "Finansowanie — leasing LeaseLink"
+  skrot: leasing
+  kiedy: "Tylko gdy klient sam pyta o finansowanie (na stronach finansowania nie pokazujemy — decyzja szefa 16.10)."
+  tresc: |
+    Dzień dobry,
+
+    zakup możemy sfinansować leasingiem przez naszego partnera **LeaseLink**. Wniosek składa się online, decyzja zwykle zapada szybko, a umowę podpisuje się elektronicznie.
+
+    ::kroki Jak to działa
+    1. Wysyłamy link do wniosku z kwotą zamówienia.
+    2. Wypełniają Państwo wniosek (dane firmy) — LeaseLink podejmuje decyzję.
+    3. Po akceptacji wydajemy sprzęt, a raty płacą Państwo LeaseLink.
+
+    Warunki (raty, okres, opłata wstępna) zobaczą Państwo we wniosku przed podpisaniem. Wysłać link?
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Dostawy dla firm i przetargi ─────────
+- id: dostawa-it
+  grupa: gb3
+  nazwa: "Większa dostawa IT — oferta"
+  skrot: dostawa
+  kiedy: "Laptopy, komputery, monitory w ilościach. Konfiguracja i szkolenie tylko jeśli ustalone (nie standard)."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o dostawę sprzętu. W załączniku oferta z listą pozycji.
+
+    ::karta Dostawa {I:numer oferty}
+    Pozycje: {I:liczba sztuk / pozycji}
+    Wartość: {I:kwota} zł netto + 23% VAT
+    Dostawa: {I:termin i miejsce}
+    Gwarancja: producenta — {I:okres i rodzaj (np. on-site)}
+    Dodatkowo (opcjonalnie): {I:konfiguracja / przygotowanie stanowisk — jeśli ustalone; inaczej „sama dostawa”}
+
+    ::info Dokumenty
+    Do dostawy dołączamy fakturę VAT, protokół odbioru i — na życzenie — karty katalogowe sprzętu.
+
+    Pozdrawiamy serdecznie,
+
+- id: agd-rtv
+  grupa: gb3
+  nazwa: "RTV i AGD dla firm — oferta"
+  skrot: agdrtv
+  kiedy: "Tylko firmy i instytucje (hotele, deweloperzy). Dostawa pod adres, bez montażu."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie. Przygotowaliśmy ofertę na sprzęt RTV i AGD dla {I:nazwa firmy / obiektu}.
+
+    ::karta Oferta {I:numer oferty}
+    Pozycje: {I:co i ile (np. 20 × telewizor 43", 20 × czajnik)}
+    Wartość: {I:kwota} zł netto + 23% VAT
+    Dostawa: pod adres {I:adres}, {I:termin}
+    Gwarancja: producenta
+
+    ::uwaga Zakres
+    Oferta obejmuje dostawę pod adres, bez montażu i podłączenia sprzętu.
+
+    Pozdrawiamy serdecznie,
+
+- id: przetarg
+  grupa: gb3
+  nazwa: "Zapytanie ofertowe / przetarg — potwierdzenie udziału"
+  skrot: przetarg
+  kiedy: "Instytucja przysłała zapytanie ofertowe lub SWZ. Terminy postępowania są nieprzekraczalne — wpisz je dokładnie."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zaproszenie do złożenia oferty. Potwierdzamy zainteresowanie i przygotowujemy ofertę.
+
+    ::karta Postępowanie {I:znak sprawy}
+    Przedmiot: {I:przedmiot zamówienia}
+    Termin składania ofert: {I:data i godzina}
+    Forma: {I:forma (np. platforma, e-mail, podpis kwalifikowany)}
+
+    Pytania do specyfikacji: {I:pytania numerowane albo „brak”}
+
+    Pozdrawiamy serdecznie,

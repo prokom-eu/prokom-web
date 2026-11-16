@@ -1,0 +1,258 @@
+# PRO-KOM Software — szablony tylko tej linii. Ceny i terminy: claude/software-cennik.md
+# (opieka 149/299/790 zł/mies. — [SZEF] akceptacja przed pierwszym wysłaniem; audyt szybki 0 zł, raport w 2 dni robocze;
+# pełny audyt 990 zł odliczany od projektu zamówionego w 60 dni; przejęcie od 990 zł).
+grupy:
+  gs1: "8 · Projekt krok po kroku"
+  gs2: "9 · Start, opieka i utrzymanie"
+  gs3: "10 · Audyt i przejęcie"
+
+szablony:
+
+- id: materialy
+  grupa: gs1
+  nazwa: "Lista materiałów do startu"
+  skrot: materialy
+  kiedy: "Zaraz po starcie projektu. Wszystko na jednej liście, z terminem."
+  tresc: |
+    Dzień dobry,
+
+    żeby ruszyć pełną parą, prosimy o materiały — najlepiej do **{I:termin}**:
+
+    ::lista
+    - logo w dobrej jakości (SVG, PDF albo duży PNG),
+    - teksty: o firmie, usługi / oferta, kontakt — mogą być „na brudno”, zredagujemy,
+    - zdjęcia (własne albo informacja, że dobieramy zdjęcia z legalnych banków),
+    - dostęp do domeny i obecnej strony — jeśli jest (bez haseł w mailu: zadzwonimy po nie),
+    - przykłady stron, które się Państwu podobają, i czego na pewno nie chcą Państwo mieć,
+    - {I:inne (np. lista produktów, cennik, regulamin)}.
+
+    ::info Jak przesłać
+    Najwygodniej przez folder online (Google Drive, OneDrive, WeTransfer) — wystarczy link w odpowiedzi.
+
+    Pozdrawiamy serdecznie,
+
+- id: podglad
+  grupa: gs1
+  nazwa: "Podgląd do sprawdzenia — etap gotowy"
+  skrot: podglad
+  kiedy: "Każdy etap kończy się podglądem do klikania. Uwagi zbieramy w jednym mailu."
+  tresc: |
+    Dzień dobry,
+
+    etap **{I:nazwa etapu}** jest gotowy do sprawdzenia:
+
+    ::przycisk Otwórz podgląd | {I:link do podglądu}
+
+    ::karta Etap {I:numer} z {I:wszystkich}
+    Co jest gotowe: {I:co (np. strona główna i oferta, wersja na telefon)}
+    Na co zwrócić uwagę: {I:o co prosimy (np. teksty, kolejność sekcji)}
+    Uwagi do: {I:termin}
+
+    ::kroki Jak zgłosić uwagi
+    1. Prosimy przeklikać podgląd na komputerze i telefonie.
+    2. Uwagi — w jednym mailu, w punktach (najlepiej ze zrzutem ekranu).
+    3. Wprowadzamy poprawki i wysyłamy kolejny podgląd.
+
+    W cenie etapu są {I:ile} rundy poprawek.
+
+    Pozdrawiamy serdecznie,
+
+- id: pozazakresem
+  grupa: gs1
+  nazwa: "Zmiana poza zakresem — wycena dodatkowa"
+  skrot: pozazakresem
+  kiedy: "Klient prosi o coś spoza wyceny. Jasno, bez robienia „gratis”, z opcją odłożenia na później."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za pomysł — {I:czego dotyczy prośba}. To wykracza poza zakres wyceny {I:numer wyceny}, dlatego przygotowaliśmy osobną wycenę:
+
+    ::karta Zmiana dodatkowa
+    Zakres: {I:co dokładnie zrobimy}
+    Cena: {I:cena netto} netto + 23% VAT
+    Wpływ na termin: {I:wpływ (np. +3 dni robocze / bez wpływu)}
+
+    Możemy to zrobić **teraz** albo **po starcie strony**, jako osobny etap — wtedy start nie przesuwa się. Która opcja jest lepsza?
+
+    Pozdrawiamy serdecznie,
+
+- id: start
+  grupa: gs2
+  nazwa: "Strona opublikowana — gratulacje i dostępy"
+  skrot: start
+  kiedy: "W dniu publikacji. Hasła i dostępy osobno, nigdy mailem."
+  tresc: |
+    Dzień dobry,
+
+    gratulujemy — **{I:adres strony}** jest już online!
+
+    ::przycisk Zobacz stronę | https://{I:adres strony}
+
+    ::karta Przekazanie
+    Panel do edycji: {I:adres panelu}
+    Dostępy: przekazane {S:jak|telefonicznie;osobiście;SMS-em} (nie wysyłamy haseł mailem)
+    Instrukcja: w załączniku
+    Kopia zapasowa: {I:jak często (np. co noc)}
+    Gwarancja na błędy: {I:okres}
+
+    ::kroki Pierwsze dni
+    1. Prosimy przeklikać stronę i zgłosić wszystko, co nie gra.
+    2. Zgłaszamy stronę w Google Search Console — pierwsze wejścia z Google pojawią się zwykle w ciągu kilku tygodni.
+    3. Warto podlinkować stronę w wizytówce Google i mediach społecznościowych.
+
+    Pozdrawiamy serdecznie,
+
+- id: opieka
+  grupa: gs2
+  nazwa: "Propozycja opieki po wdrożeniu"
+  skrot: opieka
+  kiedy: "Przed lub tuż po publikacji. [SZEF] Ceny 149/299/790 — sprawdź akceptację przed pierwszym wysłaniem."
+  tresc: |
+    Dzień dobry,
+
+    żeby strona działała bezpiecznie i szybko także za rok, proponujemy stałą opiekę. Do wyboru trzy poziomy:
+
+    ::pozycje
+    Poziom | Co zawiera | Cena
+    Podstawowa | serwer w Polsce i domena, kopia co noc, aktualizacje; reakcja do końca następnego dnia roboczego | 149 zł netto/mies.
+    Standard (polecana) | jak Podstawowa + monitoring 24/7, drobne zmiany do 1 h/mies., raport co miesiąc; reakcja 8 h roboczych | 299 zł netto/mies.
+    Systemy | jak Standard + eksport danych co miesiąc, rozwój do 4 h/mies.; reakcja 4 h roboczych, na piśmie | 790 zł netto/mies.
+
+    ::ok W każdej opiece
+    Dane i kod należą do Państwa — eksport danych na każde żądanie, bez uwiązania.
+
+    Dla Państwa strony polecamy **{S:poziom|Podstawową;Standard;Systemy}**, bo {I:dlaczego}.
+
+    Pozdrawiamy serdecznie,
+
+- id: zgloszenie-bledu
+  grupa: gs2
+  nazwa: "Zgłoszenie błędu w opiece — przyjęte"
+  skrot: blad
+  kiedy: "Klient w opiece zgłasza błąd. Czas reakcji zgodny z poziomem opieki."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zgłoszenie — przyjęliśmy je.
+
+    ::karta Zgłoszenie {I:numer}
+    Problem: {I:opis}
+    Priorytet: {S:priorytet|pilny — strona lub kluczowa funkcja nie działa;zwykły}
+    Opieka: {S:poziom|Podstawowa — reakcja do końca następnego dnia roboczego;Standard — reakcja do 8 godzin roboczych;Systemy — reakcja do 4 godzin roboczych}
+    Prowadzi: {I:kto}
+
+    Damy znać, gdy będzie poprawione. Jeśli problem się nasila — prosimy o telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: raport-mies
+  grupa: gs2
+  nazwa: "Raport miesięczny opieki"
+  skrot: raport
+  kiedy: "Od opieki Standard — co miesiąc."
+  temat: "Raport opieki — {I:miesiąc} — {I:adres strony}"
+  tresc: |
+    Dzień dobry,
+
+    przesyłamy raport opieki za **{I:miesiąc}**.
+
+    ::karta {I:adres strony} · {I:miesiąc}
+    Dostępność: {I:procent (np. 99,98%)}
+    Kopie zapasowe: {I:liczba} wykonanych, ostatnia {I:data}
+    Aktualizacje: {I:co zaktualizowano}
+    Zmiany w ramach opieki: {I:co zrobiliśmy (czas)}
+    Wejścia na stronę: {I:liczba — jeśli mierzymy}
+
+    Rekomendacje na kolejny miesiąc: {I:co warto zrobić (albo: brak — wszystko działa jak należy)}
+
+    Pozdrawiamy serdecznie,
+
+- id: domena
+  grupa: gs2
+  nazwa: "Odnowienie domeny / serwera"
+  skrot: domena
+  kiedy: "30 dni przed końcem. Domena niezapłacona = strona i poczta przestają działać."
+  temat: "Odnowienie domeny {I:domena} — do {I:data}"
+  tresc: |
+    Dzień dobry,
+
+    przypominamy o odnowieniu:
+
+    ::karta {I:domena / serwer}
+    Ważne do: {I:data}
+    Koszt odnowienia: {I:kwota} zł {S:netto czy brutto|netto;brutto} za {I:okres}
+
+    ::uwaga Ważne
+    Po tej dacie {S:skutek|przestaną działać strona i poczta w tej domenie;strona przestanie działać}. Domenę może wtedy przejąć ktoś inny.
+
+    Czy odnawiamy? Wystarczy odpisać „tak” — wystawimy fakturę.
+
+    Pozdrawiamy serdecznie,
+
+- id: dns
+  grupa: gs2
+  nazwa: "Prośba o dostęp do domeny (DNS)"
+  skrot: dns
+  kiedy: "Potrzebujemy zmienić DNS u rejestratora klienta. Bez haseł mailem — najlepiej dostęp delegowany."
+  tresc: |
+    Dzień dobry,
+
+    żeby podłączyć stronę pod domenę **{I:domena}**, potrzebujemy zmienić jej ustawienia (DNS). Domena jest w {I:firma rejestrująca (np. nazwa.pl, home.pl, OVH)}.
+
+    ::kroki Najprostsze sposoby
+    1. Nadanie nam dostępu do zarządzania domeną w panelu rejestratora (jeśli to możliwe) — bez dzielenia się hasłem.
+    2. Albo krótkie połączenie zdalne — zrobimy to razem w 10 minut.
+    3. Albo wpiszą Państwo rekordy sami — wyślemy dokładną instrukcję.
+
+    ::uwaga Poczta
+    Zmiana DNS nie wyłączy poczty — przed zmianą zapisujemy obecne ustawienia i przenosimy je 1:1.
+
+    Pozdrawiamy serdecznie,
+
+- id: audyt
+  grupa: gs3
+  nazwa: "Darmowy audyt strony — raport"
+  skrot: audyt
+  kiedy: "Raport z darmowego audytu (2 dni robocze od zgłoszenia)."
+  tresc: |
+    Dzień dobry,
+
+    przesyłamy raport z bezpłatnego audytu strony **{I:adres strony}**.
+
+    ::karta Wynik w skrócie
+    Szybkość na telefonie: {I:wynik (np. 42/100 — wolno)}
+    Bezpieczeństwo: {I:stan (np. przestarzała wtyczka z lukami)}
+    Google: {I:stan (np. brak opisów, błędy indeksowania)}
+    Telefon i formularz: {I:czy klient może łatwo zadzwonić / napisać}
+
+    ::kroki Trzy najważniejsze poprawki
+    1. {I:poprawka 1}
+    2. {I:poprawka 2}
+    3. {I:poprawka 3}
+
+    Pełny raport w załączniku. Część poprawek mogą Państwo zrobić sami — chętnie podpowiemy. Jeśli wolą Państwo, żebyśmy zrobili to my, przygotujemy wycenę.
+
+    Pozdrawiamy serdecznie,
+
+- id: przejecie-sw
+  grupa: gs3
+  nazwa: "Przejęcie strony po informatyku, który zniknął"
+  skrot: przejecie
+  kiedy: "Klient stracił kontakt z wykonawcą. Najpierw zabezpieczenie, potem plan."
+  tresc: |
+    Dzień dobry,
+
+    rozumiemy sytuację — to częsty problem i da się go uporządkować.
+
+    ::kroki Jak przejmujemy stronę
+    1. Ustalamy, gdzie są domena, serwer i poczta, i odzyskujemy do nich dostęp na Państwa nazwisko lub firmę.
+    2. Robimy pełną kopię strony i danych — zanim cokolwiek zmienimy.
+    3. Sprawdzamy bezpieczeństwo i proponujemy: zostawić, naprawić albo przenieść na nasz serwer.
+
+    ::karta Koszt
+    Przejęcie: od {I:kwota (np. 990)} zł netto jednorazowo — dostępy, kopia i zabezpieczenie
+    Dokumentacja i przeniesienie: wycena po sprawdzeniu
+
+    Na start prosimy o adres strony i wszystko, co Państwo wiedzą: gdzie płacą za domenę, kto wystawiał faktury.
+
+    Pozdrawiamy serdecznie,

@@ -1,0 +1,741 @@
+# Szablony wspólne dla linii: Biznes, Instalacje, Software, PRO-KOM (pro-kom.eu).
+# Tech ma własny zestaw (tech.yaml) i bierze stąd tylko szablony z `linie` zawierającym tech.
+# Składnia treści: docs/design/szablony/SZABLONY-MAILI.md §3 (bloki ::karta, ::kroki, ::info, ::uwaga, ::ok,
+# ::przycisk, ::pozycje, ::lista; pola {I:…}, {S:…|a;b}, {M:…}; zmienne {TEL}, {NAZWA}…).
+# Zasada: jedna sprawa = jeden mail; najważniejsza informacja w pierwszych dwóch zdaniach; zawsze następny krok.
+
+grupy:
+  g1: "1 · Pierwszy kontakt"
+  g2: "2 · Oferta i decyzja"
+  g3: "3 · Terminy i wizyty"
+  g4: "4 · Realizacja"
+  g5: "5 · Płatności i dokumenty"
+  g6: "6 · Po realizacji"
+  g7: "7 · Sytuacje trudne"
+
+szablony:
+
+# ───────────────────────── 1 · PIERWSZY KONTAKT ─────────────────────────
+- id: dzieki
+  grupa: g1
+  nazwa: "Mamy Twoją wiadomość — wracamy z odpowiedzią"
+  skrot: dzieki
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Pierwsza ręczna odpowiedź, gdy potrzebujesz chwili na przygotowanie konkretów."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za wiadomość — sprawa jest już u nas. Wrócimy z konkretną odpowiedzią **{I:kiedy odpowiemy (np. jutro do 12:00)}**.
+
+    ::karta Twoja sprawa
+    Dotyczy: {I:czego dotyczy (jednym zdaniem)}
+    Prowadzi: {I:kto prowadzi sprawę}
+    Odpowiedź: {I:kiedy odpowiemy (np. jutro do 12:00)}
+
+    Jeśli sprawa jest pilna, prosimy o telefon: **{TEL}** ({GODZ}).
+
+    Pozdrawiamy serdecznie,
+
+- id: szczegoly
+  grupa: g1
+  nazwa: "Prośba o szczegóły do wyceny"
+  skrot: szczegoly
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Zapytanie jest zbyt ogólne, żeby uczciwie wycenić. Pytania są inne dla każdej linii."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie. Żeby przygotować dokładną wycenę — bez dopisywania kosztów „na zapas” — potrzebujemy jeszcze kilku informacji:
+
+    {PYTANIA}
+
+    Wystarczy krótka odpowiedź na tego maila, w punktach. Jeśli wygodniej porozmawiać — prosimy o informację, kiedy możemy zadzwonić (rozmowa zajmie ok. 10 minut).
+
+    Pozdrawiamy serdecznie,
+
+- id: niedodzwon
+  grupa: g1
+  nazwa: "Nie mogliśmy się dodzwonić"
+  skrot: niedodzwon
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Po nieudanej próbie telefonu — żeby klient nie czekał na nasz telefon w nieskończoność."
+  tresc: |
+    Dzień dobry,
+
+    dzwoniliśmy dziś {I:o której (np. ok. 11:30)} w sprawie {I:czego dotyczy sprawa}, niestety bez skutku.
+
+    ::kroki Jak możemy to załatwić
+    1. Prosimy o telefon do nas: **{TEL}** ({GODZ}).
+    2. Albo o odpowiedź z godziną, kiedy możemy zadzwonić.
+    3. Albo — jeśli wygodniej — ustalimy wszystko mailowo.
+
+    Pozdrawiamy serdecznie,
+
+- id: przekaz
+  grupa: g1
+  nazwa: "Przekazanie do innej linii PRO-KOM"
+  skrot: przekaz
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Sprawa należy do innej linii. Klient ma wiedzieć, kto i kiedy się odezwie — nie zostawiamy go z adresem do przepisania."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za wiadomość. Tą sprawą zajmuje się u nas **{S:linia|PRO-KOM Biznes — kasy, komputery, programy, opieka IT;PRO-KOM Instalacje — monitoring, alarmy, sieci, smart home;PRO-KOM Software — strony, systemy, aplikacje;PRO-KOM Tech — naprawy telefonów i komputerów}**. Przekazaliśmy już Państwa wiadomość — nie trzeba pisać jeszcze raz.
+
+    ::karta Kto się odezwie
+    Zespół: {I:nazwa linii}
+    Kontakt: {I:telefon i e-mail linii}
+    Kiedy: {I:kiedy się odezwą (np. dziś do 15:00)}
+
+    To nadal ta sama firma PRO-KOM — jeden klient, kilka zespołów. Ten mail zostawiamy w kopii, żeby nic nie zginęło.
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── 2 · OFERTA I DECYZJA ─────────────────────────
+- id: oferta
+  grupa: g2
+  nazwa: "Oferta w załączniku"
+  skrot: oferta
+  linie: [biznes, instalacje, prokom]
+  temat: "Oferta: {I:czego dotyczy oferta} — {NAZWA}"
+  kiedy: "Wysyłka oferty po rozmowie. W mailu najważniejsze liczby — klient nie musi otwierać PDF, żeby wiedzieć, o czym decyduje."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za rozmowę. W załączniku przesyłamy ofertę na **{I:czego dotyczy oferta}**. Najważniejsze w skrócie:
+
+    ::karta Oferta {I:numer oferty}
+    Zakres: {I:zakres w jednym zdaniu}
+    Cena: {I:cena} {S:netto czy brutto|netto + 23% VAT;brutto}
+    Termin realizacji: {I:termin realizacji}
+    Płatność: {I:warunki płatności (np. przelew 7 dni)}
+    Oferta ważna do: {I:oferta ważna do}
+
+    ::kroki Co dalej
+    1. Prosimy o przejrzenie oferty i pytania — chętnie wyjaśnimy każdą pozycję.
+    2. Akceptacja: wystarczy odpowiedź „akceptuję” na tego maila.
+    3. Ustalamy termin i potwierdzamy go mailem.
+
+    Jeśli coś warto zmienić — poprawimy ofertę. Telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: oferta-sw
+  grupa: g2
+  nazwa: "Wycena projektu z podglądem"
+  skrot: oferta
+  linie: [software]
+  temat: "Wycena: {I:czego dotyczy} — PRO-KOM Software"
+  kiedy: "Wycena strony lub systemu. Podgląd do klikania + liczby w karcie. Ceny zgodne z software-cennik.md."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za rozmowę. W załączniku wycena na piśmie, a tutaj podgląd, w którym można klikać jak na gotowej stronie:
+
+    ::przycisk Otwórz podgląd projektu | {I:link do podglądu}
+
+    ::karta Wycena {I:numer wyceny}
+    Zakres: {I:zakres w jednym zdaniu}
+    Cena: {I:cena netto} netto + 23% VAT
+    Termin: {I:termin realizacji} od akceptacji i wpłaty zaliczki
+    Płatność: 30% zaliczki po podpisaniu, reszta {S:reszta płatności|70% po odbiorze;ratami po każdym odebranym etapie, ostatnia po wdrożeniu}
+    Ważność: 30 dni
+
+    ::ok Zostaje u Państwa
+    Kod, dostępy, domena i dane należą do Państwa — przekazujemy je w całości, bez uwiązania.
+
+    ::kroki Co dalej
+    1. Klikają Państwo w podgląd i piszą uwagi — poprawimy zakres albo wycenę.
+    2. Akceptacja: odpowiedź „akceptuję” na tego maila.
+    3. Wysyłamy umowę i fakturę zaliczkową, ustalamy datę startu.
+
+    Pozdrawiamy serdecznie,
+
+- id: warianty
+  grupa: g2
+  nazwa: "Oferta w dwóch wariantach"
+  skrot: warianty
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Klient waha się między ceną a zakresem. Zawsze z rekomendacją — klient płaci nam także za zdanie."
+  tresc: |
+    Dzień dobry,
+
+    przygotowaliśmy dwa warianty, żeby mogli Państwo wybrać między ceną a zakresem:
+
+    ::karta Wariant A — {I:nazwa wariantu A}
+    Zawiera: {I:co zawiera A}
+    Cena: {I:cena A}
+    Termin: {I:termin A}
+
+    ::karta Wariant B — {I:nazwa wariantu B}
+    Zawiera: {I:co zawiera B}
+    Cena: {I:cena B}
+    Termin: {I:termin B}
+
+    ::info Nasza rekomendacja: wariant {S:który polecamy|A;B}
+    {I:dlaczego (jedno, dwa zdania — z perspektywy klienta)}
+
+    Szczegóły są w załączniku. Chętnie omówimy różnice przez telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: przyp1
+  grupa: g2
+  nazwa: "Przypomnienie o ofercie (po 3–5 dniach)"
+  skrot: przyp1
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Brak odpowiedzi na ofertę. Uprzejmie, z łatwym wyjściem — klient ma odpisać jednym słowem."
+  tresc: |
+    Dzień dobry,
+
+    wracamy do oferty z {I:data wysłania oferty} na {I:czego dotyczy}. Czy udało się ją przejrzeć?
+
+    Żeby było prościej — wystarczy odpisać jednym słowem:
+
+    ::lista
+    - **„akceptuję”** — ustalamy termin,
+    - **„pytanie”** — zadzwonimy i wyjaśnimy,
+    - **„później”** — odezwiemy się w podanym przez Państwa terminie,
+    - **„rezygnuję”** — zamkniemy temat, bez dalszych przypomnień.
+
+    Oferta jest ważna do **{I:ważna do}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: przyp2
+  grupa: g2
+  nazwa: "Ostatnie przypomnienie — zamykamy temat"
+  skrot: przyp2
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Po drugim braku odpowiedzi. Zamykamy elegancko — zostawiamy otwarte drzwi."
+  tresc: |
+    Dzień dobry,
+
+    nie chcemy zasypywać Państwa wiadomościami, więc to ostatnie przypomnienie w sprawie oferty na {I:czego dotyczy}.
+
+    Jeśli temat jest nadal aktualny — wystarczy odpisać, a odświeżymy ofertę (ceny sprzętu i terminy mogą się zmienić po {I:ważna do}). Jeśli nie — rozumiemy i dziękujemy za zainteresowanie.
+
+    Gdyby w przyszłości coś było potrzebne, jesteśmy pod numerem **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: rabat
+  grupa: g2
+  nazwa: "Odpowiedź na prośbę o rabat"
+  skrot: rabat
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Klient prosi o niższą cenę. Nie obniżamy „bo tak” — pokazujemy, co możemy zmienić w zakresie."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za szczerość. Nasza cena wynika z zakresu, który zaproponowaliśmy — nie dopisujemy „zapasu” do negocjacji. Możemy za to zmniejszyć koszt, zmieniając zakres:
+
+    ::lista
+    - {I:propozycja 1 (np. tańszy model, mniej punktów)} — oszczędność ok. {I:kwota 1},
+    - {I:propozycja 2 (np. etapowanie, część prac po stronie klienta)} — oszczędność ok. {I:kwota 2}.
+
+    {S:czy dajemy rabat|Przy akceptacji w ciągu 7 dni możemy dodatkowo zaproponować rabat:;Cena w ofercie jest naszą najlepszą ceną przy tym zakresie.} {I:rabat i warunek (albo zostaw puste)}
+
+    Chętnie przygotujemy poprawioną wersję — prosimy o informację, który kierunek jest bliższy.
+
+    Pozdrawiamy serdecznie,
+
+- id: zamowienie
+  grupa: g2
+  nazwa: "Akceptacja — przyjmujemy zamówienie"
+  skrot: zamowienie
+  linie: [biznes, instalacje, prokom]
+  kiedy: "Klient zaakceptował ofertę. Potwierdzamy wszystko na piśmie — koniec niedomówień."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zaufanie — przyjmujemy zamówienie.
+
+    ::karta Potwierdzenie zamówienia
+    Oferta: {I:numer oferty}
+    Zakres: {I:zakres}
+    Wartość: {I:kwota} {S:netto czy brutto|netto + 23% VAT;brutto}
+    Termin: {I:termin realizacji / dostawy}
+    Płatność: {I:warunki płatności}
+    Osoba do kontaktu po Państwa stronie: {I:imię, telefon}
+
+    ::kroki Co dalej
+    1. {I:pierwszy krok (np. zamawiamy sprzęt u dystrybutora)}
+    2. {I:drugi krok (np. potwierdzamy termin montażu / dostawy)}
+    3. {I:trzeci krok (np. uruchomienie, szkolenie, protokół)}
+
+    Jeśli w potwierdzeniu coś się nie zgadza — prosimy o informację dziś, zanim zamówimy sprzęt.
+
+    Pozdrawiamy serdecznie,
+
+- id: start-sw
+  grupa: g2
+  nazwa: "Akceptacja — startujemy z projektem"
+  skrot: zamowienie
+  linie: [software]
+  kiedy: "Klient zaakceptował wycenę Software."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zaufanie — startujemy!
+
+    ::karta Projekt {I:nazwa projektu}
+    Zakres: zgodnie z wyceną {I:numer wyceny}
+    Start: {I:data startu}
+    Pierwszy podgląd: {I:data pierwszego podglądu}
+    Odbiór: {I:planowana data odbioru}
+
+    ::kroki Co dalej
+    1. W załączniku umowa i faktura zaliczkowa (30%) — po wpłacie rezerwujemy termin.
+    2. Wyślemy listę materiałów do startu (logo, teksty, zdjęcia, dostępy).
+    3. Co {S:jak często|tydzień;dwa tygodnie} dostają Państwo link do podglądu z postępem.
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── 3 · TERMINY I WIZYTY ─────────────────────────
+- id: termin
+  grupa: g3
+  nazwa: "Propozycja terminu"
+  skrot: termin
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Zawsze dwa, trzy konkretne terminy — klient wybiera numer, zamiast wymyślać."
+  tresc: |
+    Dzień dobry,
+
+    proponujemy termin {S:czego|wizyty;montażu;spotkania online;dostawy;wdrożenia}. Prosimy o wybór jednego — wystarczy odpisać numerem:
+
+    ::kroki
+    1. {I:termin 1 (dzień, data, godzina)}
+    2. {I:termin 2}
+    3. {I:termin 3}
+
+    Planowany czas: **{I:ile potrwa}**. Jeśli żaden nie pasuje — prosimy podać dogodne dni, dopasujemy się.
+
+    Pozdrawiamy serdecznie,
+
+- id: potwierdz
+  grupa: g3
+  nazwa: "Potwierdzenie terminu"
+  skrot: potwierdz
+  linie: [biznes, instalacje, software, prokom]
+  temat: "Potwierdzenie: {I:co} — {I:data}"
+  kiedy: "Po ustaleniu terminu. Wszystko, czego klient potrzebuje w dniu wizyty — w jednym miejscu."
+  tresc: |
+    Dzień dobry,
+
+    potwierdzamy termin:
+
+    ::karta {S:rodzaj|Wizyta;Montaż;Spotkanie online;Dostawa;Wdrożenie}
+    Kiedy: {I:dzień, data, godzina}
+    Gdzie: {I:adres albo link do spotkania}
+    Kto przyjedzie: {I:imię i nazwisko}
+    Czas: {I:ile potrwa}
+
+    ::lista
+    - {I:co przygotować (np. dostęp do szafy RACK, hasło do Wi-Fi, obecność osoby decyzyjnej)},
+    - telefon w dniu wizyty: **{TEL}**.
+
+    Gdyby coś się zmieniło — prosimy o informację najpóźniej dzień wcześniej.
+
+    Pozdrawiamy serdecznie,
+
+- id: jutro
+  grupa: g3
+  nazwa: "Przypomnienie dzień przed"
+  skrot: jutro
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Dzień przed wizytą/spotkaniem. Krótko."
+  tresc: |
+    Dzień dobry,
+
+    przypominamy: **jutro, {I:data}, o {I:godzina}** — {I:co (np. montaż kamer, wdrożenie kasy, spotkanie online)}, {I:adres albo link}.
+
+    Jeśli coś się zmieniło — prosimy o telefon: **{TEL}**. Do zobaczenia!
+
+    Pozdrawiamy serdecznie,
+
+- id: zmianaterm
+  grupa: g3
+  nazwa: "Zmiana terminu z naszej strony"
+  skrot: zmianaterm
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Musimy przesunąć termin. Najpierw przeprosiny i powód, od razu nowe terminy."
+  tresc: |
+    Dzień dobry,
+
+    bardzo przepraszamy — musimy przesunąć termin z {I:pierwotny termin}. Powód: {I:powód (krótko, uczciwie)}.
+
+    Proponujemy nowe terminy — wystarczy odpisać numerem:
+
+    ::kroki
+    1. {I:nowy termin 1}
+    2. {I:nowy termin 2}
+
+    Rozumiemy, że to kłopot. Zrobimy wszystko, żeby nowy termin był ostateczny.{?: Jako przeprosiny proponujemy: …}
+
+    Pozdrawiamy serdecznie,
+
+- id: zmianaklient
+  grupa: g3
+  nazwa: "Klient przesuwa termin — potwierdzamy nowy"
+  skrot: zmianaklient
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Klient poprosił o zmianę terminu."
+  tresc: |
+    Dzień dobry,
+
+    nie ma problemu — przesuwamy termin.
+
+    ::karta Nowy termin
+    Było: {I:stary termin}
+    Jest: {I:nowy termin}
+    Gdzie: {I:adres albo link}
+
+    {S:wpływ na cenę i zakres|Zmiana nie wpływa na cenę ani zakres.;Zmiana może wpłynąć na termin realizacji — szczegóły poniżej.}
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── 4 · REALIZACJA ─────────────────────────
+- id: dane
+  grupa: g4
+  nazwa: "Prośba o dane do faktury lub umowy"
+  skrot: dane
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Przed wystawieniem dokumentu."
+  tresc: |
+    Dzień dobry,
+
+    żeby przygotować {S:dokument|fakturę;umowę;fakturę i umowę}, prosimy o:
+
+    ::lista
+    - pełną nazwę firmy (lub imię i nazwisko),
+    - NIP (dla firmy),
+    - adres do dokumentu,
+    - adres e-mail do wysyłki faktur (jeśli inny niż ten),
+    - {I:inne dane (np. osoba upoważniona do podpisu, numer zamówienia wewnętrznego)}.
+
+    Pozdrawiamy serdecznie,
+
+- id: postep
+  grupa: g4
+  nazwa: "Informacja o postępie prac"
+  skrot: postep
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Dłuższa realizacja — klient wie, co zrobione i co dalej, zanim zapyta."
+  tresc: |
+    Dzień dobry,
+
+    krótka informacja o postępie: {I:nazwa projektu / zlecenia}.
+
+    ::karta Stan na {I:data}
+    Zrobione: {I:co zrobione}
+    W toku: {I:co w toku}
+    Następne: {I:co następne}
+    Termin końcowy: {I:data końcowa (jeśli zmiana — nowa data i powód)}
+
+    Potrzebujemy od Państwa: **{I:czego i do kiedy (albo: nic — działamy dalej)}**
+
+    Pozdrawiamy serdecznie,
+
+- id: opoznienie
+  grupa: g4
+  nazwa: "Opóźnienie dostawy lub prac"
+  skrot: opoznienie
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Informujemy, zanim klient zauważy. Powód, nowy termin, co robimy, opcje."
+  tresc: |
+    Dzień dobry,
+
+    musimy poinformować o opóźnieniu: {I:czego dotyczy}.
+
+    ::uwaga Nowy termin: {I:nowy termin}
+    Powód: {I:powód (np. dystrybutor przesunął dostawę)}.
+
+    Co możemy zrobić od razu:
+
+    ::lista
+    - {I:opcja 1 (np. zamiennik dostępny od ręki o tych samych parametrach)},
+    - {I:opcja 2 (np. uruchomienie części prac teraz)}.
+
+    Przepraszamy za kłopot. Prosimy o decyzję, którą opcję wybieramy — albo czekamy na pierwotny sprzęt.
+
+    Pozdrawiamy serdecznie,
+
+- id: odbior
+  grupa: g4
+  nazwa: "Zakończenie prac — protokół odbioru"
+  skrot: odbior
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Po zakończeniu realizacji. Protokół w załączniku."
+  tresc: |
+    Dzień dobry,
+
+    prace zostały zakończone — dziękujemy za współpracę!
+
+    ::karta Odbiór {I:nazwa zlecenia}
+    Data zakończenia: {I:data}
+    Zakres: {I:co wykonaliśmy}
+    Gwarancja: {I:gwarancja (np. 24 miesiące na montaż, sprzęt wg producenta)}
+    Dokumenty: protokół odbioru{I:, inne (np. lista sprzętu, instrukcja)}
+
+    ::kroki Co prosimy zrobić
+    1. Sprawdzić działanie (lista w protokole).
+    2. Podpisać protokół i odesłać skan — albo odpisać „odbieram bez uwag”.
+    3. Uwagi? Napiszą Państwo w odpowiedzi — poprawimy.
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── 5 · PŁATNOŚCI I DOKUMENTY ─────────────────────────
+- id: faktura
+  grupa: g5
+  nazwa: "Faktura w załączniku"
+  skrot: faktura
+  linie: [biznes, instalacje, software, prokom, tech]
+  temat: "Faktura {I:numer faktury} — {NAZWA}"
+  kiedy: "Wysyłka faktury."
+  tresc: |
+    Dzień dobry,
+
+    w załączniku przesyłamy fakturę za {I:za co}.
+
+    ::karta Faktura {I:numer faktury}
+    Kwota do zapłaty: {I:kwota brutto} zł brutto
+    Termin płatności: {I:termin płatności}
+    Konto: zgodnie z danymi na fakturze
+
+    Prosimy w tytule przelewu wpisać numer faktury. Dziękujemy!
+
+    Pozdrawiamy serdecznie,
+
+- id: zaliczka
+  grupa: g5
+  nazwa: "Faktura zaliczkowa / pro forma"
+  skrot: zaliczka
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Przed zamówieniem sprzętu lub startem projektu."
+  tresc: |
+    Dzień dobry,
+
+    w załączniku {S:dokument|faktura zaliczkowa;faktura pro forma} na kwotę **{I:kwota} zł brutto** — {I:procent / za co}.
+
+    Po zaksięgowaniu wpłaty {I:co robimy (np. zamawiamy sprzęt, rezerwujemy termin startu)} i potwierdzamy to mailem.
+
+    Pozdrawiamy serdecznie,
+
+- id: platnosc1
+  grupa: g5
+  nazwa: "Przypomnienie o płatności (uprzejme)"
+  skrot: platnosc1
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "1–3 dni po terminie. Zakładamy dobrą wolę — przelew mógł się minąć z mailem."
+  tresc: |
+    Dzień dobry,
+
+    uprzejmie przypominamy o płatności — możliwe, że przelew minął się z tą wiadomością.
+
+    ::karta Faktura {I:numer faktury}
+    Kwota: {I:kwota brutto} zł brutto
+    Termin płatności: {I:termin}
+
+    Jeśli płatność została już zlecona — prosimy zignorować wiadomość. Gdyby z fakturą było coś nie tak, wyjaśnimy od razu.
+
+    Pozdrawiamy serdecznie,
+
+- id: platnosc2
+  grupa: g5
+  nazwa: "Drugie przypomnienie o płatności"
+  skrot: platnosc2
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Ok. 14 dni po terminie. Rzeczowo, z konkretną datą. Wezwanie do zapłaty — już nie szablonem, tylko po rozmowie z szefem."
+  tresc: |
+    Dzień dobry,
+
+    nie odnotowaliśmy jeszcze płatności za fakturę **{I:numer faktury}** na kwotę **{I:kwota brutto} zł**, z terminem {I:termin}.
+
+    Prosimy o uregulowanie należności do **{I:nowa data}** albo o kontakt, jeśli potrzebny jest inny termin lub podział na raty — na pewno się dogadamy.
+
+    Pozdrawiamy,
+
+# ───────────────────────── 6 · PO REALIZACJI ─────────────────────────
+- id: kontrola
+  grupa: g6
+  nazwa: "Kontrolny kontakt — czy wszystko działa"
+  skrot: kontrola
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "1–2 tygodnie po realizacji. Buduje zaufanie i wyłapuje drobiazgi, zanim urosną."
+  tresc: |
+    Dzień dobry,
+
+    minęło {I:ile czasu} od {I:czego (np. montażu, wdrożenia, naprawy)} — chcieliśmy zapytać, czy wszystko działa tak, jak powinno.
+
+    Jeśli cokolwiek budzi wątpliwości, nawet drobiazg — wystarczy odpisać. Lepiej poprawić od razu, niż żeby coś przeszkadzało na co dzień.
+
+    Pozdrawiamy serdecznie,
+
+- id: opinia
+  grupa: g6
+  nazwa: "Prośba o opinię w Google"
+  skrot: opinia
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Gdy klient wyraził zadowolenie. Link do opinii wpisz raz po imporcie (żółte pole)."
+  tresc: |
+    Dzień dobry,
+
+    bardzo dziękujemy za współpracę i miłe słowa! Mamy jedną prośbę: jeśli są Państwo zadowoleni, czy mogliby Państwo zostawić krótką opinię w Google? Zajmie to minutę, a nam bardzo pomaga — inni klienci z okolicy łatwiej nas znajdują.
+
+    ::przycisk Wystaw opinię w Google | {M:wstaw link do opinii Google tej linii}
+
+    Wystarczy jedno, dwa zdania — np. co robiliśmy i czy polecają Państwo współpracę.
+
+    Pozdrawiamy serdecznie,
+
+- id: polecenie
+  grupa: g6
+  nazwa: "Polecenie — prośba o kontakt do znajomych firm"
+  skrot: polecenie
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Zadowolony klient z siecią kontaktów. Bez nacisku."
+  tresc: |
+    Dzień dobry,
+
+    cieszymy się, że {I:co (np. system działa, monitoring się sprawdza)}. Jeśli znają Państwo kogoś, komu moglibyśmy pomóc w podobny sposób — będziemy wdzięczni za polecenie. Wystarczy przekazać nasz numer **{TEL}** albo adres **{WWW}**.
+
+    Polecenia traktujemy szczególnie — dbamy, żeby nie przynieść Państwu wstydu.
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── 7 · SYTUACJE TRUDNE ─────────────────────────
+- id: reklamacja
+  grupa: g7
+  nazwa: "Reklamacja / usterka — przyjmujemy zgłoszenie"
+  skrot: reklamacja
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Reklamacja. Na reklamację konsumenta odpowiadamy w 14 dni (art. 7a ustawy o prawach konsumenta) — inaczej uznaje się ją za uznaną. Ten mail = potwierdzenie przyjęcia."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zgłoszenie i przepraszamy za kłopot. Przyjęliśmy reklamację i już się nią zajmujemy.
+
+    ::karta Reklamacja {I:numer}
+    Dotyczy: {I:produkt / usługa}
+    Zgłoszono: {I:data}
+    Opis: {I:opis usterki (krótko, słowami klienta)}
+    Prowadzi: {I:imię i nazwisko}
+
+    ::kroki Co dalej
+    1. {I:pierwszy krok (np. zdalna diagnoza dziś / wizyta technika / odbiór sprzętu)}
+    2. Decyzja i rozwiązanie — poinformujemy mailem najpóźniej do **{I:data (max 14 dni)}**.
+    3. {I:jeśli sprzęt idzie do producenta — orientacyjny czas}
+
+    {?:Na czas naprawy możemy zaproponować sprzęt zastępczy — prosimy o informację, czy jest potrzebny.}
+
+    Pozdrawiamy serdecznie,
+
+- id: reklamacja2
+  grupa: g7
+  nazwa: "Reklamacja — rozwiązanie"
+  skrot: reklamacja2
+  linie: [biznes, instalacje, software, prokom]
+  kiedy: "Decyzja po reklamacji. Uznana: co robimy. Odrzucona: uzasadnienie i propozycja wyjścia."
+  tresc: |
+    Dzień dobry,
+
+    mamy decyzję w sprawie reklamacji **{I:numer}**.
+
+    ::karta Decyzja
+    Wynik: {S:wynik|uznana;nie została uznana}
+    Rozwiązanie: {I:co robimy (naprawa / wymiana / zwrot / uzasadnienie)}
+    Termin: {I:kiedy}
+
+    {I:przy odrzuceniu: uzasadnienie i propozycja wyjścia; przy uznaniu: podziękowanie za cierpliwość}
+
+    Jeśli mają Państwo pytania do decyzji — chętnie porozmawiamy: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: przeprosiny
+  grupa: g7
+  nazwa: "Przeprosiny za nasz błąd"
+  skrot: przeprosiny
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Zawaliliśmy. Bez wymówek: przyznanie, naprawa, co zmieniamy, żeby się nie powtórzyło."
+  tresc: |
+    Dzień dobry,
+
+    przepraszamy — to był nasz błąd: {I:co się stało (wprost)}.
+
+    ::kroki Co robimy
+    1. {I:naprawa sytuacji (co i kiedy)}
+    2. {I:co zmieniamy u siebie, żeby się nie powtórzyło}
+    3. {I:gest (np. bez opłaty za…, rabat na…) — albo usuń ten punkt}
+
+    Dziękujemy, że nam o tym napisali. Gdyby chcieli Państwo porozmawiać, prosimy o telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: odmowa
+  grupa: g7
+  nazwa: "Nie realizujemy — z poleceniem"
+  skrot: odmowa
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Nie robimy tego (zakres, termin, opłacalność). Zawsze z alternatywą."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie. Tym razem nie podejmiemy się realizacji — {S:powód|to poza naszym zakresem;nie zdążymy w wymaganym terminie;przy tym zakresie nie bylibyśmy dla Państwa najlepszym wyborem}.
+
+    Nie chcemy zostawić Państwa bez pomocy: {I:co polecamy (inna firma / inne rozwiązanie / inna linia PRO-KOM)}.
+
+    Jeśli sytuacja się zmieni — chętnie wrócimy do tematu.
+
+    Pozdrawiamy serdecznie,
+
+- id: nieuprzejmy
+  grupa: g7
+  nazwa: "Odpowiedź na nerwową wiadomość"
+  skrot: spokojnie
+  linie: [biznes, instalacje, software, prokom, tech]
+  kiedy: "Klient pisze ostro. Nie odpowiadamy emocjami: rozumiemy, fakty, rozwiązanie, telefon."
+  tresc: |
+    Dzień dobry,
+
+    rozumiemy, że sytuacja jest frustrująca — dziękujemy, że Państwo o niej napisali. Chcemy to szybko wyjaśnić.
+
+    ::karta Jak to wygląda u nas
+    Stan sprawy: {I:fakty (bez oceniania)}
+    Co możemy zrobić: {I:rozwiązanie}
+    Kiedy: {I:termin}
+
+    Najszybciej wyjaśnimy wszystko w rozmowie — możemy zadzwonić {I:kiedy}? Albo prosimy o telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+# ───────────────────────── AUTOODPOWIEDZI (panel poczty na serwerze) ─────────────────────────
+autoodpowiedzi:
+  - id: urlop
+    nazwa: "Urlop / nieobecność"
+    tresc: |
+      Dzień dobry,
+
+      dziękujemy za wiadomość. Od {data od} do {data do} {NAZWA} pracuje w ograniczonym zakresie. Odpowiemy najszybciej, jak to możliwe, najpóźniej {data powrotu}.
+
+      W pilnych sprawach: {TEL}.
+
+      {NAZWA} · {WWW}
+  - id: swieta
+    nazwa: "Święta / dni wolne"
+    tresc: |
+      Dzień dobry,
+
+      dziękujemy za wiadomość. W dniach {daty} jesteśmy nieczynni — odpowiemy od {pierwszy dzień pracy}.
+
+      Wesołych Świąt i do usłyszenia!
+      {NAZWA} · {TEL} · {WWW}
+  - id: poza-godzinami
+    nazwa: "Poza godzinami pracy (opcjonalnie)"
+    tresc: |
+      Dzień dobry,
+
+      dziękujemy za wiadomość. Pracujemy {GODZ} — odpowiemy w najbliższym dniu roboczym. {OBIETNICA}
+
+      {NAZWA} · {TEL} · {WWW}
