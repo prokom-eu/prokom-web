@@ -25,8 +25,8 @@ const lineDataSchema = z
     ACC_BTN: hex,
     ACC_SOFT: hex,
     LOGO: z.string(),
-    PODPISUJE: z.string(),
-    ROLA: z.string(),
+    /** People who sign mails of this line — one signature file each. */
+    PODPISY: z.array(z.object({ imie: z.string().min(1), rola: z.string().min(1) })).min(1),
   })
   .catchall(z.unknown())
 

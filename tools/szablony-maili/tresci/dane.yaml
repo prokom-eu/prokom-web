@@ -25,8 +25,12 @@ linie:
     ACC_BTN: "#244FB0"    # tło przycisku z białym tekstem (AA)
     ACC_SOFT: "#EEF2FA"   # tło karty / ramki info
     LOGO: "public/brand/prokom-biznes_poziome_kolor.svg"
-    PODPISUJE: "[Imię i nazwisko]"
-    ROLA: "Doradca ds. firm"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Doradca ds. firm"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
   instalacje:
     NAZWA: "PRO-KOM Instalacje"
     KROTKO: "Instalacje"
@@ -43,8 +47,12 @@ linie:
     ACC_BTN: "#007A96"
     ACC_SOFT: "#EAF5F8"
     LOGO: "public/brand/prokom-instalacje_poziome_kolor.svg"
-    PODPISUJE: "[Imię i nazwisko]"
-    ROLA: "Doradca ds. instalacji"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Doradca ds. instalacji"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
   software:
     NAZWA: "PRO-KOM Software"
     KROTKO: "Software"
@@ -60,8 +68,12 @@ linie:
     ACC_BTN: "#6E45D4"
     ACC_SOFT: "#F2EEFC"
     LOGO: "public/brand/prokom-software_poziome_kolor.svg"
-    PODPISUJE: "Krystian Potaczek"
-    ROLA: "Kierownik projektów · PRO-KOM Software"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Kierownik projektów · PRO-KOM Software"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
   prokom:
     NAZWA: "PRO-KOM"
     KROTKO: "PRO-KOM"
@@ -78,8 +90,12 @@ linie:
     ACC_BTN: "#367E23"
     ACC_SOFT: "#EEF6EA"
     LOGO: "public/brand/prokom-glowna_poziome_kolor.svg"
-    PODPISUJE: "[Imię i nazwisko]"
-    ROLA: "Biuro PRO-KOM"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Biuro PRO-KOM"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
   tech:
     NAZWA: "PRO-KOM Tech"
     KROTKO: "Tech"
@@ -96,8 +112,9 @@ linie:
     ACC_BTN: "#B3301F"
     ACC_SOFT: "#FBEFEC"
     LOGO: "[DO UZUPEŁNIENIA] oficjalny SVG znaku PRO-KOM TECH — do czasu pliku podpis z wordmarkiem HTML"
-    PODPISUJE: "[Imię i nazwisko]"
-    ROLA: "Serwis PRO-KOM Tech"
+    PODPISY:
+      - imie: "[Imię i nazwisko]"
+        rola: "Serwis PRO-KOM Tech"
     # Punkty serwisowe. Punkt z published: false nie trafia do list wyboru ani podpisu.
     PUNKTY:
       - key: rabka

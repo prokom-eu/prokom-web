@@ -7,7 +7,7 @@ import { MISSING_RE } from './dsl.ts'
 import { catalogue } from './katalog.ts'
 import { type Content, REPO_DIR, TOOL_DIR, loadContent } from './load.ts'
 import { renderLogo } from './logo.ts'
-import { signatureFile, signatureHtml } from './podpis.ts'
+import { signatureFile, signatureHtml, signerSlug } from './podpis.ts'
 import { type PreviewLine, previewHtml } from './preview.ts'
 import { quicktextXml } from './quicktext.ts'
 import { startGuide } from './start.ts'
@@ -47,7 +47,6 @@ const SIGNATURE_FIELDS = [
   'TEL2',
   'GODZ',
   'OBIETNICA',
-  'ROLA',
   'LOGO',
 ] as const
 
@@ -75,6 +74,9 @@ export async function build(
     for (const f of SIGNATURE_FIELDS) {
       if (MISSING_RE.test(d[f])) r.missing.push(`${f}: ${d[f]}`)
     }
+    for (const p of d.PODPISY) {
+      if (p.imie.startsWith('[')) r.missing.push(`PODPISY: ${p.imie} (${p.rola})`)
+    }
     errors.push(...r.errors)
     missingAll.push(...r.missing.map((m) => `${content.dane.linie[line].NAZWA}: ${m}`))
     warnings.push(...r.set.warnings, ...r.missing.map((m) => `${line}: brak danych — ${m}`))
@@ -88,10 +90,16 @@ export async function build(
       src: `${opts.logoBase.replace(/\/$/, '')}/${line}/logo-${line}.png`,
       ...logo,
     }
-    await writeFile(join(dir, `podpis-${line}.html`), signatureFile(content.dane, line, fileLogo))
+    for (const signer of d.PODPISY) {
+      const file = `podpis-${line}-${signerSlug(signer.imie)}.html`
+      await writeFile(join(dir, file), signatureFile(content.dane, line, fileLogo, signer))
+    }
     await writeFile(join(dir, `quicktext-${line}.xml`), quicktextXml(r))
     const dataLogo = { ...fileLogo, src: `data:image/png;base64,${logo.png.toString('base64')}` }
-    preview.push({ rendered: r, signature: signatureHtml(content.dane, line, dataLogo) })
+    preview.push({
+      rendered: r,
+      signature: signatureHtml(content.dane, line, dataLogo, d.PODPISY[0]!),
+    })
     rendered.push(r)
   }
   await writeFile(join(opts.out, 'podglad-szablonow.html'), previewHtml(content, preview))

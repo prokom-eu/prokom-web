@@ -18,6 +18,8 @@ Zastępuje paczkę `szablony-maili` v1 z 03.11 (101 szablonów, 3 linie, sam tek
 - **Podpis:** każdy telefon ma własny link `tel:` (we wzorcu oba numery prowadziły pod pierwszy).
 - **Sprawdzenie HTML/XML (§8)** robi mały sprawdzacz domknięcia tagów (`wellformed.ts`) zamiast `parse5`, bez nowej zależności. Jedyna nowa devDependency to `yaml` (parser treści).
 - **Build** usuwa w katalogu `--out` tylko swoje pliki (`<linia>/`, podgląd, katalog, `START-TUTAJ.md`). Domyślny cel kopii i ścieżki logo to `../../maile` względem repo, bez ścieżki bezwzględnej w kodzie.
+- **Osoby podpisujące (17.11):** w każdej z 4 linii Krystian Potaczek i Tadeusz Wójciak (`PODPISY` w `dane.yaml`, zamiast `PODPISUJE`/`ROLA`). Każda osoba dostaje własny plik `podpis-<linia>-<imię-nazwisko>.html`, a podgląd pokazuje pierwszy podpis. Rola Tadeusza Wójciaka: „Właściciel”.
+- **Ceny opieki Software 149/299/790 zaakceptowane przez szefa (17.11).**
 - **Migawki:** 5 podglądów ze wzorca (bez dwóch szablonów Tech, w ich miejsce `biznes/potwierdz`) + XML `biznes/oferta`.
 
 ## 1. Cel i zasady treści
@@ -199,5 +201,5 @@ dist/
 - **[SZEF]** Zakopane (adres, godziny) → `PUNKTY` `published: true`.
 - **[SZEF]** zasady kurierskie Tech (`KURIER_ZASADA`, kto płaci za odesłanie po rezygnacji) — szablony `kurier`, `rezygnacja`.
 - **[SZEF/regulamin]** zasady przechowywania nieodebranego sprzętu → szablon `nieodebrany` (pole `{M:}`).
-- **[SZEF]** ceny opieki Software 149/299/790 przed pierwszym wysłaniem `opieka`.
-- **[Krystian]** osoby podpisujące (`PODPISUJE`, `ROLA`) dla Biznesu, Instalacji, PRO-KOM i Tech.
+- ~~[SZEF] ceny opieki Software 149/299/790~~ — zaakceptowane 17.11.
+- ~~[Krystian] osoby podpisujące~~ — 17.11: Krystian Potaczek i Tadeusz Wójciak w 4 liniach (§0). Tech: do ustalenia przy włączeniu linii.

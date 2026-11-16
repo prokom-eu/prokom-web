@@ -1,5 +1,5 @@
 # PRO-KOM Software — szablony tylko tej linii. Ceny i terminy: claude/software-cennik.md
-# (opieka 149/299/790 zł/mies. — [SZEF] akceptacja przed pierwszym wysłaniem; audyt szybki 0 zł, raport w 2 dni robocze;
+# (opieka 149/299/790 zł/mies. — zaakceptowane przez szefa 17.11; audyt szybki 0 zł, raport w 2 dni robocze;
 # pełny audyt 990 zł odliczany od projektu zamówionego w 60 dni; przejęcie od 990 zł).
 grupy:
   gs1: "8 · Projekt krok po kroku"
@@ -106,7 +106,7 @@ szablony:
   grupa: gs2
   nazwa: "Propozycja opieki po wdrożeniu"
   skrot: opieka
-  kiedy: "Przed lub tuż po publikacji. [SZEF] Ceny 149/299/790 — sprawdź akceptację przed pierwszym wysłaniem."
+  kiedy: "Przed lub tuż po publikacji. Ceny 149/299/790 zaakceptowane przez szefa (17.11)."
   tresc: |
     Dzień dobry,
 

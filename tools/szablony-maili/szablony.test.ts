@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { build } from './build.ts'
 import { type RenderContext, inline, renderBody } from './dsl.ts'
 import { type Content, loadContent } from './load.ts'
-import { signatureHtml } from './podpis.ts'
+import { signatureHtml, signerSlug } from './podpis.ts'
 import { cdata, quicktextXml } from './quicktext.ts'
 import { renderLine } from './render.ts'
 import { LINES, type LineId } from './schema.ts'
@@ -94,17 +94,30 @@ describe('DSL — splitting and buttons', () => {
 
 describe('signature', () => {
   it('links every phone number to itself', () => {
-    const html = signatureHtml(content.dane, 'biznes', {
-      src: 'data:image/png;base64,',
-      width: 176,
-      height: 35,
-    })
+    const html = signatureHtml(
+      content.dane,
+      'biznes',
+      { src: 'data:image/png;base64,', width: 176, height: 35 },
+      { imie: 'Tadeusz Wójciak', rola: 'Właściciel' },
+    )
+    expect(html).toContain('>Tadeusz Wójciak</div>')
     expect(html).toContain(
       'href="tel:+48889003889" style="color:#121613;font-weight:700;text-decoration:none">889 003 889</a>',
     )
     expect(html).toContain(
       'href="tel:+48883200151" style="color:#121613;font-weight:700;text-decoration:none">883 200 151</a>',
     )
+  })
+
+  it('has two signers on every line (Krystian Potaczek, Tadeusz Wójciak)', () => {
+    for (const l of LINES) {
+      expect(
+        content.dane.linie[l].PODPISY.map((p) => p.imie),
+        l,
+      ).toEqual(['Krystian Potaczek', 'Tadeusz Wójciak'])
+    }
+    expect(signerSlug('Tadeusz Wójciak')).toBe('tadeusz-wojciak')
+    expect(signerSlug('Łukasz Żółć')).toBe('lukasz-zolc')
   })
 })
 
@@ -242,7 +255,7 @@ describe('build', () => {
 
       const strict = await build({ ...base, strict: true }, withGap)
       expect(strict.errors.join('\n')).toContain('--strict')
-      const sig = await readFile(join(out, 'biznes', 'podpis-biznes.html'), 'utf8')
+      const sig = await readFile(join(out, 'biznes', 'podpis-biznes-tadeusz-wojciak.html'), 'utf8')
       expect(sig).toContain('file:///maile/biznes/logo-biznes.png')
       // Only generated files are replaced; anything else in --out stays.
       expect((await readdir(out)).sort()).toEqual(

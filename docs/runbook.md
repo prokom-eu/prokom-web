@@ -324,7 +324,7 @@ Wybrany wariant: **nowy certyfikat zaraz po zmianie DNS** (procedura z §0), bez
 Narzędzie lokalne, bez serwera: `tools/szablony-maili/` (spec `docs/design/szablony/SZABLONY-MAILI.md`, rozstrzygnięcia w §0). Treści: `tools/szablony-maili/tresci/*.yaml`, dane linii (telefony, obietnice, kolory): `dane.yaml`.
 
 1. **Budowa:** `pnpm szablony:build` (opcje: `--line biznes|instalacje|software|prokom|all`, `--strict` = błąd przy `[DO UZUPEŁNIENIA]`/`[SZEF]`, `--logo-base <url>`, `--no-href-input`, `--out <katalog>`). Wynik trafia do `tools/szablony-maili/dist/` (poza gitem).
-2. **Kopia:** `pnpm szablony:copy` kopiuje `dist/` do `../../maile` względem repo (`--to <katalog>`, żeby wybrać inny). Nadpisuje pliki o tych samych nazwach, a innych nie usuwa. Uwaga: podpis z wpisanym nazwiskiem zostanie nadpisany, więc nazwisko trzeba wpisać ponownie albo ustawić `PODPISUJE` w `dane.yaml`.
-3. **Import:** wg `START-TUTAJ.md` w paczce: podpis z pliku, tryb HTML, Quicktext → usuń stare grupy → importuj `quicktext-<linia>.xml`, raz podmień `WSTAW-LINK` w szablonie opinii Google.
+2. **Kopia:** `pnpm szablony:copy` kopiuje `dist/` do `../../maile` względem repo (`--to <katalog>`, żeby wybrać inny). Nadpisuje pliki o tych samych nazwach, a innych nie usuwa. Podpisy są osobne dla każdej osoby (`podpis-<linia>-<imię-nazwisko>.html`). Osoby i role ustawia się w `PODPISY` w `dane.yaml`, nie w pliku podpisu.
+3. **Import:** wg `START-TUTAJ.md` w paczce: swój podpis z pliku, tryb HTML, Quicktext → usuń stare grupy → importuj `quicktext-<linia>.xml`, raz podmień `WSTAW-LINK` w szablonie opinii Google.
 4. **Zmiana treści albo danych:** edycja YAML → `pnpm test` (testy pilnują zasad treści) → build → copy → w Quicktext usuń grupy linii i zaimportuj XML ponownie. Zmianę commituj przez PR jak każdy kod.
 5. Pole Quicktext w adresie przycisku się nie podstawia? Zbuduj z `--no-href-input`: przycisk prowadzi wtedy do `#`, a adres jest tekstem pod spodem.
