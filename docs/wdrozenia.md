@@ -189,7 +189,7 @@ Gotowe, gdy kroki 1–7 są zielone. Dopiero wtedy dzwonisz.
 
 ### T. Telefon do nazwa.pl (IP `194.28.50.70`)
 
-Kolejność do podania konsultantowi:
+Telefon **801 33 22 33** (ustalenie 16.11: konsultant prowadzi zmianę w panelu krok po kroku; ściąga na rozmowę: `docs/dns.md` → „Ustalenie z nazwa.pl”). Kolejność do podania konsultantowi:
 
 1. **Poczta zostaje na nazwa.pl bez przerwy** — to pierwsze zdanie rozmowy. MX ma dziś `10 pro-kom.eu`, a SPF zawiera `a`. Samo przestawienie `A @` przeniosłoby pocztę na serwer bez poczty. Poproś o:
    - MX na nazwę serwera poczty nazwa.pl (nasza propozycja: `pro-kom.nazwa.pl`, albo co zalecą);
