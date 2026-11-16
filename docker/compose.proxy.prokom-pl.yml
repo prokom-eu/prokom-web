@@ -1,0 +1,8 @@
+# pro-kom.pl (old WordPress, retired 11.2026): 301 redirects only, template prokom-pl.conf.template.
+# Add it once the `prokom-pl` certificate exists — nginx does not start with a server block whose
+# certificate is missing (runbook §0, docs/dns.md → "pro-kom.pl").
+
+services:
+  nginx:
+    volumes:
+      - ./nginx/templates/prokom-pl.conf.template:/etc/nginx/templates/prokom-pl.conf.template:ro

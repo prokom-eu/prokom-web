@@ -31,7 +31,7 @@ docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compo
   -f docker/compose.proxy.tech-staging.yml -f docker/compose.proxy.tech-prod.yml \
   -f docker/compose.proxy.hub-prod.yml up -d --force-recreate --no-deps nginx
 ```
-Przed `up` zawsze ten sam zestaw z `run --rm --no-deps nginx nginx -t` (niżej). Polecenia wyżej (9.11, Tech staging) są historyczne. Sprawdzenie, z czym wstał kontener: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
+Od certyfikatu `prokom-pl` (301 starej pro-kom.pl, `docs/dns.md` → „pro-kom.pl”) dochodzi ósma nakładka `-f docker/compose.proxy.prokom-pl.yml` — nie wcześniej (bez certyfikatu Nginx nie wstanie). Przed `up` zawsze ten sam zestaw z `run --rm --no-deps nginx nginx -t` (niżej). Polecenia wyżej (9.11, Tech staging) są historyczne. Sprawdzenie, z czym wstał kontener: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
 
 **Nowy zestaw nakładek albo zmiana szablonów — najpierw test na jednorazowym kontenerze**, potem start. `docker exec … nginx -t` po `up -d` nic nie zabezpiecza: zły szablon albo brak certyfikatu zdejmuje wszystkie domeny, a restartujący się kontener nie przyjmie `exec`. Ten sam zestaw `-f` co w poleceniu startu, `run` zamiast `up` (bez portów 80/443, szablony renderuje entrypoint obrazu):
 ```bash
