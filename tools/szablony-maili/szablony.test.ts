@@ -1,10 +1,11 @@
-import { mkdtemp, readFile } from 'node:fs/promises'
+import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { build } from './build.ts'
 import { type RenderContext, inline, renderBody } from './dsl.ts'
 import { type Content, loadContent } from './load.ts'
+import { signatureHtml } from './podpis.ts'
 import { cdata, quicktextXml } from './quicktext.ts'
 import { renderLine } from './render.ts'
 import { LINES, type LineId } from './schema.ts'
@@ -59,6 +60,51 @@ describe('DSL', () => {
     const html = renderBody(ctx('xml'), '::pozycje\nA | B\nx | 1 zł\n**Razem | 1 zł')
     expect(html).toContain('border-top:2px solid #244FB0')
     expect(html).toContain('font:700 14px')
+  })
+})
+
+describe('DSL — splitting and buttons', () => {
+  it('splits card rows and table cells outside {…}', () => {
+    const html = renderBody(
+      ctx('xml'),
+      '::karta T\n{I:co: dokładnie}: {S:x|a;b}\n\n::pozycje\nA | B\n{S:y|c;d} | 1',
+    )
+    expect(html).toContain('[[INPUT=co: dokładnie]]</td>')
+    expect(html).toContain('[[INPUT=x|select|a;b]]')
+    expect(html).toContain('[[INPUT=y|select|c;d]]</td>')
+  })
+
+  it('reports a button without an address and a card row without a label', () => {
+    const c = ctx('xml')
+    renderBody(c, '::przycisk Sam tekst\n\n::karta T\nbez dwukropka')
+    expect(c.errors).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('button'),
+        expect.stringContaining('card row'),
+      ]),
+    )
+  })
+
+  it('gives a one-off ({M:}) button a marker address and a note to replace it', () => {
+    const html = renderBody(ctx('xml'), '::przycisk Opinia | {M:link do opinii}')
+    expect(html).toContain('href="WSTAW-LINK"')
+    expect(html).toContain('podmień adres przycisku (WSTAW-LINK)')
+  })
+})
+
+describe('signature', () => {
+  it('links every phone number to itself', () => {
+    const html = signatureHtml(content.dane, 'biznes', {
+      src: 'data:image/png;base64,',
+      width: 176,
+      height: 35,
+    })
+    expect(html).toContain(
+      'href="tel:+48889003889" style="color:#121613;font-weight:700;text-decoration:none">889 003 889</a>',
+    )
+    expect(html).toContain(
+      'href="tel:+48883200151" style="color:#121613;font-weight:700;text-decoration:none">883 200 151</a>',
+    )
   })
 })
 
@@ -182,6 +228,7 @@ describe('build', () => {
       const withGap: Content = structuredClone(content)
       withGap.dane.linie.biznes.TEL2 = '[SZEF] drugi numer'
       const out = await mkdtemp(join(tmpdir(), 'szablony-'))
+      await writeFile(join(out, 'moj-plik.txt'), 'nie usuwać')
       const base = {
         lines: ['biznes'] as LineId[],
         logoBase: 'file:///maile',
@@ -197,6 +244,18 @@ describe('build', () => {
       expect(strict.errors.join('\n')).toContain('--strict')
       const sig = await readFile(join(out, 'biznes', 'podpis-biznes.html'), 'utf8')
       expect(sig).toContain('file:///maile/biznes/logo-biznes.png')
+      // Only generated files are replaced; anything else in --out stays.
+      expect((await readdir(out)).sort()).toEqual(
+        [
+          'KATALOG-SZABLONOW.md',
+          'START-TUTAJ.md',
+          'biznes',
+          'moj-plik.txt',
+          'podglad-szablonow.html',
+        ].sort(),
+      )
+      expect(await readFile(join(out, 'START-TUTAJ.md'), 'utf8')).toContain('[SZEF] drugi numer')
+      await rm(out, { recursive: true, force: true })
     },
   )
 })
@@ -212,5 +271,11 @@ describe('snapshots (probka-wzorzec)', () => {
     ['prokom', 'dostawy-lista'],
   ] as const)('%s/%s', (l, id) => {
     expect(pick(l, id)).toMatchSnapshot()
+  })
+
+  it('biznes/oferta as inserted by Quicktext (xml)', () => {
+    expect(
+      rendered.biznes.templates.find((t) => t.template.id === 'oferta')!.xmlBody,
+    ).toMatchSnapshot()
   })
 })

@@ -79,6 +79,23 @@ export function parseInline(s: string): Node[] {
   return pairStars(flat)
 }
 
+/** Splits on `sep` outside {…} (so `{I:a: b}` or `{S:x|a;b}` stay whole). */
+export function splitOutside(s: string, sep: string, limit = Infinity): string[] {
+  const parts: string[] = []
+  let depth = 0
+  let start = 0
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '{') depth++
+    else if (s[i] === '}') depth = Math.max(0, depth - 1)
+    else if (s[i] === sep && depth === 0 && parts.length < limit - 1) {
+      parts.push(s.slice(start, i))
+      start = i + 1
+    }
+  }
+  parts.push(s.slice(start))
+  return parts
+}
+
 function splitOnce(s: string, sep: string): [string, string] {
   const i = s.indexOf(sep)
   return i < 0 ? [s, ''] : [s.slice(0, i), s.slice(i + 1)]
@@ -199,8 +216,14 @@ function renderButton(ctx: RenderContext, label: string, target: string): string
   if (ctx.mode === 'text') return `[${label} →](${renderNodes(ctx, nodes)})`
   const labelHtml = inline(ctx, label)
   if (manual && manual.t === 'manual') {
-    // One-off placeholder: keep it visible next to the button so it is not missed after import.
-    return h.button(a, labelHtml, '#') + h.paragraph(renderNodes(ctx, [manual]))
+    // One-off address: a recognisable marker in href + a yellow note to replace it after import.
+    const note = renderNodes(ctx, [
+      {
+        t: 'manual',
+        v: `${manual.v} — podmień adres przycisku (${BUTTON_MARKER}) i usuń ten akapit`,
+      },
+    ])
+    return h.button(a, labelHtml, BUTTON_MARKER) + h.paragraph(note)
   }
   if (ctx.mode === 'preview') {
     const addr = renderNodes(ctx, nodes)
@@ -216,6 +239,9 @@ function renderButton(ctx: RenderContext, label: string, target: string): string
 function lookupHref(ctx: RenderContext, nodes: Node[]): string {
   return renderNodes({ ...ctx, mode: 'text', errors: [] }, nodes)
 }
+
+/** href of a button whose address is filled in once after import ({M:…}). */
+export const BUTTON_MARKER = 'WSTAW-LINK'
 
 const BOX_RE = /^::(info|uwaga|ok)(?: (.*))?$/
 
@@ -237,7 +263,8 @@ export function renderBody(ctx: RenderContext, tresc: string): string {
     if (head.startsWith('::karta')) {
       const title = inline(ctx, head.slice(7).trim())
       const rows = rest.map((l) => {
-        const [label, value] = splitOnce(l, ':')
+        const [label = '', value = ''] = splitOutside(l, ':', 2)
+        if (!l.includes(':')) ctx.errors.push(`card row without "Label: value": ${l}`)
         return { label: inline(ctx, label.trim()), value: inline(ctx, value.trim()) }
       })
       out.push(
@@ -267,15 +294,16 @@ export function renderBody(ctx: RenderContext, tresc: string): string {
           : h.box(a, kind as h.BoxKind, title, body.join('<br>')),
       )
     } else if (head.startsWith('::przycisk')) {
-      const [label, target] = splitOnce(head.slice(10).trim(), '|')
+      const [label = '', target = ''] = splitOutside(head.slice(10).trim(), '|', 2)
+      if (!target.trim()) ctx.errors.push(`button without "| address": ${head}`)
       out.push(renderButton(ctx, label.trim(), target.trim()))
     } else if (head.startsWith('::pozycje')) {
       const [headerLine = '', ...rowLines] = rest
-      const header = headerLine.split('|').map((c) => inline(ctx, c.trim()))
+      const header = splitOutside(headerLine, '|').map((c) => inline(ctx, c.trim()))
       const rows = rowLines.map((l) => {
         const total = l.startsWith('**')
         const clean = total ? l.replace(/^\*\*/, '').replace(/\*\*$/, '') : l
-        return { total, cells: clean.split('|').map((c) => inline(ctx, c.trim())) }
+        return { total, cells: splitOutside(clean, '|').map((c) => inline(ctx, c.trim())) }
       })
       out.push(
         text

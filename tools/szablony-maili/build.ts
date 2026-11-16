@@ -10,6 +10,7 @@ import { renderLogo } from './logo.ts'
 import { signatureFile, signatureHtml } from './podpis.ts'
 import { type PreviewLine, previewHtml } from './preview.ts'
 import { quicktextXml } from './quicktext.ts'
+import { startGuide } from './start.ts'
 import { renderLine } from './render.ts'
 import { LINES, type LineId } from './schema.ts'
 
@@ -29,6 +30,13 @@ export interface BuildResult {
   warnings: string[]
   errors: string[]
 }
+
+/** Top-level files written by build (removed before each build together with line folders). */
+const GENERATED_FILES = [
+  'podglad-szablonow.html',
+  'KATALOG-SZABLONOW.md',
+  'START-TUTAJ.md',
+] as const
 
 /** Line data used outside templates (signature) that must not stay a placeholder. */
 const SIGNATURE_FIELDS = [
@@ -53,7 +61,14 @@ export async function build(
   const preview: PreviewLine[] = []
   const rendered = []
 
-  await rm(opts.out, { recursive: true, force: true })
+  // Remove only what the generator creates — --out may point at a folder with other files
+  // (e.g. the v1 package or signatures with a name typed in).
+  await Promise.all(
+    [...LINES, ...GENERATED_FILES].map((p) =>
+      rm(join(opts.out, p), { recursive: true, force: true }),
+    ),
+  )
+  const missingAll: string[] = []
   for (const line of opts.lines) {
     const r = renderLine(content, line, { noHrefInput: opts.noHrefInput })
     const d = content.dane.linie[line]
@@ -61,6 +76,7 @@ export async function build(
       if (MISSING_RE.test(d[f])) r.missing.push(`${f}: ${d[f]}`)
     }
     errors.push(...r.errors)
+    missingAll.push(...r.missing.map((m) => `${content.dane.linie[line].NAZWA}: ${m}`))
     warnings.push(...r.set.warnings, ...r.missing.map((m) => `${line}: brak danych — ${m}`))
     counts[line] = r.templates.length
 
@@ -79,9 +95,10 @@ export async function build(
     rendered.push(r)
   }
   await writeFile(join(opts.out, 'podglad-szablonow.html'), previewHtml(content, preview))
-  await writeFile(join(opts.out, 'KATALOG-SZABLONOW.md'), catalogue(content, rendered))
+  await writeFile(join(opts.out, 'KATALOG-SZABLONOW.md'), catalogue(content, rendered, errors))
+  await writeFile(join(opts.out, 'START-TUTAJ.md'), startGuide(content, rendered, missingAll))
 
-  if (opts.strict && warnings.some((w) => w.includes('brak danych'))) {
+  if (opts.strict && missingAll.length > 0) {
     errors.push(
       '--strict: dane.yaml zawiera [DO UZUPEŁNIENIA] / [SZEF] używane przez budowane linie',
     )

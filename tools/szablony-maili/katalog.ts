@@ -3,7 +3,8 @@ import { inline } from './dsl.ts'
 import type { Content } from './load.ts'
 import type { RenderedLine } from './render.ts'
 
-export function catalogue(content: Content, lines: RenderedLine[]): string {
+/** `errors` collects problems in auto-replies (e.g. an unknown upper-case variable). */
+export function catalogue(content: Content, lines: RenderedLine[], errors: string[] = []): string {
   const out: string[] = [
     '# Katalog szablonów ręcznych odpowiedzi PRO-KOM',
     '',
@@ -35,7 +36,7 @@ export function catalogue(content: Content, lines: RenderedLine[]): string {
         line: r.line,
         dane: content.dane,
         mode: 'text' as const,
-        errors: [],
+        errors: [] as string[],
         missing: new Set<string>(),
       }
       const body = a.tresc
@@ -43,6 +44,7 @@ export function catalogue(content: Content, lines: RenderedLine[]): string {
         .split('\n')
         .map((l) => inline(ctx, l))
         .join('\n')
+      errors.push(...ctx.errors.map((e) => `${r.line}/autoodpowiedz-${a.id}: ${e}`))
       out.push(`#### ${a.nazwa}`, '', '```text', body, '```', '')
     }
   }
