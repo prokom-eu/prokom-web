@@ -100,8 +100,8 @@ Na produkcji pro-kom.eu ma **osobny** blok Nginx i certyfikat. Szablon `docker/n
 
 - [ ] Zadanie Asany „SZEF · Akceptacja nowej pro-kom.eu” odhaczone.
 - [ ] Ostatni przebieg „Lighthouse” po wdrożeniu stagingu tym obrazem zielony dla adresów `staging.pro-kom.eu` (runbook §3). Gdy czerwona jest strona innej linii — decyduje Krystian.
-- [ ] Na produkcji tenant `prokom` z Ustawieniami strony. Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień `biuro@prokombiznes.pl`; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
-- [ ] Poczta formularzy huba na produkcji: skrzynka `biuro@prokombiznes.pl` w Seohost i `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh prod'` (pyta też o hasło `biuro@`), potem `$prod up -d app` i `mail-test.sh prod <adres> prokom`.
+- [x] Na produkcji tenant `prokom` z Ustawieniami strony (założony 16.11). Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień `biuro@prokombiznes.pl`; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
+- [x] (16.11) Poczta formularzy huba na produkcji: skrzynka `biuro@prokombiznes.pl` w Seohost i `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh prod'` (pyta też o hasło `biuro@`), potem `$prod up -d app` i `mail-test.sh prod <adres> prokom`.
 - [ ] Spisane urządzenia z pocztą `@pro-kom.eu` (komputery, telefony) i nazwa serwera IMAP/SMTP na każdym (`docs/dns.md` → „Poczta `@pro-kom.eu` przy przełączeniu strony”). Gdy jest tam `pro-kom.eu`, po zmianie `A @` program przestanie się łączyć — patrz krok T2.
 - [ ] Telefon do nazwa.pl w dzień roboczy rano: ktoś w firmie odbiera telefony, a pracownicy są pod ręką do sprawdzenia poczty.
 
