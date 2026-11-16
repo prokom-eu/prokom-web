@@ -230,7 +230,6 @@ async function SoftwarePostPage({ tenantId, post: stored }: { tenantId: number; 
     ...others.filter((item) => item.categoryValue === category),
     ...others.filter((item) => item.categoryValue !== category),
   ].slice(0, READ_ALSO)
-  const coverUrl = post.cover?.sources.at(-1)?.url
   const jsonLd = [
     breadcrumbJsonLd([
       { name: 'Strona główna', url: `${origin}/` },
@@ -248,12 +247,8 @@ async function SoftwarePostPage({ tenantId, post: stored }: { tenantId: number; 
       origin,
       datePublished: post.published?.dateTime ?? null,
       dateModified: post.updated?.dateTime ?? post.published?.dateTime ?? null,
-      // An uploaded cover, else the generated card with the drawn one (`og/wpis/[slug]`).
-      images: [
-        coverUrl
-          ? new URL(coverUrl, origin).href
-          : origin + postOgImage(post.slug, post.title)[0].url,
-      ],
+      // The same picture as og:image: the card with the drawn cover (the page shows no upload).
+      images: [origin + postOgImage(post.slug, post.title)[0].url],
     }),
     // The „Najczęstsze pytania” section of the text (`postFaq`), when the post has one.
     ...(faq.length > 0 ? [faqJsonLd(faq)] : []),
