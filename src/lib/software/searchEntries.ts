@@ -55,13 +55,14 @@ export function softwareSearchEntries(
   pages: readonly SearchPage[],
   extras: SearchExtras | null = null,
 ): LineSearchEntry[] {
+  const display = index?.priceDisplay
   const offer = (index?.solutions ?? []).map((solution): LineSearchEntry => {
     const group = offerGroup(solution)
     return {
       id: `${OFFER_ID}${solution.slug}`,
       group: 'Oferta',
       title: solution.name,
-      hint: [priceLine(solution, index!.priceDisplay), groupLabel(group)]
+      hint: [display && priceLine(solution, display), groupLabel(group)]
         .filter(Boolean)
         .join(' · '),
       href: `/rozwiazania?rozwiazanie=${solution.slug}`,
@@ -107,7 +108,8 @@ export function softwareSearchEntries(
 
 /**
  * Search settings of the window: synonyms and popular phrases of `SoftwareSettings.search` (the
- * panel's word groups as the shared engine wants them) and the shortcuts of `shared.rail`.
+ * panel's word groups as the shared engine wants them) and the shortcuts of `shared.rail` —
+ * `softwareSearchProvider` passes none and draws its own „Na skróty” (`softwareShortcuts`).
  */
 export function searchSettings(
   index: Pick<SolutionsIndex, 'search'> | null,

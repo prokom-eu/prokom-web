@@ -9,16 +9,28 @@ import { onSearchRequest } from '@/lib/site/searchOpen'
 import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { railAway } from '@/lib/software/railAway'
-import { softwareSearchProvider, type SearchPage } from '@/lib/software/searchEntries'
+import { buildLineProvider } from '@/lib/shared/search/lineProvider'
+import type { SearchPage } from '@/lib/software/searchEntries'
 import type { SearchExtras } from '@/lib/software/searchExtras'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { LazySearch } from './LazySearch'
 import { useProjectCount } from './ProjectCount'
-import { SearchPreview } from './SearchPreview'
 
 const INDEX_URL = '/api/solutions-index'
 const EXTRAS_URL = '/api/software-search'
+
+type SearchBundle = typeof import('./searchBundle')
+
+/** One import per page load (as the data): the provider and the preview of the window. */
+let bundleRequest: Promise<SearchBundle | null> | null = null
+function loadBundle(): Promise<SearchBundle | null> {
+  bundleRequest ??= import('./searchBundle').catch(() => {
+    bundleRequest = null
+    return null
+  })
+  return bundleRequest
+}
 
 type Props = {
   sections: SiteRailProps['sections']
@@ -74,12 +86,14 @@ export function SwRail({
   const count = useProjectCount()
   const [index, setIndex] = useState<SolutionsIndex | null>(null)
   const [extras, setExtras] = useState<SearchExtras | null>(null)
+  const [bundle, setBundle] = useState<SearchBundle | null>(null)
 
   useEffect(() => {
     let alive = true
     const load = () => {
       void loadJson<SolutionsIndex>(INDEX_URL).then((loaded) => alive && loaded && setIndex(loaded))
       void loadJson<SearchExtras>(EXTRAS_URL).then((loaded) => alive && loaded && setExtras(loaded))
+      void loadBundle().then((loaded) => alive && loaded && setBundle(() => loaded))
     }
     const idle = window.requestIdleCallback?.(load, { timeout: 4000 })
     const timer = idle === undefined ? window.setTimeout(load, 1500) : undefined
@@ -103,8 +117,22 @@ export function SwRail({
   }, [pathname])
 
   const provider = useMemo(
-    () => softwareSearchProvider(index, extras, pages, shortcuts),
-    [index, extras, pages, shortcuts],
+    () =>
+      bundle
+        ? bundle.softwareSearchProvider(index, extras, pages, shortcuts)
+        : // Until the bundle comes: the pages and the panel's shortcuts, as before (light).
+          buildLineProvider(
+            pages.map((page) => ({
+              id: `strona:${page.href}`,
+              group: 'Strony',
+              title: page.label,
+              hint: page.hint ?? null,
+              href: page.href,
+              icon: 'doc',
+            })),
+            { shortcuts },
+          ),
+    [bundle, index, extras, pages, shortcuts],
   )
   const railAction =
     count > 0
@@ -128,7 +156,11 @@ export function SwRail({
         phone={phone}
         label="Szukaj na stronie"
         placeholder="Szukaj: strona dla pensjonatu, CRM, faktury…"
-        renderPreview={(result) => <SearchPreview result={result} index={index} extras={extras} />}
+        renderPreview={
+          bundle
+            ? (result) => <bundle.SearchPreview result={result} index={index} extras={extras} />
+            : undefined
+        }
       />
     </>
   )
