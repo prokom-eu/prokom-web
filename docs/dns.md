@@ -130,6 +130,29 @@ Pełna strefa z `ns1.nazwa.pl` (16.11) — punkt powrotu i lista do przepisania 
 - **Panel:** w obecnym trybie („Przekierowanie na usługę w nazwa.pl”) MX ustawia nazwa.pl, a „Dodatkowy rekord DNS” przyjmuje tylko TXT, SRV, CNAME, AAAA i A. Zmiana MX najpewniej wymaga przejścia na **ręczną konfigurację DNS** i przepisania całej strefy z tabeli wyżej (subdomeny hostingu przez wildcard albo osobno). Mail z pytaniami do `kontakt@nazwa.pl` przygotowany 16.11 (wysyła Krystian) — **nic w DNS nie zmieniamy przed odpowiedzią.**
 - Kroki (a)–(c) z tabeli wyżej zostają, z poprawką: w (a) MX na `pro-kom.nazwa.pl` (albo nazwę zaleconą przez nazwa.pl) zamiast `mail.pro-kom.eu`.
 
+**Ustalenie z nazwa.pl (telefon Krystiana, 16.11):** w dniu startu Krystian dzwoni do nazwa.pl (801 33 22 33), a konsultant prowadzi zmianę w panelu krok po kroku. Nie przełączamy trybu domeny sami.
+
+Ściąga na rozmowę:
+
+- **Domena i hosting:** `pro-kom.eu`, hosting `pro-kom.nazwa.pl`.
+- **Strona i www:** `pro-kom.eu` i `www.pro-kom.eu` → **`194.28.50.70`** (nowy serwer; certyfikat SSL wystawiamy sami po zmianie).
+- **Poczta `@pro-kom.eu`:** bez zmian, zostaje na hostingu `pro-kom.nazwa.pl` (te same skrzynki). MX nie może wskazywać na `pro-kom.eu`. Proponujemy `10 pro-kom.nazwa.pl` albo nazwę, którą zalecą.
+- **SPF:** bez `a` → `v=spf1 mx ip4:85.128.169.153 ~all` albo ich zalecenie. Plus nadawca, jeśli wyjdzie z nagłówków (np. Microsoft 365).
+- **Subdomeny hostingu:** `sklep`, `komis`, `extranet`, `test`, `demo`, `dj`, `full`, `zaleglosci` bez zmian.
+- **Zostają bez zmian:** `staging` → `194.28.50.70`, wildcard, DKIM, DMARC, CAA, TXT `MS=`.
+- **Pytanie do konsultanta:** jaki serwer IMAP/SMTP wpisać pracownikom. Nasza propozycja: `pro-kom.nazwa.pl`, IMAP 993, SMTP 465, SSL/TLS.
+
+**Kiedy dzwonić:** w dniu startu, po krokach 1–3 z `docs/wdrozenia.md` → „pro-kom.eu — dzień startu” (kod i treść huba na produkcji, tenant bez domeny). Zaraz po zmianie rekordów robimy kroki 5–7: certyfikat, Nginx i sprawdzenie.
+
+**Przedtem i tak:**
+- programy pocztowe pracowników przestawione na `pro-kom.nazwa.pl`;
+- miejsce na dysku poczty;
+- przedłużony hosting.
+
+**Po rozmowie:**
+- mail testowy z i na `@pro-kom.eu`, także z Gmaila;
+- wpis nowej strefy w tej sekcji.
+
 **Staging huba (H7-2 krok 1) — bezpieczny dla poczty, można przed decyzją o poczcie:** jawny rekord `staging` ma pierwszeństwo przed wildcardem tylko dla tej jednej nazwy; `@`, MX, SPF, `mail` i reszta zostają na nazwa.pl. Dziś `staging.pro-kom.eu` trafia przez wildcard na stary serwer `85.128.169.153` (sprawdzone 15.11), więc hubu na stagingu nie da się otworzyć.
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
