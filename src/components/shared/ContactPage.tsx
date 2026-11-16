@@ -32,6 +32,11 @@ import { TAP_AREA } from './tapArea'
 export type ContactSlots = {
   /** Under the address card, e.g. the second salon (Instalacje). */
   heroAside?: ReactNode
+  /**
+   * Under the hero's call buttons and facts, in the text column (hub 16.11: short notes there
+   * keep both hero columns about as tall).
+   */
+  heroBelow?: ReactNode
   /** After „Z czym dzwonisz?”. */
   afterRoutes?: ReactNode
   /** Above the form fields, e.g. Software „Twój projekt”. */
@@ -268,6 +273,7 @@ export function ContactPage({
                 ))}
               </ul>
             )}
+            {slots.heroBelow}
           </div>
 
           <div className="flex flex-col gap-4">
