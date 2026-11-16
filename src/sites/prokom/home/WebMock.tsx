@@ -42,9 +42,8 @@ export function WebMock({ size }: { size: 'sm' | 'lg' }) {
       </span>
       <span className="pk-web2__hero">
         <span className="pk-web2__copy">
-          <span className="pk-web2__stars">
-            ★★★★★<small>4,9 Google</small>
-          </span>
+          {/* Stars only: a figure here could read as PRO-KOM's own rating (spec §3). */}
+          <span className="pk-web2__stars">★★★★★</span>
           <strong>{size === 'lg' ? 'Twoja firma, dobrze widoczna.' : 'Twoja firma w sieci'}</strong>
           <i className="pk-web2__line" />
           <i className="pk-web2__line pk-web2__line--short" />

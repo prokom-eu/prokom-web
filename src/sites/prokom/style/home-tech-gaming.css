@@ -206,9 +206,8 @@
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--ln) 25%, transparent);
   animation: pk-node-halo 1.8s ease-in-out infinite;
 }
-/* The current stage's line: a light streak runs towards the next stage. */
+/* The current stage's line fades towards the next stage. */
 .pk-stages__row button[data-state='now']:not(:last-child)::before {
-  overflow: hidden;
   background: linear-gradient(90deg, var(--ln), var(--w16) 70%);
 }
 .pk-stages__row button:hover > span {
@@ -277,26 +276,24 @@
     clip-path: inset(0 0 0 0);
   }
 }
-/* A cursor sweeps the run like a live benchmark. */
+/* A cursor sweeps the run like a live benchmark: a full-width layer moved by `transform` only,
+   its glow at the right edge. */
 .pk-fps__scan {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 36px;
+  inset: 0;
   background: linear-gradient(
     90deg,
-    transparent,
-    color-mix(in srgb, var(--ln) 18%, transparent) 85%,
-    color-mix(in srgb, var(--ln) 70%, transparent) 86% 88%,
-    transparent 89%
+    transparent calc(100% - 36px),
+    color-mix(in srgb, var(--ln) 18%, transparent) calc(100% - 5px),
+    color-mix(in srgb, var(--ln) 70%, transparent) calc(100% - 4px) calc(100% - 2px),
+    transparent calc(100% - 1px)
   );
   transform: translateX(-100%);
   animation: pk-fps-scan 3.6s linear 1.6s infinite;
 }
 @keyframes pk-fps-scan {
   to {
-    left: 100%;
+    transform: translateX(0);
   }
 }
 /* The newest reading, live. */

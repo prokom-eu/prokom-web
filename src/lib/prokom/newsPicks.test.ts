@@ -42,4 +42,16 @@ describe('chooseLinePosts — one post of each line on the hub (Krystian 16.11)'
     )
     expect(chosen.map((group) => group.tenant.line)).toEqual(['biznes', 'software'])
   })
+
+  it('skips a post that could not be a card (no title or date) for the next good one', () => {
+    const broken = [
+      { ...post('b-untitled', 16), title: '  ' },
+      { ...post('b-undated', 15), publishedAt: null },
+      post('b-good', 14),
+    ]
+    const chosen = chooseLinePosts([{ tenant: tenant(1, 'biznes'), posts: broken }], {
+      biznes: 'b-untitled',
+    })
+    expect(chosen.map((group) => group.posts.map((p) => p.slug))).toEqual([['b-good']])
+  })
 })
