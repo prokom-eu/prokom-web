@@ -9,7 +9,9 @@ import type { HubHome } from '@/lib/prokom/home'
 
 import { lineStyle } from '../lineColors'
 import { stepIndex } from './autoplay'
+import { FpsGraph } from './LineMocks'
 import { CamScene, Tick, WifiArcs } from './art'
+import { FlowMock, WebMock } from './WebMock'
 import { Mark } from './Mark'
 import type { HomeLine } from './model'
 
@@ -298,35 +300,7 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
         </div>
       )
     case 'web':
-      return (
-        <div className="pk-vg__web">
-          <span className="pk-vg__chrome">
-            <i />
-            <i />
-            <i />
-            <span>twojafirma.pl</span>
-          </span>
-          <span className="pk-web__nav">
-            <i className="pk-web__logo" />
-            <i />
-            <i />
-            <i />
-            <i className="pk-web__cta" />
-          </span>
-          <span className="pk-vg__page">
-            <span className="pk-vg__copy">
-              <i className="pk-sk pk-sk--title" />
-              <i className="pk-sk pk-sk--title pk-sk--half" />
-              <i className="pk-sk" />
-              <i className="pk-vg__btn" />
-            </span>
-            <span className="pk-web__shot">
-              <i />
-              <Bars count={5} className="pk-vg__chart" />
-            </span>
-          </span>
-        </div>
-      )
+      return <WebMock size="sm" />
     case 'kanban':
       return (
         <div className="pk-vg__kanban">
@@ -351,28 +325,11 @@ function Vignette({ vignette }: { vignette: VignetteData }) {
         </div>
       )
     case 'flow':
-      return (
-        <div className="pk-vg__flow">
-          <span className="pk-fn">
-            <Icon name="site" />
-            Formularz
-          </span>
-          <i className="pk-fl" />
-          <span className="pk-fn" data-on="">
-            <Icon name="bolt" />
-            Twój system
-          </span>
-          <i className="pk-fl" style={{ animationDelay: '0.9s' }} />
-          <span className="pk-fn">
-            <Tick />
-            SMS i e-mail
-          </span>
-        </div>
-      )
+      return <FlowMock />
   }
 }
 
-/** Tech: the device of the slide (phone, laptop, finished ticket) beside the repair stages. */
+/** Tech: the device of the slide beside the repair stages. */
 function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
   // By the slide order of the package (telefony, laptopy i konsole, bezpłatna diagnoza).
   const devices: IconName[] = ['phone', 'pc', 'check']
@@ -382,13 +339,9 @@ function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
         <Icon name={devices[slide % devices.length] ?? 'wrench'} />
       </span>
       <span className="pk-tech__track">
-        <span className="pk-ht__bars">
+        <span className="pk-nodes">
           {stages.map((stage, i) => (
-            <i
-              key={stage}
-              className="pk-stp"
-              data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined}
-            />
+            <i key={stage} data-state={i < 2 ? 'done' : i === 2 ? 'now' : undefined} />
           ))}
         </span>
         <span className="pk-ht__stage-names">
@@ -403,13 +356,13 @@ function TechVisual({ stages, slide }: { stages: string[]; slide: number }) {
   )
 }
 
-/** Gaming: the measured frames with a readout that follows the slide. */
+/** Gaming: the frame graph with a readout that follows the slide. */
 function GamingVisual({ slide }: { slide: number }) {
   // By the slide order of the package (Komputery, Konfigurator, Dobór pod grę) — no figures.
   const readouts = ['RGB · chłodzenie', 'CPU · GPU · RAM', 'Test w grze']
   return (
     <div aria-hidden="true" className="pk-game2">
-      <Bars count={14} className="pk-ht__eq" />
+      <FpsGraph size="sm" />
       <span className="pk-game2__read" key={slide}>
         {readouts[slide % readouts.length]}
       </span>

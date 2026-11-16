@@ -19,6 +19,8 @@ import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { stepIndex } from './autoplay'
 import { CamScene, Tick, WifiArcs } from './art'
+import { FpsGraph, ProgressRing } from './LineMocks'
+import { PhoneMock, WebMock } from './WebMock'
 import { Mark } from './Mark'
 import type { HomeLine, TeamExample } from './model'
 import { useAutoplay } from './useAutoplay'
@@ -437,49 +439,10 @@ function LineVisual({
       return (
         <div aria-hidden="true" className="pk-soft">
           <span className="pk-pn pk-soft__page">
-            <span className="pk-vg__chrome">
-              <i />
-              <i />
-              <span />
-            </span>
-            <span className="pk-web__nav">
-              <i className="pk-web__logo" />
-              <i />
-              <i />
-              <i />
-              <i className="pk-web__cta" />
-            </span>
-            <span className="pk-soft__body">
-              <span className="pk-soft__copy">
-                <i className="pk-soft__title" />
-                <i className="pk-soft__title pk-sk--half" />
-                <i className="pk-sk" />
-                <i className="pk-sk pk-sk--short" />
-                <span className="pk-soft__btns">
-                  <i />
-                  <i />
-                </span>
-              </span>
-              <span className="pk-web__shot">
-                <i />
-                <span className="pk-bars pk-vg__chart">
-                  {[40, 70, 55, 90, 75].map((height, j) => (
-                    <i key={j} style={{ height: `${height}%`, animationDelay: `${j * 0.2}s` }} />
-                  ))}
-                </span>
-              </span>
-            </span>
-            <span className="pk-soft__cards">
-              <i />
-              <i />
-              <i />
-            </span>
+            <WebMock size="lg" />
           </span>
-          <span className="pk-pn pk-soft__phone">
-            <i />
-            <i />
-            <i />
-            <i />
+          <span className="pk-pn pk-soft__mobile">
+            <PhoneMock />
           </span>
         </div>
       )
@@ -494,6 +457,18 @@ function LineVisual({
               ONLINE
             </span>
           </span>
+          <span aria-hidden="true" className="pk-stages__head">
+            <ProgressRing value={((stage + 1) / techStages.length) * 100}>
+              <Icon name="wrench" />
+            </ProgressRing>
+            <span>
+              <small>Twoje zgłoszenie</small>
+              <strong>{techStages[stage]?.title}</strong>
+            </span>
+            <em>
+              {stage + 1}/{techStages.length}
+            </em>
+          </span>
           <span role="group" aria-label="Etapy naprawy" className="pk-stages__row">
             {techStages.map((item, i) => (
               <button
@@ -503,7 +478,7 @@ function LineVisual({
                 data-state={i < stage ? 'done' : i === stage ? 'now' : undefined}
                 onClick={() => setStage(i)}
               >
-                <span aria-hidden="true" />
+                <span aria-hidden="true">{i < stage ? <Tick /> : i + 1}</span>
                 {item.title}
               </button>
             ))}
@@ -523,14 +498,7 @@ function LineVisual({
               TEST
             </span>
           </span>
-          <span className="pk-bars pk-game__bars">
-            {Array.from({ length: 28 }, (_, i) => (
-              <i
-                key={i}
-                style={{ height: `${45 + ((i * 37) % 55)}%`, animationDelay: `${i * 0.12}s` }}
-              />
-            ))}
-          </span>
+          <FpsGraph size="lg" />
           <span className="pk-game__foot">
             <span className="pk-game__fps">
               FPS<small>średnio w teście</small>

@@ -437,48 +437,14 @@
     padding: 0 14px;
   }
 }
-.pk-hch-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-.pk-hch {
-  display: flex;
-  /* A touch target of the hero chips (spec §9: ≥44 px). */
-  min-height: 44px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--w16);
-  border-radius: 999px;
-  padding: 0 12px;
-  background: var(--w03);
-  color: var(--k-ink2);
-  font-size: 13px;
-  font-weight: 700;
-  transition: transform 0.3s var(--ease);
-}
-.pk-hch,
 .pk-ht__go {
   position: relative;
 }
 /* 44 px touch targets (spec §5.4) without changing the drawn size. */
-.pk-hch::after,
 .pk-ht__go::after {
   position: absolute;
-  inset: -5px 0;
-  content: '';
-}
-.pk-ht__go::after {
   inset: -5px;
-}
-.pk-hch:hover {
-  color: var(--k-ink);
-  transform: translateY(-2px);
-}
-.pk-hch > span {
-  width: 12px;
-  height: 3px;
-  background: var(--ln);
+  content: '';
 }
 .pk-hb-main__cta {
   display: flex;
@@ -980,22 +946,6 @@
   flex-direction: column;
   gap: 5px;
 }
-.pk-ht__bars {
-  display: flex;
-  gap: 4px;
-}
-.pk-stp {
-  height: 5px;
-  flex: 1;
-  border-radius: 3px;
-  background: var(--w16);
-}
-.pk-stp[data-state] {
-  background: var(--ln);
-}
-.pk-stp[data-state='now'] {
-  animation: pk-pulse 1.4s infinite;
-}
 .pk-ht__stage-names {
   display: flex;
   justify-content: space-between;
@@ -1006,18 +956,13 @@
 .pk-ht__stage-names [data-now] {
   color: var(--ln-text);
 }
-.pk-ht__eq {
-  height: 30px;
-}
-/* H9: the gaming tile's equalizer spans the tile instead of a short stub. */
-.pk-ht__eq i {
-  max-width: none;
-}
 
 /* Slides. */
 .pk-ht__slides {
   position: relative;
   height: 48px;
+  /* Titles sized by the tile, not the window: a long word fits a narrow tile. */
+  container-type: inline-size;
   flex: none;
   margin-top: auto;
 }
@@ -1051,14 +996,14 @@
 }
 .pk-hsl__title {
   font-family: var(--font-display);
-  font-size: clamp(15px, 1.35vw, 19px);
+  font-size: clamp(13px, 8.2cqi, 19px);
   font-stretch: 118%;
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.02;
 }
 .pk-ht--big .pk-hsl__title {
-  font-size: clamp(19px, 1.7vw, 24px);
+  font-size: clamp(18px, 8.4cqi, 24px);
 }
 .pk-hsl__text {
   color: var(--w72);
@@ -1516,20 +1461,7 @@ a.pk-mqi:hover {
   box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
 }
 
-/* Tech: the repair moves on through its stages; Gaming: bars with a less even beat. */
-.pk-stp {
-  position: relative;
-  overflow: hidden;
-}
-.pk-stp[data-state='now']::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, var(--w60), transparent);
-  content: '';
-  /* Off the bar at rest, so reduced motion leaves no still streak. */
-  transform: translateX(-100%);
-  animation: pk-run 1.8s ease-in-out infinite;
-}
+/* A light streak running along a track (Tech stages). */
 @keyframes pk-run {
   from {
     transform: translateX(-100%);
@@ -1537,17 +1469,6 @@ a.pk-mqi:hover {
   to {
     transform: translateX(100%);
   }
-}
-.pk-ht__eq i {
-  background: linear-gradient(to top, var(--ln), color-mix(in srgb, var(--ln) 60%, transparent));
-  animation-duration: 1.6s;
-  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
-}
-.pk-ht__eq i:nth-child(3n) {
-  animation-duration: 2.1s;
-}
-.pk-ht__eq i:nth-child(4n + 1) {
-  animation-duration: 1.3s;
 }
 
 /* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
@@ -1999,12 +1920,20 @@ a.pk-mqi:hover {
 }
 .pk-tech__dev {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   flex: none;
   place-items: center;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--ln) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ln) 45%, transparent);
+  border-radius: 12px;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--ln) 34%, transparent),
+    color-mix(in srgb, var(--ln) 10%, transparent)
+  );
+  box-shadow:
+    inset 0 1px 0 var(--w16),
+    0 6px 16px -6px color-mix(in srgb, var(--ln) 60%, transparent);
   color: var(--ln-text);
   animation: pk-pop 0.6s var(--ease) both;
 }
@@ -2020,15 +1949,12 @@ a.pk-mqi:hover {
   gap: 5px;
 }
 
-/* Gaming: the frames with a readout that changes with the slide. */
+/* Gaming: the frame graph with a readout that changes with the slide. */
 .pk-game2 {
   position: relative;
   display: flex;
   align-items: flex-end;
   gap: 10px;
-}
-.pk-game2 .pk-ht__eq {
-  flex: 1;
 }
 .pk-game2__read {
   flex: none;
@@ -2380,8 +2306,7 @@ a.pk-mqi:hover {
   }
 }
 /* The call to action sits at the bottom of the tile. */
-.pk-hq2 + .pk-hb-main__cta,
-.pk-hch-list + .pk-hb-main__cta {
+.pk-hq2 + .pk-hb-main__cta {
   margin-top: auto;
 }
 /* Narrow phones (H9 review): both numbers keep a margin at 360 px; below that they may wrap. */

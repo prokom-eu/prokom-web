@@ -42,7 +42,7 @@ const LINE_STRIPES = ['biznes', 'instalacje', 'software', 'tech', 'gaming'] as c
 
 /**
  * Hero of the home page (spec §6.1 pkt 1, board 01 `#start`): the PRO-KOM tile with the five line
- * colours, a search field that opens `/szukaj`, hint chips, „Dobierz” and the company phone; the
+ * colours, a search field that opens `/szukaj` (no hint chips — Krystian 16.11, the typed sample and suggestions do that job), „Dobierz” and the company phone; the
  * five line tiles with slides; company numbers; and the trust bar. Numbers and trust items tied to
  * a fact show only while the fact is visible (`withVisibleFacts`).
  */
@@ -103,20 +103,6 @@ export function Hero({ home, lines, facts, company, synonyms, quick, phone, phon
 
               <div className="pk-hb-main__body">
                 <HeroSearch hints={hero.hints} synonyms={synonyms} />
-                <ul className="pk-hch-list" aria-label="Najczęściej szukane">
-                  {hero.chips.map((chip) => (
-                    <li key={chip.label}>
-                      <a
-                        href={`/szukaj?q=${encodeURIComponent(chip.label)}`}
-                        className="pk-hch"
-                        style={lineStyle(chip.line)}
-                      >
-                        <span aria-hidden="true" />
-                        {chip.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
                 {hero.quick && quick.length > 0 && (
                   <nav className="pk-hq2" aria-labelledby="pk-hq2-h">
                     <p id="pk-hq2-h" className="pk-eb">

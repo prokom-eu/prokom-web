@@ -69,13 +69,14 @@ export async function hubSlugPage(
         formToken={issueFormToken(env.PAYLOAD_SECRET)}
         hoursLayout="week"
         slots={{
-          heroAside: (
+          // Notes split between the hero columns so both are about as tall (16.11).
+          heroBelow: (
             <>
               <SaturdayNote lines={await getHubLineContacts(tenant.id)} />
               <ExtraPhones phones={settings.extraPhones} />
-              <BranchNote branch={settings.branch} />
             </>
           ),
+          heroAside: <BranchNote branch={settings.branch} />,
         }}
       />
     )
