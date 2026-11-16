@@ -114,12 +114,6 @@
   font-size: 8px;
   letter-spacing: 0.04em;
 }
-.pk-web2__stars small {
-  color: var(--w60);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0;
-}
 .pk-web2__copy strong {
   font-family: var(--font-display);
   font-size: 12px;
@@ -292,8 +286,7 @@
 .pk-web2[data-size='lg'] .pk-web2__copy strong {
   font-size: 19px;
 }
-.pk-web2[data-size='lg'] .pk-web2__stars,
-.pk-web2[data-size='lg'] .pk-web2__stars small {
+.pk-web2[data-size='lg'] .pk-web2__stars {
   font-size: 10px;
 }
 .pk-web2[data-size='lg'] .pk-web2__line {

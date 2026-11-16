@@ -22,7 +22,8 @@ type Group = { tenant: SisterTenant; posts: readonly SisterPostRow[] }
 
 /**
  * One post per line in the hub order (Biznes, Instalacje, Software): the chosen slug of the line
- * when it is among its public posts, otherwise its newest; a line without posts is left out.
+ * when it is among its public posts, otherwise its newest that can be a card; a line without
+ * such a post is left out.
  */
 export function chooseLinePosts(
   groups: readonly Group[],
@@ -30,8 +31,10 @@ export function chooseLinePosts(
 ): Group[] {
   return ORDER.flatMap((line) => {
     const group = groups.find((entry) => entry.tenant.line === line)
-    if (!group || group.posts.length === 0) return []
-    const chosen = group.posts.find((post) => post.slug === picks[line]) ?? group.posts[0]
+    // Only posts that can become a card (`linePostLinks` drops one without a title or date).
+    const posts = group?.posts.filter((post) => post.title?.trim() && post.slug && post.publishedAt)
+    if (!group || !posts?.length) return []
+    const chosen = posts.find((post) => post.slug === picks[line]) ?? posts[0]
     return chosen ? [{ tenant: group.tenant, posts: [chosen] }] : []
   })
 }

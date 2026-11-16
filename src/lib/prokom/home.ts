@@ -72,10 +72,11 @@ export const homeSchema = z
         .array(z.object({ text: text(60), line: lineKey }))
         .min(1)
         .max(8),
+      /** Not shown since 16.11 (hero without hint chips); kept so older JSON validates. */
       chips: z
         .array(z.object({ label: text(30), line: lineKey }))
-        .min(1)
-        .max(6),
+        .max(6)
+        .nullish(),
       counters: z.array(z.object({ value: text(8), label: text(60), facts: factKeys })).max(4),
       trustBar: z
         .array(z.object({ line: lineKey, title: text(40), note: text(40), facts: factKeys }))
