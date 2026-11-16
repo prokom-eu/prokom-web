@@ -28,3 +28,17 @@ for (const path of [
     )
   })
 }
+
+// Decision of Krystian 15.11: a shared post shows its own drawn cover — the generated card.
+test('a post shares its own generated 1200 × 630 card', async ({ page, request }) => {
+  const slug = 'automatyzacje-w-malej-firmie'
+  const image = site(HOST, `/og/wpis/${slug}`)
+  await page.goto(site(HOST, `/aktualnosci/${slug}`))
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', image)
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute('content', '630')
+  const response = await request.get(image)
+  expect(response.status()).toBe(200)
+  expect(response.headers()['content-type']).toBe('image/png')
+  // Unknown post → 404, as the post page.
+  expect((await request.get(site(HOST, '/og/wpis/nie-ma-takiego-wpisu'))).status()).toBe(404)
+})
