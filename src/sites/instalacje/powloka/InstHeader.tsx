@@ -70,8 +70,9 @@ function Promo({ promo, title, warm }: { promo: MegaPromo; title: string; warm?:
 /**
  * The Instalacje line in the shared header capsule (L1-I, NAGLOWEK-KAPSULA, board 11): the
  * capsule brings the layout, states and stickiness; the line brings its menu (two mega menus
- * „Usługi” and „Dla kogo” + six links, unchanged), the search loupe (below 1400 px, where the side
- * rail with „Szukaj” is not shown), the theme switch and „Zaplanuj instalację”.
+ * „Usługi” and „Dla kogo” + five links: „Poradnik” gave its place to search on 16.11 and stays in
+ * „Więcej”, the footer and the results), the search field (a button opening the window, Ctrl/⌘K),
+ * the theme switch and „Zaplanuj instalację”.
  *
  * Mega menu behaviour kept from I3 (spec §4): opens on hover, closes 280 ms after the pointer
  * leaves, a click toggles (closes when open > 600 ms), Esc closes and returns focus, a press
@@ -210,12 +211,16 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
           {withShared && (
             <button
               type="button"
-              className={`${CAPSULE.iconButton} isearch`}
-              aria-label="Szukaj na stronie"
-              aria-keyshortcuts="Control+K Meta+K"
+              className={`${CAPSULE.searchButton} isearch`}
+              aria-keyshortcuts="Control+K Meta+K /"
               onClick={() => requestSearch()}
             >
               <Icon name="search" strokeWidth={2.2} className="size-[18px]" />
+              {/* The name from the content (WCAG 2.5.3): the shortcut is shown, not read out. */}
+              <span className="isearch__label">
+                Szukaj<span className="sr-only"> na stronie</span>
+              </span>
+              <kbd aria-hidden="true">Ctrl K</kbd>
             </button>
           )}
           <ThemeToggle className={CAPSULE.iconButton} />

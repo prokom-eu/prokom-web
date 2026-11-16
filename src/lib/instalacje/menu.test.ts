@@ -82,9 +82,10 @@ describe('activeSection', () => {
       tab: 'more',
       header: '/realizacje',
     })
+    // The guide left the header for the search field (16.11): „Więcej” only.
     expect(activeSection('/poradnik/monitoring-a-rodo', menu, navigation)).toEqual({
       tab: 'more',
-      header: '/poradnik',
+      header: null,
     })
     expect(activeSection('/dla-architektow', menu, navigation)).toEqual({
       tab: 'more',
