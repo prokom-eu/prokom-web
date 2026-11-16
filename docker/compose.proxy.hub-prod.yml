@@ -1,0 +1,11 @@
+# pro-kom.eu (hub) on production for the proxy (overlay on compose.proxy.yml + compose.proxy.prod.yml).
+# Add it once the `prokom-hub-prod` certificate exists (DNS-01 before the switch, docs/wdrozenia.md
+# → "pro-kom.eu — dzień startu") — nginx does not start with a server block whose certificate is
+# missing. Can go in before the DNS switch: until `A @` points here, no traffic reaches it.
+
+services:
+  nginx:
+    environment:
+      HUB_PROD_HOST: ${HUB_PROD_HOST:?set HUB_PROD_HOST}
+    volumes:
+      - ./nginx/templates/hub-prod.conf.template:/etc/nginx/templates/hub-prod.conf.template:ro

@@ -30,6 +30,7 @@ Trzy stosy Docker Compose na jednym serwerze, połączone siecią `prokom-proxy`
 - `docker/compose.proxy.yml` (`prokom-proxy`): Nginx + certbot, jedyny z portami 80/443. Konfiguracja w `docker/nginx/`: `nginx.conf`, `snippets/`, `templates/` (domeny z `.env.proxy`). Sam plik obsługuje **staging**; domeny produkcji dodaje nakładka `docker/compose.proxy.prod.yml` (szablon `prod.conf.template`, zmienne `PROD_*`); `www.<domena>` z `PROD_WWW_HOSTS` odpowiada 301 na domenę bez `www` (nazwy `www` muszą być w certyfikacie `prokom-prod`, tenant zna tylko domenę bez `www`) — dołączana przy starcie produkcji, bo Nginx nie wstaje z blokiem `server`, którego certyfikatu jeszcze nie ma (S10, wariant „produkcja osobno”). Aplikacje znajduje po nazwie kontenera (`prokom-prod-app-1`, `prokom-staging-app-1`) w chwili żądania, więc startuje także, gdy jeden stos nie działa.
 - **PRO-KOM Gaming** (repo `prokom-gaming`, sesja G16): nakładki `docker/compose.proxy.gaming-staging.yml` (`GAMING_STAGING_HOST`, certyfikat `prokom-gaming-staging`) i `compose.proxy.gaming-prod.yml` (`GAMING_PROD_HOST`, certyfikat `prokom-gaming-prod`, `www` → 301), wspólny fragment `snippets/gaming.conf`: strona i panel na jednej domenie (`/admin`), body 1 MB (`/admin`, `/api/` 20 MB), `/admin/create-first-user` i `/api/users/first-register` zawsze 404, `/_s/script.js` i `/_s/api/send` → kontener Umami stosu Gaming, limity `/api/inquiry` i `/api/konto/`. Staging Gaming za tym samym plikiem hasła; `/admin/sw.js` i `/admin/manifest.webmanifest` bez hasła (pobiera je przeglądarka w tle — push, ADR-G010 Gaming). Kontenery: `prokom-gaming-<stos>-app-1`, `-umami-1`. Procedury: `prokom-gaming/docs/runbook.md`.
 - **PRO-KOM Tech** (`prokomserwis.pl`, repo `prokom-system`, `docs/tech/WDROZENIE.md` tam): nakładki `docker/compose.proxy.tech-staging.yml` (`TECH_STAGING_HOST`, certyfikat `prokom-tech-staging`) i `compose.proxy.tech-prod.yml` (`TECH_PROD_HOST`, certyfikat `prokom-tech-prod` na domenę i `www`), wspólny fragment `snippets/tech.conf`: cały ruch do wewnętrznego routera stosu Tech `prokom-tech-<stos>-gateway-1:80` (nginx bez TLS — dzieli Django i Next), body 20 MB na całym vhoście (zdjęcia w panelu serwisu), `X-Forwarded-Proto` z `proxy.conf` (Django ma `SECURE_SSL_REDIRECT`). **Bez `headers-common.conf`:** Django wysyła HSTS (`includeSubDomains`, `preload`), `X-Frame-Options` i `nosniff`, Next własne nagłówki — drugi HSTS/`X-Frame-Options` z proxy byłby zdublowanym nagłówkiem (tak jest na Hetznerze). Produkcja: `prokomserwis.pl` i `www` obsługiwane tak samo, **bez 301** (1:1 z Hetznerem). Staging za tym samym plikiem hasła i z `noindex`, poza `/api/` (API Django bez hasła: front wysyła `Authorization: Token …`, a przeglądarka ma jeden nagłówek `Authorization` — basic auth dawałby 401 po zalogowaniu; API i tak wymaga tokena, `noindex` zostaje). Certyfikaty bez zatrzymywania Nginx (`docs/runbook.md` §0); nakładka produkcji dochodzi do polecenia startu proxy dopiero przy przełączeniu z Hetznera (29.11, `docs/runbook.md` §9).
+- **pro-kom.eu (hub, H19):** nakładka `docker/compose.proxy.hub-prod.yml` (`HUB_PROD_HOST`, szablon `hub-prod.conf.template`, certyfikat `prokom-hub-prod` na domenę i `www`). Kontener `prokom-prod-app-1` (tenant `prokom`), `www` → 301, ten sam `site.conf` co strony produkcji. Osobny certyfikat, bo wystawiamy go przez TXT przed zmianą DNS (procedura: „pro-kom.eu — dzień startu” niżej). Nakładka może wejść do polecenia startu przed zmianą DNS, gdy certyfikat już jest.
 - `docker/compose.prod.yml` (`prokom-prod`) i ta sama definicja + `docker/compose.staging.yml` (`prokom-staging`): osobne bazy, wolumeny i limity pamięci. Staging zawsze czyta `.env.staging` (na sztywno w nakładce), więc nie może dostać sekretów produkcji.
 
 Co robi Nginx:
@@ -52,7 +53,7 @@ Pierwsze uruchomienie na serwerze (S10, szczegóły w runbooku):
    docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm -p 80:80 --entrypoint certbot certbot certonly --standalone --cert-name prokom-prod -d prokombiznes.pl -d …
    ```
    W S10 najpierw tylko `--cert-name prokom-staging` (domeny stagingu i panel stagingu); `--cert-name prokom-prod` dla domen produkcji i `panel.prokombiznes.pl` — przy pierwszym wdrożeniu produkcji (runbook §3), gdy ich rekordy wskazują serwer. Później odnawia kontener `certbot` (`renew --webroot`, co 12 h; przy odnowieniu zapisuje webroot w miejsce `standalone`), a Nginx przeładowuje się co 6 h.
-4. `docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d` (od startu produkcji: dodatkowo `-f docker/compose.proxy.prod.yml`; od stagingu Gaming: `-f docker/compose.proxy.gaming-staging.yml`, od produkcji Gaming także `-f docker/compose.proxy.gaming-prod.yml`; Tech: `-f docker/compose.proxy.tech-staging.yml`, od przełączenia produkcji Tech także `-f docker/compose.proxy.tech-prod.yml`), potem stosy aplikacji.
+4. `docker compose --env-file .env.proxy -f docker/compose.proxy.yml up -d` (od startu produkcji: dodatkowo `-f docker/compose.proxy.prod.yml`; od stagingu Gaming: `-f docker/compose.proxy.gaming-staging.yml`, od produkcji Gaming także `-f docker/compose.proxy.gaming-prod.yml`; Tech: `-f docker/compose.proxy.tech-staging.yml`, od przełączenia produkcji Tech także `-f docker/compose.proxy.tech-prod.yml`; hub od certyfikatu `prokom-hub-prod`: `-f docker/compose.proxy.hub-prod.yml`), potem stosy aplikacji.
 5. Smoke przez Nginx: `PANEL_HOST=<panel> bash scripts/smoke.sh https://127.0.0.1 <domeny…>` (staging: `SMOKE_AUTH=użytkownik:hasło`).
 
 Test lokalny (S9b-1, 17.10): certyfikaty self-signed, porty 18080/18443, `SMOKE_INSECURE=1` — smoke zielony, nagłówki jak wyżej, staging 401 bez hasła, obcy host 444, 413 dla dużego body, 429 na health, ten sam `requestId` w obu logach.
@@ -89,35 +90,33 @@ Realizacje ze zdjęciami tworzy lokalnie tylko seed, więc na produkcji `/realiz
 
 ## pro-kom.eu — dzień startu
 
-Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instalacje, Software). Plan i kolejność: `docs/STAN.md` → „pro-kom.eu (hub)” → H7-2, `docs/dns.md` → „pro-kom.eu”, `docs/strony/prokomeu-seo-przeniesienie.md`. Polecenia z komputera Krystiana (Git Bash). Wszędzie `ssh` = `/c/Windows/System32/OpenSSH/ssh.exe` (klucz z agenta Windows).
+Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instalacje, Software). Plan: `docs/STAN.md` → „pro-kom.eu (hub)”, `docs/dns.md` → „pro-kom.eu”, `docs/strony/prokomeu-seo-przeniesienie.md`. Polecenia z komputera Krystiana (Git Bash). Wszędzie `ssh` = `/c/Windows/System32/OpenSSH/ssh.exe` (klucz z agenta Windows).
+
+**Zasada (H19, 16.11): wszystko jest gotowe, zanim zadzwonisz do nazwa.pl.** Certyfikat `prokom-hub-prod` wystawiamy wcześniej przez rekord TXT (DNS-01), a Nginx i domena tenanta działają już na nowym serwerze. Telefon zmienia tylko DNS. Po propagacji strona od razu odpowiada, bez okna 444 i bez certbota „na żywo”. nazwa.pl prowadzi przez zmiany i potrzebuje tylko adresu IP: **`194.28.50.70`**.
+
+Na produkcji pro-kom.eu ma **osobny** blok Nginx i certyfikat. Szablon `docker/nginx/templates/hub-prod.conf.template`, nakładka `docker/compose.proxy.hub-prod.yml`, zmienna `HUB_PROD_HOST` w `.env.proxy`. Nie dopisujemy domeny do `PROD_SITE_HOSTS` ani do certyfikatu `prokom-prod`. Dzięki temu certyfikat da się wystawić przed zmianą DNS. Ręczne DNS-01 nie dotyka też odnawiania certyfikatu pozostałych stron. `deploy.sh prod` dołącza `HUB_PROD_HOST` do smoke testu.
 
 **Warunki wejścia — bez nich STOP:**
 
 - [ ] Zadanie Asany „SZEF · Akceptacja nowej pro-kom.eu” odhaczone.
-- [ ] Poczta przestawiona w nazwa.pl **co najmniej 24 h wcześniej** (`docs/dns.md` → „pro-kom.eu”, kroki (a) i (b)):
-  - `A mail`;
-  - MX `mail.pro-kom.eu`;
-  - SPF bez `a`;
-  - test poczty w obie strony;
-  - programy pocztowe pracowników przestawione;
-  - TTL `A @` i `A www` = 300.
 - [ ] Ostatni przebieg „Lighthouse” po wdrożeniu stagingu tym obrazem zielony dla adresów `staging.pro-kom.eu` (runbook §3). Gdy czerwona jest strona innej linii — decyduje Krystian.
 - [ ] Na produkcji tenant `prokom` z Ustawieniami strony. Panel produkcji → Strony → nowa: slug `prokom`, linia `prokom`, e-mail powiadomień `biuro@prokombiznes.pl`; potem Ustawienia strony. `prod-line-content.sh prokom` to sprawdza.
 - [ ] Poczta formularzy huba na produkcji: skrzynka `biuro@prokombiznes.pl` w Seohost i `ssh -t prokom-vps 'bash /srv/prokom/prokom-web/scripts/server/mail-login.sh prod'` (pyta też o hasło `biuro@`), potem `$prod up -d app` i `mail-test.sh prod <adres> prokom`.
-- [ ] Najlepiej dzień roboczy rano: ktoś odbiera telefony.
+- [ ] Spisane urządzenia z pocztą `@pro-kom.eu` (komputery, telefony) i nazwa serwera IMAP/SMTP na każdym (`docs/dns.md` → „Poczta `@pro-kom.eu` przy przełączeniu strony”). Gdy jest tam `pro-kom.eu`, po zmianie `A @` program przestanie się łączyć — patrz krok T2.
+- [ ] Telefon do nazwa.pl w dzień roboczy rano: ktoś w firmie odbiera telefony, a pracownicy są pod ręką do sprawdzenia poczty.
 
-**Kroki:**
+### A. Przed telefonem (strona nikomu niewidoczna, stara działa dalej)
 
 1. **Zapisz dwa obrazy.**
    - Obraz do wydania = SHA stagingu: `ssh prokom-vps "docker inspect prokom-staging-app-1 --format '{{.Config.Image}}'"` (część po `:`).
    - Punkt powrotu = obecny obraz produkcji: to samo dla `prokom-prod-app-1`.
-2. **Kod na produkcję.** `scripts/deploy.sh` robi kopię `predeploy`, ustawia tag, uruchamia migracje przy starcie, robi smoke test i automatycznie wraca do poprzedniego obrazu, jeśli nowe migracje nie weszły:
+2. **Kod na produkcję.** `scripts/deploy.sh` robi kopię `predeploy`, ustawia tag i uruchamia migracje przy starcie. Potem robi smoke test. Jeśli nowe migracje nie weszły, sam wraca do poprzedniego obrazu:
 
    ```bash
    ssh prokom-vps 'cd /srv/prokom/prokom-web && bash scripts/deploy.sh prod <SHA stagingu>'
    ```
 
-   Pliki `docker/` i `scripts/` na serwerze są z tego samego commita co staging (bramka stagingu je podmieniła), więc `deploy.sh` i smoke test pasują do obrazu. Wynik: ostatnia linia `../deploys.log` = `prod <stary> -> <SHA> ok`.
+   Pliki `docker/` i `scripts/` na serwerze są z tego samego commita co staging (bramka stagingu je podmieniła), więc `deploy.sh`, smoke test i nakładka huba pasują do obrazu. Wynik: ostatnia linia `../deploys.log` = `prod <stary> -> <SHA> ok`.
 
 3. **Treść huba** (runbook §3a „Kolejna linia później”). Uruchamiasz z checkoutu commita produkcji, bez `.env`:
 
@@ -132,72 +131,102 @@ Hub (tenant `prokom`) wchodzi na produkcję, która już działa (Biznes, Instal
 
    Uruchom **przed** krokiem 6 (domena tenanta). Gdy tenant ma już domenę produkcji, skrypt odmawia; `PO_STARCIE=1` tylko z decyzji Krystiana.
 
-4. **DNS w nazwa.pl — telefonicznie z konsultantem** (801 33 22 33, ustalenie 16.11; ściąga: `docs/dns.md` → „Ustalenie z nazwa.pl”). Cel: `@` i `www` → `194.28.50.70`, poczta i MX bez zmian na `pro-kom.nazwa.pl`. Gdy konsultant każe zrobić to samemu w panelu: Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”. **Nie** zmieniaj trybu u góry strony.
-   - Rekordy: `A @` → `194.28.50.70` i `A www` → `194.28.50.70`.
-   - Czekaj na propagację: najpierw `nslookup pro-kom.eu ns1.nazwa.pl`, potem `nslookup pro-kom.eu 8.8.8.8`.
-   - Od tej chwili pro-kom.eu na nowym IP odpowiada 444 (Nginx nie ma jeszcze bloku tej domeny). Dlatego kroki 5–7 robisz od razu po propagacji.
-5. **Certyfikat** `prokom-prod`, poszerzony o `pro-kom.eu` i `www.pro-kom.eu` (runbook §0 „Nowy certyfikat bez zatrzymywania Nginx”). Let's Encrypt sprawdza domenę przez HTTP na nowym IP, więc tylko po kroku 4.
-   - Obecne domeny certyfikatu (15.11): `prokomsoftware.pl panel.prokombiznes.pl prokombiznes.pl prokominstalacje.pl www.prokombiznes.pl www.prokominstalacje.pl www.prokomsoftware.pl`.
-   - Przed poszerzeniem sprawdź listę: `… run --rm --entrypoint certbot certbot certificates`.
+4. **Certyfikat `prokom-hub-prod` przez rekord TXT** (DNS-01; nie wymaga, żeby domena wskazywała serwer). Najpierw wpis w `docs/dns.md` (zasada repo). Polecenie jest interaktywne: certbot pokaże dwie wartości TXT i czeka na Enter.
 
    ```bash
-   ssh prokom-vps
+   ssh -t prokom-vps
    cd /srv/prokom/prokom-web
-   docker exec prokom-proxy-nginx-1 nginx -t      # błąd „snippets”: runbook §0, --force-recreate
-   docker exec prokom-proxy-nginx-1 sh -c 'printf "server {\n  listen 80;\n  server_name pro-kom.eu www.pro-kom.eu;\n  include /etc/nginx/snippets/acme.conf;\n}\n" > /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
    docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
-     certonly --webroot -w /var/www/certbot --cert-name prokom-prod --expand --non-interactive --agree-tos \
-     -d prokomsoftware.pl -d panel.prokombiznes.pl -d prokombiznes.pl -d prokominstalacje.pl \
-     -d www.prokombiznes.pl -d www.prokominstalacje.pl -d www.prokomsoftware.pl -d pro-kom.eu -d www.pro-kom.eu
-   docker exec prokom-proxy-nginx-1 sh -c 'rm -f /etc/nginx/sites/zz-acme-tmp.conf && nginx -t && nginx -s reload'
+     certonly --manual --preferred-challenges dns --cert-name prokom-hub-prod --agree-tos \
+     -d pro-kom.eu -d www.pro-kom.eu
    ```
 
-6. **Nginx i domena tenanta.**
-   - W `.env.proxy`: `pro-kom.eu` do `PROD_SITE_HOSTS`, `www.pro-kom.eu` do `PROD_WWW_HOSTS`. Najpierw kopia: `cp -p .env.proxy .env.proxy.bak-hub`.
-   - Test i start z pełnym zestawem nakładek. Lista z 15.11 jest niżej. Sprawdź ją przed startem: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
+   - Dla każdej wartości dodaj w nazwa.pl rekord TXT: Panel Klienta → Domeny → pro-kom.eu → Konfiguruj domenę → „Dodatkowy rekord DNS”. Nazwy: `_acme-challenge` i `_acme-challenge.www`. **Nie** zmieniaj trybu u góry strony (przestawiłby `@`, MX i pocztę).
+   - Zanim naciśniesz Enter, sprawdź na serwerze nazwa.pl (z drugiego okna): `nslookup -type=TXT _acme-challenge.pro-kom.eu ns1.nazwa.pl`, to samo dla `_acme-challenge.www.pro-kom.eu`. Let's Encrypt pyta serwery nazwa.pl bezpośrednio, więc nie trzeba czekać na 8.8.8.8. CAA domeny pozwala na `letsencrypt.org` (sprawdzone 16.11).
+   - Wynik: `Successfully received certificate` → `/etc/letsencrypt/live/prokom-hub-prod/`. Rekordy TXT możesz potem usunąć.
+   - Gdy panel nie przyjmie nazwy z podkreślnikiem: zostaw ten krok na telefon (nazwa.pl dodaje TXT). Ostatecznie zostaje stary sposób: certyfikat `--webroot` po zmianie DNS (kilka minut odpowiedzi 444). Polecenie jak w kroku P2, z tymczasowym blokiem portu 80 z runbooka §0.
 
-     ```bash
-     P="docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml -f docker/compose.proxy.tech-staging.yml"
-     $P run --rm --no-deps nginx nginx -t        # dalej tylko po „test is successful”:
-     $P up -d --force-recreate --no-deps nginx   # kilka sekund przerwy wszystkich domen
-     $P ps nginx
-     ```
-
-   - Panel produkcji (`panel.prokombiznes.pl`) → Strony → `prokom` → Domeny: `pro-kom.eu`, środowisko „Produkcja”. Bez `www` — 301 z `www` robi Nginx.
-
-7. **Sprawdzenie** (plan SEO, „W dniu przełączenia”):
+5. **Nginx z blokiem pro-kom.eu.** Najpierw kopia: `cp -p .env.proxy .env.proxy.bak-hub`, potem dopisz do `.env.proxy` `HUB_PROD_HOST=pro-kom.eu`. Pełny zestaw nakładek + nakładka huba. Lista z 16.11 jest niżej. Sprawdź ją przed startem: `docker inspect prokom-proxy-nginx-1 --format '{{index .Config.Labels "com.docker.compose.project.config_files"}}'`.
 
    ```bash
+   docker exec prokom-proxy-nginx-1 nginx -t      # błąd „snippets”: runbook §0, --force-recreate
+   P="docker compose --env-file .env.proxy -f docker/compose.proxy.yml -f docker/compose.proxy.prod.yml -f docker/compose.proxy.gaming-staging.yml -f docker/compose.proxy.gaming-prod.yml -f docker/compose.proxy.tech-staging.yml -f docker/compose.proxy.hub-prod.yml"
+   $P run --rm --no-deps nginx nginx -t        # dalej tylko po „test is successful”:
+   $P up -d --force-recreate --no-deps nginx   # kilka sekund przerwy wszystkich domen
+   $P ps nginx                                 # Up, nie Restarting
+   ```
+
+   Od teraz to jest polecenie startu proxy (runbook §0). Po przełączeniu Tech (29.11) dochodzi jeszcze `-f docker/compose.proxy.tech-prod.yml`.
+
+6. **Domena tenanta.** Panel produkcji (`panel.prokombiznes.pl`) → Strony → `prokom` → Domeny: `pro-kom.eu`, środowisko „Produkcja”. Bez `www` — 301 z `www` robi Nginx.
+
+7. **Próba generalna bez DNS.** Z komputera Krystiana: `--resolve` kieruje zapytanie na nowy serwer, choć DNS dalej wskazuje nazwa.pl. Prawdziwy certyfikat, prawdziwa treść:
+
+   ```bash
+   R="--resolve pro-kom.eu:443:194.28.50.70 --resolve www.pro-kom.eu:443:194.28.50.70 --resolve pro-kom.eu:80:194.28.50.70 --resolve www.pro-kom.eu:80:194.28.50.70"
    for p in / /firma /produkt/reseller/kasy-fiskalne /index.php/firma /index.php /uslugi/serwis /produkty/muzyczne/ambiset; do
-     curl -sI "https://pro-kom.eu$p" | grep -iE "^(HTTP|location)"; done
-   curl -sI http://www.pro-kom.eu/firma | grep -iE "^(HTTP|location)"
-   curl -s https://pro-kom.eu/robots.txt
-   ssh prokom-vps 'cd /srv/prokom/prokom-web && PANEL_HOST=panel.prokombiznes.pl bash scripts/smoke.sh https://127.0.0.1 pro-kom.eu www.pro-kom.eu'
+     curl -sI $R "https://pro-kom.eu$p" | grep -iE "^(HTTP|location)"; done
+   curl -sI $R https://www.pro-kom.eu/firma | grep -iE "^(HTTP|location)"
+   curl -sI $R http://pro-kom.eu/kontakt | grep -iE "^(HTTP|location)"
+   curl -s $R https://pro-kom.eu/robots.txt
+   curl -sv $R https://pro-kom.eu/ -o /dev/null 2>&1 | grep -iE "subject|expire|issuer"
+   ssh prokom-vps 'cd /srv/prokom/prokom-web && PANEL_HOST=panel.prokombiznes.pl bash scripts/smoke.sh http://127.0.0.1:<APP_PORT prod> pro-kom.eu'
    ```
 
    Oczekiwane:
    - `/` → 200;
    - stare adresy → 301 jednym skokiem;
    - produkt sklepu → 404;
-   - `robots.txt` produkcji: bez `Disallow: /`, z adresem sitemap.
+   - `www` i `http` → 301 na `https://pro-kom.eu…`;
+   - `robots.txt` produkcji: bez `Disallow: /`, z adresem sitemap;
+   - certyfikat: `CN = pro-kom.eu`, wystawca Let's Encrypt.
 
-   Potem ręcznie:
-   - strony `/`, `/linie`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt` (numery, Zakopane, sobota), `/o-firmie`;
-   - jedno zapytanie z formularza → wpis w Zapytaniach i mail na skrzynkę huba;
-   - mail testowy na adres `@pro-kom.eu` (poczta dalej działa).
+   Wygląd w przeglądarce: tymczasowo w `C:\Windows\System32\drivers\etc\hosts` (Notatnik jako administrator) wpisz `194.28.50.70 pro-kom.eu www.pro-kom.eu`. Przejdź `/`, `/linie`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt` (numery, Zakopane, sobota), `/o-firmie`. Wyślij jedno zapytanie z formularza (wpis w Zapytaniach i mail na skrzynkę huba). **Potem usuń tę linię** — inaczej ten komputer nie zobaczy, co widzą inni.
 
-8. **Search Console i monitoring.**
-   - Search Console: właściwość domeny `pro-kom.eu` (rekord TXT — najpierw wpis w `docs/dns.md`).
-   - Mapy witryn: `https://pro-kom.eu/sitemap.xml`.
-   - Sprawdzanie adresu URL, prośba o zindeksowanie: `/`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt`, `/o-firmie`.
-   - Better Stack: monitor `https://pro-kom.eu/api/health`.
+8. **Search Console wcześniej** (opcjonalnie, oszczędza czas po starcie): właściwość domeny `pro-kom.eu`, weryfikacja rekordem TXT w nazwa.pl („Dodatkowy rekord DNS”, najpierw wpis w `docs/dns.md`). Rekord TXT nie rusza strony ani poczty.
+
+Gotowe, gdy kroki 1–7 są zielone. Dopiero wtedy dzwonisz.
+
+### T. Telefon do nazwa.pl (IP `194.28.50.70`)
+
+Telefon **801 33 22 33** (ustalenie 16.11: konsultant prowadzi zmianę w panelu krok po kroku; ściąga na rozmowę: `docs/dns.md` → „Ustalenie z nazwa.pl”). Kolejność do podania konsultantowi:
+
+1. **Poczta zostaje na nazwa.pl bez przerwy** — to pierwsze zdanie rozmowy. MX ma dziś `10 pro-kom.eu`, a SPF zawiera `a`. Samo przestawienie `A @` przeniosłoby pocztę na serwer bez poczty. Poproś o:
+   - MX na nazwę serwera poczty nazwa.pl (nasza propozycja: `pro-kom.nazwa.pl`, albo co zalecą);
+   - SPF bez `a`, z adresem ich serwera (np. `v=spf1 mx ip4:85.128.169.153 ~all`, albo co zalecą);
+   - DKIM i DMARC zostają. Zapytaj wprost, czy zmiana nie wyłączy DKIM: przejście na „Ręczną konfigurację DNS” wyłącza DKIM i DMARC, a „Zewnętrzne serwery DNS” wyłączają DNSSEC.
+2. **Programy pocztowe.** Zapytaj, jaką nazwę serwera IMAP/SMTP mają mieć urządzenia (`pro-kom.nazwa.pl`?). Na jednym urządzeniu przestaw ją od razu i sprawdź wysyłkę i odbiór, zanim zmienią `A @`. Resztę urządzeń z listy przestawiacie w trakcie i po rozmowie.
+3. **Strona:** `A @` i `A www` → `194.28.50.70` (TTL 300). Wildcard `*`, `staging`, rekord `MS=`, CAA i subdomeny starego hostingu (sklep, komis, extranet…) bez zmian.
+4. Po zmianie zapisz w `docs/dns.md` stan strefy (rekordy i godzinę).
+
+Jeśli nazwa.pl chce MX zmienić najpierw i odczekać, zgódź się. Strona poczeka, jest gotowa na serwerze.
+
+### P. Po propagacji
+
+1. **Sprawdź DNS:** `nslookup pro-kom.eu ns1.nazwa.pl`, potem `nslookup pro-kom.eu 8.8.8.8` (oba `194.28.50.70`), `nslookup -type=MX pro-kom.eu 8.8.8.8`. Następnie polecenia z kroku A7 **bez** `$R` i smoke test.
+2. **Odnawianie certyfikatu na webroot.** Certyfikat z DNS-01 kontener `certbot` odnawia i tak przez `--webroot` (podaje go w `renew`). Dla jasnego stanu wystaw go teraz jeszcze raz tym sposobem — domena już wskazuje serwer, a Nginx obsługuje ACME na porcie 80:
+
+   ```bash
+   docker compose --env-file .env.proxy -f docker/compose.proxy.yml run --rm --entrypoint certbot certbot \
+     certonly --webroot -w /var/www/certbot --cert-name prokom-hub-prod --non-interactive --agree-tos \
+     --force-renewal -d pro-kom.eu -d www.pro-kom.eu
+   docker exec prokom-proxy-nginx-1 sh -c 'nginx -t && nginx -s reload'
+   $P run --rm --entrypoint certbot certbot renew --dry-run --cert-name prokom-hub-prod
+   ```
+
+3. **Poczta:** mail z Gmaila na adres `@pro-kom.eu` i z powrotem; w nagłówkach SPF/DKIM/DMARC „pass”. Każdy pracownik wysyła i odbiera.
+4. **Search Console i monitoring:**
+   - mapa witryny `https://pro-kom.eu/sitemap.xml`;
+   - sprawdzenie adresu URL i prośba o zindeksowanie: `/`, `/dla-firm`, `/inwestycje-i-dostawy`, `/kontakt`, `/o-firmie`;
+   - Better Stack: monitor `https://pro-kom.eu/api/health`;
    - Umami: dopisać hub do `UMAMI_WEBSITES`.
 
 **STOP — cofnięcie** (runbook §4):
 
-- **Strona po starcie nie działa:** najszybciej przywrócić DNS w nazwa.pl. Usuń jawne `A @` i `A www` (albo ustaw je na `85.128.169.153`). Stara strona wraca po TTL (300 s). Poczta działa niezależnie (MX na `mail.pro-kom.eu`).
-- **Wada kodu po kroku 2:** runbook §4 A. Poprzedni tag (z kroku 1) do `.env.prod`, `$prod up -d app`, zdrowie, smoke test. Migracja huba z 15.11 (`hub_kontakt_zakopane`) tylko dodaje, więc obraz można cofnąć bez cofania bazy.
-- **Zepsute dane po kroku 3:** runbook §4 B, kopia `predeploy` z kroku 3. Ostateczność: kasuje zapytania i edycje żywych linii od chwili kopii.
+- **Strona po starcie nie działa:** najszybciej przywrócić DNS w nazwa.pl: `A @` i `A www` z powrotem na `85.128.169.153`. Stara strona wraca po TTL (300 s). Poczta działa niezależnie, jeśli MX wskazuje już serwer poczty nazwa.pl, a nie `pro-kom.eu`.
+- **Wada kodu po kroku A2:** runbook §4 A. Poprzedni tag (z kroku A1) do `.env.prod`, `$prod up -d app`, zdrowie, smoke test. Migracja huba z 15.11 (`hub_kontakt_zakopane`) tylko dodaje, więc obraz można cofnąć bez cofania bazy.
+- **Zepsute dane po kroku A3:** runbook §4 B, kopia `predeploy` z kroku A3. Ostateczność: kasuje zapytania i edycje żywych linii od chwili kopii.
+- **Nginx z nakładką huba nie wstaje** (krok A5): start bez `-f docker/compose.proxy.hub-prod.yml` (pozostałe domeny wracają), `.env.proxy.bak-hub` z powrotem.
 
 **Po starcie (4–8 tygodni):**
 

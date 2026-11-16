@@ -55,6 +55,9 @@ port="$(env_value "$env_file" APP_PORT)"
 panel="$(env_value "$env_file" PANEL_HOST)"
 upper="$(echo "$stack" | tr '[:lower:]' '[:upper:]')"
 read -r -a hosts <<<"$(env_value .env.proxy "${upper}_SITE_HOSTS")"
+# pro-kom.eu has its own Nginx block and certificate (HUB_PROD_HOST, compose.proxy.hub-prod.yml).
+hub="$([ "$stack" = prod ] && env_value .env.proxy HUB_PROD_HOST || true)"
+if [ -n "$hub" ]; then hosts+=("$hub"); fi
 [ -n "$port" ] && [ -n "$panel" ] && [ ${#hosts[@]} -gt 0 ] ||
   { log "APP_PORT / PANEL_HOST in $env_file or ${upper}_SITE_HOSTS in .env.proxy missing"; exit 2; }
 

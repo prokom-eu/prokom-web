@@ -135,14 +135,14 @@ Pełna strefa z `ns1.nazwa.pl` (16.11) — punkt powrotu i lista do przepisania 
 Ściąga na rozmowę:
 
 - **Domena i hosting:** `pro-kom.eu`, hosting `pro-kom.nazwa.pl`.
-- **Strona i www:** `pro-kom.eu` i `www.pro-kom.eu` → **`194.28.50.70`** (nowy serwer; certyfikat SSL wystawiamy sami po zmianie).
+- **Strona i www:** `pro-kom.eu` i `www.pro-kom.eu` → **`194.28.50.70`** (nowy serwer; certyfikat SSL i Nginx są już gotowe przed rozmową — H19, rekord TXT `_acme-challenge`).
 - **Poczta `@pro-kom.eu`:** bez zmian, zostaje na hostingu `pro-kom.nazwa.pl` (te same skrzynki). MX nie może wskazywać na `pro-kom.eu`. Proponujemy `10 pro-kom.nazwa.pl` albo nazwę, którą zalecą.
 - **SPF:** bez `a` → `v=spf1 mx ip4:85.128.169.153 ~all` albo ich zalecenie. Plus nadawca, jeśli wyjdzie z nagłówków (np. Microsoft 365).
 - **Subdomeny hostingu:** `sklep`, `komis`, `extranet`, `test`, `demo`, `dj`, `full`, `zaleglosci` bez zmian.
 - **Zostają bez zmian:** `staging` → `194.28.50.70`, wildcard, DKIM, DMARC, CAA, TXT `MS=`.
 - **Pytanie do konsultanta:** jaki serwer IMAP/SMTP wpisać pracownikom. Nasza propozycja: `pro-kom.nazwa.pl`, IMAP 993, SMTP 465, SSL/TLS.
 
-**Kiedy dzwonić:** w dniu startu, po krokach 1–3 z `docs/wdrozenia.md` → „pro-kom.eu — dzień startu” (kod i treść huba na produkcji, tenant bez domeny). Zaraz po zmianie rekordów robimy kroki 5–7: certyfikat, Nginx i sprawdzenie.
+**Kiedy dzwonić:** w dniu startu, po części A z `docs/wdrozenia.md` → „pro-kom.eu — dzień startu” (kod, treść, certyfikat `prokom-hub-prod`, Nginx i domena tenanta gotowe, próba `curl --resolve` zielona). Po zmianie rekordów zostaje tylko część P (sprawdzenie, odnawianie certyfikatu, poczta).
 
 **Przedtem i tak:**
 - programy pocztowe pracowników przestawione na `pro-kom.nazwa.pl`;
@@ -166,10 +166,13 @@ Po przełączeniu (cel):
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
 |---|---|---|---|---|---|
 | A | @ | `194.28.50.70` | 3600 (T−48 h: 300) | nowa pro-kom.eu (hub, tenant `prokom`) | do zrobienia (H7-2) |
-| A | www | `194.28.50.70` | 3600 (T−48 h: 300) | 301 na `pro-kom.eu` (Nginx `PROD_WWW_HOSTS`) | do zrobienia (H7-2) |
-| A | mail | `85.128.169.153` | 3600 | serwer poczty nazwa.pl | do zrobienia przed `A @` |
-| MX | @ | `10 mail.pro-kom.eu` | 3600 | poczta firmy bez zmiany serwera | do zrobienia przed `A @` |
-| TXT | @ | `v=spf1 mx ip4:85.128.169.153 ~all` | 3600 | SPF bez `a` | do zrobienia przed `A @` |
+| A | www | `194.28.50.70` | 3600 (T−48 h: 300) | 301 na `pro-kom.eu` (Nginx, blok `hub-prod.conf.template`) | do zrobienia (H7-2) |
+| MX | @ | `10 pro-kom.nazwa.pl` (albo nazwa zalecona przez nazwa.pl; wtedy bez `A mail`) | 3600 | poczta firmy bez zmiany serwera | przy telefonie do nazwa.pl, **przed** `A @` |
+| TXT | @ | `v=spf1 mx ip4:85.128.169.153 ~all` (albo zalecony przez nazwa.pl) | 3600 | SPF bez `a` | przy telefonie do nazwa.pl, przed `A @` |
+| TXT | `_acme-challenge`, `_acme-challenge.www` | wartości z `certbot --manual` (zmieniają się przy każdym wystawieniu) | najniższy | certyfikat `prokom-hub-prod` przez DNS-01 **przed** zmianą `A @` (`docs/wdrozenia.md` → „pro-kom.eu — dzień startu”, krok A4) | dodać przed telefonem; usunąć po wystawieniu certyfikatu |
+| TXT | @ | `google-site-verification=…` | 3600 | Search Console, właściwość domeny (krok A8) | opcjonalnie przed telefonem — **nie usuwać** |
+
+**Start bez przerwy (H19, 16.11):** certyfikat i Nginx dla pro-kom.eu są gotowe na serwerze przed rozmową z nazwa.pl (sprawdzone `curl --resolve`), więc telefon zmienia tylko MX/SPF i `A @`/`A www`. Rekordy TXT dodajemy sami w Panelu Klienta („Dodatkowy rekord DNS”), bez zmiany trybu strefy. Plan z tabeli „Decyzja 15.11” obowiązuje dalej: poczta przed stroną. Jeśli nazwa.pl zaleci odstęp między zmianą MX a `A @`, czekamy.
 
 ### prokomserwis.pl (PRO-KOM Tech, repo `prokom-system`)
 Strefa w Seohost od 14.11 (przeniesiona 1:1 z cyber_Folks; szczegóły, stan „przed/po” i TXT: `prokom-system/docs/tech/DNS-PROKOMSERWIS.md`). Do przełączenia (niedziela **29.11.2026**) `@` i `www` wskazują **stary serwer Hetzner `62.238.0.240`** — nie `<IP>`.

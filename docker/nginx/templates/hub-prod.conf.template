@@ -1,0 +1,32 @@
+# pro-kom.eu (hub, tenant `prokom`) on the production stack (`prokom-prod`). Own certificate
+# `prokom-hub-prod` (domain + www), issued BEFORE the DNS switch through a DNS-01 TXT record in
+# nazwa.pl (docs/wdrozenia.md → "pro-kom.eu — dzień startu"), so the site answers with HTTPS the
+# moment `A @` points here — no 444 window. Separate from `prokom-prod`: a manual DNS-01 renewal
+# config must not touch the certificate of the other lines; after the switch the same cert name
+# is re-issued with webroot, so automatic renewal works.
+
+server {
+  listen 80;
+  server_name ${HUB_PROD_HOST} www.${HUB_PROD_HOST};
+  include /etc/nginx/snippets/acme.conf;
+}
+
+# www → 301 to the domain without www (docs/dns.md: canonical address without www).
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name www.${HUB_PROD_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-hub-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-hub-prod/privkey.pem;
+  include /etc/nginx/snippets/headers-common.conf;
+  return 301 https://${HUB_PROD_HOST}$request_uri;
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name ${HUB_PROD_HOST};
+  ssl_certificate /etc/letsencrypt/live/prokom-hub-prod/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-hub-prod/privkey.pem;
+  set $app prokom-prod-app-1:3000;
+  set $panel_origin https://${PROD_PANEL_HOST};
+  include /etc/nginx/snippets/site.conf;
+}
