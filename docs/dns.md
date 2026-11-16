@@ -101,6 +101,35 @@ Dopiero potem: `A @` i `A www` (jawny, przed wildcardem) → `194.28.50.70`, TTL
 
 **Ryzyko:** poczta firmy jest na tym samym hostingu nazwa.pl co stara strona — **nie wyłączać ani nie wypowiadać abonamentu** strony bez osobnej decyzji o poczcie (ADR-002).
 
+**Poczta `@pro-kom.eu` przy przełączeniu strony (16.11, ustalenia z publicznego DNS i certyfikatów, przed odpowiedzią nazwa.pl):**
+
+Pocztę `@pro-kom.eu` używają wszyscy pracownicy (Krystian, 16.11). Musi działać bez przerwy, a skrzynki zostają na hostingu `pro-kom.nazwa.pl`.
+
+Pełna strefa z `ns1.nazwa.pl` (16.11) — punkt powrotu i lista do przepisania przy ręcznym DNS:
+
+| Typ | Nazwa | Wartość |
+|---|---|---|
+| NS | @ | `ns1/ns2/ns3.nazwa.pl` |
+| A | @ | `85.128.169.153` |
+| A | `*` (wildcard; dziś obsługuje m.in. `www`, `mail`, `poczta`, `smtp`, `imap`, `autodiscover`, `sklep`, `komis`, `extranet`, `test`, `demo`, `dj`, `full`, `zaleglosci`) | `85.128.169.153` |
+| A | staging | `194.28.50.70` (dodany 15.11) |
+| MX | @ | `10 pro-kom.eu` |
+| TXT | @ | `v=spf1 mx a ~all` |
+| TXT | @ | `MS=AC454E958B767FB1A3311B03785AFB887F793F49` |
+| TXT | `_dmarc` | `v=DMARC1; p=quarantine;` |
+| TXT | `1568760578.internal._domainkey` | DKIM (`v=DKIM1; k=rsa; p=MIIBIjAN…` — pełna wartość w panelu: Konfiguruj domenę → DKIM) |
+| TXT | `_acme-challenge` | 4 wartości (stare walidacje certyfikatów hostingu) |
+| CAA | @ | `issue certum.pl`, `issuewild certum.pl`, `issue letsencrypt.org`, `issuewild letsencrypt.org` |
+| DNSSEC | — | aktywny |
+
+**Certyfikaty serwera poczty** (port 993, 16.11): z nazwą `pro-kom.eu` serwer podaje certyfikat `pro-kom.eu`/`www.pro-kom.eu` (najpewniej tego adresu używają dziś programy pocztowe pracowników — po zmianie `A @` przestałyby się łączyć). Z nazwą `pro-kom.nazwa.pl` — `*.nazwa.pl` (ważny). Z nazwą `mail.pro-kom.eu` — też `*.nazwa.pl`, czyli **niezgodny** (ostrzeżenie w programie pocztowym).
+
+**Wniosek (do potwierdzenia przez nazwa.pl):**
+- **Serwer w programach pocztowych pracowników:** `pro-kom.nazwa.pl` (IMAP 993 SSL/TLS, SMTP 465 SSL/TLS, użytkownik = pełny adres). Działa już dziś — można przestawiać na spokojnie, długo przed startem, u każdego po kolei (telefony też).
+- **MX:** `10 pro-kom.nazwa.pl` zamiast `10 pro-kom.eu` — wtedy rekord `A mail` nie jest potrzebny, a poczta nie zależy od adresu strony. SPF: `v=spf1 mx ip4:85.128.169.153 ~all` (bez `a`).
+- **Panel:** w obecnym trybie („Przekierowanie na usługę w nazwa.pl”) MX ustawia nazwa.pl, a „Dodatkowy rekord DNS” przyjmuje tylko TXT, SRV, CNAME, AAAA i A. Zmiana MX najpewniej wymaga przejścia na **ręczną konfigurację DNS** i przepisania całej strefy z tabeli wyżej (subdomeny hostingu przez wildcard albo osobno). Mail z pytaniami do `kontakt@nazwa.pl` przygotowany 16.11 (wysyła Krystian) — **nic w DNS nie zmieniamy przed odpowiedzią.**
+- Kroki (a)–(c) z tabeli wyżej zostają, z poprawką: w (a) MX na `pro-kom.nazwa.pl` (albo nazwę zaleconą przez nazwa.pl) zamiast `mail.pro-kom.eu`.
+
 **Staging huba (H7-2 krok 1) — bezpieczny dla poczty, można przed decyzją o poczcie:** jawny rekord `staging` ma pierwszeństwo przed wildcardem tylko dla tej jednej nazwy; `@`, MX, SPF, `mail` i reszta zostają na nazwa.pl. Dziś `staging.pro-kom.eu` trafia przez wildcard na stary serwer `85.128.169.153` (sprawdzone 15.11), więc hubu na stagingu nie da się otworzyć.
 
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
