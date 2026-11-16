@@ -175,6 +175,31 @@ Po przełączeniu (cel):
 
 **Start bez przerwy (H19, 16.11):** certyfikat i Nginx dla pro-kom.eu są gotowe na serwerze przed rozmową z nazwa.pl (sprawdzone `curl --resolve`), więc telefon zmienia tylko MX/SPF i `A @`/`A www`. Rekordy TXT dodajemy sami w Panelu Klienta („Dodatkowy rekord DNS”), bez zmiany trybu strefy. Plan z tabeli „Decyzja 15.11” obowiązuje dalej: poczta przed stroną. Jeśli nazwa.pl zaleci odstęp między zmianą MX a `A @`, czekamy.
 
+### pro-kom.pl (stary WordPress — wygaszany 11.2026, tylko 301)
+Strefa: **Seohost** (NS `ns1/ns2.seohost.pl`). Strona i poczta na hostingu `188.210.222.1` (microhost). Poczty `@pro-kom.pl` nikt nie używa (Krystian, 16.11), ale rekordów poczty i tak nie ruszamy. Po wygaszeniu WordPressa domena tylko przekierowuje: blok Nginx `docker/nginx/templates/prokom-pl.conf.template` (nakładka `docker/compose.proxy.prokom-pl.yml`, certyfikat `prokom-pl`), wszystkie 8 adresów mapy strony jednym 301, reszta na `https://pro-kom.eu/`:
+
+| Stary adres | Cel 301 |
+|---|---|
+| `/` i wszystko spoza listy | `https://pro-kom.eu/` |
+| `/kontakt/`, `/contact/` | `https://pro-kom.eu/kontakt` |
+| `/o-nas/`, `/pro-kom/` | `https://pro-kom.eu/o-firmie` |
+| `/systemy-pos/` | `https://prokombiznes.pl/gopos` |
+| `/ksef/` | `https://prokombiznes.pl/ksef` |
+| `/konfigurator-pc/` | `https://prokomgaming.pl/konfigurator` |
+| `/faq/` | `https://pro-kom.eu/` |
+
+Stan 16.11 (punkt powrotu) i cel:
+
+| Typ | Nazwa | Dziś | Po zmianie |
+|---|---|---|---|
+| A | @ | `188.210.222.1` | **`194.28.50.70`** |
+| A | www | `188.210.222.1` | **`194.28.50.70`** |
+| A | mail | `188.210.222.1` | bez zmian |
+| MX | @ | `10 mail.pro-kom.pl` | bez zmian |
+| TXT | @ | `v=spf1 redirect=_spf-h50.microhost.pl` | bez zmian |
+
+Kolejność: (1) PR z blokiem scalony i wdrożony na staging (pliki proxy na serwerze); (2) w Seohost `A @` i `A www` → `194.28.50.70`; (3) po propagacji certyfikat `prokom-pl` przez webroot z tymczasowym blokiem portu 80 (runbook §0 „Nowy certyfikat bez zatrzymywania Nginx”, domeny `pro-kom.pl` i `www.pro-kom.pl`); (4) start proxy z nakładką `prokom-pl` (runbook §0); (5) sprawdzenie curl-em; (6) dopiero potem wyłączenie starego hostingu. Między (2) a (4) pro-kom.pl odpowiada 444 — kilka minut, strona i tak wygaszana.
+
 ### prokomserwis.pl (PRO-KOM Tech, repo `prokom-system`)
 Strefa w Seohost od 14.11 (przeniesiona 1:1 z cyber_Folks; szczegóły, stan „przed/po” i TXT: `prokom-system/docs/tech/DNS-PROKOMSERWIS.md`). Do przełączenia (niedziela **29.11.2026**) `@` i `www` wskazują **stary serwer Hetzner `62.238.0.240`** — nie `<IP>`.
 

@@ -1,0 +1,37 @@
+# pro-kom.pl (old WordPress of PRO-KOM, retired 11.2026): redirects only — no app, no content.
+# Every old address goes with ONE 301 to its new counterpart on the line sites; anything else to
+# the hub. The list is the whole sitemap of the old site (8 pages, 16.11.2026). Certificate
+# `prokom-pl` (domain + www, webroot). Mail of pro-kom.pl is not used (Krystian, 16.11) — the MX
+# records in the Seohost zone stay as they are anyway.
+
+map $uri $prokom_pl_target {
+  default                   https://pro-kom.eu/;
+  ~^/(kontakt|contact)/?$   https://pro-kom.eu/kontakt;
+  ~^/(o-nas|pro-kom)/?$     https://pro-kom.eu/o-firmie;
+  ~^/systemy-pos/?$         https://prokombiznes.pl/gopos;
+  ~^/ksef/?$                https://prokombiznes.pl/ksef;
+  ~^/konfigurator-pc/?$     https://prokomgaming.pl/konfigurator;
+}
+
+server {
+  listen 80;
+  server_name pro-kom.pl www.pro-kom.pl;
+  # Let's Encrypt HTTP-01 (as snippets/acme.conf, whose own `location /` would clash here).
+  location /.well-known/acme-challenge/ {
+    root /var/www/certbot;
+  }
+  location / {
+    return 301 $prokom_pl_target;
+  }
+}
+
+server {
+  include /etc/nginx/snippets/tls.conf;
+  server_name pro-kom.pl www.pro-kom.pl;
+  ssl_certificate /etc/letsencrypt/live/prokom-pl/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/prokom-pl/privkey.pem;
+  include /etc/nginx/snippets/headers-common.conf;
+  location / {
+    return 301 $prokom_pl_target;
+  }
+}
