@@ -9,6 +9,7 @@
 @import '../../../styles/tokens-prokom.css';
 @import './home.css';
 @import './home-scene.css';
+@import './home-software.css';
 @import './home-paths.css';
 @import './home-end.css';
 @import './offer.css';

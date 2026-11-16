@@ -437,48 +437,14 @@
     padding: 0 14px;
   }
 }
-.pk-hch-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-.pk-hch {
-  display: flex;
-  /* A touch target of the hero chips (spec §9: ≥44 px). */
-  min-height: 44px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--w16);
-  border-radius: 999px;
-  padding: 0 12px;
-  background: var(--w03);
-  color: var(--k-ink2);
-  font-size: 13px;
-  font-weight: 700;
-  transition: transform 0.3s var(--ease);
-}
-.pk-hch,
 .pk-ht__go {
   position: relative;
 }
 /* 44 px touch targets (spec §5.4) without changing the drawn size. */
-.pk-hch::after,
 .pk-ht__go::after {
   position: absolute;
-  inset: -5px 0;
-  content: '';
-}
-.pk-ht__go::after {
   inset: -5px;
-}
-.pk-hch:hover {
-  color: var(--k-ink);
-  transform: translateY(-2px);
-}
-.pk-hch > span {
-  width: 12px;
-  height: 3px;
-  background: var(--ln);
+  content: '';
 }
 .pk-hb-main__cta {
   display: flex;
@@ -2380,8 +2346,7 @@ a.pk-mqi:hover {
   }
 }
 /* The call to action sits at the bottom of the tile. */
-.pk-hq2 + .pk-hb-main__cta,
-.pk-hch-list + .pk-hb-main__cta {
+.pk-hq2 + .pk-hb-main__cta {
   margin-top: auto;
 }
 /* Narrow phones (H9 review): both numbers keep a margin at 360 px; below that they may wrap. */

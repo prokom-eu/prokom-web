@@ -1,0 +1,532 @@
+/*
+ * Pictures of PRO-KOM Software (`home/WebMock.tsx`, Krystian 16.11: „ładniej”): a small company
+ * website (hero tile, line scene), the same site on a phone, and the flow form → system → SMS and
+ * e-mail. Colours: the line through `--ln`, the rest from tokens; the light theme turns `--w*`
+ * into white panes (`light.css`). Motion only transform/opacity; reduced motion stops it.
+ */
+
+/* --- Website ---------------------------------------------------------------------------- */
+.pk-web2 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  font-size: 9px;
+}
+.pk-web2__bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--w09);
+  padding: 6px 10px;
+}
+.pk-web2__bar > i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--w22);
+}
+.pk-web2__bar > i:first-child {
+  background: color-mix(in srgb, var(--k-t) 70%, transparent);
+}
+.pk-web2__url {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  border-radius: 999px;
+  padding: 2px 8px;
+  background: var(--w05);
+  color: var(--w60);
+  font-weight: 700;
+}
+.pk-web2__url svg {
+  width: 8px;
+  height: 8px;
+  color: var(--k-gt);
+}
+.pk-web2__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 2px;
+}
+.pk-web2__brand {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: auto;
+  font-size: 9.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.pk-web2__brand i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, var(--ln), color-mix(in srgb, var(--ln) 50%, var(--k-b)));
+}
+.pk-web2__links {
+  display: flex;
+  gap: 5px;
+}
+.pk-web2__links i {
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--w22);
+}
+.pk-web2__nav em,
+.pk-web2__btns em {
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  font-size: 8.5px;
+  font-style: normal;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.pk-web2__hero {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: stretch;
+  gap: 10px;
+  padding: 6px 10px 10px;
+}
+.pk-web2__copy {
+  display: flex;
+  min-width: 0;
+  flex: 1.25;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.pk-web2__stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--k-y);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+.pk-web2__stars small {
+  color: var(--w60);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.pk-web2__copy strong {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-stretch: 112%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.pk-web2__line {
+  width: 92%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--w16);
+}
+.pk-web2__line--short {
+  width: 64%;
+}
+.pk-web2__btns {
+  display: flex;
+  gap: 5px;
+  margin-top: 3px;
+}
+.pk-web2__btns u {
+  border: 1px solid var(--w22);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 8.5px;
+  font-weight: 800;
+  text-decoration: none;
+}
+/* The photo: a sunlit hill in the line's colour, a new enquiry popping up on it. */
+.pk-web2__photo {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 9px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--ln) 46%, transparent),
+    color-mix(in srgb, var(--k-b) 22%, transparent)
+  );
+}
+.pk-web2__sun {
+  position: absolute;
+  top: 16%;
+  right: 16%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--k-y) 85%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--k-y) 60%, transparent);
+}
+.pk-web2__hill {
+  position: absolute;
+  right: -20%;
+  bottom: -38%;
+  left: -10%;
+  height: 70%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ln) 70%, var(--k-card));
+}
+.pk-web2__hill--back {
+  right: 30%;
+  bottom: -30%;
+  left: -40%;
+  background: color-mix(in srgb, var(--ln) 40%, var(--k-card));
+}
+.pk-web2__toast {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 7px;
+  padding: 3px 7px;
+  background: var(--k-card);
+  box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--k-ink) 35%, transparent);
+  color: var(--k-ink);
+  font-size: 8.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  animation: pk-web2-toast 5s var(--ease) infinite;
+}
+.pk-web2__toast .pk-tick {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  padding: 1px;
+  background: var(--k-g);
+  stroke: var(--k-gi);
+}
+@keyframes pk-web2-toast {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+  22%,
+  82% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+.pk-web2__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+.pk-web2__cards > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--w09);
+  border-radius: 9px;
+  padding: 6px 8px;
+  background: var(--w03);
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.pk-web2__cards b {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  place-items: center;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+  color: var(--ln-text);
+}
+.pk-web2__cards svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* The scene's bigger site: larger type and a roomier hero. */
+.pk-web2[data-size='lg'] {
+  font-size: 11px;
+}
+.pk-web2[data-size='lg'] .pk-web2__bar {
+  padding: 9px 14px;
+}
+.pk-web2[data-size='lg'] .pk-web2__nav {
+  padding: 10px 14px 4px;
+}
+.pk-web2[data-size='lg'] .pk-web2__brand {
+  font-size: 12px;
+}
+.pk-web2[data-size='lg'] .pk-web2__nav em,
+.pk-web2[data-size='lg'] .pk-web2__btns em,
+.pk-web2[data-size='lg'] .pk-web2__btns u {
+  padding: 4px 11px;
+  font-size: 10.5px;
+}
+.pk-web2[data-size='lg'] .pk-web2__hero {
+  min-height: 132px;
+  gap: 14px;
+  padding: 12px 14px 14px;
+}
+.pk-web2[data-size='lg'] .pk-web2__copy {
+  gap: 7px;
+}
+.pk-web2[data-size='lg'] .pk-web2__copy strong {
+  font-size: 19px;
+}
+.pk-web2[data-size='lg'] .pk-web2__stars,
+.pk-web2[data-size='lg'] .pk-web2__stars small {
+  font-size: 10px;
+}
+.pk-web2[data-size='lg'] .pk-web2__line {
+  height: 6px;
+}
+.pk-web2[data-size='lg'] .pk-web2__sun {
+  width: 24px;
+  height: 24px;
+}
+.pk-web2[data-size='lg'] .pk-web2__toast {
+  bottom: 10px;
+  left: 10px;
+  padding: 5px 10px;
+  font-size: 10.5px;
+}
+
+/* --- Phone ---------------------------------------------------------------------------------- */
+.pk-soft__mobile {
+  display: flex;
+  width: 104px;
+  flex: none;
+  border-radius: 22px;
+  padding: 6px;
+}
+.pk-ph2 {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 17px;
+  padding: 8px 8px 10px;
+  background: var(--w03);
+}
+.pk-ph2__notch {
+  width: 30px;
+  height: 5px;
+  margin: 0 auto 2px;
+  border-radius: 999px;
+  background: var(--w22);
+}
+.pk-ph2__brand {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+.pk-ph2__brand i {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--ln);
+}
+.pk-ph2__photo {
+  position: relative;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 9px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--ln) 46%, transparent),
+    color-mix(in srgb, var(--k-b) 22%, transparent)
+  );
+}
+.pk-ph2__photo .pk-web2__sun {
+  width: 12px;
+  height: 12px;
+}
+.pk-ph2 .pk-web2__line {
+  height: 4px;
+}
+.pk-ph2__call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+  border-radius: 999px;
+  padding: 5px 0;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 800;
+}
+.pk-ph2__call svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* --- Flow: form → your system → SMS and e-mail ---------------------------------------------- */
+.pk-flow2 {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 14px;
+}
+.pk-flow2__card,
+.pk-flow2__core {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--w12);
+  border-radius: 11px;
+  padding: 6px 9px;
+  background: var(--w05);
+}
+.pk-flow2__card b,
+.pk-flow2__core b {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+  color: var(--ln-text);
+}
+.pk-flow2 svg {
+  width: 11px;
+  height: 11px;
+}
+.pk-flow2__card > span,
+.pk-flow2__core > span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+.pk-flow2 strong {
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+.pk-flow2 small {
+  color: var(--w60);
+  font-size: 9px;
+  font-weight: 700;
+}
+/* The system in the middle: filled with the line, a ring breathing around its icon. */
+.pk-flow2__core {
+  position: relative;
+  border-color: color-mix(in srgb, var(--ln) 55%, transparent);
+  background:
+    radial-gradient(
+      120% 140% at 0% 50%,
+      color-mix(in srgb, var(--ln) 28%, transparent),
+      transparent 70%
+    ),
+    var(--w05);
+  box-shadow: 0 10px 26px -14px var(--ln);
+}
+.pk-flow2__core b {
+  position: relative;
+  background: var(--ln-fill, var(--ln));
+  color: var(--ln-ink);
+}
+.pk-flow2__core b::after {
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--ln);
+  border-radius: 9px;
+  content: '';
+  animation: pk-flow2-ring 2.4s ease-out infinite;
+}
+@keyframes pk-flow2-ring {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+/* A pipe between the steps with a dot of data running down it. */
+.pk-flow2__pipe {
+  position: relative;
+  width: 2px;
+  height: 12px;
+  margin-left: 19px;
+  background: var(--w16);
+}
+.pk-flow2__pipe u {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ln);
+  box-shadow: 0 0 8px var(--ln);
+  animation: pk-flow2-run 1.6s ease-in-out infinite;
+}
+.pk-flow2__pipe + .pk-flow2__core + .pk-flow2__pipe u {
+  animation-delay: 0.8s;
+}
+@keyframes pk-flow2-run {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  30%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.pk-flow2__outs {
+  display: flex;
+  gap: 6px;
+}
+.pk-flow2__outs > span {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--w12);
+  border-radius: 9px;
+  padding: 5px 8px;
+  background: var(--w05);
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.pk-flow2__outs .pk-tick {
+  width: 12px;
+  height: 12px;
+  margin-left: auto;
+  border-radius: 50%;
+  padding: 1.5px;
+  background: var(--k-g);
+  stroke: var(--k-gi);
+}
