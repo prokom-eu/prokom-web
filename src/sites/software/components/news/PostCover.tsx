@@ -30,16 +30,38 @@ export function PostCover({
       className={cx('sw-art', className)}
     >
       <i className="sw-art-orb" />
-      <svg
-        className="sw-cover"
-        viewBox="30 15 260 170"
-        preserveAspectRatio="xMidYMid meet"
-        focusable="false"
-      >
-        <Stars />
-        {SCENES[motif]}
-      </svg>
+      <CoverScene motif={motif} className="sw-cover" />
     </span>
+  )
+}
+
+/**
+ * The scene alone, drawn by the `cv-*` classes of `subpages.css`: in the page (`PostCover`) and,
+ * with those rules inlined, in the sharing image (`sites/software/og/card.tsx`).
+ */
+export function CoverScene({
+  motif,
+  className,
+  width,
+  height,
+}: {
+  motif: CoverMotif
+  className?: string
+  width?: number
+  height?: number
+}) {
+  return (
+    <svg
+      className={className}
+      viewBox="30 15 260 170"
+      width={width}
+      height={height}
+      preserveAspectRatio="xMidYMid meet"
+      focusable="false"
+    >
+      <Stars />
+      {SCENES[motif]}
+    </svg>
   )
 }
 

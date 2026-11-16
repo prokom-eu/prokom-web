@@ -6,7 +6,7 @@ import { Container } from '@/components/ui/Container'
 import type { CatalogIndex } from '@/lib/catalog/catalogIndex'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { getEnv } from '@/lib/env'
-import { biznesPostOgImage, ogImages } from '@/lib/pages/metadata'
+import { ogImages, postOgImage } from '@/lib/pages/metadata'
 import { postOutline } from '@/lib/posts/content'
 import { getPostList, getPostView } from '@/lib/posts/data'
 import { NEWS_PATH } from '@/lib/posts/list'
@@ -85,10 +85,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       ...(post.published && { publishedTime: post.published.dateTime }),
       // Biznes: the generated card with the title (audyt 15.11 wieczorem §3.3) — the KSeF post's
-      // cover is a 480 × 142 wordmark, poor as a sharing picture.
+      // cover is a 480 × 142 wordmark, poor as a sharing picture. Software: the card with the
+      // post's own cover scene (its covers are drawn, not uploaded).
       images:
-        tenant.line === 'biznes'
-          ? biznesPostOgImage(post.slug, post.title)
+        tenant.line === 'biznes' || tenant.line === 'software'
+          ? postOgImage(post.slug, post.title)
           : ogImages(post.cover ?? settings?.seo.ogImage ?? null),
     },
   }
@@ -229,7 +230,6 @@ async function SoftwarePostPage({ tenantId, post: stored }: { tenantId: number; 
     ...others.filter((item) => item.categoryValue === category),
     ...others.filter((item) => item.categoryValue !== category),
   ].slice(0, READ_ALSO)
-  const coverUrl = post.cover?.sources.at(-1)?.url
   const jsonLd = [
     breadcrumbJsonLd([
       { name: 'Strona główna', url: `${origin}/` },
@@ -247,7 +247,8 @@ async function SoftwarePostPage({ tenantId, post: stored }: { tenantId: number; 
       origin,
       datePublished: post.published?.dateTime ?? null,
       dateModified: post.updated?.dateTime ?? post.published?.dateTime ?? null,
-      images: coverUrl ? [new URL(coverUrl, origin).href] : [],
+      // The same picture as og:image: the card with the drawn cover (the page shows no upload).
+      images: [origin + postOgImage(post.slug, post.title)[0].url],
     }),
     // The „Najczęstsze pytania” section of the text (`postFaq`), when the post has one.
     ...(faq.length > 0 ? [faqJsonLd(faq)] : []),

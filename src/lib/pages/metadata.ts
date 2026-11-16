@@ -21,8 +21,8 @@ export type SiteSeo = { name: string; ogImage: PublicImage | null; line?: Line }
 /** The generated sharing card of the Biznes pages (`app/(sites)/[domain]/og/strona`). */
 export const BIZNES_OG_PAGE = '/og/strona'
 
-/** The generated sharing card of a Biznes post (`og/wpis/[slug]`), 1200 × 630. */
-export function biznesPostOgImage(slug: string, title: string) {
+/** The generated sharing card of a Biznes or Software post (`og/wpis/[slug]`), 1200 × 630. */
+export function postOgImage(slug: string, title: string) {
   return [{ url: `/og/wpis/${encodeURIComponent(slug)}`, width: 1200, height: 630, alt: title }]
 }
 

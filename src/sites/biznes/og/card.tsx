@@ -4,51 +4,18 @@ import { join } from 'node:path'
 import { ImageResponse } from 'next/og'
 
 import { OG_COLORS } from '@/lib/brand/ogColors'
+import { loadOgFonts, OG_CACHE, OG_SIZE } from '@/lib/og/fonts'
 import { titleSize } from './text'
 
 export { firstSentence, ogDomain, ogNotFound } from './text'
 
-/** The sharing image of Facebook, LinkedIn and X (`summary_large_image`). */
-export const OG_SIZE = { width: 1200, height: 630 } as const
-
-const FONT_DIR = join(process.cwd(), 'public/fonts/og')
 const LOGO = join(process.cwd(), 'public/brand/prokom-biznes_poziome_negatyw.svg')
 
-/**
- * The brand fonts as static TTF (`ImageResponse` reads no woff2): Archivo 800 at the brand's
- * 112 % width and Manrope 600, made once from the site's own files (`app/(sites)/fonts`, OFL),
- * each in a Latin and a Latin Extended-A file — the image takes Polish letters from the second.
- * Read once per server process. Not served to visitors (`public/fonts` is not a public folder of
- * `lib/tenant/routing`).
- */
-let assets: Promise<{
-  fonts: ConstructorParameters<typeof ImageResponse>[1]
-  logo: string
-}> | null = null
+let logoData: Promise<string> | null = null
 
-function loadAssets() {
-  assets ??= (async () => {
-    const font = (file: string) => readFile(join(FONT_DIR, file))
-    const [archivo, archivoExt, manrope, manropeExt, logo] = await Promise.all([
-      font('archivo-800-latin.ttf'),
-      font('archivo-800-latin-ext.ttf'),
-      font('manrope-600-latin.ttf'),
-      font('manrope-600-latin-ext.ttf'),
-      readFile(LOGO),
-    ])
-    return {
-      fonts: {
-        fonts: [
-          { name: 'Archivo', data: archivo, weight: 800, style: 'normal' },
-          { name: 'Archivo', data: archivoExt, weight: 800, style: 'normal' },
-          { name: 'Manrope', data: manrope, weight: 600, style: 'normal' },
-          { name: 'Manrope', data: manropeExt, weight: 600, style: 'normal' },
-        ],
-      },
-      logo: `data:image/svg+xml;base64,${logo.toString('base64')}`,
-    }
-  })()
-  return assets
+function loadLogo() {
+  logoData ??= readFile(LOGO).then((logo) => `data:image/svg+xml;base64,${logo.toString('base64')}`)
+  return logoData
 }
 
 type Card = {
@@ -62,12 +29,6 @@ type Card = {
 }
 
 /**
- * A day in the browsers and sharing caches, then fetched again (a title can change in the panel
- * under the same address); without it `ImageResponse` sends `max-age=0, must-revalidate`.
- */
-const CACHE = 'public, max-age=86400, stale-while-revalidate=604800'
-
-/**
  * The Biznes sharing image (audyt 15.11 wieczorem §3.3): the navy of the dark blocks with a soft
  * blue light, the logo, the eyebrow, the title in Archivo and the footer — 1200 × 630.
  */
@@ -77,7 +38,7 @@ export async function biznesOgImage({
   footer,
   footerRight,
 }: Card): Promise<ImageResponse> {
-  const { fonts, logo } = await loadAssets()
+  const [fonts, logo] = await Promise.all([loadOgFonts(), loadLogo()])
   return new ImageResponse(
     <div
       style={{
@@ -135,6 +96,6 @@ export async function biznesOgImage({
         <span style={{ color: OG_COLORS.white }}>{footerRight}</span>
       </div>
     </div>,
-    { ...OG_SIZE, ...fonts, headers: { 'Cache-Control': CACHE } },
+    { ...OG_SIZE, fonts, headers: { 'Cache-Control': OG_CACHE } },
   )
 }
