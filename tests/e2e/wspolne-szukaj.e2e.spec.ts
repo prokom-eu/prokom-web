@@ -200,6 +200,43 @@ test.describe('/_wspolne — search window on a phone and the recently viewed fl
   })
 })
 
+// 17.11: fast typing lost characters on Instalacje — a deferred render of the results is a
+// transition, the line's `<ViewTransition>` ran it as a view transition and React dropped the input
+// events meanwhile, then wrote the old phrase back („monitorng” → „m”). Typed key by key, two
+// phrases in a row, each line's own window.
+const FAST_TYPING = ['instalacje.localhost', 'biznes.localhost', 'software.localhost'] as const
+
+test.describe('search window — fast typing keeps every character (1440 px)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  for (const host of FAST_TYPING) {
+    test(`${host}: two phrases typed fast, the field and „Zapytaj o …” show the last one`, async ({
+      page,
+    }) => {
+      await page.goto(site(host, '/'))
+      const search = page.locator('dialog[open][data-search-dialog]')
+      await pressUntilVisible(page, 'Control+k', search)
+      const input = search.getByRole('searchbox')
+      await expect(input).toBeFocused()
+
+      await input.pressSequentially('monitorng', { delay: 20 })
+      await expect(input).toHaveValue('monitorng')
+      await input.press('ControlOrMeta+a')
+      await input.pressSequentially('xyzqwerty', { delay: 20 })
+      // Checked after a pause too: the lost characters came back as an older phrase later.
+      await page.waitForTimeout(500)
+      await expect(input).toHaveValue('xyzqwerty')
+      await expect(search.getByRole('link', { name: 'Zapytaj o „xyzqwerty”' })).toBeVisible()
+
+      await input.fill('abc')
+      await input.fill('zxqvbn')
+      await page.waitForTimeout(300)
+      await expect(input).toHaveValue('zxqvbn')
+      await expect(search.getByRole('link', { name: 'Zapytaj o „zxqvbn”' })).toBeVisible()
+    })
+  }
+})
+
 // FUND-W PR1: up to 1080 px the capsule hides its loupe — the menu sheet's „Szukaj” opens the
 // line's search window. Software's own site has its phone menu with a search field (no shared
 // sheet), so the shared sheet is checked on its preview page.
