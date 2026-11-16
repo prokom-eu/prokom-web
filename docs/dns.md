@@ -37,7 +37,7 @@ Strefy założone 31.10 w panelu Seohost (DNS → Strefy DNS); formularz wymaga 
 | A | panel | `<IP>` | 3600 | panel produkcji (`PANEL_HOST`, decyzja 09.11 — ADR-006 „Rozstrzygnięcie 09.11”) | ustawione 9.11 |
 | A | @ | `<IP>` | 86400 | strona (Seohost tworzy przy zakładaniu strefy; do startu produkcji Nginx zamyka połączenie) | ustawione 31.10 |
 | A | www | `<IP>` | 86400 | `www` → przekierowanie 301 na wersję bez `www` (od produkcji) | ustawione 31.10 |
-| TXT | @ | `google-site-verification=r-td7u3He__tBLo4yWUaEQHUDLP_q_B7Kb2SlgksAns` | 3600 | weryfikacja Search Console (usługa typu Domena) — nie usuwać, Google sprawdza okresowo; obok istniejącego SPF | do ustawienia 16.11 |
+| TXT | @ | `google-site-verification=r-td7u3He__tBLo4yWUaEQHUDLP_q_B7Kb2SlgksAns` | 3600 | weryfikacja Search Console (usługa typu Domena) — nie usuwać, Google sprawdza okresowo; obok istniejącego SPF | ustawione 16.11 (widoczne w 8.8.8.8), Search Console: zweryfikowana |
 
 ### prokominstalacje.pl
 | Typ | Nazwa | Wartość | TTL | Po co | Stan |
