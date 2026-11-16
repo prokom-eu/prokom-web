@@ -47,3 +47,6 @@ tmp/
 
 # Lighthouse CI reports (workflow artifact)
 .lighthouseci/
+
+# Built e-mail template package (pnpm szablony:build)
+tools/szablony-maili/dist/
