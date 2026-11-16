@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Szablony maili PRO-KOM — instrukcja</title>
+    <style>
+      :root {
+        --text: #1f2421;
+        --muted: #5a615b;
+        --line: #dde2da;
+        --soft: #f3f4f1;
+        --green: #367e23;
+        --green-soft: #eef6ea;
+        --amber: #8a5a00;
+        --amber-soft: #fff6e5;
+        --blue: #244fb0;
+        --mark: #fff0a6;
+      }
+      @page {
+        size: A4;
+        margin: 16mm 15mm 18mm;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      body {
+        margin: 0;
+        background: #fff;
+        color: var(--text);
+        font:
+          10.5pt/1.55 Arial,
+          Helvetica,
+          sans-serif;
+      }
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 24px 16px 40px;
+      }
+      @media print {
+        main {
+          padding: 0;
+          max-width: none;
+        }
+      }
+      .cover {
+        border-bottom: 3px solid var(--green);
+        padding-bottom: 14px;
+        margin-bottom: 18px;
+      }
+      .eyebrow {
+        font:
+          700 8.5pt/1.3 Arial,
+          sans-serif;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+      h1 {
+        font-size: 22pt;
+        line-height: 1.15;
+        margin: 6px 0 6px;
+      }
+      .lead {
+        color: var(--muted);
+        margin: 0;
+        font-size: 11pt;
+      }
+      h2 {
+        font-size: 14pt;
+        margin: 26px 0 8px;
+        padding-top: 4px;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        break-after: avoid;
+      }
+      h2 .n {
+        display: inline-flex;
+        width: 26px;
+        height: 26px;
+        border-radius: 13px;
+        background: var(--green);
+        color: #fff;
+        font-size: 11pt;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      h3 {
+        font-size: 11pt;
+        margin: 14px 0 4px;
+        break-after: avoid;
+      }
+      p {
+        margin: 0 0 8px;
+      }
+      ol,
+      ul {
+        margin: 0 0 10px;
+        padding-left: 22px;
+      }
+      li {
+        margin: 0 0 4px;
+      }
+      code,
+      kbd {
+        font:
+          9.5pt/1.3 Consolas,
+          'Courier New',
+          monospace;
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 0 4px;
+      }
+      kbd {
+        background: #fff;
+        box-shadow: 0 1px 0 var(--line);
+      }
+      .path {
+        font-weight: 700;
+      }
+      .box {
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin: 10px 0 12px;
+        break-inside: avoid;
+      }
+      .box b.t {
+        display: block;
+        margin-bottom: 2px;
+      }
+      .ok {
+        background: var(--green-soft);
+        border-left: 4px solid var(--green);
+      }
+      .ok b.t {
+        color: var(--green);
+      }
+      .warn {
+        background: var(--amber-soft);
+        border-left: 4px solid #e09a12;
+      }
+      .warn b.t {
+        color: var(--amber);
+      }
+      .info {
+        background: #eef2fa;
+        border-left: 4px solid var(--blue);
+      }
+      .info b.t {
+        color: var(--blue);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 6px 0 12px;
+        break-inside: avoid;
+        font-size: 10pt;
+      }
+      th,
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 6px 8px;
+        border-top: 1px solid var(--line);
+      }
+      th {
+        font:
+          700 8pt/1.3 Arial,
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--soft);
+        border-top: 0;
+      }
+      .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 5px;
+        margin-right: 6px;
+        vertical-align: 0;
+      }
+      .field {
+        background: var(--mark);
+        border-radius: 3px;
+        padding: 0 3px;
+      }
+      .opt {
+        border-bottom: 1px dashed #c9a400;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 640px) {
+        .cols {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 19pt;
+        }
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        break-inside: avoid;
+      }
+      .card h3 {
+        margin-top: 0;
+      }
+      .check li {
+        list-style: none;
+        margin-left: -18px;
+      }
+      .check li::before {
+        content: '☐ ';
+        color: var(--green);
+        font-weight: 700;
+      }
+      .page-break {
+        break-before: page;
+      }
+      footer {
+        margin-top: 26px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 8.5pt;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="cover">
+        <div class="eyebrow">PRO-KOM · szablony ręcznych odpowiedzi v2</div>
+        <h1>Jak korzystać z szablonów maili w Thunderbirdzie</h1>
+        <p class="lead">
+          Jednorazowa instalacja zajmuje ok. 30 minut. Potem każda odpowiedź to skrót, klawisz
+          <kbd>Tab</kbd>, kilka pól do wpisania i wysyłka. Ten plik jest w paczce jako
+          <code>INSTRUKCJA.html</code> (do druku lub zapisu jako PDF).
+        </p>
+      </header>
+
+      <h2><span class="n">1</span>Co jest w paczce</h2>
+      <p>
+        Paczka leży w folderze <span class="path">PRO-KOM\maile</span> (obok folderu
+        <span class="path">repos</span>). Każda skrzynka ma swój podfolder:
+      </p>
+      <table>
+        <tr>
+          <th>Skrzynka</th>
+          <th>Folder</th>
+          <th>Szablonów</th>
+        </tr>
+        <tr>
+          <td>
+            <span class="dot" style="background: #244fb0"></span>PRO-KOM Biznes ·
+            kontakt@prokombiznes.pl
+          </td>
+          <td><code>biznes\</code></td>
+          <td>45</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="dot" style="background: #0093b3"></span>PRO-KOM Instalacje ·
+            kontakt@prokominstalacje.pl
+          </td>
+          <td><code>instalacje\</code></td>
+          <td>43</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="dot" style="background: #8b61e3"></span>PRO-KOM Software ·
+            kontakt@prokomsoftware.pl
+          </td>
+          <td><code>software\</code></td>
+          <td>42</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background: #45a02c"></span>PRO-KOM · biuro@pro-kom.eu</td>
+          <td><code>prokom\</code></td>
+          <td>42</td>
+        </tr>
+      </table>
+      <div class="cols">
+        <div class="card">
+          <h3>W każdym podfolderze</h3>
+          <ul>
+            <li><code>quicktext-&lt;linia&gt;.xml</code> — szablony do zaimportowania,</li>
+            <li>
+              <code>podpis-&lt;linia&gt;-krystian-potaczek.html</code> i
+              <code>…-tadeusz-wojciak.html</code> — podpisy (każdy bierze swój),
+            </li>
+            <li><code>logo-&lt;linia&gt;.png</code> — znak do podpisu (nie przenosić).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Obok podfolderów</h3>
+          <ul>
+            <li>
+              <code>podglad-szablonow.html</code> — wszystkie szablony do przejrzenia w przeglądarce
+              (zakładki linii, wyszukiwarka),
+            </li>
+            <li><code>KATALOG-SZABLONOW.md</code> — sam tekst + autoodpowiedzi,</li>
+            <li><code>START-TUTAJ.md</code> — skrót tej instrukcji.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2><span class="n">2</span>Przygotowanie paczki (Krystian, w repo)</h2>
+      <p>W folderze repo <span class="path">prokom-web</span>, w terminalu:</p>
+      <ol>
+        <li>
+          <code>pnpm szablony:build</code> — buduje paczkę. Ma się skończyć napisem
+          <i>Szablony: biznes 45, instalacje 43, software 42, prokom 42</i>.
+        </li>
+        <li>
+          <code>pnpm szablony:copy</code> — kopiuje paczkę do
+          <span class="path">PRO-KOM\maile</span>. Stare pliki v1 zostają obok — nie przeszkadzają.
+        </li>
+      </ol>
+      <div class="box info">
+        <b class="t">Na innym komputerze</b>Skopiuj cały folder
+        <span class="path">PRO-KOM\maile</span> w to samo miejsce (ta sama litera dysku i ścieżka) —
+        podpisy szukają logo właśnie tam.
+      </div>
+
+      <h2><span class="n">3</span>Jednorazowa instalacja w Thunderbirdzie</h2>
+      <p>
+        Dla każdej skrzynki, którą obsługujesz na tym komputerze. Nazwy w menu mogą się minimalnie
+        różnić zależnie od wersji Thunderbirda.
+      </p>
+
+      <h3>3.1 Dodatek Quicktext</h3>
+      <ol>
+        <li>
+          Menu <b>☰ → Dodatki i motywy</b>, w wyszukiwarce wpisz <b>Quicktext</b> →
+          <b>Dodaj do Thunderbirda</b>.
+        </li>
+        <li>
+          Po instalacji na pasku okna nowej wiadomości pojawi się przycisk/menu <b>Quicktext</b>.
+        </li>
+      </ol>
+
+      <h3>3.2 Wiadomości w HTML (bez tego szablony stracą wygląd)</h3>
+      <ol>
+        <li>
+          <b>☰ → Ustawienia kont</b> → wybierz skrzynkę (np. kontakt@prokombiznes.pl) →
+          <b>Tworzenie i adresowanie</b>.
+        </li>
+        <li>Zaznacz <b>Twórz wiadomości w formacie HTML</b>.</li>
+        <li>
+          W tym samym miejscu: <b>Rozpoczynaj odpowiedź nad cytatem</b> i podpis
+          <b>pod odpowiedzią</b>.
+        </li>
+      </ol>
+
+      <h3>3.3 Podpis</h3>
+      <ol>
+        <li><b>☰ → Ustawienia kont</b> → skrzynka (główna strona konta, nie podstrona).</li>
+        <li>
+          Zaznacz <b>Dołącz podpis z pliku</b> → <b>Wybierz…</b> → swój plik, np.
+          <code>biznes\podpis-biznes-krystian-potaczek.html</code>.
+        </li>
+        <li>Powtórz dla każdej skrzynki — każda ma podpis w swoich kolorach.</li>
+      </ol>
+      <div class="box ok">
+        <b class="t">Logo w podpisie</b>Thunderbird sam dołącza logo do wysyłanej wiadomości —
+        odbiorca widzi je normalnie, także w Gmailu i Outlooku.
+      </div>
+
+      <h3>3.4 Import szablonów</h3>
+      <ol>
+        <li>
+          Otwórz ustawienia Quicktext: <b>☰ → Dodatki i motywy → Quicktext → Opcje</b> (albo z
+          przycisku Quicktext w oknie nowej wiadomości → <b>Ustawienia</b>).
+        </li>
+        <li>
+          <b>Usuń stare grupy z v1</b> (zaznacz grupę → Usuń) — żeby nie mieszać starych i nowych
+          szablonów.
+        </li>
+        <li>
+          <b>Importuj</b> → wybierz <code>quicktext-&lt;linia&gt;.xml</code> skrzynki, którą
+          obsługujesz. Kilka skrzynek = import kilku plików.
+        </li>
+        <li>Sprawdź, czy w opcjach Quicktext klawiszem słów kluczowych jest <kbd>Tab</kbd>.</li>
+      </ol>
+
+      <h3>3.5 Raz po imporcie: link do opinii Google</h3>
+      <p>
+        W szablonie <b>„Prośba o opinię w Google”</b> (grupa 6 · Po realizacji) przycisk ma
+        tymczasowy adres <code>WSTAW-LINK</code>. W ustawieniach Quicktext otwórz ten szablon, w
+        treści HTML zamień <code>WSTAW-LINK</code> na link do opinii tej linii z Profilu Firmy w
+        Google i usuń żółty akapit pod przyciskiem. Zrób to dla każdej linii.
+      </p>
+
+      <div class="page-break"></div>
+      <h2><span class="n">4</span>Codzienna praca — odpowiedź w 4 krokach</h2>
+      <ol>
+        <li><b>Odpowiedz</b> na maila klienta (kursor jest nad cytatem, podpis pod spodem).</li>
+        <li>
+          Wpisz <b>skrót</b> szablonu i naciśnij <kbd>Tab</kbd> — np. <code>oferta</code>
+          <kbd>Tab</kbd>. Nie pamiętasz skrótu? Przycisk <b>Quicktext</b> → grupa → szablon.
+        </li>
+        <li>
+          <b>Wypełnij okienka</b>, o które zapyta Quicktext (np. „numer oferty”, „cena”). To samo
+          pole w jednym szablonie wpisujesz raz. Listy wyboru — wybierz wariant.
+        </li>
+        <li><b>Przeczytaj całość</b>, usuń zdania, które nie dotyczą tej sprawy, i wyślij.</li>
+      </ol>
+
+      <h3>Co oznaczają znaczniki (w podglądzie szablonów)</h3>
+      <table>
+        <tr>
+          <th>W podglądzie</th>
+          <th>Co to znaczy</th>
+          <th>Co robisz</th>
+        </tr>
+        <tr>
+          <td><span class="field">‹cena›</span></td>
+          <td>pole — Quicktext zapyta przy wstawianiu</td>
+          <td>wpisujesz wartość w okienku</td>
+        </tr>
+        <tr>
+          <td><span class="field">‹netto czy brutto: netto / brutto›</span></td>
+          <td>lista wyboru</td>
+          <td>wybierasz jedną opcję</td>
+        </tr>
+        <tr>
+          <td><span class="opt">Zdanie opcjonalne.</span></td>
+          <td>zdanie, które pasuje tylko czasem</td>
+          <td>usuwasz, jeśli nie dotyczy</td>
+        </tr>
+        <tr>
+          <td><span class="field">żółte tło w mailu</span></td>
+          <td>coś do podmiany raz po imporcie</td>
+          <td>patrz 3.5</td>
+        </tr>
+      </table>
+
+      <h3>Najczęstsze skróty</h3>
+      <table>
+        <tr>
+          <th>Sytuacja</th>
+          <th>Skrót</th>
+        </tr>
+        <tr>
+          <td>Mamy wiadomość, wracamy z odpowiedzią</td>
+          <td><code>dzieki</code></td>
+        </tr>
+        <tr>
+          <td>Zapytanie zbyt ogólne — prośba o szczegóły (pytania inne dla każdej linii)</td>
+          <td><code>szczegoly</code></td>
+        </tr>
+        <tr>
+          <td>Nie mogliśmy się dodzwonić</td>
+          <td><code>niedodzwon</code></td>
+        </tr>
+        <tr>
+          <td>Oferta w załączniku (Software: wycena z podglądem)</td>
+          <td><code>oferta</code></td>
+        </tr>
+        <tr>
+          <td>Przypomnienie o ofercie / ostatnie przypomnienie</td>
+          <td><code>przyp1</code> · <code>przyp2</code></td>
+        </tr>
+        <tr>
+          <td>Propozycja terminu / potwierdzenie / przypomnienie dzień przed</td>
+          <td><code>termin</code> · <code>potwierdz</code> · <code>jutro</code></td>
+        </tr>
+        <tr>
+          <td>Faktura w załączniku / przypomnienie o płatności</td>
+          <td><code>faktura</code> · <code>platnosc1</code></td>
+        </tr>
+        <tr>
+          <td>Reklamacja — przyjmujemy zgłoszenie</td>
+          <td><code>reklamacja</code></td>
+        </tr>
+        <tr>
+          <td>Prośba o opinię w Google</td>
+          <td><code>opinia</code></td>
+        </tr>
+      </table>
+      <p>
+        Pełna lista z opisem „kiedy użyć” — w <code>podglad-szablonow.html</code> (wyszukiwarka po
+        nazwie, skrócie i treści).
+      </p>
+
+      <div class="box warn">
+        <b class="t">Zasady, których szablony pilnują — nie zmieniaj ich w mailu</b> Zwracamy się
+        „Państwo”. Hasła i kody do urządzeń <b>nigdy</b> mailem. Bez WhatsAppa. Obietnice tylko
+        takie jak w szablonach: Biznes — oddzwaniamy w 60 minut w godzinach pracy; Instalacje —
+        odpowiedź w 24 h w dni robocze (to nie przyjazd), gwarancja 24 mies. na montaż; Software — 1
+        dzień roboczy. RTV i AGD dla firm — bez montażu.
+      </div>
+
+      <h2><span class="n">5</span>Zmiany: nowy telefon, nowa treść, nowa osoba</h2>
+      <p>
+        Treści i dane są w repo, w <span class="path">tools\szablony-maili\tresci\</span>:
+        <code>dane.yaml</code> (telefony, godziny, obietnice, osoby podpisujące),
+        <code>wspolne.yaml</code> i pliki linii (treści szablonów).
+      </p>
+      <ol>
+        <li>Zmień plik YAML (albo poproś o to Claude Code w sesji).</li>
+        <li>
+          <code>pnpm test</code> — testy sprawdzą zasady (np. brak numeru telefonu wpisanego na
+          sztywno).
+        </li>
+        <li><code>pnpm szablony:build</code> → <code>pnpm szablony:copy</code>.</li>
+        <li>
+          W Quicktext usuń grupy tej linii i zaimportuj jej
+          <code>quicktext-&lt;linia&gt;.xml</code> ponownie (pamiętaj o 3.5). Podpis odświeża się
+          sam — Thunderbird czyta plik przy każdej wiadomości.
+        </li>
+        <li>Zmianę zapisz w repo przez PR, jak każdy kod.</li>
+      </ol>
+
+      <h2><span class="n">6</span>Gdy coś nie działa</h2>
+      <table>
+        <tr>
+          <th>Objaw</th>
+          <th>Rozwiązanie</th>
+        </tr>
+        <tr>
+          <td>Skrót + <kbd>Tab</kbd> nic nie robi</td>
+          <td>
+            Opcje Quicktext → klawisz słów kluczowych = <kbd>Tab</kbd>; sprawdź, czy grupa jest
+            zaimportowana. Zawsze działa też menu Quicktext.
+          </td>
+        </tr>
+        <tr>
+          <td>Mail wygląda jak zwykły tekst (bez kart i kolorów)</td>
+          <td>Skrzynka nie tworzy wiadomości w HTML — punkt 3.2.</td>
+        </tr>
+        <tr>
+          <td>W podpisie brak logo</td>
+          <td>
+            Folder <span class="path">PRO-KOM\maile</span> nie jest w tym miejscu co przy budowie
+            albo przeniesiono <code>logo-&lt;linia&gt;.png</code>. Skopiuj paczkę ponownie (<code
+              >pnpm szablony:copy</code
+            >).
+          </td>
+        </tr>
+        <tr>
+          <td>Przycisk w mailu nie prowadzi pod wpisany adres</td>
+          <td>
+            Zbuduj paczkę z <code>pnpm szablony:build --no-href-input</code> — adres pojawi się
+            tekstem pod przyciskiem — i zaimportuj ponownie.
+          </td>
+        </tr>
+        <tr>
+          <td>Szablony v1 i v2 wymieszane w menu</td>
+          <td>Usuń stare grupy w opcjach Quicktext (3.4 pkt 2).</td>
+        </tr>
+      </table>
+
+      <h2><span class="n">7</span>Pierwsze uruchomienie — sprawdź raz</h2>
+      <ul class="check">
+        <li>
+          Import jednej linii i wstawienie: <code>oferta</code> (lista wyboru), Software
+          <code>podglad</code> (pole w adresie przycisku), <code>dzieki</code> (to samo pole dwa
+          razy — Quicktext pyta raz).
+        </li>
+        <li>
+          Wysyłka testowa na swój Gmail (komputer i telefon w ciemnym motywie) i Outlook.com —
+          karta, kroki, przycisk, tabela, podpis z logo.
+        </li>
+        <li>Jedna wiadomość na mail-tester.com — wynik co najmniej 9/10.</li>
+        <li>Link do opinii Google podmieniony w każdej linii (3.5).</li>
+      </ul>
+
+      <footer>
+        PRO-KOM Tadeusz Wójciak · szablony ręcznych odpowiedzi v2 · źródło: repo prokom-web,
+        <code>tools/szablony-maili</code> (spec <code>docs/design/szablony/SZABLONY-MAILI.md</code>,
+        procedura techniczna <code>docs/runbook.md</code> §10).
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 // pnpm szablony:build [--line <id|all>] [--strict] [--logo-base <url>] [--no-href-input] [--out <dir>]
-import { mkdir, rm, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parseArgs } from 'node:util'
@@ -36,6 +36,7 @@ const GENERATED_FILES = [
   'podglad-szablonow.html',
   'KATALOG-SZABLONOW.md',
   'START-TUTAJ.md',
+  'INSTRUKCJA.html',
 ] as const
 
 /** Line data used outside templates (signature) that must not stay a placeholder. */
@@ -105,6 +106,8 @@ export async function build(
   await writeFile(join(opts.out, 'podglad-szablonow.html'), previewHtml(content, preview))
   await writeFile(join(opts.out, 'KATALOG-SZABLONOW.md'), catalogue(content, rendered, errors))
   await writeFile(join(opts.out, 'START-TUTAJ.md'), startGuide(content, rendered, missingAll))
+  // Illustrated user guide (print → PDF from the browser).
+  await copyFile(join(TOOL_DIR, 'instrukcja.html'), join(opts.out, 'INSTRUKCJA.html'))
 
   if (opts.strict && missingAll.length > 0) {
     errors.push(

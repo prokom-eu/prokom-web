@@ -260,6 +260,7 @@ describe('build', () => {
       // Only generated files are replaced; anything else in --out stays.
       expect((await readdir(out)).sort()).toEqual(
         [
+          'INSTRUKCJA.html',
           'KATALOG-SZABLONOW.md',
           'START-TUTAJ.md',
           'biznes',

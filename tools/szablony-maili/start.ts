@@ -20,7 +20,7 @@ export function startGuide(content: Content, lines: RenderedLine[], missing: str
     ...rows,
     '',
     'W każdym folderze: `quicktext-<linia>.xml` (szablony), `podpis-<linia>-<imię-nazwisko>.html` (podpis — osobny dla każdej osoby), `logo-<linia>.png` (znak do podpisu).',
-    'Obok: `podglad-szablonow.html` (wszystkie szablony do przejrzenia) i `KATALOG-SZABLONOW.md` (tekst + autoodpowiedzi do panelu poczty).',
+    'Obok: `INSTRUKCJA.html` (pełna instrukcja krok po kroku — w przeglądarce Ctrl+P → Zapisz jako PDF), `podglad-szablonow.html` (wszystkie szablony do przejrzenia) i `KATALOG-SZABLONOW.md` (tekst + autoodpowiedzi do panelu poczty).',
     '',
     '## Instalacja w Thunderbirdzie (raz, ok. 30 minut)',
     '',
