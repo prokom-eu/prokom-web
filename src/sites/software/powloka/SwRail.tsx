@@ -9,7 +9,7 @@ import { onSearchRequest } from '@/lib/site/searchOpen'
 import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { railAway } from '@/lib/software/railAway'
-import { buildLineProvider } from '@/lib/shared/search/lineProvider'
+import type { SearchProvider } from '@/lib/shared/search/provider'
 import type { SearchPage } from '@/lib/software/searchEntries'
 import type { SearchExtras } from '@/lib/software/searchExtras'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
@@ -122,22 +122,27 @@ export function SwRail({
     return whileMatches(window.matchMedia(RAIL_QUERY), () => stepAside(root, rail))
   }, [pathname])
 
-  const provider = useMemo(
+  const provider = useMemo<SearchProvider>(
     () =>
       bundle
         ? bundle.softwareSearchProvider(index, extras, pages, shortcuts)
-        : // Until the bundle comes: the pages and the panel's shortcuts, as before (light).
-          buildLineProvider(
-            pages.map((page) => ({
-              id: `strona:${page.href}`,
-              group: 'Strony',
-              title: page.label,
-              hint: page.hint ?? null,
-              href: page.href,
-              icon: 'doc',
-            })),
-            { shortcuts },
-          ),
+        : // Until the bundle comes (it is asked for with the first opening): the panel's
+          // shortcuts only — the search engine stays out of the page's first JS (budget 16.11).
+          {
+            empty: () => [
+              {
+                key: 'shortcuts',
+                title: 'Na skróty',
+                results: shortcuts.map((link) => ({
+                  id: `shortcut-${link.href}`,
+                  title: link.label,
+                  href: link.href,
+                  icon: 'arrow',
+                })),
+              },
+            ],
+            query: () => [],
+          },
     [bundle, index, extras, pages, shortcuts],
   )
   const railAction =
