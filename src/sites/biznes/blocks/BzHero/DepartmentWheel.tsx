@@ -284,6 +284,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
                     prefetch={false}
                     tabIndex={-1}
                     data-group={i}
+                    data-name={item.name}
                     data-on={i === state.active ? '' : undefined}
                     className="bzw-bub"
                     style={vars({

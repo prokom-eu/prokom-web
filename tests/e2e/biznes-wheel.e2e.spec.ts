@@ -204,7 +204,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       const bubble = bubbles(page).nth(i)
       await bubble.hover()
       await expect(tip).toHaveAttribute('data-show', '')
-      await expect(tip).toContainText((await bubble.getAttribute('aria-label'))!.split(' — ')[0]!)
+      await expect(tip).toContainText((await bubble.getAttribute('data-name'))!)
       const result = await tip.evaluate((el) => {
         const r = el.getBoundingClientRect()
         ;(el as HTMLElement).style.pointerEvents = 'auto'
