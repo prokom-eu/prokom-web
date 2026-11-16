@@ -7,6 +7,19 @@ Zastępuje paczkę `szablony-maili` v1 z 03.11 (101 szablonów, 3 linie, sam tek
 - **Wzorzec wyglądu:** `docs/design/szablony/probka-wzorzec.png` i `probka-wzorzec.html` (6 przykładowych maili z podpisami — tak ma wyglądać wynik). Wygląd komponentów: §4 (wiążący HTML).
 - **Wynik:** paczka do Thunderbirda (dodatek Quicktext): XML-e szablonów, podpisy HTML z logo, podgląd wszystkich szablonów, katalog tekstowy, autoodpowiedzi.
 
+## 0. Rozstrzygnięcia przy budowie (sesja SM, 17.11.2026) — mają pierwszeństwo przed resztą tego pliku
+
+- **Zakres budowy: 4 linie — Biznes 45, Instalacje 43, Software 42, PRO-KOM 42 (decyzja Krystiana 16.11).** Tech i Gaming mają swoje szablony. `tresci/tech.yaml` leży w repo jako źródło, generator go nie buduje (`LINES` w `tools/szablony-maili/schema.ts`). Włączenie Tech to osobny PR (wtedy `{S_PUNKT}`, wordmark w podpisie i 6. migawka). Opisy Tech w §2, §3, §5 i §6 dotyczą tego przyszłego PR.
+- **Kółko pierwszego kroku (§4) jest w `ACC_BTN`, nie w `ACC`.** Biały na `ACC` Instalacji (#0093B3, ok. 3,6:1), Software (#8B61E3) i PRO-KOM (#45A02C) nie spełnia AA. `ACC_BTN` to kolor przycisku linii, który AA spełnia. Test kontrastu (§8) sprawdza biały na `ACC_BTN`. W Biznesie oba kolory są równe, więc wynik jest identyczny ze wzorcem.
+- **Tabela pozycji ma `role="presentation"`**, tak jak w `probka-wzorzec.html`. Test wymaga tej roli od każdej tabeli.
+- **Przycisk z `{M:…}`** dostaje w `href` znacznik `WSTAW-LINK`. Pod przyciskiem jest żółty akapit „podmień adres przycisku (WSTAW-LINK) i usuń ten akapit” (§7 pkt 4).
+- **Zmienne linii w opcjach `{S:…}`** (np. `{biznes.TEL}`) są podstawiane przy budowie. Quicktext dostaje zwykły tekst, a zakaz zagnieżdżeń dotyczy tylko pól `{I:}`/`{S:}`/`{M:}`.
+- **Zdanie opcjonalne `{?:}`**: w podglądzie przerywana linia i dopisek „(usuń, jeśli nie dotyczy)”.
+- **Podpis:** każdy telefon ma własny link `tel:` (we wzorcu oba numery prowadziły pod pierwszy).
+- **Sprawdzenie HTML/XML (§8)** robi mały sprawdzacz domknięcia tagów (`wellformed.ts`) zamiast `parse5`, bez nowej zależności. Jedyna nowa devDependency to `yaml` (parser treści).
+- **Build** usuwa w katalogu `--out` tylko swoje pliki (`<linia>/`, podgląd, katalog, `START-TUTAJ.md`). Domyślny cel kopii i ścieżki logo to `../../maile` względem repo, bez ścieżki bezwzględnej w kodzie.
+- **Migawki:** 5 podglądów ze wzorca (bez dwóch szablonów Tech, w ich miejsce `biznes/potwierdz`) + XML `biznes/oferta`.
+
 ## 1. Cel i zasady treści
 
 Mail od PRO-KOM ma wyglądać i brzmieć jak od najlepszej firmy w regionie: najważniejsza informacja w pierwszych dwóch zdaniach, liczby i terminy w karcie (klient nie musi otwierać PDF), zawsze następny krok, jedna sprawa = jeden mail.

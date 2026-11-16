@@ -3,6 +3,8 @@
 Spec: `docs/design/szablony/SZABLONY-MAILI.md` · treści: `tools/szablony-maili/tresci/*.yaml` · wzorzec: `docs/design/szablony/probka-wzorzec.png` (+ `.html`).
 Zastępuje paczkę `szablony-maili` v1 (03.11, poza repo). Gaming poza zakresem.
 
+> **Stan 17.11.2026:** zakres zawężony do 4 linii (bez Tech — decyzja Krystiana 16.11). Zamiast 3 PR-ów piętrowych jest jeden PR `feat/szablony-silnik`: silnik, treści, testy, `START-TUTAJ.md`, runbook (§10). Odstępstwa od spec: `SZABLONY-MAILI.md` §0. SM-3 (Tech) czeka na osobną decyzję. Prompt poniżej zostaje jako historia.
+
 ## Miejsce w planie
 - **Osobna duża sesja SM**, niezależna od D1/D2/D3 i od sesji linii: dotyka tylko `tools/szablony-maili/**`, `docs/design/szablony/**`, `package.json` (skrypty, ewentualnie devDependencies), `.gitignore`, `docs/runbook.md`, `docs/STAN.md`. Nie zmienia `src/**`, kolekcji, migracji ani maili automatycznych (ADR-024).
 - **Folder:** dowolny wolny folder `prokom-web` (fundament albo worktree `../prokom-web-szablony`). Pliki pakietu są nieśledzone — commit w SM-1.
