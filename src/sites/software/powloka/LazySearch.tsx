@@ -2,9 +2,10 @@
 
 import { type ComponentType, useEffect, useRef, useState } from 'react'
 
-import type { SearchDialogProps } from '@/components/shared/SearchDialog'
 import { onSearchRequest, requestSearch } from '@/lib/site/searchOpen'
 import { isSearchShortcut } from '@/lib/site/searchShortcut'
+
+import type { SwSearchProps } from './SwSearch'
 
 /** Typing in a field: „/” is a character there, not the shortcut (as in `SearchDialog`). */
 function inField(event: KeyboardEvent) {
@@ -17,10 +18,11 @@ function inField(event: KeyboardEvent) {
 /**
  * The search window of Software loaded at its first use (AUDYT-WYDAJNOSC-1111 #6): until then
  * only the shortcuts (Ctrl/⌘K, „/”) and `requestSearch()` are heard here; the first of them loads
- * `SearchDialog` and opens it with the asked phrase. Then the window itself listens, as before.
+ * the window (`SwSearch`: `SearchDialog`, its data, provider and preview) and opens it with the
+ * asked phrase. Then the window itself listens, as before.
  */
-export function LazySearch(props: SearchDialogProps) {
-  const [Dialog, setDialog] = useState<ComponentType<SearchDialogProps> | null>(null)
+export function LazySearch(props: SwSearchProps) {
+  const [Dialog, setDialog] = useState<ComponentType<SwSearchProps> | null>(null)
   const pending = useRef<{ phrase?: string } | null>(null)
 
   useEffect(() => {
@@ -29,8 +31,8 @@ export function LazySearch(props: SearchDialogProps) {
     const load = (phrase?: string) => {
       if (pending.current) return
       pending.current = { phrase }
-      import('@/components/shared/SearchDialog').then(
-        (module) => alive && setDialog(() => module.SearchDialog),
+      import('./SwSearch').then(
+        (module) => alive && setDialog(() => module.SwSearch),
         // A failed fetch (network, a new deployment): the next shortcut tries again.
         () => {
           pending.current = null

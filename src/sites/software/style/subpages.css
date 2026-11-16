@@ -1399,6 +1399,11 @@
 .cv-glow {
   filter: drop-shadow(0 0 10px var(--cover-hue-soft));
 }
+/* The post cover in the search preview (`powloka/SearchPreview`): the card's picture, smaller. */
+.sw-search-cover {
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+}
 /* Featured post: picture beside the text; with „Najnowsze” beside it (the list) it stacks. */
 .sw-post-featured {
   display: grid;
