@@ -4,23 +4,21 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import { SiteRail, type SiteRailProps } from '@/components/shared/SiteRail'
-import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
 import { onSearchRequest } from '@/lib/site/searchOpen'
 import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { railAway } from '@/lib/software/railAway'
-import {
-  searchSettings,
-  softwareSearchEntries,
-  type SearchPage,
-} from '@/lib/software/searchEntries'
+import { softwareSearchProvider, type SearchPage } from '@/lib/software/searchEntries'
+import type { SearchExtras } from '@/lib/software/searchExtras'
 import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
 
 import { LazySearch } from './LazySearch'
 import { useProjectCount } from './ProjectCount'
+import { SearchPreview } from './SearchPreview'
 
 const INDEX_URL = '/api/solutions-index'
+const EXTRAS_URL = '/api/software-search'
 
 type Props = {
   sections: SiteRailProps['sections']
@@ -33,28 +31,33 @@ type Props = {
   phone: string | null
 }
 
-/** One fetch per page load, shared by every caller (the rail stays mounted across pages). */
-let indexRequest: Promise<SolutionsIndex | null> | null = null
-function loadIndex(): Promise<SolutionsIndex | null> {
-  indexRequest ??= fetch(INDEX_URL)
-    .then((response) => {
-      // A passing error (503) is not kept: the next request to search tries again.
-      if (!response.ok) throw new Error(`index ${response.status}`)
-      return response.json() as Promise<SolutionsIndex>
-    })
-    .catch(() => {
-      indexRequest = null
-      return null
-    })
-  return indexRequest
+/** One fetch per page load and address, shared by every caller (the rail stays mounted). */
+const requests = new Map<string, Promise<unknown>>()
+function loadJson<T>(url: string): Promise<T | null> {
+  let request = requests.get(url) as Promise<T | null> | undefined
+  if (!request) {
+    request = fetch(url)
+      .then((response) => {
+        // A passing error (503) is not kept: the next request to search tries again.
+        if (!response.ok) throw new Error(`${url} ${response.status}`)
+        return response.json() as Promise<T>
+      })
+      .catch(() => {
+        requests.delete(url)
+        return null
+      })
+    requests.set(url, request)
+  }
+  return request
 }
 
 /**
  * The side rail (from 1400 px) and the search window of prokomsoftware.pl (SWA5, ZMIANY-v24
  * §3.3–3.4): on the start page its sections with the premium glide, on subpages „Na tej stronie”;
  * at the bottom „Kreator 60 s” — or „Twój projekt” with its count once the list has items. The
- * window searches the offer (`/api/solutions-index`, fetched when the browser is idle or at the
- * first request to search) and the pages, legal ones too. Opened by the rail's „Szukaj”, the
+ * window searches the offer (`/api/solutions-index`), the posts, industry and city pages
+ * (`/api/software-search`) — both fetched when the browser is idle or at the first request to
+ * search — and the pages, legal ones too, with a preview of the active result beside the list. Opened by the rail's „Szukaj”, the
  * capsule's loupe, Ctrl/⌘K and „/”.
  */
 export function SwRail({
@@ -70,10 +73,14 @@ export function SwRail({
   const onHome = pathname === '/'
   const count = useProjectCount()
   const [index, setIndex] = useState<SolutionsIndex | null>(null)
+  const [extras, setExtras] = useState<SearchExtras | null>(null)
 
   useEffect(() => {
     let alive = true
-    const load = () => void loadIndex().then((loaded) => alive && loaded && setIndex(loaded))
+    const load = () => {
+      void loadJson<SolutionsIndex>(INDEX_URL).then((loaded) => alive && loaded && setIndex(loaded))
+      void loadJson<SearchExtras>(EXTRAS_URL).then((loaded) => alive && loaded && setExtras(loaded))
+    }
     const idle = window.requestIdleCallback?.(load, { timeout: 4000 })
     const timer = idle === undefined ? window.setTimeout(load, 1500) : undefined
     const off = onSearchRequest(load)
@@ -96,8 +103,8 @@ export function SwRail({
   }, [pathname])
 
   const provider = useMemo(
-    () => buildLineProvider(softwareSearchEntries(index, pages), searchSettings(index, shortcuts)),
-    [index, pages, shortcuts],
+    () => softwareSearchProvider(index, extras, pages, shortcuts),
+    [index, extras, pages, shortcuts],
   )
   const railAction =
     count > 0
@@ -121,6 +128,7 @@ export function SwRail({
         phone={phone}
         label="Szukaj na stronie"
         placeholder="Szukaj: strona dla pensjonatu, CRM, faktury…"
+        renderPreview={(result) => <SearchPreview result={result} index={index} extras={extras} />}
       />
     </>
   )

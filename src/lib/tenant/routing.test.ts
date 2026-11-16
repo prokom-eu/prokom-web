@@ -248,6 +248,33 @@ describe('decideRoute — site domains', () => {
     }
   })
 
+  it('lets the Software search extras through on site domains, read only (its handler checks the line)', () => {
+    for (const method of ['GET', 'HEAD']) {
+      expect(
+        decideRoute({
+          host: 'software.localhost',
+          pathname: '/api/software-search',
+          method,
+          panelHost,
+        }),
+      ).toEqual({ type: 'next' })
+    }
+    expect(
+      decideRoute({
+        host: 'software.localhost',
+        pathname: '/api/software-search',
+        method: 'POST',
+        panelHost,
+      }),
+    ).toEqual({ type: 'notFoundPage', pathname: '/software.localhost/_404' })
+    for (const pathname of ['/api/software-search/', '/api/software-search/x']) {
+      expect(route('software.localhost', pathname)).toEqual({
+        type: 'notFoundPage',
+        pathname: '/software.localhost/_404',
+      })
+    }
+  })
+
   it('lets the hub search index through on site domains, read only (its handler checks the line)', () => {
     for (const method of ['GET', 'HEAD']) {
       expect(
