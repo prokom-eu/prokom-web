@@ -4,3 +4,11 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+
+# Security patches of transitive dependencies (pnpm audit 17.11): DOMPurify in the panel's code
+# editor (monaco ← @payloadcms/ui), undici and fast-uri under payload. Remove once the packages
+# that pull them in require a fixed version themselves.
+overrides:
+  dompurify@<3.4.17: 3.4.18
+  undici@>=7.0.0 <7.30.1: 7.30.2
+  fast-uri@>=3.0.0 <3.1.9: 3.1.9
