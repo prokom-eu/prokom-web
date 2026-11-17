@@ -2,7 +2,15 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react'
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
 
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuButton } from '@/components/shared/MenuButton'
@@ -209,11 +217,23 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
             aria-labelledby={`${id}-tab-${line.key}`}
             style={lineStyle(line.key)}
           >
-            <p className="pk-mega__name">PRO-KOM {line.name}</p>
-            {line.description && <p className="pk-mega__desc">{line.description}</p>}
-            <ul className="pk-mega__services">
-              {line.services.map((service) => (
-                <li key={service.key}>
+            {/* Keyed by the line: a new line replays the entry of its head and services. */}
+            <div className="pk-mega__top" key={`top-${line.key}`}>
+              <p className="pk-mega__name">PRO-KOM {line.name}</p>
+              {line.url && line.domain && (
+                <a href={line.url} className="pk-mega__domain">
+                  {line.domain} ↗
+                </a>
+              )}
+            </div>
+            {line.description && (
+              <p className="pk-mega__desc" key={`desc-${line.key}`}>
+                {line.description}
+              </p>
+            )}
+            <ul className="pk-mega__services" key={`list-${line.key}`}>
+              {line.services.map((service, index) => (
+                <li key={service.key} style={{ '--i': index } as CSSProperties}>
                   <ServiceItem href={line.url}>
                     <span className="pk-mega__icon">
                       <Icon name={service.icon} className="size-[18px]" />
@@ -222,6 +242,11 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
                       <b>{service.title}</b>
                       <span>{service.short}</span>
                     </span>
+                    {line.url && (
+                      <span className="pk-mega__go" aria-hidden="true">
+                        →
+                      </span>
+                    )}
                   </ServiceItem>
                 </li>
               ))}

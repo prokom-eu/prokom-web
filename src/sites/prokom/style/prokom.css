@@ -170,6 +170,204 @@
   font-size: 17px;
 }
 
+/* --- Mega menu, premium pass (Krystian 16.11: „bardziej dopracowane i premium, ładne animacje”).
+   The panel eases in from the capsule, the chosen line glows, its services rise one by one; a
+   hover lifts a service and shows its arrow. Transform and opacity only; reduced motion = still. */
+.pk-mega:not([hidden]) {
+  transform-origin: 50% 0;
+  transition:
+    opacity 0.22s var(--ease-out),
+    transform 0.32s var(--ease-out);
+}
+@starting-style {
+  .pk-mega:not([hidden]) {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+}
+.pk-menu__chev {
+  transition: transform 0.25s var(--ease-out);
+}
+.pk-menu [aria-expanded='true'] .pk-menu__chev {
+  transform: rotate(180deg);
+}
+/* Lines: the chosen tab is a lit card; its dot glows in the line's colour. */
+.pk-mega__tab {
+  position: relative;
+  transition:
+    background-color 0.2s var(--ease-out),
+    color 0.2s var(--ease-out),
+    box-shadow 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.pk-mega__tab:hover {
+  transform: translateX(2px);
+}
+.pk-mega__tab[aria-selected='true'] {
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--ln) 16%, var(--card)),
+    var(--card) 70%
+  );
+  box-shadow:
+    inset 3px 0 0 var(--ln),
+    0 8px 20px -14px color-mix(in srgb, var(--ln) 70%, transparent);
+}
+.pk-mega__dot {
+  transition: box-shadow 0.25s var(--ease-out);
+}
+.pk-mega__tab[aria-selected='true'] .pk-mega__dot {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ln) 22%, transparent);
+  animation: pk-mega-dot 2s ease-in-out infinite;
+}
+@keyframes pk-mega-dot {
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--ln) 0%, transparent);
+  }
+}
+/* The chosen line's panel: a soft wash of its colour from the top right. */
+.pk-mega__panel {
+  position: relative;
+  background: radial-gradient(
+    120% 90% at 100% 0%,
+    color-mix(in srgb, var(--ln) 12%, transparent),
+    transparent 60%
+  );
+}
+.pk-mega__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pk-mega__domain {
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--ln) 40%, transparent);
+  border-radius: 999px;
+  padding: 5px 12px;
+  background: color-mix(in srgb, var(--ln) 12%, transparent);
+  color: var(--ln-text);
+  font-size: 13px;
+  font-weight: 800;
+  transition: background-color 0.2s var(--ease-out);
+}
+.pk-mega__domain:hover {
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+}
+.pk-mega__top,
+.pk-mega__desc {
+  animation: pk-mega-rise 0.4s var(--ease-out) both;
+}
+.pk-mega__desc {
+  animation-delay: 0.04s;
+}
+.pk-mega__services > li {
+  animation: pk-mega-rise 0.42s var(--ease-out) both;
+  animation-delay: calc(0.06s + var(--i, 0) * 0.035s);
+}
+@keyframes pk-mega-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.pk-mega__service {
+  position: relative;
+  border: 1px solid transparent;
+  transition:
+    background-color 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out),
+    transform 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out);
+}
+a.pk-mega__service:hover {
+  border-color: color-mix(in srgb, var(--ln) 30%, transparent);
+  background: color-mix(in srgb, var(--ln) 7%, var(--card));
+  box-shadow: 0 12px 24px -18px color-mix(in srgb, var(--ln) 80%, transparent);
+  transform: translateY(-2px);
+}
+.pk-mega__icon {
+  transition:
+    transform 0.25s var(--ease-out),
+    background-color 0.25s var(--ease-out);
+}
+a.pk-mega__service:hover .pk-mega__icon {
+  background: color-mix(in srgb, var(--ln) 26%, transparent);
+  transform: scale(1.08);
+}
+.pk-mega__go {
+  margin-left: auto;
+  align-self: center;
+  color: var(--ln-text);
+  font-weight: 800;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 0.2s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+a.pk-mega__service:hover .pk-mega__go,
+a.pk-mega__service:focus-visible .pk-mega__go {
+  opacity: 1;
+  transform: none;
+}
+.pk-mega__startlink {
+  transition:
+    background-color 0.2s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+.pk-mega__startlink:hover {
+  transform: translateX(3px);
+}
+/* „Dobierz w 10 sekund”: a gradient card with a light sweep on hover. */
+.pk-mega__pick {
+  --pk-shine: var(--accent-text);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 70%, var(--ink)) 140%
+  );
+  box-shadow: 0 14px 30px -18px color-mix(in srgb, var(--accent) 90%, transparent);
+  transition:
+    transform 0.25s var(--ease-out),
+    box-shadow 0.25s var(--ease-out);
+}
+.pk-mega__pick::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--pk-shine) 0%, transparent) 40%,
+    color-mix(in srgb, var(--pk-shine) 35%, transparent) 50%,
+    transparent 60%
+  );
+  content: '';
+  transform: translateX(-100%);
+  transition: transform 0.7s var(--ease-out);
+}
+.pk-mega__pick:hover {
+  box-shadow: 0 18px 36px -18px color-mix(in srgb, var(--accent) 100%, transparent);
+  transform: translateY(-2px);
+}
+.pk-mega__pick:hover::after {
+  transform: translateX(100%);
+}
+[data-theme='light'] .pk-mega__pick {
+  --pk-shine: var(--accent-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-mega:not([hidden]),
+  .pk-mega *,
+  .pk-mega *::after,
+  .pk-menu__chev {
+    transition: none;
+    animation: none;
+  }
+}
+
 /* --- Menu sheet (spec §5.4): „Cała oferta” and the start links. */
 .pk-sheet__head {
   margin: 18px 0 8px;
