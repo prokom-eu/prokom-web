@@ -162,8 +162,9 @@ export async function GuidePost({ post, tenantId, origin }: Props) {
         </div>
       </section>
 
-      {/* Round v5 (RUNDA-V5 §9.4): contents, text and side panel come in on scroll. */}
-      <InstSection id="tresc" style={{ padding: '0 0 96px' }}>
+      {/* Round v5 (RUNDA-V5 §9.4): contents, text and side panel come in on scroll. Not `tresc`:
+          that is the id of the layout's `<main>` (skip link, `#tresc > …`). */}
+      <InstSection id="artykul" style={{ padding: '0 0 96px' }}>
         <div className="wrap art">
           <nav className="toc ri" aria-label={T.toc}>
             <b
