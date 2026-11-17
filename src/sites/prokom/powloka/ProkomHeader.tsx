@@ -279,10 +279,12 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
             onClick={() => requestSearch()}
           >
             <Icon name="search" strokeWidth={2.2} className="size-[18px]" />
-            {/* The name from the content (WCAG 2.5.3): the shortcut is shown, not read out. */}
-            <span className="pk-hsearch__label">
-              Szukaj<span className="sr-only"> w PRO-KOM</span>
+            {/* The name from the content (WCAG 2.5.3): the visible „Szukaj” is hidden below
+                1380 px, so the read name lives apart from it; the shortcut is shown, not read. */}
+            <span className="pk-hsearch__label" aria-hidden="true">
+              Szukaj
             </span>
+            <span className="sr-only">Szukaj w PRO-KOM</span>
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
           <ThemeToggle className={CAPSULE.iconButton} />
