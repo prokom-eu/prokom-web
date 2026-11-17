@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   useCallback,
-  useDeferredValue,
   useEffect,
   useId,
   useMemo,
@@ -173,8 +172,11 @@ export function SearchDialog({
     [show],
   )
 
-  const deferred = useDeferredValue(query)
-  const trimmed = deferred.trim()
+  // Results follow the field in the same urgent render, not through `useDeferredValue`: a deferred
+  // render is a transition, and a line's `<ViewTransition>` (Instalacje) turns every transition
+  // into `document.startViewTransition` — while it runs React drops the field's input events and
+  // its next commit writes the old phrase back (17.11: „monitorng” → „m”).
+  const trimmed = query.trim()
   const groups: SearchGroup[] = useMemo(
     () => (trimmed ? provider.query(trimmed) : []),
     [provider, trimmed],
