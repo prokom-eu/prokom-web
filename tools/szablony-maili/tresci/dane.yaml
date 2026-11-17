@@ -1,0 +1,161 @@
+# Dane linii do szablonów maili (jedno źródło dla treści, podpisów i podglądu).
+# Zmiana numeru, adresu albo obietnicy = zmiana TYLKO tutaj + `pnpm szablony:build`.
+# Pola z prefiksem "[SZEF]" lub "[DO UZUPEŁNIENIA]" blokują build w trybie --strict (test).
+
+wspolne:
+  FIRMA: "PRO-KOM Tadeusz Wójciak"
+  NIP: "7352511447"
+  ADRES: "ul. Orkana 16B, 34-700 Rabka-Zdrój"
+  GODZ: "pn–pt 9:00–17:00"
+  OD_ROKU: "2004"
+
+linie:
+  biznes:
+    NAZWA: "PRO-KOM Biznes"
+    KROTKO: "Biznes"
+    WWW: "prokombiznes.pl"
+    MAIL: "kontakt@prokombiznes.pl"
+    TEL: "889 003 889"
+    TEL2: "883 200 151"
+    GODZ: "pn–pt 9:00–17:00"
+    OBIETNICA: "W godzinach pracy oddzwaniamy w ciągu 60 minut."
+    OPIS: "Kasy fiskalne, komputery, programy i opieka IT dla firm"
+    ACC: "#244FB0"        # pasek, numery kroków, ramka karty
+    ACC_TXT: "#244FB0"    # tekst akcentu na jasnym (AA)
+    ACC_BTN: "#244FB0"    # tło przycisku z białym tekstem (AA)
+    ACC_SOFT: "#EEF2FA"   # tło karty / ramki info
+    LOGO: "public/brand/prokom-biznes_poziome_kolor.svg"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Doradca ds. firm"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
+  instalacje:
+    NAZWA: "PRO-KOM Instalacje"
+    KROTKO: "Instalacje"
+    WWW: "prokominstalacje.pl"
+    MAIL: "kontakt@prokominstalacje.pl"
+    TEL: "889 003 889"
+    TEL2: ""
+    GODZ: "pn–pt 9:00–17:00"
+    OBIETNICA: "Na każde zgłoszenie odpowiadamy w ciągu 24 godzin w dni robocze."
+    GWARANCJA_MONTAZ: "24 miesiące gwarancji na wykonany montaż"
+    OPIS: "Monitoring, alarmy, sieci i Wi-Fi, smart home"
+    ACC: "#0093B3"
+    ACC_TXT: "#006A82"
+    ACC_BTN: "#007A96"
+    ACC_SOFT: "#EAF5F8"
+    LOGO: "public/brand/prokom-instalacje_poziome_kolor.svg"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Doradca ds. instalacji"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
+  software:
+    NAZWA: "PRO-KOM Software"
+    KROTKO: "Software"
+    WWW: "prokomsoftware.pl"
+    MAIL: "kontakt@prokomsoftware.pl"
+    TEL: "883 200 151"
+    TEL2: "788 986 074"
+    GODZ: "pn–pt 9:00–17:00"
+    OBIETNICA: "Odpowiadamy w ciągu 1 dnia roboczego."
+    OPIS: "Strony, systemy i aplikacje dla firm"
+    ACC: "#8B61E3"
+    ACC_TXT: "#5B33C4"
+    ACC_BTN: "#6E45D4"
+    ACC_SOFT: "#F2EEFC"
+    LOGO: "public/brand/prokom-software_poziome_kolor.svg"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Kierownik projektów · PRO-KOM Software"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
+  prokom:
+    NAZWA: "PRO-KOM"
+    KROTKO: "PRO-KOM"
+    WWW: "pro-kom.eu"
+    MAIL: "biuro@pro-kom.eu"
+    TEL: "883 200 151"
+    TEL2: ""
+    GODZ: "pn–pt 9:00–17:00"
+    OBIETNICA: "Sprawę przekazujemy od razu do właściwego zespołu."
+    OBIETNICA_DOSTAWY: "Przy dostawach dla firm i instytucji w godzinach pracy oddzwaniamy w ciągu 60 minut."
+    OPIS: "IT dla firm, instalacje, oprogramowanie i serwis — od 2004 roku"
+    ACC: "#45A02C"
+    ACC_TXT: "#367E23"
+    ACC_BTN: "#367E23"
+    ACC_SOFT: "#EEF6EA"
+    LOGO: "public/brand/prokom-glowna_poziome_kolor.svg"
+    # Osoby podpisujące — każda dostaje własny plik podpisu (podpis-<linia>-<imię-nazwisko>.html).
+    PODPISY:
+      - imie: "Krystian Potaczek"
+        rola: "Biuro PRO-KOM"
+      - imie: "Tadeusz Wójciak"
+        rola: "Właściciel"
+  tech:
+    NAZWA: "PRO-KOM Tech"
+    KROTKO: "Tech"
+    WWW: "prokomserwis.pl"
+    MAIL: "[DO UZUPEŁNIENIA] kontakt@prokomserwis.pl — wpisz skrzynkę, z której odpisuje serwis"
+    TEL: "883 200 151"
+    TEL2: ""
+    GODZ: "pn–pt 9:00–17:00, sob 9:00–14:00"
+    OBIETNICA: "Diagnoza i wycena zawsze przed naprawą — bez Twojej zgody nic nie naprawiamy."
+    STATUS_URL: "https://prokomserwis.pl/track"
+    OPIS: "Serwis telefonów, laptopów, komputerów i konsol"
+    ACC: "#C4362B"
+    ACC_TXT: "#B3301F"
+    ACC_BTN: "#B3301F"
+    ACC_SOFT: "#FBEFEC"
+    LOGO: "[DO UZUPEŁNIENIA] oficjalny SVG znaku PRO-KOM TECH — do czasu pliku podpis z wordmarkiem HTML"
+    PODPISY:
+      - imie: "[Imię i nazwisko]"
+        rola: "Serwis PRO-KOM Tech"
+    # Punkty serwisowe. Punkt z published: false nie trafia do list wyboru ani podpisu.
+    PUNKTY:
+      - key: rabka
+        nazwa: "Rabka-Zdrój"
+        adres: "ul. Orkana 16B, 34-700 Rabka-Zdrój"
+        godz: "pn–pt 9:00–17:00, sob 9:00–14:00"
+        published: true
+      - key: zakopane
+        nazwa: "Zakopane"
+        adres: "[SZEF] adres punktu w Zakopanem"
+        godz: "[SZEF] godziny punktu w Zakopanem"
+        published: false
+    # Zasady naprawy wysyłkowej — tak mówi dziś mail z systemu (communications/services/send.py).
+    # [SZEF] potwierdzić przed pierwszym użyciem szablonów kurierskich (tech-spec §10).
+    KURIER_ADRES: "PRO-KOM Tech, ul. Orkana 16B, 34-700 Rabka-Zdrój"
+    KURIER_ZASADA: "Wysyłkę do serwisu opłaca klient, odesłanie sprzętu po naprawie jest po naszej stronie."
+
+# Pytania doprecyzowujące (szablon „Prośba o szczegóły”) — inne dla każdej linii.
+pytania:
+  biznes: |
+    - jaka to działalność i ile stanowisk sprzedaży lub komputerów ma obsłużyć,
+    - z jakiego programu lub kasy korzystają Państwo dziś (jeśli z jakiegoś),
+    - czy potrzebny jest terminal płatniczy albo połączenie z księgowością,
+    - na kiedy wszystko ma działać.
+  instalacje: |
+    - jaki to obiekt (dom, pensjonat, firma, wspólnota) i mniej więcej jaka powierzchnia,
+    - co ma działać — np. ile kamer i gdzie, alarm, Wi-Fi w całym budynku, sterowanie,
+    - czy budynek jest w budowie, czy wykończony (od tego zależy prowadzenie kabli),
+    - jakie łącze internetowe jest w obiekcie.
+  software: |
+    - czym zajmuje się firma i kto ma korzystać ze strony lub systemu (klienci, pracownicy),
+    - co ma się wydarzyć po wejściu klienta — telefon, zapytanie, rezerwacja, zamówienie,
+    - czy jest już strona, domena albo program, z którym trzeba się połączyć,
+    - na kiedy chcieliby Państwo wystartować i czy jest założony budżet.
+  prokom: |
+    - czego dotyczy sprawa — sprzęt i programy dla firmy, instalacja w obiekcie, strona lub system, czy naprawa,
+    - czy to firma, instytucja, czy sprawa prywatna,
+    - gdzie ma być wykonana praca albo dostawa (miejscowość),
+    - na kiedy to potrzebne.
+  tech: |
+    - jakie to urządzenie (marka i dokładny model — np. z naklejki albo z ustawień),
+    - co dokładnie się dzieje i od kiedy (czy było upuszczone albo zalane),
+    - czy urządzenie się włącza,
+    - czy wolą Państwo przynieść sprzęt do punktu, czy wysłać kurierem.

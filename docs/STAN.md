@@ -44,6 +44,11 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - Szacunek (plan v3): ok. 12,5 wieczoru po F0/F0b (D1 1,75 ✅ · D2 4,75 · D3 B 1,5 / I 2 / S 2 + QA 0,5).
 - Zasady treści 01.11 obowiązują we wszystkich sesjach: bez WhatsAppa, bez zdjęć ludzi, dane kontaktowe z panelu, „Tech” (nie „Serwis”), pro-kom.eu bez „sklepu”, Gaming tylko jako odnośnik.
 
+### Szablony ręcznych odpowiedzi v2 (SM) — folder fundamentu `prokom-web`
+- 17.11: PR `feat/szablony-silnik`: generator `tools/szablony-maili/` (`pnpm szablony:build` / `szablony:copy`) dla 4 linii — Biznes 45, Instalacje 43, Software 42, PRO-KOM 42. Tech poza zakresem (`tech.yaml` jest w repo, nie jest budowany). Odstępstwa od spec: `SZABLONY-MAILI.md` §0, procedura: `docs/runbook.md` §10.
+- Następny krok (Krystian, po scaleniu): build → copy → import w Thunderbirdzie wg `START-TUTAJ.md`, potem checklista ręczna z opisu PR (Quicktext pyta o pola, pole w adresie przycisku, Gmail/Outlook, ciemny motyw, mail-tester).
+- 17.11: podpisują Krystian Potaczek i Tadeusz Wójciak (osobny plik podpisu dla każdego w każdej linii). Ceny opieki Software 149/299/790 zaakceptowane przez szefa. Na później (pomysł z przeglądu): zmienna `OPINIA_GOOGLE` w `dane.yaml` zamiast ręcznej podmiany `WSTAW-LINK`.
+
 ### pro-kom.eu (hub) — folder `prokom-web-hub` (od 14.11; PORT 3004, baza `prokom_web_hub`)
 - **H0 — zrobione 14.11 (z czatu, PR `docs/prokomeu`):** paczka huba w repo — spec `docs/strony/prokomeu.md`, pytania `docs/strony/prokomeu-pytania.md`, ADR-H001 (tenant `prokom`, wspólne komponenty, zapytania, aktualności, 301, Umami) i ADR-H002 (model treści), plan `docs/zadania/prokomeu.md`, wzorzec `docs/design/prokomeu/` (30 plansz, `tokens.css`, README z mapą plansz → adresy → sesje), dane `seed/prokomeu/strony/*.json`. Folder huba dopisany w `docs/sposob-pracy.md`, sekcja huba w `CLAUDE.md`.
 - **H1 — w toku (14.11, plan zaakceptowany; decyzje w ADR-H002 „Rozstrzygnięcia H1”).** Gałęzie piętrowe, wszystkie zacommitowane, PR-y jeszcze nieotwarte:

@@ -1,0 +1,220 @@
+# PRO-KOM (pro-kom.eu, hub całej firmy) — szablony skrzynki biuro@pro-kom.eu.
+# Rola: kierować do właściwej linii, koordynować sprawy na kilka linii, obsłużyć dostawy dla firm i instytucji.
+# Zasady treści huba (prokomeu-spec §3): konfiguracja, montaż i szkolenie przy dostawach NIE są standardem;
+# RTV i AGD tylko dla firm i instytucji, dostawa pod adres, bez montażu; przy dostawach: oddzwaniamy w 60 minut w godzinach pracy.
+grupy:
+  gp1: "8 · Kierowanie i koordynacja"
+  gp2: "9 · Inwestycje i dostawy"
+  gp3: "10 · Współpraca i sprawy firmowe"
+
+szablony:
+
+- id: kilka-linii
+  grupa: gp1
+  nazwa: "Sprawa na kilka linii — jeden koordynator"
+  skrot: koordynator
+  kiedy: "Klient potrzebuje np. kasy, monitoringu i strony. Jedna osoba prowadzi całość — klient nie lata między zespołami."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za wiadomość. Państwa sprawa obejmuje kilka naszych zespołów — żeby było prosto, całość prowadzi jedna osoba.
+
+    ::karta Państwa sprawa
+    Koordynator: {I:imię i nazwisko, telefon}
+    Zakres: {I:co (np. kasa i program, monitoring sklepu, strona internetowa)}
+    Zespoły: {I:linie (np. Biznes, Instalacje, Software)}
+    Pierwszy krok: {I:co i kiedy (np. wizyta w sklepie we wtorek)}
+
+    ::kroki Jak to poprowadzimy
+    1. Jedna rozmowa albo wizyta — zbieramy wszystkie potrzeby naraz.
+    2. Jedna oferta z podziałem na części — widać, co ile kosztuje.
+    3. Jeden harmonogram, żeby prace się nie blokowały (np. kable przed kamerami, kasa przed otwarciem).
+
+    Pozdrawiamy serdecznie,
+
+- id: stary-sklep
+  grupa: gp1
+  nazwa: "Pytanie o produkt z dawnej strony / sklepu"
+  skrot: produkt
+  kiedy: "Klient pyta o produkt ze starej pro-kom.eu (sklep został zamknięty, produkty → strony linii)."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zainteresowanie. Nowa strona pro-kom.eu nie prowadzi już sprzedaży internetowej — ofertę mają poszczególne zespoły PRO-KOM.
+
+    W sprawie **{I:produkt}** {S:kto|odezwie się nasz zespół PRO-KOM Biznes ({biznes.TEL}, {biznes.MAIL}) — przygotuje aktualną cenę i dostępność.;zapraszamy do salonu w Rabce-Zdroju ({ADRES}, {GODZ}) — sprawdzimy dostępność od ręki.}
+
+    Pozdrawiamy serdecznie,
+
+- id: status-naprawy
+  grupa: gp1
+  nazwa: "Pytanie o naprawę — kierujemy do serwisu Tech"
+  skrot: naprawa
+  kiedy: "Klient pisze na biuro o naprawie lub statusie. Status jest online na prokomserwis.pl/track."
+  tresc: |
+    Dzień dobry,
+
+    naprawami zajmuje się nasz serwis **PRO-KOM Tech**. Przekazaliśmy Państwa wiadomość — odezwą się bezpośrednio.
+
+    ::przycisk Sprawdź status naprawy | {tech.STATUS_URL}
+
+    Do sprawdzenia statusu potrzebny jest numer zgłoszenia i 4 ostatnie cyfry telefonu podanego przy zgłoszeniu. Serwis: **{tech.TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: dostawy-lista
+  grupa: gp2
+  nazwa: "Lista zapytania z „Inwestycje i dostawy” — otrzymana"
+  skrot: lista
+  kiedy: "Formularz hub-dostawy z listą. Obietnica 60 minut dotyczy oddzwonienia w godzinach pracy."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za listę zapytania — mamy ją. {OBIETNICA_DOSTAWY}
+
+    ::karta Zapytanie {I:numer}
+    Dla: {I:firma / instytucja}
+    Lista: {I:liczba sztuk i pozycji}
+    Linie: {I:które zespoły (np. Biznes — sprzęt IT, Instalacje — monitoring)}
+    Termin: {I:wymagany termin}
+    Miejsce dostawy: {I:miejscowość}
+
+    ::kroki Co dalej
+    1. Sprawdzamy dostępność i ceny u dystrybutorów.
+    2. Przygotujemy ofertę z podziałem na pozycje do **{I:kiedy}**.
+    3. Usługi dodatkowe (konfiguracja, montaż, szkolenie) wyceniamy osobno — tylko jeśli są Państwu potrzebne.
+
+    {?:Sprzęt RTV i AGD dostarczamy pod adres, bez montażu i podłączenia.}
+
+    Pozdrawiamy serdecznie,
+
+- id: obiekt
+  grupa: gp2
+  nazwa: "Wyposażenie obiektu (hotel, szkoła, biuro) — koncepcja"
+  skrot: obiekt
+  kiedy: "Kompleksowe wyposażenie obiektu. Przykładowe ilości z planszy to tylko punkt wyjścia."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o wyposażenie **{I:obiekt (np. pensjonat, 20 pokoi)}**. Taki obiekt najlepiej przygotować jako całość — od sieci po sprzęt w pokojach.
+
+    ::karta Proponowany zakres
+    Sieć i Wi-Fi: {I:np. Wi-Fi w każdym pokoju, sieć dla gości osobno}
+    Bezpieczeństwo: {I:np. monitoring wejść i parkingu}
+    Sprzęt: {I:np. komputery recepcji, telewizory w pokojach}
+    Programy: {I:np. kasa i program sprzedaży, strona z zapytaniem o termin}
+
+    ::kroki Jak to przygotujemy
+    1. Wizja lokalna albo rzuty — żeby ilości były prawdziwe, nie „na oko”.
+    2. Oferta z podziałem na części: można realizować całość albo etapami.
+    3. Harmonogram dopasowany do otwarcia lub sezonu.
+
+    Pozdrawiamy serdecznie,
+
+- id: instytucja
+  grupa: gp2
+  nazwa: "Instytucja — zapytanie ofertowe / postępowanie"
+  skrot: instytucja
+  kiedy: "Urząd, szkoła, jednostka publiczna. Terminy postępowania wpisz dokładnie."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zaproszenie do złożenia oferty. Potwierdzamy zainteresowanie.
+
+    ::karta Postępowanie {I:znak sprawy}
+    Zamawiający: {I:nazwa}
+    Przedmiot: {I:przedmiot}
+    Termin składania ofert: {I:data i godzina}
+    Forma: {I:platforma / e-mail / podpis kwalifikowany}
+
+    ::info Dokumenty, które dostarczamy
+    Faktura VAT i protokół odbioru, karty katalogowe, gwarancja producenta, warunki na piśmie — na życzenie także spotkanie przed złożeniem oferty.
+
+    Pytania do specyfikacji: {I:pytania numerowane albo „brak”}
+
+    Pozdrawiamy serdecznie,
+
+- id: wspolpraca-arch
+  grupa: gp3
+  nazwa: "Architekt / deweloper / wykonawca — współpraca"
+  skrot: wspolpraca
+  kiedy: "Formularz hub-wspolpraca. Przekazujemy do Instalacji, ale klient dostaje konkret od razu."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za kontakt — chętnie współpracujemy przy inwestycjach na etapie projektu. Sprawę prowadzi nasz zespół **PRO-KOM Instalacje** ({I:osoba i telefon}).
+
+    ::kroki Jak pracujemy z {S:rola|pracowniami;deweloperami;wykonawcami}
+    1. Konsultacja do projektu: sieć, Wi-Fi, monitoring, alarm, kontrola dostępu, smart home.
+    2. Wycena dla inwestora na podstawie rzutów — z podziałem na lokale lub etapy.
+    3. Montaż w uzgodnionym etapie budowy i koordynacja z innymi branżami.
+
+    Prosimy o link do rzutów i krótki opis inwestycji (lokalizacja, etap, termin).
+
+    Pozdrawiamy serdecznie,
+
+- id: dostawca
+  grupa: gp3
+  nazwa: "Dostawca / producent — odpowiedź na propozycję"
+  skrot: dostawca
+  kiedy: "Hurtownia lub producent proponuje współpracę."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za propozycję współpracy. Żeby ocenić, czy pasuje do naszej oferty, prosimy o:
+
+    ::lista
+    - krótki opis oferty i warunków dla partnerów (rabaty, minimum zamówienia, dostępność),
+    - informację o wsparciu serwisowym i gwarancji w Polsce,
+    - kontakt do opiekuna handlowego.
+
+    Odpowiemy po analizie — {S:decyzja|jeśli oferta będzie pasować, zaproponujemy rozmowę.;na tę chwilę nie planujemy rozszerzania oferty o tę kategorię, ale zachowamy kontakt.}
+
+    Pozdrawiamy serdecznie,
+
+- id: dokumenty-firmy
+  grupa: gp3
+  nazwa: "Prośba o dokumenty firmy / referencje"
+  skrot: dokumenty
+  kiedy: "Kontrahent prosi o dane rejestrowe, autoryzacje, referencje. Numer konta tylko na fakturze, nie w mailu."
+  tresc: |
+    Dzień dobry,
+
+    przesyłamy dane firmy:
+
+    ::karta {FIRMA}
+    NIP: {NIP}
+    Adres: {ADRES}
+    Działamy od: {OD_ROKU} roku
+    Wpis: CEIDG (wyszukiwarka na biznes.gov.pl)
+    Autoryzacje: autoryzowany serwis Posnet i Elzab, autoryzowany partner InsERT i GoPOS
+
+    W załączniku: {I:co (np. certyfikaty autoryzacji, referencje) — albo usuń zdanie}
+
+    Pozdrawiamy serdecznie,
+
+- id: praca
+  grupa: gp3
+  nazwa: "CV / pytanie o pracę"
+  skrot: praca
+  kiedy: "Ktoś przysyła CV. Uprzejmie; CV z danymi osobowymi przechowujemy zgodnie z polityką prywatności (do akceptacji prawnika)."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zainteresowanie pracą w PRO-KOM i przesłane dokumenty.
+
+    {S:odpowiedź|Obecnie nie prowadzimy rekrutacji. Jeśli wyrażą Państwo zgodę, zachowamy CV i odezwiemy się, gdy pojawi się odpowiednie stanowisko.;Przekazaliśmy CV osobie odpowiedzialnej za rekrutację — jeśli profil będzie pasować, odezwiemy się w ciągu 14 dni.}
+
+    Pozdrawiamy serdecznie,
+
+- id: spam-oferta
+  grupa: gp3
+  nazwa: "Oferta handlowa dla nas — grzeczna odmowa"
+  skrot: niedziekujemy
+  kiedy: "Pozycjonowanie, leady, reklama itp. — krótko, żeby zamknąć wątek."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za wiadomość. Nie jesteśmy zainteresowani tą ofertą — prosimy o niewysyłanie kolejnych wiadomości w tej sprawie.
+
+    Pozdrawiamy,

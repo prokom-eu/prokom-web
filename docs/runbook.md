@@ -319,3 +319,12 @@ Wybrany wariant: **nowy certyfikat zaraz po zmianie DNS** (procedura z §0), bez
 4. Drugie polecenie startu z §0 + `-f docker/compose.proxy.tech-prod.yml`: najpierw `run --rm --no-deps nginx nginx -t` na jednorazowym kontenerze, po `successful` — `up -d nginx`, potem `ps` i `logs --tail 20 nginx`. **Od teraz proxy zawsze z tą nakładką** — dopisz ją do polecenia w §0 (mały PR).
 5. Sprawdzenie: `curl -sI https://prokomserwis.pl/` i `curl -sI https://www.prokomserwis.pl/` → odpowiedź z `gateway`, obie **bez 301**, logowanie do panelu na `www` działa (`ALLOWED_HOSTS`/`CSRF_TRUSTED_ORIGINS` stosu Tech mają obie nazwy); certyfikat: `echo | openssl s_client -connect prokomserwis.pl:443 -servername www.prokomserwis.pl 2>/dev/null | openssl x509 -noout -ext subjectAltName -enddate`; dalej kontrola z MIGRACJA §8 pkt 9.
 6. Powrót (MIGRACJA §9): DNS z powrotem na `62.238.0.240`. Nginx może zostać z nakładką (certyfikat jest ważny, ruch i tak wraca na Hetznera).
+
+## 10. Szablony maili w Thunderbirdzie (ręczne odpowiedzi, 4 linie)
+Narzędzie lokalne, bez serwera: `tools/szablony-maili/` (spec `docs/design/szablony/SZABLONY-MAILI.md`, rozstrzygnięcia w §0). Treści: `tools/szablony-maili/tresci/*.yaml`, dane linii (telefony, obietnice, kolory): `dane.yaml`.
+
+1. **Budowa:** `pnpm szablony:build` (opcje: `--line biznes|instalacje|software|prokom|all`, `--strict` = błąd przy `[DO UZUPEŁNIENIA]`/`[SZEF]`, `--logo-base <url>`, `--no-href-input`, `--out <katalog>`). Wynik trafia do `tools/szablony-maili/dist/` (poza gitem).
+2. **Kopia:** `pnpm szablony:copy` kopiuje `dist/` do `../../maile` względem repo (`--to <katalog>`, żeby wybrać inny). Nadpisuje pliki o tych samych nazwach, a innych nie usuwa. Podpisy są osobne dla każdej osoby (`podpis-<linia>-<imię-nazwisko>.html`). Osoby i role ustawia się w `PODPISY` w `dane.yaml`, nie w pliku podpisu.
+3. **Import:** wg `START-TUTAJ.md` w paczce: swój podpis z pliku, tryb HTML, Quicktext → usuń stare grupy → importuj `quicktext-<linia>.xml`, raz podmień `WSTAW-LINK` w szablonie opinii Google.
+4. **Zmiana treści albo danych:** edycja YAML → `pnpm test` (testy pilnują zasad treści) → build → copy → w Quicktext usuń grupy linii i zaimportuj XML ponownie. Zmianę commituj przez PR jak każdy kod.
+5. Pole Quicktext w adresie przycisku się nie podstawia? Zbuduj z `--no-href-input`: przycisk prowadzi wtedy do `#`, a adres jest tekstem pod spodem.

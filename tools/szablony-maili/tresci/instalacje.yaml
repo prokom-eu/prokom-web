@@ -1,0 +1,276 @@
+# PRO-KOM Instalacje — szablony tylko tej linii.
+# Zasady (spec-prokominstalacje §2): „24 h” = odpowiedź na zgłoszenie w dni robocze, NIGDY „technik w 24 h”;
+# gwarancja 24 miesiące na montaż, sprzęt wg producenta; dokumentację odbiorową ustalamy przed instalacją
+# (może być płatna); nie montujemy SSP/DSO (tylko integracja); Ampio: głos tylko przez Matter.
+grupy:
+  gi1: "8 · Wycena i wizja lokalna"
+  gi2: "9 · Montaż i przekazanie"
+  gi3: "10 · Serwis, awarie, rozbudowa"
+  gi4: "11 · Współpraca"
+
+szablony:
+
+- id: zdjecia
+  grupa: gi1
+  nazwa: "Wycena ze zdjęć — co sfotografować"
+  skrot: zdjecia
+  kiedy: "Najszybsza droga do wyceny bez wizyty."
+  tresc: |
+    Dzień dobry,
+
+    najszybciej przygotujemy wycenę na podstawie kilku zdjęć z telefonu. Prosimy o:
+
+    ::lista
+    - zdjęcia miejsc, gdzie ma być {S:co|kamera;czujka lub syrena alarmu;punkt Wi-Fi;urządzenie} — z daleka, żeby było widać otoczenie,
+    - zdjęcie miejsca na rejestrator / szafkę sieciową / centralę (zwykle przy routerze),
+    - zdjęcie routera i miejsca, gdzie wchodzi internet,
+    - rzut lub szkic budynku — jeśli jest (wystarczy zdjęcie kartki).
+
+    Do tego krótko: **co ma być widać lub chronione** i czy budynek jest wykończony. Na tej podstawie przygotujemy wycenę, a wizję lokalną zrobimy tylko, jeśli będzie naprawdę potrzebna.
+
+    Pozdrawiamy serdecznie,
+
+- id: wizja
+  grupa: gi1
+  nazwa: "Wizja lokalna — potwierdzenie"
+  skrot: wizja
+  kiedy: "Potwierdzenie wizyty przed wyceną. Odpłatność wizji wpisz zgodnie z ustaleniami."
+  tresc: |
+    Dzień dobry,
+
+    potwierdzamy wizję lokalną:
+
+    ::karta Wizja lokalna
+    Kiedy: {I:dzień, data, godzina}
+    Gdzie: {I:adres}
+    Kto przyjedzie: {I:imię i nazwisko}
+    Czas: ok. {I:czas (np. 45 minut)}
+    Koszt: {I:koszt (np. bez opłat / 150 zł — odliczamy od montażu)}
+
+    ::lista
+    - prosimy o dostęp do pomieszczeń, poddasza/strychu i miejsca, gdzie wchodzi internet,
+    - warto mieć pod ręką rzut budynku i listę oczekiwań (co ma być widać, kto ma mieć dostęp).
+
+    Po wizycie przygotujemy wycenę do **{I:kiedy}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: oferta-inst
+  grupa: gi1
+  nazwa: "Oferta instalacji — z zakresem i gwarancją"
+  skrot: ofertainst
+  kiedy: "Rozbudowana wersja oferty dla instalacji: co dostajesz, czego nie ma w cenie, gwarancja."
+  tresc: |
+    Dzień dobry,
+
+    w załączniku oferta na **{I:co (np. monitoring 6 kamer w pensjonacie)}**. Dobraliśmy rozwiązanie pod obiekt, nie pod markę.
+
+    ::karta Oferta {I:numer oferty}
+    Zakres: {I:zakres w jednym zdaniu}
+    Sprzęt: {I:główne urządzenia (marka, liczba)}
+    Cena: {I:cena} {S:netto czy brutto|netto + VAT;brutto}
+    Montaż: {I:czas montażu (np. 2 dni)}
+    Gwarancja: {GWARANCJA_MONTAZ}, sprzęt według gwarancji producenta
+    Ważna do: {I:data}
+
+    ::info W cenie
+    {I:co dokładnie jest w cenie (np. okablowanie, konfiguracja, aplikacja w telefonie, szkolenie)}
+
+    ::uwaga Poza zakresem
+    {I:czego nie ma w cenie (np. prace budowlane, malowanie, dokumentacja powykonawcza — jeśli nieustalona)}
+
+    Chętnie omówimy ofertę: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: przedmontazem
+  grupa: gi2
+  nazwa: "Przed montażem — jak się przygotować"
+  skrot: przedmontazem
+  kiedy: "2–3 dni przed montażem."
+  tresc: |
+    Dzień dobry,
+
+    przypominamy o montażu **{I:data, godzina}** pod adresem {I:adres}. Żeby wszystko poszło sprawnie:
+
+    ::lista
+    - dostęp do pomieszczeń, poddasza i miejsca na urządzenia (rejestrator, centrala, szafka),
+    - gniazdko 230 V w miejscu montażu rejestratora / centrali,
+    - hasło do Wi-Fi i dostęp do routera (jeśli łączymy z internetem),
+    - ewentualnie: przestawione meble przy ścianach, gdzie będą prowadzone kable,
+    - osoba decyzyjna na miejscu na początku i na końcu prac.
+
+    ::info Na koniec montażu
+    Pokażemy, jak działa system, skonfigurujemy aplikację w telefonie i omówimy podstawową obsługę.
+
+    Pozdrawiamy serdecznie,
+
+- id: pomontazu
+  grupa: gi2
+  nazwa: "Po montażu — aplikacja, hasła, wskazówki"
+  skrot: pomontazu
+  kiedy: "Dzień po montażu. Hasła NIGDY w mailu — tylko osobiście, telefonicznie lub SMS."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za wspólną pracę! Podsumowanie instalacji:
+
+    ::karta Instalacja {I:obiekt}
+    Zainstalowano: {I:co (np. 6 kamer, rejestrator 4 TB, aplikacja na 2 telefonach)}
+    Aplikacja: {I:nazwa aplikacji (np. DMSS, Hik-Connect, Ampio)}
+    Gwarancja: {GWARANCJA_MONTAZ} od {I:data montażu}
+    Zgłoszenia serwisowe: **{TEL}** · {MAIL}
+
+    ::uwaga Hasła
+    Hasła i dane logowania przekazaliśmy {S:jak|osobiście;telefonicznie;SMS-em} — ze względów bezpieczeństwa nie wysyłamy ich mailem. Hasła fabryczne zostały zmienione.
+
+    ::lista
+    - nagrania przechowywane są ok. {I:ile dni} — potem nadpisują się automatycznie,
+    - jeśli kamera obejmuje teren poza Państwa posesją (np. drogę), warto ograniczyć widok — chętnie pomożemy ustawić strefy prywatności,
+    - {I:inna wskazówka}.
+
+    Pozdrawiamy serdecznie,
+
+- id: rodo-kamery
+  grupa: gi2
+  nazwa: "Monitoring w firmie — tabliczka i obowiązki"
+  skrot: rodokamery
+  kiedy: "Klient firmowy (pensjonat, sklep, biuro) — przypomnienie o obowiązkach informacyjnych. Nie udzielamy porad prawnych."
+  tresc: |
+    Dzień dobry,
+
+    przy monitoringu w firmie warto pamiętać o kilku obowiązkach — krótko, żeby nic nie umknęło:
+
+    ::lista
+    - oznaczenie terenu objętego monitoringiem (tabliczka lub naklejka przy wejściu),
+    - informacja o administratorze danych i celu nagrywania (klauzula informacyjna),
+    - nagrania przechowujemy tylko tyle, ile potrzeba — w systemie ustawiliśmy {I:ile dni},
+    - kamery nie powinny obejmować miejsc prywatnych (np. toalet, pokoi gości).
+
+    W razie wątpliwości warto skonsultować dokumenty z prawnikiem lub inspektorem ochrony danych. Tabliczki możemy dostarczyć — wystarczy dać znać.
+
+    Pozdrawiamy serdecznie,
+
+- id: awaria
+  grupa: gi3
+  nazwa: "Zgłoszenie awarii — przyjęte"
+  skrot: awaria
+  kiedy: "Awaria systemu. Odpowiadamy w 24 h w dni robocze — termin wizyty ustalamy osobno, nie obiecujemy przyjazdu w 24 h."
+  tresc: |
+    Dzień dobry,
+
+    przyjęliśmy zgłoszenie awarii i już się nim zajmujemy.
+
+    ::karta Zgłoszenie {I:numer}
+    Obiekt: {I:adres / nazwa}
+    Co nie działa: {I:opis (słowami klienta)}
+    Gwarancja: {S:gwarancja|w gwarancji;po gwarancji — koszt według stawek serwisowych;do sprawdzenia}
+
+    ::kroki Co dalej
+    1. {S:pierwszy krok|Sprawdzimy system zdalnie — odezwiemy się dziś;Zadzwonimy, żeby zawęzić przyczynę;Umawiamy wizytę serwisową}
+    2. Jeśli potrzebna jest wizyta — zaproponujemy najbliższy możliwy termin.
+
+    ::info Zanim przyjedziemy
+    Warto sprawdzić zasilanie urządzeń (czy świecą diody) i czy działa internet w obiekcie — to najczęstsze przyczyny.
+
+    Pozdrawiamy serdecznie,
+
+- id: przeglad-inst
+  grupa: gi3
+  nazwa: "Przegląd instalacji — propozycja"
+  skrot: przegladinst
+  kiedy: "Rok po montażu albo przed sezonem (pensjonaty)."
+  tresc: |
+    Dzień dobry,
+
+    minął {I:ile czasu} od montażu {I:czego}. Proponujemy przegląd, żeby system działał bez niespodzianek — zwłaszcza {S:kiedy|przed sezonem;przed zimą;przed wyjazdem}.
+
+    ::karta Przegląd instalacji
+    Sprawdzamy: {I:co (np. kamery, dyski, nagrywanie, aktualizacje, akumulatory alarmu, zasięg Wi-Fi)}
+    Czas: ok. {I:czas}
+    Koszt: {I:kwota} zł {S:netto czy brutto|netto;brutto}
+
+    Prosimy o informację, czy umawiamy termin.
+
+    Pozdrawiamy serdecznie,
+
+- id: rozbudowa
+  grupa: gi3
+  nazwa: "Rozbudowa instalacji — propozycja"
+  skrot: rozbudowa
+  kiedy: "Klient chce dołożyć kamery, punkty Wi-Fi, czujki."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o rozbudowę. Sprawdziliśmy obecny system:
+
+    ::karta Rozbudowa — {I:obiekt}
+    Obecnie: {I:co jest}
+    Dokładamy: {I:co dokładamy}
+    Czy obecny sprzęt wystarczy: {I:tak / częściowo — co wymienić i dlaczego}
+    Cena: {I:cena}
+
+    Pozdrawiamy serdecznie,
+
+- id: ampio
+  grupa: gi3
+  nazwa: "Smart home Ampio — jak zacząć"
+  skrot: ampio
+  kiedy: "Zapytanie o smart home. Głos tylko przez Matter; bez obietnicy 5 lat gwarancji Ampio do potwierdzenia."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zainteresowanie inteligentnym domem. Pracujemy na systemie **Ampio** — polskim, przewodowym, odpornym na zakłócenia i rozwijanym latami.
+
+    ::kroki Jak zaczynamy
+    1. Rozmowa: co ma działać (światło, rolety, ogrzewanie, brama, sceny).
+    2. Projekt rozmieszczenia — najlepiej na etapie rzutów, zanim wejdą elektrycy.
+    3. Wycena i montaż razem z instalacją elektryczną.
+
+    ::info Najlepszy moment
+    Smart home przewodowy planuje się przed tynkami. Jeśli dom jest wykończony — zaproponujemy rozwiązanie bez kucia.
+
+    Prosimy o rzuty domu i etap budowy — przygotujemy wstępną koncepcję.
+
+    Pozdrawiamy serdecznie,
+
+- id: architekt
+  grupa: gi4
+  nazwa: "Dla architekta / wykonawcy — współpraca"
+  skrot: architekt
+  kiedy: "Pracownia lub wykonawca pyta o współpracę."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za kontakt. Chętnie współpracujemy z pracowniami i wykonawcami — przy instalacjach niskoprądowych na etapie projektu.
+
+    ::kroki Jak możemy pomóc
+    1. Konsultacja do projektu: rozmieszczenie kamer, alarmu, Wi-Fi, smart home, okablowanie.
+    2. Wycena dla inwestora na podstawie rzutów.
+    3. Montaż w uzgodnionym etapie budowy i koordynacja z elektrykiem.
+
+    ::info Zakres
+    Systemów sygnalizacji pożarowej (SSP) i dźwiękowych systemów ostrzegawczych (DSO) nie montujemy — zapewniamy integrację z partnerem.
+
+    Prosimy o rzuty (PDF lub link) i krótki opis inwestycji.
+
+    Pozdrawiamy serdecznie,
+
+- id: wspolnota
+  grupa: gi4
+  nazwa: "Wspólnota / zarządca — monitoring budynku"
+  skrot: wspolnota
+  kiedy: "Wspólnota mieszkaniowa lub zarządca."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie o monitoring budynku. Przy wspólnotach zwykle robimy to tak:
+
+    ::kroki
+    1. Wizja lokalna z zarządcą: wejścia, klatki, garaż, śmietnik, parking.
+    2. Oferta w dwóch wariantach — do przedstawienia na zebraniu lub w uchwale.
+    3. Montaż w uzgodnionym terminie i przeszkolenie zarządcy z dostępu do nagrań.
+
+    Ofertę możemy przygotować w formie gotowej do uchwały. Prosimy o adres budynku i dogodny termin wizji.
+
+    Pozdrawiamy serdecznie,

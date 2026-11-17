@@ -1,0 +1,614 @@
+# PRO-KOM Tech (prokomserwis.pl) — szablony ręcznych odpowiedzi serwisu.
+# Uzupełniają maile automatyczne systemu (prokom-system, communications/services/send.py) — nie dublują ich.
+# Zasady (tech-spec §8): wycena zawsze przed naprawą i możliwość rezygnacji; gwarancja na usługę i części;
+# status online (numer + 4 ostatnie cyfry telefonu); bez paczkomatów (decyzja 14.11); bez WhatsAppa; bez obietnic czasu
+# poza potwierdzonymi. Kody i hasła do urządzeń — tylko telefonicznie albo osobiście.
+# Zmienna {S_PUNKT}: generator wstawia listę wyboru z opublikowanych punktów (dane.yaml → PUNKTY), a przy jednym
+# opublikowanym punkcie — jego nazwę i adres bez listy.
+grupy:
+  gt1: "8 · Przyjęcie i diagnoza"
+  gt2: "9 · Wycena i decyzja klienta"
+  gt3: "10 · Części i terminy"
+  gt4: "11 · Odbiór i odesłanie"
+  gt5: "12 · Naprawa kurierem"
+  gt6: "13 · Gwarancja i reklamacje"
+  gt7: "14 · Dane, Hammer Glass, konto"
+
+szablony:
+
+# ───────── Przyjęcie i diagnoza ─────────
+- id: przyjete
+  grupa: gt1
+  nazwa: "Sprzęt przyjęty do serwisu (ręcznie)"
+  skrot: przyjete
+  kiedy: "Gdy system nie wysłał potwierdzenia (np. przyjęcie przy ladzie bez e-maila w zgłoszeniu) albo klient prosi o potwierdzenie mailem."
+  tresc: |
+    Dzień dobry,
+
+    potwierdzamy przyjęcie sprzętu do serwisu.
+
+    ::karta Zgłoszenie {I:numer zgłoszenia (np. RMA/123)}
+    Urządzenie: {I:marka i model}
+    Opis usterki: {I:opis (słowami klienta)}
+    Punkt: {S_PUNKT}
+    Przyjęto: {I:data}
+
+    ::kroki Co dalej
+    1. Diagnoza — sprawdzamy przyczynę usterki.
+    2. Wycena — przed naprawą wyślemy koszt i czas. Bez Państwa zgody nic nie naprawiamy.
+    3. Naprawa i odbiór — damy znać, gdy sprzęt będzie gotowy.
+
+    ::przycisk Sprawdź status naprawy | {STATUS_URL}
+
+    Do sprawdzenia statusu potrzebny jest numer zgłoszenia i 4 ostatnie cyfry telefonu.
+
+    Pozdrawiamy serdecznie,
+
+- id: kod
+  grupa: gt1
+  nazwa: "Potrzebny kod do urządzenia (telefonicznie)"
+  skrot: kod
+  kiedy: "Do testu po naprawie potrzebny jest kod/wzór. NIGDY nie prosimy o kod mailem."
+  tresc: |
+    Dzień dobry,
+
+    żeby sprawdzić urządzenie po naprawie (aparat, dotyk, łączność, ładowanie), potrzebujemy na chwilę kodu odblokowania.
+
+    ::uwaga Bezpieczeństwo
+    Prosimy **nie wpisywać kodu w odpowiedzi na tego maila**. Wystarczy telefon: **{TEL}** ({GODZ}) — albo podanie kodu przy ladzie.
+
+    Możemy też naprawić urządzenie bez kodu — wtedy test po naprawie będzie ograniczony do tego, co da się sprawdzić bez odblokowania. Prosimy o informację, którą opcję wybierają Państwo.
+
+    Pozdrawiamy serdecznie,
+
+- id: diagnoza-dluzej
+  grupa: gt1
+  nazwa: "Diagnoza trwa dłużej — informacja"
+  skrot: diagnoza
+  kiedy: "Usterka nieoczywista. Informujemy, zanim klient zadzwoni."
+  tresc: |
+    Dzień dobry,
+
+    piszemy w sprawie zgłoszenia **{I:numer}** ({I:urządzenie}). Usterka okazała się bardziej złożona — {I:co sprawdzamy (np. płyta główna, uszkodzenie po zalaniu)}.
+
+    ::karta Stan diagnozy
+    Sprawdzone: {I:co wykluczyliśmy}
+    W toku: {I:co sprawdzamy}
+    Wycena: do {I:kiedy}
+
+    Diagnoza i wycena są bezpłatne. Jeśli potrzebują Państwo sprzętu wcześniej, prosimy o telefon — oddamy go w obecnym stanie.
+
+    Pozdrawiamy serdecznie,
+
+- id: pytania-tech
+  grupa: gt1
+  nazwa: "Dopytanie o objawy i historię usterki"
+  skrot: objawy
+  kiedy: "Brakuje informacji do diagnozy."
+  tresc: |
+    Dzień dobry,
+
+    żeby szybciej znaleźć przyczynę usterki w {I:urządzenie}, prosimy o kilka informacji:
+
+    ::lista
+    - kiedy dokładnie zaczął się problem i czy coś go poprzedziło (upadek, zalanie, aktualizacja, ładowarka innej firmy),
+    - czy usterka występuje cały czas, czy tylko czasem (np. przy nagrzaniu, w ruchu),
+    - czy urządzenie było już naprawiane — gdzie i co wymieniano,
+    - {I:pytanie dodatkowe}.
+
+    Wystarczy krótka odpowiedź w punktach.
+
+    Pozdrawiamy serdecznie,
+
+- id: zalanie
+  grupa: gt1
+  nazwa: "Urządzenie po zalaniu — co robić od razu"
+  skrot: zalanie
+  kiedy: "Klient pisze, że zalał telefon/laptop. Liczy się czas — zachęcamy do szybkiego przyniesienia."
+  tresc: |
+    Dzień dobry,
+
+    przy zalaniu liczy się czas — korozja postępuje z każdą godziną. Prosimy:
+
+    ::kroki Od razu
+    1. **Nie włączać** urządzenia i nie ładować go.
+    2. Jeśli się da — wyłączyć je i wyjąć kartę SIM / odłączyć zasilanie (laptop: wyjąć z gniazdka).
+    3. Nie suszyć suszarką i nie wkładać do ryżu — to nie pomaga, a opóźnia naprawę.
+    4. Przynieść urządzenie do serwisu jak najszybciej.
+
+    ::karta Gdzie przynieść
+    Punkt: {S_PUNKT}
+    Godziny: {GODZ}
+    Telefon: {TEL}
+
+    Diagnoza jest bezpłatna. Nie możemy obiecać, że każde urządzenie da się uratować — ale im szybciej trafi do nas, tym większa szansa, także na odzyskanie danych.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Wycena i decyzja ─────────
+- id: wycena
+  grupa: gt2
+  nazwa: "Wycena naprawy do akceptacji"
+  skrot: wycena
+  temat: "Wycena naprawy {I:numer} — prosimy o decyzję"
+  kiedy: "Po diagnozie. Klient akceptuje odpowiedzią albo telefonem. Bez akceptacji nie naprawiamy."
+  tresc: |
+    Dzień dobry,
+
+    zakończyliśmy diagnozę **{I:urządzenie}** (zgłoszenie **{I:numer}**).
+
+    ::karta Diagnoza
+    Przyczyna: {I:co jest uszkodzone (prostym językiem)}
+    Proponowana naprawa: {I:co wymienimy / naprawimy}
+    Czas naprawy: {I:ile (np. 1–2 dni robocze od akceptacji)}
+    Gwarancja: {I:okres} na usługę i wymienione części
+
+    ::pozycje
+    Pozycja | Ilość | Kwota
+    {I:część (np. wyświetlacz OLED)} | 1 | {I:kwota} zł
+    Robocizna | 1 | {I:kwota} zł
+    **Razem do zapłaty** | | **{I:suma} zł brutto**
+
+    ::kroki Prosimy o decyzję
+    1. **Akceptuję** — odpowiedź „akceptuję” na tego maila albo telefon: {TEL}.
+    2. **Rezygnuję** — oddamy sprzęt bez naprawy, bez opłat za diagnozę.
+    3. **Mam pytanie** — zadzwonimy i wyjaśnimy.
+
+    {?:Przy okazji polecamy folię ochronną Hammer Glass dociętą do modelu — założymy ją przy odbiorze.}
+
+    Pozdrawiamy serdecznie,
+
+- id: wycena-przyp
+  grupa: gt2
+  nazwa: "Przypomnienie o decyzji w sprawie wyceny"
+  skrot: wycenaprzyp
+  kiedy: "2–3 dni bez odpowiedzi na wycenę."
+  tresc: |
+    Dzień dobry,
+
+    przypominamy o wycenie naprawy **{I:urządzenie}** (zgłoszenie **{I:numer}**) z {I:data wyceny} — **{I:suma} zł brutto**.
+
+    Czekamy na decyzję: wystarczy odpisać „akceptuję” albo „rezygnuję”. Części rezerwujemy do {I:data} — potem cena i dostępność mogą się zmienić.
+
+    Pozdrawiamy serdecznie,
+
+- id: zmiana-wyceny
+  grupa: gt2
+  nazwa: "Ukryta usterka — zmiana wyceny wymaga zgody"
+  skrot: zmianawyceny
+  kiedy: "W trakcie naprawy wyszła druga usterka. Nie robimy nic ponad zaakceptowaną wycenę bez nowej zgody."
+  tresc: |
+    Dzień dobry,
+
+    w trakcie naprawy **{I:urządzenie}** (zgłoszenie **{I:numer}**) okazało się, że {I:co znaleźliśmy (np. uszkodzone gniazdo ładowania pod ekranem)}.
+
+    ::karta Zmiana zakresu
+    Zaakceptowane: {I:pierwotna naprawa} — {I:kwota} zł
+    Dodatkowo potrzebne: {I:co} — {I:kwota} zł
+    Nowa suma: **{I:suma} zł brutto**
+
+    Bez Państwa zgody nie wykonamy dodatkowej pracy. {I:czy można wykonać tylko pierwotną naprawę i z jakim ryzykiem}
+
+    Prosimy o decyzję: odpowiedź albo telefon **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: rezygnacja
+  grupa: gt2
+  nazwa: "Klient rezygnuje z naprawy — zwrot sprzętu"
+  skrot: rezygnacja
+  kiedy: "Klient nie akceptuje wyceny. [SZEF] przy kurierze: kto płaci za odesłanie po rezygnacji (tech-spec §10)."
+  tresc: |
+    Dzień dobry,
+
+    rozumiemy — przyjmujemy rezygnację z naprawy **{I:urządzenie}** (zgłoszenie **{I:numer}**).
+
+    ::karta Zwrot sprzętu
+    Stan: urządzenie złożone tak, jak zostało przyjęte
+    Koszt: {I:koszt (np. bez opłat — diagnoza jest bezpłatna)}
+    Odbiór: {S:odbiór|osobiście w punkcie — w godzinach otwarcia;odeślemy kurierem na adres ze zgłoszenia} {I:szczegóły (punkt / warunki odesłania)}
+
+    Gdyby w przyszłości chcieli Państwo wrócić do naprawy — wycena jest ważna do {I:data}.
+
+    Pozdrawiamy serdecznie,
+
+- id: nieoplacalna
+  grupa: gt2
+  nazwa: "Naprawa nieopłacalna — uczciwa rada"
+  skrot: nieoplacalna
+  kiedy: "Koszt naprawy bliski wartości sprzętu. Doradzamy uczciwie — także gdy to oznacza brak naprawy."
+  tresc: |
+    Dzień dobry,
+
+    po diagnozie **{I:urządzenie}** musimy uczciwie powiedzieć: naprawa jest możliwa, ale **nieopłacalna**.
+
+    ::karta Dlaczego
+    Usterka: {I:co jest uszkodzone}
+    Koszt naprawy: ok. {I:kwota} zł
+    Wartość podobnego sprzętu: ok. {I:kwota} zł
+
+    Co możemy zrobić zamiast tego:
+
+    ::lista
+    - **odzyskać dane** (zdjęcia, dokumenty) i przenieść je na nowe urządzenie,
+    - **doradzić nowy sprzęt** — w salonie PRO-KOM albo przez nasz zespół PRO-KOM Biznes (dla firm),
+    - oddać urządzenie bez naprawy, bez opłat za diagnozę.
+
+    Decyzja należy do Państwa — prosimy o odpowiedź albo telefon: **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Części i terminy ─────────
+- id: czesc
+  grupa: gt3
+  nazwa: "Część zamówiona — termin naprawy"
+  skrot: czesc
+  kiedy: "Po akceptacji, gdy część trzeba zamówić."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za akceptację wyceny. Część do **{I:urządzenie}** została zamówiona.
+
+    ::karta Zgłoszenie {I:numer}
+    Część: {I:nazwa części}
+    Dostawa części: {I:przewidywany termin}
+    Gotowe do odbioru: ok. {I:przewidywany termin naprawy}
+
+    Damy znać, gdy sprzęt będzie gotowy. Status: {STATUS_URL}
+
+    Pozdrawiamy serdecznie,
+
+- id: czesc-opoznienie
+  grupa: gt3
+  nazwa: "Opóźnienie części"
+  skrot: opoznieniecz
+  kiedy: "Dostawca przesunął termin."
+  tresc: |
+    Dzień dobry,
+
+    przepraszamy — dostawca przesunął termin dostawy części do **{I:urządzenie}** (zgłoszenie **{I:numer}**).
+
+    ::uwaga Nowy termin: {I:nowy termin}
+    Powód: {I:powód (np. brak u dystrybutora)}.
+
+    ::lista
+    - zamiennik: {I:jaki, kiedy dostępny, cena — albo: czekamy na oryginalną część}
+    - jeśli potrzebują Państwo urządzenia w międzyczasie — możemy je oddać i wezwać, gdy część dotrze.
+
+    Prosimy o informację, którą opcję wybieramy.
+
+    Pozdrawiamy serdecznie,
+
+- id: producent
+  grupa: gt3
+  nazwa: "Naprawa u producenta / w serwisie autoryzowanym"
+  skrot: producent
+  kiedy: "Sprzęt idzie na gwarancję producenta albo do serwisu autoryzowanego. Czas zależy od producenta — nie obiecujemy terminu."
+  tresc: |
+    Dzień dobry,
+
+    urządzenie **{I:urządzenie}** (zgłoszenie **{I:numer}**) przekazaliśmy do {I:gdzie (serwis producenta w ramach gwarancji / autoryzowany serwis — nazwa)}.
+
+    ::karta Przekazanie
+    Wysłano: {I:data}
+    Numer zgłoszenia u producenta: {I:numer}
+    Przewidywany czas: {I:czas podany przez producenta} — zależy od producenta
+
+    Będziemy pilnować sprawy i damy znać o każdej zmianie. Gdy sprzęt wróci, sprawdzimy go przed wydaniem.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Odbiór i odesłanie ─────────
+- id: gotowe
+  grupa: gt4
+  nazwa: "Gotowe do odbioru"
+  skrot: gotowe
+  temat: "Gotowe do odbioru — {I:urządzenie} ({I:numer})"
+  kiedy: "Po naprawie i teście."
+  tresc: |
+    Dzień dobry,
+
+    **{I:urządzenie} jest gotowe do odbioru** — naprawa zakończona i sprawdzona.
+
+    ::karta Odbiór
+    Zgłoszenie: {I:numer}
+    Wykonano: {I:co naprawiono}
+    Do zapłaty: {I:kwota} zł brutto ({S:płatność|gotówka lub karta w punkcie;opłacone})
+    Gdzie: {S_PUNKT}
+    Godziny: {GODZ}
+    Gwarancja: {I:okres} na usługę i wymienione części
+
+    ::lista
+    - prosimy zabrać numer zgłoszenia (wystarczy ten mail),
+    - przy odbiorze sprawdzimy razem działanie urządzenia,
+    - {?:przypominamy: kod odblokowania warto po odbiorze zmienić}.
+
+    Pozdrawiamy serdecznie,
+
+- id: odbior-przyp
+  grupa: gt4
+  nazwa: "Przypomnienie o odbiorze"
+  skrot: odbiorprzyp
+  kiedy: "Sprzęt czeka ok. 7 dni."
+  tresc: |
+    Dzień dobry,
+
+    przypominamy, że **{I:urządzenie}** (zgłoszenie **{I:numer}**) czeka na odbiór od {I:data}.
+
+    ::karta Odbiór
+    Gdzie: {S_PUNKT}
+    Godziny: {GODZ}
+    Do zapłaty: {I:kwota} zł brutto
+
+    Jeśli nie mogą Państwo przyjechać — możemy odesłać sprzęt kurierem. Wystarczy odpisać z adresem.
+
+    Pozdrawiamy serdecznie,
+
+- id: nieodebrany
+  grupa: gt4
+  nazwa: "Sprzęt nieodebrany — ostatnie przypomnienie"
+  skrot: nieodebrany
+  kiedy: "Długo nieodebrany sprzęt. [DO UZUPEŁNIENIA] terminy i skutki WYŁĄCZNIE wg regulaminu serwisu — nie wysyłać bez sprawdzenia regulaminu."
+  tresc: |
+    Dzień dobry,
+
+    mimo wcześniejszych wiadomości **{I:urządzenie}** (zgłoszenie **{I:numer}**) nadal czeka na odbiór — od {I:data}.
+
+    ::uwaga Prosimy o odbiór do {I:data}
+    Zgodnie z regulaminem serwisu {M:wpisz zasady z regulaminu (np. opłata za przechowywanie od dnia X, dalsze kroki)}.
+
+    ::karta Odbiór
+    Gdzie: {S_PUNKT}
+    Godziny: {GODZ}
+    Do zapłaty: {I:kwota} zł brutto
+
+    Jeśli odbiór jest niemożliwy — prosimy o kontakt, ustalimy odesłanie kurierem albo inne rozwiązanie: **{TEL}**.
+
+    Pozdrawiamy,
+
+- id: odeslane
+  grupa: gt4
+  nazwa: "Sprzęt odesłany kurierem — numer przesyłki"
+  skrot: odeslane
+  kiedy: "Po nadaniu paczki zwrotnej (klient online nie widzi numeru przesyłki zwrotnej — podajemy go mailem)."
+  tresc: |
+    Dzień dobry,
+
+    **{I:urządzenie}** (zgłoszenie **{I:numer}**) jest już w drodze do Państwa.
+
+    ::karta Przesyłka
+    Przewoźnik: {S:przewoźnik|InPost Kurier;DPD;DHL;GLS;FedEx;UPS}
+    Numer przesyłki: {I:numer przesyłki}
+    Adres: {I:adres dostawy}
+
+    ::przycisk Śledź przesyłkę | {I:link do śledzenia przesyłki}
+
+    Prosimy sprawdzić paczkę przy kurierze — jeśli opakowanie jest uszkodzone, warto spisać protokół szkody.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Naprawa kurierem ─────────
+- id: kurier-jak
+  grupa: gt5
+  nazwa: "Jak wysłać sprzęt do serwisu"
+  skrot: kurier
+  kiedy: "Klient chce wysłać sprzęt. [SZEF] zasady kosztów — potwierdzić (tech-spec §10). Bez paczkomatów."
+  tresc: |
+    Dzień dobry,
+
+    sprzęt można wysłać do nas kurierem — to wygodne, gdy nie mogą Państwo przyjechać.
+
+    ::kroki Jak wysłać
+    1. Zgłoszenie na **prokomserwis.pl/zgloszenie** — opcja „Kurier” (dostaną Państwo numer zgłoszenia).
+    2. Zapakowanie: urządzenie w folii bąbelkowej, w sztywnym kartonie, z kartką z numerem zgłoszenia. Bez ładowarki i etui — chyba że dotyczą usterki.
+    3. Nadanie przesyłki kurierskiej na adres poniżej.
+
+    ::karta Adres do wysyłki
+    Odbiorca: {KURIER_ADRES}
+    Koszty: {KURIER_ZASADA}
+
+    ::uwaga Czego nie wysyłać
+    Paczkomatów nie obsługujemy (nie odbieramy i nie nadajemy). Urządzeń ze spuchniętą lub uszkodzoną baterią przewoźnicy zwykle nie przyjmują — prosimy o telefon, doradzimy.
+
+    Numer listu przewozowego można dodać w koncie klienta albo podać w odpowiedzi.
+
+    Pozdrawiamy serdecznie,
+
+- id: paczka-dotarla
+  grupa: gt5
+  nazwa: "Paczka dotarła do serwisu"
+  skrot: paczka
+  kiedy: "Po odebraniu przesyłki od klienta."
+  tresc: |
+    Dzień dobry,
+
+    paczka z **{I:urządzenie}** dotarła do serwisu {I:data}.
+
+    ::karta Zgłoszenie {I:numer}
+    Stan opakowania: {I:bez uszkodzeń / uszkodzone — opis, zdjęcia w załączniku}
+    Zawartość: {I:co było w paczce}
+
+    Rozpoczynamy diagnozę — wycenę wyślemy przed naprawą. Status: {STATUS_URL}
+
+    Pozdrawiamy serdecznie,
+
+- id: paczkomat
+  grupa: gt5
+  nazwa: "Pytanie o paczkomat — nie obsługujemy"
+  skrot: paczkomat
+  kiedy: "Decyzja 14.11: nie odbieramy i nie nadajemy paczkomatem."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za pytanie. Paczkomatów nie obsługujemy — ani przy wysyłce do serwisu, ani przy odsyłaniu sprzętu. Elektronika w skrytkach jest bardziej narażona na uszkodzenia i mróz.
+
+    Zapraszamy do wysyłki **przesyłką kurierską** (instrukcja: prokomserwis.pl) albo do punktu: {S_PUNKT}, {GODZ}.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Gwarancja i reklamacje ─────────
+- id: gwarancja-prod
+  grupa: gt6
+  nazwa: "Naprawa w ramach gwarancji producenta — czego potrzebujemy"
+  skrot: gwarancja
+  kiedy: "Klient chce skorzystać z gwarancji producenta."
+  tresc: |
+    Dzień dobry,
+
+    pomożemy zgłosić naprawę w ramach gwarancji producenta. Potrzebujemy:
+
+    ::lista
+    - dowodu zakupu (paragon lub faktura — może być zdjęcie),
+    - karty gwarancyjnej, jeśli producent ją wydał,
+    - opisu usterki i informacji, czy urządzenie nie było upuszczone ani zalane.
+
+    ::info Dobrze wiedzieć
+    O uznaniu gwarancji decyduje producent. Uszkodzenia mechaniczne, zalanie i wcześniejsze naprawy poza autoryzowanym serwisem zwykle nie są objęte gwarancją — wtedy przygotujemy wycenę naprawy płatnej.
+
+    Pozdrawiamy serdecznie,
+
+- id: gwarancja-odmowa
+  grupa: gt6
+  nazwa: "Producent odmówił gwarancji — co dalej"
+  skrot: odmowagw
+  kiedy: "Odmowa producenta (np. zalanie, ingerencja). Zawsze z uzasadnieniem i propozycją."
+  tresc: |
+    Dzień dobry,
+
+    producent nie uznał gwarancji na **{I:urządzenie}** (zgłoszenie **{I:numer}**).
+
+    ::karta Decyzja producenta
+    Powód: {I:powód (np. ślady zalania, uszkodzenie mechaniczne)}
+    Dokument: opinia producenta w załączniku
+
+    Mamy dwie możliwości:
+
+    ::lista
+    - **naprawa płatna u nas** — wycena: {I:kwota} zł brutto, czas: {I:czas},
+    - **zwrot urządzenia** bez naprawy — {I:warunki zwrotu (np. bez opłat)}.
+
+    Prosimy o decyzję — odpowiedź albo telefon **{TEL}**.
+
+    Pozdrawiamy serdecznie,
+
+- id: reklamacja-tech
+  grupa: gt6
+  nazwa: "Reklamacja naprawy — przyjmujemy"
+  skrot: reklamacja
+  kiedy: "Usterka wróciła po naszej naprawie. Na reklamację konsumenta odpowiadamy w 14 dni (art. 7a ustawy o prawach konsumenta)."
+  tresc: |
+    Dzień dobry,
+
+    przykro nam, że usterka wróciła. Przyjmujemy reklamację naprawy w ramach naszej gwarancji.
+
+    ::karta Reklamacja do zgłoszenia {I:numer}
+    Urządzenie: {I:urządzenie}
+    Naprawa z dnia: {I:data naprawy}
+    Gwarancja: {I:okres} — {S:status|w gwarancji;do sprawdzenia}
+    Opis: {I:co się dzieje}
+
+    ::kroki Co dalej
+    1. Prosimy przynieść lub wysłać urządzenie — punkt: {S_PUNKT}.
+    2. Sprawdzimy, czy usterka wynika z naprawy (np. część), czy z nowego uszkodzenia.
+    3. Decyzję przekażemy najpóźniej do **{I:data (max 14 dni)}**. Jeśli to nasza wina — naprawimy bez kosztów.
+
+    Pozdrawiamy serdecznie,
+
+# ───────── Dane, Hammer Glass, konto ─────────
+- id: dane-kopia
+  grupa: gt7
+  nazwa: "Dane w urządzeniu — kopia zapasowa przed naprawą"
+  skrot: kopia
+  kiedy: "Przed naprawą, przy której dane mogą zostać utracone (np. płyta główna, reset). [SZEF] treść o danych zgodna z praktyką serwisu (tech-spec §12.9)."
+  tresc: |
+    Dzień dobry,
+
+    przy tej naprawie ({I:rodzaj naprawy}) istnieje ryzyko utraty danych w urządzeniu. Zanim zaczniemy:
+
+    ::lista
+    - jeśli urządzenie działa — prosimy o kopię zapasową (zdjęcia, kontakty, dokumenty) w chmurze albo na komputerze,
+    - jeśli nie działa, a dane są ważne — możemy najpierw spróbować je odzyskać (wycena osobno),
+    - prosimy o informację, czy możemy przystąpić do naprawy bez kopii.
+
+    ::info Dane w serwisie
+    Do urządzenia zaglądamy tylko w zakresie potrzebnym do naprawy i testu.
+
+    Pozdrawiamy serdecznie,
+
+- id: odzysk
+  grupa: gt7
+  nazwa: "Odzyskiwanie danych — wycena i ryzyko"
+  skrot: odzysk
+  kiedy: "Odzysk danych. Nigdy nie obiecujemy 100% skuteczności."
+  tresc: |
+    Dzień dobry,
+
+    sprawdziliśmy nośnik z **{I:urządzenie}** (zgłoszenie **{I:numer}**).
+
+    ::karta Odzyskiwanie danych
+    Stan nośnika: {I:co jest uszkodzone}
+    Szansa odzysku: {S:szansa|wysoka;średnia;niska — uczciwie: może się nie udać}
+    Koszt: {I:kwota} zł brutto {S:płatność|— płatne tylko przy udanym odzysku;— za próbę odzysku}
+    Nośnik na dane: {I:np. pendrive / dysk klienta}
+
+    Prosimy o listę najważniejszych danych (np. „zdjęcia z 2023–2025, folder Faktury”) — zaczniemy od nich. Czy przystępujemy?
+
+    Pozdrawiamy serdecznie,
+
+- id: hammer
+  grupa: gt7
+  nazwa: "Folia Hammer Glass — propozycja"
+  skrot: hammer
+  kiedy: "Po wymianie ekranu albo gdy klient pyta o ochronę. Cena z aktualnego cennika punktu."
+  tresc: |
+    Dzień dobry,
+
+    do {I:model telefonu} polecamy folię ochronną **Hammer Glass** — docinamy ją na miejscu na ploterze dokładnie do modelu, więc pasuje lepiej niż folie „uniwersalne”.
+
+    ::karta Hammer Glass
+    Do modelu: {I:model}
+    Rodzaj: {S:rodzaj|przód;tył;przód i tył}
+    Cena: {I:kwota} zł brutto
+    Założenie: na miejscu, w kilka minut
+
+    Możemy założyć ją przy odbiorze naprawy — wystarczy odpisać „tak”. Albo zapraszamy do punktu: {S_PUNKT}, {GODZ}.
+
+    Pozdrawiamy serdecznie,
+
+- id: konto
+  grupa: gt7
+  nazwa: "Konto klienta — przypisanie naprawy"
+  skrot: konto
+  kiedy: "Klient chce widzieć naprawę w koncie (historia, numer przesyłki). Ścieżka /claim-repair."
+  tresc: |
+    Dzień dobry,
+
+    naprawę można dodać do konta klienta — wtedy w jednym miejscu jest historia napraw, statusy i numer przesyłki.
+
+    ::kroki Jak to zrobić
+    1. Zalogować się albo założyć konto na **prokomserwis.pl** (Konto).
+    2. Wybrać „Przypisz naprawę” i wpisać numer zgłoszenia **{I:numer}** oraz 4 ostatnie cyfry telefonu.
+    3. Gotowe — naprawa pojawi się na liście.
+
+    Konto nie jest wymagane — status można sprawdzać też bez logowania: {STATUS_URL}
+
+    Pozdrawiamy serdecznie,
+
+- id: firma-tech
+  grupa: gt7
+  nazwa: "Firma z kilkoma urządzeniami — serwis dla firm"
+  skrot: firma
+  kiedy: "Firma oddaje kilka laptopów/telefonów albo pyta o stałą obsługę → wspólnie z PRO-KOM Biznes (opieka IT)."
+  tresc: |
+    Dzień dobry,
+
+    dziękujemy za zapytanie. Naprawy sprzętu firmowego przyjmujemy na tych samych zasadach — z fakturą VAT na firmę.
+
+    ::lista
+    - przy kilku urządzeniach jedno zgłoszenie zbiorcze i jedna wycena,
+    - faktura na dane firmy (prosimy o NIP),
+    - jeśli potrzebna jest stała opieka nad komputerami w firmie — zajmie się tym nasz zespół **PRO-KOM Biznes** (opieka IT, kontakt: {biznes.TEL}).
+
+    Prosimy o listę urządzeń z opisem usterek — przygotujemy plan i wycenę.
+
+    Pozdrawiamy serdecznie,
