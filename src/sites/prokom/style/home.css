@@ -803,45 +803,6 @@
     transform: none;
   }
 }
-.pk-vg__web {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-.pk-vg__chrome {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  border-bottom: 1px solid var(--w09);
-  padding: 8px 12px;
-}
-.pk-vg__chrome i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--w22);
-}
-.pk-vg__chrome span {
-  height: 12px;
-  flex: 1;
-  margin-left: 8px;
-  border-radius: 6px;
-  background: var(--w09);
-}
-.pk-vg__page {
-  display: flex;
-  min-height: 0;
-  flex: 1;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-}
-.pk-vg__copy {
-  display: flex;
-  flex: 1.4;
-  flex-direction: column;
-  gap: 7px;
-}
 .pk-sk {
   height: 6px;
   border-radius: 4px;
@@ -856,20 +817,6 @@
 }
 .pk-sk--short {
   width: 70%;
-}
-.pk-vg__btn {
-  width: 64px;
-  height: 18px;
-  margin-top: 3px;
-  border-radius: 6px;
-  background: var(--ln);
-}
-.pk-vg__chart {
-  flex: 1;
-  align-self: stretch;
-  border-radius: 10px;
-  padding: 8px;
-  background: color-mix(in srgb, var(--ln) 22%, transparent);
 }
 .pk-kc {
   display: flex;
@@ -895,43 +842,6 @@
 .pk-kd[data-on] {
   background: var(--ln);
   animation: pk-pulse 1.8s infinite;
-}
-.pk-vg__flow {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  padding: 0 12px;
-}
-.pk-fn {
-  flex: none;
-  border: 1px solid var(--w22);
-  border-radius: 999px;
-  padding: 7px 9px;
-  font-size: 11px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-.pk-fn[data-on] {
-  border-color: transparent;
-  background: var(--ln-fill, var(--ln));
-  color: var(--ln-ink);
-}
-.pk-fl {
-  position: relative;
-  min-width: 10px;
-  height: 2px;
-  flex: 1;
-  overflow: hidden;
-  background: var(--w16);
-}
-.pk-fl::after {
-  position: absolute;
-  inset: 0;
-  width: 40%;
-  content: '';
-  background: var(--ln);
-  animation: pk-flw 1.8s linear infinite;
-  animation-delay: inherit;
 }
 @keyframes pk-flw {
   from {
@@ -1410,15 +1320,13 @@ a.pk-mqi:hover {
 .pk-vl[data-on] {
   filter: none;
 }
-.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn) {
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc) {
   animation: pk-pop 0.7s var(--ease) both;
 }
-.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc, .pk-fn):nth-child(2),
-.pk-vl[data-on] .pk-fn:nth-child(3) {
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc):nth-child(2) {
   animation-delay: 0.1s;
 }
-.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc):nth-child(3),
-.pk-vl[data-on] .pk-fn:nth-child(5) {
+.pk-vl[data-on] :is(.pk-vr, .pk-tl2, .pk-kc):nth-child(3) {
   animation-delay: 0.2s;
 }
 @keyframes pk-pop {
@@ -1459,16 +1367,6 @@ a.pk-mqi:hover {
 /* Progress of the slides: the track of the running slide glows softly. */
 .pk-ht__seg[aria-pressed='true'] > span {
   box-shadow: 0 0 12px color-mix(in srgb, var(--ln) 45%, transparent);
-}
-
-/* A light streak running along a track (Tech stages). */
-@keyframes pk-run {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
 }
 
 /* --- Hero pictures, richer pass (H11, Krystian 15.11) --------------------------------------------
@@ -1760,70 +1658,6 @@ a.pk-mqi:hover {
   font-weight: 800;
 }
 
-/* Website: a nav, a headline with a button and a picture block with a chart. */
-.pk-vg__chrome span {
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  color: var(--w60);
-  font-size: 9px;
-  font-weight: 700;
-}
-.pk-web__nav {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px 0;
-}
-.pk-web__nav i {
-  width: 18px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--w16);
-}
-.pk-web__nav .pk-web__logo {
-  width: 14px;
-  height: 14px;
-  margin-right: auto;
-  border-radius: 4px;
-  background: var(--ln);
-}
-.pk-web__nav .pk-web__cta {
-  width: 30px;
-  height: 12px;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--ln) 60%, transparent);
-}
-.pk-sk--half {
-  width: 60%;
-}
-.pk-web__shot {
-  position: relative;
-  display: flex;
-  flex: 1;
-  align-self: stretch;
-  overflow: hidden;
-  border-radius: 10px;
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--ln) 42%, transparent),
-    color-mix(in srgb, var(--ln) 10%, transparent)
-  );
-}
-.pk-web__shot > i {
-  position: absolute;
-  top: 18%;
-  right: 14%;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--w22);
-}
-.pk-web__shot .pk-vg__chart {
-  margin-top: auto;
-  background: none;
-}
-
 /* Kanban: counted columns, tagged cards with an avatar, one card travelling to „Gotowe”. */
 .pk-kc em {
   display: flex;
@@ -1899,17 +1733,6 @@ a.pk-mqi:hover {
 }
 .pk-kc {
   overflow: visible;
-}
-
-/* Flow: nodes with icons, the last one ticked. */
-.pk-fn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.pk-fn svg {
-  width: 12px;
-  height: 12px;
 }
 
 /* Tech: the device of the slide pops in beside the stages. */
@@ -1988,36 +1811,6 @@ a.pk-mqi:hover {
 .pk-app__ico svg {
   width: 11px;
   height: 11px;
-}
-/* Flow in a tall tile: nodes stacked, the signal running down between them. */
-.pk-vg__flow {
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 0;
-  padding: 10px 16px;
-}
-.pk-vg__flow .pk-fl {
-  width: 2px;
-  min-width: 0;
-  height: auto;
-  min-height: 10px;
-  flex: 1 1 14px;
-  max-height: 26px;
-  margin-left: 18px;
-}
-.pk-vg__flow .pk-fl::after {
-  width: 100%;
-  height: 40%;
-  animation-name: pk-flw-down;
-}
-@keyframes pk-flw-down {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: translateY(250%);
-  }
 }
 /* --- Hero search, premium pass (15.11): a taller field with a glowing rim, a typed sample phrase
    and live suggestions under it. */

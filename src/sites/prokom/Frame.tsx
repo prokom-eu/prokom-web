@@ -11,9 +11,8 @@ import { paletteActions } from '@/lib/shared/search/palette'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { PreviewGuard } from './powloka/PreviewGuard'
-import { ProkomHeader } from './powloka/ProkomHeader'
-import { ProkomRail } from './powloka/ProkomRail'
 import { ProkomSheetList } from './powloka/ProkomSheetList'
+import { ProkomHeader, ProkomRail } from './powloka/ShellIslands'
 import { footerColumns, hubNav, liveLink, megaLines, sheetLinks, startLinks } from './shell'
 
 /** „Cała oferta” — a page of version 1 (spec §2.1, H3-1). */

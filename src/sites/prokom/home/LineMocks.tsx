@@ -64,8 +64,11 @@ const H = 100
 /** The frame graph: gradient area, glowing line, grid, a scanning cursor and the live point. */
 export function FpsGraph({ size }: { size: 'sm' | 'lg' }) {
   const id = useId().replace(/:/g, '')
-  // The small tile keeps every other reading: a calmer line at its size.
-  const points = size === 'sm' ? FPS_POINTS.filter((_, i) => i % 2 === 0) : FPS_POINTS
+  // The small tile keeps every other reading, flatter: a calm line at its size.
+  const points =
+    size === 'sm'
+      ? FPS_POINTS.filter((_, i) => i % 2 === 0).map((v) => 0.55 + (v - 0.55) * 0.55)
+      : FPS_POINTS
   const line = smoothPath(points, W, H)
   const last = points[points.length - 1] ?? 0
   return (
@@ -85,7 +88,7 @@ export function FpsGraph({ size }: { size: 'sm' | 'lg' }) {
         <path className="pk-fps__line" d={line} pathLength={100} />
       </svg>
       <i className="pk-fps__scan" />
-      <i className="pk-fps__dot" style={{ bottom: `${last * 100}%` }} />
+      <i className="pk-fps__dot" style={{ bottom: `${(last * 100).toFixed(2)}%` }} />
     </span>
   )
 }
