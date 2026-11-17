@@ -25,6 +25,18 @@
     display: none;
   }
 }
+/* The header search field (17.11, like Biznes and Instalacje): „Szukaj” + Ctrl K where the row
+   has room; narrower desktops keep the loupe only, so the menu and „Dobierz” stay on one row. */
+@media (max-width: 1379px) {
+  [data-line='prokom'] .pk-search {
+    justify-content: center;
+    padding: 0;
+    & .pk-search__label,
+    & kbd {
+      display: none;
+    }
+  }
+}
 /* The tablet loupe next to Menu; a phone has „Szukaj” on top of the sheet. */
 @media (max-width: 767px) {
   [data-line='prokom'] .pk-search-t {
