@@ -1,4 +1,5 @@
 import { CONSENT_CLAUSE } from '@/lib/inquiry/consent'
+import { AREA_TOWNS } from '@/lib/instalacje/area'
 import { sourceFromHref } from '@/lib/inquiry/form'
 import { HONEYPOT_FIELD } from '@/lib/inquiry/honeypot'
 import {
@@ -81,11 +82,13 @@ export const INITIAL_PLANNER: PlannerState = {
  * The state after reading the address (`mountPage()`): object, services, charger. The service
  * pages link with `?usluga=<key>` (I4); the hash of the prototype wins when both are there.
  * An empty search of `/uslugi` links with `?opis=<phrase>` — it starts the description.
+ * A town page links with `?miejscowosc=<slug>` (ADR-I006): the town's name, known slugs only.
  */
 export function plannerFromHash(hash: string, search = ''): PlannerState {
   const params = new URLSearchParams(search)
   const service = params.get('usluga')
   const phrase = searchPhrase(params.get('opis'))
+  const town = AREA_TOWNS.find((t) => t.slug === params.get('miejscowosc'))?.name
   const found = planHashState(hash)
   if (!found.services && service && isServiceKey(service)) found.services = [service]
   return {
@@ -94,6 +97,7 @@ export function plannerFromHash(hash: string, search = ''): PlannerState {
     ...(found.services && { services: found.services, fromLink: true }),
     ...(found.charger && { charger: found.charger }),
     ...(phrase && { message: `Szukam: ${phrase}` }),
+    ...(town && { town }),
   }
 }
 

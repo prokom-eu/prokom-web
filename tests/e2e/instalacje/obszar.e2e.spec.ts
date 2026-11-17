@@ -47,6 +47,10 @@ test.describe('Instalacje town pages', () => {
     await expect(
       page.locator('[data-site-footer]').getByRole('link', { name: 'Obszar działania' }).first(),
     ).toHaveAttribute('href', '/obszar')
+    // The hero link starts the planner with the town filled in (`plannerFromHash`).
+    await expect(
+      page.locator('main a[href="/zaplanuj?miejscowosc=nowy-targ"]').first(),
+    ).toBeVisible()
   })
 
   test('the list links every town; unknown towns and districts are 404', async ({ page }) => {

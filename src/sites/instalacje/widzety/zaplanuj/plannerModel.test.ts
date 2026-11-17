@@ -221,6 +221,15 @@ describe('planner rules of the site', () => {
     expect(plannerFromHash('#uslugi=kam', '?usluga=ant').services).toEqual(['kam'])
   })
 
+  it('takes the town of a town page link (`?miejscowosc=<slug>`), known towns only', () => {
+    expect(plannerFromHash('', '?miejscowosc=nowy-targ').town).toBe('Nowy Targ')
+    expect(plannerFromHash('', '?miejscowosc=krakow&usluga=kam')).toMatchObject({
+      town: 'Kraków',
+      services: ['kam'],
+    })
+    expect(plannerFromHash('', '?miejscowosc=%3Cscript%3E').town).toBe('')
+  })
+
   it('takes the phrase of an empty offer search (`?opis=`) into the description, trimmed', () => {
     expect(plannerFromHash('', '?opis=kamera%20do%20domku').message).toBe('Szukam: kamera do domku')
     expect(plannerFromHash('', '?opis=%20%20').message).toBe('')
