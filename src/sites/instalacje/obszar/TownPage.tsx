@@ -115,7 +115,8 @@ export async function TownPage({ tenantId, town, name, origin }: Props) {
           h1b: h1.b,
           lead: town.lead,
           tags: [...townPage.tags],
-          cta: { text: 'Zaplanuj instalację', href: '/zaplanuj' },
+          // The planner starts with this town filled in (its travel zone shows at once).
+          cta: { text: 'Zaplanuj instalację', href: `/zaplanuj?miejscowosc=${town.slug}` },
         }}
         name={name}
         anchors={ANCHORS}
