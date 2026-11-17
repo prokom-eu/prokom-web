@@ -28,10 +28,10 @@
 /* The header search field (17.11, like Biznes and Instalacje): „Szukaj” + Ctrl K where the row
    has room; narrower desktops keep the loupe only, so the menu and „Dobierz” stay on one row. */
 @media (max-width: 1379px) {
-  [data-line='prokom'] .pk-search {
+  [data-line='prokom'] .pk-hsearch {
     justify-content: center;
     padding: 0;
-    & .pk-search__label,
+    & .pk-hsearch__label,
     & kbd {
       display: none;
     }

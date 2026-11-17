@@ -274,13 +274,13 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
         <>
           <button
             type="button"
-            className={`${CAPSULE.searchButton} pk-search`}
+            className={`${CAPSULE.searchButton} pk-hsearch`}
             aria-keyshortcuts="Control+K Meta+K /"
             onClick={() => requestSearch()}
           >
             <Icon name="search" strokeWidth={2.2} className="size-[18px]" />
             {/* The name from the content (WCAG 2.5.3): the shortcut is shown, not read out. */}
-            <span className="pk-search__label">
+            <span className="pk-hsearch__label">
               Szukaj<span className="sr-only"> w PRO-KOM</span>
             </span>
             <kbd aria-hidden="true">Ctrl K</kbd>
