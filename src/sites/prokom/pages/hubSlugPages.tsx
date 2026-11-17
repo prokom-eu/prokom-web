@@ -5,6 +5,7 @@ import { ContactPage } from '@/components/shared/ContactPage'
 import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
+import { HUB_ABOUT } from '@/lib/prokom/about'
 import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { hubPageMetadata, type HubDescribedPath } from '@/lib/prokom/seo'
@@ -12,6 +13,7 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
+import { AboutStory, AboutValues } from './AboutStory'
 import { BranchNote, ExtraPhones } from './ExtraContacts'
 import { SaturdayNote } from './SaturdayNote'
 
@@ -88,17 +90,18 @@ export async function hubSlugPage(
       origin={await origin()}
       siteEnv={env.SITE_ENV}
       bothPhones
-      slots={
-        settings.branch
-          ? {
-              beforeVisit: (
-                <section aria-label={settings.branch.name} className={`${PAGE_CONTAINER} py-6`}>
-                  <BranchNote branch={settings.branch} />
-                </section>
-              ),
-            }
-          : undefined
-      }
+      slots={{
+        // „Nasza historia” and „Co nas wyróżnia” (16.11): code defaults, the panel adds the rest.
+        afterStats: <AboutStory about={HUB_ABOUT} />,
+        afterRules: <AboutValues about={HUB_ABOUT} brands={settings.brands} />,
+        ...(settings.branch && {
+          beforeVisit: (
+            <section aria-label={settings.branch.name} className={`${PAGE_CONTAINER} py-6`}>
+              <BranchNote branch={settings.branch} />
+            </section>
+          ),
+        }),
+      }}
     />
   )
 }
