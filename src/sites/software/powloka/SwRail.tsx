@@ -1,26 +1,17 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect } from 'react'
 
 import { SiteRail, type SiteRailProps } from '@/components/shared/SiteRail'
-import { buildLineProvider } from '@/lib/shared/search/lineProvider'
 import type { PaletteAction } from '@/lib/shared/search/palette'
-import { onSearchRequest } from '@/lib/site/searchOpen'
 import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { PROJECT_SEND_HREF } from '@/lib/software/project'
 import { railAway } from '@/lib/software/railAway'
-import {
-  searchSettings,
-  softwareSearchEntries,
-  type SearchPage,
-} from '@/lib/software/searchEntries'
-import type { SolutionsIndex } from '@/lib/software/solutionsIndex'
+import type { SearchPage } from '@/lib/software/searchEntries'
 
 import { LazySearch } from './LazySearch'
 import { useProjectCount } from './ProjectCount'
-
-const INDEX_URL = '/api/solutions-index'
 
 type Props = {
   sections: SiteRailProps['sections']
@@ -33,29 +24,13 @@ type Props = {
   phone: string | null
 }
 
-/** One fetch per page load, shared by every caller (the rail stays mounted across pages). */
-let indexRequest: Promise<SolutionsIndex | null> | null = null
-function loadIndex(): Promise<SolutionsIndex | null> {
-  indexRequest ??= fetch(INDEX_URL)
-    .then((response) => {
-      // A passing error (503) is not kept: the next request to search tries again.
-      if (!response.ok) throw new Error(`index ${response.status}`)
-      return response.json() as Promise<SolutionsIndex>
-    })
-    .catch(() => {
-      indexRequest = null
-      return null
-    })
-  return indexRequest
-}
-
 /**
  * The side rail (from 1400 px) and the search window of prokomsoftware.pl (SWA5, ZMIANY-v24
  * §3.3–3.4): on the start page its sections with the premium glide, on subpages „Na tej stronie”;
  * at the bottom „Kreator 60 s” — or „Twój projekt” with its count once the list has items. The
- * window searches the offer (`/api/solutions-index`, fetched when the browser is idle or at the
- * first request to search) and the pages, legal ones too. Opened by the rail's „Szukaj”, the
- * capsule's loupe, Ctrl/⌘K and „/”.
+ * window (`LazySearch` → `SwSearch`, loaded at the first request to search) finds the offer, the
+ * posts, industry and city pages and the pages, legal ones too, with a preview beside the list.
+ * Opened by the rail's „Szukaj”, the capsule's loupe, Ctrl/⌘K and „/”.
  */
 export function SwRail({
   sections,
@@ -69,22 +44,6 @@ export function SwRail({
   const pathname = usePathname()
   const onHome = pathname === '/'
   const count = useProjectCount()
-  const [index, setIndex] = useState<SolutionsIndex | null>(null)
-
-  useEffect(() => {
-    let alive = true
-    const load = () => void loadIndex().then((loaded) => alive && loaded && setIndex(loaded))
-    const idle = window.requestIdleCallback?.(load, { timeout: 4000 })
-    const timer = idle === undefined ? window.setTimeout(load, 1500) : undefined
-    const off = onSearchRequest(load)
-    return () => {
-      alive = false
-      if (idle !== undefined) window.cancelIdleCallback(idle)
-      window.clearTimeout(timer)
-      off()
-    }
-  }, [])
-
   // AUDYT po SWA7 #4: the fixed rail would lie over the band above the footer and the footer
   // itself — it steps aside (fades and slides left, `shell.css`) once either reaches it.
   // Only while the rail is shown (from 1400 px): a phone's scroll measures nothing for it.
@@ -95,10 +54,6 @@ export function SwRail({
     return whileMatches(window.matchMedia(RAIL_QUERY), () => stepAside(root, rail))
   }, [pathname])
 
-  const provider = useMemo(
-    () => buildLineProvider(softwareSearchEntries(index, pages), searchSettings(index, shortcuts)),
-    [index, pages, shortcuts],
-  )
   const railAction =
     count > 0
       ? {
@@ -114,7 +69,8 @@ export function SwRail({
     <>
       <SiteRail sections={sections} onHome={onHome} action={railAction} />
       <LazySearch
-        provider={provider}
+        pages={pages}
+        shortcuts={shortcuts}
         actions={actions}
         line="software"
         recentlyViewed={recentlyViewed}

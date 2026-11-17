@@ -54,6 +54,9 @@ const SOLUTIONS_INDEX_PATH = '/api/solutions-index'
 // Search index of the Instalacje site (L1-I, spec §5.1): the same kind of handler, read only; it
 // answers 404 on domains of other lines.
 const INST_SEARCH_INDEX_PATH = '/api/inst-search-index'
+// Posts, industry and city pages of the Software search window (16.11): read only, 404 on
+// domains of other lines.
+const SOFTWARE_SEARCH_PATH = '/api/software-search'
 // Search index of pro-kom.eu (H1-3, spec §5.6): the same kind of handler, read only; it answers
 // 404 on domains of the lines.
 const HUB_SEARCH_INDEX_PATH = '/api/hub-search-index'
@@ -121,6 +124,7 @@ export function decideRoute({
   if (pathname === INQUIRY_TOKEN_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === CATALOG_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === SOLUTIONS_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
+  if (pathname === SOFTWARE_SEARCH_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === INST_SEARCH_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (pathname === HUB_SEARCH_INDEX_PATH && READ_METHODS.includes(method)) return { type: 'next' }
   if (PLAN_SVG.test(pathname) && READ_METHODS.includes(method)) return { type: 'next' }

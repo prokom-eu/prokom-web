@@ -199,6 +199,30 @@ test.describe('Software search window', () => {
         .first(),
     ).toBeVisible()
   })
+
+  // 16.11 („premium jak w Biznesie”): „Na skróty” with the offer groups, posts in the results
+  // (`/api/software-search`) and the preview of the active result beside the list.
+  test('shortcuts show the offer groups, a phrase finds a post with its preview', async ({
+    page,
+  }) => {
+    await page.goto(site(HOST, SUBPAGE))
+    await pressUntilVisible(page, 'Control+k', search(page))
+    await expect(
+      search(page)
+        .getByRole('link', { name: /^Strony internetowe/ })
+        .first(),
+    ).toHaveAttribute('href', '/rozwiazania?kategoria=strony')
+    await search(page).getByRole('searchbox').fill('arkusz excel')
+    const post = search(page)
+      .getByRole('link', { name: /Excel w firmie/ })
+      .first()
+    await expect(post).toHaveAttribute(
+      'href',
+      '/aktualnosci/excel-w-firmie-kiedy-przestaje-wystarczac',
+    )
+    await post.focus()
+    await expect(search(page).getByRole('link', { name: 'Czytaj →' })).toBeVisible()
+  })
 })
 
 test.describe('Software „Twój projekt”', () => {
