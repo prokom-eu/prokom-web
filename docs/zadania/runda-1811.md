@@ -29,7 +29,7 @@ Dokumenty rundy:
 | D12 | Instalacje — menu | „Serwis” **usunięty z głównej nawigacji** (strona `/serwis` zostaje: „Zgłoś awarię”, stopka, menu telefonu) | szef |
 | D14 | pro-kom.eu — zamówienia publiczne | Na głównej pro-kom.eu **sekcja premium „Zamówienia publiczne, przetargi i większe dostawy”** dla instytucji i firm, prowadząca do istniejącej `/inwestycje-i-dostawy` (tam już jest „Zapytania ofertowe i przetargi”) | szef (18.11) |
 | D15 | pro-kom.eu — stare maile | Na pro-kom.eu pokazujemy też **biuro@pro-kom.eu** i **sklep@pro-kom.pl** (używane latami, szef chce je zostawić) — warunki w §3.3 PR 3 | szef (18.11) |
-| D16 | Tech — marki Apple i Samsung | Strony serwisu marki (`/serwis-apple`, `/serwis-samsung`) i prezentacja sprzedaży bez koszyka i cen (`/apple`, `/samsung`) — sesja **T-R2**, `prokom-system/docs/zadania/runda-1811-tech-marki.md` | Krystian (18.11) |
+| D16 | Tech — katalog i salony Apple i Samsung | Jak na Biznesie: **katalog wszystkich urządzeń Apple i Samsung** (iPhone, iPad, Mac, Watch, AirPods; Galaxy S26, A17/A27/A37/A57, Tab, Watch, Buds) z wyborem koloru i pamięci, **salony marek** `/apple`, `/samsung`, **lista zapytania** bez cen i koszyka, plus strony serwisu marki — sesje **T-R2a → T-R2b → T-R2c**, `prokom-system/docs/zadania/runda-1811-tech-marki.md` (wersja 2). Zdjęcia nie z apple.com/samsung.com — od dystrybutora (AB/ALSEN) za zgodą albo własne | Krystian (18.11) |
 | D13 | Tech — nagłówek | Kapsuła ma być **przyklejona przy przewijaniu** jak na innych liniach (błąd — diagnoza w spec. Tech) | szef |
 
 ## 2. Kolejność i podział na sesje
@@ -42,7 +42,7 @@ Zasada: najwyżej **dwie sesje piszące kod naraz** (różne foldery). Krystian 
 | 1 (równolegle) | **BZ-R1** | prokom-web / `prokom-web-biznes` | koło, tablice/projektory, ALSEN na Biznesie, meble akustyczne | `feat/biznes-kolo-nazwa` → `feat/biznes-tablice-projektory` → `feat/biznes-alsen` → `feat/biznes-meble-akustyczne` | 2–2,5 |
 | 2 | **T-R1** | prokom-system (Tech) | przyklejona kapsuła, telefony punktów, przycisk motywu + szyna + Auto + wybór między domenami, pasek linii premium, ALSEN | wg `runda-1811-tech.md` | 1,5–2 |
 | 2 | **HUB-R1** | prokom-web / `prokom-web-hub` | ALSEN na pro-kom.eu, Tech z telefonami punktów na hubie, szyna na wszystkich stronach huba (pozycja motywu przychodzi z WSP-M), sekcja zamówień publicznych, stare maile | `hub/r1-alsen` → `hub/r1-szyna-punkty` → `hub/r1-zamowienia-publiczne` | 1,5–2 |
-| 2 (po T-R1) | **T-R2** | prokom-system (Tech) | strony serwisu marek Apple i Samsung + prezentacja sprzedaży (bez koszyka i cen), premium | wg `runda-1811-tech-marki.md` §4 | 2 |
+| 2 (po T-R1) | **T-R2a → b → c** | prokom-system (Tech) | dane katalogu Apple/Samsung → katalog, salony marek, lista zapytania → serwis marek i znak Apple | wg `runda-1811-tech-marki.md` §5 | 2 + 3 + 1,5 |
 | 3 | **INST-K0** | prokom-web / `prokom-instal` (bez kodu aplikacji) | dane katalogu Instalacji z Eltrox i producentów → seed | `inst/k0-katalog-dane` (seed + media) | 2 (dużo pracy danych, mało kodu) |
 | 4 | **INST-K1** | prokom-web / `prokom-instal` + mały PR wspólny | silnik katalogu dla 2 linii (ADR-029), import seeda Instalacji, menu „Sprzęt”, usunięcie „Serwis” z menu | `inst/wsp-katalog-linie` (strefa wspólna) → `inst/k1-katalog` → `inst/k1-menu` | 2,5–3 |
 | 5 | **INST-K2** | prokom-web / `prokom-instal` | salony marek Instalacji, zestawy, usługa „Transmisje i streaming”, „Sprzęt” w szukajce, SEO | `inst/k2-salony` → `inst/k2-streaming` | 2 |
@@ -177,7 +177,7 @@ Przeczytaj: docs/zadania/runda-1811.md §3.4 (INST-K2), ADR-029 pkt 6 (osobny te
 Dwa PR-y: inst/k2-salony → inst/k2-streaming. Streaming: nowa usługa/rozwiązanie (msze, sesje rady gminy, wydarzenia) powiązana z Nagłośnieniem i stroną „Kościół”, sprzęt z kategorii streaming; bez cen; teksty bez obietnic spoza spec. Instalacji (§2). Linki usług → „Zobacz sprzęt” w katalogu. /przeglad przed /pr.
 ```
 
-Prompty T-R1, T-R2 i GM-R1 są w swoich repo (`runda-1811-tech.md`, `runda-1811-tech-marki.md`, `runda-1811-gaming.md`).
+Prompty T-R1, T-R2a–c i GM-R1 są w swoich repo (`runda-1811-tech.md`, `runda-1811-tech-marki.md`, `runda-1811-gaming.md`).
 
 ---
 
