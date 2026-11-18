@@ -27,6 +27,9 @@ Dokumenty rundy:
 | D10 | Motyw między liniami | Wybór niesiony linkiem z parametrem `?motyw=` (ADR-028 §5) — **da się**, bez ciasteczek | szef (pomysł), Krystian (forma) |
 | D11 | Pasek linii | Zostaje w tym samym miejscu, „premium i mega” (spec §4); **Gaming dostaje pasek** | szef |
 | D12 | Instalacje — menu | „Serwis” **usunięty z głównej nawigacji** (strona `/serwis` zostaje: „Zgłoś awarię”, stopka, menu telefonu) | szef |
+| D14 | pro-kom.eu — zamówienia publiczne | Na głównej pro-kom.eu **sekcja premium „Zamówienia publiczne, przetargi i większe dostawy”** dla instytucji i firm, prowadząca do istniejącej `/inwestycje-i-dostawy` (tam już jest „Zapytania ofertowe i przetargi”) | szef (18.11) |
+| D15 | pro-kom.eu — stare maile | Na pro-kom.eu pokazujemy też **biuro@pro-kom.eu** i **sklep@pro-kom.pl** (używane latami, szef chce je zostawić) — warunki w §3.3 PR 3 | szef (18.11) |
+| D16 | Tech — marki Apple i Samsung | Strony serwisu marki (`/serwis-apple`, `/serwis-samsung`) i prezentacja sprzedaży bez koszyka i cen (`/apple`, `/samsung`) — sesja **T-R2**, `prokom-system/docs/zadania/runda-1811-tech-marki.md` | Krystian (18.11) |
 | D13 | Tech — nagłówek | Kapsuła ma być **przyklejona przy przewijaniu** jak na innych liniach (błąd — diagnoza w spec. Tech) | szef |
 
 ## 2. Kolejność i podział na sesje
@@ -38,7 +41,8 @@ Zasada: najwyżej **dwie sesje piszące kod naraz** (różne foldery). Krystian 
 | 1 | **WSP-M** | prokom-web / `prokom-web` (fundament) | motyw, Auto w nocy, wybór między domenami, szyna, pasek linii premium | `feat/wsp-motyw` → `feat/wsp-motyw-szyna` → `feat/wsp-pasek-linii` | 2–2,5 wieczoru |
 | 1 (równolegle) | **BZ-R1** | prokom-web / `prokom-web-biznes` | koło, tablice/projektory, ALSEN na Biznesie, meble akustyczne | `feat/biznes-kolo-nazwa` → `feat/biznes-tablice-projektory` → `feat/biznes-alsen` → `feat/biznes-meble-akustyczne` | 2–2,5 |
 | 2 | **T-R1** | prokom-system (Tech) | przyklejona kapsuła, telefony punktów, przycisk motywu + szyna + Auto + wybór między domenami, pasek linii premium, ALSEN | wg `runda-1811-tech.md` | 1,5–2 |
-| 2 | **HUB-R1** | prokom-web / `prokom-web-hub` | ALSEN na pro-kom.eu, Tech z telefonami punktów na hubie, szyna na wszystkich stronach huba (pozycja motywu przychodzi z WSP-M) | `hub/r1-alsen` → `hub/r1-szyna-punkty` | 1 |
+| 2 | **HUB-R1** | prokom-web / `prokom-web-hub` | ALSEN na pro-kom.eu, Tech z telefonami punktów na hubie, szyna na wszystkich stronach huba (pozycja motywu przychodzi z WSP-M), sekcja zamówień publicznych, stare maile | `hub/r1-alsen` → `hub/r1-szyna-punkty` → `hub/r1-zamowienia-publiczne` | 1,5–2 |
+| 2 (po T-R1) | **T-R2** | prokom-system (Tech) | strony serwisu marek Apple i Samsung + prezentacja sprzedaży (bez koszyka i cen), premium | wg `runda-1811-tech-marki.md` §4 | 2 |
 | 3 | **INST-K0** | prokom-web / `prokom-instal` (bez kodu aplikacji) | dane katalogu Instalacji z Eltrox i producentów → seed | `inst/k0-katalog-dane` (seed + media) | 2 (dużo pracy danych, mało kodu) |
 | 4 | **INST-K1** | prokom-web / `prokom-instal` + mały PR wspólny | silnik katalogu dla 2 linii (ADR-029), import seeda Instalacji, menu „Sprzęt”, usunięcie „Serwis” z menu | `inst/wsp-katalog-linie` (strefa wspólna) → `inst/k1-katalog` → `inst/k1-menu` | 2,5–3 |
 | 5 | **INST-K2** | prokom-web / `prokom-instal` | salony marek Instalacji, zestawy, usługa „Transmisje i streaming”, „Sprzęt” w szukajce, SEO | `inst/k2-salony` → `inst/k2-streaming` | 2 |
@@ -93,6 +97,12 @@ Spec: `docs/design/wspolne/MOTYW-PASEK-LINII.md` §1–§4, §6–§7; ADR-028.
 - **PR 2 `hub/r1-szyna-punkty`:**
   - Szyna na **wszystkich stronach huba** (dziś tylko `/`): wzorem linii (podstrony: zwinięta „Strona główna”, „Na tej stronie” od 3 sekcji, motyw z WSP-M, „Do góry”). Zmiana decyzji H1-2 → wpis w ADR-H001 „Zmiany”.
   - **Telefony punktów Tech na hubie (zadanie szefa „w TECH brakuje telefonów”, przypięte pod pro-kom.eu):** wszędzie, gdzie hub pokazuje kontakt Tech (wiersz Tech w Kontakcie na głównej i na `/kontakt`, panel Tech w „Wszystkie linie”, mega menu), pokazujemy **„Rabka-Zdrój 18 541 20 55 · Zakopane 18 541 20 15 · Infolinia 883 200 151”** (numery z `HubSettings.extraPhones`/`branch` i `CompanyData.lines` — bez wpisywania w kod; nazwa „Infolinia” `TODO` szef). Zrzut z zadania Asany nie był dostępny z czatu — **Krystian potwierdza na początku sesji, który ekran pokazywał szef**, i od niego zaczynamy.
+- **PR 3 `hub/r1-zamowienia-publiczne` (D14, D15):**
+  - **Sekcja na głównej „Zamówienia publiczne, przetargi i większe dostawy”** — po sekcji „Współpraca” (albo przed „Gdzie działamy” — wg rytmu strony), w stylu sceny głównej huba (ciemna karta z poświatą pięciu linii, jak kafel hero): nagłówek w duchu „Szkoły, gminy, szpitale i firmy — jedna oferta na całe zamówienie”, 3–4 krótkie punkty: **przetargi i zapytania ofertowe wg SWZ** (już w danych `/inwestycje-i-dostawy`), **większe dostawy** sprzętu IT, AV i wyposażenia z linii Biznes/Instalacje/Tech (konfiguracja, montaż, szkolenie zawsze jako opcja — zasada huba), **jedna faktura i jeden opiekun**, **dokumenty do dofinansowań** (fakt z danych Biznesu: kosztorys i rozliczenie). Mini oś „Zapytanie → oferta → dostawa → rozliczenie” (dane z `HubSettings.deliveries` — bez nowych obietnic). Przyciski: **„Wyślij zapytanie ofertowe”** (`/kontakt?temat=dostawy` albo formularz `/inwestycje-i-dostawy#formularz` — jak dziś), **„Zobacz zamówienia i dostawy”** → `/inwestycje-i-dostawy`. Pasek „Dla kogo” z ikonami: szkoły · gminy i urzędy · szpitale i uzdrowiska · hotele · firmy (ikony z zestawu huba).
+  - **Bez liczb i nazw zamawiających**, dopóki szef nie da listy zrealizowanych zamówień ze zgodą (`TODO(krystian)` w danych — miejsce na 3–4 przykłady „Realizowaliśmy dla…” ukryte za bramką faktów `facts` jak inne liczby huba). Bez słów „wygrywamy przetargi”, „najtańsza oferta”.
+  - Teksty w `HubSettings.home` (nowe pole `procurement`, migracja dodająca, schemat Zod jak inne sekcje `home`, dane przez `scripts/prokomeu-model.mjs`); szyna strony głównej dostaje pozycję sekcji. Na `/dla-firm` i `/inwestycje-i-dostawy` — tylko dopilnować, że sekcja „Zapytania ofertowe i przetargi” ma kotwicę `#przetargi` i link z głównej tam trafia.
+  - SEO: fraza „zamówienia publiczne”, „przetargi”, „dostawy sprzętu dla szkół i gmin” w H2/treści sekcji i w opisie meta `/inwestycje-i-dostawy` (≤ 155 znaków), FAQ „Czy startujecie w przetargach i zapytaniach ofertowych?” — jeśli już jest, nie dublować na głównej.
+  - **Stare adresy e-mail (D15):** na `/kontakt` (karta salonu / „Dodatkowe kontakty” obok numerów stacjonarnych z H18) i w stopce huba: **biuro@pro-kom.eu** (ogólny) i **sklep@pro-kom.pl** (zamówienia), z panelu — nowe pole w `HubSettings` „Dodatkowe adresy e-mail” (`{ label, email }[]`, migracja dodająca, seed z tymi dwoma adresami), wyświetlane obok `shared.line.email`. Zasady: (1) **`TODO(krystian)` przed publikacją: potwierdzić, że obie skrzynki działają i ktoś je odbiera** (`sklep@` jest w domenie **pro-kom.pl**, którą plan „widoczności” z 10.2026 przewidywał do usunięcia — jeśli domena zostaje, wpisać to w `docs/dns.md`; jeśli nie — `sklep@pro-kom.pl` nie trafia na stronę); (2) etykieta przy `sklep@` **„Zamówienia”** (zasada 01.11: przy pro-kom.eu bez „sklepu” w treści — adres zostaje, jak jest); (3) adresy jako link `mailto:` z `CopyEmail` (jak inne maile huba), w JSON-LD `Organization.email` tylko główny adres huba.
 - **Poza zakresem:** zmiany stron Tech (prokom-system).
 
 ### 3.4. INST-K0, INST-K1, INST-K2 — katalog Instalacji (folder `prokom-instal`)
@@ -136,9 +146,9 @@ Zero cen, tylko Rabka (K4-FINAL). /przeglad przed /pr.
 /zadanie HUB-R1 — runda 18.11, pro-kom.eu: ALSEN, szyna na wszystkich stronach, telefony punktów Tech.
 Przeczytaj: docs/zadania/runda-1811.md (§1 D4, D5, D8; §3.3), ADR-H001, ADR-H002, docs/STAN.md → „pro-kom.eu (hub)” (H18: numery stacjonarne i Zakopane), MOTYW-PASEK-LINII.md §6.
 Najpierw zapytaj mnie, który ekran huba pokazywał szef w zadaniu „w TECH brakuje telefonów” (zrzut nie był dostępny z czatu).
-Dwa PR-y piętrowo od origin/develop: hub/r1-alsen → hub/r1-szyna-punkty, wg §3.3. Jeśli rekord ALSEN z BZ-R1 nie jest jeszcze w develop — użyj tego samego slug: alsen w seedzie huba (bez duplikatu po scaleniu).
+Trzy PR-y piętrowo od origin/develop: hub/r1-alsen → hub/r1-szyna-punkty → hub/r1-zamowienia-publiczne, wg §3.3. Jeśli rekord ALSEN z BZ-R1 nie jest jeszcze w develop — użyj tego samego slug: alsen w seedzie huba (bez duplikatu po scaleniu).
 Numery tylko z danych (HubSettings, CompanyData), żadnych literałów w komponentach. Nazwa „Infolinia” jako stała z TODO(krystian) do decyzji szefa.
-Teksty o ALSEN: fakty z TODO(krystian) do potwierdzenia (liczba sklepów, punkt w Rabce). /przeglad przed /pr.
+Teksty o ALSEN: fakty z TODO(krystian) do potwierdzenia (liczba sklepów, punkt w Rabce). Sekcja zamówień publicznych: premium jak scena głównej, bez liczb i nazw zamawiających (bramka faktów), linki do /inwestycje-i-dostawy; stare maile biuro@pro-kom.eu i sklep@pro-kom.pl z panelu, etykieta „Zamówienia” przy sklep@, TODO(krystian) o działaniu skrzynek i domenie pro-kom.pl. /przeglad przed /pr.
 ```
 
 ### 4.4. INST-K0 (folder `prokom-instal`, sesja danych)
@@ -167,7 +177,7 @@ Przeczytaj: docs/zadania/runda-1811.md §3.4 (INST-K2), ADR-029 pkt 6 (osobny te
 Dwa PR-y: inst/k2-salony → inst/k2-streaming. Streaming: nowa usługa/rozwiązanie (msze, sesje rady gminy, wydarzenia) powiązana z Nagłośnieniem i stroną „Kościół”, sprzęt z kategorii streaming; bez cen; teksty bez obietnic spoza spec. Instalacji (§2). Linki usług → „Zobacz sprzęt” w katalogu. /przeglad przed /pr.
 ```
 
-Prompty T-R1 i GM-R1 są w swoich repo (`runda-1811-tech.md`, `runda-1811-gaming.md`).
+Prompty T-R1, T-R2 i GM-R1 są w swoich repo (`runda-1811-tech.md`, `runda-1811-tech-marki.md`, `runda-1811-gaming.md`).
 
 ---
 
@@ -196,6 +206,9 @@ Prompty T-R1 i GM-R1 są w swoich repo (`runda-1811-tech.md`, `runda-1811-gaming
 5. **[Krystian] ALSEN:** czy salon ul. Orkana 16B = punkt partnerski ALSEN (adres na stronie); czy ALSEN liczy się do „autoryzacji” w liczbach na stronie; wektorowe logo SVG od ALSEN.
 6. **[SZEF] KSC:** Hikvision/Dahua w katalogu Instalacji — informacyjnie OK, ale w ofertach dla gmin bez rekomendacji tych marek?
 7. **[SZEF] Nazwa linii „Tech” vs domena prokomserwis.pl** (zadanie szefa „prokomserwis ???” z 18.11) — **poza tą rundą**: rekomendacja z czatu 18.11 to powrót do nazwy „PRO-KOM Serwis” przed szyldami i oklejeniem aut; do czasu decyzji zostaje „Tech” (zasada 01.11).
+8a. **[SZEF] Zamówienia publiczne:** lista 3–4 zrealizowanych zamówień/dostaw dla instytucji ze zgodą na pokazanie nazwy (do sekcji na pro-kom.eu).
+8b. **[Krystian] sklep@pro-kom.pl:** czy skrzynka działa i czy domena pro-kom.pl zostaje (plan z 10.2026 zakładał jej usunięcie).
+8c. **[SZEF] Certyfikaty:** pliki od Krystiana (18.11) — Samsung SILVER ważny do 31.03.2024, Samsung GOLD do 31.12.2022, Dell ASP do 03.02.2023 (wszystkie wygasłe), certyfikatu Apple brak; szkolenia Samsung z 2018 (wyświetlacze) — tylko jako „szkolenia”, nie status. Bez aktualnych dokumentów żadna linia nie pisze „autoryzowany/certyfikowany partner Samsung/Dell/Apple”.
 8. **[Krystian] Marki Instalacji:** pełna lista marek, które montujemy (do zaznaczenia w INST-K0), w tym domofony, kontrola dostępu, przesył AV, streaming (Beiks — które marki?).
 
 ## 8. Wiadomość do opiekuna Eltrox (do wysłania przez Krystiana)
