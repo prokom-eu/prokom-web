@@ -1,6 +1,8 @@
 import { headers } from 'next/headers'
 import React from 'react'
 
+import { InlineScript } from '@/components/InlineScript'
+import { ThemeCarry } from '@/components/shared/ThemeCarry'
 import { defaultTheme, hasDarkTheme, themeScript } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
 import { normalizeHost } from '@/lib/tenant/host'
@@ -17,9 +19,9 @@ export default async function SitesRootLayout({ children }: { children: React.Re
   const host = normalizeHost((await headers()).get('host'))
   const line = host ? await lineFor(host) : undefined
   return (
-    // The theme script may set `data-theme` before hydration (ADR-013), hence the suppression.
-    // A line with a default theme (Biznes light, Software dark) gets it from the server too, so
-    // the page is right without JavaScript; the script only swaps it for a stored choice.
+    // The theme script sets `data-theme` before hydration (ADR-013, ADR-028), hence the suppression.
+    // A line dark by default (Software, the hub) gets it from the server too, so the page is right
+    // without JavaScript; Auto on the other lines (night, system) needs the script.
     // `data-scroll-behavior`: Software and Biznes (R2) scroll smoothly to anchors; the attribute tells
     // Next.js 16 to jump instantly on a route change instead of gliding to the top.
     <html
@@ -32,12 +34,13 @@ export default async function SitesRootLayout({ children }: { children: React.Re
     >
       {line && hasDarkTheme(line) && (
         <head>
-          <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />
+          <InlineScript html={themeScript(line)} />
         </head>
       )}
       <body>
         {/* The line's stylesheet (ADR-023): no global CSS import here, see `LineSheet`. */}
         <LineSheet line={line} />
+        {line && hasDarkTheme(line) && <ThemeCarry line={line} />}
         {children}
       </body>
     </html>

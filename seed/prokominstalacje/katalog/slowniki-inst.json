@@ -1,0 +1,213 @@
+{
+  "_opis": "Słowniki katalogu prokominstalacje.pl (INST-K0, 18.11.2026): działy, kategorie i podkategorie wg docs/tresci/instalacje-katalog-eltrox.md §2. Klucze jak seed/prokombiznes/k4/slowniki-k4.json. branze = obiekty Instalacji (seed/prokominstalacje/wspolne.json → SG, pole n).",
+  "dzialy": [
+    {
+      "slug": "mon",
+      "nazwa": "Monitoring",
+      "krotko": "Monitoring",
+      "ikona": "M3 7h13l3 3v4l-3 3H3z M16 10l5-2v8l-5-2 M7 12h4",
+      "kategorie": ["kamery-ip", "kamery-hd", "rejestratory", "akcesoria-cctv"]
+    },
+    {
+      "slug": "alarm",
+      "nazwa": "Alarmy",
+      "krotko": "Alarmy",
+      "ikona": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M12 9v4 M12 16h.01",
+      "kategorie": ["alarmy-przewodowe", "alarmy-bezprzewodowe"]
+    },
+    {
+      "slug": "dostep",
+      "nazwa": "Dostęp i domofony",
+      "krotko": "Dostęp",
+      "ikona": "M5 3h14v18H5z M9 8h6 M9 12h6 M12 16v2",
+      "kategorie": ["wideodomofony", "kontrola-dostepu"]
+    },
+    {
+      "slug": "av",
+      "nazwa": "AV, mocowania i streaming",
+      "krotko": "AV",
+      "ikona": "M3 5h18v11H3z M8 20h8 M12 16v4",
+      "kategorie": ["uchwyty", "przesyl-av", "streaming"]
+    }
+  ],
+  "nazwy_dzialow_skrot": {
+    "av": "AV i streaming",
+    "dostep": "Dostęp i domofony"
+  },
+  "kategorie": [
+    {
+      "kod": "kamery-ip",
+      "dzial": "mon",
+      "nazwa": "Kamery IP",
+      "opis": "Dahua, Hikvision, BCS, UniFi Protect: kamery sieciowe do domu, firmy i obiektu",
+      "ikona": "M3 8h12l2 2v4l-2 2H3z M17 11l4-2v6l-4-2",
+      "podkategorie": [
+        { "slug": "tubowe", "nazwa": "Kamery tubowe" },
+        { "slug": "kopulkowe", "nazwa": "Kamery kopułkowe" },
+        { "slug": "turret", "nazwa": "Kamery turret" },
+        { "slug": "obrotowe-ptz", "nazwa": "Kamery obrotowe PTZ" },
+        { "slug": "wifi-i-na-baterie", "nazwa": "Kamery Wi-Fi i na baterię" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "kamery-hd",
+      "dzial": "mon",
+      "nazwa": "Kamery HD po koncentryku",
+      "opis": "kamery 4w1, HDCVI i TVI do modernizacji starych instalacji bez nowego okablowania",
+      "ikona": "M3 8h12l2 2v4l-2 2H3z M17 12h4 M6 12h6",
+      "podkategorie": [],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "rejestratory",
+      "dzial": "mon",
+      "nazwa": "Rejestratory",
+      "opis": "rejestratory NVR, hybrydowe XVR i UniFi NVR z dyskiem i podglądem w aplikacji",
+      "ikona": "M3 7h18v10H3z M6 12h4 M15 12h.01 M18 12h.01",
+      "podkategorie": [
+        { "slug": "nvr", "nazwa": "Rejestratory NVR (IP)" },
+        { "slug": "xvr", "nazwa": "Rejestratory XVR (hybrydowe)" },
+        { "slug": "unifi-nvr", "nazwa": "UniFi NVR i UNVR" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "akcesoria-cctv",
+      "dzial": "mon",
+      "nazwa": "Akcesoria monitoringu",
+      "opis": "uchwyty i puszki do kamer, dyski do rejestratorów, zasilanie PoE i zasilacze buforowe",
+      "ikona": "M4 6h16v4H4z M8 10v8 M16 10v8 M6 18h12",
+      "podkategorie": [
+        { "slug": "uchwyty-i-puszki", "nazwa": "Uchwyty i puszki do kamer" },
+        { "slug": "dyski", "nazwa": "Dyski do rejestratorów" },
+        { "slug": "zasilanie", "nazwa": "Zasilanie PoE i zasilacze" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "alarmy-przewodowe",
+      "dzial": "alarm",
+      "nazwa": "Alarmy przewodowe",
+      "opis": "Satel: centrale, manipulatory, czujki, sygnalizatory, moduły GSM/LTE i ETHM",
+      "ikona": "M5 4h14v16H5z M9 8h6 M9 12h6 M9 16h3",
+      "podkategorie": [
+        { "slug": "centrale", "nazwa": "Centrale alarmowe" },
+        { "slug": "manipulatory", "nazwa": "Manipulatory" },
+        { "slug": "czujki", "nazwa": "Czujki" },
+        { "slug": "sygnalizatory", "nazwa": "Sygnalizatory" },
+        { "slug": "moduly", "nazwa": "Moduły GSM/LTE i ETHM" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "alarmy-bezprzewodowe",
+      "dzial": "alarm",
+      "nazwa": "Alarmy bezprzewodowe",
+      "opis": "Ajax i Satel ABAX: huby, czujki, klawiatury i syreny bez kucia ścian",
+      "ikona": "M12 18h.01 M8.5 14.5a5 5 0 0 1 7 0 M5 11a10 10 0 0 1 14 0",
+      "podkategorie": [
+        { "slug": "huby", "nazwa": "Huby i kontrolery" },
+        { "slug": "czujki-ruchu", "nazwa": "Czujki ruchu" },
+        { "slug": "czujki-otwarcia", "nazwa": "Czujki otwarcia i zbicia szyby" },
+        { "slug": "czujki-dymu-i-zalania", "nazwa": "Czujki dymu i zalania" },
+        { "slug": "klawiatury", "nazwa": "Klawiatury i piloty" },
+        { "slug": "syreny", "nazwa": "Syreny" },
+        { "slug": "zestawy-startowe", "nazwa": "Zestawy startowe" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "wideodomofony",
+      "dzial": "dostep",
+      "nazwa": "Wideodomofony",
+      "opis": "stacje bramowe, monitory i zestawy IP oraz 2-przewodowe, z odbiorem w telefonie",
+      "ikona": "M6 3h12v18H6z M12 8m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0 M9 15h6",
+      "podkategorie": [
+        { "slug": "stacje-bramowe", "nazwa": "Stacje bramowe" },
+        { "slug": "monitory", "nazwa": "Monitory" },
+        { "slug": "zestawy", "nazwa": "Zestawy wideodomofonowe" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "kontrola-dostepu",
+      "dzial": "dostep",
+      "nazwa": "Kontrola dostępu",
+      "opis": "czytniki kart, kodów i odcisku palca, zamki, zwory i sterowniki przejść",
+      "ikona": "M7 11V8a5 5 0 0 1 10 0v3 M5 11h14v10H5z M12 15v2",
+      "podkategorie": [
+        { "slug": "czytniki", "nazwa": "Czytniki kart, kodów i odcisku" },
+        { "slug": "zamki-i-zwory", "nazwa": "Zamki i zwory" },
+        { "slug": "sterowniki", "nazwa": "Sterowniki" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "uchwyty",
+      "dzial": "av",
+      "nazwa": "Uchwyty i stojaki",
+      "opis": "uchwyty do telewizorów i monitorów, sufitowe do projektorów, stojaki mobilne i wózki",
+      "ikona": "M4 4h16v10H4z M12 14v4 M8 21h8",
+      "podkategorie": [
+        { "slug": "uchwyty-tv", "nazwa": "Uchwyty TV" },
+        { "slug": "uchwyty-monitorow", "nazwa": "Uchwyty monitorów" },
+        { "slug": "projektory", "nazwa": "Uchwyty sufitowe do projektorów" },
+        { "slug": "stojaki-i-wozki", "nazwa": "Stojaki mobilne i wózki" }
+      ],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "przesyl-av",
+      "dzial": "av",
+      "nazwa": "Przesył obrazu i dźwięku",
+      "opis": "przedłużacze HDMI po skrętce, rozdzielacze, przełączniki i prezentacja bezprzewodowa",
+      "ikona": "M3 9h6v6H3z M15 9h6v6h-6z M9 12h6",
+      "podkategorie": [],
+      "do_czego": null,
+      "dobor": null
+    },
+    {
+      "kod": "streaming",
+      "dzial": "av",
+      "nazwa": "Transmisje i streaming",
+      "opis": "enkodery wideo, kamery PTZ do transmisji i zestawy do transmisji mszy i wydarzeń",
+      "ikona": "M4 6h12v12H4z M16 10l5-3v10l-5-3 M8 10l4 2-4 2z",
+      "podkategorie": [],
+      "do_czego": null,
+      "dobor": null
+    }
+  ],
+  "do_czego_podkategorie": {},
+  "dobor_podkategorie": {},
+  "branze": [
+    "Dom i domek letniskowy",
+    "Apartament na wynajem",
+    "Pensjonat",
+    "Hotel",
+    "Restauracja i sala weselna",
+    "Sklep i salon",
+    "Firma, biuro i hala",
+    "Kościół i parafia",
+    "Szkoła i przedszkole",
+    "Gmina i urząd",
+    "Deweloper",
+    "Budowa"
+  ],
+  "rodzaje": ["Urządzenia", "Usługi"],
+  "sortowanie": [
+    ["pop", "Polecane"],
+    ["new", "Nowości"],
+    ["az", "Nazwa A–Z"],
+    ["brand", "Marka A–Z"]
+  ]
+}

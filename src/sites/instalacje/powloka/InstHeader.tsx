@@ -223,7 +223,7 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
               <kbd aria-hidden="true">Ctrl K</kbd>
             </button>
           )}
-          <ThemeToggle className={CAPSULE.iconButton} />
+          <ThemeToggle className={CAPSULE.themeButton} />
         </>
       }
       cta={{ label: navigation.cta.label, shortLabel: 'Zaplanuj', href: navigation.cta.href }}

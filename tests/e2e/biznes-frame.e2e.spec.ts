@@ -6,12 +6,18 @@ import { api, hydrated, loginAsAdmin, site } from './helpers'
 // The shell (brand bar, capsule, rail, footer, bottom bar, menu sheet): biznes-powloka.e2e.spec.ts.
 // Data from `pnpm seed`.
 
-test.describe('Biznes theme (D-K4-5)', () => {
+test.describe('Biznes theme (ADR-028, replaces D-K4-5)', () => {
   // Keeping the choice after a reload: a11y.e2e.spec.ts („toggles, is announced and survives a reload”).
-  test('starts light even when the system is dark', async ({ page }) => {
-    await page.emulateMedia({ colorScheme: 'dark' })
+  // Auto in detail (clock, parameter): wspolne-motyw.e2e.spec.ts.
+  test('without a choice: light by day, dark with a dark system', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z')) // 12:00 in Warsaw
+    await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site('biznes.localhost'))
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+
+    await page.emulateMedia({ colorScheme: 'dark' })
+    await page.reload()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   })
 })
 

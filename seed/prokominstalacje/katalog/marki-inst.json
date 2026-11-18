@@ -1,0 +1,174 @@
+{
+ "_opis": "Marki katalogu prokominstalacje.pl (INST-K0, 18.11.2026), format marki-k4.json. Statusów brak — PRO-KOM nie ma u tych marek statusu autoryzacji (nigdy „partner” bez potwierdzenia). Logo: TODO(krystian) — z materiałów partnera Eltrox / producentów. KSC: Hikvision i Dahua informacyjnie, bez rekomendacji dla gmin.",
+ "marki": {
+  "Dahua": {
+   "opis_krotki": "Kamery IP i HD, rejestratory, wideodomofony, kontrola dostępu",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Dahua",
+   "logo": null,
+   "pozycji_w_wizualizacji": 27
+  },
+  "Hikvision": {
+   "opis_krotki": "Kamery IP i HD, rejestratory, wideodomofony, kontrola dostępu",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Hikvision",
+   "logo": null,
+   "pozycji_w_wizualizacji": 27
+  },
+  "Satel": {
+   "opis_krotki": "Alarmy przewodowe i bezprzewodowe ABAX 2",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Satel",
+   "logo": null,
+   "pozycji_w_wizualizacji": 17
+  },
+  "Ajax": {
+   "opis_krotki": "Alarmy bezprzewodowe z aplikacją",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "Ajax",
+   "logo": null,
+   "pozycji_w_wizualizacji": 12
+  },
+  "Neomounts": {
+   "opis_krotki": "Uchwyty TV, sufitowe i stojaki",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 7
+  },
+  "Edbak": {
+   "opis_krotki": "Uchwyty, wózki i stojaki do ekranów",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 7
+  },
+  "BCS": {
+   "opis_krotki": "Kamery i rejestratory polskiej marki",
+   "status": null,
+   "salon": true,
+   "salon_klucz": "BCS",
+   "logo": null,
+   "pozycji_w_wizualizacji": 7
+  },
+  "Turtle AV": {
+   "opis_krotki": "Przesył obrazu po sieci",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 3
+  },
+  "Pulsar": {
+   "opis_krotki": "Zasilacze do kamer i alarmów",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 2
+  },
+  "Blackmagic Design": {
+   "opis_krotki": "Miksery i enkodery do transmisji",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 2
+  },
+  "Seagate": {
+   "opis_krotki": "Dyski SkyHawk do rejestratorów",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  },
+  "WD": {
+   "opis_krotki": "Dyski WD Purple do rejestratorów",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  },
+  "Roland": {
+   "opis_krotki": "Miksery wideo do transmisji",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  },
+  "Magewell": {
+   "opis_krotki": "Rejestratory i enkodery do transmisji",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  },
+  "Canon": {
+   "opis_krotki": "Kamery PTZ do transmisji",
+   "status": null,
+   "salon": false,
+   "salon_klucz": null,
+   "logo": null,
+   "pozycji_w_wizualizacji": 1
+  }
+ },
+ "grupy": [
+  {
+   "t": "Monitoring",
+   "d": "Kamery, rejestratory i akcesoria",
+   "ic": "M3 7h13l3 3v4l-3 3H3z M16 10l5-2v8l-5-2",
+   "b": [
+    "Dahua",
+    "Hikvision",
+    "BCS",
+    "WD",
+    "Seagate",
+    "Pulsar"
+   ]
+  },
+  {
+   "t": "Alarmy",
+   "d": "Centrale, czujki i syreny",
+   "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+   "b": [
+    "Satel",
+    "Ajax"
+   ]
+  },
+  {
+   "t": "AV i streaming",
+   "d": "Uchwyty, przesył obrazu i transmisje",
+   "ic": "M3 5h18v11H3z M8 20h8 M12 16v4",
+   "b": [
+    "Neomounts",
+    "Edbak",
+    "Turtle AV",
+    "Blackmagic Design",
+    "Roland",
+    "Magewell",
+    "Canon"
+   ]
+  }
+ ],
+ "kolejnosc_na_glownej": [
+  "Dahua",
+  "Hikvision",
+  "Satel",
+  "Ajax",
+  "BCS"
+ ],
+ "liczba_marek": 15,
+ "zasady_statusow": {
+  "*": "brak statusu — nigdy „partner” ani „autoryzowany” bez potwierdzenia Krystiana"
+ }
+}

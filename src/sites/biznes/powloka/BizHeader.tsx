@@ -209,7 +209,7 @@ export function BizHeader({ homeLabel, menu, offer, cta, homeSections }: Props) 
             <span className="sr-only">Szukaj w ofercie</span>
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
-          <ThemeToggle className={CAPSULE.iconButton} />
+          <ThemeToggle className={CAPSULE.themeButton} />
         </>
       }
       cta={cta && { ...cta, badge: <CartCount className={CAPSULE.count} /> }}

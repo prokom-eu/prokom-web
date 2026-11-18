@@ -375,15 +375,16 @@
   box-shadow: none;
 }
 
-/* Core: „Dział N z 5”, the name (its size follows the longest word) and „Zobacz dział”. */
+/* Core: only the department's name (its size follows the longest word); the whole core is a link
+   to the department (runda 1811, D6). */
 [data-line='biznes'] .bzw-core {
   left: 50%;
   top: 50%;
   z-index: 3;
   display: grid;
   place-items: center;
-  /* 170 (was 164): the smallest two-column wheel (1080 px, ~510 px wide) keeps the text and
-     „Zobacz dział” inside the core with room to spare (audit 14.11, e2e). */
+  /* The smallest two-column wheel (1080 px, ~510 px wide) keeps the name inside the core with
+     room to spare (audit 14.11, e2e). */
   width: calc(184 * var(--u));
   height: calc(184 * var(--u));
   border-radius: 50%;
@@ -403,6 +404,19 @@
   transition:
     --tint 0.7s var(--ease-out),
     translate 0.6s var(--ease-out);
+}
+/* The link fills the core: a click anywhere inside the circle opens the department. */
+[data-line='biznes'] .bzw-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 [data-line='biznes'] .bzw-ring {
   position: absolute;
@@ -426,51 +440,21 @@
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
 }
+/* The name (and, during a switch, the outgoing one on top of it) in the very centre; the arrow
+   hangs below it without moving it (absolute). The name box is as wide as its text, so its
+   corners stay inside the circle (e2e `measure`, 1080 px). */
 [data-line='biznes'] .bzw-cc {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: calc(138 * var(--u));
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: calc(150 * var(--u));
 }
-/* The department's three products under its name (board: „Posnet Ergo · PolCard · Sunmi”). */
-[data-line='biznes'] .bzw-names {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 calc(5 * var(--u));
-  margin: calc(3 * var(--u)) 0 0;
-  padding: 0;
-  list-style: none;
-  font-size: calc(9.5 * var(--u));
-  line-height: 1.15;
-  color: color-mix(in srgb, var(--c-white) 78%, transparent);
+[data-line='biznes'] .bzw-cc > .bzw-nm {
+  grid-area: 1 / 1;
+  width: fit-content;
 }
-[data-line='biznes'] .bzw-names li + li::before {
-  content: '·';
-  margin-right: calc(5 * var(--u));
-}
-[data-line='biznes'] .bzw-names a {
-  display: inline-block;
-  padding-block: calc(1 * var(--u));
-  color: inherit;
-  text-decoration: none;
-}
-[data-line='biznes'] .bzw-names a:hover {
-  color: var(--c-white);
-  text-decoration: underline;
-}
-[data-line='biznes'] .bzw-k {
-  margin-bottom: calc(2 * var(--u));
-  font-family: var(--font-display);
-  font-size: calc(9 * var(--u));
-  font-weight: 800;
-  line-height: normal;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
-  /* White, not the accent (audit 14.11 pkt 2): the core's top is tinted by the department, and
-     the accent on it gave 2.4–2.9:1 — pale from the first frame. White there is ≥ 9:1. */
-  color: var(--c-white);
+[data-line='biznes'] .bzw-nm[data-out] {
+  display: none;
 }
 [data-line='biznes'] .bzw-nm {
   max-width: 100%;
@@ -482,21 +466,11 @@
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
-[data-line='biznes'] .bzw-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: calc(7 * var(--u));
-  margin-top: calc(5 * var(--u));
-  padding: calc(3 * var(--u)) calc(3 * var(--u)) calc(3 * var(--u)) calc(11 * var(--u));
-  border-radius: 999px;
-  font-size: calc(11.5 * var(--u));
-  font-weight: 800;
-  line-height: normal;
-  color: var(--c-white);
-  background: color-mix(in srgb, var(--c-white) 10%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-white) 14%, transparent);
-}
+/* The arrow under the name: only when the visitor points at the core or focuses it. */
 [data-line='biznes'] .bzw-go {
+  position: absolute;
+  top: calc(100% + 8 * var(--u));
+  left: calc(50% - 10 * var(--u));
   display: grid;
   place-items: center;
   width: calc(20 * var(--u));
@@ -504,6 +478,11 @@
   border-radius: 50%;
   color: var(--surface-dark);
   background: var(--c-white);
+  opacity: 0;
+}
+/* Any pointer that hovers (also where the browser reports `hover: none`) and the keyboard. */
+[data-line='biznes'] :is(.bzw-hit:hover, .bzw-hit:focus-visible) .bzw-go {
+  opacity: 1;
 }
 [data-line='biznes'] .bzw-go svg {
   width: calc(12 * var(--u));
@@ -550,9 +529,14 @@
 [data-line='biznes'] :is(.bzw-hint a, .bzw-pause):hover {
   text-decoration: underline;
 }
-[data-line='biznes'] :is(.bzw-node, .bzw-bub, .bzw-cta, .bzw-pause, .bzw-names a):focus-visible {
+[data-line='biznes'] :is(.bzw-node, .bzw-bub, .bzw-pause):focus-visible {
   outline: 3px solid var(--accent-text);
   outline-offset: 3px;
+}
+/* Outside the progress ring (7 units) so the outline does not cover it. */
+[data-line='biznes'] .bzw-hit:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: calc(11 * var(--u));
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -573,11 +557,25 @@
   [data-line='biznes'] .bzw-node[aria-selected='true']:hover .bzw-dot {
     scale: 1.1;
   }
-  [data-line='biznes'] .bzw-cta:hover {
-    background: color-mix(in srgb, var(--c-white) 20%, transparent);
+  /* Pointing at the core: it grows a little, the ring and the glow light up, the arrow shows. */
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) {
+    scale: 1.03;
+    box-shadow:
+      0 calc(30 * var(--u)) calc(60 * var(--u)) calc(-22 * var(--u)) var(--glow),
+      0 0 calc(34 * var(--u)) calc(-4 * var(--u)) color-mix(in srgb, var(--tint) 60%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--c-white) 14%, transparent);
   }
-  [data-line='biznes'] .bzw-cta:hover svg {
-    translate: 3px 0;
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) :is(.bzw-prog, .bzw-track) {
+    stroke-width: 3.2;
+  }
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) .bzw-track {
+    stroke: color-mix(in srgb, var(--tint) 40%, var(--border));
+  }
+}
+/* Touch: the core gives way under the finger. */
+@media (pointer: coarse) {
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:active) {
+    scale: 0.97;
   }
 }
 
@@ -825,44 +823,36 @@
     /* 4 px: the scrolling row has little room below, a longer rise would be cut. */
     animation: bz-rise-sm 0.6s var(--ease-out) calc(0.15s + var(--i, 0) * 70ms) backwards;
   }
-  /* A new department in the core: blur off, then its products one by one and „Zobacz dział”
-     with a sheen. */
-  [data-line='biznes'] .bzw-cc[data-swap] {
-    animation: bzw-swap-blur 0.55s var(--ease-out) both;
+  /* A new department in the core (runda 1811, D6): the old name blurs out and the new one comes
+     into focus in 280 ms, ending as the arc lands (`.bzw-sweep`, 0.9 s; same `state.run`). */
+  [data-line='biznes'] .bzw-core {
+    --swap-at: 0.62s;
+    transition:
+      --tint 0.7s var(--ease-out),
+      translate 0.6s var(--ease-out),
+      scale 0.22s var(--ease-out),
+      box-shadow 0.22s var(--ease-out);
   }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-names li {
-    animation: bz-rise 0.5s var(--ease-out) backwards;
+  [data-line='biznes'] .bzw-go {
+    translate: 0 calc(-4 * var(--u));
+    transition:
+      opacity 0.22s var(--ease-out),
+      translate 0.22s var(--ease-out);
   }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-names li:nth-child(1) {
-    animation-delay: 0.12s;
+  [data-line='biznes'] :is(.bzw-hit:hover, .bzw-hit:focus-visible) .bzw-go {
+    translate: 0 0;
   }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-names li:nth-child(2) {
-    animation-delay: 0.19s;
+  /* The ring waits while the pointer is on the core: a click opens the department whose name
+     the visitor sees, never the next one mid-switch (review BZ-R1). */
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) .bzw-prog {
+    animation-play-state: paused;
   }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-names li:nth-child(3) {
-    animation-delay: 0.26s;
+  [data-line='biznes'] .bzw-nm[data-out] {
+    display: block;
+    animation: bzw-name-out 0.28s var(--ease-out) var(--swap-at) both;
   }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-cta {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    animation: bz-rise 0.5s var(--ease-out) 0.32s backwards;
-  }
-  [data-line='biznes'] .bzw-cc[data-swap] .bzw-cta::after {
-    position: absolute;
-    z-index: -1;
-    inset: 0 auto 0 0;
-    width: 50%;
-    background: linear-gradient(
-      100deg,
-      transparent,
-      color-mix(in srgb, var(--c-white) 28%, transparent),
-      transparent
-    );
-    content: '';
-    pointer-events: none;
-    transform: translateX(-120%) skewX(-18deg);
-    animation: bz-sheen 1s var(--ease-out) 0.45s;
+  [data-line='biznes'] .bzw-cc[data-swap] > .bzw-nm:not([data-out]) {
+    animation: bzw-name-in 0.28s var(--ease-out) var(--swap-at) both;
   }
 }
 
@@ -903,11 +893,16 @@
     transform: scale(1.9);
   }
 }
-@keyframes bzw-swap-blur {
+@keyframes bzw-name-out {
+  to {
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
+@keyframes bzw-name-in {
   from {
     opacity: 0;
     filter: blur(6px);
-    translate: 0 calc(8 * var(--u));
   }
 }
 

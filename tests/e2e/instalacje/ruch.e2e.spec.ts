@@ -84,12 +84,15 @@ test.describe('Instalacje motion with reduced motion', () => {
   test.use({ viewport: DESKTOP, contextOptions: { reducedMotion: 'reduce' } })
 
   test('the theme changes its colours at once, without the circle', async ({ page }) => {
+    // By day: Auto starts light (ADR-028), so the button offers the dark theme.
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z'))
+    await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site(HOST))
     // L1-I: the shared theme toggle of the capsule.
-    const toggle = page.locator('[data-site-header]').getByRole('button', { name: 'Tryb ciemny' })
+    const toggle = page.locator('[data-site-header]').getByRole('button', { name: 'Ciemny motyw' })
     // Retried until the page is hydrated (before that the click is lost).
     await expect(async () => {
-      if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
+      if ((await page.locator('html').getAttribute('data-theme')) !== 'dark') await toggle.click()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark', { timeout: 500 })
     }).toPass()
     await expect(page.locator('html')).not.toHaveAttribute('data-theme-reveal')

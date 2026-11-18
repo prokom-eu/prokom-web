@@ -16,6 +16,12 @@
  * `data-motion` on sheets (`BottomSheet`), `data-site-header`, `data-tab-bar`.
  */
 
+/* Theme change of every line (ADR-028, MOTYW-PASEK-LINII §1.5): the circle and the button. */
+:root {
+  --dur-theme: 600ms;
+  --ease-theme: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 /* --- 1. Every clickable element changes smoothly --------------------------------------------
    In the `base` layer: Tailwind's utilities (`@layer utilities`) win over it, so a component's
    own `transition-*` or `motion-reduce:transition-none` still decides (a style outside any layer
@@ -540,21 +546,23 @@ html:has(dialog[data-gallery-zoom][open]) {
     animation: sw-vt-in var(--dur-page-in) var(--ease-expo-out) both;
   }
 
-  /* Theme switch (`revealTheme`): the new theme opens in a circle from the button. Header and
-     bar join the page for that moment, so the whole screen changes at once. */
-  html[data-line='software'][data-theme-reveal] [data-site-header],
-  html[data-line='software'][data-theme-reveal] [data-tab-bar] {
+  /* Theme switch (`revealTheme`, ADR-028): the new theme opens in a circle from the clicked
+     button on every line with a dark design. Header and bar join the page for that moment, so the
+     whole screen changes at once. */
+  html[data-theme-reveal] [data-site-header],
+  html[data-theme-reveal] [data-tab-bar] {
     view-transition-name: none;
   }
-  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-old(
-      root
-    ) {
+  html[data-theme-reveal]::view-transition-old(root) {
     animation: none;
   }
-  html:is([data-line='software'], [data-line='instalacje'])[data-theme-reveal]::view-transition-new(
-      root
-    ) {
-    animation: sw-theme-reveal var(--dur-enter) var(--ease-in-out);
+  html[data-theme-reveal]::view-transition-new(root) {
+    animation: sw-theme-reveal var(--dur-theme) var(--ease-theme);
+  }
+  /* Auto changed while the tab was hidden (spec §2.3): a soft cross-fade, no circle. */
+  html[data-theme-fade]::view-transition-old(root),
+  html[data-theme-fade]::view-transition-new(root) {
+    animation-duration: 300ms;
   }
 }
 

@@ -280,6 +280,7 @@ Na osobnym stosie — produkcja i staging zostają nietknięte.
 | Data | Kopia | Wynik |
 |---|---|---|
 | 1.11.2026 | `staging/daily/prokom-staging-20261101T133300Z` z B2 | zgodne: 3 tenanty, 29 stron, 437 produktów, 1370 mediów (3641 plików), 54 migracje; smoke zielony |
+| 18.11.2026 (audyt AB1) | najnowsze `prod/daily`, `gaming-prod/daily`, `tech-prod/daily` z B2 — tylko baza w jednorazowym kontenerze, bez aplikacji (`docs/bezpieczenstwo/skrypty/ab1-restore-test.sh`) | zgodne: web 451 tabel / 156 770 wierszy (22 s), gaming 67 / 2732 (8 s, różnice tylko po kopii), tech 91 / 690 (10 s); media: web 4934, gaming 46, tech 0 plików |
 
 ## 8. „Strona nie działa”
 

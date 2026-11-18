@@ -140,26 +140,28 @@ test.describe('dark theme switch', () => {
       await page.goto(site(host))
       await page.evaluate(() => localStorage.setItem('pk-theme', 'light'))
       await page.reload()
-      const toggle = page.getByRole('button', { name: 'Tryb ciemny' })
-      await expect(toggle).toHaveAttribute('aria-pressed', 'false')
+      // ADR-028: the label is the action — „Ciemny motyw” while light, „Jasny motyw” while dark.
+      const header = page.locator('[data-site-header]')
+      const toDark = header.getByRole('button', { name: 'Ciemny motyw' })
+      await expect(toDark).toBeVisible()
+      await expect(toDark).not.toHaveAttribute('aria-pressed')
 
-      // Clicked again only while still off: right after hydration the stored choice is read and
-      // could undo a click that came first (flaky in CI on Software).
-      await hydrated(toggle)
+      // Clicked again only while still light: right after hydration the stored choice is read
+      // and could undo a click that came first (flaky in CI on Software).
+      await hydrated(toDark)
       await expect(async () => {
-        if ((await toggle.getAttribute('aria-pressed')) !== 'true') await toggle.click()
-        await expect(toggle).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
+        if ((await page.locator('html').getAttribute('data-theme')) !== 'dark') await toDark.click()
+        await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark', { timeout: 1000 })
       }).toPass()
-      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+      await expect(header.getByRole('button', { name: 'Jasny motyw' })).toBeVisible()
+      await expect(page.getByText('Włączono ciemny motyw.')).toBeAttached()
 
       await page.reload()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
-      // The button shows the stored choice once hydrated (slow on a busy CI runner).
-      await hydrated(page.getByRole('button', { name: 'Tryb ciemny' }))
-      await expect(page.getByRole('button', { name: 'Tryb ciemny' })).toHaveAttribute(
-        'aria-pressed',
-        'true',
-      )
+      // The label comes from `data-theme` (CSS), so it is right before hydration too.
+      await expect(
+        page.locator('[data-site-header]').getByRole('button', { name: 'Jasny motyw' }),
+      ).toBeVisible()
     })
   }
 })
