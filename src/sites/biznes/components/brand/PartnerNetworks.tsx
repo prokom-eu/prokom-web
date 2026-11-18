@@ -7,8 +7,14 @@ import type { PartnerNetwork } from '@/lib/partners/networks'
 const FOCUS =
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text'
 
-/** Host of the network's site for the link text („alsen.pl”). */
-const hostOf = (website: string) => new URL(website).hostname.replace(/^www\./, '')
+/** Host of the network's site for the link text („alsen.pl”); the address itself if unparsable. */
+const hostOf = (website: string) => {
+  try {
+    return new URL(website).hostname.replace(/^www\./, '')
+  } catch {
+    return website
+  }
+}
 
 /**
  * A partner network (runda 1811, D4: ALSEN) next to the authorisations of Biznes: the logo on a
@@ -22,10 +28,13 @@ export function PartnerNetworks({
   networks,
   variant,
   className,
+  headingId,
 }: {
   networks: readonly PartnerNetwork[]
   variant: 'tile' | 'inline' | 'row'
   className?: string
+  /** `row`: the label is a heading (`h2`) with this id, for the section's `aria-labelledby`. */
+  headingId?: string
 }) {
   if (networks.length === 0) return null
   if (variant === 'tile') {
@@ -135,10 +144,19 @@ export function PartnerNetworks({
       )}
       data-networks
     >
-      <p className="text-[12px] font-extrabold tracking-[0.16em] text-ink-2 uppercase">
-        Sieci partnerskie
-      </p>
-      <ul className="flex flex-wrap gap-3" aria-label="Sieci partnerskie">
+      {headingId ? (
+        <h2
+          id={headingId}
+          className="text-[12px] font-extrabold tracking-[0.16em] text-ink-2 uppercase"
+        >
+          Sieci partnerskie
+        </h2>
+      ) : (
+        <p className="text-[12px] font-extrabold tracking-[0.16em] text-ink-2 uppercase">
+          Sieci partnerskie
+        </p>
+      )}
+      <ul className="flex flex-wrap gap-3" aria-label={headingId ? undefined : 'Sieci partnerskie'}>
         {networks.map((network) => (
           <li
             key={network.slug}

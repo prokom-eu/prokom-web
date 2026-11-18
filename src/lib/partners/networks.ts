@@ -1,6 +1,7 @@
 import type { Partner } from '@/payload-types'
 
 import { brandLogo } from '../catalog/brandLogo'
+import { isHttpsUrl } from '../site/link'
 import type { IndexLogo } from '../catalog/catalogIndex'
 import { partnerStatusLabel } from './badges'
 
@@ -32,7 +33,7 @@ export function partnerNetworks(partners: readonly Partner[]): PartnerNetwork[] 
     const status = partnerStatusLabel(partner.partnerStatus)
     const logo = brandLogo(partner)
     if (!status || !logo) return []
-    const website = partner.website?.startsWith('https://') ? partner.website : null
+    const website = partner.website && isHttpsUrl(partner.website) ? partner.website : null
     return [{ slug: partner.slug!, name: partner.name, website, logo, status }]
   })
 }

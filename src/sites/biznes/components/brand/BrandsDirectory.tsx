@@ -123,8 +123,8 @@ export function BrandsDirectory({
         )}
 
         {shownNetworks.length > 0 && (
-          <section aria-label="Sieci partnerskie" data-marki-networks="">
-            <PartnerNetworks networks={shownNetworks} variant="row" />
+          <section aria-labelledby="marki-sieci" data-marki-networks="">
+            <PartnerNetworks networks={shownNetworks} variant="row" headingId="marki-sieci" />
           </section>
         )}
 
