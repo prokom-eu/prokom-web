@@ -176,23 +176,26 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
  * line's settings over its defaults (`lib/catalog/texts`). Cached under the catalog tag, which
  * the settings' hooks refresh.
  */
-export const getCatalogTexts = (tenantId: number, line: CatalogTextLine): Promise<CatalogTexts> =>
-  cacheQuery(
-    async () => {
-      const payload = await getPayload({ config })
-      const { docs } = await payload.find({
-        collection: line === 'biznes' ? 'biznes-settings' : 'instalacje-settings',
-        where: { tenant: { equals: tenantId } },
-        limit: 1,
-        depth: 0,
-        select: { catalog: true },
-        overrideAccess: true,
-      })
-      return catalogTexts(line, docs[0]?.catalog)
-    },
-    ['catalog-texts', String(tenantId), line],
-    { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
-  )()
+// `cache`: metadata and the page ask in one request (`pnpm dev` has no data cache).
+export const getCatalogTexts = cache(
+  (tenantId: number, line: CatalogTextLine): Promise<CatalogTexts> =>
+    cacheQuery(
+      async () => {
+        const payload = await getPayload({ config })
+        const { docs } = await payload.find({
+          collection: line === 'biznes' ? 'biznes-settings' : 'instalacje-settings',
+          where: { tenant: { equals: tenantId } },
+          limit: 1,
+          depth: 0,
+          select: { catalog: true },
+          overrideAccess: true,
+        })
+        return catalogTexts(line, docs[0]?.catalog)
+      },
+      ['catalog-texts', String(tenantId), line],
+      { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+    )(),
+)
 
 /**
  * One published product of the tenant for `/produkt/[slug]`, as `ProductView` — or `null`

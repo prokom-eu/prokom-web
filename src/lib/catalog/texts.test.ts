@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { CATALOG_TEXT_DEFAULTS, catalogTexts } from './texts'
+import { CATALOG_TEXT_DEFAULTS, catalogTextLine, catalogTexts } from './texts'
 
 describe('catalog texts of a line (ADR-029 pkt 3)', () => {
   it('keeps the Biznes texts of /oferta and /marki word for word', () => {
@@ -35,6 +35,11 @@ describe('catalog texts of a line (ADR-029 pkt 3)', () => {
     const texts = catalogTexts('biznes', { offerTitle: '  Cała oferta  ', offerLead: '   ' })
     expect(texts.offerTitle).toBe('Cała oferta')
     expect(texts.offerLead).toBe(CATALOG_TEXT_DEFAULTS.biznes.offerLead)
+  })
+
+  it('has texts for the catalog lines only', () => {
+    expect(catalogTextLine('instalacje')).toBe('instalacje')
+    expect(() => catalogTextLine('software')).toThrow()
   })
 
   it('uses the line defaults with no settings document', () => {

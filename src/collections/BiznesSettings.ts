@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
+import { catalogTextsGroup } from '../fields/catalogTexts'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateIconPath } from '../lib/catalog/svg'
 import { validateWizard } from '../lib/catalog/wizard'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
-import { catalogTextsGroup } from '../fields/catalogTexts'
 import { brandFilter } from './catalogFields'
 import { searchGroup } from './searchGroup'
 

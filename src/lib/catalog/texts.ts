@@ -20,9 +20,13 @@ export type CatalogTexts = {
 
 export type CatalogTextLine = 'biznes' | 'instalacje'
 
-/** The text set of a tenant that passed `requireCatalogTenant` (Biznes or Instalacje). */
+/**
+ * The text set of a tenant that passed `requireCatalogTenant`. Another line throws instead of
+ * quietly taking the Biznes texts (no copy between domains).
+ */
 export function catalogTextLine(line: string): CatalogTextLine {
-  return line === 'instalacje' ? 'instalacje' : 'biznes'
+  if (line === 'biznes' || line === 'instalacje') return line
+  throw new Error(`No catalog texts for line ${line}`)
 }
 
 export const CATALOG_TEXT_DEFAULTS: Record<CatalogTextLine, CatalogTexts> = {
