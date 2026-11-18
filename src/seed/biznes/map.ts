@@ -560,6 +560,35 @@ export function missingSynonyms(
   return seed.filter((row) => !have.has(key(row.phrase)))
 }
 
+/**
+ * Phrases whose package expansions changed (runda 1811): the stored row is updated only while
+ * it still holds exactly the previous package value — nobody edited it in the panel.
+ * „interaktywny” never matched „Tablice interaktywne” (the search looks for substrings).
+ */
+export const PREVIOUS_SYNONYMS: Readonly<Record<string, readonly string[]>> = {
+  tablica: ['interaktywny'],
+  szkola: ['szkoly', 'interaktywny'],
+}
+
+/** Stored synonyms with the package's changed phrases replaced; null when nothing changes. */
+export function updatedSynonyms(
+  stored: readonly { phrase: string; expansions: string[] }[],
+  seed: readonly Synonym[],
+): { phrase: string; expansions: string[] }[] | null {
+  let changed = false
+  const rows = stored.map((row) => {
+    const before = PREVIOUS_SYNONYMS[row.phrase]
+    const now = seed.find((item) => item.phrase === row.phrase)?.expansions
+    const untouched =
+      before?.length === row.expansions.length &&
+      before.every((value, i) => row.expansions[i] === value)
+    if (!untouched || !now) return row
+    changed = true
+    return { phrase: row.phrase, expansions: [...now] }
+  })
+  return changed ? rows : null
+}
+
 export function searchData(search: SeedSearch) {
   return {
     synonyms: Object.entries(search.synonimy).map(([phrase, expansions]) => ({

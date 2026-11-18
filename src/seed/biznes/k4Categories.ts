@@ -141,8 +141,9 @@ const SPLIT_K3_CATEGORIES: ReadonlySet<string> = new Set(['av'])
  * H1 of a category (`hero.title`) set by the package while the panel's is empty (runda 1811,
  * D1: schools and municipalities search for „tablica interaktywna”).
  */
+const BOARDS_HEADING = 'Tablice interaktywne i monitory interaktywne dla szkół i firm'
 export const K4_CATEGORY_HEADINGS: Readonly<Record<string, string>> = {
-  'tablice-interaktywne': 'Tablice interaktywne i monitory interaktywne dla szkół i firm',
+  'tablice-interaktywne': BOARDS_HEADING,
 }
 
 /**
@@ -157,7 +158,7 @@ export const K4_CATEGORY_HEADINGS: Readonly<Record<string, string>> = {
  */
 const K4_CATEGORY_TITLES: Readonly<Record<string, string>> = {
   'automaty-vendingowe': 'Automaty vendingowe — modele Optivendi',
-  'tablice-interaktywne': 'Tablice interaktywne i monitory interaktywne dla szkół i firm',
+  'tablice-interaktywne': 'Tablice i monitory interaktywne dla szkół i firm',
 }
 
 export function k4CategoryData(

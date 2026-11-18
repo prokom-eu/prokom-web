@@ -99968,7 +99968,7 @@
    "faq": [
     {
      "q": "Czy NEC ME383W nadaje się do codziennej pracy w klasie?",
-     "a": "Może pracować codziennie, ale przy kilku godzinach dziennie lampę wymienisz częściej. Do takiej sali zwykle proponujemy laserowy NEC P525 — droższy na start, bez wymiany lamp."
+     "a": "Może pracować codziennie, ale przy kilku godzinach dziennie lampę wymienisz częściej. Do takiej sali zwykle proponujemy laserowy NEC P525, w którym nie wymienia się lamp."
     },
     {
      "q": "Ile wytrzymuje lampa w projektorze NEC ME383W?",
@@ -100098,7 +100098,7 @@
    "podtytul": "Rama ścienna z dwoma skrzydłami ceramicznymi do monitorów 65–75\", VESA do 800×600, do 100 kg",
    "korzysc": "Monitor interaktywny i klasyczna tablica do pisania pisakiem w jednym miejscu na ścianie.",
    "opis": [
-    "FrameWings to ścienna rama, na której wiesza się monitor interaktywny 65–75\", a po jego bokach dwa otwierane skrzydła z powierzchnią do pisania pisakiem suchościeralnym. W klasie nauczyciel ma więc obok ekranu miejsce na wzór, zadanie domowe albo notatkę, która zostaje na dłużej niż jeden slajd. Po lekcji skrzydła zamyka się jak tryptyk — chronią ekran przed uderzeniem piłką i kurzem.",
+    "FrameWings to ścienna rama, na której wiesza się monitor interaktywny 65–75\", a po jego bokach dwa otwierane skrzydła z powierzchnią do pisania pisakiem suchościeralnym. W klasie nauczyciel ma więc obok ekranu miejsce na wzór, zadanie domowe albo notatkę, która zostaje na dłużej niż jeden slajd. Po lekcji skrzydła zamyka się jak tryptyk i zakrywają ekran.",
     "Powierzchnia skrzydeł jest ceramiczno-stalowa (PolyVision), odporna na zarysowania i łatwa do czyszczenia, a do tego magnetyczna. Rama jest stalowa, w kolorze czarnym, przyjmuje monitory z mocowaniem VESA od 400×200 do 800×600 mm i ważące do 100 kg. Po zamknięciu zajmuje ok. 1,86 m szerokości, po otwarciu — ok. 2,74 m, przy głębokości ok. 21 cm.",
     "Zestaw nie zawiera monitora: pasuje do monitorów interaktywnych Avtek z naszej oferty (np. TouchScreen 9 Mate G czy 8 Connect) i innych z mocowaniem w tym zakresie VESA. Rama waży ok. 17 kg, a producent daje 3 lata gwarancji. Przed montażem trzeba sprawdzić ścianę — przy ciężkim monitorze potrzebna jest nośna przegroda albo odpowiednie kotwy.",
     "Montujemy FrameWings razem z monitorem: sprawdzamy ścianę i wysokość (inna dla młodszych klas, inna dla liceum), wieszamy ramę, podłączamy monitor do sieci i komputera nauczyciela, a potem pokazujemy, jak prowadzić lekcję na ekranie i tablicy jednocześnie."
@@ -100106,7 +100106,7 @@
    "cechy": [
     "tablice ceramiczne",
     "monitory 65–75\"",
-    "chroni ekran"
+    "zakrywa ekran"
    ],
    "parametry": [
     {
@@ -100178,8 +100178,8 @@
      "a": "Po zamknięciu ok. 1,86 m szerokości, po otwarciu skrzydeł ok. 2,74 m, przy wysokości 1 m i głębokości ok. 21 cm. Warto zostawić wolne miejsce po bokach na otwarte skrzydła."
     },
     {
-     "q": "Czy FrameWings chroni monitor interaktywny w sali?",
-     "a": "Tak. Po zamknięciu skrzydła zakrywają ekran, więc chronią go przed kurzem, przypadkowym uderzeniem i zabazgraniem po lekcjach."
+     "q": "Czy FrameWings zakrywa monitor interaktywny po lekcji?",
+     "a": "Tak. Zamknięte skrzydła zakrywają cały ekran, więc gdy sala stoi pusta, monitora nie widać i mniej się kurzy."
     }
    ],
    "konfigurator": {
@@ -100249,7 +100249,7 @@
    "wyrozniki": [
     "tablice ceramiczne",
     "monitory 65–75\"",
-    "chroni ekran"
+    "zakrywa ekran"
    ],
    "w_skrocie_wzorzec": [
     {

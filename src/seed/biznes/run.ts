@@ -117,6 +117,7 @@ import {
   PREVIOUS_CATEGORY_SLUGS,
   AV_SPLIT_REDIRECTS,
   missingSynonyms,
+  updatedSynonyms,
   productUpdateData,
   laterDate,
   searchData,
@@ -284,6 +285,10 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     // Runda 1811 (D1): the package's H1 only while the panel has none; the rest of the hero
     // stays (read at depth 0, so an image is its id).
     const heading = K4_CATEGORY_HEADINGS[data.slug]
+    const panelHeading = existing?.hero?.title?.trim()
+    if (heading && panelHeading && panelHeading !== heading) {
+      note('H1 kategorii z panelu (paczka go nie zmienia)', `${data.slug}: ${panelHeading}`)
+    }
     const hero =
       heading && !existing?.hero?.title?.trim()
         ? { ...(existing?.hero ?? {}), title: heading }
@@ -1131,17 +1136,19 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
     }
     // Runda 1811: new synonyms of the package reach a running site; panel phrases stay.
     const seedSearch = searchData(search)
-    const added = settings ? missingSynonyms(settings.search?.synonyms, seedSearch.synonyms) : []
-    count('biznes-settings synonyms', added.length > 0 ? 'updated' : false)
-    if (settings && added.length > 0) {
-      const stored = (settings.search?.synonyms ?? []).map(({ phrase, expansions }) => ({
-        phrase,
-        expansions,
-      }))
+    const stored = (settings?.search?.synonyms ?? []).map(({ phrase, expansions }) => ({
+      phrase,
+      expansions: [...(expansions ?? [])],
+    }))
+    const added = settings ? missingSynonyms(stored, seedSearch.synonyms) : []
+    const moved = settings ? updatedSynonyms(stored, seedSearch.synonyms) : null
+    const synonymsChanged = added.length > 0 || moved !== null
+    count('biznes-settings synonyms', synonymsChanged ? 'updated' : false)
+    if (settings && synonymsChanged) {
       await payload.update({
         collection: 'biznes-settings',
         id: settings.id,
-        data: { search: { ...settings.search, synonyms: [...stored, ...added] } },
+        data: { search: { ...settings.search, synonyms: [...(moved ?? stored), ...added] } },
         ...local,
       })
     }

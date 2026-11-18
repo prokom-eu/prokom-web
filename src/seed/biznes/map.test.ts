@@ -25,6 +25,7 @@ import {
   productUpdateData,
   PREVIOUS_CATEGORY_SLUGS,
   missingSynonyms,
+  updatedSynonyms,
   searchData,
   skipMediaFile,
   slugFromName,
@@ -517,6 +518,16 @@ describe('search settings', () => {
       { phrase: 'tablica', expansions: ['interaktywn'] },
     ])
     expect(missingSynonyms(null, seed)).toEqual(seed)
+  })
+
+  it('moves a changed package phrase only while the panel kept the old value', () => {
+    const seed = searchData(search).synonyms
+    const untouched = [{ phrase: 'tablica', expansions: ['interaktywny'] }]
+    expect(updatedSynonyms(untouched, seed)).toEqual([
+      { phrase: 'tablica', expansions: ['interaktywn', 'tablic'] },
+    ])
+    expect(updatedSynonyms([{ phrase: 'tablica', expansions: ['moja'] }], seed)).toBeNull()
+    expect(updatedSynonyms([{ phrase: 'laptop', expansions: ['laptop'] }], seed)).toBeNull()
   })
 })
 
