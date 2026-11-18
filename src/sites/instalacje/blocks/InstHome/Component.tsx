@@ -22,6 +22,7 @@ import {
   RealizationsTeaser,
   ServiceTeaser,
 } from '../../sekcje/glowna/HomeSections'
+import { CatalogSection } from '../../sekcje/glowna/CatalogSection'
 import { PlanSection } from '../../sekcje/glowna/PlanSection'
 import { type HomeService, ServicesGrid, TrustBand } from '../../sekcje/glowna/ServicesGrid'
 import { JsonLd } from '../../sekcje/JsonLd'
@@ -144,6 +145,7 @@ export async function InstHomeBlock({ block, tenantId }: Props) {
         brands={home.brands}
         noPriceText={settings.noPriceText}
       />
+      <CatalogSection tenantId={tenantId} />
       <ArchTeaser tenantId={tenantId} />
       <RealizationsTeaser items={home.realizations} />
       <MountainsSection />

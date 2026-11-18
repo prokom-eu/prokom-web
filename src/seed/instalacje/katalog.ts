@@ -31,6 +31,18 @@ import {
  * its slug in the tenant; the package's fields win (like `seed:biznes`), so a re-run brings a
  * changed card in. Fields the package does not carry (hero, menu images…) stay as edited.
  */
+/** Eight cards of „Najczęściej wybierane” on the home page until the panel sets its own. */
+export const HOME_FEATURED = [
+  'dahua-ipc-hfw2x49s-s-il',
+  'hikvision-ds-2cd2387g3-lis2uy',
+  'dahua-nvr21xxhs-4ks3',
+  'ajax-hub-2',
+  'ajax-motionprotect',
+  'satel-integra-plus',
+  'hikvision-ds-kis604-s-d',
+  'dahua-asi1201e-v1',
+] as const
+
 export async function seedInstalacjeCatalog(payload: Payload, tenantId: number): Promise<void> {
   const log = (message: string) => payload.logger.info(`Seed (Instalacje katalog): ${message}`)
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
@@ -243,6 +255,27 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
         ...local,
       })
     }
+  }
+
+  // --- „Najczęściej wybierane” on the home page (INST-K2): filled only while empty — then the
+  // panel's choice wins ---
+  const {
+    docs: [settings],
+  } = await payload.find({
+    collection: 'instalacje-settings',
+    where: { tenant: { equals: tenantId } },
+    limit: 1,
+    ...local,
+  })
+  if (settings && !(settings.homeFeatured ?? []).length) {
+    const featured = HOME_FEATURED.flatMap((slug) => productIds.get(slug) ?? [])
+    await payload.update({
+      collection: 'instalacje-settings',
+      id: settings.id,
+      data: { homeFeatured: featured },
+      ...local,
+    })
+    count('najczęściej wybierane (ustawione)')
   }
 
   // --- salons 2.0 of the brands (INST-K2): only brands marked `salon` in marki-inst.json ---

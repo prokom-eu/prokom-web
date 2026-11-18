@@ -1,0 +1,263 @@
+/*
+ * „Sprzęt i marki” on the home page (INST-K2, D17, `CatalogSection.tsx`): department cards with a
+ * showcase, the brand strip and „Najczęściej wybierane”. Colours only through the line's tokens
+ * (turquoise of Instalacje in both themes); a phone gets snapping rows like an app (MOBILE-
+ * APLIKACJA), hover only with a pointer, motion only without reduced motion.
+ */
+[data-line='instalacje'] {
+  & .isp-head {
+    max-width: 760px;
+    margin-bottom: 36px;
+  }
+
+  & .isp-deps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .isp-dep {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+
+  & .isp-dep-pics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  & .isp-dep-pic {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--plate);
+    box-shadow: inset 0 0 0 1px var(--border);
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  & .isp-dep-name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  & .isp-dep-count {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  & .isp-dep-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 4px 0 8px;
+    padding: 0;
+    font-size: 0.9rem;
+
+    & a {
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+  }
+
+  & .isp-dep-link,
+  & .isp-brands-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    margin-top: auto;
+    font-weight: 800;
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+
+  & .isp-brands {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin-top: 28px;
+    padding: 16px 20px;
+    border-radius: 22px;
+    background: var(--surface-2);
+
+    & ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    & ul a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: var(--card);
+      box-shadow: inset 0 0 0 1px var(--border);
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+    }
+  }
+
+  & .isp-brands-label {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  & .isp-brands-all {
+    margin: 0 0 0 auto;
+  }
+
+  & .isp-feat {
+    margin-top: 40px;
+  }
+
+  & .isp-feat-h {
+    margin: 0 0 16px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  & .isp-feat-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .isp-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  & .isp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1.5px var(--border-input);
+  }
+
+  & .isp-btn-main {
+    background: var(--accent-text);
+    color: var(--accent-ink);
+    box-shadow: none;
+  }
+
+  & .isp-dep-link:focus-visible,
+  & .isp-brands a:focus-visible,
+  & .isp-btn:focus-visible,
+  & .isp-dep-list a:focus-visible {
+    outline: 3px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    & .isp-dep-list a:hover {
+      color: var(--accent-text);
+    }
+
+    & .isp-brands ul a:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent-text);
+    }
+
+    & .isp-btn:hover {
+      box-shadow: inset 0 0 0 1.5px var(--accent-text);
+    }
+
+    & .isp-btn-main:hover {
+      background: var(--ink);
+      color: var(--surface);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    & .isp-dep {
+      transition: box-shadow var(--dur-state, 0.2s) var(--ease-out, ease);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      & .isp-dep:hover {
+        box-shadow: inset 0 0 0 1.5px var(--accent-text);
+      }
+    }
+  }
+
+  @media (max-width: 1080px) {
+    & .isp-deps,
+    & .isp-feat-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Phone: snapping rows like an app — departments and the eight cards scroll sideways. */
+  @media (max-width: 767px) {
+    & .isp-deps,
+    & .isp-feat-list {
+      display: flex;
+      gap: 12px;
+      margin: 0 -16px;
+      padding: 0 16px 6px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 16px;
+      scrollbar-width: none;
+    }
+
+    & .isp-dep {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
+
+    & .isp-feat-list > li {
+      flex: 0 0 62%;
+      scroll-snap-align: start;
+    }
+
+    & .isp-brands-all {
+      margin-left: 0;
+    }
+
+    & .isp-cta .isp-btn {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+}

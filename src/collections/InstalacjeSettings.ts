@@ -105,6 +105,18 @@ export const InstalacjeSettings: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'homeFeatured',
+      label: 'Strona główna — „Najczęściej wybierane” (do 8 kart)',
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 8,
+      admin: {
+        description:
+          'Karty sekcji „Sprzęt i marki” na głównej, w tej kolejności. Puste = osiem kart wybranych w imporcie katalogu.',
+      },
+    },
     catalogTextsGroup('instalacje'),
   ],
 }

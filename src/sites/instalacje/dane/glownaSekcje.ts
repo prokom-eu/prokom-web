@@ -530,6 +530,7 @@ export const glownaSekcje = {
     ['start', 'Start', 'home'],
     ['dla-kogo', 'Dla kogo', 'users'],
     ['uslugi', 'Usługi', 'net'],
+    ['sprzet', 'Sprzęt', 'grid'],
     ['architekci', 'Architekci', 'ruler'],
     ['realizacje', 'Realizacje', 'eye'],
     ['gory', 'Góry i zima', 'snow'],
