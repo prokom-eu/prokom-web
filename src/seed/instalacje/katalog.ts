@@ -6,6 +6,8 @@ import type { Payload, Where } from 'payload'
 import catalog from '../../../seed/prokominstalacje/katalog/katalog-inst.json'
 import dictionaryFile from '../../../seed/prokominstalacje/katalog/slowniki-inst.json'
 import { k4Relations } from '../biznes/k4Catalog'
+import { productUpdateData } from '../biznes/map'
+import { hasSameValues } from '../compare'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
   brandSlug,
@@ -51,14 +53,17 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       limit: 1,
       ...local,
     })
-    const saved = existing
-      ? await payload.update({ collection: 'catalog-groups', id: existing.id, data, ...local })
-      : await payload.create({
+    const changed = existing && !hasSameValues(existing, data)
+    const saved = !existing
+      ? await payload.create({
           collection: 'catalog-groups',
           data: { ...data, tenant: tenantId },
           ...local,
         })
-    count(existing ? 'działy (aktualizacja)' : 'działy (nowe)')
+      : changed
+        ? await payload.update({ collection: 'catalog-groups', id: existing.id, data, ...local })
+        : existing
+    count(!existing ? 'działy (nowe)' : changed ? 'działy (aktualizacja)' : 'działy (bez zmian)')
     groupIds.set(department.slug, saved.id)
   }
 
@@ -76,14 +81,28 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       limit: 1,
       ...local,
     })
-    const saved = existing
-      ? await payload.update({ collection: 'catalog-categories', id: existing.id, data, ...local })
-      : await payload.create({
+    const changed = existing && !hasSameValues(existing, data)
+    const saved = !existing
+      ? await payload.create({
           collection: 'catalog-categories',
           data: { ...data, tenant: tenantId },
           ...local,
         })
-    count(existing ? 'kategorie (aktualizacja)' : 'kategorie (nowe)')
+      : changed
+        ? await payload.update({
+            collection: 'catalog-categories',
+            id: existing.id,
+            data,
+            ...local,
+          })
+        : existing
+    count(
+      !existing
+        ? 'kategorie (nowe)'
+        : changed
+          ? 'kategorie (aktualizacja)'
+          : 'kategorie (bez zmian)',
+    )
     categoryIds.set(category.kod, saved.id)
   }
 
@@ -168,7 +187,6 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       ...instProductData(card, { brand: brandIds.get(card.marka), category, images }, dictionaries),
       // Package order = the default „Polecane” order of the listing, on the field's 0–100 scale.
       popularity: Math.max(1, Math.round(100 - (popularity * 99) / Math.max(1, cards.length - 1))),
-      _status: 'published' as const,
     }
     const {
       docs: [existing],
@@ -178,27 +196,49 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       limit: 1,
       ...local,
     })
-    const saved = existing
-      ? await payload.update({ collection: 'products', id: existing.id, data, ...local })
-      : await payload.create({
-          collection: 'products',
-          data: { ...data, tenant: tenantId },
-          ...local,
-        })
-    count(existing ? 'produkty (aktualizacja)' : 'produkty (nowe)')
-    productIds.set(card.slug_seed, saved.id)
+    if (!existing) {
+      const created = await payload.create({
+        collection: 'products',
+        data: { ...data, tenant: tenantId, _status: 'published' },
+        ...local,
+      })
+      count('produkty (nowe)')
+      productIds.set(card.slug_seed, created.id)
+      continue
+    }
+    // Like `seed:biznes`: the package wins, but a card taken down in the panel stays down and the
+    // content status only moves forward („Gotowe” from the panel is never undone); saved only
+    // when something changed, so a re-run adds no versions.
+    const update = {
+      ...productUpdateData(data, existing),
+      _status: existing._status ?? 'published',
+    }
+    if (!hasSameValues(existing, update)) {
+      await payload.update({ collection: 'products', id: existing.id, data: update, ...local })
+      count('produkty (aktualizacja)')
+    } else count('produkty (bez zmian)')
+    productIds.set(card.slug_seed, existing.id)
   }
 
   // --- relations, once every card has a record ---
   for (const card of cards) {
     const { recommended, alternatives, unknown } = k4Relations(card, (slug) => productIds.get(slug))
     if (unknown.length) log(`${card.slug_seed}: nieznane powiązania ${unknown.join(', ')}`)
-    await payload.update({
+    const id = productIds.get(card.slug_seed)!
+    const stored = await payload.findByID({
       collection: 'products',
-      id: productIds.get(card.slug_seed)!,
-      data: { recommended, alternatives },
+      id,
+      select: { recommended: true, alternatives: true },
       ...local,
     })
+    if (!hasSameValues(stored, { recommended, alternatives })) {
+      await payload.update({
+        collection: 'products',
+        id,
+        data: { recommended, alternatives },
+        ...local,
+      })
+    }
   }
 
   log(

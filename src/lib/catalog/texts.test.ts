@@ -62,13 +62,18 @@ describe('catalog copy of a line (ADR-029, INST-K1)', () => {
       productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
       productCtaText:
         'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+      sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
+      stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
+      stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
+      productCtaEyebrow: 'Wycena na mailu',
     })
   })
 
   it('gives Instalacje its own copy and a help link to its planner', () => {
-    const biznes = Object.values(CATALOG_UI.biznes)
-    for (const [key, text] of Object.entries(CATALOG_UI.instalacje)) {
-      if (key !== 'helpHref') expect(biznes).not.toContain(text)
+    const biznes = Object.values(CATALOG_UI.biznes).flat()
+    for (const [key, value] of Object.entries(CATALOG_UI.instalacje)) {
+      if (key === 'helpHref') continue
+      for (const text of [value].flat()) expect(biznes).not.toContain(text)
     }
     expect(CATALOG_UI.instalacje.helpHref).toBe('/zaplanuj')
   })

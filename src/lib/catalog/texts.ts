@@ -31,6 +31,13 @@ export type CatalogUi = {
   /** The product's dark „Wycena na mailu” band. */
   productCtaTitle: string
   productCtaText: string
+  /** Drawer confirmation when a phone was given. */
+  sentPhoned: string
+  /** Steps after sending: the quote and the delivery. */
+  stepQuote: [string, string]
+  stepDelivery: [string, string]
+  /** Eyebrow of the product's dark band. */
+  productCtaEyebrow: string
 }
 
 export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
@@ -46,6 +53,10 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
     productCtaText:
       'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+    sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
+    stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
+    stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
+    productCtaEyebrow: 'Wycena na mailu',
   },
   instalacje: {
     searchPlaceholder:
@@ -60,6 +71,11 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     productCtaTitle: 'Kilka kamer, alarm albo cały obiekt?',
     productCtaText:
       'Dodaj sprzęt do zapytania i napisz, gdzie ma działać. Przygotujemy ofertę z montażem, konfiguracją aplikacji i serwisem.',
+    sentPhoned:
+      'Oddzwonimy w godzinach pracy, żeby ustalić szczegóły montażu i przygotować ofertę.',
+    stepQuote: ['Oferta z montażem', 'po rozmowie o obiekcie, z wariantami sprzętu'],
+    stepDelivery: ['Montaż i konfiguracja', 'aplikacja w telefonie ustawiona przy odbiorze'],
+    productCtaEyebrow: 'Oferta z montażem',
   },
 }
 

@@ -402,3 +402,16 @@ export function catalogSeo(
   const lastPage = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE))
   return { index: true, canonical: catalogHref({ ...state, page: Math.min(state.page, lastPage) }) }
 }
+
+/**
+ * Parts of the filter panel the catalog needs, from the whole index — not the narrowed result,
+ * so the panel never jumps as the phrase or filters change. A catalog of one kind (Instalacje:
+ * devices only, ADR-029) has no „Rodzaj” segment; one without novelties or industries hides those.
+ */
+export function filterPanelParts(index: Pick<CatalogIndex, 'products' | 'industries'>) {
+  return {
+    kinds: new Set(index.products.map((product) => product.kind)).size > 1,
+    isNew: index.products.some((product) => product.isNew),
+    industries: index.industries.length > 0,
+  }
+}

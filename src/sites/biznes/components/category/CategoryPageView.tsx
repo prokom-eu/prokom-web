@@ -44,6 +44,8 @@ type Props = {
   category: CategoryView
   /** Set on a subcategory page `/oferta/<kategoria>/<podkategoria>` (K3b′). */
   subcategory?: IndexSubcategory & { slug: string }
+  /** The H1 may say „dla firm” (Biznes); Instalacje sells to homes and firms (ADR-029). */
+  forFirms?: boolean
 }
 
 /**
@@ -59,6 +61,7 @@ export async function CategoryPageView({
   listed,
   category,
   subcategory,
+  forFirms = true,
 }: Props) {
   const settings = await getSiteSettings(tenantId)
   const products = subcategory
@@ -134,7 +137,7 @@ export async function CategoryPageView({
     vendingPage: index.pages.some(({ slug }) => `/${slug}` === VENDING_PATH),
   })
   const hero = subcategory
-    ? { ...category, title: subcategoryTitle(subcategory.name, brands), highlights: [] }
+    ? { ...category, title: subcategoryTitle(subcategory.name, brands, forFirms), highlights: [] }
     : category
 
   return (

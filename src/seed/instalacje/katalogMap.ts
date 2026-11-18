@@ -3,6 +3,7 @@ import path from 'path'
 import type { CatalogCategory, CatalogGroup, Product } from '../../payload-types'
 import { p, richText } from '../biznes/lexical'
 import { k4ProductFields, type K4Card } from '../biznes/k4Catalog'
+import { seedDate } from '../biznes/map'
 
 /**
  * Catalog of prokominstalacje.pl (`seed/prokominstalacje/katalog/`, INST-K0) mapped onto the
@@ -174,7 +175,7 @@ export function instProductData(
     })),
     configurator: fields.configurator,
     faq: card.faq.map((item) => ({ question: item.q, answer: item.a })),
-    sources: { links: fields.sourceLinks, checkedAt: card.sprawdzono ?? null },
+    sources: { links: fields.sourceLinks, checkedAt: seedDate(card.sprawdzono) },
     images: refs.images,
     isNew: fields.isNew,
     contentStatus: status,
