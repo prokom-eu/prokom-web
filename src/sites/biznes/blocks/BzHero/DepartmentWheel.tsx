@@ -35,6 +35,8 @@ const AUTO_MS = 6500
 
 type State = {
   active: number
+  /** The department before the last pick: its name fades out as the new one fades in. */
+  prev: number
   /** Rotation of the highlight arc: grows or shrinks along the shortest way. */
   rot: number
   /** Restarts the 6.5 s ring from zero. */
@@ -50,6 +52,7 @@ function reducer(state: State, action: Action): State {
   const delta = ((((target - state.rot) % 360) + 540) % 360) - 180
   return {
     active: action.index,
+    prev: state.active,
     rot: state.rot + delta,
     run: state.run + 1,
     chosen: state.chosen || action.byUser,
@@ -83,11 +86,13 @@ const tabName = (group: WheelGroup) =>
  * Department wheel of the Biznes hero (runda 1411, board `Main.dc.html`; KOLO-HERO v3 before):
  * the five departments on the inner circle, each with its three products fanned out right behind
  * it on the outer ring; the active department's products grow, take its colour, get a dashed line
- * from the icon and float. The core names the department, its three products (links to them) and
- * „Zobacz dział”. Every 6.5 s (the ring around the core, `animationend`) the next department.
+ * from the icon and float. The core shows only the department's name and the whole core is a link
+ * to its page (runda 1811, D6); the arrow under the name shows on hover and focus only. The name
+ * changes as the arc lands (same `state.run`). Every 6.5 s (the ring around the core,
+ * `animationend`) the next department.
  * Pointer (16.11, Krystian): a product bubble is a link to its product, a department opens its
  * page on a click and shows itself in the core on hover (mouse); the keyboard keeps the tabs —
- * arrows pick a department, the core's links lead on. The
+ * arrows pick a department, Tab goes on to the core's link. The
  * round pause button (WCAG 2.2.2), keyboard focus inside, the wheel out of view and a hidden tab
  * stop it; reduced motion: no switching, floating or turning. One tooltip names the pointed
  * bubble.
@@ -96,6 +101,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
   const layout = wheelLayout(groups.map((group) => group.items.length))
   const [state, dispatch] = useReducer(reducer, {
     active: 0,
+    prev: 0,
     rot: (layout.groups[0]?.angle ?? -90) + 90,
     run: 0,
     chosen: false,
@@ -201,6 +207,7 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
 
   const current = groups[state.active] ?? groups[0]
   if (!current) return null
+  const prev = groups[state.prev]
   const running = !paused && !idle
   const active = layout.groups[state.active]
   // Dashed lines from the active department's icon to each of its products (board).
@@ -266,8 +273,8 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
           </g>
         </svg>
 
-        {/* The bubbles are a pointer shortcut to their product: the tabs and the product links
-            in the core say the same to the keyboard and screen readers (runda 1411). */}
+        {/* The bubbles are a pointer shortcut to their product: the tabs and the department link
+            in the core lead the keyboard and screen readers there (runda 1411, 1811). */}
         <ul className="bzw-bubbles" aria-hidden="true" data-bubbles>
           {groups.flatMap((group, i) =>
             group.items.map((item, k) => {
@@ -401,32 +408,37 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
               />
             )}
           </svg>
-          <div key={state.active} className="bzw-cc" data-swap={state.run > 0 ? '' : undefined}>
-            <span className="bzw-k">
-              Dział {state.active + 1} z {groups.length}
-            </span>
-            {/* The short label of the board („Sieć i ochrona”); the tab names the full one. */}
-            <span className="bzw-nm" style={vars({ '--fs': nameSize(current.label) })}>
-              {current.label}
-            </span>
-            {current.items.length > 0 && (
-              <ul className="bzw-names" aria-label={`Przykłady: ${current.label}`}>
-                {current.items.map((item) => (
-                  <li key={item.key}>
-                    <Link href={item.href} prefetch={false}>
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <Link href={current.href} className="bzw-cta">
-              Zobacz dział
-              <span className="bzw-go">
+          {/* The whole core is one link to the department (D6). Keyed by the run: the previous
+              name fades out and the new one in at the moment the arc lands (CSS `--swap-at`). */}
+          <Link
+            href={current.href}
+            className="bzw-hit"
+            aria-label={`Przejdź do działu: ${current.label}`}
+          >
+            <span
+              key={state.run}
+              className="bzw-cc"
+              data-swap={state.run > 0 && state.prev !== state.active ? '' : undefined}
+            >
+              {state.run > 0 && prev && state.prev !== state.active && (
+                <span
+                  className="bzw-nm"
+                  data-out=""
+                  aria-hidden="true"
+                  style={vars({ '--fs': nameSize(prev.label) })}
+                >
+                  {prev.label}
+                </span>
+              )}
+              {/* The short label of the board („Sieć i ochrona”); the tab names the full one. */}
+              <span className="bzw-nm" style={vars({ '--fs': nameSize(current.label) })}>
+                {current.label}
+              </span>
+              <span className="bzw-go" aria-hidden="true">
                 <Icon name="arrow" strokeWidth={2.6} />
               </span>
-            </Link>
-          </div>
+            </span>
+          </Link>
         </div>
       </div>
 
