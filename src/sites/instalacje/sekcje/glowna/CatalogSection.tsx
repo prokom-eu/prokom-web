@@ -30,12 +30,19 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
   const departments = homeDepartments(index)
   if (departments.length === 0) return null
   const featured = featuredProducts(index, slugs)
-  // One pill per salon; a salon of several brands shows their names.
-  const salons = [
-    ...new Map(
-      index.brands.filter((brand) => brand.salon).map((brand) => [brand.salon!, brand.name]),
-    ),
-  ]
+  // One pill per salon (D17: the brand strip to the salons); a salon of several brands names them
+  // all, with the first logo when the brand has one.
+  const salons = new Map<
+    string,
+    { names: string[]; logo?: NonNullable<(typeof index.brands)[number]['logo']> }
+  >()
+  for (const brand of index.brands) {
+    if (!brand.salon) continue
+    const salon = salons.get(brand.salon) ?? { names: [] }
+    salon.names.push(brand.name)
+    salon.logo ??= brand.logo
+    salons.set(brand.salon, salon)
+  }
 
   return (
     <InstSection id="sprzet" className="isp xa-s" style={{ padding: '96px 0' }}>
@@ -85,13 +92,25 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
           ))}
         </ul>
 
-        {salons.length > 0 && (
+        {salons.size > 0 && (
           <nav className="isp-brands ri" aria-label="Salony marek">
             <span className="isp-brands-label">Salony marek</span>
             <ul role="list">
-              {salons.map(([slug, name]) => (
+              {[...salons].map(([slug, salon]) => (
                 <li key={slug}>
-                  <Link href={brandHref(slug)}>{name}</Link>
+                  <Link href={brandHref(slug)}>
+                    {salon.logo && (
+                      <Image
+                        src={salon.logo.url}
+                        alt=""
+                        width={salon.logo.width}
+                        height={salon.logo.height}
+                        unoptimized
+                        className="isp-brand-logo"
+                      />
+                    )}
+                    {salon.names.join(' · ')}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -108,7 +127,13 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
             <ul className="isp-feat-list" role="list">
               {featured.map((product, position) => (
                 <li key={product.slug}>
-                  <ProductCard product={product} index={index} position={position} variant="home" />
+                  <ProductCard
+                    product={product}
+                    index={index}
+                    position={position}
+                    variant="home"
+                    headingLevel={4}
+                  />
                 </li>
               ))}
             </ul>

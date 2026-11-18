@@ -96,6 +96,19 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await expect(section).not.toContainText(/\d\s?zł|PLN/)
   })
 
+  for (const theme of ['light', 'dark'] as const) {
+    test(`axe WCAG AA on the home „Sprzęt i marki” (${theme})`, async ({ page }) => {
+      await setTheme(page, theme)
+      await page.goto(inst('/'))
+      await page.locator('#sprzet').scrollIntoViewIfNeeded()
+      const { violations } = await new AxeBuilder({ page })
+        .include('#sprzet')
+        .withTags(WCAG)
+        .analyze()
+      expect(violations).toEqual([])
+    })
+  }
+
   test('the phone rows of „Sprzęt i marki” never scroll the page sideways', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto(inst('/'))
