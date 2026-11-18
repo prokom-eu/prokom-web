@@ -84,7 +84,7 @@ export const Partners: CollectionConfig = {
       ],
       admin: {
         description:
-          'Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.',
+          'Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; ALSEN (sieć partnerska) — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.',
       },
     },
     {

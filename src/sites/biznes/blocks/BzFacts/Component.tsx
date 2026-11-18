@@ -8,7 +8,9 @@ import { countsUp } from '@/lib/motion/countUp'
 import { brandLogo } from '@/lib/catalog/brandLogo'
 import { getWheelPhotos } from '@/lib/catalog/data'
 import { k4Rank, partnerStatusLabel } from '@/lib/partners/badges'
-import { getBrandStripData } from '@/lib/partners/data'
+import { getBrandStripData, getPartnerNetworks } from '@/lib/partners/data'
+import type { PartnerNetwork } from '@/lib/partners/networks'
+import { PartnerNetworks } from '@/sites/biznes/components/brand/PartnerNetworks'
 import { pickSource } from '@/lib/media/sizes'
 import { getSiteSettings } from '@/lib/site/data'
 import { tenantIdOf } from '@/lib/tenant/id'
@@ -117,11 +119,13 @@ function FactsCard({
   stats,
   logos,
   photos,
+  networks,
 }: {
   block: BzFactsBlockData
   stats: NonNullable<BzFactsBlockData['stats']>
   logos: Logos
   photos: ReadonlyMap<string, Photo>
+  networks: readonly PartnerNetwork[]
 }) {
   const [first, second] = stats
   return (
@@ -247,6 +251,7 @@ function FactsCard({
               )
             })}
           </ul>
+          <PartnerNetworks networks={networks} variant="inline" className="mt-3.5" />
         </div>
       )}
     </div>
@@ -268,7 +273,10 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
   const stats = block.stats ?? []
   // The quote was written by us (audit 01.11.2026): hidden until the owner approves it, like
   // the reviews (D-K4-6). Without it the section keeps the numbers, logos and the link.
-  const settings = await getSiteSettings(tenantId)
+  const [settings, networks] = await Promise.all([
+    getSiteSettings(tenantId),
+    getPartnerNetworks(tenantId),
+  ])
   const showOwner = Boolean(settings?.biznes?.showOwnerQuote)
 
   if (!showOwner) {
@@ -282,7 +290,13 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
     return (
       <section id="fakty" aria-labelledby="fakty-h" className="py-12 sm:py-16">
         <Container wide>
-          <FactsCard block={block} stats={stats} logos={logos} photos={photos} />
+          <FactsCard
+            block={block}
+            stats={stats}
+            logos={logos}
+            photos={photos}
+            networks={networks}
+          />
         </Container>
       </section>
     )
@@ -389,6 +403,7 @@ export async function BzFactsBlock({ block, tenantId }: Props) {
                 ))}
               </ul>
             )}
+            <PartnerNetworks networks={networks} variant="inline" className="mt-4" />
             {block.contactLink?.label && block.contactLink.href && (
               <Link
                 href={block.contactLink.href}

@@ -1266,7 +1266,7 @@ export interface Partner {
   slug?: string | null;
   website?: string | null;
   /**
-   * Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.
+   * Tylko: Posnet i Elzab — autoryzowany serwis; GoPOS i InsERT — autoryzowany partner; ALSEN (sieć partnerska) — autoryzowany partner; Optivendi — partner; COMEX — we współpracy.
    */
   partnerStatus: 'none' | 'authorized-service' | 'authorized-partner' | 'partner' | 'cooperation';
   tenants?: (number | Tenant)[] | null;
