@@ -1,6 +1,6 @@
 import type { CatalogCategory } from '../../payload-types'
 import type { K3Dictionaries } from './k3'
-import { categoryData, CATEGORY_SLUGS, RETIRED_CATEGORY_SLUGS } from './map'
+import { AV_OLD_SLUG, categoryData, CATEGORY_SLUGS, RETIRED_CATEGORY_SLUGS } from './map'
 
 /**
  * K4 categories (`seed/prokombiznes/k4/slowniki-k4.json`, D-K4-2, ADR-017): 29 categories in
@@ -101,6 +101,9 @@ export function k4CategoryIcons(k3: Record<string, string>): Record<string, stri
     telefony: 'phone',
     'akcesoria-biuro': 'monitor',
     niszczarki: 'doc',
+    // Runda 1811 (D1): the parts of „Ekrany i projektory” keep its monitor icon.
+    projektory: 'monitor',
+    ekrany: 'monitor',
   }
 }
 
@@ -126,7 +129,21 @@ function helpData(help: K4Help | null): HelpData {
  * rozstrz. 14 (serwery, ekrany) and the printers of K4 (ADR-017, uzupełnienie K4a-1). Elsewhere
  * a subcategory is a chip.
  */
-export const K4_SUBCATEGORY_PAGES: ReadonlySet<string> = new Set(['serw', 'av', 'mfp'])
+export const K4_SUBCATEGORY_PAGES: ReadonlySet<string> = new Set(['serw', 'av', 'ekrany', 'mfp'])
+
+/**
+ * K3 categories a later round split into several (runda 1811, D1: `av`): their old addresses
+ * get their own 301 (`AV_SPLIT_REDIRECTS`), not the K3 rules below.
+ */
+const SPLIT_K3_CATEGORIES: ReadonlySet<string> = new Set(['av'])
+
+/**
+ * H1 of a category (`hero.title`) set by the package while the panel's is empty (runda 1811,
+ * D1: schools and municipalities search for „tablica interaktywna”).
+ */
+export const K4_CATEGORY_HEADINGS: Readonly<Record<string, string>> = {
+  'tablice-interaktywne': 'Tablice interaktywne i monitory interaktywne dla szkół i firm',
+}
 
 /**
  * Fields K4 owns; subcategory rows are rewritten whole. The help card of a category is not
@@ -140,6 +157,7 @@ export const K4_SUBCATEGORY_PAGES: ReadonlySet<string> = new Set(['serw', 'av', 
  */
 const K4_CATEGORY_TITLES: Readonly<Record<string, string>> = {
   'automaty-vendingowe': 'Automaty vendingowe — modele Optivendi',
+  'tablice-interaktywne': 'Tablice interaktywne i monitory interaktywne dla szkół i firm',
 }
 
 export function k4CategoryData(
@@ -221,6 +239,7 @@ export function k4CategoryRedirects(
     category.podkategorie.some((item) => item.slug === slug)
   const rules: { from: string; to: string }[] = []
   for (const old of k3Categories) {
+    if (SPLIT_K3_CATEGORIES.has(old.slug)) continue
     const current = categories.find((item) => item.slug === old.slug)
     const oldSlug = current ? CATEGORY_SLUGS[old.slug] : RETIRED_CATEGORY_SLUGS[old.slug]
     if (!oldSlug) fail(`K3 category "${old.slug}" has no address.`)
@@ -244,7 +263,7 @@ export function k4CategoryRedirects(
  * such a rule (written by an earlier import) instead of keeping it as a panel change.
  */
 export function isRetiredTarget(to: string): boolean {
-  return Object.values(RETIRED_CATEGORY_SLUGS).some(
+  return [...Object.values(RETIRED_CATEGORY_SLUGS), AV_OLD_SLUG].some(
     (slug) => to === `/oferta/${slug}` || to.startsWith(`/oferta/${slug}/`),
   )
 }

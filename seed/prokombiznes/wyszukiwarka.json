@@ -159,7 +159,8 @@
    "interaktywny"
   ],
   "tablica": [
-   "interaktywny"
+   "interaktywn",
+   "tablic"
   ],
   "prad": [
    "ups",
@@ -204,6 +205,48 @@
   "it": [
    "opieka",
    "przeglad"
+  ],
+  "tablice": [
+   "interaktywn",
+   "tablic"
+  ],
+  "multimedialna": [
+   "interaktywn"
+  ],
+  "multimedialne": [
+   "interaktywn"
+  ],
+  "multimedialny": [
+   "interaktywn"
+  ],
+  "dotykowy": [
+   "interaktywn"
+  ],
+  "dotykowa": [
+   "interaktywn"
+  ],
+  "dotykowe": [
+   "interaktywn"
+  ],
+  "ekran": [
+   "ekran",
+   "interaktywn",
+   "projektor"
+  ],
+  "rzutnik": [
+   "projektor"
+  ],
+  "projektor": [
+   "projektor"
+  ],
+  "suchoscieralna": [
+   "suchościeraln",
+   "framewings"
+  ],
+  "wideokonferencja": [
+   "wideokonferencj",
+   "rally",
+   "meetup"
   ]
  },
  "stop_slowa": [

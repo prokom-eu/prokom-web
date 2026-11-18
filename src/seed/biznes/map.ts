@@ -107,7 +107,10 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   vend: 'automaty-vendingowe',
   serw: 'serwery-nas-ups',
   mfp: 'drukarki-wielofunkcyjne',
-  av: 'ekrany-projektory',
+  // Runda 1811 (D1): „Ekrany i projektory” split; `av` keeps its record as „Tablice interaktywne”.
+  av: 'tablice-interaktywne',
+  projektory: 'projektory',
+  ekrany: 'ekrany-informacyjne',
   progs: 'programy-sprzedazowe-erp',
   progb: 'programy-branzowe',
   m365: 'microsoft-365-licencje',
@@ -130,7 +133,30 @@ export const CATEGORY_SUCCESSORS: Record<string, string> = { komp: 'laptopy' }
 export const PREVIOUS_CATEGORY_SLUGS: Record<string, string[]> = {
   'akcesoria-pos': ['akcesoria-pos-wagi'],
   'automaty-vendingowe': ['maszyny-vendingowe'],
+  // Runda 1811 (D1): the stored „Ekrany i projektory” becomes „Tablice interaktywne”.
+  'tablice-interaktywne': ['ekrany-projektory'],
 }
+
+/** Address of „Ekrany i projektory” before runda 1811 (D1). */
+export const AV_OLD_SLUG = 'ekrany-projektory'
+
+/**
+ * 301 from the addresses of „Ekrany i projektory” (runda 1811, D1): the category and the
+ * monitors go to the boards, the projectors and the screens to their new categories.
+ */
+export const AV_SPLIT_REDIRECTS: readonly { from: string; to: string }[] = [
+  { from: `/oferta/${AV_OLD_SLUG}`, to: '/oferta/tablice-interaktywne' },
+  { from: `/oferta/${AV_OLD_SLUG}/monitory-interaktywne`, to: '/oferta/tablice-interaktywne' },
+  { from: `/oferta/${AV_OLD_SLUG}/projektory`, to: '/oferta/projektory' },
+  {
+    from: `/oferta/${AV_OLD_SLUG}/ekrany-informacyjne`,
+    to: '/oferta/ekrany-informacyjne/ekrany-informacyjne',
+  },
+  {
+    from: `/oferta/${AV_OLD_SLUG}/wideokonferencje`,
+    to: '/oferta/ekrany-informacyjne/wideokonferencje',
+  },
+]
 
 export const INDUSTRY_SLUGS: Record<string, string> = {
   gastro: 'gastronomia',
@@ -517,6 +543,22 @@ export function brandLogoFile(
 }
 
 // --- settings ---
+
+type Synonym = { phrase: string; expansions: string[] }
+
+/**
+ * Synonyms of the package the stored settings lack (runda 1811): new phrases reach a running
+ * site, a phrase edited or removed in the panel by its own words stays as the panel has it —
+ * matched case- and space-blind, as the search reads it.
+ */
+export function missingSynonyms(
+  stored: readonly { phrase?: string | null; expansions?: unknown }[] | null | undefined,
+  seed: readonly Synonym[],
+): Synonym[] {
+  const key = (phrase: string | null | undefined) => (phrase ?? '').trim().toLowerCase()
+  const have = new Set((stored ?? []).map((row) => key(row.phrase)))
+  return seed.filter((row) => !have.has(key(row.phrase)))
+}
 
 export function searchData(search: SeedSearch) {
   return {

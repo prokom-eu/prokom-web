@@ -65,6 +65,7 @@ import {
   k4CategoryRedirects,
   k4Dictionaries,
   isRetiredTarget,
+  K4_CATEGORY_HEADINGS,
 } from './k4Categories'
 import { K31_DIR, k31Scenes, k31Series, k31Videos, loadK31Catalog } from './k31Data'
 import { cardsOf, floorPlanData } from './k31Plans'
@@ -114,6 +115,8 @@ import {
   findImportedFile,
   mediaData,
   PREVIOUS_CATEGORY_SLUGS,
+  AV_SPLIT_REDIRECTS,
+  missingSynonyms,
   productUpdateData,
   laterDate,
   searchData,
@@ -278,7 +281,14 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       ...local,
     })
     // Fields the package does not set (hero, FAQ…) are left out of `data`, so they survive.
-    const full = { ...data, description: data.description ?? null }
+    // Runda 1811 (D1): the package's H1 only while the panel has none; the rest of the hero
+    // stays (read at depth 0, so an image is its id).
+    const heading = K4_CATEGORY_HEADINGS[data.slug]
+    const hero =
+      heading && !existing?.hero?.title?.trim()
+        ? { ...(existing?.hero ?? {}), title: heading }
+        : undefined
+    const full = { ...data, description: data.description ?? null, ...(hero && { hero }) }
     if (!existing) {
       const created = await payload.create({
         collection: 'catalog-categories',
@@ -310,6 +320,8 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
   )) {
     await ensureRedirect(rule.from, rule.to)
   }
+  // Runda 1811 (D1): the addresses of „Ekrany i projektory” → the boards, projectors, screens.
+  for (const rule of AV_SPLIT_REDIRECTS) await ensureRedirect(rule.from, rule.to)
 
   const industryIds = new Map<string, number>()
   for (const [index, industry] of catalog.branze.entries()) {
@@ -1114,6 +1126,22 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
         collection: 'biznes-settings',
         id: settings.id,
         data: { wizard },
+        ...local,
+      })
+    }
+    // Runda 1811: new synonyms of the package reach a running site; panel phrases stay.
+    const seedSearch = searchData(search)
+    const added = settings ? missingSynonyms(settings.search?.synonyms, seedSearch.synonyms) : []
+    count('biznes-settings synonyms', added.length > 0 ? 'updated' : false)
+    if (settings && added.length > 0) {
+      const stored = (settings.search?.synonyms ?? []).map(({ phrase, expansions }) => ({
+        phrase,
+        expansions,
+      }))
+      await payload.update({
+        collection: 'biznes-settings',
+        id: settings.id,
+        data: { search: { ...settings.search, synonyms: [...stored, ...added] } },
         ...local,
       })
     }
