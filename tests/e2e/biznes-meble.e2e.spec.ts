@@ -21,7 +21,7 @@ test.describe('Biznes: meble akustyczne (runda 1811, D2)', () => {
     await page.goto(biznes('/produkt/avtek-sonocubo-s'))
     await expect(page.getByRole('heading', { level: 1 })).toContainText('SonoCubo S')
     await expect(page.locator('main')).toContainText('29,4 dB')
-    await expect(page.locator('main a[href*="vidis.pl"]').first()).toBeAttached()
+    await expect(page.locator('main a[href*="avtek.pl"]').first()).toBeAttached()
   })
 
   test('the office plan has the acoustic booth', async ({ page }) => {
