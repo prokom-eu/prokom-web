@@ -43,11 +43,15 @@ test.describe('/_wspolne — shared contact form', () => {
   test('the town shows its zone; „?fraza=” starts the message', async ({ page }) => {
     await page.goto(site('instalacje.localhost', '/_wspolne?fraza=monitoring%20domu'))
     await expect(form(page).getByLabel('Wiadomość')).toHaveValue('monitoring domu')
-    // Typed before hydration, the town is kept but its zone is not looked up (onChange).
+    // An `input` event while React still hydrates the page is not replayed: the town stays in the
+    // field, its zone does not show. Type again until it does (a busy CI runner, 19.11).
     const town = form(page).getByLabel(/Miejscowość/)
     await hydrated(town)
-    await town.fill('Szaflary')
-    await expect(form(page).getByText('Szaflary · strefa Podhale')).toBeVisible()
+    await expect(async () => {
+      await town.fill('')
+      await town.fill('Szaflary')
+      await expect(form(page).getByText('Szaflary · strefa Podhale')).toBeVisible({ timeout: 1000 })
+    }).toPass({ timeout: 15_000 })
   })
 
   test('sent: number, next steps; the record has its tenant and subject; the e-mails go out', async ({
