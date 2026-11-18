@@ -17,7 +17,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { BreadcrumbJsonLd, Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { Catalog } from '@/sites/biznes/components/catalog/Catalog'
 
-import { requestOrigin, requireLine } from '../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -35,7 +35,7 @@ const LEAD =
   'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const [index, settings] = await Promise.all([
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
@@ -65,7 +65,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 /** Offer `/oferta` (K4 board `Web-Oferta`): header on the server, the list as a client island. */
 export default async function CatalogPage({ params }: Props) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const [index, origin] = await Promise.all([getCatalogIndex(tenant.id), requestOrigin()])
   const brands = brandCount(index)
   const crumbs = [

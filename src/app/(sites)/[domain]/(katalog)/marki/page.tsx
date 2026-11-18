@@ -12,7 +12,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { BrandsDirectory } from '@/sites/biznes/components/brand/BrandsDirectory'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
 
-import { requestOrigin, requireLine } from '../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
@@ -21,7 +21,7 @@ const DESCRIPTION =
   'Posnet, Elzab, GoPOS, InsERT, Lenovo, Dell, Apple i inne: salony marek z doborem modelu, porównaniem serii, wdrożeniem i serwisem w Rabce-Zdroju.'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const settings = await getSiteSettings(tenant.id)
   return {
     title: TITLE,
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * offer filtered by the brand. The brands come from the groups of `BiznesSettings.brands`.
  */
 export default async function BrandsPage({ params }: Props) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const [index, input, origin] = await Promise.all([
     getCatalogIndex(tenant.id),
     getBrandsPageInput(tenant.id),

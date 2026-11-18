@@ -63,7 +63,7 @@ import { ProductSpecs } from '@/sites/biznes/components/product/ProductSpecs'
 import { CONFIGURATOR_ID } from '@/sites/biznes/components/product/ProductVersionPicker'
 import { ProductVideos } from '@/sites/biznes/components/product/ProductVideos'
 
-import { requestOrigin, requireLine } from '../../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
@@ -85,7 +85,7 @@ const ID = {
 } as const
 
 async function load(params: Props['params']) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const { slug } = await params
   // Unknown or another site's slug → `null` → 404; a malformed one never reaches the database.
   const product = isValidSlug(slug) ? await getProductView(tenant.id, slug) : null
