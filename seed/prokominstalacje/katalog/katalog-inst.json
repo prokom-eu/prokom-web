@@ -1764,7 +1764,7 @@
    "opis": [
     "Hub 2 to „mózg” systemu Ajax: łączy się bezprzewodowo z czujkami, klawiaturą i syrenami, a o każdym zdarzeniu powiadamia w aplikacji, SMS-em albo połączeniem. Sprawdza się w domu, mieszkaniu na wynajem, małym sklepie czy biurze — wszędzie tam, gdzie nie chcemy kuć ścian pod przewody. Najważniejsza różnica w stosunku do najprostszych central to obsługa zdjęć: czujka MotionCam robi serię fotek w chwili alarmu i przesyła je na telefon.",
     "Centrala obsłuży do 100 urządzeń Ajax, 50 użytkowników, 9 grup (np. dom i garaż osobno) i 32 scenariusze automatyki. Z internetem łączy się kablem Ethernet i przez dwie karty micro-SIM, a kanały działają równolegle — gdy padnie internet stacjonarny, alarm przechodzi na sieć komórkową. Wersja 4G korzysta z LTE, 3G i 2G i ma akumulator 3 Ah (według producenta do 15 h pracy bez prądu), wersja 2G — tylko z 2G i akumulatora 2 Ah (do 16 h). Producent deklaruje zasięg radiowy do 2000 m w otwartym terenie oraz pierwsze zdjęcie w ok. 9 sekund.",
-    "W PRO-KOM dobieramy wersję huba do zasięgu sieci komórkowej w danym miejscu — na Podhalu nie wszędzie 4G jest równie dobre, więc najpierw to sprawdzamy. Montujemy centralę w ukrytym miejscu przy zasilaniu i routerze, rejestrujemy czujki, dzielimy obiekt na grupy i konfigurujemy aplikację Ajax dla wszystkich domowników. Na życzenie podłączamy kamery IP (Dahua, Hikvision i inne obsługiwane przez Ajax), żeby obraz był w tej samej aplikacji. Na montaż dajemy 24 mies. gwarancji, a serwis i rozbudowę robimy na miejscu."
+    "W PRO-KOM dobieramy wersję huba do zasięgu sieci komórkowej w danym miejscu — na Podhalu nie wszędzie 4G jest równie dobre, więc najpierw to sprawdzamy. Montujemy centralę w ukrytym miejscu przy zasilaniu i routerze, rejestrujemy czujki, dzielimy obiekt na grupy i konfigurujemy aplikację Ajax dla wszystkich domowników. Na życzenie podłączamy kamery IP (np. BCS, Dahua, Hikvision i inne obsługiwane przez Ajax), żeby obraz był w tej samej aplikacji. Na montaż dajemy 24 mies. gwarancji, a serwis i rozbudowę robimy na miejscu."
    ],
    "cechy": [
     "Ethernet + 2 karty SIM",
@@ -5025,11 +5025,6 @@
      "plik": "media/produkty/satel-abax-2-apd-200-01.webp",
      "zrodlo": "https://www.satel.pl/wp-content/uploads/2019/07/APD-200.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/satel-abax-2-apd-200-02.webp",
-     "zrodlo": "https://www.satel.pl/wp-content/uploads/2019/07/APD-200-PET.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -7452,23 +7447,18 @@
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-agate-01.webp",
-     "zrodlo": "https://www.eltrox.pl/102237-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
+     "zrodlo": "https://www.eltrox.pl/133585-product_main_2x/satel-zewnetrzny-dualny-czujnik-kurtynowy-agate-pir-mw-.jpg",
      "ujecie": "zdjęcie producenta"
     },
     {
      "plik": "media/produkty/satel-agate-02.webp",
-     "zrodlo": "https://www.eltrox.pl/102231-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
+     "zrodlo": "https://www.eltrox.pl/133586-product_main_2x/satel-zewnetrzny-dualny-czujnik-kurtynowy-agate-pir-mw-.jpg",
      "ujecie": "ujęcie 2"
     },
     {
      "plik": "media/produkty/satel-agate-03.webp",
-     "zrodlo": "https://www.eltrox.pl/102232-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
+     "zrodlo": "https://www.eltrox.pl/133587-product_main_2x/satel-zewnetrzny-dualny-czujnik-kurtynowy-agate-pir-mw-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/satel-agate-04.webp",
-     "zrodlo": "https://www.eltrox.pl/102233-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -18058,7 +18048,7 @@
     },
     {
      "url": "https://www.montersi.pl/instrukcje/DS-2CD1061G2-LIU-karta.pdf",
-     "etykieta": "Karta katalogowa DS-2CD1061G2-LIU (kopia u dystrybutora, do potwierdzenia na hikvision.com)",
+     "etykieta": "Karta katalogowa Hikvision (kopia u dystrybutora)",
      "host": "montersi.pl · PDF",
      "data": "2026-11-18"
     }
@@ -18288,7 +18278,7 @@
     },
     {
      "url": "https://montersi.pl/instrukcje/DS-2CD1361G2-LIU-karta.pdf",
-     "etykieta": "Karta katalogowa DS-2CD1361G2-LIU (kopia u dystrybutora, do potwierdzenia na hikvision.com)",
+     "etykieta": "Karta katalogowa Hikvision (kopia u dystrybutora)",
      "host": "montersi.pl · PDF",
      "data": "2026-11-18"
     }
@@ -18751,7 +18741,7 @@
     },
     {
      "url": "https://montersi.pl/instrukcje/DS-2CD1343G2-LIU-karta.pdf",
-     "etykieta": "Karta katalogowa DS-2CD1343G2-LIU(F) (kopia u dystrybutora, do potwierdzenia na hikvision.com)",
+     "etykieta": "Karta katalogowa Hikvision (kopia u dystrybutora)",
      "host": "montersi.pl · PDF",
      "data": "2026-11-18"
     }
@@ -18975,7 +18965,7 @@
    "zrodla": [
     {
      "url": "https://www.hikvision.com/europe/products/IP-Products/Network-Cameras/value-series/ds-2cd1t67g3-liu-f---sl---srb-/",
-     "etykieta": "Strona producenta — Hikvision (strona rodziny LIU(F)/SL/SRB; 18.11 przekierowywała na listę serii)",
+     "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
      "data": "2026-11-18"
     },
@@ -19191,7 +19181,7 @@
    "zrodla": [
     {
      "url": "https://www.hikvision.com/cz/products/IP-Products/Network-Cameras/value-series/ds-2cd1367g3-liu-f---sl---srb-",
-     "etykieta": "Strona producenta — Hikvision (strona rodziny LIU(F)/SL/SRB; 18.11 przekierowywała na listę serii)",
+     "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
      "data": "2026-11-18"
     }
@@ -19894,7 +19884,6 @@
    "branze": [
     "Firma, biuro i hala",
     "Hotel",
-    "Szkoła i przedszkole",
     "Budowa"
    ],
    "zrodla": [
@@ -20592,13 +20581,13 @@
    "zrodla": [
     {
      "url": "https://bcs.pl/pl/4mpx/4091-bcs-p-tip24fcl3-ai1-5904890713505.html",
-     "etykieta": "Strona producenta — BCS (strona chroniona przed pobieraniem automatycznym, nie otworzyła się 18.11)",
+     "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
      "data": "2026-11-18"
     },
     {
      "url": "https://montersi.pl/instrukcje/BCS-P-TIP24FCL3-Ai1-Karta%20katalogowa.pdf",
-     "etykieta": "Karta katalogowa BCS-P-TIP24FCL3-Ai1 (dokument BCS, kopia u dystrybutora)",
+     "etykieta": "Karta katalogowa BCS (kopia u dystrybutora)",
      "host": "montersi.pl · PDF",
      "data": "2026-11-18"
     }
@@ -20822,13 +20811,13 @@
    "zrodla": [
     {
      "url": "https://bcs.pl/pl/4mpx/4090-bcs-p-eip24fcl3-ai1-5904890713512.html",
-     "etykieta": "Strona producenta — BCS (strona chroniona przed pobieraniem automatycznym, nie otworzyła się 18.11)",
+     "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
      "data": "2026-11-18"
     },
     {
      "url": "https://montersi.pl/instrukcje/BCS-P-EIP24FCL3-Ai1-Karta%20katalogowa.pdf",
-     "etykieta": "Karta katalogowa BCS-P-EIP24FCL3-Ai1 (dokument BCS, kopia u dystrybutora)",
+     "etykieta": "Karta katalogowa BCS (kopia u dystrybutora)",
      "host": "montersi.pl · PDF",
      "data": "2026-11-18"
     }
@@ -21032,7 +21021,7 @@
    "zrodla": [
     {
      "url": "https://bcs.pl/pl/",
-     "etykieta": "Strona producenta — BCS (strona modelu niedostępna do automatycznego sprawdzenia 18.11 — parametry z tabeli sklepu, do potwierdzenia)",
+     "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
      "data": "2026-11-18"
     }
@@ -21251,7 +21240,7 @@
    "zrodla": [
     {
      "url": "https://bcs.pl/pl/",
-     "etykieta": "Strona producenta — BCS (strony modeli niedostępne do automatycznego sprawdzenia 18.11 — parametry z tabeli sklepu, do potwierdzenia)",
+     "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
      "data": "2026-11-18"
     }
@@ -21474,7 +21463,7 @@
    "zrodla": [
     {
      "url": "https://bcs.pl/pl/",
-     "etykieta": "Strona producenta — BCS (strony modeli niedostępne do automatycznego sprawdzenia 18.11 — parametry z tabeli sklepu, do potwierdzenia)",
+     "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
      "data": "2026-11-18"
     }
@@ -21930,7 +21919,6 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Szkoła i przedszkole",
     "Hotel",
     "Sklep i salon"
    ],
@@ -21983,11 +21971,6 @@
      "plik": "media/produkty/dahua-asi6213s-pw-03.webp",
      "zrodlo": "https://www.eltrox.pl/192603-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/dahua-asi6213s-pw-04.webp",
-     "zrodlo": "https://www.eltrox.pl/192604-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -22157,7 +22140,6 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Szkoła i przedszkole",
     "Hotel",
     "Pensjonat"
    ],
@@ -22390,7 +22372,6 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Szkoła i przedszkole",
     "Hotel"
    ],
    "zrodla": [
@@ -22845,8 +22826,7 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Hotel",
-    "Szkoła i przedszkole"
+    "Hotel"
    ],
    "zrodla": [
     {
@@ -23052,7 +23032,6 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Szkoła i przedszkole",
     "Hotel",
     "Kościół i parafia"
    ],
@@ -23282,7 +23261,6 @@
    "podobne": [],
    "branze": [
     "Firma, biuro i hala",
-    "Szkoła i przedszkole",
     "Hotel",
     "Kościół i parafia"
    ],
@@ -23568,6 +23546,11 @@
      "plik": "media/produkty/ajax-spacecontrol-03.webp",
      "zrodlo": "https://ajax.systems/api/cdn-img/?img=%2Fupload%2Fspace_control_s_black_b1b151a9ae%402.png&1728480070",
      "ujecie": "ujęcie 3"
+    },
+    {
+     "plik": "media/produkty/ajax-spacecontrol-04.webp",
+     "zrodlo": "https://ajax.systems/api/cdn-img/?img=%2Fupload%2Fspacecontrol_1_d8d7b0902f%402.jpg&1752846999",
+     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -25048,7 +25031,7 @@
     },
     {
      "k": "Historia na ekranie",
-     "v": "do 100 ostatnich zdarzeń do potwierdzenia"
+     "v": "do 100 ostatnich zdarzeń"
     },
     {
      "k": "Łączność",
@@ -26903,6 +26886,11 @@
      "plik": "media/produkty/dahua-ipc-hdw3849h-as-pv-pro-03.webp",
      "zrodlo": "https://materialfile.dahuasecurity.com/uploads/cpq/81869/image/1_0_01_04_43427_564877542_crop.png",
      "ujecie": "ujęcie 3"
+    },
+    {
+     "plik": "media/produkty/dahua-ipc-hdw3849h-as-pv-pro-04.webp",
+     "zrodlo": "https://materialfile.dahuasecurity.com/uploads/cpq/81869/image/1_0_01_04_43427_564877926_crop.png",
+     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -29163,8 +29151,7 @@
    "branze": [
     "Firma, biuro i hala",
     "Sklep i salon",
-    "Hotel",
-    "Szkoła i przedszkole"
+    "Hotel"
    ],
    "zrodla": [
     {
@@ -32899,11 +32886,6 @@
      "plik": "media/produkty/hikvision-ds-kis702y-01.webp",
      "zrodlo": "https://www.eltrox.pl/76085-product_main_2x/zestaw-wiedodomofonu-hikvision-ds-kis702y.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-kis702y-02.webp",
-     "zrodlo": "https://www.eltrox.pl/76084-product_main_2x/zestaw-wiedodomofonu-hikvision-ds-kis702y.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
