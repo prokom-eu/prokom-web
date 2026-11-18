@@ -12,12 +12,12 @@ import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { localDescription } from '@/lib/biznes/seo'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
 
-import { requestOrigin, requireLine } from '../../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; kategoria: string }> }
 
 async function load(params: Props['params']) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const { kategoria: slug } = await params
   if (!isValidSlug(slug)) return { tenant, index: null, listed: null, category: null }
   const index = await getCatalogIndex(tenant.id)

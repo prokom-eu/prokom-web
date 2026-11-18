@@ -18,12 +18,12 @@ import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
 
-import { requestOrigin, requireLine } from '../../../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../../../tenant'
 
 type Props = { params: Promise<{ domain: string; kategoria: string; podkategoria: string }> }
 
 async function load(params: Props['params']) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const { kategoria, podkategoria } = await params
   if (!isValidSlug(kategoria) || !isValidSlug(podkategoria)) return { tenant, found: null }
   const index = await getCatalogIndex(tenant.id)

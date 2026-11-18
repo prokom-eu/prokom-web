@@ -5,7 +5,11 @@ import { describe, expect, it } from 'vitest'
 
 import { BZ_H1, BZ_H2, BZ_LEAD } from './typography'
 
-const ROOTS = ['src/sites/biznes', 'src/app/(sites)/[domain]/(biznes)']
+const ROOTS = [
+  'src/sites/biznes',
+  'src/app/(sites)/[domain]/(biznes)',
+  'src/app/(sites)/[domain]/(katalog)',
+]
 
 /** H2s that are not section headings — the plan dialog and the wizard step titles. */
 const OWN_SIZE = ['components/plan/PlanPointDialog.tsx', 'components/configurator/Configurator.tsx']

@@ -15,6 +15,7 @@ const ROOTS = [
   'src/sites/biznes',
   'src/lib/biznes',
   'src/app/(sites)/[domain]/(biznes)',
+  'src/app/(sites)/[domain]/(katalog)',
 ]
 const FILES = [
   'src/seed/shared/biznes.ts',

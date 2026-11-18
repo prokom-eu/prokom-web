@@ -1,6 +1,6 @@
 # ADR-029: Katalog sprzętu i salony marek na prokominstalacje.pl (silnik katalogu Biznesu dla dwóch linii)
 
-- Status: **proponowana** (18.11.2026, z czatu — do przyjęcia przez Krystiana w sesji INST-K1)
+- Status: **przyjęta** (18.11.2026; proponowana w czacie, przyjęta 18.11 — pierwszy PR INST-K1 `inst/wsp-katalog-linie`, zrobiony w sesji INST-K0: grupa tras `(katalog)`, `requireCatalogTenant`, kategoria „Instalacje · Sprzęt”, przełącznik `INSTALACJE_CATALOG_ENABLED` (wyłączony). Teksty katalogu z ustawień linii i wspólne style — kolejny PR `inst/wsp-*`; przełącznik włącza `inst/k1-katalog`)
 - Data: 18.11.2026
 - Decyduje: Krystian (pomysł szefa z Asany 18.11 „MARKA w instalacjach”, potwierdzony przez Krystiana: „Instalacje mają dostać katalog i salony marek jak w Biznesie”)
 - Zmienia: spec. Instalacji §2 („na Instalacjach nie ma oferty sprzętu — dobieramy pod obiekt, nie pod markę”) — od teraz jest katalog sprzętu, ale **bez cen** i z tą samą zasadą doboru w tekstach. Powiązane: ADR-012, ADR-017 (K4: `Products`, `CatalogGroups`, `CatalogCategories`, `Showrooms`, `Partners`), ADR-I002 (model Instalacji), ADR-003 (zapytania), ADR-023 (CSS/JS per linia). Plan treści: `docs/tresci/instalacje-katalog-eltrox.md`.
