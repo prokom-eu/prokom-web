@@ -154,6 +154,16 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(links.first()).toHaveAccessibleName(`Przejdź do działu: ${name}`)
     const href = (await links.first().getAttribute('href'))!
     expect(href).toMatch(/^\/oferta\?grupa=/)
+    // The wheel in the middle of the window, still (1280 × 720: scrolled to the edge, the core
+    // sits under the sticky header and the smooth scroll moves it under the pointer).
+    await core.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+    await expect
+      .poll(async () => {
+        const before = (await core.boundingBox())!.y
+        await page.waitForTimeout(100)
+        return Math.abs((await core.boundingBox())!.y - before)
+      })
+      .toBeLessThan(0.5)
     // The link covers the whole core circle.
     const [coreBox, linkBox] = await Promise.all([core.boundingBox(), links.first().boundingBox()])
     expect(Math.abs(coreBox!.width - linkBox!.width)).toBeLessThan(2)
