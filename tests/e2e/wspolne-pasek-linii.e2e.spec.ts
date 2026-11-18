@@ -71,7 +71,9 @@ test.describe('brand bar (1440 px)', () => {
 
     await page.keyboard.press('Escape')
     await expect(tip).toBeHidden()
-    await software.hover({ position: { x: 4, y: 4 } })
+    // Dismissed until the pointer comes in again (WCAG 1.4.13): leave the bar, then point again.
+    await page.mouse.move(700, 500)
+    await software.hover()
     await expect(tip).toBeVisible()
 
     await page.mouse.move(700, 500)
