@@ -1,6 +1,7 @@
 import { headers } from 'next/headers'
 import React from 'react'
 
+import { InlineScript } from '@/components/InlineScript'
 import { ThemeCarry } from '@/components/shared/ThemeCarry'
 import { defaultTheme, hasDarkTheme, themeScript } from '@/lib/brand/theme'
 import { getTenantByHost } from '@/lib/tenant/byHost'
@@ -33,7 +34,7 @@ export default async function SitesRootLayout({ children }: { children: React.Re
     >
       {line && hasDarkTheme(line) && (
         <head>
-          <script dangerouslySetInnerHTML={{ __html: themeScript(line) }} />
+          <InlineScript html={themeScript(line)} />
         </head>
       )}
       <body>
