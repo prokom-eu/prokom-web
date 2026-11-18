@@ -163,8 +163,8 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(arrow).toHaveCSS('opacity', '0')
     await links.first().hover()
     await expect(arrow).toHaveCSS('opacity', '1')
-    // A click anywhere in the core (near its rim) opens the department.
-    await page.mouse.click(coreBox!.x + coreBox!.width / 2, coreBox!.y + 12)
+    // A click away from the name (upper part of the core) opens the department too.
+    await page.mouse.click(coreBox!.x + coreBox!.width / 2, coreBox!.y + coreBox!.height * 0.2)
     await expect(page).toHaveURL(site('biznes.localhost', href))
   })
 

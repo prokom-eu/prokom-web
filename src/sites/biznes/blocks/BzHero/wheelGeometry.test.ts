@@ -90,10 +90,10 @@ describe('nameSize (rdzeń: sama nazwa działu, runda 1811 D6)', () => {
   })
 
   it('shrinks to the longest word', () => {
-    // „Oprogramowanie” = 14 letters: 140 / (0.6 · 14) = 16.7
-    expect(nameSize('Oprogramowanie')).toBe(16.7)
+    // „Oprogramowanie” = 14 letters: 128 / (0.6 · 14) = 15.2
+    expect(nameSize('Oprogramowanie')).toBe(15.2)
     // „Bezpieczeństwo,” = 15 characters with the comma
-    expect(nameSize('Bezpieczeństwo, sieć i podpis')).toBe(15.6)
+    expect(nameSize('Bezpieczeństwo, sieć i podpis')).toBe(14.2)
   })
 
   it('never returns more than 20', () => {

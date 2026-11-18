@@ -440,16 +440,18 @@
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
 }
-/* The name (and, during a switch, the outgoing one on top of it) and the arrow below. */
+/* The name (and, during a switch, the outgoing one on top of it) in the very centre; the arrow
+   hangs below it without moving it (absolute). The name box is as wide as its text, so its
+   corners stay inside the circle (e2e `measure`, 1080 px). */
 [data-line='biznes'] .bzw-cc {
+  position: relative;
   display: grid;
-  grid-template-areas: 'nm' 'go';
   justify-items: center;
   width: calc(150 * var(--u));
 }
 [data-line='biznes'] .bzw-cc > .bzw-nm {
-  grid-area: nm;
-  align-self: center;
+  grid-area: 1 / 1;
+  width: fit-content;
 }
 [data-line='biznes'] .bzw-nm[data-out] {
   display: none;
@@ -466,18 +468,20 @@
 }
 /* The arrow under the name: only when the visitor points at the core or focuses it. */
 [data-line='biznes'] .bzw-go {
-  grid-area: go;
+  position: absolute;
+  top: calc(100% + 8 * var(--u));
+  left: calc(50% - 10 * var(--u));
   display: grid;
   place-items: center;
   width: calc(20 * var(--u));
   height: calc(20 * var(--u));
-  margin-top: calc(7 * var(--u));
   border-radius: 50%;
   color: var(--surface-dark);
   background: var(--c-white);
   opacity: 0;
 }
-[data-line='biznes'] .bzw-hit:focus-visible .bzw-go {
+/* Any pointer that hovers (also where the browser reports `hover: none`) and the keyboard. */
+[data-line='biznes'] :is(.bzw-hit:hover, .bzw-hit:focus-visible) .bzw-go {
   opacity: 1;
 }
 [data-line='biznes'] .bzw-go svg {
@@ -567,12 +571,9 @@
   [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) .bzw-track {
     stroke: color-mix(in srgb, var(--tint) 40%, var(--border));
   }
-  [data-line='biznes'] .bzw-hit:hover .bzw-go {
-    opacity: 1;
-  }
 }
 /* Touch: the core gives way under the finger. */
-@media (hover: none) {
+@media (pointer: coarse) {
   [data-line='biznes'] .bzw-core:has(.bzw-hit:active) {
     scale: 0.97;
   }

@@ -77,11 +77,12 @@ export function wheelLayout(counts: readonly number[]): WheelLayout {
 
 /**
  * Size of the department name in the core, in design units. Since runda 1811 (D6) the core holds
- * only the name, so it gets up to 20 units; its longest word (× ~0.6 em) must fit a 140-unit
- * column (10 units short of the 150-unit `.bzw-cc`, for the display font's wider letters) — „Bezpieczeństwo, sieć i podpis” never breaks a word.
+ * only the name, so it gets up to 20 units; its longest word (× ~0.6 em) must fit a 128-unit
+ * column: the display font (stretched 112%) is wider than 0.6 em, and the name box's corners
+ * have to stay inside the circle (e2e `measure` at 1080 px) — „Bezpieczeństwo, sieć i podpis” never breaks a word.
  */
 export function nameSize(name: string): number {
   const longest = Math.max(0, ...name.split(/\s+/).map((word) => word.length))
   if (longest === 0) return 20
-  return Math.min(20, Number((140 / (0.6 * longest)).toFixed(1)))
+  return Math.min(20, Number((128 / (0.6 * longest)).toFixed(1)))
 }
