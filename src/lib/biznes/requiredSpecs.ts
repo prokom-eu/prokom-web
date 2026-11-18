@@ -189,6 +189,13 @@ export const REQUIRED_SPECS: Readonly<Record<string, readonly SpecSlot[]>> = {
   // a projector is compared by its light.
   av: AV_SLOTS,
   ekrany: AV_SLOTS,
+  // Runda 1811 (D2): a booth or a screen is compared by its size, weight and sound.
+  meble: [
+    slot('Wymiary', 'wymiar'),
+    WEIGHT,
+    slot('Akustyka', 'akusty|redukcj|nrc'),
+    slot('Konstrukcja / materiał', 'konstrukc|panel|materiał|obici'),
+  ],
   projektory: [
     slot('Jasność', 'jasno'),
     slot('Rozdzielczość', 'rozdzielczo'),

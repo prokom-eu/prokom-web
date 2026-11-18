@@ -247,6 +247,42 @@
    "wideokonferencj",
    "rally",
    "meetup"
+  ],
+  "budka": [
+   "budk",
+   "sonocubo"
+  ],
+  "booth": [
+   "budk",
+   "sonocubo"
+  ],
+  "kabina": [
+   "budk",
+   "sonocubo"
+  ],
+  "parawan": [
+   "parawan",
+   "sonovelo"
+  ],
+  "scianka": [
+   "parawan",
+   "sonovelo"
+  ],
+  "przegroda": [
+   "parawan",
+   "sonovelo"
+  ],
+  "akustyczna": [
+   "akustyczn"
+  ],
+  "akustyczny": [
+   "akustyczn"
+  ],
+  "wyciszenie": [
+   "akustyczn"
+  ],
+  "cisza": [
+   "akustyczn"
   ]
  },
  "stop_slowa": [
