@@ -1,0 +1,947 @@
+{
+ "opis": "Salon 2.0 Instalacji — salony marek prokominstalacje.pl (INST-K0). Format jak seed/prokombiznes/k4/salony-k4.json (pola w K4-FINAL.md §6); slugi produktów z katalog-inst.json. Teksty własne Instalacji (ADR-029 pkt 6).",
+ "salon_marki": {
+  "Dahua": "Dahua",
+  "Hikvision": "Hikvision",
+  "BCS": "BCS",
+  "Satel": "Satel",
+  "Ajax": "Ajax"
+ },
+ "salony": {
+  "Dahua": {
+   "pill": "Dahua · montaż i serwis · Rabka-Zdrój",
+   "h1a": "Monitoring Dahua",
+   "h1b": "dobrany do Twojego obiektu",
+   "lead": "Kamery IP i po koncentryku, rejestratory, wideodomofony i kontrola dostępu Dahua. Przyjeżdżamy na oględziny, planujemy punkty kamer, montujemy i ustawiamy podgląd w aplikacji DMSS.",
+   "hero": [
+    "dahua-ipc-hfw2x49s-s-il",
+    "dahua-nvr41xxhs-ei",
+    "dahua-ktx01-s"
+   ],
+   "fk": [
+    [
+     "2001",
+     "rok założenia firmy"
+    ],
+    [
+     "32",
+     "kart Dahua w katalogu"
+    ],
+    [
+     "DMSS",
+     "jedna aplikacja do podglądu"
+    ]
+   ],
+   "heroLab": [
+    "Tuba WizSense 2",
+    "Rejestrator NVR WizSense",
+    "Wideodomofon KTX01"
+   ],
+   "fam": [
+    {
+     "t": "Kamery tubowe",
+     "ic": "M3 8h12l2 2v4l-2 2H3z M17 11l4-2v6l-4-2",
+     "p": [
+      "dahua-ipc-hfw1439tl1-a-il",
+      "dahua-ipc-hfw1x39tc-a-il",
+      "dahua-ipc-hfw2x49s-s-il",
+      "dahua-ipc-hfw2x49tl-s-led-pro",
+      "dahua-ipc-hfw2x49t-zas-il-27135",
+      "dahua-ipc-hfw3849t1-as-pv-pro"
+     ]
+    },
+    {
+     "t": "Kamery turret i kopułkowe",
+     "ic": "M4 10a8 8 0 0116 0v2H4z M12 12v3 M9 15h6",
+     "p": [
+      "dahua-ipc-hdw1x39v-a-il",
+      "dahua-ipc-hdw1x39t-a-il",
+      "dahua-ipc-hdw2x49tm-s-il",
+      "dahua-ipc-hdbw1439e1-a-il",
+      "dahua-ipc-hdw3849h-as-pv-pro",
+      "dahua-ipc-hdw2849t-s-pro"
+     ]
+    },
+    {
+     "t": "Kamery obrotowe i Wi-Fi",
+     "ic": "M12 3a5 5 0 015 5v3H7V8a5 5 0 015-5z M12 11v4 M8 19h8 M12 15v4",
+     "p": [
+      "dahua-sd3e405db-gny-a-pv1",
+      "dahua-p8f-pv-pro"
+     ]
+    },
+    {
+     "t": "Kamery po koncentryku",
+     "ic": "M3 8h12l2 2v4l-2 2H3z M17 12h4 M6 12h6",
+     "p": [
+      "dahua-hac-hdw1200trq-s6",
+      "dahua-hac-hfw1500rl-s3"
+     ]
+    },
+    {
+     "t": "Rejestratory",
+     "ic": "M3 7h18v10H3z M6 12h4 M15 12h.01 M18 12h.01",
+     "p": [
+      "dahua-nvr21xxhs-4ks3",
+      "dahua-nvr2104-p-4ks3",
+      "dahua-nvr41xxhs-ei",
+      "dahua-nvr42xx-ei",
+      "dahua-xvr51xxhs-i3-t"
+     ]
+    },
+    {
+     "t": "Wideodomofony",
+     "ic": "M5 3h14v18H5z M8 6h8v6H8z M12 16h.01",
+     "p": [
+      "dahua-ktx01-s",
+      "dahua-ktp03",
+      "dahua-ktd01-f",
+      "dahua-vto2311r-wp",
+      "dahua-vth2621g-wp"
+     ]
+    },
+    {
+     "t": "Kontrola dostępu",
+     "ic": "M6 3h12v18H6z M9 7h6 M9 11h6 M12 15v2",
+     "p": [
+      "dahua-asi1201e-v1",
+      "dahua-asi6213s-pw",
+      "dahua-asf280a-v1",
+      "dahua-asc3202b"
+     ]
+    },
+    {
+     "t": "Uchwyty i puszki",
+     "ic": "M4 6h16v4H4z M8 10v8 M16 10v8 M6 18h12",
+     "p": [
+      "dahua-pfa130-e",
+      "dahua-pfa152-e"
+     ]
+    }
+   ],
+   "dob": {
+    "q": "Co chcesz zabezpieczyć?",
+    "o": [
+     {
+      "t": "Dom z ogrodem i bramą",
+      "p": [
+       "dahua-ipc-hdw1x39v-a-il",
+       "dahua-nvr2104-p-4ks3",
+       "dahua-ktx01-s"
+      ],
+      "w": "Kilka kamer turret wokół domu, mały rejestrator z PoE, który zasila je po jednym kablu, i wideodomofon z podglądem furtki w telefonie."
+     },
+     {
+      "t": "Pensjonat, apartamenty, parking dla gości",
+      "p": [
+       "dahua-ipc-hfw2x49s-s-il",
+       "dahua-ipc-hfw2x49t-zas-il-27135",
+       "dahua-nvr41xxhs-ei"
+      ],
+      "w": "Kamery WizSense odróżniają ludzi i auta od liści i kotów, więc powiadomienia nie zalewają telefonu. Na wjazd kamera z motozoomem, którą kadrujesz z aplikacji."
+     },
+     {
+      "t": "Firma, magazyn, plac",
+      "p": [
+       "dahua-ipc-hfw2x49tl-s-led-pro",
+       "dahua-sd3e405db-gny-a-pv1",
+       "dahua-nvr42xx-ei"
+      ],
+      "w": "Kolorowy obraz nocą, kamera obrotowa na duży plac i rejestrator na dwa dyski, żeby nagrania sięgały dalej wstecz."
+     },
+     {
+      "t": "Drzwi do biura lub zaplecza",
+      "p": [
+       "dahua-asi6213s-pw",
+       "dahua-asc3202b",
+       "dahua-asf280a-v1"
+      ],
+      "w": "Czytnik twarzy lub kart, sterownik i zwora: wiesz, kto wszedł i o której, a zgubioną kartę blokujesz bez wymiany zamka."
+     },
+     {
+      "t": "Mam starą instalację na koncentryku",
+      "p": [
+       "dahua-xvr51xxhs-i3-t",
+       "dahua-hac-hfw1500rl-s3",
+       "dahua-hac-hdw1200trq-s6"
+      ],
+      "w": "Zostawiamy sprawne kable, wymieniamy rejestrator na hybrydowy XVR i kamery na HD. Później dołożysz do niego także kamery IP."
+     }
+    ]
+   },
+   "serw": false,
+   "faq": [
+    {
+     "q": "Czy kamery Dahua mogą nagrywać bez rejestratora?",
+     "a": "Wiele modeli WizSense ma gniazdo microSD i zapisuje nagrania na karcie. Przy kilku kamerach i dłuższej historii lepszy jest rejestrator z dyskiem: nagrania są w jednym miejscu, a kradzież jednej kamery nie zabiera zapisu."
+    },
+    {
+     "q": "Jak oglądam obraz w telefonie?",
+     "a": "W aplikacji DMSS. Przy montażu dodajemy rejestrator do Twojego konta, ustawiamy powiadomienia i pokazujemy, jak odtworzyć nagranie z wybranej godziny."
+    },
+    {
+     "q": "Mam stare kamery analogowe. Muszę kłaść nowe kable?",
+     "a": "Zwykle nie. Rejestrator hybrydowy XVR pracuje z kamerami HD po koncentryku, więc wymieniamy kamery i rejestrator, a przewody zostają, jeśli są w dobrym stanie."
+    },
+    {
+     "q": "Skąd wiadomo, ile kamer potrzebuję?",
+     "a": "Zaczynamy od obejścia obiektu: wejścia, brama, parking, miejsca, gdzie coś może zniknąć. Każdemu punktowi przypisujemy cel, na przykład rozpoznanie twarzy albo tylko sylwetkę, i dopiero do tego dobieramy obiektyw i rozdzielczość."
+    },
+    {
+     "q": "Czy kamera może obejmować ulicę lub działkę sąsiada?",
+     "a": "Kamera powinna patrzeć na Twój teren. Ustawiamy kadr i strefy maskowania tak, żeby nie nagrywać cudzych okien ani podwórek."
+    }
+   ],
+   "marka": "Dahua",
+   "logo": null,
+   "logos": [],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "2001",
+     "src": "https://en.wikipedia.org/wiki/Dahua_Technology"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Hangzhou (Chiny)",
+     "src": "https://en.wikipedia.org/wiki/Dahua_Technology"
+    },
+    {
+     "k": "Giełda",
+     "v": "Shenzhen, od 2008 roku",
+     "src": "https://en.wikipedia.org/wiki/Dahua_Technology"
+    }
+   ],
+   "opis": [
+    "Zhejiang Dahua Technology to chiński producent sprzętu do monitoringu, założony w 2001 roku w Hangzhou. Od 2008 roku spółka jest notowana na giełdzie w Shenzhen. Zaczynała od rejestratorów cyfrowych, a dziś robi także kamery, domofony i systemy kontroli dostępu.",
+    "W naszym katalogu Dahua to kamery IP z serii Entry, WizSense 2 i WizColor, kamera obrotowa i kamera Wi-Fi Picoo, kamery HDCVI po koncentryku, rejestratory NVR i hybrydowe XVR, zestawy wideodomofonów oraz czytniki, sterownik i zwora do drzwi. Całość obsługuje się z jednej aplikacji DMSS.",
+    "Sprzęt dobieramy po oględzinach: najpierw ustalamy, co ma być widać i z jakiej odległości, potem wybieramy kamery i rejestrator. Montujemy, ustawiamy strefy detekcji i powiadomienia, uczymy obsługi aplikacji i zostajemy na serwis. Na montaż dajemy 24 mies. gwarancji."
+   ],
+   "n": 32
+  },
+  "Hikvision": {
+   "pill": "Hikvision · dobór, montaż, serwis · Podhale",
+   "h1a": "Kamery Hikvision",
+   "h1b": "z montażem na Podhalu",
+   "lead": "Od prostych kamer po koncentryku po kamery AcuSense i ColorVu, rejestratory i wideodomofony. Planujemy rozmieszczenie, kładziemy przewody, konfigurujemy Hik-Connect i serwisujemy system po latach.",
+   "hero": [
+    "hikvision-ds-2cd2087g3-li2uy",
+    "hikvision-ds-76xxnxi-k1",
+    "hikvision-ds-kis702y"
+   ],
+   "fk": [
+    [
+     "2001",
+     "początek działalności"
+    ],
+    [
+     "33",
+     "kart Hikvision w katalogu"
+    ],
+    [
+     "Hik-Connect",
+     "podgląd i alarmy w telefonie"
+    ]
+   ],
+   "heroLab": [
+    "ColorVu 3.0, 8 Mpx",
+    "Rejestrator AcuSense",
+    "Wideodomofon DS-KIS702Y"
+   ],
+   "fam": [
+    {
+     "t": "Kamery IP tubowe",
+     "ic": "M3 8h12l2 2v4l-2 2H3z M17 11l4-2v6l-4-2",
+     "p": [
+      "hikvision-ds-2cd10x1g2-liu",
+      "hikvision-ds-2cd10x3g2-liuf",
+      "hikvision-ds-2cd1t67g3-liuf",
+      "hikvision-ds-2cd2043g2-li",
+      "hikvision-ds-2cd2t43g2-4li",
+      "hikvision-ds-2cd2087g3-li2uy",
+      "hikvision-ds-2cd2t87g3-lis2uy",
+      "hikvision-ds-2cd2t87g2p-lsu-sl"
+     ]
+    },
+    {
+     "t": "Kamery IP turret",
+     "ic": "M4 10a8 8 0 0116 0v2H4z M12 12v3 M9 15h6",
+     "p": [
+      "hikvision-ds-2cd13x1g2-liu",
+      "hikvision-ds-2cd13x3g2-liu",
+      "hikvision-ds-2cd1367g3-liuf",
+      "hikvision-ds-2cd23x3g2-li2u",
+      "hikvision-ds-2cd2387g3-lis2uy"
+     ]
+    },
+    {
+     "t": "Kamera obrotowa PTZ",
+     "ic": "M12 3a5 5 0 015 5v3H7V8a5 5 0 015-5z M12 11v4 M8 19h8 M12 15v4",
+     "p": [
+      "hikvision-ds-2de4425iwg1-e",
+      "hikvision-ds-2se4c425mwg-e-26"
+     ]
+    },
+    {
+     "t": "Kamery Turbo HD",
+     "ic": "M3 8h12l2 2v4l-2 2H3z M17 12h4 M6 12h6",
+     "p": [
+      "hikvision-ds-2ce76x0t-lmfs",
+      "hikvision-ds-2ce16k0t-lpfs",
+      "hikvision-ds-2ce17x0t-lfs",
+      "hikvision-ds-2ce10kf3t-le"
+     ]
+    },
+    {
+     "t": "Rejestratory",
+     "ic": "M3 7h18v10H3z M6 12h4 M15 12h.01 M18 12h.01",
+     "p": [
+      "hikvision-ds-76xxni-q1",
+      "hikvision-ds-76xxnxi-k1",
+      "hikvision-ds-76xxnxi-k2",
+      "hikvision-ids-72xxhqhi-m1"
+     ]
+    },
+    {
+     "t": "Wideodomofony",
+     "ic": "M5 3h14v18H5z M8 6h8v6H8z M12 16h.01",
+     "p": [
+      "hikvision-ds-kis702y",
+      "hikvision-ds-kh6320-wte1",
+      "hikvision-ds-kis604-s-d"
+     ]
+    },
+    {
+     "t": "Kontrola dostępu",
+     "ic": "M6 3h12v18H6z M9 7h6 M9 11h6 M12 15v2",
+     "p": [
+      "hikvision-ds-k1t802e",
+      "hikvision-ds-k1t344mbwx-e1",
+      "hikvision-ds-k4h250s",
+      "hikvision-ds-k2601t",
+      "hikvision-ds-k1t320"
+     ]
+    },
+    {
+     "t": "Uchwyty i puszki",
+     "ic": "M4 6h16v4H4z M8 10v8 M16 10v8 M6 18h12",
+     "p": [
+      "hikvision-ds-1280zj-xs",
+      "hikvision-ds-1473zj"
+     ]
+    }
+   ],
+   "dob": {
+    "q": "Jaki masz obiekt?",
+    "o": [
+     {
+      "t": "Nowy dom w budowie",
+      "p": [
+       "hikvision-ds-2cd23x3g2-li2u",
+       "hikvision-ds-76xxnxi-k1",
+       "hikvision-ds-kis702y"
+      ],
+      "w": "Przewody kładziemy jeszcze przed tynkami, a potem wieszamy kamery turret AcuSense i wideodomofon. Rejestrator stoi w szafce technicznej, obraz masz w Hik-Connect."
+     },
+     {
+      "t": "Pensjonat lub dom wypoczynkowy",
+      "p": [
+       "hikvision-ds-2cd2087g3-li2uy",
+       "hikvision-ds-2cd2043g2-li",
+       "hikvision-ds-76xxnxi-k2"
+      ],
+      "w": "Kolorowy obraz po zmroku przy wejściu i na parkingu, tuby AcuSense wzdłuż ogrodzenia i rejestrator na dwa dyski na dłuższą historię nagrań."
+     },
+     {
+      "t": "Warsztat, hurtownia, duży plac",
+      "p": [
+       "hikvision-ds-2de4425iwg1-e",
+       "hikvision-ds-2cd2t43g2-4li",
+       "hikvision-ds-76xxnxi-k2"
+      ],
+      "w": "Kamera obrotowa z zoomem 25× podąża za ruchem na placu, a duża tuba z doświetleniem do 80 m pilnuje długich ogrodzeń."
+     },
+     {
+      "t": "Wejście dla pracowników",
+      "p": [
+       "hikvision-ds-k1t344mbwx-e1",
+       "hikvision-ds-k2601t",
+       "hikvision-ds-k4h250s"
+      ],
+      "w": "Terminal z rozpoznawaniem twarzy, sterownik z zasilaczem i zwora. Drzwi otwierają się tylko osobom, które dopiszesz."
+     },
+     {
+      "t": "Wymiana starego analogu",
+      "p": [
+       "hikvision-ids-72xxhqhi-m1",
+       "hikvision-ds-2ce17x0t-lfs",
+       "hikvision-ds-2ce76x0t-lmfs"
+      ],
+      "w": "Rejestrator hybrydowy i kamery Turbo HD z mikrofonem na tych samych kablach koncentrycznych. Obraz jest wyraźniejszy, a ściany zostają nietknięte."
+     }
+    ]
+   },
+   "serw": false,
+   "faq": [
+    {
+     "q": "Co daje AcuSense?",
+     "a": "Kamera i rejestrator rozpoznają, czy w kadrze jest człowiek albo samochód. Alarm w telefonie dostajesz, gdy ktoś wchodzi na posesję, a nie za każdym razem, gdy zawieje wiatr albo przejdzie kot."
+    },
+    {
+     "q": "Czym jest ColorVu?",
+     "a": "To kamery z bardzo jasnym obiektywem i ciepłym doświetleniem, które także nocą pokazują obraz w kolorze. Łatwiej wtedy rozpoznać kolor kurtki czy samochodu."
+    },
+    {
+     "q": "Ile dni nagrań zmieści rejestrator?",
+     "a": "Zależy od liczby kamer, rozdzielczości i ustawień zapisu. Przy doborze liczymy pojemność dysku tak, żeby nagrania sięgały tyle dni wstecz, ile naprawdę potrzebujesz."
+    },
+    {
+     "q": "Czy wideodomofon połączę z telefonem?",
+     "a": "Tak. Monitor z Wi-Fi przekazuje rozmowę do aplikacji Hik-Connect, więc otworzysz furtkę kurierowi, także gdy nie ma Cię w domu."
+    },
+    {
+     "q": "Przejmiecie system Hikvision założony przez inną firmę?",
+     "a": "Tak. Sprawdzamy kamery, dysk i zasilanie, aktualizujemy oprogramowanie, porządkujemy hasła i dostęp z aplikacji."
+    }
+   ],
+   "marka": "Hikvision",
+   "logo": null,
+   "logos": [],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "2001",
+     "src": "https://www.hikvision.com/en/about-us/"
+    },
+    {
+     "k": "Siedziba",
+     "v": "Hangzhou (Chiny)",
+     "src": "https://en.wikipedia.org/wiki/Hikvision"
+    },
+    {
+     "k": "Giełda",
+     "v": "Shenzhen, od 2010 roku",
+     "src": "https://en.wikipedia.org/wiki/Hikvision"
+    }
+   ],
+   "opis": [
+    "Hikvision, czyli Hangzhou Hikvision Digital Technology, powstał w 2001 roku i ma siedzibę w Hangzhou w Chinach. Akcje spółki są notowane na giełdzie w Shenzhen od 2010 roku. Firma produkuje kamery, rejestratory, wideodomofony i urządzenia kontroli dostępu.",
+    "W katalogu prokominstalacje.pl Hikvision to kamery IP z liniami AcuSense i ColorVu 3.0, kamery Turbo HD do instalacji koncentrycznych, kamera PTZ z zoomem 25×, rejestratory NVR i hybrydowe, wideodomofon dwużyłowy, monitor IP oraz terminale, sterownik i zwora do drzwi. Podgląd i powiadomienia działają w aplikacji Hik-Connect.",
+    "Pracę zaczynamy od wizji lokalnej: sprawdzamy wejścia, oświetlenie nocą i trasę przewodów. Potem proponujemy zestaw, montujemy go, ustawiamy strefy i harmonogram alarmów oraz przekazujemy dostęp domownikom lub pracownikom. Po montażu zostajemy na przeglądy i naprawy."
+   ],
+   "n": 33
+  },
+  "BCS": {
+   "pill": "BCS · dobór i montaż · Rabka-Zdrój",
+   "h1a": "Kamery BCS",
+   "h1b": "serie Point i Line",
+   "lead": "Kamery i rejestratory BCS z dwóch serii: prostszej Point i bogatszej Line. Dobieramy zestaw do domu, sklepu lub biura, montujemy i ustawiamy aplikację na telefonie.",
+   "hero": [
+    "bcs-l-tip1xfcr3l3-ai1",
+    "bcs-l-nvr0401-4ke-4p",
+    "bcs-p-eip2xfcl3-ai1"
+   ],
+   "fk": [
+    [
+     "2 serie",
+     "Point i Line"
+    ],
+    [
+     "7",
+     "kart BCS w katalogu"
+    ],
+    [
+     "PoE",
+     "kamera zasilana kablem sieciowym"
+    ]
+   ],
+   "heroLab": [
+    "Tuba BCS Line 5 i 8 Mpx",
+    "Rejestrator z PoE",
+    "Kopułka BCS Point"
+   ],
+   "fam": [
+    {
+     "t": "Kamery tubowe",
+     "ic": "M3 8h12l2 2v4l-2 2H3z M17 11l4-2v6l-4-2",
+     "p": [
+      "bcs-p-tip24fcl3-ai1",
+      "bcs-l-tip1xfcr3l3-ai1"
+     ]
+    },
+    {
+     "t": "Kamery kopułkowe",
+     "ic": "M4 10a8 8 0 0116 0v2H4z M12 12v3 M9 15h6",
+     "p": [
+      "bcs-p-eip2xfcl3-ai1",
+      "bcs-p-dip15fsr3-ai"
+     ]
+    },
+    {
+     "t": "Kamery Wi-Fi do wnętrz",
+     "ic": "M12 18h.01 M8.5 14.5a5 5 0 017 0 M5 11a10 10 0 0114 0 M2 7.5a15 15 0 0120 0",
+     "p": [
+      "bcs-l-pthome0x"
+     ]
+    },
+    {
+     "t": "Rejestratory",
+     "ic": "M3 7h18v10H3z M6 12h4 M15 12h.01 M18 12h.01",
+     "p": [
+      "bcs-l-nvr0401-4ke-4p",
+      "bcs-p-nvr0x01-4k"
+     ]
+    }
+   ],
+   "dob": {
+    "q": "Gdzie zawiśnie monitoring?",
+    "o": [
+     {
+      "t": "Dom i podwórko",
+      "p": [
+       "bcs-p-tip24fcl3-ai1",
+       "bcs-p-nvr0x01-4k"
+      ],
+      "w": "Tuby Point z kolorowym obrazem nocą i prosty rejestrator na 4 lub 8 kamer. Kamery pobierają mało prądu, a obsługa jest łatwa dla całej rodziny."
+     },
+     {
+      "t": "Sklep, biuro, gabinet",
+      "p": [
+       "bcs-p-eip2xfcl3-ai1",
+       "bcs-l-nvr0401-4ke-4p"
+      ],
+      "w": "Kopułki z mikrofonem nad salą i stanowiskiem obsługi oraz rejestrator z wbudowanym PoE: do każdej kamery biegnie jeden kabel."
+     },
+     {
+      "t": "Miejsce narażone na zniszczenie",
+      "p": [
+       "bcs-p-dip15fsr3-ai"
+      ],
+      "w": "Metalowa kopułka odporna na uderzenia (IK10) do klatki schodowej, wiatrołapu albo przejazdu."
+     },
+     {
+      "t": "Duża posesja, szczegóły z daleka",
+      "p": [
+       "bcs-l-tip1xfcr3l3-ai1",
+       "bcs-l-nvr0401-4ke-4p"
+      ],
+      "w": "Tuby Line do 8 Mpx z podczerwienią i białym światłem, pracujące w mrozie do −40 °C."
+     },
+     {
+      "t": "Podgląd w domu: dziecko, senior, zwierzę",
+      "p": [
+       "bcs-l-pthome0x"
+      ],
+      "w": "Obrotowa kamera Wi-Fi z głośnikiem i mikrofonem: zajrzysz do pokoju i porozmawiasz przez aplikację."
+     }
+    ]
+   },
+   "serw": false,
+   "faq": [
+    {
+     "q": "Czym różni się BCS Point od BCS Line?",
+     "a": "Point to prostsze urządzenia do domów i małych firm. Line daje większy wybór modeli i więcej funkcji. Serię dobieramy do obiektu, a nie do nazwy."
+    },
+    {
+     "q": "Czy połączę kamery jednej serii z rejestratorem drugiej?",
+     "a": "Kamery IP często współpracują z rejestratorami innych serii, ale nie zawsze ze wszystkimi funkcjami. Dlatego zestaw składamy w jednej serii albo sprawdzamy zgodność przed montażem."
+    },
+    {
+     "q": "Jak zobaczę obraz na telefonie?",
+     "a": "W aplikacji BCS. Przy montażu dodajemy urządzenia, ustawiamy powiadomienia i pokazujemy, jak pobrać fragment nagrania."
+    },
+    {
+     "q": "Czy kamera Wi-Fi zastąpi monitoring na zewnątrz?",
+     "a": "Nie. Kamery HOME są przeznaczone do wnętrz. Na zewnątrz montujemy kamery przewodowe z PoE, które nie gubią połączenia i nagrywają na rejestrator."
+    }
+   ],
+   "marka": "BCS",
+   "logo": null,
+   "logos": [],
+   "fakty": [],
+   "opis": [
+    "BCS to marka kamer i rejestratorów do monitoringu, podzielona na dwie serie: Point i Line. Point obejmuje prostsze urządzenia do domów i małych firm, a Line modele z większą liczbą funkcji i szerszym wyborem obudów.",
+    "W naszym katalogu BCS to kamery tubowe i kopułkowe IP z kolorowym obrazem nocą, metalowa kopułka odporna na uderzenia, obrotowe kamery Wi-Fi do wnętrz z linii HOME oraz rejestratory IP na 4 i 8 kamer, także z wbudowanym switchem PoE.",
+    "Zestaw BCS składamy pod obiekt: liczymy punkty kamer, sprawdzamy, gdzie stanie rejestrator i jak poprowadzić kable. Montujemy, ustawiamy strefy detekcji, konfigurujemy aplikację i zostajemy na serwis. Montaż objęty jest 24-miesięczną gwarancją."
+   ],
+   "n": 7
+  },
+  "Satel": {
+   "pill": "Satel · projekt, montaż, serwis alarmów · Rabka-Zdrój",
+   "h1a": "Alarmy Satel",
+   "h1b": "projekt i montaż w Rabce",
+   "lead": "Centrale INTEGRA i PERFECTA, czujki, manipulatory, sygnalizatory i moduły łączności Satel. Projektujemy strefy, montujemy system przewodowy lub bezprzewodowy ABAX 2 i ustawiamy sterowanie z telefonu.",
+   "hero": [
+    "satel-integra",
+    "satel-int-tsh2",
+    "satel-slim-dual"
+   ],
+   "fk": [
+    [
+     "30+",
+     "lat na rynku (wg firmy)"
+    ],
+    [
+     "90+",
+     "krajów, w których znają Satel"
+    ],
+    [
+     "22",
+     "karty Satel w katalogu"
+    ]
+   ],
+   "heroLab": [
+    "Centrala INTEGRA",
+    "Panel dotykowy INT-TSH2",
+    "Czujka SLIM-DUAL"
+   ],
+   "fam": [
+    {
+     "t": "Centrale alarmowe",
+     "ic": "M5 4h14v16H5z M9 8h6 M9 12h6 M9 16h3",
+     "p": [
+      "satel-integra",
+      "satel-integra-plus",
+      "satel-perfecta",
+      "satel-versa",
+      "satel-micra"
+     ]
+    },
+    {
+     "t": "Manipulatory",
+     "ic": "M4 5h16v14H4z M8 9h8 M8 13h2 M12 13h2 M16 13h.01",
+     "p": [
+      "satel-int-klcd",
+      "satel-int-tsh2",
+      "satel-int-ksg2",
+      "satel-int-tsg2r"
+     ]
+    },
+    {
+     "t": "Czujki",
+     "ic": "M12 4a6 6 0 016 6v4H6v-4a6 6 0 016-6z M9 18h6",
+     "p": [
+      "satel-slim-pir",
+      "satel-slim-dual",
+      "satel-aqua-ring",
+      "satel-agate",
+      "satel-opal-pro"
+     ]
+    },
+    {
+     "t": "Sygnalizatory",
+     "ic": "M11 5L6 9H3v6h3l5 4z M15 9a4 4 0 010 6 M18 6a8 8 0 010 12",
+     "p": [
+      "satel-sp-4001-sp-4003",
+      "satel-spw-210-spw-220"
+     ]
+    },
+    {
+     "t": "Moduły łączności",
+     "ic": "M5 7h14v10H5z M9 7V4 M15 7V4 M9 17v3 M15 17v3",
+     "p": [
+      "satel-ethm-1-plus",
+      "satel-gsm-x"
+     ]
+    },
+    {
+     "t": "Bezprzewodowe ABAX 2",
+     "ic": "M12 12h.01 M8.5 8.5a5 5 0 000 7 M15.5 8.5a5 5 0 010 7 M5.5 5.5a10 10 0 000 13 M18.5 5.5a10 10 0 010 13",
+     "p": [
+      "satel-abax-2-acu-280",
+      "satel-abax-2-apd-200",
+      "satel-abax-2-axd-200",
+      "satel-abax-2-asp-200"
+     ]
+    }
+   ],
+   "dob": {
+    "q": "Co chronisz alarmem?",
+    "o": [
+     {
+      "t": "Mieszkanie lub mały dom",
+      "p": [
+       "satel-perfecta",
+       "satel-slim-pir",
+       "satel-spw-210-spw-220"
+      ],
+      "w": "PERFECTA z wbudowanym GSM na dwie karty SIM, czujki ruchu w pokojach i syrena w środku. Uzbrajasz i rozbrajasz z aplikacji PERFECTA CONTROL."
+     },
+     {
+      "t": "Dom z ogrodem i garażem",
+      "p": [
+       "satel-integra",
+       "satel-opal-pro",
+       "satel-sp-4001-sp-4003"
+      ],
+      "w": "INTEGRA z podziałem na strefy, więc dom, garaż i poddasze uzbrajasz osobno. Do tego czujka zewnętrzna przy wejściu i syrena na elewacji."
+     },
+     {
+      "t": "Firma, magazyn, sklep z towarem",
+      "p": [
+       "satel-integra-plus",
+       "satel-int-ksg2",
+       "satel-slim-dual"
+      ],
+      "w": "Centrala Grade 3 na wiele wejść, klawiatura z czytnikiem kart i czujki dualne, które rzadziej mylą się przy przeciągach i nagrzanych grzejnikach."
+     },
+     {
+      "t": "Budynek, w którym nie chcesz kuć ścian",
+      "p": [
+       "satel-abax-2-acu-280",
+       "satel-abax-2-apd-200",
+       "satel-abax-2-axd-200",
+       "satel-abax-2-asp-200"
+      ],
+      "w": "Kontroler ABAX 2 dołącza do centrali bezprzewodowe czujki ruchu i otwarcia oraz syrenę zewnętrzną. Przydaje się w starych wnętrzach i przy dobudowie."
+     },
+     {
+      "t": "Wysokie sufity i okna od zewnątrz",
+      "p": [
+       "satel-aqua-ring",
+       "satel-agate"
+      ],
+      "w": "Okrągłe czujki sufitowe do pomieszczeń do 4,5 m wysokości i czujka kurtynowa, która pilnuje okien oraz ściany od zewnątrz."
+     }
+    ]
+   },
+   "serw": false,
+   "faq": [
+    {
+     "q": "Alarm przewodowy czy bezprzewodowy?",
+     "a": "Przewodowy jest najpewniejszy i nie wymaga wymiany baterii, dlatego polecamy go przy budowie i remoncie. Bezprzewodowy ABAX 2 sprawdza się tam, gdzie kable trudno poprowadzić. Oba da się łączyć w jednym systemie INTEGRA."
+    },
+    {
+     "q": "Czy będę sterować alarmem z telefonu?",
+     "a": "Tak. Przez moduł ETHM-1 Plus lub komunikator GSM centrala łączy się z aplikacją INTEGRA CONTROL albo PERFECTA CONTROL. Widzisz stan stref, uzbrajasz system i dostajesz powiadomienia."
+    },
+    {
+     "q": "Co oznacza Grade 2 i Grade 3?",
+     "a": "To klasy zabezpieczenia systemów alarmowych. Grade 2 wystarcza w większości domów i małych firm, a Grade 3 stosuje się tam, gdzie wymaga tego ubezpieczyciel albo rodzaj towaru."
+    },
+    {
+     "q": "Czy alarm może powiadamiać agencję ochrony?",
+     "a": "Tak. Centrale Satel wysyłają zdarzenia do stacji monitorowania przez internet lub sieć komórkową. Moduły dobieramy tak, żeby była zapasowa droga łączności."
+    },
+    {
+     "q": "Mam starą centralę Satel. Trzeba wszystko wymieniać?",
+     "a": "Niekoniecznie. Sprawdzamy centralę, akumulator i czujki. Często wystarczy wymienić zużyte elementy, dołożyć moduł do aplikacji i zaktualizować oprogramowanie."
+    }
+   ],
+   "marka": "Satel",
+   "logo": null,
+   "logos": [],
+   "fakty": [
+    {
+     "k": "Siedziba",
+     "v": "Gdańsk",
+     "src": "https://www.satel.pl/30/en.html"
+    },
+    {
+     "k": "Na rynku",
+     "v": "ponad 30 lat (wg firmy)",
+     "src": "https://www.satel.pl/30/en.html"
+    },
+    {
+     "k": "Zasięg",
+     "v": "marka znana w ponad 90 krajach (wg firmy)",
+     "src": "https://www.satel.pl/30/en.html"
+    }
+   ],
+   "opis": [
+    "SATEL to polski producent systemów alarmowych z siedzibą w Gdańsku. Według firmy działa od ponad 30 lat, ma własne laboratorium i park maszynowy na Pomorzu, a jej marka jest znana w ponad 90 krajach.",
+    "W naszym katalogu Satel to centrale INTEGRA, INTEGRA Plus, PERFECTA i VERSA, moduł alarmowy MICRA z GSM, manipulatory LCD i dotykowe, czujki ruchu, dualne, sufitowe i zewnętrzne, sygnalizatory do wnętrz i na elewację, moduły Ethernet i GSM oraz czujki, kontroler i syrena bezprzewodowego systemu ABAX 2.",
+    "Alarm projektujemy razem z Tobą: ustalamy strefy, miejsca czujek, sygnalizatorów i manipulatorów oraz sposób powiadamiania. Montujemy, programujemy centralę, ustawiamy aplikację i szkolimy domowników. Robimy też przeglądy i naprawy instalacji Satel, które działają od lat."
+   ],
+   "n": 22
+  },
+  "Ajax": {
+   "pill": "Ajax · montaż i konfiguracja · Rabka-Zdrój",
+   "h1a": "Alarm Ajax",
+   "h1b": "bez kucia ścian",
+   "lead": "Bezprzewodowy system z centralą Hub 2, czujkami, syrenami i klawiaturą. Montujemy go w zamieszkanym domu bez remontu, ustawiamy aplikację Ajax dla całej rodziny i opiekujemy się systemem po montażu.",
+   "hero": [
+    "ajax-hub-2-plus",
+    "ajax-motioncam",
+    "ajax-keypad"
+   ],
+   "fk": [
+    [
+     "2011",
+     "rok założenia firmy"
+    ],
+    [
+     "21",
+     "kart Ajax w katalogu"
+    ],
+    [
+     "do 7 lat",
+     "pracy czujki na baterii"
+    ]
+   ],
+   "heroLab": [
+    "Hub 2 Plus",
+    "MotionCam ze zdjęciem",
+    "Klawiatura KeyPad"
+   ],
+   "fam": [
+    {
+     "t": "Centrale, zestawy i wzmacniacz",
+     "ic": "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M12 9v4 M12 16h.01",
+     "p": [
+      "ajax-hub-2",
+      "ajax-hub-2-plus",
+      "ajax-starterkit-hub-2",
+      "ajax-rex-2"
+     ]
+    },
+    {
+     "t": "Czujki ruchu",
+     "ic": "M12 4a6 6 0 016 6v4H6v-4a6 6 0 016-6z M9 18h6",
+     "p": [
+      "ajax-motionprotect",
+      "ajax-motioncam",
+      "ajax-combiprotect",
+      "ajax-motionprotect-outdoor",
+      "ajax-motioncam-outdoor"
+     ]
+    },
+    {
+     "t": "Czujki otwarcia i zbicia szyby",
+     "ic": "M6 3h10v18H6z M16 5l3 1v13l-3 1 M13 12h.01",
+     "p": [
+      "ajax-doorprotect",
+      "ajax-doorprotect-plus",
+      "ajax-glassprotect"
+     ]
+    },
+    {
+     "t": "Dym i zalanie",
+     "ic": "M12 3c3 4 6 7 6 11a6 6 0 01-12 0c0-4 3-7 6-11z",
+     "p": [
+      "ajax-fireprotect-2",
+      "ajax-leaksprotect"
+     ]
+    },
+    {
+     "t": "Klawiatury, piloty i przyciski",
+     "ic": "M4 5h16v14H4z M8 9h8 M8 13h2 M12 13h2 M16 13h.01",
+     "p": [
+      "ajax-keypad",
+      "ajax-keypad-plus",
+      "ajax-keypad-touchscreen",
+      "ajax-spacecontrol",
+      "ajax-button"
+     ]
+    },
+    {
+     "t": "Syreny",
+     "ic": "M11 5L6 9H3v6h3l5 4z M15 9a4 4 0 010 6 M18 6a8 8 0 010 12",
+     "p": [
+      "ajax-homesiren",
+      "ajax-streetsiren"
+     ]
+    }
+   ],
+   "dob": {
+    "q": "Jak chcesz chronić swoje miejsce?",
+    "o": [
+     {
+      "t": "Mieszkanie w bloku",
+      "p": [
+       "ajax-hub-2",
+       "ajax-doorprotect",
+       "ajax-motionprotect"
+      ],
+      "w": "Hub 2, kontaktron na drzwiach wejściowych i czujka ruchu w przedpokoju. Pies czy kot do 20 kg nie wywoła alarmu."
+     },
+     {
+      "t": "Dom, w którym nie chcesz remontu",
+      "p": [
+       "ajax-hub-2-plus",
+       "ajax-motioncam",
+       "ajax-streetsiren"
+      ],
+      "w": "Urządzenia na baterie, bez prowadzenia przewodów. MotionCam przy alarmie wysyła serię zdjęć, więc od razu widzisz, co się dzieje."
+     },
+     {
+      "t": "Domek letniskowy lub apartament na wynajem",
+      "p": [
+       "ajax-starterkit-hub-2",
+       "ajax-leaksprotect",
+       "ajax-fireprotect-2"
+      ],
+      "w": "Zestaw z hubem 4G i kamerą działa bez stałego internetu, a czujki dymu i zalania ostrzegą Cię, zanim mała awaria zamieni się w dużą szkodę."
+     },
+     {
+      "t": "Ogród, podjazd, taras",
+      "p": [
+       "ajax-motionprotect-outdoor",
+       "ajax-motioncam-outdoor",
+       "ajax-rex-2"
+      ],
+      "w": "Zewnętrzne czujki wykrywają ruch, zanim ktoś dojdzie do drzwi, a wersja z aparatem przysyła zdjęcia z alarmu. ReX 2 dociągnie zasięg do dalszych zakątków działki."
+     },
+     {
+      "t": "Mały sklep lub biuro",
+      "p": [
+       "ajax-hub-2-plus",
+       "ajax-keypad-plus",
+       "ajax-glassprotect"
+      ],
+      "w": "Hub 2 Plus z czterema drogami łączności, klawiatura z kartami i brelokami dla pracowników oraz czujka zbicia szyby przy witrynie."
+     }
+    ]
+   },
+   "serw": false,
+   "faq": [
+    {
+     "q": "Czy alarm bezprzewodowy jest pewny?",
+     "a": "Urządzenia Ajax łączą się z centralą przez protokół radiowy Jeweller, a hub stale sprawdza, czy każde z nich odpowiada. Centrala ma kilka dróg łączności, więc awaria jednej nie odcina powiadomień."
+    },
+    {
+     "q": "Jak często wymienia się baterie?",
+     "a": "Zależy od urządzenia: według producenta klawiatura działa do 2 lat, syreny do 5 lat, a kontaktron i czujka zbicia szyby do 7 lat. Aplikacja z wyprzedzeniem pokazuje słabą baterię."
+    },
+    {
+     "q": "Czy mogę mieć alarm Ajax, gdy w domu jest pies?",
+     "a": "Tak. Czujka MotionProtect nie reaguje na zwierzęta do 20 kg, jeśli zamontujemy ją na właściwej wysokości i ustawimy czułość."
+    },
+    {
+     "q": "Kto ma dostęp do systemu?",
+     "a": "Każdy domownik dostaje własne konto w aplikacji Ajax z uprawnieniami, które sam ustalasz. Instalator ma osobny dostęp serwisowy, który możesz w każdej chwili odebrać."
+    },
+    {
+     "q": "Czy Ajax powiadomi agencję ochrony?",
+     "a": "Tak, centrala może wysyłać alarmy do stacji monitorowania. Konfigurujemy to razem z wybraną przez Ciebie agencją."
+    }
+   ],
+   "marka": "Ajax",
+   "logo": null,
+   "logos": [],
+   "fakty": [
+    {
+     "k": "Rok założenia",
+     "v": "2011",
+     "src": "https://ajax.systems/company-history/"
+    },
+    {
+     "k": "Założyciel",
+     "v": "Aleksandr Konotopskyi",
+     "src": "https://ajax.systems/company-history/"
+    },
+    {
+     "k": "Produkcja",
+     "v": "Kijów (od 2015), fabryka w Turcji (od 2022)",
+     "src": "https://ajax.systems/company-history/"
+    }
+   ],
+   "opis": [
+    "Ajax Systems założył w 2011 roku Aleksandr Konotopskyi. Produkcję firma uruchomiła w Kijowie w 2015 roku, a w 2022 roku otworzyła pierwszą fabrykę za granicą, w Turcji. Ajax tworzy bezprzewodowe systemy alarmowe sterowane z aplikacji.",
+    "W naszym katalogu Ajax to centrale Hub 2 i Hub 2 Plus, zestaw startowy z kamerą, wzmacniacz zasięgu ReX 2, czujki ruchu do wnętrz i na zewnątrz (także z aparatem), kontaktrony, czujka zbicia szyby, czujki dymu i zalania, klawiatury, brelok, przycisk napadowy oraz syreny.",
+    "Choć system jest bezprzewodowy, o jego skuteczności decyduje rozmieszczenie. Sprawdzamy zasięg w budynku, dobieramy miejsca czujek i syren, przypisujemy pokoje i grupy w aplikacji oraz zakładamy konta domownikom. Montaż objęty jest 24-miesięczną gwarancją."
+   ],
+   "n": 21
+  }
+ }
+}

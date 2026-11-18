@@ -51,12 +51,10 @@ const textOf = (card: Card) =>
     .join(' ')
 
 describe('Instalacje catalog seed (INST-K0)', () => {
-  // Plan §6 asks for ≥ 110 ready cards. The AV cards wait for the producers' photo consents and
-  // some cameras for a check at the producer (STAN-instalacje „Do decyzji”), so until then the
-  // volume counts all cards and the ready ones keep a floor that only goes up.
-  it('has the v1 volume (≥ 110 cards, ≥ 70 ready — plan §6)', () => {
+  // Plan §6: at least 110 ready cards (the rest wait for a check at the producer).
+  it('has the v1 volume (≥ 110 ready cards — plan §6)', () => {
     expect(cards.length).toBeGreaterThanOrEqual(110)
-    expect(ready.length).toBeGreaterThanOrEqual(70)
+    expect(ready.length).toBeGreaterThanOrEqual(110)
   })
 
   it('uses unique slugs', () => {
