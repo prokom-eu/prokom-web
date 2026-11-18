@@ -649,6 +649,19 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   min-width: 40px;
   height: 40px;
 }
+/* Theme button with the action as its label (ADR-028, MOTYW-PASEK-LINII §1): a 40 px pill as
+   wide as the longer label, the icon in the line accent. */
+.cap-btn--theme,
+[data-scrolled] .cap-btn--theme {
+  height: 40px;
+  padding: 0 14px 0 12px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.cap-btn--theme .theme-toggle__icon {
+  color: var(--nav-active-ink);
+}
 /* Mega menu of a line: 10 px under the capsule, the same width and radius; an invisible bridge
    over the gap keeps it open while the pointer crosses. */
 .cap-mega {
@@ -694,6 +707,15 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   }
   .cap-cta__short {
     display: inline;
+  }
+  /* „Ciemny” / „Jasny”: „motyw” stays in the accessible name. */
+  .cap-btn--theme .theme-toggle__word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 /* Up to 1080 px: mark, short action and the Menu button (the sheet of board 06). */
@@ -1431,5 +1453,77 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 @media (max-width: 767px) {
   .cform input:not([type='checkbox']) {
     min-height: 54px;
+  }
+}
+
+/*
+ * Theme button labels and icons (`ThemeToggle`, ADR-028): both are in the HTML; the one for the
+ * action shows from `html[data-theme]`, which the `<head>` script always sets — without
+ * JavaScript, Instalacje follows the system as its tokens do. Stacked in one grid cell, so the
+ * button is as wide as the longer label and never jumps. On a change the new icon turns in and the
+ * label rises in 4 px after 120 ms, as the circle reaches the button (spec §1.5).
+ */
+.theme-toggle__labels {
+  display: inline-grid;
+}
+.theme-toggle__label {
+  grid-area: 1 / 1;
+  transition:
+    opacity 200ms 120ms var(--ease-theme),
+    translate 200ms 120ms var(--ease-theme);
+}
+.theme-toggle__icon {
+  flex-shrink: 0;
+  transition: rotate 200ms var(--ease-theme);
+}
+.theme-toggle__icon g {
+  transform-origin: 12px 12px;
+  transition:
+    opacity 200ms var(--ease-theme),
+    rotate 200ms var(--ease-theme);
+}
+.theme-toggle:hover .theme-toggle__icon {
+  rotate: 20deg;
+}
+.theme-toggle__label[data-to='light'],
+:root[data-theme='dark'] .theme-toggle__label[data-to='dark'] {
+  visibility: hidden;
+  opacity: 0;
+  translate: 0 4px;
+}
+.theme-toggle__icon g[data-to='light'],
+:root[data-theme='dark'] .theme-toggle__icon g[data-to='dark'] {
+  visibility: hidden;
+  opacity: 0;
+  rotate: -90deg;
+}
+:root[data-theme='dark'] .theme-toggle__label[data-to='light'],
+:root[data-theme='dark'] .theme-toggle__icon g[data-to='light'] {
+  visibility: visible;
+  opacity: 1;
+  translate: none;
+  rotate: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-line='instalacje']:not([data-theme]) .theme-toggle__label[data-to='dark'],
+  :root[data-line='instalacje']:not([data-theme]) .theme-toggle__icon g[data-to='dark'] {
+    visibility: hidden;
+  }
+  :root[data-line='instalacje']:not([data-theme]) .theme-toggle__label[data-to='light'],
+  :root[data-line='instalacje']:not([data-theme]) .theme-toggle__icon g[data-to='light'] {
+    visibility: visible;
+    opacity: 1;
+    translate: none;
+    rotate: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__label,
+  .theme-toggle__icon,
+  .theme-toggle__icon g {
+    transition: none;
+  }
+  .theme-toggle:hover .theme-toggle__icon {
+    rotate: none;
   }
 }

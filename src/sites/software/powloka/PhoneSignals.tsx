@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 
-import { useThemeColor } from '@/components/useThemeColor'
 import { track } from '@/lib/analytics/track'
 import { onMenuRequest } from '@/lib/shared/menuOpen'
 
@@ -10,14 +9,11 @@ import { onMenuRequest } from '@/lib/shared/menuOpen'
 const TAB_KEYS = ['start', 'oferta', 'kreator', 'kontakt', 'menu'] as const
 
 /**
- * What the v23 phone layer did besides drawing (SWA5): the browser bar follows the chosen theme
- * (MOBILE-APLIKACJA §5) and the statistics keep `pasek_klik` / `menu_otworz` (ADR-020) — the
- * shared bottom bar and menu sheet know no line's events, so the clicks are read here. Renders
- * nothing.
+ * What the v23 phone layer did besides drawing (SWA5): the statistics keep `pasek_klik` / `menu_otworz` (ADR-020) — the
+ * shared bottom bar and menu sheet know no line's events, so the clicks are read here. The
+ * browser bar colour follows the theme in the shared `ThemeCarry`. Renders nothing.
  */
 export function PhoneSignals() {
-  useThemeColor('software')
-
   useEffect(() => onMenuRequest(() => track('menu_otworz')), [])
 
   useEffect(() => {

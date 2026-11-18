@@ -2,18 +2,35 @@
 
 import { useLayoutEffect, useSyncExternalStore } from 'react'
 
-import { defaultTheme, isTheme, THEME_STORAGE_KEY, type Theme } from '@/lib/brand/theme'
+import {
+  autoTheme,
+  isTheme,
+  THEME_STORAGE_KEY,
+  type Theme,
+  type ThemeChoice,
+} from '@/lib/brand/theme'
 
 const DARK_QUERY = '(prefers-color-scheme: dark)'
-const CHANGE_EVENT = 'pk-theme-change'
+/** Fired on `window` after every theme change on this page (switches, `ThemeCarry`). */
+export const THEME_CHANGE_EVENT = 'pk-theme-change'
+const CHANGE_EVENT = THEME_CHANGE_EVENT
 
-function storedTheme(): Theme | null {
+export function storedTheme(): Theme | null {
   try {
     const value = localStorage.getItem(THEME_STORAGE_KEY)
     return isTheme(value) ? value : null
   } catch {
     return null
   }
+}
+
+/** Auto right now (ADR-028: line default, system, night in Rabka) for this page's line. */
+export function autoThemeNow(): Theme {
+  return autoTheme(
+    document.documentElement.getAttribute('data-line'),
+    window.matchMedia(DARK_QUERY).matches,
+    new Date(),
+  )
 }
 
 /** The theme on screen: the attribute set by the inline script or this switch, else the system. */
@@ -28,12 +45,7 @@ function subscribe(onChange: () => void): () => void {
   // Another tab changed the choice (docs/strony/prokombiznes.md §3.5): apply it here too.
   const onStorage = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY) return
-    const theme = storedTheme()
-    const root = document.documentElement
-    // No choice left: the line's default (Biznes light, Software dark), else the system.
-    const next = theme ?? defaultTheme(root.getAttribute('data-line'))
-    if (next) root.setAttribute('data-theme', next)
-    else root.removeAttribute('data-theme')
+    document.documentElement.setAttribute('data-theme', storedTheme() ?? autoThemeNow())
     onChange()
   }
   media.addEventListener('change', onChange)
@@ -75,13 +87,13 @@ export function useTheme(): [Theme, (theme: Theme) => void] {
   return [theme, setTheme]
 }
 
-export type ThemeChoice = Theme | 'auto'
+export type { ThemeChoice }
 
 const choiceSnapshot = (): ThemeChoice => storedTheme() ?? 'auto'
 
 /**
  * The visitor's choice with „Auto” (shared menu sheet, spec §5 `MenuSheet`): `auto` = nothing
- * stored: the line's default (Biznes light, Software dark), else the system. Same key and event as
+ * stored: dark on Software and the hub, else the system, else night in Rabka (ADR-028). Same key and event as
  * `useTheme`, so every switch on the page agrees.
  */
 export function useThemeChoice(): [ThemeChoice, (choice: ThemeChoice) => void] {
@@ -95,9 +107,7 @@ export function useThemeChoice(): [ThemeChoice, (choice: ThemeChoice) => void] {
     } catch {
       // Storage blocked: the choice still applies until the next page load.
     }
-    const theme = next === 'auto' ? defaultTheme(root.getAttribute('data-line')) : next
-    if (theme) root.setAttribute('data-theme', theme)
-    else root.removeAttribute('data-theme')
+    root.setAttribute('data-theme', next === 'auto' ? autoThemeNow() : next)
     window.dispatchEvent(new Event(CHANGE_EVENT))
   }
 
