@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { brandGroupsByDepartment, buildBrandsPage, type BrandsPageInput } from './brandsPage'
+import { buildBrandsPage, type BrandsPageInput } from './brandsPage'
 import type { CatalogIndex, IndexProduct } from './catalogIndex'
 
 const product = (slug: string, brand: string, image = true): IndexProduct =>
@@ -168,35 +168,5 @@ describe('buildBrandsPage', () => {
       }),
     )
     expect(page.groups[0]!.tiles[0]!.hay).toBe('posnet kasy i drukarki fiskalne, lodz')
-  })
-})
-
-describe('brandGroupsByDepartment (Instalacje, ADR-029)', () => {
-  it('makes one group per department with the brands of its listed products', () => {
-    const groups = brandGroupsByDepartment(
-      {
-        groups: [
-          { slug: 'mon', name: 'Monitoring' },
-          { slug: 'alarm', name: 'Alarmy' },
-          { slug: 'av', name: 'AV' },
-        ] as never,
-        products: [
-          { slug: 'k1', brand: 'dahua', group: 'mon' },
-          { slug: 'k2', brand: 'hikvision', group: 'mon' },
-          { slug: 'k3', brand: 'dahua', group: 'mon' },
-          { slug: 'a1', brand: 'ajax', group: 'alarm' },
-          { slug: 'x', brand: null, group: 'av' },
-        ] as never,
-      },
-      [
-        { id: 1, slug: 'dahua' },
-        { id: 2, slug: 'hikvision' },
-        { id: 3, slug: 'ajax' },
-      ],
-    )
-    expect(groups).toEqual([
-      { title: 'Monitoring', iconPath: null, description: null, partnerIds: [1, 2] },
-      { title: 'Alarmy', iconPath: null, description: null, partnerIds: [3] },
-    ])
   })
 })

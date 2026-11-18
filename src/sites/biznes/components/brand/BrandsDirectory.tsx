@@ -61,10 +61,10 @@ export function BrandsDirectory({
         <div className="relative flex max-w-[760px] flex-col gap-5">
           <p className="flex items-center gap-2 text-xs font-black tracking-[0.12em] text-white/80 uppercase">
             <span aria-hidden="true" className="h-px w-4 bg-current" />
-            Salony marek
+            {ui.brandsEyebrow}
           </p>
           <h1 id="marki-h1" className={BZ_H1}>
-            Wszystkie marki w&nbsp;ofercie
+            {ui.brandsTitle}
           </h1>
           <p className={`${BZ_LEAD} max-w-[56ch] text-white/80`}>
             {total} {plural(total, ['marka', 'marki', 'marek'])}: {ui.brandsLead}
@@ -82,7 +82,7 @@ export function BrandsDirectory({
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Szukaj marki, np. Posnet, Apple, UniFi"
+              placeholder={ui.brandsSearchPlaceholder}
               autoComplete="off"
               className="min-h-14 w-full rounded-2xl bg-white/8 pr-4 pl-12 font-semibold text-white ring-1 ring-white/20 ring-inset placeholder:text-white/60 focus:bg-white/12"
             />
@@ -142,7 +142,7 @@ export function BrandsDirectory({
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
           >
-            <h2 className={cx(BZ_H2, 'text-ink')}>Nie mamy jeszcze salonu tej marki</h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>{ui.brandsMissingTitle}</h2>
             <p className="max-w-[60ch] text-ink-2">{ui.brandsMissing}</p>
             <AskButton />
           </div>
@@ -150,7 +150,7 @@ export function BrandsDirectory({
 
         <div className="flex flex-col gap-4 rounded-3xl bg-surface-2 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
           <div className="flex flex-col gap-1">
-            <h2 className={cx(BZ_H2, 'text-ink')}>Szukasz innej marki?</h2>
+            <h2 className={cx(BZ_H2, 'text-ink')}>{ui.brandsOtherTitle}</h2>
             <p className="max-w-[70ch] text-ink-2">{ui.brandsOther}</p>
           </div>
           <AskButton />

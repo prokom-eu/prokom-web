@@ -48,6 +48,9 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     const main = page.locator('main')
     await expect(main).toContainText('monitoring, alarmy, domofony')
     await expect(main).not.toContainText(/kas fiskalnych|Posnet/)
+    await expect(main.getByRole('searchbox')).not.toHaveAttribute('placeholder', /Posnet/)
+    // A brand without a salon still lists its cards: to the offer filtered by it.
+    await expect(main.locator('a[href="/oferta?marka=edbak"]').first()).toBeVisible()
     await expect(main.getByRole('link', { name: /Dahua/ }).first()).toHaveAttribute(
       'href',
       '/marki/dahua',

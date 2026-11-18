@@ -79,31 +79,6 @@ export type BrandsPage = {
   others: BrandTile[]
 }
 
-/**
- * Groups of `/marki` for a line without brand groups in its settings (Instalacje, ADR-029): one
- * per department of the catalog, with the brands of its listed products, in the index order.
- */
-export function brandGroupsByDepartment(
-  index: Pick<CatalogIndex, 'groups' | 'products'>,
-  partners: Pick<BrandsPageInput['partners'][number], 'id' | 'slug'>[],
-): BrandsPageInput['groups'] {
-  const idOf = new Map(
-    partners.flatMap((partner) => (partner.slug ? [[partner.slug, partner.id]] : [])),
-  )
-  return index.groups.flatMap((group) => {
-    const ids = [
-      ...new Set(
-        index.products
-          .filter((product) => product.group === group.slug && product.brand)
-          .flatMap((product) => idOf.get(product.brand!) ?? []),
-      ),
-    ]
-    return ids.length
-      ? [{ title: group.name, iconPath: null, description: null, partnerIds: ids }]
-      : []
-  })
-}
-
 export function buildBrandsPage({
   groups,
   partners,

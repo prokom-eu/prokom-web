@@ -581,7 +581,7 @@ export const getBrandsPageInput = (tenantId: number): Promise<Omit<BrandsPageInp
       const ids = [...new Set(groups.flatMap((group) => group.partnerIds))]
       // A line without brand groups in its settings (Instalacje, ADR-029): every brand of the
       // tenant, without the shared one-line description (written for Biznes, pkt 6); the page
-      // groups them by department (`brandGroupsByDepartment`).
+      // shows them as one list (`/marki`).
       const ownGroups = settings.docs.length > 0
       const partners =
         ownGroups && ids.length === 0

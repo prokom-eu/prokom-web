@@ -68,6 +68,11 @@ describe('catalog copy of a line (ADR-029, INST-K1)', () => {
         'Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy u dystrybutorów.',
       brandsOther:
         'Współpracujemy z dystrybutorami sprzętu i oprogramowania w całej Polsce. Sprawdzimy dostępność i przygotujemy ofertę.',
+      brandsEyebrow: 'Salony marek',
+      brandsTitle: 'Wszystkie marki w ofercie',
+      brandsSearchPlaceholder: 'Szukaj marki, np. Posnet, Apple, UniFi',
+      brandsMissingTitle: 'Nie mamy jeszcze salonu tej marki',
+      brandsOtherTitle: 'Szukasz innej marki?',
       sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
       stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
       stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
