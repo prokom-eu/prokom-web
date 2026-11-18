@@ -1608,7 +1608,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 
 /*
  * Brand bar „premium” (`BrandBar`, MOTYW-PASEK-LINII §4): lines as pills 6 px apart, a pill that
- * follows the pointer and keyboard focus (`BrandBarPill`, 180 ms on the capsule's curve), the
+ * follows the pointer and keyboard focus (`BrandBarPill`, 180 ms, the motion system's ease-out), the
  * line's dash growing 11 → 18 px with a soft glow in its colour, the current line in a light tint
  * of its colour, a tooltip with the line's description, and the lines coming in one after another.
  * Height stays 38 px, so the capsule does not move. `--lc`: the line's colour (inline).
@@ -1707,14 +1707,13 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   visibility: hidden;
   opacity: 0;
   transform: translate(-50%, -4px);
-  pointer-events: none;
   transition:
     opacity 150ms var(--ease-out),
     transform 150ms var(--ease-out),
     visibility 0s 150ms;
 }
 @media (hover: hover) and (pointer: fine) {
-  .bbar-line:hover + .bbar-tip {
+  .bbar-item:hover > .bbar-tip {
     visibility: visible;
     opacity: 1;
     transform: translate(-50%, 0);
@@ -1729,6 +1728,19 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   opacity: 1;
   transform: translate(-50%, 0);
   transition: none;
+}
+/* An invisible bridge over the 6 px gap: the pointer can move onto the tooltip (WCAG 1.4.13). */
+.bbar-tip::before {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+/* Esc dismisses it until the next pointing or focus (`BrandBarPill`). */
+[data-tip-off] .bbar-tip {
+  visibility: hidden;
 }
 /* The right half gets its own thin divider (1 × 16 px) instead of a dot. */
 .bbar-right::before {

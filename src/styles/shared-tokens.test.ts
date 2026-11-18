@@ -175,6 +175,13 @@ describe.each(cases)('$line, $mode theme: brand bar pills', ({ line, mode }) => 
       const colour = rgba('--x', { '--x': shared.color })
       const tint = mix(colour, page, 0.11)
       expect(ratio(rgba('--nav-ink', s), tint), shared.key).toBeGreaterThanOrEqual(4.5)
+      // At rest the pointer pill lies under the current line too.
+      const border = rgba('--cap-border', s)
+      const pill = over([border[0], border[1], border[2], border[3] * 0.6], page)
+      const both = mix(colour, pill, 0.11)
+      expect(ratio(rgba('--nav-ink', s), both), `${shared.key} on the pill`).toBeGreaterThanOrEqual(
+        4.5,
+      )
     }
   })
 
