@@ -47,7 +47,7 @@ test.describe('Software phone capsule and tab bar', () => {
     await expect(capsule(page).getByRole('button', { name: 'Menu' })).toBeVisible()
     await expect(capsule(page).getByRole('navigation', { name: 'Menu główne' })).toBeHidden()
     await expect(capsule(page).getByRole('button', { name: 'Szukaj na stronie' })).toBeHidden()
-    await expect(capsule(page).getByRole('button', { name: 'Tryb ciemny' })).toBeHidden()
+    await expect(capsule(page).getByRole('button', { name: /motyw$/ })).toBeHidden()
     await expect(page.locator('[data-brand-bar]')).toBeHidden()
     await expect(page.locator('[data-site-rail]')).toBeHidden()
   })
@@ -280,7 +280,7 @@ test.describe('Software frame on a touch screen', () => {
     await setTheme(page, 'light')
     await page.goto(site(HOST, SUBPAGE))
     await expect(page.locator('meta[name="theme-color"]')).toHaveCount(2)
-    // `useThemeColor`: a theme chosen by hand wins over the system scheme of each meta.
+    // `ThemeCarry`: the theme on screen wins over the system scheme of each meta.
     for (const scheme of ['light', 'dark']) {
       await expect(page.locator(`meta[name="theme-color"][media*="${scheme}"]`)).toHaveAttribute(
         'content',
@@ -289,7 +289,7 @@ test.describe('Software frame on a touch screen', () => {
     }
   })
 
-  // `useThemeColor('software')` in the frame's `PhoneSignals` (MOBILE-APLIKACJA §5).
+  // The shared `ThemeCarry` (MOBILE-APLIKACJA §5, ADR-028).
   test('the browser bar follows a theme chosen in the menu', async ({ page }) => {
     await setTheme(page, 'light')
     await page.goto(site(HOST, SUBPAGE))

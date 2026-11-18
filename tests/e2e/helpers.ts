@@ -102,8 +102,8 @@ export async function tenantId(page: Page, slug: string): Promise<number> {
 
 /**
  * The theme as a visitor gets it: the stored choice (`pk-theme`) and the system preference.
- * Biznes starts light whatever the system says (D-K4-5), so emulating the system alone no
- * longer shows its dark theme.
+ * Without a choice Auto also looks at the clock (night in Rabka → dark, ADR-028), so a stored
+ * choice keeps a test independent of when CI runs.
  */
 export async function setTheme(
   page: Page,

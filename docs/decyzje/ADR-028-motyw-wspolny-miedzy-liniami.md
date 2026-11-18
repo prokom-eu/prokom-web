@@ -1,6 +1,6 @@
 # ADR-028: Motyw wspólny dla linii — przycisk z napisem, Auto „w nocy ciemny”, wybór niesiony między domenami
 
-- Status: **proponowana** (18.11.2026, z czatu — do przyjęcia przez Krystiana w sesji WSP-M)
+- Status: **przyjęta** (18.11.2026, sesja WSP-M; proponowana z czatu tego samego dnia)
 - Data: 18.11.2026
 - Decyduje: Krystian (zmiana D-K4-5 dla Biznesu — informacyjnie do szefa, to jego pomysł)
 - Powiązane: ADR-013 (ciemny motyw linii), ADR-015 v24 (Software ciemny), ADR-017 K4 (D-K4-5: Biznes jasny), ADR-H001 pkt 4 (hub ciemny), ADR-022 (elementy wspólne), ADR-023 (JS per linia). Spec: `docs/design/wspolne/MOTYW-PASEK-LINII.md`.
@@ -33,3 +33,12 @@ Dziś: `ThemeToggle` (ikona) w 4 nagłówkach prokom-web, `useThemeChoice` z Aut
 - (−) Synchronizacja tylko przy przejściu naszym linkiem (świadomie, §3.4 spec).
 - (−) Tech i Gaming wdrażają ten sam kontrakt we własnych repo (osobne sesje).
 - Ryzyko: `history.replaceState` przed hydratacją mogłoby rozjechać router Next — dlatego czyszczenie dopiero po hydratacji; sesja sprawdza zachowanie w dokumentacji zainstalowanej wersji Next.
+
+## Rozstrzygnięcia przy wdrożeniu (WSP-M, 18.11.2026)
+- **`replaceState(null, …)`, nie `window.history.state`** (zmiana spec §3.3): dokumentacja zainstalowanego Next 16.4 („Linking and Navigating” → Native History API) potwierdza, że natywne `pushState`/`replaceState` są zsynchronizowane z routerem — ale kod routera (`app-router.js`) pomija synchronizację, gdy w stanie jest jego własny znacznik (`__NA`), który niesie `window.history.state`. Dlatego `null`, jak w przykładach dokumentacji; Next sam dopisuje swoje dane. Wołane zadanie później (`setTimeout 0`): efekt wyspy działa przed efektem routera, który dopiero wtedy zakłada łatkę na `replaceState` — wcześniejsze wywołanie zgubiłoby stan routera i „Wstecz” (przegląd PR 1).
+- **Noc w czasie zimowym UTC+1 przez cały rok:** tablica i skrypt liczą minuty doby w stałym przesunięciu +1 h (noc jest astronomiczna), więc zmiana czasu nie przesuwa granic i skrypt nie potrzebuje `Intl`. Dokładność tablicy z interpolacją ±10 min (test na każdym dniu roku), `sunTimes` w teście ±3 min od sunrise-sunset.org.
+- **Opis linii w dymku paska = istniejące pole `CompanyData.lines[].description`** (spec §4 pkt 3: „jeśli brak pola opisu”) — bez nowego pola `tagline` i bez migracji.
+- **Biznes bez JavaScriptu zostaje jasny** (jego tokeny nie mają bloku `prefers-color-scheme`); Instalacje bez JavaScriptu jak dziś za systemem.
+- **Kapsuła bez miejsca → sama ikona** (zmiana spec §1, CI PR 1): pigułka z napisem (149 px zamiast 44 px) nie mieści się w ciasnej kapsule (najdłuższe menu Instalacji przy 1081 px) ani w pełnej kapsule Software z „Twój projekt” przy 1440 px. Dlatego 1081–1359 px: ikona (CSS, bez skoku przy wczytaniu; napis zostaje nazwą dostępną), od 1360 px napis, a gdy rząd kapsuły i tak się przepełnia (np. po pojawieniu się „Twój projekt”), `ThemeToggle` sam przechodzi na ikonę (`ResizeObserver`, liczenie wolnego miejsca rzędu). W szynie i arkuszu menu napis zawsze.
+- **Budżet JS Software +2 000 B** (`software-wydajnosc`, `docs/jakosc.md`): CI po PR 1 zmierzyło 285 598 B przy progu 285 200 B; motyw wspólny (PR 1–3) to ~1,9 kB gz, w granicy „~2 kB” z kontraktu.
+- `theme-color` po zmianie motywu: wspólna wyspa `ThemeCarry` dla linii z kolorem paska (Biznes, Instalacje, Software); hub nie ma `theme-color` — bez zmian.

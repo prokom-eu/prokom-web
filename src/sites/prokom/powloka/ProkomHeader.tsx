@@ -312,7 +312,7 @@ export function ProkomHeader({ homeLabel, nav, lines, start, cta, offerHref }: P
             <span className="sr-only">Szukaj w PRO-KOM</span>
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
-          <ThemeToggle className={CAPSULE.iconButton} />
+          <ThemeToggle className={CAPSULE.themeButton} />
         </>
       }
       cta={cta}

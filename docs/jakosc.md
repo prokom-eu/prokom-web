@@ -39,7 +39,7 @@ CI (`tests/e2e/software-wydajnosc.e2e.spec.ts`, build produkcyjny, Chromium) —
 - [ ] przewinięcie głównej do stopki na telefonie z CPU 4×: 0 długich klatek (LoAF) > 100 ms poza pierwszym ekranem,
 - [ ] w trakcie przewijania animacje tylko `transform`/`opacity` (wyjątki z listy w teście), przejścia stanu bez właściwości układu,
 - [ ] okno oferty: wejście dokładnie jako przejście CSS 240 ms (transform + opacity, bez View Transitions; `software-catalog`, tam też zegar jako bezpiecznik: render ≤ 150 ms, wejście ≤ 400 ms); po kliknięciu najwyżej dwie klatki > 100 ms (dwa rendery: lekka pierwsza klatka i sekcje po wejściu) i żadna > 250 ms (`software-wydajnosc`). Pomiar 13.11: lokalnie ~31 + ~285 ms, CI ~60 + ~315 ms,
-- [ ] **JS głównej przed interakcją ≤ 285 200 B** (gzip, pliki `/_next/static/*.js`, także z `preload`, po uspokojeniu sieci). Pomiar 13.11.2026: **271 631 B, 29 plików** (852 KB po rozpakowaniu), build produkcyjny SWA14 (a–c); próg = pomiar + 5%. Zmiana progu tylko z uzasadnieniem w opisie PR.
+- [ ] **JS głównej przed interakcją ≤ 287 200 B** (gzip, pliki `/_next/static/*.js`, także z `preload`, po uspokojeniu sieci). Pomiar 13.11.2026: **271 631 B, 29 plików** (852 KB po rozpakowaniu), build produkcyjny SWA14 (a–c); próg = pomiar + 5% (285 200 B) + 2 000 B na motyw wspólny wszystkich linii (ADR-028, WSP-M 18.11: przycisk, `ThemeCarry`, szyna, pigułka paska — razem ~1,9 kB gz; CI po PR 1: 285 598 B). Zmiana progu tylko z uzasadnieniem w opisie PR.
 
 Kompresja: odpowiedzi kompresuje Next (`gzip`). Brotli w Nginx tylko wtedy, gdy obraz proxy (`nginx:*-alpine`) ma moduł bez przebudowy (decyzja 11.11) — w SWA14 nie sprawdzone w obrazie (bez pobierania obrazu), zostaje gzip.
 

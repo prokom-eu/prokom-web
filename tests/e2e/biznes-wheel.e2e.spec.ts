@@ -5,9 +5,9 @@ import { setTheme, site } from './helpers'
 
 // Runda 1411 (board `Main.dc.html`): the department wheel of the Biznes hero — five departments
 // with three products each (all photos), shown from 1080 px, one tooltip above everything; a
-// product bubble picks its department, the core links to the three products; switching every
-// 6.5 s also under the pointer; the round pause button and keyboard focus stop it. Data from
-// `pnpm seed` (`wheel1411.ts`).
+// product bubble opens its product; the core shows only the department's name and is one link to
+// the department (runda 1811, D6); switching every 6.5 s also under the pointer; the round pause
+// button and keyboard focus stop it. Data from `pnpm seed` (`wheel1411.ts`).
 
 const AUTO_MS = 6500
 
@@ -121,7 +121,7 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(page.locator('#start .bzw-bub img')).toHaveCount(15)
     await expect(page.locator('#start .bzw-glyph')).toHaveCount(0)
 
-    // Every bubble a link out of the tab order (the core's links serve the keyboard).
+    // Every bubble a link out of the tab order (the tabs and the core's link serve the keyboard).
     const hrefs = await bubbles(page).evaluateAll((els) =>
       els.map((el) => [el.tagName, el.getAttribute('href'), el.getAttribute('tabindex')]),
     )
@@ -138,28 +138,69 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(page).toHaveURL(site('biznes.localhost', href))
   })
 
-  test('the core names the department’s three products and links to them, no count', async ({
+  test('the core: only the department’s name, the whole core links to the department', async ({
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
     await ready(page)
     await pauseButton(page).click()
     const core = page.locator('#start').getByRole('tabpanel')
-    await expect(core).toContainText('Dział 1 z 5')
-    await expect(core).not.toContainText(/pozycj|poz\./)
-    const names = core.getByRole('list').getByRole('link')
-    await expect(names).toHaveCount(3)
-    await expect(names.first()).toHaveText('Posnet Ergo Online')
-    const hrefs = await names.evaluateAll((els) => els.map((el) => el.getAttribute('href')!))
-    const statuses = await page.evaluate(
-      (list) => Promise.all(list.map((href) => fetch(href).then((r) => r.status))),
-      hrefs,
-    )
-    expect(statuses.every((status) => status === 200)).toBe(true)
-    // The service department: KSeF, fiskalizacja and the Opieka IT page.
-    await tabs(page).nth(4).hover()
-    await expect(names).toHaveCount(3)
-    await expect(names.last()).toHaveAttribute('href', '/opieka-it')
+    const name = (await core.locator('.bzw-nm:not([data-out])').textContent())!.trim()
+    // No count, no product list, no „Zobacz dział” (runda 1811, D6).
+    await expect(core).not.toContainText(/Dział \d z \d|Zobacz dział|pozycj/)
+    await expect(core.getByRole('list')).toHaveCount(0)
+    const links = core.getByRole('link')
+    await expect(links).toHaveCount(1)
+    await expect(links.first()).toHaveAccessibleName(`Przejdź do działu: ${name}`)
+    const href = (await links.first().getAttribute('href'))!
+    expect(href).toMatch(/^\/oferta\?grupa=/)
+    // The wheel in the middle of the window, still (1280 × 720: scrolled to the edge, the core
+    // sits under the sticky header and the smooth scroll moves it under the pointer).
+    await core.evaluate((el) => el.scrollIntoView({ block: 'center', behavior: 'instant' }))
+    await expect
+      .poll(async () => {
+        const before = (await core.boundingBox())!.y
+        await page.waitForTimeout(100)
+        return Math.abs((await core.boundingBox())!.y - before)
+      })
+      .toBeLessThan(0.5)
+    // The link covers the whole core circle.
+    const [coreBox, linkBox] = await Promise.all([core.boundingBox(), links.first().boundingBox()])
+    expect(Math.abs(coreBox!.width - linkBox!.width)).toBeLessThan(2)
+    // The arrow shows only on hover.
+    const arrow = core.locator('.bzw-go')
+    await page.mouse.move(0, 0)
+    await expect(arrow).toHaveCSS('opacity', '0')
+    await links.first().hover()
+    await expect(arrow).toHaveCSS('opacity', '1')
+    // A click away from the name (upper part of the core) opens the department too.
+    await page.mouse.click(coreBox!.x + coreBox!.width / 2, coreBox!.y + coreBox!.height * 0.2)
+    await expect(page).toHaveURL(site('biznes.localhost', href))
+  })
+
+  test('the name changes with the arc: the new name lands as the arc does', async ({ page }) => {
+    await page.goto(site('biznes.localhost'))
+    await ready(page)
+    await pauseButton(page).click()
+    await tabs(page).nth(3).hover()
+    const core = page.locator('#start').getByRole('tabpanel')
+    const label = (await tabs(page).nth(3).locator('.bzw-lab').textContent())!.trim()
+    await expect(core.locator('.bzw-nm:not([data-out])')).toHaveText(label)
+    // One source of state: the tab, the arc and the name move on the same pick.
+    const delay = await core
+      .locator('.bzw-nm:not([data-out])')
+      .evaluate((el) => getComputedStyle(el).animationDelay)
+    expect(delay).toBe('0.62s')
+    // The name ends its 280 ms fade as the arc ends its 0.9 s sweep.
+    const [duration, sweep] = await Promise.all([
+      core
+        .locator('.bzw-nm:not([data-out])')
+        .evaluate((el) => parseFloat(getComputedStyle(el).animationDuration)),
+      page
+        .locator('#start .bzw-sweep')
+        .evaluate((el) => parseFloat(getComputedStyle(el).transitionDuration)),
+    ])
+    expect(Math.abs(0.62 + duration - sweep)).toBeLessThan(0.05)
   })
 
   for (const width of [1080, 1280, 1440]) {
@@ -253,7 +294,9 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     const core = page.locator('#start').getByRole('tabpanel')
     await tabs(page).nth(2).hover()
     await expect(tabs(page).nth(2)).toHaveAttribute('aria-selected', 'true')
-    const href = (await core.getByRole('link', { name: /Zobacz dział/ }).getAttribute('href'))!
+    const href = (await core
+      .getByRole('link', { name: /^Przejdź do działu/ })
+      .getAttribute('href'))!
     // Enter on the focused tab picks, never leaves the page.
     await tabs(page).nth(2).focus()
     await page.keyboard.press('ArrowRight')
@@ -276,12 +319,13 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
     await expect(tabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
     // The wheel's own panel: the plan section has tabs too (B3-1).
     const core = page.locator('#start').getByRole('tabpanel')
-    await expect(core).toContainText('Dział 5 z 5')
-    await expect(core).not.toContainText(/pozycj/)
-    await expect(core.getByRole('link', { name: /Zobacz dział/ })).toHaveAttribute(
-      'href',
-      /^\/oferta\?grupa=/,
-    )
+    await expect(core).not.toContainText(/Dział \d z \d|pozycj/)
+    // Tab goes on from the tabs to the core's link.
+    await page.keyboard.press('Tab')
+    const link = core.getByRole('link', { name: /^Przejdź do działu/ })
+    await expect(link).toBeFocused()
+    await expect(link).toHaveAttribute('href', /^\/oferta\?grupa=/)
+    await expect(core.locator('.bzw-go')).toHaveCSS('opacity', '1')
     await page.waitForTimeout(AUTO_MS + 1000)
     await expect(tabs(page).nth(4)).toHaveAttribute('aria-selected', 'true')
   })

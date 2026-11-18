@@ -12,7 +12,7 @@ Po paczce K3.1 (wgranej w #110, zbudowanej do K3c — #142) wizualizacja przesz�
 2. **Kategorie (D-K4-2).** 33 kategorie w 5 działach z `seed/prokombiznes/k4/slowniki-k4.json` zastępują 23 kategorie K3 („Komputery i monitory” → Laptopy, Komputery i All-in-One, Monitory, Tablety, Telefony; nowe: Klawiatury, myszy i słuchawki; Niszczarki; „Drukarki i urządzenia wielofunkcyjne” z podkategoriami). Slugi przez `CATEGORY_SLUGS`, 301 ze starych adresów.
 3. **Salony (D-K4-3).** Nowa kolekcja `Showrooms` (per tenant): slug, tytuł, marki[], bloki salonu 2.0 (`K4-FINAL.md` §6, wszystkie opcjonalne). `Partners` zostaje kartą marki (logo, status, opis, fakty). Dane salonów Lenovo/Dell przechodzą z `Partners.showroom` do `Showrooms`; pole usuwamy migracją po przeniesieniu (K4f-2).
 4. **Konfigurator (D-K4-4).** Dane Konfiguratora 3.0 w `BiznesSettings.wizard` (rozszerzenie z B10c): rodzaje firm, sytuacje, skale, potrzeby, presety, listy produktów, pytania z nadpisaniami, grupy zestawów, sceny. Silnik (`K35-ZMIANY.md` §1.2) jako czyste funkcje z testami; link do wyniku `?kr=firma|etap|skala|potrzeby|odpowiedzi`.
-5. **Motyw (D-K4-5).** Domyślnie jasny; bez dziedziczenia `prefers-color-scheme`; wybór w `localStorage` (odczyt/zapis w `try/catch`).
+5. **Motyw (D-K4-5).** Domyślnie jasny; bez dziedziczenia `prefers-color-scheme`; wybór w `localStorage` (odczyt/zapis w `try/catch`). **Zmienione 18.11.2026 — patrz „Zmiany po K4”.**
 6. **Opinie (D-K4-6).** Karty opinii z flagą widoczności; zaślepki nie są widoczne na produkcji.
 7. **Strony KSeF, ulga, automaty (D-K4-7).** `Pages` z blokami Biznesu (ADR-010). Teksty KSeF w dwóch wersjach z polem „od daty” (przełączenie 1.01.2027, strefa Europe/Warsaw).
 8. **Podział kart (D-K4-8).** Podział z K3.1 w repo wygrywa nad kartami niepodzielonymi w wizualizacji; odwołania w danych K4 przepisane wg `mapa-slugow-k4.json`.
@@ -78,3 +78,7 @@ Uzupełnienia BIZ-1 (Krystian, 08.11): dolny pasek telefonu = wspólny `TabBar` 
 - **Najczęściej wybierane:** 3 rzędy × 8, przewijane, bez zakładek. **Jak pracujemy:** bez „Zajmuje się” i inicjałów. **Od 2004:** bez rzędu Optivendi/COMEX, kafle ze zdjęciem produktu.
 - **/o-firmie** nowy układ, bez sekcji „Nie musisz wierzyć nam na słowo”; „Jawne dane firmy” → „Przypomnimy o przeglądzie”. **/kontakt:** 2 równe kafle numerów, 7 dni godzin, nowa mapa obszaru. **/marki:** Optivendi i COMEX w siatce „Pozostałe marki” ze znaczkiem statusu.
 - **Karty bez zdjęcia:** licencje z okładką „klucz licencji”, usługi z obrazem tego, czego dotyczą; Office 2024 rozdzielony („bezterminowa”, wsparcie do 10.2029).
+
+## Zmiany po K4
+
+- **18.11.2026 — D-K4-5 zastąpione przez ADR-028** (Krystian; pomysł szefa z 18.11). Biznes bez wyboru klienta nie jest już zawsze jasny: tryb Auto = ciemny przy ciemnym motywie systemu albo w nocy w Rabce (od zachodu do wschodu słońca, czas warszawski), w dzień jasny. Wybór klienta (`localStorage['pk-theme']`) nadal zawsze wygrywa. Przycisk mówi „Ciemny motyw” / „Jasny motyw”, wybór przechodzi między liniami parametrem `?motyw=` (`docs/design/wspolne/MOTYW-PASEK-LINII.md`).

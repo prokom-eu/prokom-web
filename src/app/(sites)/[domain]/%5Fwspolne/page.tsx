@@ -139,7 +139,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
                 <kbd>Ctrl K</kbd>
               </button>
             )}
-            {hasDarkTheme(tenant.line) && <ThemeToggle className={CAPSULE.iconButton} />}
+            {hasDarkTheme(tenant.line) && <ThemeToggle className={CAPSULE.themeButton} />}
             {tenant.line === 'software' && (
               <button type="button" className={CAPSULE.pillButton}>
                 Twój projekt <em className={CAPSULE.count}>2</em>

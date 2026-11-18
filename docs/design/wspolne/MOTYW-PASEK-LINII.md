@@ -15,7 +15,7 @@ Zamiast ikony księżyca/słońca — przycisk, który mówi, co się stanie: **
 - Pigułka 40 px wysokości, `border-radius: 999px`, obramowanie 1 px w kolorze obramowań kapsuły (`--cap-*`/`--nav-*` w prokom-web; odpowiednik w Tech), tło jak przyciski ikonowe kapsuły, tekst 13,5 px / 600, odstęp ikona–tekst 8 px, padding 0 14px 0 12px.
 - Ikona 18 px po lewej: księżyc przy „Ciemny motyw”, słońce przy „Jasny motyw”. Kolor ikony: akcent linii (`--nav-active-ink`), tekst: `--nav-ink`.
 - **Stała szerokość** równa dłuższej etykiecie („Ciemny motyw”), żeby kapsuła nie skakała przy zmianie.
-- 1081–1359 px (ciasna kapsuła Biznesu i Software): etykieta skrócona **„Ciemny” / „Jasny”** (pełna nazwa w `aria-label`). Poniżej 1081 px przycisk znika z kapsuły — motyw jest w arkuszu menu (§1.4).
+- 1081–1359 px (ciasna kapsuła): **sama ikona** (napis zostaje nazwą dostępną); od 1360 px napis, a gdy rząd kapsuły się przepełnia (np. Software z „Twój projekt”) — też ikona (ADR-028 „Rozstrzygnięcia przy wdrożeniu”; skrót „Ciemny”/„Jasny” nie mieścił się przy najdłuższym menu Instalacji). Poniżej 1081 px przycisk znika z kapsuły — motyw jest w arkuszu menu (§1.4).
 - Hover: tło o stopień jaśniejsze/ciemniejsze, ikona obraca się o 20°; focus: widoczna obwódka 2 px w akcencie linii.
 
 ### Brak mignięcia złego napisu
@@ -86,7 +86,7 @@ Tak, bez ciasteczek i bez zewnętrznych usług. Każda domena ma osobny `localSt
 
 ### 3.3. Odbieranie (strona, na którą klient wchodzi)
 - Skrypt w `<head>` (§2.1 pkt 1) czyta `motyw`, zapisuje wybór, ustawia `data-theme`.
-- **Usunięcie parametru z paska adresu dopiero po hydratacji**, przez natywne `window.history.replaceState(window.history.state, '', czystyAdres)` (Next.js od 14.1 synchronizuje natywne History API z routerem — **sprawdzić w dokumentacji zainstalowanej wersji** przed użyciem; nie `router.replace`, bo pobierałby RSC ponownie).
+- **Usunięcie parametru z paska adresu dopiero po hydratacji**, przez natywne `window.history.replaceState(null, '', czystyAdres)` (Next.js synchronizuje natywne History API z routerem — sprawdzone w dokumentacji Next 16.4; `null`, bo stan z `__NA` router pomija — ADR-028 „Rozstrzygnięcia przy wdrożeniu”; nie `router.replace`, bo pobierałby RSC ponownie).
 - Nieznana wartość parametru → ignorujemy i i tak usuwamy go z adresu.
 - Strony mają `canonical` bez parametru (już dziś) — nic więcej dla SEO.
 - Gaming: odbiera i **tylko usuwa** parametr (§5).

@@ -5,7 +5,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { BottomSheet } from '@/components/BottomSheet'
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
-import { useThemeChoice, type ThemeChoice } from '@/components/useTheme'
+import { autoThemeNow, useThemeChoice, type ThemeChoice } from '@/components/useTheme'
+import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import { onMenuRequest } from '@/lib/shared/menuOpen'
 import { requestSearch } from '@/lib/site/searchOpen'
@@ -43,31 +44,36 @@ const THEMES: { value: ThemeChoice; label: string }[] = [
   { value: 'auto', label: 'Auto' },
 ]
 
+/** „Motyw strony” with Jasny / Ciemny / Auto (spec §1.4); the change opens in the circle too. */
 function ThemeChoiceSwitch() {
   const [choice, setChoice] = useThemeChoice()
   return (
-    <div
-      role="group"
-      aria-labelledby="menu-theme-label"
-      className="flex items-center justify-between gap-3 text-sm font-bold"
-    >
-      <span id="menu-theme-label">Motyw</span>
-      <span className="flex rounded-xl bg-surface-2 p-[3px]">
-        {THEMES.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            aria-pressed={choice === option.value}
-            onClick={() => setChoice(option.value)}
-            className={cx(
-              'min-h-10 rounded-[9px] px-3 focus-visible:outline-2 focus-visible:outline-accent-text',
-              choice === option.value ? 'bg-card text-ink shadow-raised' : 'text-ink-2',
-            )}
-          >
-            {option.label}
-          </button>
-        ))}
-      </span>
+    <div role="group" aria-labelledby="menu-theme-label" aria-describedby="menu-theme-note">
+      <div className="flex items-center justify-between gap-3 text-sm font-bold">
+        <span id="menu-theme-label">Motyw strony</span>
+        <span className="flex rounded-xl bg-surface-2 p-[3px]">
+          {THEMES.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              aria-pressed={choice === option.value}
+              onClick={(event) => {
+                const theme = option.value === 'auto' ? autoThemeNow() : option.value
+                revealTheme(theme, () => setChoice(option.value), centreOf(event.currentTarget))
+              }}
+              className={cx(
+                'min-h-10 rounded-[9px] px-3 focus-visible:outline-2 focus-visible:outline-accent-text',
+                choice === option.value ? 'bg-card text-ink shadow-raised' : 'text-ink-2',
+              )}
+            >
+              {option.label}
+            </button>
+          ))}
+        </span>
+      </div>
+      <p id="menu-theme-note" className="mt-1.5 text-xs text-ink-2">
+        Auto: w nocy ciemny, w dzień jak ustawienia telefonu.
+      </p>
     </div>
   )
 }
