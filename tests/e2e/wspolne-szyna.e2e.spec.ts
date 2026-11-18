@@ -162,3 +162,56 @@ test('on a wide monitor the rail stays next to the capsule, not at the window ed
     else expect(Math.round(box.capLeft - (box.left + 64))).toBe(gap)
   }
 })
+
+// WSP-M PR 2 (ADR-028, MOTYW-PASEK-LINII §6): the theme entry above „Do góry” on every line.
+test.describe('side rail — theme entry (1440 px)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  test('folded: the icon; open: the action and Jasny · Ciemny · Auto', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z')) // by day: Auto is light
+    await page.emulateMedia({ colorScheme: 'light' })
+    await page.goto(site('software.localhost', '/_wspolne'))
+    const entry = rail(page).locator('[data-rail-theme]')
+    const choices = rail(page).getByRole('group', { name: 'Motyw strony' })
+    await expect(entry).toBeAttached()
+    await expect(choices).toHaveCSS('opacity', '0')
+
+    await openRail(page)
+    // Software starts dark (ADR-015 v24), so the action offers the light theme.
+    await expect(rail(page).getByRole('button', { name: 'Jasny motyw' })).toBeVisible()
+    await expect(choices).toHaveCSS('opacity', '1')
+    await expect(choices.getByRole('button', { name: 'Auto' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    await expect(async () => {
+      await choices.getByRole('button', { name: 'Jasny' }).click()
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'light', { timeout: 1000 })
+    }).toPass()
+    await expect(choices.getByRole('button', { name: 'Jasny' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+    await expect(rail(page).getByRole('button', { name: 'Ciemny motyw' })).toBeVisible()
+    expect(await page.evaluate(() => localStorage.getItem('pk-theme'))).toBe('light')
+  })
+
+  for (const [host, subpage] of [
+    ['biznes.localhost', '/kontakt'],
+    ['instalacje.localhost', '/monitoring'],
+    ['software.localhost', '/kontakt'],
+  ] as const) {
+    test(`${host}: on the home page and on ${subpage}`, async ({ page }) => {
+      for (const path of ['/', subpage]) {
+        await page.goto(site(host, path))
+        await expect(page.locator('[data-site-rail] [data-rail-theme]'), path).toBeAttached()
+      }
+    })
+  }
+
+  test('prokom.localhost: on the home page (subpages get the rail in HUB-R1)', async ({ page }) => {
+    await page.goto(site('prokom.localhost'))
+    await expect(page.locator('[data-site-rail] [data-rail-theme]')).toBeAttached()
+  })
+})

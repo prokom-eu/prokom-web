@@ -990,6 +990,49 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   font-size: 12px;
   opacity: 0.6;
 }
+/* Theme entry (`RailTheme`, ADR-028 §6): the action as a rail row, under it Jasny · Ciemny ·
+   Auto, shown like the labels — only while the rail is open. */
+.srail__theme {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 2px;
+}
+.srail__item .theme-toggle__icon {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-text);
+}
+.srail__choices {
+  display: flex;
+  gap: 4px;
+  margin: 0 8px 4px 47px;
+  padding: 3px;
+  border-radius: 11px;
+  background: var(--surface-2);
+  opacity: 0;
+  transition: opacity var(--dur-hover);
+}
+.srail:is(:hover, :focus-within):not([data-collapsed]) .srail__choices {
+  opacity: 1;
+}
+.srail__choices button {
+  flex: 1;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.srail__choices button[aria-pressed='true'] {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent);
+}
 .srail__sep {
   flex: none;
   height: 1px;

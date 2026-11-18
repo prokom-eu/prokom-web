@@ -29,6 +29,8 @@ import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { activeSection, railLineEnd, railProgress } from '@/lib/site/railActive'
 import { requestSearch } from '@/lib/site/searchOpen'
 
+import { RailTheme } from './RailTheme'
+
 export type RailAction = {
   label: string
   href: string
@@ -48,6 +50,11 @@ export type SiteRailProps = {
   onHome: boolean
   /** The line's action at the bottom (`shared.tabBar.center`), spec §5.1 dodatek 1. */
   action?: RailAction | null
+  /**
+   * The theme entry above „Do góry” (ADR-028, MOTYW-PASEK-LINII §6). On by default: every line
+   * with a rail has a dark design; `false` for one that does not.
+   */
+  themes?: boolean
 }
 
 const HOME_OPEN_KEY = 'pk-rail-home'
@@ -105,7 +112,7 @@ function focusSection(section: HTMLElement) {
  * the tracked list ends at the section being read. Folded
  * to 64 px; opens to 248 px on hover or keyboard focus (`clip-path`, 120 / 250 ms), Esc folds it.
  */
-export function SiteRail({ sections, onHome, action }: SiteRailProps) {
+export function SiteRail({ sections, onHome, action, themes = true }: SiteRailProps) {
   const ids = sections.map((section) => section.anchorId).join(' ')
   const pathname = usePathname()
   // The page is read after each navigation (in D3 the rail lives in the line's frame, which stays
@@ -445,6 +452,12 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
                 {count > 0 ? `${action.countLabel}: ${count}` : ''}
               </span>
             )}
+          </>
+        )}
+        {themes && (
+          <>
+            <span className="srail__sep" aria-hidden="true" />
+            <RailTheme />
           </>
         )}
         <button
