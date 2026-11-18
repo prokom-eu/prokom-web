@@ -1641,6 +1641,7 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   transition: none;
 }
 .bbar-item {
+  --lc: var(--lc-light);
   position: relative;
   display: flex;
   animation: bbar-in 220ms var(--ease-out) calc(var(--i, 0) * 30ms) backwards;
@@ -1749,6 +1750,9 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   margin-right: -6px;
   background: var(--cap-border);
   content: '';
+}
+:root[data-theme='dark'] .bbar-item {
+  --lc: var(--lc-dark);
 }
 /* Revealed by a clip, not by opacity: half-transparent text in the first 400 ms would fail the
    contrast checks of axe (and of a visitor's eye). */
