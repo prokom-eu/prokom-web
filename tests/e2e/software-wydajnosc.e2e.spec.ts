@@ -213,7 +213,8 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
 
 /**
  * 271 631 B (gzip, 29 files of `/_next/static/`, preloads included) measured 13.11.2026 on the
- * production build of SWA14 (a, b, c), plus 5 % — the same number in docs/jakosc.md
- * („Budżety płynności Software”).
+ * production build of SWA14 (a, b, c), plus 5 %; plus 2 000 B for the shared theme of all lines
+ * (ADR-028, WSP-M 18.11: the theme button, `ThemeCarry`, the rail entry and the brand bar pill —
+ * ~1.9 kB gz together). The same number in docs/jakosc.md („Budżety płynności Software”).
  */
-const JS_BUDGET_BYTES = 285_200
+const JS_BUDGET_BYTES = 287_200

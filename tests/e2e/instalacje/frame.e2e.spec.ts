@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { api, loginAsAdmin, site, tenantId } from '../helpers'
+import { api, hydrated, loginAsAdmin, site, tenantId } from '../helpers'
 
 // I1: smoke test of the Instalacje line — its own frame, the theme from the system (ADR-I003 §6),
 // and invisibility of an inactive tenant (ADR-I001 §6). Data from `pnpm seed`. The line-only
@@ -31,7 +31,8 @@ test.describe('Instalacje frame', () => {
     await page.goto(site(HOST))
     expect(await page.evaluate(surface)).toBe('#f4f5f1')
 
-    // A system change while on the page is applied by `ThemeCarry` (spec §2.3).
+    // A system change while on the page is applied by `ThemeCarry` (spec §2.3) — once hydrated.
+    await hydrated(page.locator('[data-site-header] [data-theme-toggle]'))
     await page.emulateMedia({ colorScheme: 'dark' })
     await expect.poll(() => page.evaluate(surface)).toBe('#101412')
   })
