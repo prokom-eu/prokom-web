@@ -415,7 +415,11 @@ export function DepartmentWheel({ groups, hint, planLabel }: Props) {
             className="bzw-hit"
             aria-label={`Przejdź do działu: ${current.label}`}
           >
-            <span key={state.run} className="bzw-cc" data-swap={state.run > 0 ? '' : undefined}>
+            <span
+              key={state.run}
+              className="bzw-cc"
+              data-swap={state.run > 0 && state.prev !== state.active ? '' : undefined}
+            >
               {state.run > 0 && prev && state.prev !== state.active && (
                 <span
                   className="bzw-nm"

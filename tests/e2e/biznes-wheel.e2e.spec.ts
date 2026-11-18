@@ -181,6 +181,16 @@ test.describe('Biznes hero wheel (KOLO-HERO v3)', () => {
       .locator('.bzw-nm:not([data-out])')
       .evaluate((el) => getComputedStyle(el).animationDelay)
     expect(delay).toBe('0.62s')
+    // The name ends its 280 ms fade as the arc ends its 0.9 s sweep.
+    const [duration, sweep] = await Promise.all([
+      core
+        .locator('.bzw-nm:not([data-out])')
+        .evaluate((el) => parseFloat(getComputedStyle(el).animationDuration)),
+      page
+        .locator('#start .bzw-sweep')
+        .evaluate((el) => parseFloat(getComputedStyle(el).transitionDuration)),
+    ])
+    expect(Math.abs(0.62 + duration - sweep)).toBeLessThan(0.05)
   })
 
   for (const width of [1080, 1280, 1440]) {

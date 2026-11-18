@@ -403,9 +403,7 @@
     inset 0 0 0 1px color-mix(in srgb, var(--c-white) 8%, transparent);
   transition:
     --tint 0.7s var(--ease-out),
-    translate 0.6s var(--ease-out),
-    scale 0.22s var(--ease-out),
-    box-shadow 0.22s var(--ease-out);
+    translate 0.6s var(--ease-out);
 }
 /* The link fills the core: a click anywhere inside the circle opens the department. */
 [data-line='biznes'] .bzw-hit {
@@ -478,14 +476,9 @@
   color: var(--surface-dark);
   background: var(--c-white);
   opacity: 0;
-  translate: 0 calc(-4 * var(--u));
-  transition:
-    opacity 0.22s var(--ease-out),
-    translate 0.22s var(--ease-out);
 }
 [data-line='biznes'] .bzw-hit:focus-visible .bzw-go {
   opacity: 1;
-  translate: 0 0;
 }
 [data-line='biznes'] .bzw-go svg {
   width: calc(12 * var(--u));
@@ -576,12 +569,13 @@
   }
   [data-line='biznes'] .bzw-hit:hover .bzw-go {
     opacity: 1;
-    translate: 0 0;
   }
 }
 /* Touch: the core gives way under the finger. */
-[data-line='biznes'] .bzw-core:has(.bzw-hit:active) {
-  scale: 0.97;
+@media (hover: none) {
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:active) {
+    scale: 0.97;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -832,6 +826,25 @@
      into focus in 280 ms, ending as the arc lands (`.bzw-sweep`, 0.9 s; same `state.run`). */
   [data-line='biznes'] .bzw-core {
     --swap-at: 0.62s;
+    transition:
+      --tint 0.7s var(--ease-out),
+      translate 0.6s var(--ease-out),
+      scale 0.22s var(--ease-out),
+      box-shadow 0.22s var(--ease-out);
+  }
+  [data-line='biznes'] .bzw-go {
+    translate: 0 calc(-4 * var(--u));
+    transition:
+      opacity 0.22s var(--ease-out),
+      translate 0.22s var(--ease-out);
+  }
+  [data-line='biznes'] :is(.bzw-hit:hover, .bzw-hit:focus-visible) .bzw-go {
+    translate: 0 0;
+  }
+  /* The ring waits while the pointer is on the core: a click opens the department whose name
+     the visitor sees, never the next one mid-switch (review BZ-R1). */
+  [data-line='biznes'] .bzw-core:has(.bzw-hit:hover) .bzw-prog {
+    animation-play-state: paused;
   }
   [data-line='biznes'] .bzw-nm[data-out] {
     display: block;
