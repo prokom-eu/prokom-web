@@ -135,6 +135,9 @@ export default buildConfig({
     tasks: [inquiryRetentionTask, videoAvailabilityTask],
   },
   secret: env.PAYLOAD_SECRET,
+  // Audit AB4 (W-01): with serverURL Payload accepts the session cookie only from the panel's
+  // origin (CSRF). Not locally: the panel runs on panel.localhost:<port> over http.
+  ...(env.SITE_ENV !== 'local' && { serverURL: `https://${env.PANEL_HOST}` }),
   // Production: Payload's own lines (migrations, jobs, errors) in the same JSON shape as
   // `lib/log` (`level` as text, ISO `time`, `msg`); locally the readable default stays.
   ...(env.NODE_ENV === 'production' && {

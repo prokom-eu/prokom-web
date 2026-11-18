@@ -43,6 +43,11 @@ export const Users: CollectionConfig = {
     defaultColumns: ['email', 'role'],
   },
   auth: {
+    // Audit AB4 (W-01): the session cookie only over https on staging and production.
+    cookies: {
+      secure: process.env.SITE_ENV === 'production' || process.env.SITE_ENV === 'staging',
+      sameSite: 'Lax',
+    },
     maxLoginAttempts: 5,
     lockTime: 15 * 60 * 1000,
   },
