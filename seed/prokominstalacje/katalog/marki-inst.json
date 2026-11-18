@@ -1,5 +1,5 @@
 {
- "_opis": "Marki katalogu prokominstalacje.pl (INST-K0, 18.11.2026), format marki-k4.json. Statusów brak — PRO-KOM nie ma u tych marek statusu autoryzacji (nigdy „partner” bez potwierdzenia). Logo: TODO(krystian) — z materiałów partnera Eltrox / producentów. KSC: Hikvision i Dahua informacyjnie, bez rekomendacji dla gmin.",
+ "_opis": "Marki katalogu prokominstalacje.pl (INST-K0, 18.11.2026), format marki-k4.json. Statusów brak — PRO-KOM nie ma u tych marek statusu autoryzacji (nigdy „partner” bez potwierdzenia). Logo: TODO(krystian) — z materiałów partnera Eltrox / producentów. KSC: Hikvision i Dahua informacyjnie, bez rekomendacji dla gmin. BCS: salon po sprawdzeniu kart u producenta (dziś wszystkie „do sprawdzenia”).",
  "marki": {
   "Dahua": {
    "opis_krotki": "Kamery IP i HD, rejestratory, wideodomofony, kontrola dostępu",
@@ -7,7 +7,7 @@
    "salon": true,
    "salon_klucz": "Dahua",
    "logo": null,
-   "pozycji_w_wizualizacji": 27
+   "pozycji_w_wizualizacji": 28
   },
   "Hikvision": {
    "opis_krotki": "Kamery IP i HD, rejestratory, wideodomofony, kontrola dostępu",
@@ -15,7 +15,7 @@
    "salon": true,
    "salon_klucz": "Hikvision",
    "logo": null,
-   "pozycji_w_wizualizacji": 27
+   "pozycji_w_wizualizacji": 25
   },
   "Satel": {
    "opis_krotki": "Alarmy przewodowe i bezprzewodowe ABAX 2",
@@ -23,7 +23,7 @@
    "salon": true,
    "salon_klucz": "Satel",
    "logo": null,
-   "pozycji_w_wizualizacji": 17
+   "pozycji_w_wizualizacji": 19
   },
   "Ajax": {
    "opis_krotki": "Alarmy bezprzewodowe z aplikacją",
@@ -31,7 +31,7 @@
    "salon": true,
    "salon_klucz": "Ajax",
    "logo": null,
-   "pozycji_w_wizualizacji": 12
+   "pozycji_w_wizualizacji": 20
   },
   "Neomounts": {
    "opis_krotki": "Uchwyty TV, sufitowe i stojaki",
@@ -52,10 +52,10 @@
   "BCS": {
    "opis_krotki": "Kamery i rejestratory polskiej marki",
    "status": null,
-   "salon": true,
-   "salon_klucz": "BCS",
+   "salon": false,
+   "salon_klucz": null,
    "logo": null,
-   "pozycji_w_wizualizacji": 7
+   "pozycji_w_wizualizacji": 0
   },
   "Turtle AV": {
    "opis_krotki": "Przesył obrazu po sieci",
@@ -119,7 +119,7 @@
    "salon": false,
    "salon_klucz": null,
    "logo": null,
-   "pozycji_w_wizualizacji": 1
+   "pozycji_w_wizualizacji": 0
   }
  },
  "grupy": [
@@ -164,8 +164,7 @@
   "Dahua",
   "Hikvision",
   "Satel",
-  "Ajax",
-  "BCS"
+  "Ajax"
  ],
  "liczba_marek": 15,
  "zasady_statusow": {
