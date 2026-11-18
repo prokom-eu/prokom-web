@@ -497,14 +497,8 @@ export function InquiryPage({
                     title: callback ?? 'Oddzwaniamy',
                     text: `w godzinach pracy${hours ? `, ${hours}` : ''}. Dopytamy o szczegóły`,
                   },
-                  {
-                    title: 'Wycena na mailu',
-                    text: 'z wariantami do wyboru i terminem realizacji',
-                  },
-                  {
-                    title: 'Dostawa i wdrożenie',
-                    text: 'konfiguracja, fiskalizacja i szkolenie u Ciebie',
-                  },
+                  { title: ui.stepQuote[0], text: ui.stepQuote[1] },
+                  { title: ui.stepDelivery[0], text: ui.stepDelivery[1] },
                 ].map((step, i, all) => (
                   <li key={step.title} className="relative grid grid-cols-[34px_1fr] gap-3 pb-4">
                     {i < all.length - 1 && (

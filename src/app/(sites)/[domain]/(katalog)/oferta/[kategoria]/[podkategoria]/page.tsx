@@ -75,6 +75,7 @@ export default async function SubcategoryPage({ params }: Props) {
   if (!found) notFound()
   return (
     <CategoryPageView
+      forFirms={tenant.line !== 'instalacje'}
       tenantId={tenant.id}
       origin={await requestOrigin()}
       index={found.index}

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
@@ -51,6 +52,8 @@ type Props = {
   phone: { label: string; href: string } | null
   /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
   phoneRequired?: boolean
+  /** Catalog line (ADR-029): its confirmation and help link; Biznes when left out. */
+  line?: string
 }
 
 const QTY_BUTTON =
@@ -63,7 +66,8 @@ const QTY_BUTTON =
  * Names and pictures come from the catalog index; once it loads, products the catalog no
  * longer has leave the list (spec. §8.1).
  */
-export function CartDrawer({ phone, phoneRequired = false }: Props) {
+export function CartDrawer({ phone, phoneRequired = false, line }: Props) {
+  const ui = CATALOG_UI[catalogTextLine(line ?? 'biznes')]
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -191,7 +195,7 @@ export function CartDrawer({ phone, phoneRequired = false }: Props) {
             <p className="max-w-[34ch]">
               {/* K4-FINAL §7: the confirmation; by e-mail when no phone was given. */}
               {sent.phoned
-                ? 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.'
+                ? ui.sentPhoned
                 : 'Odpowiemy e-mailem w godzinach pracy i przygotujemy ofertę.'}
               {sent.emailed && ' Kopię listy wysłaliśmy na Twój e-mail.'}
             </p>
@@ -221,10 +225,10 @@ export function CartDrawer({ phone, phoneRequired = false }: Props) {
                 Przeglądaj ofertę
               </Link>
               <Link
-                href="/konfigurator"
+                href={ui.helpHref}
                 className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
               >
-                Konfigurator
+                {line === 'instalacje' ? ui.helpLabel : 'Konfigurator'}
               </Link>
             </div>
             <Link href="/zapytanie" className="font-extrabold text-accent-text">

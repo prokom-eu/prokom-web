@@ -35,6 +35,13 @@ export type CatalogUi = {
   brandsLead: string
   brandsMissing: string
   brandsOther: string
+  /** Drawer confirmation when a phone was given. */
+  sentPhoned: string
+  /** Steps after sending: the quote and the delivery. */
+  stepQuote: [string, string]
+  stepDelivery: [string, string]
+  /** Eyebrow of the product's dark band. */
+  productCtaEyebrow: string
 }
 
 export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
@@ -56,6 +63,10 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
       'Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy u dystrybutorów.',
     brandsOther:
       'Współpracujemy z dystrybutorami sprzętu i oprogramowania w całej Polsce. Sprawdzimy dostępność i przygotujemy ofertę.',
+    sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
+    stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
+    stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
+    productCtaEyebrow: 'Wycena na mailu',
   },
   instalacje: {
     searchPlaceholder:
@@ -76,6 +87,11 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
       'Montujemy też sprzęt innych marek. Napisz, czego szukasz, a dobierzemy model do Twojego obiektu.',
     brandsOther:
       'Masz już kamery albo alarm innej marki? Sprawdzimy, co da się z nimi połączyć, i zaproponujemy rozbudowę.',
+    sentPhoned:
+      'Oddzwonimy w godzinach pracy, żeby ustalić szczegóły montażu i przygotować ofertę.',
+    stepQuote: ['Oferta z montażem', 'po rozmowie o obiekcie, z wariantami sprzętu'],
+    stepDelivery: ['Montaż i konfiguracja', 'aplikacja w telefonie ustawiona przy odbiorze'],
+    productCtaEyebrow: 'Oferta z montażem',
   },
 }
 

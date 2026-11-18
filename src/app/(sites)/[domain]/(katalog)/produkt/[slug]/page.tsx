@@ -197,6 +197,8 @@ export default async function ProductPage({ params }: Props) {
   const video = product.videos.length > 0
   const hasVersions = variantNames.length >= 2
 
+  // Instalacje shows no list of sources (spec. Instalacji §2); they stay in the panel.
+  const sources = tenant.line === 'instalacje' ? [] : product.sources
   const sections: NavSection[] = [
     ...(tiles.length > 0 ? [{ id: ID.overview, label: 'Przegląd' }] : []),
     { id: ID.about, label: 'Opis' },
@@ -206,7 +208,7 @@ export default async function ProductPage({ params }: Props) {
     ...(hasVersions ? [{ id: ID.versions, label: 'Wersje' }] : []),
     ...(bundles.length > 0 ? [{ id: ID.bundles, label: 'Zestawy' }] : []),
     ...(product.faq.length > 0 ? [{ id: ID.faq, label: 'FAQ' }] : []),
-    ...(product.sources.length > 0 ? [{ id: ID.sources, label: 'Źródła' }] : []),
+    ...(sources.length > 0 ? [{ id: ID.sources, label: 'Źródła' }] : []),
   ]
 
   const crumbs: Crumb[] = [
@@ -252,7 +254,7 @@ export default async function ProductPage({ params }: Props) {
       {/* „Ostatnio oglądane” of the search — only with the panel flag on (spec §5.1 dodatek 6). */}
       <RecordRecent
         enabled={shared?.company.recentlyViewed ?? false}
-        line="biznes"
+        line={tenant.line}
         item={{ title: product.heading, href: productHref(product.slug), kind: 'Produkt' }}
       />
       {jsonLd.map((data, position) => (
@@ -364,7 +366,7 @@ export default async function ProductPage({ params }: Props) {
           }
         />
         <ProductFaq id={ID.faq} faq={product.faq} phone={phone} />
-        <ProductSources id={ID.sources} sources={product.sources} checkedAt={product.checkedAt} />
+        <ProductSources id={ID.sources} sources={sources} checkedAt={product.checkedAt} />
         <ProductCtaBand phone={phone} line={tenant.line} />
       </div>
     </ProductConfigProvider>

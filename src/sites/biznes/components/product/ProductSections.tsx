@@ -438,7 +438,7 @@ export function ProductCtaBand({
         <div className="max-w-[40rem]">
           <p className="mb-3 flex items-center gap-2.5 text-xs font-extrabold tracking-[0.12em] text-accent-on-dark uppercase">
             <span aria-hidden="true" className="h-0.5 w-4 rounded-full bg-current" />
-            Wycena na mailu
+            {ui.productCtaEyebrow}
           </p>
           <h2 id="pas-cta" className={BZ_H2}>
             {ui.productCtaTitle}

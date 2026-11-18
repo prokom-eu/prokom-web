@@ -4,6 +4,7 @@ import {
   getInstalacjeRealizations,
 } from '@/lib/instalacje/data'
 import { getCatalogIndex } from '@/lib/catalog/data'
+import { catalogTag } from '@/lib/catalog/tags'
 import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { buildInstSearchIndex } from '@/lib/instalacje/searchIndex'
 import { cacheQuery } from '@/lib/cache'
@@ -30,7 +31,8 @@ const EXTRA_PAGES = [
  */
 export const getInstSearchIndex = (tenantId: number): Promise<LineSearchEntry[]> =>
   cacheQuery(() => loadInstSearchIndex(tenantId), ['inst-search-index', String(tenantId)], {
-    tags: [postsTag(tenantId), `tenant:${tenantId}:inst-search`],
+    // The catalog tag too: a card published in the panel shows up in the search at once.
+    tags: [postsTag(tenantId), `tenant:${tenantId}:inst-search`, catalogTag(tenantId)],
     revalidate: PAGE_CACHE_SECONDS,
   })()
 

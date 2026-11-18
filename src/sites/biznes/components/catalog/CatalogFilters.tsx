@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, type ReactNode } from 'react'
 import { CATALOG_UI, type CatalogUi } from '@/lib/catalog/texts'
+import { filterPanelParts } from '@/lib/catalog/filters'
 
 import { cx } from '@/components/ui/cx'
 import { brandPageHref } from '@/lib/catalog/brand'
@@ -172,8 +173,10 @@ export function CatalogFilters({
       a.name.localeCompare(b.name, 'pl'),
   )
   const industries = shown(index.industries, facets.industries, state.industries)
-  const kindsWithItems = SEGMENT.filter((kind) => kind.value && (facets.kinds[kind.value] ?? 0) > 0)
-  const showKinds = kindsWithItems.length > 1 || state.kind !== null
+  const parts = filterPanelParts(index)
+  const showKinds = parts.kinds
+  const showNew = parts.isNew
+  const showIndustries = parts.industries
   // One brand chosen → „Zobacz markę” to its page or salon (K3-KATALOG §6).
   const chosenBrand =
     state.brands.length === 1 ? index.brands.find((b) => b.slug === state.brands[0]) : undefined
@@ -233,7 +236,7 @@ export function CatalogFilters({
         </div>
       )}
 
-      {(facets.isNew > 0 || state.isNew) && (
+      {showNew && (
         <label className="mt-3 flex min-h-12 cursor-pointer items-center gap-3">
           <input
             type="checkbox"
@@ -351,7 +354,7 @@ export function CatalogFilters({
         )}
       </FilterGroup>
 
-      {(industries.length > 0 || state.industries.length > 0) && (
+      {showIndustries && (
         <FilterGroup
           title="Branża"
           icon={ICONS.industry}
