@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-import { hydrated, site } from './helpers'
+import { site } from './helpers'
 
 // WSP-M PR 3 (MOTYW-PASEK-LINII §4): the brand bar „premium” — the pill following the pointer and
 // keyboard focus, the line description in a tooltip, the height unchanged. Needs `pnpm seed`.
@@ -36,7 +36,7 @@ test.describe('brand bar (1440 px)', () => {
     test(`${host}: 38 px high, the pill rests under the current line`, async ({ page }) => {
       await page.goto(site(host))
       await expect(page.locator('[data-brand-bar]')).toHaveCSS('height', '38px')
-      await hydrated(pill(page))
+      await expect(pill(page)).toHaveAttribute('data-on', '', { timeout: 15_000 })
       await expect(pill(page)).toHaveAttribute('data-on', '')
       await expect
         .poll(async () => {
@@ -55,7 +55,7 @@ test.describe('brand bar (1440 px)', () => {
     page,
   }) => {
     await page.goto(site('biznes.localhost'))
-    await hydrated(pill(page))
+    await expect(pill(page)).toHaveAttribute('data-on', '', { timeout: 15_000 })
     const software = bar(page).getByRole('link', { name: 'Software' })
     await software.hover()
     await expect
@@ -86,7 +86,7 @@ test.describe('brand bar (1440 px)', () => {
 
   test('keyboard focus moves the pill and shows the tooltip at once', async ({ page }) => {
     await page.goto(site('biznes.localhost'))
-    await hydrated(pill(page))
+    await expect(pill(page)).toHaveAttribute('data-on', '', { timeout: 15_000 })
     const prokom = bar(page).getByRole('link', { name: 'PRO-KOM' })
     // Tab from the top (skip link first): real keyboard focus, so `:focus-visible` applies.
     await expect(async () => {

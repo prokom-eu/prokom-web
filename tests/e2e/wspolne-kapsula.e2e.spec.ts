@@ -40,15 +40,16 @@ for (const host of HOSTS) {
         })
         expect(inside).toBe(true)
         // One row of menu entries.
-        const tops = await page.locator('.cap__nav .cap-link').evaluateAll((links) => [
-          ...new Set(
+        const tops = await page
+          .locator('[data-site-header] .cap__nav .cap-link')
+          .evaluateAll((links) =>
             links
               // Entries a line hides on narrower desktops (the hub's „O firmie”) are not in the row.
               .filter((l) => (l as HTMLElement).offsetParent)
-              .map((l) => Math.round(l.getBoundingClientRect().top)),
-          ),
-        ])
-        expect(tops.length).toBeLessThanOrEqual(1)
+              .map((l) => l.getBoundingClientRect().top),
+          )
+        // One row: a pill entry (Software „Kreator”) sits a few px off; a second row is ~40 px.
+        expect(Math.max(...tops) - Math.min(...tops)).toBeLessThan(12)
 
         // Scrolled: the smaller capsule must hold everything too.
         await page.mouse.wheel(0, 900)

@@ -128,6 +128,8 @@ test.describe('the choice between our domains (spec §3)', () => {
       .getByRole('link', { name: /Software/ })
       .first()
     await hydrated(link)
+    // `ThemeCarry` listens after hydration (an effect): a click before that is a plain link.
+    await expect(page.locator('html[data-theme-carry]')).toBeAttached()
     expect(await link.getAttribute('href')).not.toContain('motyw')
     await link.click()
 

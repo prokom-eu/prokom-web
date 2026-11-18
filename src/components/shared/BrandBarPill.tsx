@@ -29,18 +29,23 @@ export function BrandBarPill() {
       element.style.width = `${line.offsetWidth}px`
       element.setAttribute('data-on', '')
     }
+    // The line under the pointer: a re-measure (fonts, zoom) must not pull the pill from it.
+    let pointed: HTMLElement | null = null
     const home = () =>
       show(
-        lineOf(nav.contains(document.activeElement) ? document.activeElement : null) ??
+        pointed ??
+          lineOf(nav.contains(document.activeElement) ? document.activeElement : null) ??
           nav.querySelector<HTMLElement>('.bbar-line[aria-current="page"]'),
       )
     const onOver = (event: Event) => {
       const line = lineOf(event.target)
       if (!line) return
+      if (event.type === 'pointerover') pointed = line
       nav.removeAttribute('data-tip-off')
       show(line)
     }
     const onOut = (event: FocusEvent | PointerEvent) => {
+      if (event.type === 'pointerleave') pointed = null
       if (!nav.contains(event.relatedTarget as Node | null)) home()
     }
     const onKey = (event: KeyboardEvent) => {
