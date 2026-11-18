@@ -123,6 +123,7 @@ import * as migration_20261115_035438_biznes_linie from './20261115_035438_bizne
 import * as migration_20261115_121803_biznes_kategoria_it from './20261115_121803_biznes_kategoria_it'
 import * as migration_20261115_201236_biznes_teksty_1511 from './20261115_201236_biznes_teksty_1511'
 import * as migration_20261115_222903_hub_kontakt_zakopane from './20261115_222903_hub_kontakt_zakopane'
+import * as migration_20261118_203040_inst_katalog_teksty from './20261118_203040_inst_katalog_teksty'
 
 export const migrations = [
   {
@@ -749,5 +750,10 @@ export const migrations = [
     up: migration_20261115_222903_hub_kontakt_zakopane.up,
     down: migration_20261115_222903_hub_kontakt_zakopane.down,
     name: '20261115_222903_hub_kontakt_zakopane',
+  },
+  {
+    up: migration_20261118_203040_inst_katalog_teksty.up,
+    down: migration_20261118_203040_inst_katalog_teksty.down,
+    name: '20261118_203040_inst_katalog_teksty',
   },
 ]

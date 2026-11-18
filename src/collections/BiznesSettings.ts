@@ -6,6 +6,7 @@ import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateIconPath } from '../lib/catalog/svg'
 import { validateWizard } from '../lib/catalog/wizard'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
+import { catalogTextsGroup } from '../fields/catalogTexts'
 import { brandFilter } from './catalogFields'
 import { searchGroup } from './searchGroup'
 
@@ -32,6 +33,7 @@ export const BiznesSettings: CollectionConfig = {
   hooks: { beforeValidate: [onlyBiznesTenant], ...catalogRevalidationHooks },
   fields: [
     searchGroup,
+    catalogTextsGroup('biznes'),
     {
       name: 'news',
       label: 'Aktualności',

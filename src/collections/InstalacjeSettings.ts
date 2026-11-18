@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { catalogTextsGroup } from '../fields/catalogTexts'
 import { adminOnly } from '../lib/auth/access'
+import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { SETTINGS_DEFAULTS } from '../lib/instalacje/options'
 import { onlyLineTenant } from '../lib/tenant/onlyLine'
 
@@ -23,6 +25,8 @@ export const InstalacjeSettings: CollectionConfig = {
     beforeValidate: [
       onlyLineTenant('instalacje', 'Ustawienia Instalacji mają tylko strony linii Instalacje.'),
     ],
+    // The catalog texts are read with the catalog index (`lib/catalog/data`).
+    ...catalogRevalidationHooks,
   },
   fields: [
     {
@@ -101,5 +105,6 @@ export const InstalacjeSettings: CollectionConfig = {
         },
       ],
     },
+    catalogTextsGroup('instalacje'),
   ],
 }
