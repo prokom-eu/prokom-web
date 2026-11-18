@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
 
 import { FORM_MIN_FILL_MS } from '../../src/lib/inquiry/spam'
-import { api, loginAsAdmin, setTheme, site } from './helpers'
+import { api, hydrated, loginAsAdmin, setTheme, site } from './helpers'
 
 // D2-3a (plan `docs/zadania/wspolne-elementy.md` F3, spec §5 `ContactForm`, ADR-003): the shared
 // contact form on the preview page — errors, success, the record in Inquiries with its tenant and
@@ -43,9 +43,10 @@ test.describe('/_wspolne — shared contact form', () => {
   test('the town shows its zone; „?fraza=” starts the message', async ({ page }) => {
     await page.goto(site('instalacje.localhost', '/_wspolne?fraza=monitoring%20domu'))
     await expect(form(page).getByLabel('Wiadomość')).toHaveValue('monitoring domu')
-    await form(page)
-      .getByLabel(/Miejscowość/)
-      .fill('Szaflary')
+    // Typed before hydration, the town is kept but its zone is not looked up (onChange).
+    const town = form(page).getByLabel(/Miejscowość/)
+    await hydrated(town)
+    await town.fill('Szaflary')
     await expect(form(page).getByText('Szaflary · strefa Podhale')).toBeVisible()
   })
 

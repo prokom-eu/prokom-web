@@ -22,7 +22,12 @@ import {
 } from '../software/data'
 import { hasGuide, hasNews } from '../posts/list'
 import type { Line } from '../tenant/lines'
-import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
+import {
+  brandLinks,
+  buildSiteMap,
+  INSTALACJE_CATALOG_TITLES,
+  type SiteMapSection,
+} from './siteLinks'
 
 /**
  * The site map of one tenant from the cached loaders (each filters by the tenant): pages, on
@@ -80,6 +85,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       plan: Boolean(plans && buildPlanScenes(plans.records, new Set(indexed.keys())).length),
       // `/konfigurator` answers 404 without rules in the panel: listed only with them.
       configurator: Boolean(rules),
+      titles: instalacje ? INSTALACJE_CATALOG_TITLES : undefined,
       products: productList.map(({ slug, name, updatedAt }) => ({
         slug,
         name: indexed.get(slug)?.name ?? name,
