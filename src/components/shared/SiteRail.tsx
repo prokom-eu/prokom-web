@@ -29,6 +29,8 @@ import { RAIL_QUERY, whileMatches } from '@/lib/shared/whileMatches'
 import { activeSection, railLineEnd, railProgress } from '@/lib/site/railActive'
 import { requestSearch } from '@/lib/site/searchOpen'
 
+import { RailTheme } from './RailTheme'
+
 export type RailAction = {
   label: string
   href: string
@@ -238,7 +240,12 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
   // Esc folds the rail and leaves focus where it is (WCAG 2.4.3); the next focus move or the
   // pointer coming back opens it again.
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === 'Escape') setCollapsed(true)
+    if (event.key !== 'Escape') return
+    // The theme choices sit beyond the folded 64 px: keep focus on something visible.
+    if (event.target instanceof Element && event.target.closest('.srail__choices')) {
+      event.currentTarget.querySelector<HTMLElement>('[data-rail-theme]')?.focus()
+    }
+    setCollapsed(true)
   }
 
   const glide = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -447,6 +454,9 @@ export function SiteRail({ sections, onHome, action }: SiteRailProps) {
             )}
           </>
         )}
+        {/* Theme entry (ADR-028, MOTYW-PASEK-LINII §6): every line with a rail has a dark design. */}
+        <span className="srail__sep" aria-hidden="true" />
+        <RailTheme />
         <button
           type="button"
           className="srail__item srail__up"

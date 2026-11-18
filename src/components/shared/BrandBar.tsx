@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
 import type { SharedLine } from '@/lib/shared/project'
@@ -5,6 +7,7 @@ import { withGamingLast, type SharedLineKey } from '@/lib/shared/lines'
 import type { OpeningHours } from '@/lib/shared/openingStatus'
 import { toTelHref } from '@/lib/site/link'
 
+import { BrandBarPill } from './BrandBarPill'
 import { OpeningStatus } from './OpeningStatus'
 
 export type BrandBarProps = {
@@ -24,12 +27,18 @@ export type BrandBarProps = {
   /** „Biznes:” — `shared.phoneLabel`. */
   phoneLabel?: string | null
   className?: string
+  /** Start of the tooltip ids — another value where a page shows two bars (`/_wspolne`). */
+  idPrefix?: string
 }
 
 /**
  * Brand bar above the header capsule (spec §5 `BrandBar`, NAGLOWEK-KAPSULA §2–3): the line switch
  * on the left, opening status, the line's link and phone on the right. 38 px, no background — it
  * scrolls away with the page. Hidden up to 1080 px (the phone menu sheet carries the same).
+ * „Premium” (MOTYW-PASEK-LINII §4, styles `.bbar-*` in `wspolne.css`): lines as pills with a living
+ * dash, the line's description in a tooltip (CSS only: after 350 ms of pointing, at once on
+ * keyboard focus, never on touch), a pill following the pointer (`BrandBarPill`, the only client
+ * part) and the lines coming in one after another on load.
  */
 export function BrandBar({
   lines,
@@ -42,6 +51,7 @@ export function BrandBar({
   phone2,
   phoneLabel,
   className,
+  idPrefix = 'bbar-tip',
 }: BrandBarProps) {
   const tel = phone ? toTelHref(phone) : null
   const tel2 = phone2 ? toTelHref(phone2) : null
@@ -53,40 +63,47 @@ export function BrandBar({
       )}
       data-brand-bar
     >
-      <nav aria-label="Linie PRO-KOM" className="flex items-center gap-[18px]">
-        {withGamingLast(lines).map((line) => {
+      <nav aria-label="Linie PRO-KOM" className="bbar-lines" data-bbar-lines="">
+        {/* Pill under the pointed or focused line (MOTYW-PASEK-LINII §4 pkt 1): the only island. */}
+        <BrandBarPill />
+        {withGamingLast(lines).map((line, index) => {
           const isCurrent = line.key === current
           // A published line without an address (not live yet) is a label, not a dead link.
           const Tag = line.url ? 'a' : 'span'
+          const tip = line.description ? `${idPrefix}-${line.key}` : undefined
+          // The line's brand colour from the panel, its lighter shade on the dark theme; Gaming's
+          // gold is darker on the bar (§2.4).
+          const gaming = line.key === 'gaming'
+          const light = gaming ? 'var(--gaming-dash)' : (line.color ?? 'currentColor')
+          const dark = gaming ? light : (line.colorOnDark ?? light)
           return (
-            <Tag
+            <span
               key={line.key}
-              href={line.url ?? undefined}
-              aria-current={isCurrent ? 'page' : undefined}
-              className={cx(
-                // A touch screen (a tablet held wide) gets 24 px rows; a mouse keeps the bar as is.
-                'flex items-center gap-[7px] rounded-md pointer-coarse:min-h-6 hover:text-nav-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nav-active-ink',
-                isCurrent ? 'font-extrabold text-nav-ink' : 'font-semibold',
-              )}
+              className="bbar-item"
+              style={{ '--lc-light': light, '--lc-dark': dark, '--i': index } as CSSProperties}
             >
-              <i
-                aria-hidden="true"
-                className="block h-[3px] w-[11px] rounded-[2px]"
-                // The line's brand colour from the panel; Gaming's gold is darker on the bar (§2.4).
-                style={{
-                  background:
-                    line.key === 'gaming' ? 'var(--gaming-dash)' : (line.color ?? 'currentColor'),
-                }}
-              />
-              {line.name}
-            </Tag>
+              <Tag
+                href={line.url ?? undefined}
+                aria-current={isCurrent ? 'page' : undefined}
+                aria-describedby={tip}
+                className="bbar-line"
+              >
+                <i aria-hidden="true" className="bbar-dash" />
+                {line.name}
+              </Tag>
+              {tip && (
+                <span role="tooltip" id={tip} className="bbar-tip">
+                  {line.description}
+                </span>
+              )}
+            </span>
           )
         })}
       </nav>
       {/* A named region: the right half is a landmark like the line switch (audit 08.11 §2 pkt 7). */}
       <section
         aria-label="Godziny otwarcia i kontakt"
-        className="flex items-center gap-5 self-stretch"
+        className="bbar-right flex items-center gap-5 self-stretch"
       >
         <OpeningStatus hours={hours} holidays={holidays} now={now} />
         {slot?.label && slot.href && (

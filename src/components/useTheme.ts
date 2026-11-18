@@ -15,12 +15,30 @@ const DARK_QUERY = '(prefers-color-scheme: dark)'
 export const THEME_CHANGE_EVENT = 'pk-theme-change'
 const CHANGE_EVENT = THEME_CHANGE_EVENT
 
+/**
+ * The choice made on this page while `localStorage` is blocked (private mode, strict settings):
+ * without it Auto would undo a hand-picked theme on the next return to the tab and the carried
+ * `?motyw` would say `auto`.
+ */
+let unstoredChoice: ThemeChoice | null = null
+
 export function storedTheme(): Theme | null {
   try {
     const value = localStorage.getItem(THEME_STORAGE_KEY)
     return isTheme(value) ? value : null
   } catch {
-    return null
+    return unstoredChoice === 'light' || unstoredChoice === 'dark' ? unstoredChoice : null
+  }
+}
+
+/** Stores the choice (`auto` = no key); when storage is blocked, keeps it for this page. */
+function storeChoice(next: ThemeChoice) {
+  try {
+    if (next === 'auto') localStorage.removeItem(THEME_STORAGE_KEY)
+    else localStorage.setItem(THEME_STORAGE_KEY, next)
+    unstoredChoice = null
+  } catch {
+    unstoredChoice = next
   }
 }
 
@@ -76,11 +94,7 @@ export function useTheme(): [Theme, (theme: Theme) => void] {
 
   function setTheme(next: Theme) {
     document.documentElement.setAttribute('data-theme', next)
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, next)
-    } catch {
-      // Storage blocked: the switch still works until the next page load.
-    }
+    storeChoice(next)
     window.dispatchEvent(new Event(CHANGE_EVENT))
   }
 
@@ -101,12 +115,7 @@ export function useThemeChoice(): [ThemeChoice, (choice: ThemeChoice) => void] {
 
   function setChoice(next: ThemeChoice) {
     const root = document.documentElement
-    try {
-      if (next === 'auto') localStorage.removeItem(THEME_STORAGE_KEY)
-      else localStorage.setItem(THEME_STORAGE_KEY, next)
-    } catch {
-      // Storage blocked: the choice still applies until the next page load.
-    }
+    storeChoice(next)
     root.setAttribute('data-theme', next === 'auto' ? autoThemeNow() : next)
     window.dispatchEvent(new Event(CHANGE_EVENT))
   }

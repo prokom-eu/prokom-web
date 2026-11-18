@@ -40,6 +40,7 @@ test.describe('theme button (spec §1)', () => {
     await hydrated(button)
     // Fonts in place first: the capsule fits itself to them (`CapsuleShell` `data-fit`).
     await page.evaluate(() => document.fonts.ready)
+    await expect(page.locator('.cap-wrap[data-fit-ready]')).toBeAttached()
     const before = (await button.boundingBox())?.width
     await expect(async () => {
       if ((await html(page).getAttribute('data-theme')) !== 'dark') await button.click()

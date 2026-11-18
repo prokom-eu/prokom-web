@@ -1,6 +1,7 @@
 import { promoClosedScript } from '@/lib/site/promo'
 import type { PublicCompanyData } from '@/lib/site/public'
 
+import { InlineScript } from './InlineScript'
 import { PromoClose } from './PromoClose'
 import { Container } from './ui/Container'
 
@@ -15,7 +16,7 @@ export function PromoBar({ promo }: { promo: Promo }) {
   const script = promoClosedScript(promo.campaignId)
   return (
     <>
-      {script && <script dangerouslySetInnerHTML={{ __html: script }} />}
+      {script && <InlineScript html={script} />}
       <aside
         aria-label="Promocja"
         data-promo-bar=""
