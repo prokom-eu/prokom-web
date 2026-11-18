@@ -57,13 +57,21 @@ test.describe('brand bar (1440 px)', () => {
     await page.goto(site('biznes.localhost'))
     await hydrated(pill(page))
     const software = bar(page).getByRole('link', { name: 'Software' })
-    await software.hover()
-    await expect
-      .poll(async () => {
-        const b = await box(page, '.bbar-item:has(> a[href*="prokomsoftware"]) .bbar-line')
-        return Math.abs(b.pillLeft - b.left) < 1
-      })
-      .toBe(true)
+    // Hover again until the pill follows: on a busy CI runner the first pointer move can land
+    // before the bar listens or while the header still settles (18.11, several PRs).
+    await expect(async () => {
+      await page.mouse.move(700, 500)
+      await software.hover()
+      await expect
+        .poll(
+          async () => {
+            const b = await box(page, '.bbar-item:has(> a[href*="prokomsoftware"]) .bbar-line')
+            return Math.abs(b.pillLeft - b.left) < 1
+          },
+          { timeout: 2000 },
+        )
+        .toBe(true)
+    }).toPass({ timeout: 15_000 })
     // The description from the panel, after 350 ms of pointing.
     const tip = bar(page).locator('.bbar-item:has(> a[href*="prokomsoftware"]) [role="tooltip"]')
     await expect(tip).toBeVisible()
