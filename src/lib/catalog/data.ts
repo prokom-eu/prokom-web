@@ -19,6 +19,7 @@ import { readWizardRules } from './wizardRules'
 import { buildProductView, isIndexableProduct, type ProductView } from './product'
 import { isSafeSvg } from './svg'
 import { catalogTag } from './tags'
+import { catalogTexts, type CatalogTextLine, type CatalogTexts } from './texts'
 import { publicImage } from '../media/public'
 import { pickSource } from '../media/sizes'
 import { tenantIdOf } from '../tenant/id'
@@ -168,6 +169,32 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
     ['catalog-index-k4f', String(tenantId)],
     { tags: [catalogTag(tenantId), pagesTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
   )(),
+)
+
+/**
+ * Texts of `/oferta` and `/marki` of a catalog line (ADR-029 pkt 3): the group `catalog` of the
+ * line's settings over its defaults (`lib/catalog/texts`). Cached under the catalog tag, which
+ * the settings' hooks refresh.
+ */
+// `cache`: metadata and the page ask in one request (`pnpm dev` has no data cache).
+export const getCatalogTexts = cache(
+  (tenantId: number, line: CatalogTextLine): Promise<CatalogTexts> =>
+    cacheQuery(
+      async () => {
+        const payload = await getPayload({ config })
+        const { docs } = await payload.find({
+          collection: line === 'biznes' ? 'biznes-settings' : 'instalacje-settings',
+          where: { tenant: { equals: tenantId } },
+          limit: 1,
+          depth: 0,
+          select: { catalog: true },
+          overrideAccess: true,
+        })
+        return catalogTexts(line, docs[0]?.catalog)
+      },
+      ['catalog-texts', String(tenantId), line],
+      { tags: [catalogTag(tenantId)], revalidate: PAGE_CACHE_SECONDS },
+    )(),
 )
 
 /**

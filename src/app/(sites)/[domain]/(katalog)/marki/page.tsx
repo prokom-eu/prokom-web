@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 
 import { Container } from '@/components/ui/Container'
 import { buildBrandsPage } from '@/lib/catalog/brandsPage'
-import { getBrandsPageInput, getCatalogIndex } from '@/lib/catalog/data'
+import { getBrandsPageInput, getCatalogIndex, getCatalogTexts } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
+import { catalogTextLine } from '@/lib/catalog/texts'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
@@ -17,16 +18,15 @@ import { requestOrigin, requireCatalogTenant } from '../../tenant'
 
 type Props = { params: Promise<{ domain: string }> }
 
-const TITLE = 'Salony marek dla firm — Rabka-Zdrój'
-const DESCRIPTION =
-  'Posnet, Elzab, GoPOS, InsERT, Lenovo, Dell, Apple i inne: salony marek z doborem modelu, porównaniem serii, wdrożeniem i serwisem w Rabce-Zdroju.'
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireCatalogTenant(params)
-  const settings = await getSiteSettings(tenant.id)
+  const [settings, texts] = await Promise.all([
+    getSiteSettings(tenant.id),
+    getCatalogTexts(tenant.id, catalogTextLine(tenant.line)),
+  ])
   return {
-    title: TITLE,
-    description: DESCRIPTION,
+    title: texts.brandsTitle,
+    description: texts.brandsDescription,
     alternates: { canonical: BRANDS_PATH },
     robots: robotsMeta(getEnv().SITE_ENV),
     openGraph: {
@@ -34,9 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: 'pl_PL',
       siteName: tenant.name,
       url: BRANDS_PATH,
-      title: TITLE,
-      description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
+      title: texts.brandsTitle,
+      description: texts.brandsDescription,
+      images: ogImages(settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }

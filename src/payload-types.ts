@@ -5007,6 +5007,32 @@ export interface BiznesSetting {
     stopWords?: string[] | null;
     popular?: string[] | null;
   };
+  catalog?: {
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Cała oferta dla firm”
+     */
+    offerTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Oferta dla firm — Rabka-Zdrój i Podhale”
+     */
+    offerMetaTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Sprzęt, programy i usługi dla firm z Rabki-Zdroju, Podhala i Małopolski: dobór, wdrożenie i serwis. Dodaj pozycje do zapytania — wycena na mailu.”
+     */
+    offerDescription?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.”
+     */
+    offerLead?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Salony marek dla firm — Rabka-Zdrój”
+     */
+    brandsTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Posnet, Elzab, GoPOS, InsERT, Lenovo, Dell, Apple i inne: salony marek z doborem modelu, porównaniem serii, wdrożeniem i serwisem w Rabce-Zdroju.”
+     */
+    brandsDescription?: string | null;
+  };
   news?: {
     /**
      * Licznik dni, tekst i kroki (plansza Aktualności). Bez daty i podpisu panel się nie pokazuje. Fakty prawne tylko ze źródłem — w notce albo we wpisie, do którego prowadzi przycisk.
@@ -5573,6 +5599,32 @@ export interface InstalacjeSetting {
      * Np. „Odpowiadamy do 24 h w dni robocze.”
      */
     responseText?: string | null;
+  };
+  catalog?: {
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Sprzęt do monitoringu, alarmów i domofonów”
+     */
+    offerTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Sprzęt do monitoringu i alarmów — Rabka-Zdrój i Podhale”
+     */
+    offerMetaTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Kamery, rejestratory, alarmy, wideodomofony i kontrola dostępu z montażem na Podhalu. Wybierz sprzęt, wyślij zapytanie — dobierzemy i zamontujemy.”
+     */
+    offerDescription?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Kamery, alarmy, domofony i uchwyty, które montujemy w domach, firmach i obiektach. Dobierzemy sprzęt do budynku, zamontujemy, skonfigurujemy aplikację i zostaniemy w serwisie.”
+     */
+    offerLead?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Marki sprzętu zabezpieczeń — montaż na Podhalu”
+     */
+    brandsTitle?: string | null;
+    /**
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Dahua, Hikvision, BCS, UniFi Protect, Satel, Ajax i inne marki, które montujemy: dobór serii pod obiekt, montaż, konfiguracja i serwis na Podhalu.”
+     */
+    brandsDescription?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -8881,6 +8933,16 @@ export interface BiznesSettingsSelect<T extends boolean = true> {
         stopWords?: T;
         popular?: T;
       };
+  catalog?:
+    | T
+    | {
+        offerTitle?: T;
+        offerMetaTitle?: T;
+        offerDescription?: T;
+        offerLead?: T;
+        brandsTitle?: T;
+        brandsDescription?: T;
+      };
   news?:
     | T
     | {
@@ -9272,6 +9334,16 @@ export interface InstalacjeSettingsSelect<T extends boolean = true> {
         email?: T;
         quote?: T;
         responseText?: T;
+      };
+  catalog?:
+    | T
+    | {
+        offerTitle?: T;
+        offerMetaTitle?: T;
+        offerDescription?: T;
+        offerLead?: T;
+        brandsTitle?: T;
+        brandsDescription?: T;
       };
   updatedAt?: T;
   createdAt?: T;
