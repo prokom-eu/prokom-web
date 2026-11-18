@@ -86,19 +86,17 @@ test.describe('the choice between our domains (spec §3)', () => {
   test('after the clean-up the router still works: a link, then Back', async ({ page }) => {
     await page.goto(site('software.localhost', '/?motyw=jasny'))
     await expect.poll(() => new URL(page.url()).search).toBe('')
-    const link = page
-      .locator('main a[href^="/"]:not([href="/"]):not([href*="#"]):not([href*="?"])')
-      .first()
+    const heading = await page.locator('main h1').first().textContent()
+    // The capsule's CTA: a plain client-side link (tiles of the hero may redirect).
+    const link = page.locator('[data-site-header] a[href="/kontakt"]').first()
     await hydrated(link)
-    const target = await link.getAttribute('href')
     await link.click()
     // A client-side navigation fires no `load`: poll the address instead of `waitForURL`.
-    await expect.poll(() => new URL(page.url()).pathname).toBe(target)
+    await expect.poll(() => new URL(page.url()).pathname).toBe('/kontakt')
     await page.goBack()
     await expect.poll(() => new URL(page.url()).pathname).toBe('/')
-    await expect(
-      page.locator('main a[href^="/"]:not([href="/"]):not([href*="#"]):not([href*="?"])').first(),
-    ).toHaveAttribute('href', target ?? '')
+    // The router kept its state: Back shows the home page again, not the contact page.
+    await expect(page.locator('main h1').first()).toHaveText(heading ?? '')
     expect(new URL(page.url()).search).toBe('')
   })
 
