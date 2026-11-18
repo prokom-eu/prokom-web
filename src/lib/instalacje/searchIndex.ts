@@ -17,6 +17,13 @@ export type InstSearchSources = {
   realizations: readonly { id: number; title: string; place: string | null; scope: string | null }[]
   pages: readonly { label: string; href: string; caption?: string | null }[]
   faq: readonly { question: string; answer: string }[]
+  /** Published cards of the line's catalog (ADR-029); none while the catalog is off. */
+  products?: readonly {
+    slug: string
+    name: string
+    brand: string | null
+    category: string | null
+  }[]
 }
 
 /**
@@ -82,6 +89,15 @@ export function buildInstSearchIndex(sources: InstSearchSources): LineSearchEntr
       popularity: 40,
     })),
   )
+  const products = (sources.products ?? []).map((product): LineSearchEntry => ({
+    id: `sprzet-${product.slug}`,
+    title: product.name,
+    hint: [product.brand, product.category].filter(Boolean).join(' · ') || 'Sprzęt',
+    href: `/produkt/${product.slug}`,
+    icon: 'box',
+    group: 'Sprzęt',
+    popularity: 35,
+  }))
   const posts = sources.posts.map((post): LineSearchEntry => ({
     id: `poradnik-${post.slug}`,
     title: post.title,
@@ -126,6 +142,7 @@ export function buildInstSearchIndex(sources: InstSearchSources): LineSearchEntr
     ...services,
     ...objects,
     ...solutions,
+    ...products,
     ...posts,
     ...realizations,
     ...pages,

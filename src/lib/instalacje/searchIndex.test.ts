@@ -67,6 +67,33 @@ const sources: InstSearchSources = {
   faq: [{ question: 'Czy kamery działają bez internetu?', answer: 'Tak, nagrywają lokalnie.' }],
 }
 
+describe('buildInstSearchIndex — catalog (ADR-029, INST-K1)', () => {
+  it('lists the catalog cards as „Sprzęt” with their page and brand, after the solutions', () => {
+    const index = buildInstSearchIndex({
+      ...sources,
+      products: [
+        {
+          slug: 'dahua-ipc-hfw2x49s-s-il',
+          name: 'Dahua WizSense 2 tubowa',
+          brand: 'Dahua',
+          category: 'Kamery IP',
+        },
+      ],
+    })
+    const card = index.find((entry) => entry.group === 'Sprzęt')
+    expect(card).toMatchObject({
+      title: 'Dahua WizSense 2 tubowa',
+      href: '/produkt/dahua-ipc-hfw2x49s-s-il',
+      hint: 'Dahua · Kamery IP',
+    })
+    const groups = [...new Set(index.map((entry) => entry.group))]
+    expect(groups.indexOf('Sprzęt')).toBe(groups.indexOf('Rozwiązania') + 1)
+    const provider = buildLineProvider(index)
+    const titles = provider.query('wizsense').flatMap((group) => group.results.map((r) => r.title))
+    expect(titles).toContain('Dahua WizSense 2 tubowa')
+  })
+})
+
 describe('buildInstSearchIndex', () => {
   it('keeps the group order of the spec and drops repeated pages', () => {
     const index = buildInstSearchIndex(sources)
