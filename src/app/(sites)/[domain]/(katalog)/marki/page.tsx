@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Container } from '@/components/ui/Container'
-import { brandGroupsByDepartment, buildBrandsPage } from '@/lib/catalog/brandsPage'
+import { buildBrandsPage } from '@/lib/catalog/brandsPage'
 import { getBrandsPageInput, getCatalogIndex, getCatalogTexts } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
 import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * Brands `/marki` (runda 1411 R7, board `Marki.dc.html`): the dark header with the search, the
  * four authorisations and one grid of the other brands — each to its showroom, own page or the
- * offer filtered by the brand. Biznes: the groups of `BiznesSettings.brands`; Instalacje: its
- * departments (ADR-029).
+ * offer filtered by the brand. Biznes: the groups of `BiznesSettings.brands`; Instalacje: all its
+ * brands (ADR-029).
  */
 export default async function BrandsPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
@@ -53,8 +53,18 @@ export default async function BrandsPage({ params }: Props) {
     getBrandsPageInput(tenant.id),
     requestOrigin(),
   ])
-  // Instalacje has no brand groups in its settings: one group per department (ADR-029).
-  const groups = input.groups.length ? input.groups : brandGroupsByDepartment(index, input.partners)
+  // Instalacje has no brand groups in its settings: one group of all its brands (the page shows
+  // the tiles, not the groups); brands without a salon or listed cards drop out in the builder.
+  const groups = input.groups.length
+    ? input.groups
+    : [
+        {
+          title: '',
+          iconPath: null,
+          description: null,
+          partnerIds: input.partners.map((p) => p.id),
+        },
+      ]
   const page = buildBrandsPage({ ...input, groups, index })
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },

@@ -35,6 +35,12 @@ export type CatalogUi = {
   brandsLead: string
   brandsMissing: string
   brandsOther: string
+  /** `/marki`: eyebrow, H1, search hint and the headings of the two notes. */
+  brandsEyebrow: string
+  brandsTitle: string
+  brandsSearchPlaceholder: string
+  brandsMissingTitle: string
+  brandsOtherTitle: string
   /** Drawer confirmation when a phone was given. */
   sentPhoned: string
   /** Steps after sending: the quote and the delivery. */
@@ -67,6 +73,11 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
     stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
     productCtaEyebrow: 'Wycena na mailu',
+    brandsEyebrow: 'Salony marek',
+    brandsTitle: 'Wszystkie marki w ofercie',
+    brandsSearchPlaceholder: 'Szukaj marki, np. Posnet, Apple, UniFi',
+    brandsMissingTitle: 'Nie mamy jeszcze salonu tej marki',
+    brandsOtherTitle: 'Szukasz innej marki?',
   },
   instalacje: {
     searchPlaceholder:
@@ -92,6 +103,11 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     stepQuote: ['Oferta z montażem', 'po rozmowie o obiekcie, z wariantami sprzętu'],
     stepDelivery: ['Montaż i konfiguracja', 'aplikacja w telefonie ustawiona przy odbiorze'],
     productCtaEyebrow: 'Oferta z montażem',
+    brandsEyebrow: 'Marki',
+    brandsTitle: 'Marki, które montujemy',
+    brandsSearchPlaceholder: 'Szukaj marki, np. Dahua, Satel, Ajax',
+    brandsMissingTitle: 'Tej marki nie ma jeszcze w salonach',
+    brandsOtherTitle: 'Masz sprzęt innej marki?',
   },
 }
 
@@ -132,7 +148,7 @@ export const CATALOG_TEXT_DEFAULTS: Record<CatalogTextLine, CatalogTexts> = {
       'Kamery, alarmy, domofony i uchwyty, które montujemy w domach, firmach i obiektach. Dobierzemy sprzęt do budynku, zamontujemy, skonfigurujemy aplikację i zostaniemy w serwisie.',
     brandsTitle: 'Marki sprzętu zabezpieczeń — montaż na Podhalu',
     brandsDescription:
-      'Dahua, Hikvision, BCS, UniFi Protect, Satel, Ajax i inne marki, które montujemy: dobór serii pod obiekt, montaż, konfiguracja i serwis na Podhalu.',
+      'Dahua, Hikvision, Satel, Ajax i inne marki, które montujemy: dobór serii pod obiekt, montaż, konfiguracja aplikacji i serwis na Podhalu.',
   },
 }
 

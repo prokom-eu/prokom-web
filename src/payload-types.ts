@@ -5622,7 +5622,7 @@ export interface InstalacjeSetting {
      */
     brandsTitle?: string | null;
     /**
-     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Dahua, Hikvision, BCS, UniFi Protect, Satel, Ajax i inne marki, które montujemy: dobór serii pod obiekt, montaż, konfiguracja i serwis na Podhalu.”
+     * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Dahua, Hikvision, Satel, Ajax i inne marki, które montujemy: dobór serii pod obiekt, montaż, konfiguracja aplikacji i serwis na Podhalu.”
      */
     brandsDescription?: string | null;
   };
