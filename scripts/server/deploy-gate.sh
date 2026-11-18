@@ -30,6 +30,10 @@ work="$(mktemp -d "$repo/../.deploy-files-XXXXXX")"
 cid=''
 cleanup() {
   if [ -n "$cid" ]; then docker rm -f "$cid" >/dev/null 2>&1 || true; fi
+  # The proxy bind-mounts docker/nginx: put it back before removing the work folder (S-02).
+  if [ -d "$work/nginx-in-place" ] && [ ! -e "$repo/docker/nginx" ]; then
+    mkdir -p "$repo/docker" && mv "$work/nginx-in-place" "$repo/docker/nginx"
+  fi
   rm -rf "$work"
 }
 trap cleanup EXIT
@@ -48,7 +52,9 @@ done
 # docker/nginx is the exception (audit AB4, S-02): the running proxy bind-mounts its files and
 # subfolders, and a mount keeps pointing at the replaced (deleted) copy — every later reload
 # failed and renewed certificates were not loaded. So its files are overwritten in place
-# (`cp` keeps the inodes) and the folder is carried over into the new docker/.
+# (`cp` keeps the inodes) and the folder is carried over into the new docker/. Files removed
+# from the repo stay (nginx.conf includes only rendered sites/), and changed templates/*.template
+# still need a proxy restart (the entrypoint renders them) — runbook §0.
 mkdir "$work/old"
 if [ -d "$repo/docker/nginx" ]; then
   cp -R "$work/new/docker/nginx/." "$repo/docker/nginx/"
