@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-import { api, loginAsAdmin, site, tenantId } from '../helpers'
+import { api, hydrated, loginAsAdmin, site, tenantId } from '../helpers'
 
 // I1: smoke test of the Instalacje line — its own frame, the theme from the system (ADR-I003 §6),
 // and invisibility of an inactive tenant (ADR-I001 §6). Data from `pnpm seed`. The line-only
@@ -25,21 +25,36 @@ test.describe('Instalacje frame', () => {
   })
 
   test('follows the system theme', async ({ page }) => {
+    // By day, so Auto is the system (at night it is dark anyway — ADR-028).
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z'))
     await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site(HOST))
     expect(await page.evaluate(surface)).toBe('#f4f5f1')
 
+    // A system change while on the page is applied by `ThemeCarry` (spec §2.3) — once hydrated.
+    await hydrated(page.locator('[data-site-header] [data-theme-toggle]'))
     await page.emulateMedia({ colorScheme: 'dark' })
-    expect(await page.evaluate(surface)).toBe('#101412')
+    await expect.poll(() => page.evaluate(surface)).toBe('#101412')
   })
 
   test('is installable: theme colour, safe areas and a manifest (ADR-I004)', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z')) // by day: Auto is light
+    await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site(HOST))
-    const themeColors = await page
-      .locator('meta[name="theme-color"]')
-      .evaluateAll((metas) =>
-        metas.map((m) => [m.getAttribute('media'), m.getAttribute('content')]),
-      )
+    // The server's HTML has one colour per system scheme; after hydration `ThemeCarry` puts the
+    // colour of the theme on screen into both (ADR-028), so the HTML is read as the server sent it.
+    const themeColors = await page.evaluate(async () => {
+      const html = await (await fetch(location.href)).text()
+      const doc = new DOMParser().parseFromString(html, 'text/html')
+      return [...doc.querySelectorAll('meta[name="theme-color"]')].map((m) => [
+        m.getAttribute('media'),
+        m.getAttribute('content'),
+      ])
+    })
+    await expect(page.locator('meta[name="theme-color"][media*="dark"]')).toHaveAttribute(
+      'content',
+      '#f4f5f1',
+    )
     expect(themeColors).toEqual([
       ['(prefers-color-scheme: light)', '#f4f5f1'],
       ['(prefers-color-scheme: dark)', '#101412'],

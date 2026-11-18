@@ -1,32 +1,47 @@
-import type { Theme } from '../brand/theme'
+import { DARK_THEME_LINES, type Theme } from '../brand/theme'
 
-/** Lines whose `motion.css` draws the circle (`[data-theme-reveal]`). */
-const LINES_WITH_REVEAL = new Set(['software', 'instalacje'])
+/** A view transition may run: a line with a dark design, browser support, no reduced motion. */
+function canTransition(): boolean {
+  const root = document.documentElement
+  return (
+    (DARK_THEME_LINES as readonly string[]).includes(root.getAttribute('data-line') ?? '') &&
+    typeof document.startViewTransition === 'function' &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
+/** Runs `apply` in a view transition marked with `attribute` (styles in `motion.css` §5). */
+function transition(attribute: string, apply: () => void): void {
+  const root = document.documentElement
+  root.setAttribute(attribute, '')
+  const running = document.startViewTransition(apply)
+  void running.finished.finally(() => root.removeAttribute(attribute))
+}
 
 /**
- * Theme switch with the new theme opening in a circle from the button (SWV7, `motion.css` §5):
- * a View Transition of the root, clipped from the click point. Software and Instalacje only —
- * other lines keep the instant switch — and never with reduced motion or without browser support.
+ * Theme switch with the new theme opening in a circle from the clicked element (ADR-028, spec
+ * §1.5): a view transition of the root, clipped from the click point, on every line with a dark
+ * design. Without browser support or with reduced motion the theme changes at once.
  */
 export function revealTheme(
   next: Theme,
   apply: (theme: Theme) => void,
   origin?: { x: number; y: number },
 ): void {
-  const root = document.documentElement
-  const canReveal =
-    LINES_WITH_REVEAL.has(root.getAttribute('data-line') ?? '') &&
-    typeof document.startViewTransition === 'function' &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  if (!canReveal) {
+  if (!canTransition()) {
     apply(next)
     return
   }
+  const root = document.documentElement
   root.style.setProperty('--reveal-x', origin ? `${origin.x}px` : '50%')
   root.style.setProperty('--reveal-y-origin', origin ? `${origin.y}px` : '0px')
-  root.setAttribute('data-theme-reveal', '')
-  const transition = document.startViewTransition(() => apply(next))
-  void transition.finished.finally(() => root.removeAttribute('data-theme-reveal'))
+  transition('data-theme-reveal', () => apply(next))
+}
+
+/** Auto changed on its own (back to the tab, spec §2.3): a 300 ms cross-fade, no circle. */
+export function fadeTheme(apply: () => void): void {
+  if (canTransition()) transition('data-theme-fade', apply)
+  else apply()
 }
 
 /** Centre of the clicked element, the origin of the circle. */
