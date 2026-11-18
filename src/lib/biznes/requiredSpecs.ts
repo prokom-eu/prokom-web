@@ -191,7 +191,7 @@ export const REQUIRED_SPECS: Readonly<Record<string, readonly SpecSlot[]>> = {
   ekrany: AV_SLOTS,
   // Runda 1811 (D2): a booth or a screen is compared by its size, weight and sound.
   meble: [
-    slot('Wymiary', 'wymiar'),
+    SIZE,
     WEIGHT,
     slot('Akustyka', 'akusty|redukcj|nrc'),
     slot('Konstrukcja / materiał', 'konstrukc|panel|materiał|obici'),

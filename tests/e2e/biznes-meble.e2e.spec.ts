@@ -12,8 +12,10 @@ test.describe('Biznes: meble akustyczne (runda 1811, D2)', () => {
     expect(response?.status()).toBe(200)
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Meble akustyczne')
     const cards = page.locator('[data-category-grid] > li h3 a')
-    expect(await cards.count()).toBeGreaterThanOrEqual(5)
-    await expect(cards).toContainText([/SonoCubo S/, /SonoCubo M/, /SonoCubo L/])
+    await expect(cards).toHaveCount(5)
+    for (const name of ['SonoCubo S', 'SonoCubo M', 'SonoCubo L', 'SonoVelo (']) {
+      await expect(cards.filter({ hasText: name }), name).toHaveCount(1)
+    }
     await expect(page.locator('main')).not.toContainText(/\d\s?zł/)
   })
 
@@ -25,9 +27,10 @@ test.describe('Biznes: meble akustyczne (runda 1811, D2)', () => {
   })
 
   test('the office plan has the acoustic booth', async ({ page }) => {
-    await page.goto(biznes('/plan-firmy'))
-    await page.getByText('Biuro', { exact: true }).first().click()
-    await expect(page.getByText('Budka akustyczna').first()).toBeAttached()
+    await page.goto(biznes('/plan-firmy?scena=biuro'))
+    await expect(
+      page.locator('.fp-stage').getByRole('button', { name: /Budka akustyczna/ }),
+    ).toBeVisible()
   })
 
   test('the sitemap lists the category', async ({ request }) => {

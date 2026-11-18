@@ -100321,7 +100321,7 @@
     "SonoCubo S to jednoosobowa budka, którą stawia się w otwartym biurze, w urzędzie albo w strefie coworkingowej hotelu. Pracownik wchodzi do niej na rozmowę z klientem, spotkanie w Teams albo godzinę pracy wymagającej skupienia, a reszta zespołu nie słucha jego rozmowy. Wewnątrz jest stolik i stołek, a kabina ma niecałe 1,1 m szerokości, więc mieści się nawet w niewielkim pomieszczeniu.",
     "Ściany ze stelażem z aluminium i okładziną z filcu PET oraz podwójna szyba z folią tłumią głos — producent podaje redukcję poziomu mowy 29,4 dB według normy ISO 23351-1. Wentylator wymienia powietrze z wydajnością do 320 m³/h i włącza się sam, gdy czujnik wykryje osobę. Światło LED ma regulowaną barwę od ciepłej do chłodnej, a w ścianie są gniazda USB-A i USB-C (do 65 W), więc laptop naładujesz bez szukania kontaktu.",
     "Budka przyjeżdża w częściach i waży ok. 350 kg, dlatego przed zamówieniem trzeba sprawdzić drogę wniesienia, nośność podłogi i dostęp do gniazdka. Dostępne są cztery wykończenia: grafitowe, marmurowe, szafirowe i bursztynowe. Producent daje 3 lata gwarancji.",
-    "W PRO-KOM pomagamy wybrać miejsce i rozmiar budki, sprawdzamy, czy przejdzie przez drzwi, a przy montażu podłączamy zasilanie i konfigurujemy w środku sprzęt do wideorozmów — kamerę, słuchawki albo laptop z dostępem do Wi-Fi."
+    "W PRO-KOM pomagamy wybrać miejsce i rozmiar budki oraz zaplanować dostawę i montaż, a w środku konfigurujemy sprzęt do wideorozmów — kamerę, słuchawki albo laptop z dostępem do Wi-Fi."
    ],
    "cechy": [
     "1 osoba",
@@ -100347,7 +100347,7 @@
     },
     {
      "k": "Redukcja poziomu mowy",
-     "v": "Dₛ,A 29,4 dB wg ISO 23351-1"
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
     },
     {
      "k": "Konstrukcja",
@@ -100411,7 +100411,7 @@
     },
     {
      "q": "Jak dobrze SonoCubo S wycisza rozmowę?",
-     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według normy ISO 23351-1. W praktyce rozmowa w środku nie przeszkadza osobom pracującym obok w otwartym biurze."
+     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według normy ISO 23351-1. Rozmowę w środku wyraźnie słabiej słychać na zewnątrz, w otwartym biurze."
     },
     {
      "q": "Czy w budce SonoCubo S nie robi się duszno?",
@@ -100557,7 +100557,7 @@
     "SonoCubo M to dwuosobowa budka do krótkich spotkań, na które szkoda zajmować salę konferencyjną: rozmowa przełożonego z pracownikiem, konsultacja z klientem w biurze rachunkowym, rozmowa rekrutacyjna albo wideospotkanie dwóch osób. W środku są dwie sofy naprzeciw siebie i stolik, a wejście można zabezpieczyć kartą albo kodem.",
     "Kabina ma ok. 1,6 × 1,3 m podstawy. Ściany na aluminiowym stelażu z okładziną z filcu PET i szyba z dwóch tafli z folią tłumią głos — producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1. Wentylacja wymienia do 320 m³/h powietrza, światło LED ma regulowaną barwę, a czujnik obecności sam włącza i wyłącza urządzenia. Telefon i laptop naładujesz z gniazd USB-A i USB-C (do 65 W).",
     "Budka waży ok. 546 kg i jest dostarczana w częściach — przed zamówieniem sprawdzamy drogę wniesienia i podłogę. Dostępne wykończenia to grafitowe, marmurowe i bursztynowe. Gwarancja producenta wynosi 3 lata.",
-    "Pomagamy zaplanować, gdzie postawić budkę w biurze, a przy montażu podłączamy zasilanie i przygotowujemy sprzęt do spotkań online, np. kamerę i głośnik do laptopa, oraz dostęp do sieci Wi-Fi."
+    "Pomagamy zaplanować, gdzie postawić budkę w biurze, oraz dostawę i montaż, a w środku przygotowujemy sprzęt do spotkań online, np. kamerę i głośnik do laptopa, oraz dostęp do sieci Wi-Fi."
    ],
    "cechy": [
     "2 osoby",
@@ -100583,7 +100583,7 @@
     },
     {
      "k": "Redukcja poziomu mowy",
-     "v": "Dₛ,A 29,4 dB wg ISO 23351-1"
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
     },
     {
      "k": "Konstrukcja",
@@ -100655,7 +100655,7 @@
     },
     {
      "q": "Jak głośno jest w budce SonoCubo M obok open space?",
-     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1, więc rozmowa w środku nie przeszkadza osobom obok, a hałas z biura słabiej dociera do rozmówców."
+     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1, więc rozmowę w środku wyraźnie słabiej słychać na zewnątrz, a hałas z biura słabiej dociera do rozmówców."
     }
    ],
    "konfigurator": {
@@ -100792,7 +100792,7 @@
     "SonoCubo L to największa budka z serii — w praktyce mała sala spotkań, którą stawia się w otwartym biurze zamiast budować ściany. Mieszczą się w niej cztery osoby przy stole na dwóch sofach, a tylna ściana jest przygotowana do zawieszenia monitora, więc łatwo zorganizować w niej spotkanie hybrydowe z osobami pracującymi zdalnie.",
     "Kabina ma ok. 2,3 × 1,7 m podstawy. Głos tłumią ściany na aluminiowym stelażu z okładziną z filcu PET i podwójna szyba z folią — producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1. Przy czterech osobach ważna jest wentylacja: tu ma wydajność do 640 m³/h, dwa razy więcej niż w mniejszych budkach. Wskaźnik zajętości pokazuje z zewnątrz, że trwa spotkanie, wejście zabezpiecza karta lub kod, a gniazda USB-A i USB-C są w ścianie i w stole.",
     "Budka waży ok. 850 kg i przyjeżdża w kilku paczkach, więc przed zamówieniem trzeba sprawdzić drogę wniesienia i nośność stropu. Wykończenia: grafitowe i bursztynowe. Monitor dokupuje się osobno. Gwarancja producenta wynosi 3 lata.",
-    "Przy SonoCubo L dobieramy monitor, kamerę i mikrofon do spotkań hybrydowych, montujemy monitor na przygotowanej ścianie, podłączamy wszystko do sieci i pokazujemy zespołowi, jak jednym kliknięciem zacząć spotkanie w Teams."
+    "Przy SonoCubo L dobieramy monitor, kamerę i mikrofon do spotkań hybrydowych, montujemy monitor na przygotowanej ścianie, podłączamy wszystko do sieci i konfigurujemy spotkania w Teams."
    ],
    "cechy": [
     "4 osoby",
@@ -100818,7 +100818,7 @@
     },
     {
      "k": "Redukcja poziomu mowy",
-     "v": "Dₛ,A 29,4 dB wg ISO 23351-1"
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
     },
     {
      "k": "Konstrukcja",
@@ -100882,7 +100882,7 @@
     },
     {
      "q": "Skąd wiadomo, że budka SonoCubo L jest zajęta?",
-     "a": "Na zewnątrz jest wskaźnik zajętości, a wejście zabezpiecza karta lub kod — nikt nie wejdzie w środek spotkania."
+     "a": "Na zewnątrz jest wskaźnik zajętości, a wejście jest tylko na kartę lub kod."
     },
     {
      "q": "Ile miejsca i jakiej podłogi potrzebuje SonoCubo L?",
@@ -101028,7 +101028,7 @@
    "podtytul": "Wolnostojący parawan z paneli PET, 145 cm wysokości, szerokość 120–160 cm, łączenie na zamki",
    "korzysc": "Szybki sposób, żeby wydzielić cichszy kąt w open space, klasie albo recepcji.",
    "opis": [
-    "SonoVelo to wolnostojący parawan, którym w kilka minut wydzielisz miejsce do pracy w otwartym biurze, kącik do nauki w klasie, strefę oczekiwania w recepcji albo stanowisko w sali szkoleniowej. Nie trzeba go przykręcać do podłogi ani ściany — stoi sam, a kilka parawanów łączy się w dłuższą ściankę albo zamkniętą wnękę.",
+    "SonoVelo to wolnostojący parawan, którym w kilka minut wydzielisz miejsce do pracy w otwartym biurze, kącik do nauki w klasie, strefę oczekiwania w recepcji albo stanowisko w sali szkoleniowej. Nie trzeba go przykręcać do podłogi ani ściany — stoi sam, a kilka parawanów łączy się w dłuższą ściankę.",
     "Panel ma 21 mm grubości i składa się z dwóch warstw filcu PET po 9 mm, w 60% z poliestru z recyklingu, obszytych tkaniną. Materiał pochłania odbicia dźwięku — w badaniu tego filcu (ISO 354) współczynnik NRC wyniósł 0,85 — a w klasyfikacji ogniowej osiąga B-s1,d0. To wyniki badań materiału, nie całego parawanu, ale dobrze pokazują, czego się spodziewać: mniej pogłosu i mniej słyszanych rozmów zza ścianki.",
     "Parawan ma 145 cm wysokości i 60 cm głębokości podstawy, a szerokość 120, 140 albo 160 cm. Panele łączy się zamkami błyskawicznymi, więc szerszą wersję złożysz z węższej, dokładając panel poszerzający. Na panelu są dwie siatkowe kieszenie na drobiazgi. Kolory: jasno- lub ciemnoszary z akcentem wiśniowym albo limonkowym. Gwarancja producenta wynosi 3 lata.",
     "Pomagamy zaplanować ustawienie parawanów — ile sztuk i jakich szerokości potrzeba, żeby wydzielić konkretne stanowiska — a przy okazji urządzamy te stanowiska: monitory, stacje dokujące i dostęp do sieci."
@@ -101036,7 +101036,7 @@
    "cechy": [
     "NRC 0,85 (materiał)",
     "120–160 cm",
-    "bez montażu"
+    "wolnostojący"
    ],
    "parametry": [
     {
@@ -101219,7 +101219,7 @@
    "wyrozniki": [
     "NRC 0,85 (materiał)",
     "120–160 cm",
-    "bez montażu"
+    "wolnostojący"
    ],
    "w_skrocie_wzorzec": [
     {
@@ -101288,7 +101288,7 @@
    "korzysc": "Rozbudowa parawanu SonoVelo, gdy zmienia się układ biura.",
    "opis": [
     "Do parawanu SonoVelo są dwa dodatki, które przydają się, gdy biuro albo sala zmienia układ. Panel poszerzający Extension zwiększa szerokość parawanu o kolejne 20 cm — z wersji 120 cm zrobisz 140 cm, a z dwóch paneli 160 cm. Stopa podporowa L-Foot pozwala ustawić dwa parawany tuż obok siebie, bez szczeliny, albo dosunąć parawan blisko ściany.",
-    "Panel Extension jest wykonany tak samo jak sam parawan: 21 mm grubości, dwie warstwy filcu PET po 9 mm (w 60% z poliestru z recyklingu) w obiciu z tkaniny 257 g/m², a z parawanem łączy się go zamkiem błyskawicznym. Dostępny jest w tych samych czterech kolorach co SonoVelo, więc po rozbudowie ścianka wygląda jednolicie. Stopa L-Foot ma 45 × 150 × 350 mm i waży ok. 0,4 kg; montuje się ją po jednej stronie parawanu.",
+    "Panel Extension jest wykonany tak samo jak sam parawan: 21 mm grubości, dwie warstwy filcu PET po 9 mm (w 60% z poliestru z recyklingu) w obiciu z tkaniny 257 g/m², a z parawanem łączy się go zamkiem błyskawicznym. Dostępny jest w tych samych czterech kolorach co SonoVelo, więc po rozbudowie ścianka wygląda jednolicie. Stopa L-Foot ma 45 × 150 × 350 mm i waży ok. 0,4 kg z opakowaniem; montuje się ją po jednej stronie parawanu.",
     "Dodatki zamawia się do parawanów, które już stoją w biurze, albo od razu przy planowaniu większej ścianki. Producent daje na nie, tak jak na parawan, 3 lata gwarancji.",
     "Przy planowaniu stref pracy liczymy, ile parawanów, paneli i stóp potrzeba, żeby wydzielić konkretne stanowiska, i dobieramy kolory do tych, które już są w biurze."
    ],
