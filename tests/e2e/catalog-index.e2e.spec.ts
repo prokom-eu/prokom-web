@@ -57,7 +57,16 @@ test.describe('catalog index', () => {
     expect(image?.status()).toBe(200)
   })
 
-  for (const host of ['instalacje.localhost', 'software.localhost', 'panel.localhost']) {
+  // ADR-029: Instalacje serves its own index — none of the Biznes cards.
+  test('serves only the Instalacje cards on instalacje.localhost', async ({ page }) => {
+    const response = await page.goto(site('instalacje.localhost', '/api/catalog-index'))
+    expect(response?.status()).toBe(200)
+    const text = await response!.text()
+    expect(text).not.toContain('posnet-ergo-online')
+    expect(text).toContain('dahua-ipc-hfw2x49s-s-il')
+  })
+
+  for (const host of ['software.localhost', 'panel.localhost']) {
     test(`is 404 on ${host}`, async ({ page }) => {
       const response = await page.goto(site(host, '/api/catalog-index'))
       expect(response?.status()).toBe(404)

@@ -9,6 +9,7 @@ import type { Cart } from '@/lib/cart/cart'
 import {
   CONSENT_CLAUSE,
   INQUIRY_ADMIN_NOTE,
+  INSTALACJE_INQUIRY_ADMIN_NOTE,
   PRIVACY_POLICY_LINK_TEXT,
   PRIVACY_POLICY_PATH,
 } from '@/lib/inquiry/consent'
@@ -217,7 +218,7 @@ export function ListForm({
           autoComplete="tel"
           maxLength={30}
           starred
-          hint={CONTACT_HINT}
+          hint={phoneRequired ? 'Oddzwonimy, żeby ustalić szczegóły.' : CONTACT_HINT}
           error={errors.phone}
         />
         <IconField
@@ -277,7 +278,9 @@ export function ListForm({
         {sending ? 'Wysyłanie…' : buttonLabel(cart.length)}
         {!sending && <Icon name="arrow" strokeWidth={2.4} className="size-[18px]" />}
       </button>
-      <p className="text-[13px] leading-[1.45] text-ink-2">{INQUIRY_ADMIN_NOTE}</p>
+      <p className="text-[13px] leading-[1.45] text-ink-2">
+        {phoneRequired ? INSTALACJE_INQUIRY_ADMIN_NOTE : INQUIRY_ADMIN_NOTE}
+      </p>
       {!compact && promises.length > 0 && (
         <ul className="flex flex-col gap-2 border-t border-border pt-3.5 text-sm text-ink-2">
           {promises.map((promise) => (

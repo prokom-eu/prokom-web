@@ -1,0 +1,64 @@
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
+
+import { setTheme, site } from '../helpers'
+import { INST_HOST } from './pages'
+
+// INST-K1 (ADR-029): the catalog of prokominstalacje.pl on the engine of Biznes — its own cards,
+// texts and inquiry list; never a Biznes card on this domain. Data from `pnpm seed`
+// (`seed/prokominstalacje/katalog/`).
+const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
+const PRODUCT = '/produkt/dahua-ipc-hfw2x49s-s-il'
+const inst = (path: string) => site(INST_HOST, path)
+
+test.describe('Instalacje catalog (INST-K1)', () => {
+  test('/oferta: the line’s heading, cards and planner link, no Biznes text', async ({ page }) => {
+    const response = await page.goto(inst('/oferta'))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('h1')).toHaveText('Sprzęt do monitoringu, alarmów i domofonów')
+    await expect(page).toHaveTitle(/\| PRO-KOM Instalacje$/)
+    const main = page.locator('main')
+    await expect(main.getByRole('link', { name: 'Zaplanuj instalację' }).first()).toHaveAttribute(
+      'href',
+      '/zaplanuj',
+    )
+    await expect(main).not.toContainText(/Posnet|kasa mobilna|Subiekt|konfigurator/i)
+    // One kind of item: no „Sprzęt / Programy / Usługi” segment.
+    await expect(main.getByRole('group', { name: 'Rodzaj' })).toHaveCount(0)
+  })
+
+  test('a product page has no price and the Instalacje service strip', async ({ page }) => {
+    const response = await page.goto(inst(PRODUCT))
+    expect(response?.status()).toBe(200)
+    const main = page.locator('main')
+    await expect(main).toContainText('Gwarancja na montaż')
+    await expect(main).not.toContainText(/\d\s?zł|PLN|stanowisk i programy/)
+  })
+
+  test('a Biznes card is 404 on the Instalacje domain', async ({ page }) => {
+    const response = await page.goto(inst('/produkt/posnet-ergo-online'))
+    expect(response?.status()).toBe(404)
+  })
+
+  test('the header leads to „Sprzęt”, not „Serwis” (D12)', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(inst('/'))
+    const header = page.locator('[data-site-header]')
+    await expect(header.getByRole('link', { name: 'Sprzęt', exact: true })).toHaveAttribute(
+      'href',
+      '/oferta',
+    )
+    await expect(header.getByRole('link', { name: 'Serwis', exact: true })).toHaveCount(0)
+  })
+
+  for (const theme of ['light', 'dark'] as const) {
+    for (const path of ['/oferta', PRODUCT]) {
+      test(`axe WCAG AA on ${path} (${theme})`, async ({ page }) => {
+        await setTheme(page, theme)
+        await page.goto(inst(path))
+        const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze()
+        expect(violations).toEqual([])
+      })
+    }
+  }
+})

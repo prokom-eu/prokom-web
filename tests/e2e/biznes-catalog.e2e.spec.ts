@@ -40,12 +40,20 @@ test.describe('Biznes catalog /oferta', () => {
     )
   })
 
-  for (const host of ['instalacje.localhost', 'software.localhost']) {
-    test(`/oferta on ${host} → 404`, async ({ page }) => {
-      const response = await page.goto(site(host, '/oferta'))
-      expect(response?.status()).toBe(404)
-    })
-  }
+  test('/oferta on software.localhost → 404', async ({ page }) => {
+    const response = await page.goto(site('software.localhost', '/oferta'))
+    expect(response?.status()).toBe(404)
+  })
+
+  // ADR-029: Instalacje has its own catalog on the same engine — never a Biznes card there.
+  test('/oferta on instalacje.localhost shows the Instalacje catalog, no Biznes card', async ({
+    page,
+  }) => {
+    const response = await page.goto(site('instalacje.localhost', '/oferta'))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('h1')).not.toHaveText('Cała oferta dla firm')
+    await expect(page.locator('main')).not.toContainText('Posnet')
+  })
 
   test('filters combine, counts agree and the URL restores the view (kryterium 4)', async ({
     page,

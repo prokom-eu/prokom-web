@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -29,6 +30,8 @@ type Props = {
   phone: { label: string; href: string } | null
   /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
   phoneRequired?: boolean
+  /** Catalog line (ADR-029): its help link and wording; Biznes when left out. */
+  line?: string
 }
 
 // `true` in the browser after hydration, `false` on the server and while hydrating.
@@ -97,7 +100,11 @@ export function InquiryPage({
   hours,
   phone,
   phoneRequired = false,
+  line,
 }: Props) {
+  const ui = CATALOG_UI[catalogTextLine(line ?? 'biznes')]
+  // Runda 1411: Biznes says „wycena na mailu”; Instalacje prices after a talk about the building.
+  const quote = line === 'instalacje' ? 'wycena po rozmowie o obiekcie' : 'wycena na mailu'
   const cart = useCart()
   const catalog = useCatalogIndex(true)
   const index = catalog.index
@@ -236,8 +243,8 @@ export function InquiryPage({
                 >
                   Przejdź do katalogu
                 </Link>
-                <Link href="/konfigurator" className={LINK}>
-                  Otwórz konfigurator
+                <Link href={ui.helpHref} className={LINK}>
+                  {ui.helpLabel}
                 </Link>
               </div>
             </div>
@@ -362,15 +369,14 @@ export function InquiryPage({
               </ul>
               <div className="flex flex-wrap items-center justify-between gap-3 px-1 py-3.5 text-[14.5px] text-ink-2">
                 <p ref={listStatus} tabIndex={-1} aria-live="polite" className="outline-offset-4">
-                  {count} {plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, wycena na
-                  piśmie
+                  {count} {plural(count, ['pozycja', 'pozycje', 'pozycji'])} · bez cen, {quote}
                 </p>
                 <p className="flex gap-4">
                   <Link href="/oferta" className={LINK}>
                     + Dodaj z katalogu
                   </Link>
-                  <Link href="/konfigurator" className={LINK}>
-                    Otwórz konfigurator
+                  <Link href={ui.helpHref} className={LINK}>
+                    {ui.helpLabel}
                   </Link>
                 </p>
               </div>
@@ -434,7 +440,9 @@ export function InquiryPage({
               </h2>
               {!sent && (
                 <p className="mt-0.5 text-[13px] text-white/80">
-                  Imię i telefon albo e-mail wystarczą
+                  {phoneRequired
+                    ? 'Imię i telefon wystarczą'
+                    : 'Imię i telefon albo e-mail wystarczą'}
                 </p>
               )}
             </div>

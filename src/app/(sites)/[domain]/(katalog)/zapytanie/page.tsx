@@ -59,6 +59,7 @@ export default async function InquiryListPage({ params, searchParams }: Props) {
       phrase={phrase}
       callbackTime={settings?.biznes?.promises.callbackTime ?? null}
       phoneRequired={tenant.line === 'instalacje'}
+      line={tenant.line}
       hours={hours || null}
       phone={settings?.phone && tel ? { label: settings.phone, href: tel } : null}
     />

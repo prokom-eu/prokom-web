@@ -6,7 +6,7 @@ import type { Payload, Where } from 'payload'
 import catalog from '../../../seed/prokominstalacje/katalog/katalog-inst.json'
 import dictionaryFile from '../../../seed/prokominstalacje/katalog/slowniki-inst.json'
 import { k4Relations } from '../biznes/k4Catalog'
-import { SEED_CONTEXT } from '../config'
+import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
   brandSlug,
   instCategoryData,
@@ -30,7 +30,12 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
   const inTenant = (where: Where): Where => ({ and: [{ tenant: { equals: tenantId } }, where] })
   const dictionaries = dictionaryFile as unknown as InstDictionaries
-  const cards = (catalog as unknown as { produkty: InstCard[] }).produkty
+  // CI keeps the seed fast with a few photos per card (`SEED_GALLERY_LIMIT`, like Biznes).
+  const limit = parseGalleryLimit(process.env.SEED_GALLERY_LIMIT) ?? Infinity
+  const cards = (catalog as unknown as { produkty: InstCard[] }).produkty.map((card) => ({
+    ...card,
+    zdjecia_premium: (card.zdjecia_premium ?? []).slice(0, limit),
+  }))
   const counts: Record<string, number> = {}
   const count = (name: string) => (counts[name] = (counts[name] ?? 0) + 1)
 
