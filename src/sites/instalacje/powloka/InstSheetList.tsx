@@ -67,7 +67,7 @@ export function InstSheetList({ navigation, menu }: { navigation: Navigation; me
         <>
           <Tiles columns={menu.services} />
           <Link href="/uslugi" className="mall">
-            Pełna oferta: {solutionsText(menu.offer.solutions)} <Arrow />
+            Wszystkie usługi: {solutionsText(menu.offer.solutions)} <Arrow />
           </Link>
         </>
       )}

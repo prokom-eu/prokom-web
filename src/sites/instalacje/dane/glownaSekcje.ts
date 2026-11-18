@@ -290,10 +290,10 @@ export const glownaSekcje = {
     describe: 'Opisz swój obiekt, a doradzimy zestaw',
     details: 'Szczegóły',
     all: {
-      eyebrow: 'Pełna oferta',
+      eyebrow: 'Wszystkie usługi',
       title: 'Wszystkie 76 rozwiązań na jednej stronie',
       note: 'Filtr po rodzaju obiektu i wyszukiwarka.',
-      button: 'Zobacz pełną ofertę',
+      button: 'Zobacz wszystkie usługi',
     },
   },
   realizations: {

@@ -67,7 +67,7 @@ export const navigation: Navigation = {
       caption: 'Telefon, e-mail, salony',
     },
     {
-      label: 'Pełna oferta',
+      label: 'Wszystkie usługi',
       href: '/uslugi',
       icon: 'layers',
       caption: 'Wszystkie rozwiązania w jednym miejscu',
@@ -85,14 +85,14 @@ export const navigation: Navigation = {
   header: [
     { label: 'Dla architektów', href: '/dla-architektow', accent: true },
     { label: 'Realizacje', href: '/realizacje' },
-    { label: 'Serwis', href: '/serwis' },
+    { label: 'Sprzęt', href: '/oferta' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Kontakt', href: '/kontakt' },
   ],
   megaServices: {
-    eyebrow: 'Pełna oferta',
+    eyebrow: 'Wszystkie usługi',
     text: '76 rozwiązań z filtrem po rodzaju obiektu. Projekt, montaż i serwis robi u nas ta sama ekipa.',
-    button: { label: 'Zobacz pełną ofertę →', href: '/uslugi' },
+    button: { label: 'Zobacz wszystkie usługi →', href: '/uslugi' },
     link: { label: 'Nie wiesz, od czego zacząć? Zaplanuj →', href: '/zaplanuj' },
   },
   megaObjects: {
