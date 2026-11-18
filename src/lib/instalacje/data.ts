@@ -15,7 +15,7 @@ import { buildMenu, type InstMenu, type MenuDoc } from './menu'
 import { byNewest, homeRealizations, withPhotos } from './realizations'
 import { OFFER_FAMILIES, SERVICE_KEYS, SETTINGS_DEFAULTS } from './options'
 
-/** Far above the 10 services, 12 objects and 76 solutions of the package. */
+/** Far above the 10 services, 12 objects and 79 solutions (76 of the package + 3, INST-K2). */
 const LIMIT = 500
 
 /**

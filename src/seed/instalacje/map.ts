@@ -13,6 +13,7 @@ import rawRest from '../../../seed/prokominstalacje/obiekty/rest.json'
 import rawSklep from '../../../seed/prokominstalacje/obiekty/sklep.json'
 import rawSzk from '../../../seed/prokominstalacje/obiekty/szk.json'
 import rawOffer76 from '../../../seed/prokominstalacje/oferta-76.json'
+import rawOfferStreaming from '../../../seed/prokominstalacje/oferta-streaming.json'
 import rawAlarmy from '../../../seed/prokominstalacje/strony-zrzut/Alarmy.json'
 import rawArchitekci from '../../../seed/prokominstalacje/strony-zrzut/Architekci.json'
 import rawAnteny from '../../../seed/prokominstalacje/strony-zrzut/Anteny.json'
@@ -654,13 +655,18 @@ export type SolutionItem = {
 const isOfferCategory = (value: string): value is OfferCategory =>
   OFFER_CATEGORIES.some((c) => c.value === value)
 
-/** The 76 solutions in package order; the position is the import id. */
+/**
+ * The 76 solutions in package order (the position is the import id), then the solutions added
+ * after the package (INST-K2 „Transmisje i streaming”, `oferta-streaming.json`) with ids from 77 —
+ * never in between, which would move the ids of the existing records.
+ */
 export function solutionsToImport(): SolutionItem[] {
   let legacyId = 0
-  return oferta.obszary.flatMap((area) => {
+  const areas = [...oferta.obszary, clean(rawOfferStreaming)]
+  return areas.flatMap((area) => {
     const serviceKey = area.usluga
     if (!isServiceKey(serviceKey))
-      throw new Error(`Seed (Instalacje): unknown service key "${serviceKey}" in oferta-76.json.`)
+      throw new Error(`Seed (Instalacje): unknown service key "${serviceKey}" in the offer.`)
     return area.rozwiazania.map((s) => {
       const categories = s.obiekty.filter(isOfferCategory)
       if (categories.length !== s.obiekty.length) {

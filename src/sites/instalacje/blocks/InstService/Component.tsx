@@ -17,6 +17,7 @@ import { CtaBandView } from '../../powloka/CtaBandView'
 import { architekci } from '../../dane/architekci'
 import { Faq } from '../../sekcje/Faq'
 import { FromGuide } from '../../sekcje/FromGuide'
+import { ServiceEquipment } from '../../sekcje/ServiceEquipment'
 import { TrustStrip } from '../../sekcje/TrustStrip'
 import { IlDefs } from '../../sekcje/IlDefs'
 import { JsonLd } from '../../sekcje/JsonLd'
@@ -216,6 +217,7 @@ export async function InstServiceBlock({ block, tenantId }: Props) {
         phone={phone}
         fold={folded.has('faq')}
       />
+      <ServiceEquipment tenantId={tenantId} service={service.key} serviceName={service.name} />
       <FromGuide tenantId={tenantId} service={service.key as ServiceKey} path={path} />
       <Related
         tenantId={tenantId}
