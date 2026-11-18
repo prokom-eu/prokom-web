@@ -161,8 +161,8 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       .filter((id): id is number => id !== undefined)
     const data = {
       ...instProductData(card, { brand: brandIds.get(card.marka), category, images }, dictionaries),
-      // Package order = the default „Polecane” order of the listing.
-      popularity: cards.length - popularity,
+      // Package order = the default „Polecane” order of the listing, on the field's 0–100 scale.
+      popularity: Math.max(1, Math.round(100 - (popularity * 99) / Math.max(1, cards.length - 1))),
       _status: 'published' as const,
     }
     const {
