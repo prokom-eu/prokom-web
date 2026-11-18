@@ -56,6 +56,8 @@ export const Users: CollectionConfig = {
     read: adminOrSelf,
     update: adminOrSelf,
     delete: adminOnly,
+    // Audit AB4 (W-07): by default an editor could unlock other users of his site.
+    unlock: adminOnly,
   },
   hooks: {
     beforeOperation: [enforcePasswordPolicy],

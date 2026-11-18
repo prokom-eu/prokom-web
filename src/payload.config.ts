@@ -135,6 +135,8 @@ export default buildConfig({
     tasks: [inquiryRetentionTask, videoAvailabilityTask],
   },
   secret: env.PAYLOAD_SECRET,
+  // Audit AB4 (W-07): the same 20 MB cap as nginx (`client_max_body_size`), also in the app.
+  upload: { limits: { fileSize: 20 * 1024 * 1024 } },
   // Audit AB4 (W-01): the session cookie is accepted only from the panel's origin (CSRF). Not
   // `serverURL` (it would make media URLs absolute for next/image) and not locally (the panel runs
   // on panel.localhost:<port> over http).
