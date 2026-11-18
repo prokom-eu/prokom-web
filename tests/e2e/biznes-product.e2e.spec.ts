@@ -435,7 +435,10 @@ test.describe('Biznes product page 2.0', () => {
     expect(biznes).toContain(site('biznes.localhost', '/oferta'))
     expect(biznes).toContain(site('biznes.localhost', ERGO))
 
+    // Instalacje list their own cards (ADR-029), never a Biznes one; Software has no catalog.
     await page.goto(site('instalacje.localhost', '/sitemap.xml'))
+    expect(await page.content()).not.toContain(ERGO)
+    await page.goto(site('software.localhost', '/sitemap.xml'))
     expect(await page.content()).not.toContain('/produkt/')
   })
 })
