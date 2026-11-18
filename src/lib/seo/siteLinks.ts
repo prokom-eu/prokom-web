@@ -53,6 +53,8 @@ export type SiteMapInput = {
     plan?: boolean
     /** The panel has configurator rules: `/konfigurator` is listed (audit 0611 P1-10). */
     configurator?: boolean
+    /** Section titles of the line (Instalacje: „Sprzęt”); absent = those of Biznes. */
+    titles?: { offer: string; all: string; products: string }
     /** `categories[0]` is the main category. */
     products: readonly ({ slug: string; name: string; categories: readonly string[] } & Dated)[]
   } | null
@@ -70,6 +72,18 @@ export type SiteMapInput = {
   objectPages?: readonly ({ slug: string; name: string } & Dated)[] | null
   /** Instalacje: the towns list `/obszar` and the town pages `/obszar/[miasto]` (ADR-I006). */
   areaPages?: readonly { slug: string; name: string }[] | null
+}
+
+const BIZNES_CATALOG_TITLES = {
+  offer: 'Oferta',
+  all: 'Cały katalog',
+  products: 'Produkty i usługi',
+}
+/** Instalacje (ADR-029): its catalog is equipment, next to the services of `/uslugi`. */
+export const INSTALACJE_CATALOG_TITLES = {
+  offer: 'Sprzęt',
+  all: 'Cały sprzęt',
+  products: 'Karty sprzętu',
 }
 
 const byLabel = (a: SiteMapLink, b: SiteMapLink) => a.label.localeCompare(b.label, 'pl')
@@ -123,11 +137,12 @@ export function buildSiteMap({
   }
 
   if (catalog) {
+    const titles = catalog.titles ?? BIZNES_CATALOG_TITLES
     sections.push({
       id: 'oferta',
-      title: 'Oferta',
+      title: titles.offer,
       links: [
-        { href: CATALOG_PATH, label: 'Cały katalog' },
+        { href: CATALOG_PATH, label: titles.all },
         ...catalog.categories.flatMap((category) => [
           { href: categoryHref(category.slug), label: category.name },
           ...(category.subcategories ?? []).flatMap(({ name, slug }) =>
@@ -207,7 +222,7 @@ export function buildSiteMap({
       { title: 'Pozostałe', links: productLinks((main) => !main || !listed.has(main)) },
     ].filter((group) => group.links.length > 0)
     if (groups.length > 0) {
-      sections.push({ id: 'produkty', title: 'Produkty i usługi', links: [], groups })
+      sections.push({ id: 'produkty', title: titles.products, links: [], groups })
     }
   }
 

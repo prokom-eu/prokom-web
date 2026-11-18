@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { AREA_TOWNS } from '../instalacje/area'
-import { brandLinks, buildSiteMap, siteMapPaths } from './siteLinks'
+import { brandLinks, buildSiteMap, INSTALACJE_CATALOG_TITLES, siteMapPaths } from './siteLinks'
 
 const pages = [
   { slug: 'kontakt', title: 'Kontakt', updatedAt: '2026-10-20T00:00:00.000Z' },
@@ -102,6 +102,24 @@ describe('buildSiteMap', () => {
     ])
     const none = buildSiteMap({ pages: [], catalog: { ...catalog, bundles: null }, news: null })
     expect(none.find(({ id }) => id === 'zestawy')).toBeUndefined()
+  })
+
+  it('titles the catalog of Instalacje as equipment (ADR-029), Biznes as before', () => {
+    const catalog = {
+      categories: [{ slug: 'kamery-ip', name: 'Kamery IP' }],
+      industries: [],
+      products: [{ slug: 'k1', name: 'Kamera', categories: ['kamery-ip'] }],
+    }
+    const inst = buildSiteMap({
+      pages: [],
+      catalog: { ...catalog, titles: INSTALACJE_CATALOG_TITLES },
+      news: null,
+    })
+    expect(inst.find(({ id }) => id === 'oferta')?.title).toBe('Sprzęt')
+    expect(inst.find(({ id }) => id === 'oferta')?.links[0]?.label).toBe('Cały sprzęt')
+    expect(inst.find(({ id }) => id === 'produkty')?.title).toBe('Karty sprzętu')
+    const biznes = buildSiteMap({ pages: [], catalog, news: null })
+    expect(biznes.find(({ id }) => id === 'produkty')?.title).toBe('Produkty i usługi')
   })
 
   it('lists /plan-firmy only when the plan has a scene (K31d′)', () => {
