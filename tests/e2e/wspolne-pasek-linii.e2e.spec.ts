@@ -7,17 +7,20 @@ import { hydrated, site } from './helpers'
 const bar = (page: Page) => page.locator('[data-brand-bar] [data-bbar-lines]')
 const pill = (page: Page) => bar(page).locator('.bbar-pill')
 
-/** Left edge and width of a line and of the pill, measured against the bar's line list. */
+/**
+ * Where the pill is headed and where the line is, both against the bar's line list: the pill's
+ * target (`translateX` and width set by `BrandBarPill`) — not its place mid-transition.
+ */
 const box = (page: Page, selector: string) =>
   bar(page).evaluate((nav, sel) => {
-    const base = nav.getBoundingClientRect().left
     const el = nav.querySelector<HTMLElement>(sel)!.getBoundingClientRect()
-    const pillEl = nav.querySelector<HTMLElement>('.bbar-pill')!.getBoundingClientRect()
+    const pillEl = nav.querySelector<HTMLElement>('.bbar-pill')!
+    const target = /translateX\(([-\d.]+)px\)/.exec(pillEl.style.transform)
     return {
-      left: el.left - base,
+      left: el.left - nav.getBoundingClientRect().left,
       width: el.width,
-      pillLeft: pillEl.left - base,
-      pillWidth: pillEl.width,
+      pillLeft: target ? Number(target[1]) : Number.NaN,
+      pillWidth: parseFloat(pillEl.style.width),
     }
   }, selector)
 

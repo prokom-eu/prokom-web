@@ -1750,9 +1750,11 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   background: var(--cap-border);
   content: '';
 }
+/* Revealed by a clip, not by opacity: half-transparent text in the first 400 ms would fail the
+   contrast checks of axe (and of a visitor's eye). */
 @keyframes bbar-in {
   from {
-    opacity: 0;
+    clip-path: inset(0 0 100% 0);
     translate: 0 4px;
   }
 }
