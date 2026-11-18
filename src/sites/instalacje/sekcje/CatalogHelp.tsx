@@ -20,7 +20,8 @@ const BUTTON =
  * Help under a catalog category of Instalacje (INST-K2) in place of the Biznes form: the line
  * calls back and plans the installation, so a call and an inquiry about the category (the planner
  * is in the CTA band right below) — no „wycena na mailu” (ADR-I002 §4). `#kontakt` keeps the
- * grid's anchor.
+ * grid's anchor. The category's „lead” of the contact block is not used here (the Biznes default
+ * speaks of an offer by e-mail); its heading is.
  */
 export async function CatalogHelp({ tenantId, heading, topic }: Props) {
   const settings = await getSiteSettings(tenantId)

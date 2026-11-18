@@ -1,4 +1,5 @@
 import type { CatalogIndex } from '../catalog/catalogIndex'
+import { plural } from '../plural'
 import type { MenuColumn } from './menu'
 
 /** Line icons (`InstIcon`) of the catalog categories; a new category gets `tool`. */
@@ -16,14 +17,7 @@ const CATEGORY_ICON: Record<string, string> = {
   streaming: 'play',
 }
 
-function items(count: number): string {
-  if (count === 1) return '1 pozycja'
-  const tens = count % 100
-  const ones = count % 10
-  return ones >= 2 && ones <= 4 && (tens < 12 || tens > 14)
-    ? `${count} pozycje`
-    : `${count} pozycji`
-}
+const items = (count: number) => `${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])}`
 
 /**
  * Columns of the „Sprzęt” mega menu (INST-K2): one per department of the catalog, its listed

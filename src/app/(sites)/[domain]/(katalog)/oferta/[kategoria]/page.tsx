@@ -67,7 +67,6 @@ export default async function CategoryPage({ params }: Props) {
       index={index}
       listed={listed}
       category={category}
-      forFirms={tenant.line !== 'instalacje'}
       contact={
         tenant.line === 'instalacje' ? (
           <CatalogHelp

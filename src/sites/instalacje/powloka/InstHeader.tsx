@@ -192,6 +192,12 @@ export function InstHeader({ homeLabel, navigation, menu, equipment, withShared 
           }}
           id={`mega-${which}`}
           className={`${CAPSULE.mega} imega${which === 'services' ? '' : ' imega--o'}`}
+          // „Sprzęt”: as many columns as departments with cards, then the promo.
+          style={
+            which === 'equipment'
+              ? { gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr)) 1fr` }
+              : undefined
+          }
           hidden={mega !== which}
           role="region"
           aria-label={label}

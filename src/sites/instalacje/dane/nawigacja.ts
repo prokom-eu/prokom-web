@@ -111,7 +111,7 @@ export const navigation: Navigation = {
   megaEquipment: {
     eyebrow: 'Sprzęt',
     title: 'Sprzęt, który montujemy',
-    text: 'Karty z parametrami i salony marek. Dobierzemy model do obiektu i zamontujemy go z gwarancją 24 miesiące na montaż.',
+    text: 'Karty z parametrami i salony marek. Dobierzemy model do obiektu i zamontujemy go z 24-miesięczną gwarancją na montaż.',
     button: { label: 'Cały sprzęt →', href: '/oferta' },
     link: { label: 'Marki i salony →', href: '/marki' },
   },

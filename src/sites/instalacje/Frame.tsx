@@ -9,6 +9,7 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { getInstalacjeMenu } from '@/lib/instalacje/data'
 import { equipmentColumns } from '@/lib/instalacje/equipmentMenu'
+import { log } from '@/lib/log'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { paletteActions } from '@/lib/shared/search/palette'
 import { getCompanyData } from '@/lib/site/data'
@@ -51,7 +52,13 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
     getInstalacjeMenu(tenant.id),
     getSharedData(tenant.id),
     getCompanyData(),
-    INSTALACJE_CATALOG_ENABLED ? getCatalogIndex(tenant.id) : null,
+    // The menu is an extra: a failed index leaves the plain „Sprzęt” link, never a broken page.
+    INSTALACJE_CATALOG_ENABLED
+      ? getCatalogIndex(tenant.id).catch(() => {
+          log.warn({ tenant: tenant.id }, 'Catalog index for the equipment menu failed')
+          return null
+        })
+      : null,
   ])
   const equipment = catalog ? equipmentColumns(catalog) : []
   const telHref = settings?.phone ? toTelHref(settings.phone) : null
