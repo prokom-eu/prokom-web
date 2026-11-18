@@ -16,6 +16,11 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
 Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęzie inst/*)
 
+### Runda 18.11 — pomysły szefa (plan z czatu, `docs/zadania/runda-1811.md`)
+- Dokumenty (PR `docs/runda-1811`): plan i prompty `docs/zadania/runda-1811.md`, wspólny kontrakt `docs/design/wspolne/MOTYW-PASEK-LINII.md`, ADR-028 (motyw: przycisk z napisem, Auto „w nocy ciemny”, wybór niesiony między domenami `?motyw=`), ADR-029 (katalog i salony marek Instalacji na silniku Biznesu, dane z Eltrox), plan treści `docs/tresci/instalacje-katalog-eltrox.md`, logo `seed/partnerzy/alsen.png`.
+- Sesje: **WSP-M** (folder fundamentu) ‖ **BZ-R1** (`prokom-web-biznes`) → **HUB-R1** (`prokom-web-hub`) → **INST-K0 → INST-K1 → INST-K2** (`prokom-instal`). Tech (T-R1) i Gaming (GM-R1) w swoich repo.
+- Następny krok: Krystian scala PR dokumentów, potem prompty §4.1 i §4.2 (dwie sesje naraz).
+
 ### Audyt bezpieczeństwa (`docs/bezpieczenstwo/`)
 - **W-AB zrobione 18.11** — plan audytu (`AUDYT-PLAN.md`), puste `ZNALEZISKA-2026-11.md` i `DOSTEPY.md` w prokom-web, prokom-gaming i prokom-system.
 - **Następny krok:** `/zadanie AB1` — audyt serwera VPS, tylko do odczytu (prompt w `AUDYT-PLAN.md` §6). Część K (konta, `DOSTEPY.md`) Krystian wypełnia równolegle.
