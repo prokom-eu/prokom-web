@@ -24,13 +24,6 @@ import {
   type InstDictionaries,
 } from './katalogMap'
 
-/**
- * Catalog of prokominstalacje.pl (INST-K1, ADR-029): departments → `catalog-groups`,
- * categories → `catalog-categories`, brands → shared `partners` (the Instalacje tenant added to
- * an existing record), photos → `media`, cards → `products`. Idempotent: a record is found by
- * its slug in the tenant; the package's fields win (like `seed:biznes`), so a re-run brings a
- * changed card in. Fields the package does not carry (hero, menu images…) stay as edited.
- */
 /** Eight cards of „Najczęściej wybierane” on the home page until the panel sets its own. */
 export const HOME_FEATURED = [
   'dahua-ipc-hfw2x49s-s-il',
@@ -43,6 +36,13 @@ export const HOME_FEATURED = [
   'dahua-asi1201e-v1',
 ] as const
 
+/**
+ * Catalog of prokominstalacje.pl (INST-K1, ADR-029): departments → `catalog-groups`,
+ * categories → `catalog-categories`, brands → shared `partners` (the Instalacje tenant added to
+ * an existing record), photos → `media`, cards → `products`. Idempotent: a record is found by
+ * its slug in the tenant; the package's fields win (like `seed:biznes`), so a re-run brings a
+ * changed card in. Fields the package does not carry (hero, menu images…) stay as edited.
+ */
 export async function seedInstalacjeCatalog(payload: Payload, tenantId: number): Promise<void> {
   const log = (message: string) => payload.logger.info(`Seed (Instalacje katalog): ${message}`)
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const

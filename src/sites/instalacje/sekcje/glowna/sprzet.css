@@ -128,6 +128,14 @@
     }
   }
 
+  & .isp-brand-logo {
+    width: auto;
+    max-width: 72px;
+    height: 18px;
+    margin-right: 8px;
+    object-fit: contain;
+  }
+
   & .isp-brands-label {
     font-size: 0.75rem;
     font-weight: 900;
@@ -233,7 +241,7 @@
   }
 
   /* Phone: snapping rows like an app — departments and the eight cards scroll sideways. */
-  @media (max-width: 767px) {
+  @media (max-width: 760px) {
     & .isp-deps,
     & .isp-feat-list {
       display: flex;
