@@ -110,6 +110,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
   return (
     <div data-wspolne>
       <BrandBar
+        idPrefix="wspolne-bbar-tip"
         lines={lines}
         current={tenant.line}
         hours={company.hours}
@@ -139,7 +140,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
                 <kbd>Ctrl K</kbd>
               </button>
             )}
-            {hasDarkTheme(tenant.line) && <ThemeToggle className={CAPSULE.iconButton} />}
+            {hasDarkTheme(tenant.line) && <ThemeToggle className={CAPSULE.themeButton} />}
             {tenant.line === 'software' && (
               <button type="button" className={CAPSULE.pillButton}>
                 Twój projekt <em className={CAPSULE.count}>2</em>

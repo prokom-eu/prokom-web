@@ -37,7 +37,7 @@ import {
 } from '@/sites/biznes/components/brand/salon/SalonSections'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 
-import { requestOrigin, requireLine } from '../../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
@@ -50,7 +50,7 @@ const JSON_LD_LOGO_WIDTH = 600
  * K3b′ (a brand with `hasPage` and listed products), else nothing (404).
  */
 async function load(params: Props['params']) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const { slug } = await params
   if (!isValidSlug(slug)) return { tenant, index: null, salon: null, brand: null, redirect: null }
   const [index, doc] = await Promise.all([getCatalogIndex(tenant.id), getSalonDoc(tenant.id, slug)])

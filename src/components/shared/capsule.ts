@@ -12,6 +12,8 @@ export const CAPSULE = {
   mega: 'cap-mega',
   /** 44 px button with an icon (theme, phone, menu). */
   iconButton: 'cap-btn',
+  /** „Ciemny motyw” / „Jasny motyw” pill (`ThemeToggle`, ADR-028). */
+  themeButton: 'cap-btn cap-btn--theme',
   /** „Szukaj · Ctrl K” button. */
   searchButton: 'cap-btn cap-btn--search',
   /** Text button with an optional count („Twój projekt”). */

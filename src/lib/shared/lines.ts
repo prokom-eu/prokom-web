@@ -22,3 +22,16 @@ export function withGamingLast<T extends { key: SharedLineKey }>(lines: readonly
     ...lines.filter((line) => line.key === 'gaming'),
   ]
 }
+
+/**
+ * Domains of all PRO-KOM lines, here and in the other repos (Tech, Gaming) — the links that carry
+ * the theme choice (`lib/shared/themeCarry`, ADR-028 pkt 5). `www.` and `staging.` hosts count too.
+ */
+export const LINE_DOMAINS = [
+  'pro-kom.eu',
+  'prokombiznes.pl',
+  'prokominstalacje.pl',
+  'prokomsoftware.pl',
+  'prokomserwis.pl',
+  'prokomgaming.pl',
+] as const

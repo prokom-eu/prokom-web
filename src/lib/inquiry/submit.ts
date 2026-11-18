@@ -19,6 +19,7 @@ import {
   type InquiryForEmail,
   type ItemForEmail,
 } from './emails'
+import { inquiryCategory } from './category'
 import { inquiryFieldErrors, parseInquiryInput, type InquiryInput } from './schema'
 import {
   checkFormToken,
@@ -341,6 +342,7 @@ export async function submitInquiryWith(
     return { ok: false, error: 'rate_limited' }
   }
   const acceptedAt = new Date(now).toISOString()
+  const category = inquiryCategory(tenant.line, input.type, input.category)
 
   let saved: { id: number; number?: string | null }
   try {
@@ -349,7 +351,7 @@ export async function submitInquiryWith(
       line: tenant.line,
       status: 'new',
       type: input.type,
-      category: input.category,
+      category,
       name: input.name,
       company: input.company,
       nip: input.nip,
@@ -378,6 +380,7 @@ export async function submitInquiryWith(
   // The record is the source of truth: a failed e-mail is logged, the customer still gets 201.
   const forEmail: InquiryForEmail = {
     ...input,
+    category,
     topics,
     message,
     auditUrl,

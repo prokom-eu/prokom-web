@@ -244,7 +244,7 @@ export function SwHeader({ homeLabel, navigation, mega, cta }: Props) {
             <span className="sr-only">Szukaj na stronie</span>
             <kbd aria-hidden="true">Ctrl K</kbd>
           </button>
-          {navigation.headerRight.themeToggle && <ThemeToggle className={CAPSULE.iconButton} />}
+          {navigation.headerRight.themeToggle && <ThemeToggle className={CAPSULE.themeButton} />}
           {navigation.headerRight.projectDrawer && <ProjectMenu texts={navigation.projectDrawer} />}
         </>
       }
