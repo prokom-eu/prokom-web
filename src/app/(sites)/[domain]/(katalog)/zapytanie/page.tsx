@@ -9,7 +9,7 @@ import { toTelHref } from '@/lib/site/link'
 import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { InquiryPage } from '@/sites/biznes/components/inquiry/InquiryPage'
 
-import { requireLine } from '../../tenant'
+import { requireCatalogTenant } from '../../tenant'
 
 type Props = {
   params: Promise<{ domain: string }>
@@ -30,8 +30,8 @@ const MAX_PHRASE = 100
  * contact data on the server; the list (`pk-cart`) and the form are one client island.
  */
 export default async function InquiryListPage({ params, searchParams }: Props) {
-  // The layout already guards; repeated here so the page never renders on its own.
-  const tenant = await requireLine(params, 'biznes')
+  // No layout in `(katalog)`: the page itself is the guard.
+  const tenant = await requireCatalogTenant(params)
   // The token carries the render time (minimum fill time): never from a cache.
   await connection()
   const [settings, company, query] = await Promise.all([

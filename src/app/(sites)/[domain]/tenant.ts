@@ -1,6 +1,8 @@
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 
+import { getCatalogIndex } from '@/lib/catalog/data'
+import { CATALOG_LINES, isCatalogOpen } from '@/lib/catalog/lines'
 import { getEnv } from '@/lib/env'
 import { hasNews } from '@/lib/posts/list'
 import { siteOrigin } from '@/lib/seo/origin'
@@ -22,15 +24,31 @@ export async function requireTenant(params: Promise<{ domain: string }>): Promis
 }
 
 /**
- * Tenant of a route that exists for one line only (Biznes catalog, ADR-012 rozstrzygnięcie 5):
- * on any other line's domain the route answers 404, as if it did not exist.
+ * Tenant of a route that exists for some lines only (ADR-012 rozstrzygnięcie 5): on any other
+ * line's domain the route answers 404, as if it did not exist.
  */
 export async function requireLine(
   params: Promise<{ domain: string }>,
-  line: Line,
+  line: Line | readonly Line[],
 ): Promise<SiteTenant> {
   const tenant = await requireTenant(params)
-  if (tenant.line !== line) notFound()
+  const allowed: readonly Line[] = typeof line === 'string' ? [line] : line
+  if (!allowed.includes(tenant.line)) notFound()
+  return tenant
+}
+
+/**
+ * Tenant of a catalog route (`/oferta`, `/produkt/…`, `/marki`, `/zapytanie`) — one engine for
+ * Biznes and Instalacje (ADR-029). Instalacje opens only when switched on and with published
+ * products (`lib/catalog/lines`); while switched off, no query at all.
+ */
+export async function requireCatalogTenant(
+  params: Promise<{ domain: string }>,
+): Promise<SiteTenant> {
+  const tenant = await requireLine(params, CATALOG_LINES)
+  if (tenant.line === 'biznes') return tenant
+  if (!isCatalogOpen(tenant.line, 1)) notFound()
+  if (!isCatalogOpen(tenant.line, (await getCatalogIndex(tenant.id)).products.length)) notFound()
   return tenant
 }
 
