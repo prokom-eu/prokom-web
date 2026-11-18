@@ -18,6 +18,51 @@ export type CatalogTexts = {
   brandsDescription: string
 }
 
+/** Copy of the offer list that is not panel content: the search hint and the help tile. */
+export type CatalogUi = {
+  searchPlaceholder: string
+  helpText: string
+  helpLabel: string
+  helpHref: string
+  /** „Nie widzisz tego, czego szukasz?” under the grid. */
+  offListText: string
+  /** Under the product's buttons. */
+  productPriceNote: string
+  /** The product's dark „Wycena na mailu” band. */
+  productCtaTitle: string
+  productCtaText: string
+}
+
+export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
+  biznes: {
+    searchPlaceholder:
+      'Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt',
+    helpText: 'Odpowiedz na kilka prostych pytań, a pokażemy rozwiązania dobrane do Twojej firmy.',
+    helpLabel: 'Otwórz konfigurator',
+    helpHref: '/konfigurator',
+    offListText:
+      'Dostarczamy też sprzęt i programy spoza listy. Sprawdzimy u dystrybutorów i odezwiemy się z ofertą.',
+    productPriceNote: 'Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.',
+    productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
+    productCtaText:
+      'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+  },
+  instalacje: {
+    searchPlaceholder:
+      'Szukaj sprzętu: model, marka albo potrzeba, np. kamera 4K, alarm Ajax, domofon',
+    helpText: 'Opisz budynek w czterech krokach, a dobierzemy sprzęt i montaż do Twojego obiektu.',
+    helpLabel: 'Zaplanuj instalację',
+    helpHref: '/zaplanuj',
+    offListText:
+      'Montujemy też sprzęt spoza listy. Napisz, czego potrzebujesz, a dobierzemy model do budynku.',
+    productPriceNote:
+      'Bez cen na stronie. Wycenę sprzętu z montażem przygotujemy po rozmowie o obiekcie.',
+    productCtaTitle: 'Kilka kamer, alarm albo cały obiekt?',
+    productCtaText:
+      'Dodaj sprzęt do zapytania i napisz, gdzie ma działać. Przygotujemy ofertę z montażem, konfiguracją aplikacji i serwisem.',
+  },
+}
+
 export type CatalogTextLine = 'biznes' | 'instalacje'
 
 /**

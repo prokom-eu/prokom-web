@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 
 import { Icon } from '@/components/ui/Icon'
 import { cardIcon, productHref } from '@/lib/catalog/card'
@@ -414,7 +415,15 @@ export function ProductSources({
 }
 
 /** „Potrzebujesz kilku sztuk albo całego stanowiska?” — the closing band (K31-ZMIANY §4 pkt 11). */
-export function ProductCtaBand({ phone }: { phone: { label: string; href: string } | null }) {
+export function ProductCtaBand({
+  phone,
+  line,
+}: {
+  phone: { label: string; href: string } | null
+  /** Catalog line (ADR-029); Biznes when left out. */
+  line?: string
+}) {
+  const ui = CATALOG_UI[catalogTextLine(line ?? 'biznes')]
   return (
     <section
       aria-labelledby="pas-cta"
@@ -432,12 +441,9 @@ export function ProductCtaBand({ phone }: { phone: { label: string; href: string
             Wycena na mailu
           </p>
           <h2 id="pas-cta" className={BZ_H2}>
-            Potrzebujesz kilku sztuk albo całego stanowiska?
+            {ui.productCtaTitle}
           </h2>
-          <p className="mt-3 text-[1.05rem] leading-relaxed text-white/80">
-            Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z
-            konfiguracją, wdrożeniem i serwisem.
-          </p>
+          <p className="mt-3 text-[1.05rem] leading-relaxed text-white/80">{ui.productCtaText}</p>
         </div>
         <div className="flex flex-wrap gap-3">
           <ProductAddButton variant="light" />

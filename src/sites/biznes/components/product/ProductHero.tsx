@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 
 import type { IconName } from '@/lib/catalog/options'
 import type { ProductView } from '@/lib/catalog/product'
@@ -161,7 +162,7 @@ export function ProductHero({
             )}
           </div>
           <p className="text-sm text-ink-2">
-            Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.
+            {CATALOG_UI[catalogTextLine(line ?? 'biznes')].productPriceNote}
           </p>
           {supply && (
             <Link

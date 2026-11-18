@@ -39,7 +39,7 @@
       "kod": "kamery-ip",
       "dzial": "mon",
       "nazwa": "Kamery IP",
-      "opis": "Dahua, Hikvision, BCS, UniFi Protect: kamery sieciowe do domu, firmy i obiektu",
+      "opis": "Dahua, Hikvision, BCS: kamery sieciowe do domu, firmy i obiektu",
       "ikona": "M3 8h12l2 2v4l-2 2H3z M17 11l4-2v6l-4-2",
       "podkategorie": [
         { "slug": "tubowe", "nazwa": "Kamery tubowe" },

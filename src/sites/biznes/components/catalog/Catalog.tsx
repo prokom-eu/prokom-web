@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { CATALOG_UI, type CatalogUi } from '@/lib/catalog/texts'
 
 import { cx } from '@/components/ui/cx'
 import { Icon } from '@/components/ui/Icon'
@@ -43,7 +44,14 @@ const positions = (n: number) => `${n} ${plural(n, ['pozycja', 'pozycje', 'pozyc
  * router follows), so Back, a refresh and a shared link show the same list. The server renders
  * the first view from the same URL and the same index.
  */
-export function Catalog({ index }: { index: CatalogIndex }) {
+export function Catalog({
+  index,
+  ui = CATALOG_UI.biznes,
+}: {
+  index: CatalogIndex
+  /** The line's search hint and help tile (ADR-029); Biznes when left out. */
+  ui?: CatalogUi
+}) {
   const searchParams = useSearchParams()
   const state = useMemo(() => parseCatalogState(searchParams, index), [searchParams, index])
   const search = useMemo(() => prepareSearch(index), [index])
@@ -138,6 +146,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
       onClear={() => clearPanel(inSheet)}
       activeCount={activeCount}
       heading={!inSheet}
+      ui={ui}
     />
   )
   const list = view.view === 'list'
@@ -167,7 +176,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               type="search"
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
-              placeholder="Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt"
+              placeholder={ui.searchPlaceholder}
               autoComplete="off"
               enterKeyHint="search"
               className="h-14 w-full rounded-2xl border border-border-input bg-card pl-14 pr-4 text-base text-ink shadow-[0_18px_40px_-30px_var(--glow)] placeholder:text-ink-3 max-md:h-[52px] max-md:text-[15px] md:h-[66px] md:text-lg"
@@ -454,10 +463,7 @@ export function Catalog({ index }: { index: CatalogIndex }) {
               <p className="font-display text-lg font-extrabold text-ink">
                 Nie widzisz tego, czego szukasz?
               </p>
-              <p className="mt-1 text-sm leading-relaxed text-ink-2">
-                Dostarczamy też sprzęt i programy spoza listy. Sprawdzimy u dystrybutorów i
-                odezwiemy się z ofertą.
-              </p>
+              <p className="mt-1 text-sm leading-relaxed text-ink-2">{ui.offListText}</p>
             </div>
             <Link
               href={

@@ -365,7 +365,7 @@ export default async function ProductPage({ params }: Props) {
         />
         <ProductFaq id={ID.faq} faq={product.faq} phone={phone} />
         <ProductSources id={ID.sources} sources={product.sources} checkedAt={product.checkedAt} />
-        <ProductCtaBand phone={phone} />
+        <ProductCtaBand phone={phone} line={tenant.line} />
       </div>
     </ProductConfigProvider>
   )

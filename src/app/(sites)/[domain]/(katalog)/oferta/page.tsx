@@ -9,7 +9,7 @@ import {
   parseCatalogState,
   type ParamSource,
 } from '@/lib/catalog/filters'
-import { catalogTextLine } from '@/lib/catalog/texts'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { plural } from '@/lib/plural'
@@ -123,7 +123,7 @@ export default async function CatalogPage({ params }: Props) {
           )}
         </div>
       </div>
-      <Catalog index={index} />
+      <Catalog index={index} ui={CATALOG_UI[catalogTextLine(tenant.line)]} />
     </>
   )
 }
