@@ -86,14 +86,19 @@ test.describe('the choice between our domains (spec §3)', () => {
   test('after the clean-up the router still works: a link, then Back', async ({ page }) => {
     await page.goto(site('software.localhost', '/?motyw=jasny'))
     await expect.poll(() => new URL(page.url()).search).toBe('')
-    const link = page.locator('main a[href^="/"]').first()
+    const link = page
+      .locator('main a[href^="/"]:not([href="/"]):not([href*="#"]):not([href*="?"])')
+      .first()
     await hydrated(link)
     const target = await link.getAttribute('href')
     await link.click()
-    await page.waitForURL((url) => url.pathname === target)
+    // A client-side navigation fires no `load`: poll the address instead of `waitForURL`.
+    await expect.poll(() => new URL(page.url()).pathname).toBe(target)
     await page.goBack()
-    await page.waitForURL((url) => url.pathname === '/')
-    await expect(page.locator('main a[href^="/"]').first()).toHaveAttribute('href', target ?? '')
+    await expect.poll(() => new URL(page.url()).pathname).toBe('/')
+    await expect(
+      page.locator('main a[href^="/"]:not([href="/"]):not([href*="#"]):not([href*="?"])').first(),
+    ).toHaveAttribute('href', target ?? '')
     expect(new URL(page.url()).search).toBe('')
   })
 

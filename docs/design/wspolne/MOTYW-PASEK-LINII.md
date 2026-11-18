@@ -15,7 +15,7 @@ Zamiast ikony księżyca/słońca — przycisk, który mówi, co się stanie: **
 - Pigułka 40 px wysokości, `border-radius: 999px`, obramowanie 1 px w kolorze obramowań kapsuły (`--cap-*`/`--nav-*` w prokom-web; odpowiednik w Tech), tło jak przyciski ikonowe kapsuły, tekst 13,5 px / 600, odstęp ikona–tekst 8 px, padding 0 14px 0 12px.
 - Ikona 18 px po lewej: księżyc przy „Ciemny motyw”, słońce przy „Jasny motyw”. Kolor ikony: akcent linii (`--nav-active-ink`), tekst: `--nav-ink`.
 - **Stała szerokość** równa dłuższej etykiecie („Ciemny motyw”), żeby kapsuła nie skakała przy zmianie.
-- 1081–1359 px (ciasna kapsuła Biznesu i Software): etykieta skrócona **„Ciemny” / „Jasny”** (pełna nazwa w `aria-label`). Poniżej 1081 px przycisk znika z kapsuły — motyw jest w arkuszu menu (§1.4).
+- 1081–1359 px (ciasna kapsuła): **sama ikona** (napis zostaje nazwą dostępną); od 1360 px napis, a gdy rząd kapsuły się przepełnia (np. Software z „Twój projekt”) — też ikona (ADR-028 „Rozstrzygnięcia przy wdrożeniu”; skrót „Ciemny”/„Jasny” nie mieścił się przy najdłuższym menu Instalacji). Poniżej 1081 px przycisk znika z kapsuły — motyw jest w arkuszu menu (§1.4).
 - Hover: tło o stopień jaśniejsze/ciemniejsze, ikona obraca się o 20°; focus: widoczna obwódka 2 px w akcencie linii.
 
 ### Brak mignięcia złego napisu
