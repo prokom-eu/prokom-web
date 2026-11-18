@@ -42,7 +42,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
       // Server-side reads of public catalog data; drafts never leave here.
       const read = { overrideAccess: true, depth: 0 } as const
       const inTenant = { tenant: { equals: tenantId } }
-      const [products, categories, groups, industries, pages, settings, bundles, salons] =
+      const [products, categories, groups, industries, pages, settings, bundles, salons, owner] =
         await Promise.all([
           payload.find({
             collection: 'products',
@@ -143,6 +143,14 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
             select: { slug: true, brands: true, chooser: { options: true } },
             ...read,
           }),
+          // The line of the tenant: Instalacje shows no shared brand pages (ADR-029 pkt 6).
+          payload.findByID({
+            collection: 'tenants',
+            id: tenantId,
+            select: { line: true },
+            overrideAccess: true,
+            depth: 0,
+          }),
         ])
       return buildCatalogIndex({
         tenantId,
@@ -152,6 +160,7 @@ export const getCatalogIndex = cache((tenantId: number): Promise<CatalogIndex> =
         industries: industries.docs,
         pages: pages.docs,
         settings: settings.docs[0] ?? null,
+        brandPages: owner?.line !== 'instalacje',
         bundles: bundles.docs.map(({ slug, name, items }) => ({
           slug,
           name,

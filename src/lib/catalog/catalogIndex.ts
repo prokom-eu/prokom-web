@@ -189,6 +189,11 @@ export type CatalogSource = {
    */
   bundles?: { slug: string; name: string; required: number[] }[]
   settings: Pick<BiznesSetting, 'search' | 'wizard'> | null
+  /**
+   * Whether the line shows the shared brand pages (`brandPage`, written for Biznes). Instalacje:
+   * no — a brand leads only to its own salon (ADR-029 pkt 6). Default: yes.
+   */
+  brandPages?: boolean
   /** Salons 2.0 of the site (K4f) with their brands: a brand's first salon in `brands[].salon`. */
   salons?: { slug: string; brandIds: number[]; chooser: boolean }[]
 }
@@ -279,7 +284,7 @@ export function buildCatalogIndex(input: CatalogSource): CatalogIndex {
         name: brand.name,
         status: brand.partnerStatus,
         ...(logo && { logo }),
-        ...(brand.brandPage?.hasPage && { page: true as const }),
+        ...(source.brandPages !== false && brand.brandPage?.hasPage && { page: true as const }),
         ...(salonOf.has(brand.id) && { salon: salonOf.get(brand.id)!.slug }),
         ...(salonOf.get(brand.id)?.chooser && { showroom: true as const }),
       })
