@@ -37,6 +37,12 @@ export const navigation: Navigation = {
       caption: 'Współpraca, wytyczne do projektu, nowości',
     },
     {
+      label: 'Sprzęt',
+      href: '/oferta',
+      icon: 'cam',
+      caption: 'Kamery, alarmy, domofony, kontrola dostępu',
+    },
+    {
       label: 'Realizacje',
       href: '/realizacje',
       icon: 'star',
@@ -101,6 +107,13 @@ export const navigation: Navigation = {
     text: 'Przekrój budynku, typowe kłopoty i zestawy dla 12 rodzajów obiektów.',
     button: { label: 'Zaplanuj instalację →', href: '/zaplanuj' },
     link: { label: 'Architekt lub projektant? Współpraca →', href: '/dla-architektow' },
+  },
+  megaEquipment: {
+    eyebrow: 'Sprzęt',
+    title: 'Sprzęt, który montujemy',
+    text: 'Karty z parametrami i salony marek. Dobierzemy model do obiektu i zamontujemy go z gwarancją 24 miesiące na montaż.',
+    button: { label: 'Cały sprzęt →', href: '/oferta' },
+    link: { label: 'Marki i salony →', href: '/marki' },
   },
   ctaBand: {
     eyebrow: 'Wycena na piśmie',

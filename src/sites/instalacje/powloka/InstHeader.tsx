@@ -17,7 +17,13 @@ import { hue } from '../hue'
 import { InstIcon } from '../InstIcon'
 import { offerText } from './offerText'
 
-type Mega = 'services' | 'objects'
+type Mega = 'services' | 'objects' | 'equipment'
+
+const MEGA_LABEL: Record<Mega, string> = {
+  services: 'Usługi',
+  objects: 'Dla kogo',
+  equipment: 'Sprzęt',
+}
 
 /** Closing delay after the pointer leaves the menu (spec §4: 250–300 ms; prototype 280). */
 const CLOSE_DELAY = 280
@@ -28,6 +34,8 @@ type Props = {
   homeLabel: string
   navigation: Navigation
   menu: InstMenu
+  /** Columns of „Sprzęt ▾” (catalog departments); empty = the plain „Sprzęt” link. */
+  equipment: MenuColumn[]
   /** The search window and the menu sheet are there (they need the shared data of the panel). */
   withShared: boolean
 }
@@ -78,14 +86,22 @@ function Promo({ promo, title, warm }: { promo: MegaPromo; title: string; warm?:
  * leaves, a click toggles (closes when open > 600 ms), Esc closes and returns focus, a press
  * outside closes, Tab loops inside the open panel and its trigger. One panel at a time.
  */
-export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
+export function InstHeader({ homeLabel, navigation, menu, equipment, withShared }: Props) {
   const pathname = usePathname()
   const [mega, setMega] = useState<Mega | null>(null)
   const [shownPath, setShownPath] = useState(pathname)
   const openedAt = useRef(0)
   const closeTimer = useRef<number | undefined>(undefined)
-  const triggers = useRef<Record<Mega, HTMLButtonElement | null>>({ services: null, objects: null })
-  const panels = useRef<Record<Mega, HTMLDivElement | null>>({ services: null, objects: null })
+  const triggers = useRef<Record<Mega, HTMLButtonElement | null>>({
+    services: null,
+    objects: null,
+    equipment: null,
+  })
+  const panels = useRef<Record<Mega, HTMLDivElement | null>>({
+    services: null,
+    objects: null,
+    equipment: null,
+  })
   const section = activeSection(pathname, menu, navigation)
 
   // A followed link closes the panel (render-time reset).
@@ -148,9 +164,11 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
   }
 
   const megaFor = (key: string) => {
-    if (key !== 'services' && key !== 'objects') return null
+    if (key !== 'services' && key !== 'objects' && key !== 'equipment') return null
     const which: Mega = key
-    const label = which === 'services' ? 'Usługi' : 'Dla kogo'
+    const label = MEGA_LABEL[which]
+    const columns =
+      which === 'services' ? menu.services : which === 'objects' ? menu.objects : equipment
     return (
       <div className="imenu" onMouseEnter={keep} onMouseLeave={closeLater} onKeyDown={trapTab}>
         <button
@@ -173,16 +191,18 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
             panels.current[which] = element
           }}
           id={`mega-${which}`}
-          className={`${CAPSULE.mega} imega${which === 'objects' ? ' imega--o' : ''}`}
+          className={`${CAPSULE.mega} imega${which === 'services' ? '' : ' imega--o'}`}
           hidden={mega !== which}
           role="region"
           aria-label={label}
         >
-          <MegaColumns columns={which === 'services' ? menu.services : menu.objects} />
+          <MegaColumns columns={columns} />
           {which === 'services' ? (
             <Promo promo={navigation.megaServices} title={offerText(menu.offer)} />
-          ) : (
+          ) : which === 'objects' ? (
             <Promo promo={navigation.megaObjects} title={navigation.megaObjects.title ?? ''} warm />
+          ) : (
+            <Promo promo={navigation.megaEquipment} title={navigation.megaEquipment.title ?? ''} />
           )}
         </div>
       </div>
@@ -192,12 +212,19 @@ export function InstHeader({ homeLabel, navigation, menu, withShared }: Props) {
   const nav: CapsuleNavItem[] = [
     { key: 'services', label: 'Usługi' },
     { key: 'objects', label: 'Dla kogo' },
-    ...navigation.header.map((link) => ({
-      key: link.href,
-      label: link.label,
-      href: link.href,
-      current: section.header === link.href,
-    })),
+    ...navigation.header.map((link) =>
+      // The catalog link opens its departments when there are any (INST-K2).
+      link.href === '/oferta' && equipment.length > 0
+        ? { key: 'equipment', label: link.label }
+        : {
+            key: link.href,
+            label: link.label,
+            href: link.href,
+            current:
+              section.header === link.href ||
+              (link.href === '/oferta' && section.header === 'equipment'),
+          },
+    ),
   ]
 
   return (
