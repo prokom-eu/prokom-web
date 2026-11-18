@@ -8,7 +8,7 @@ import { site } from './helpers'
 
 /** Free room of the capsule's row (the same sum as `capsuleFit.ts`); negative = sticks out. */
 const free = (page: Page) =>
-  page.locator('.cap').evaluate((cap) => {
+  page.locator('[data-site-header] .cap').evaluate((cap) => {
     const style = getComputedStyle(cap)
     const items = [...cap.children].filter((el) => {
       const s = getComputedStyle(el)
@@ -28,10 +28,12 @@ for (const host of HOSTS) {
         await page.setViewportSize({ width, height: 800 })
         await page.goto(site(host))
         // The fit runs after hydration (`CapsuleShell`): wait for it, then check.
-        await expect(page.locator('.cap-wrap[data-fit-ready]')).toBeAttached({ timeout: 15_000 })
+        await expect(page.locator('[data-site-header][data-fit-ready]')).toBeAttached({
+          timeout: 15_000,
+        })
         await expect.poll(() => free(page)).toBeGreaterThanOrEqual(0)
         // The action ends inside the capsule's border.
-        const inside = await page.locator('.cap').evaluate((cap) => {
+        const inside = await page.locator('[data-site-header] .cap').evaluate((cap) => {
           const box = cap.getBoundingClientRect()
           const cta = cap.querySelector('.cap-cta')?.getBoundingClientRect()
           return !cta || cta.right <= box.right
@@ -50,7 +52,7 @@ for (const host of HOSTS) {
 
         // Scrolled: the smaller capsule must hold everything too.
         await page.mouse.wheel(0, 900)
-        await expect(page.locator('.cap-wrap[data-scrolled]')).toBeAttached()
+        await expect(page.locator('[data-site-header][data-scrolled]')).toBeAttached()
         await expect.poll(() => free(page)).toBeGreaterThanOrEqual(0)
       })
     }

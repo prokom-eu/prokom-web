@@ -59,14 +59,15 @@ export function BrandBarPill() {
     nav.addEventListener('focusin', onOver)
     nav.addEventListener('pointerleave', onOut)
     nav.addEventListener('focusout', onOut)
-    nav.addEventListener('keydown', onKey)
+    // On the document: a tooltip shown by pointing (focus elsewhere) must close with Esc too.
+    document.addEventListener('keydown', onKey)
     return () => {
       observer.disconnect()
       nav.removeEventListener('pointerover', onOver)
       nav.removeEventListener('focusin', onOver)
       nav.removeEventListener('pointerleave', onOut)
       nav.removeEventListener('focusout', onOut)
-      nav.removeEventListener('keydown', onKey)
+      document.removeEventListener('keydown', onKey)
     }
   }, [])
 

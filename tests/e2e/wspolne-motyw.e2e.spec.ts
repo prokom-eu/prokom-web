@@ -40,13 +40,14 @@ test.describe('theme button (spec §1)', () => {
     await hydrated(button)
     // Fonts in place first: the capsule fits itself to them (`CapsuleShell` `data-fit`).
     await page.evaluate(() => document.fonts.ready)
-    await expect(page.locator('.cap-wrap[data-fit-ready]')).toBeAttached()
+    await expect(page.locator('[data-site-header][data-fit-ready]')).toBeAttached()
     const before = (await button.boundingBox())?.width
     await expect(async () => {
       if ((await html(page).getAttribute('data-theme')) !== 'dark') await button.click()
       await expect(html(page)).toHaveAttribute('data-theme', 'dark', { timeout: 1000 })
     }).toPass()
-    expect((await button.boundingBox())?.width).toBe(before)
+    // The same width, give or take sub-pixel rounding.
+    expect((await button.boundingBox())?.width).toBeCloseTo(before ?? 0, 0)
   })
 })
 
