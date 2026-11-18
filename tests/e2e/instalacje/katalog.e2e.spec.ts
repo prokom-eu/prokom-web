@@ -117,6 +117,23 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     expect(overflow).toBeLessThanOrEqual(0)
   })
 
+  // INST-K2 streaming: a service page leads to its equipment; streaming solutions in /uslugi.
+  test('Nagłośnienie leads to the streaming equipment („Zobacz sprzęt”)', async ({ page }) => {
+    await page.goto(inst('/naglosnienie'))
+    const section = page.locator('#sprzet-uslugi')
+    await expect(section).toContainText('Sprzęt do tej usługi')
+    await expect(section.getByRole('link', { name: 'Zobacz sprzęt' })).toHaveAttribute(
+      'href',
+      '/oferta/streaming',
+    )
+    await expect(section).not.toContainText(/\d\s?zł|PLN/)
+  })
+
+  test('/uslugi lists the streaming solutions', async ({ page }) => {
+    await page.goto(inst('/uslugi'))
+    await expect(page.locator('main')).toContainText('Transmisje sesji rady gminy')
+  })
+
   for (const theme of ['light', 'dark'] as const) {
     for (const path of ['/oferta', PRODUCT, '/marki', '/marki/dahua']) {
       test(`axe WCAG AA on ${path} (${theme})`, async ({ page }) => {
