@@ -22,8 +22,9 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - Następny krok: Krystian scala PR dokumentów, potem prompty §4.1 i §4.2 (dwie sesje naraz).
 
 ### Audyt bezpieczeństwa (`docs/bezpieczenstwo/`)
-- **W-AB zrobione 18.11** — plan audytu (`AUDYT-PLAN.md`), puste `ZNALEZISKA-2026-11.md` i `DOSTEPY.md` w prokom-web, prokom-gaming i prokom-system.
-- **Następny krok:** `/zadanie AB1` — audyt serwera VPS, tylko do odczytu (prompt w `AUDYT-PLAN.md` §6). Część K (konta, `DOSTEPY.md`) Krystian wypełnia równolegle.
+- **W-AB zrobione 18.11** — plan audytu (`AUDYT-PLAN.md`), `ZNALEZISKA-2026-11.md` i `DOSTEPY.md` w prokom-web, prokom-gaming i prokom-system.
+- **AB1 (serwer) zrobione 18.11** — sekcja „Serwer” w `ZNALEZISKA-2026-11.md`: 1× Wysokie (S-01 stare serwisy PHP na nazwa.pl nadal odpowiadają pod starym IP), Średnie: S-02 Nginx proxy nie przeładowuje konfiguracji od 17.11 (certyfikaty nie wejdą bez restartu — przed 1.01.2027), S-03 restart po jądrze/libc od 13.11, S-04 brak heartbeatu kopii prod web i Tech, S-05 B2 8,4/10 GB; reszta Niskie. Test odtworzenia wszystkich trzech produkcji z B2 zgodny (runbook §7). Skrypty do powtarzania: `docs/bezpieczenstwo/skrypty/`.
+- **Następny krok:** `/zadanie AB2` w prokom-system (prokomserwis.pl, tylko do odczytu; prompt w `AUDYT-PLAN.md` §6). Naprawy z AB1 dopiero w AB4 — wyjątek do decyzji Krystiana: S-01 (nazwa.pl, część K) i S-02 przed 1.01.2027. Część K (`DOSTEPY.md`) Krystian równolegle.
 
 ### Elementy wspólne linii — plan v3: D1 → D2 → D3 (plan `docs/zadania/wspolne-elementy.md`, ADR-022)
 - **W toku: D2 (komponenty wspólne i szablony) — plan zaakceptowany 05.11: 5 PR-ów piętrowych** D2-1a `feat/wsp-powloka` → D2-1b `feat/wsp-stopka` → D2-2 `feat/wsp-szyna` → D2-3 `feat/wsp-moduly` → D2-4 `feat/wsp-szablony` (plan: `docs/zadania/wspolne-elementy.md` §1, ADR-022 „Rozstrzygnięcia D2-1a” i „D2-1b”). D1 scalone: D1-1 [#331](https://github.com/prokom-eu/prokom-web/pull/331), D1-2 [#332](https://github.com/prokom-eu/prokom-web/pull/332). F0 (#282) i F0b (#288) scalone.
