@@ -662,18 +662,60 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .cap-btn--theme .theme-toggle__icon {
   color: var(--nav-active-ink);
 }
-/* Not enough room even from 1360 px (Software with „Twój projekt”): `ThemeToggle` falls back to
-   the icon, as in the cramped capsule. */
-.cap-btn--theme[data-compact] {
+/*
+ * A capsule whose row is too short gives way step by step (`CapsuleShell` → `data-fit`, Krystian
+ * 18.11: nothing sticks out): `theme` — the theme button as an icon; `search` — search as a loupe
+ * (its label hidden only visually, it stays the name); `nav` — the tighter menu of the cramped
+ * capsule; `cta` — the short action label. Labels hidden this way stay accessible names.
+ */
+.cap-wrap[data-fit~='theme'] .cap-btn--theme,
+.cap-wrap[data-fit~='search'] .cap-btn--search {
+  justify-content: center;
+  min-width: 40px;
   padding: 0;
 }
-.cap-btn--theme[data-compact] .theme-toggle__labels {
+.cap-wrap[data-fit~='theme'] .cap-btn--theme .theme-toggle__labels,
+.cap-wrap[data-fit~='search'] .cap-btn--search > :not(svg, kbd, .sr-only) {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+.cap-wrap[data-fit~='search'] .cap-btn--search kbd {
+  display: none;
+}
+.cap-wrap[data-fit~='nav'] .cap {
+  gap: 8px;
+  padding-left: 20px;
+}
+.cap-wrap[data-fit~='nav'] .cap__nav ul {
+  gap: 0;
+}
+.cap-wrap[data-fit~='nav'] .cap-link {
+  padding: 9px;
+  font-size: 14px;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta {
+  padding: 0 16px;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta__long {
+  display: none;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta__short {
+  display: inline;
+}
+/* Last step (the longest menu at 1081 px): the tightest spacing and a slightly smaller mark. */
+.cap-wrap[data-fit~='tight'] .cap {
+  gap: 6px;
+  padding-left: 16px;
+}
+.cap-wrap[data-fit~='tight'] .cap-link {
+  padding-inline: 6px;
+}
+.cap-wrap[data-fit~='tight'] .cap__logo {
+  --logo-h: 30px;
 }
 /* Mega menu of a line: 10 px under the capsule, the same width and radius; an invisible bridge
    over the gap keeps it open while the pointer crosses. */

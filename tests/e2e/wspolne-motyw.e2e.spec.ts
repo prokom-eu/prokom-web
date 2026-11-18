@@ -38,6 +38,8 @@ test.describe('theme button (spec §1)', () => {
     await page.goto(site('biznes.localhost'))
     const button = header(page).locator('[data-theme-toggle]')
     await hydrated(button)
+    // Fonts in place first: the capsule fits itself to them (`CapsuleShell` `data-fit`).
+    await page.evaluate(() => document.fonts.ready)
     const before = (await button.boundingBox())?.width
     await expect(async () => {
       if ((await html(page).getAttribute('data-theme')) !== 'dark') await button.click()
