@@ -110,6 +110,7 @@ export default async function SharedPreviewPage({ params, searchParams }: Props)
   return (
     <div data-wspolne>
       <BrandBar
+        idPrefix="wspolne-bbar-tip"
         lines={lines}
         current={tenant.line}
         hours={company.hours}

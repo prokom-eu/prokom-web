@@ -27,6 +27,8 @@ export type BrandBarProps = {
   /** „Biznes:” — `shared.phoneLabel`. */
   phoneLabel?: string | null
   className?: string
+  /** Start of the tooltip ids — another value where a page shows two bars (`/_wspolne`). */
+  idPrefix?: string
 }
 
 /**
@@ -49,6 +51,7 @@ export function BrandBar({
   phone2,
   phoneLabel,
   className,
+  idPrefix = 'bbar-tip',
 }: BrandBarProps) {
   const tel = phone ? toTelHref(phone) : null
   const tel2 = phone2 ? toTelHref(phone2) : null
@@ -67,15 +70,17 @@ export function BrandBar({
           const isCurrent = line.key === current
           // A published line without an address (not live yet) is a label, not a dead link.
           const Tag = line.url ? 'a' : 'span'
-          const tip = line.description ? `bbar-tip-${line.key}` : undefined
-          // The line's brand colour from the panel; Gaming's gold is darker on the bar (§2.4).
-          const colour =
-            line.key === 'gaming' ? 'var(--gaming-dash)' : (line.color ?? 'currentColor')
+          const tip = line.description ? `${idPrefix}-${line.key}` : undefined
+          // The line's brand colour from the panel, its lighter shade on the dark theme; Gaming's
+          // gold is darker on the bar (§2.4).
+          const gaming = line.key === 'gaming'
+          const light = gaming ? 'var(--gaming-dash)' : (line.color ?? 'currentColor')
+          const dark = gaming ? light : (line.colorOnDark ?? light)
           return (
             <span
               key={line.key}
               className="bbar-item"
-              style={{ '--lc': colour, '--i': index } as CSSProperties}
+              style={{ '--lc-light': light, '--lc-dark': dark, '--i': index } as CSSProperties}
             >
               <Tag
                 href={line.url ?? undefined}

@@ -55,12 +55,19 @@ describe('BrandBar (spec §5)', () => {
     )
     // No description: no tooltip and no dangling reference.
     expect(html).not.toContain('bbar-tip-biznes')
+    // A second bar on the same page gets its own ids.
+    expect(render({ lines, idPrefix: 'drugi' })).toContain('id="drugi-prokom"')
   })
 
   it('gives each line its colour as --lc and marks the pill for the island', () => {
     const html = render()
-    expect(html).toContain('--lc:#244FB0')
-    expect(html).toContain('--lc:var(--gaming-dash)')
+    expect(html).toContain('--lc-light:#244FB0')
+    // No colour for the dark theme in the panel: the same shade.
+    expect(html).toContain('--lc-dark:#244FB0')
+    expect(html).toContain('--lc-light:var(--gaming-dash);--lc-dark:var(--gaming-dash)')
+    expect(
+      render({ lines: [{ ...line('biznes', 'Biznes', 1), colorOnDark: '#4A7BE0' }] }),
+    ).toContain('--lc-dark:#4A7BE0')
     expect(html).toContain('data-bbar-lines')
   })
 

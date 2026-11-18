@@ -171,8 +171,9 @@ describe.each(cases)('$line, $mode theme: brand bar pills', ({ line, mode }) => 
 
   it('the current line keeps 4.5:1 on its tint, for every line colour from the seed', () => {
     for (const shared of COMPANY_LINES) {
-      if (!shared.color) continue
-      const colour = rgba('--x', { '--x': shared.color })
+      const shade = mode === 'dark' ? (shared.colorOnDark ?? shared.color) : shared.color
+      if (!shade) continue
+      const colour = rgba('--x', { '--x': shade })
       const tint = mix(colour, page, 0.11)
       expect(ratio(rgba('--nav-ink', s), tint), shared.key).toBeGreaterThanOrEqual(4.5)
       // At rest the pointer pill lies under the current line too.
