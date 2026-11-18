@@ -119,9 +119,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BrandPage({ params }: Props) {
   const { tenant, index, salon, brand, redirect } = await load(params)
+  // Instalacje call back and plan the installation: no „oferta na mailu” in the price pill.
+  const priceNote = tenant.line === 'instalacje' ? 'bez cen · dobór i montaż u nas' : true
   if (redirect) permanentRedirect(brandHref(redirect))
   if (!index) notFound()
-  if (salon) return <Salon tenantId={tenant.id} index={index} view={salon} />
+  if (salon) return <Salon tenantId={tenant.id} index={index} view={salon} priceNote={priceNote} />
   if (!brand) notFound()
 
   const [settings, origin] = await Promise.all([getSiteSettings(tenant.id), requestOrigin()])
@@ -188,10 +190,12 @@ async function Salon({
   tenantId,
   index,
   view,
+  priceNote,
 }: {
   tenantId: number
   index: CatalogIndex
   view: SalonView
+  priceNote: true | string
 }) {
   const [settings, origin] = await Promise.all([getSiteSettings(tenantId), requestOrigin()])
   const url = origin + brandHref(view.slug)
@@ -245,6 +249,7 @@ async function Salon({
             compare={view.compare}
             brand={brand}
             eyebrow={view.headings.offer}
+            priceNote={priceNote}
           />
         )}
         {view.morePlans && (
@@ -254,6 +259,7 @@ async function Salon({
             compare={view.plans ? null : view.compare}
             brand={brand}
             eyebrow={view.headings.offer}
+            priceNote={priceNote}
           />
         )}
         {view.family.length > 0 && (
@@ -267,7 +273,7 @@ async function Salon({
               eyebrow={family.eyebrow}
               title={family.title}
               phoneTitle={family.phoneTitle}
-              note
+              note={priceNote}
             />
             <SalonFamily family={view.family} index={islandIndex(index, shown)} />
           </section>

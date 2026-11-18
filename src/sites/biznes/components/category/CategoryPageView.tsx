@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Container } from '@/components/ui/Container'
 import {
   boughtWithTiles,
@@ -46,6 +47,11 @@ type Props = {
   subcategory?: IndexSubcategory & { slug: string }
   /** The H1 may say „dla firm” (Biznes); Instalacje sells to homes and firms (ADR-029). */
   forFirms?: boolean
+  /**
+   * The line's own help block in place of the Biznes form (Instalacje: call and plan, INST-K2);
+   * it carries `#kontakt`.
+   */
+  contact?: ReactNode
 }
 
 /**
@@ -62,6 +68,7 @@ export async function CategoryPageView({
   category,
   subcategory,
   forFirms = true,
+  contact,
 }: Props) {
   const settings = await getSiteSettings(tenantId)
   const products = subcategory
@@ -198,18 +205,20 @@ export async function CategoryPageView({
       )}
       {/* `#kontakt` (the grid's help card links here): one help block — the form with the
           inquiry steps as its heading (audit 0611 P1-2), on a phone the steps and the card. */}
-      <div id="kontakt" className="scroll-mt-24">
-        <CatalogContactPanel
-          tenantId={tenantId}
-          id="kontakt-formularz"
-          heading={category.contact.heading}
-          lead={category.contact.lead}
-          callbackTime={callback}
-          topic={category.name}
-          withSteps
-        />
-        <NotListedCard />
-      </div>
+      {contact ?? (
+        <div id="kontakt" className="scroll-mt-24">
+          <CatalogContactPanel
+            tenantId={tenantId}
+            id="kontakt-formularz"
+            heading={category.contact.heading}
+            lead={category.contact.lead}
+            callbackTime={callback}
+            topic={category.name}
+            withSteps
+          />
+          <NotListedCard />
+        </div>
+      )}
     </>
   )
 }
