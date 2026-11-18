@@ -1790,7 +1790,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   content: '';
 }
 /* Esc dismisses it until the next pointing or focus (`BrandBarPill`). */
-[data-tip-off] .bbar-tip {
+/* Stronger than the hover and focus rules above (0,3,0), so Esc wins while still pointing. */
+.bbar-lines[data-tip-off] .bbar-item > .bbar-tip {
   visibility: hidden;
 }
 /* The right half gets its own thin divider (1 × 16 px) instead of a dot. */
