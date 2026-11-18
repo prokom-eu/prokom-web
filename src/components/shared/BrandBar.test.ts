@@ -40,6 +40,30 @@ const render = (overrides: Partial<BrandBarProps> = {}) =>
   renderToStaticMarkup(createElement(BrandBar, { ...props, ...overrides }))
 
 describe('BrandBar (spec §5)', () => {
+  // WSP-M PR 3 (MOTYW-PASEK-LINII §4 pkt 3): the line's short description from the panel.
+  it('describes a line with its panel description, outside the link name', () => {
+    const lines = [
+      { ...line('prokom', 'PRO-KOM', 1), description: 'Wszystkie linie PRO-KOM' },
+      line('biznes', 'Biznes', 2),
+    ]
+    const html = render({ lines })
+    expect(html).toMatch(
+      /<a href="https:\/\/prokom\.test"[^>]*aria-describedby="bbar-tip-prokom"[^>]*>.*?PRO-KOM<\/a>/,
+    )
+    expect(html).toMatch(
+      /<span[^>]*role="tooltip"[^>]*id="bbar-tip-prokom"[^>]*>Wszystkie linie PRO-KOM<\/span>/,
+    )
+    // No description: no tooltip and no dangling reference.
+    expect(html).not.toContain('bbar-tip-biznes')
+  })
+
+  it('gives each line its colour as --lc and marks the pill for the island', () => {
+    const html = render()
+    expect(html).toContain('--lc:#244FB0')
+    expect(html).toContain('--lc:var(--gaming-dash)')
+    expect(html).toContain('data-bbar-lines')
+  })
+
   it('lists the given lines in order, Gaming last, in a labelled nav', () => {
     const html = render()
     expect(html).toContain('<nav aria-label="Linie PRO-KOM"')
@@ -76,7 +100,7 @@ describe('BrandBar (spec §5)', () => {
     const html = render({ lines: [{ ...line('biznes', 'Biznes', 1), url: null }] })
     const nav = /<nav aria-label="Linie PRO-KOM"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1] ?? ''
     expect(nav).not.toContain('<a')
-    expect(nav).toMatch(/^<span[^>]*aria-current="page"/)
+    expect(nav).toMatch(/<span aria-current="page" class="bbar-line">/)
   })
 
   it('without a phone or slot leaves them out (no literal fallback)', () => {

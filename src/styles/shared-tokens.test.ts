@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { contrastRatio } from '@/lib/brand/contrast'
+import { COMPANY_LINES } from '@/seed/shared/company'
 
 import { resolve, rule, type Declarations } from './parse-tokens'
 
@@ -159,5 +160,35 @@ describe.each(cases)('$line, $mode theme: page scrollbar', ({ line, mode }) => {
     const track = rgba('--scrollbar-track', s)
     const thumb = mix(rgba('--accent', s), track, Number(share![1]) / 100)
     expect(ratio(thumb, track)).toBeGreaterThanOrEqual(3)
+  })
+})
+
+// Brand bar „premium” (MOTYW-PASEK-LINII §4 pkt 6): the bar sits on the page surface; the current
+// line in a 11 % tint of its colour (`color-mix`), the pointer pill = `--cap-border` at 60 %.
+describe.each(cases)('$line, $mode theme: brand bar pills', ({ line, mode }) => {
+  const s = scope(line, mode)
+  const page = rgba('--surface', s)
+
+  it('the current line keeps 4.5:1 on its tint, for every line colour from the seed', () => {
+    for (const shared of COMPANY_LINES) {
+      if (!shared.color) continue
+      const colour = rgba('--x', { '--x': shared.color })
+      const tint = mix(colour, page, 0.11)
+      expect(ratio(rgba('--nav-ink', s), tint), shared.key).toBeGreaterThanOrEqual(4.5)
+      // At rest the pointer pill lies under the current line too.
+      const border = rgba('--cap-border', s)
+      const pill = over([border[0], border[1], border[2], border[3] * 0.6], page)
+      const both = mix(colour, pill, 0.11)
+      expect(ratio(rgba('--nav-ink', s), both), `${shared.key} on the pill`).toBeGreaterThanOrEqual(
+        4.5,
+      )
+    }
+  })
+
+  it('lines keep 4.5:1 under the pointer pill', () => {
+    const border = rgba('--cap-border', s)
+    const pill = over([border[0], border[1], border[2], border[3] * 0.6], page)
+    expect(ratio(rgba('--nav-ink', s), pill)).toBeGreaterThanOrEqual(4.5)
+    expect(ratio(rgba('--nav-ink-2', s), pill)).toBeGreaterThanOrEqual(4.5)
   })
 })
