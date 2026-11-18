@@ -76,6 +76,34 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await expect(header.getByRole('link', { name: 'Serwis', exact: true })).toHaveCount(0)
   })
 
+  // INST-K2 (D17): „Sprzęt i marki” on the home page — departments, salons, eight cards, the planner.
+  test('the home page shows „Sprzęt i marki” with departments, salons and eight cards', async ({
+    page,
+  }) => {
+    await page.goto(inst('/'))
+    const section = page.locator('#sprzet')
+    await expect(section.getByRole('heading', { level: 2 })).toContainText('Sprzęt')
+    await expect(section.locator('.isp-dep')).toHaveCount(4)
+    await expect(section.getByRole('link', { name: 'Dahua', exact: true })).toHaveAttribute(
+      'href',
+      '/marki/dahua',
+    )
+    await expect(section.locator('.isp-feat-list > li')).toHaveCount(8)
+    await expect(section.getByRole('link', { name: 'Cały sprzęt' })).toHaveAttribute(
+      'href',
+      '/oferta',
+    )
+    await expect(section).not.toContainText(/\d\s?zł|PLN/)
+  })
+
+  test('the phone rows of „Sprzęt i marki” never scroll the page sideways', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(inst('/'))
+    await page.locator('#sprzet').scrollIntoViewIfNeeded()
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)
+    expect(overflow).toBeLessThanOrEqual(0)
+  })
+
   for (const theme of ['light', 'dark'] as const) {
     for (const path of ['/oferta', PRODUCT, '/marki', '/marki/dahua']) {
       test(`axe WCAG AA on ${path} (${theme})`, async ({ page }) => {

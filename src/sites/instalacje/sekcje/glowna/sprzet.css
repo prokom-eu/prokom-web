@@ -5,6 +5,11 @@
  * APLIKACJA), hover only with a pointer, motion only without reduced motion.
  */
 [data-line='instalacje'] {
+  /* The phone rows scroll inside the section, never the page sideways. */
+  & .isp {
+    overflow-x: clip;
+  }
+
   & .isp-head {
     max-width: 760px;
     margin-bottom: 36px;
@@ -232,6 +237,7 @@
     & .isp-deps,
     & .isp-feat-list {
       display: flex;
+      min-width: 0;
       gap: 12px;
       margin: 0 -16px;
       padding: 0 16px 6px;

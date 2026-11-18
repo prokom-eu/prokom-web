@@ -192,7 +192,19 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
 
   // --- products ---
   const productIds = new Map<string, number>()
-  for (const [popularity, card] of cards.entries()) {
+  // „Polecane” order: the dictionary's category order (cameras first, accessories last within a
+  // department), then the package order within a category — the package files come in any order.
+  const categoryRank = new Map(dictionaries.kategorie.map((category, rank) => [category.kod, rank]))
+  const ranked = cards
+    .map((card, position) => ({ card, position }))
+    .sort(
+      (a, b) =>
+        (categoryRank.get(a.card.kategoria) ?? 99) - (categoryRank.get(b.card.kategoria) ?? 99) ||
+        a.position - b.position,
+    )
+  const rankOf = new Map(ranked.map(({ card }, rank) => [card.slug_seed, rank]))
+  for (const card of cards) {
+    const popularity = rankOf.get(card.slug_seed)!
     const category = categoryIds.get(card.kategoria)
     if (category === undefined)
       throw new Error(`Seed (Instalacje katalog): no category "${card.kategoria}".`)

@@ -61,7 +61,7 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
                       alt=""
                       width={120}
                       height={120}
-                      sizes="120px"
+                      unoptimized
                       loading="lazy"
                     />
                   </span>
