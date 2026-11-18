@@ -3,8 +3,9 @@ import type { ServiceKey } from './options'
 
 /**
  * „Zobacz sprzęt” of a service page (INST-K2, plan §3.4): the catalog categories that serve the
- * service and where the button leads. Network gear stays in Biznes (ADR-029 pkt 8), so Wi-Fi,
- * antennas, smart home and EV chargers (their own page) have no equipment link.
+ * service and where the button leads. Services without equipment cards of Instalacje (Wi-Fi,
+ * antennas, smart home, EV chargers) have no section yet; a link from Wi-Fi to the network gear
+ * of Biznes (ADR-029 pkt 8) is in „Pomysły na później”.
  */
 export const SERVICE_EQUIPMENT: Partial<
   Record<ServiceKey, { label: string; href: string; categories: readonly string[] }>
@@ -15,9 +16,9 @@ export const SERVICE_EQUIPMENT: Partial<
     categories: ['kamery-ip', 'kamery-hd', 'rejestratory', 'akcesoria-cctv'],
   },
   alarm: {
-    label: 'centrale, czujki, syreny i wideodomofony',
+    label: 'centrale, czujki i syreny',
     href: '/oferta?grupa=alarm',
-    categories: ['alarmy-bezprzewodowe', 'alarmy-przewodowe', 'wideodomofony'],
+    categories: ['alarmy-bezprzewodowe', 'alarmy-przewodowe'],
   },
   kd: {
     label: 'czytniki, zwory i sterowniki',

@@ -16,7 +16,7 @@
     },
     {
       "nazwa": "Transmisje wydarzeń i koncertów",
-      "opis": "Kilka kamer, mikser wizji i streaming z sali, kościoła albo plenerowej sceny — jeden operator obsłuży całość.",
+      "opis": "Kilka kamer, mikser wizji i streaming z sali, kościoła albo plenerowej sceny, z obsługą przy jednym mikserze.",
       "obiekty": ["inst", "firma", "pens", "rest"],
       "kolejnosc": 11
     }
