@@ -1011,10 +1011,28 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   border-radius: 11px;
   background: var(--surface-2);
   opacity: 0;
+  /* Not clickable while folded: the first pill reaches into the 64 px of the folded rail. */
+  pointer-events: none;
   transition: opacity var(--dur-hover);
 }
 .srail:is(:hover, :focus-within):not([data-collapsed]) .srail__choices {
   opacity: 1;
+  pointer-events: auto;
+}
+/* A low window (as the rows above): the pills closer, so the rail stays inside the screen. */
+@media (max-height: 1000px) {
+  .srail__choices {
+    margin-bottom: 2px;
+    padding: 2px;
+  }
+  .srail__choices button {
+    height: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .srail__choices {
+    transition: none;
+  }
 }
 .srail__choices button {
   flex: 1;

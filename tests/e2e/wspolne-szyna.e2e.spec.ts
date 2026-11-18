@@ -186,15 +186,29 @@ test.describe('side rail — theme entry (1440 px)', () => {
     )
 
     await expect(async () => {
-      await choices.getByRole('button', { name: 'Jasny' }).click()
+      await choices.getByRole('button', { name: 'Jasny', exact: true }).click()
       await expect(page.locator('html')).toHaveAttribute('data-theme', 'light', { timeout: 1000 })
     }).toPass()
-    await expect(choices.getByRole('button', { name: 'Jasny' })).toHaveAttribute(
+    await expect(choices.getByRole('button', { name: 'Jasny', exact: true })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
     await expect(rail(page).getByRole('button', { name: 'Ciemny motyw' })).toBeVisible()
     expect(await page.evaluate(() => localStorage.getItem('pk-theme'))).toBe('light')
+    await expect(rail(page).getByText('Włączono jasny motyw.')).toBeAttached()
+  })
+
+  test('Esc on a theme pill folds the rail and keeps focus on the visible entry', async ({
+    page,
+  }) => {
+    await page.goto(site('software.localhost', '/_wspolne'))
+    const auto = rail(page)
+      .getByRole('group', { name: 'Motyw strony' })
+      .getByRole('button', { name: 'Auto', exact: true })
+    await auto.focus()
+    await page.keyboard.press('Escape')
+    await expect(rail(page)).toHaveAttribute('data-collapsed', '')
+    await expect(rail(page).locator('[data-rail-theme]')).toBeFocused()
   })
 
   for (const [host, subpage] of [

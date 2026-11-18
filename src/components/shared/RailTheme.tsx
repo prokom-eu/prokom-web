@@ -1,6 +1,8 @@
 'use client'
 
-import { ThemeIcons } from '@/components/ThemeToggle'
+import { useState } from 'react'
+
+import { themeAnnouncement, ThemeIcons } from '@/components/ThemeToggle'
 import { useTheme, useThemeChoice, autoThemeNow, type ThemeChoice } from '@/components/useTheme'
 import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 
@@ -19,15 +21,23 @@ const CHOICES: { value: ThemeChoice; label: string }[] = [
 export function RailTheme() {
   const [theme, setTheme] = useTheme()
   const [choice, setChoice] = useThemeChoice()
+  const [announcement, setAnnouncement] = useState('')
+  /** Opens the circle only when the theme on screen really changes. */
+  const switchTo = (next: 'light' | 'dark', apply: () => void, origin: Element) => {
+    if (next === theme) apply()
+    else revealTheme(next, apply, centreOf(origin))
+    setAnnouncement(themeAnnouncement(next))
+  }
   return (
     <div className="srail__theme">
       <button
         type="button"
         className="srail__item theme-toggle"
         data-rail-theme=""
-        onClick={(event) =>
-          revealTheme(theme === 'dark' ? 'light' : 'dark', setTheme, centreOf(event.currentTarget))
-        }
+        onClick={(event) => {
+          const next = theme === 'dark' ? 'light' : 'dark'
+          switchTo(next, () => setTheme(next), event.currentTarget)
+        }}
       >
         <span className="srail__icon">
           <ThemeIcons />
@@ -51,13 +61,16 @@ export function RailTheme() {
             aria-pressed={choice === option.value}
             onClick={(event) => {
               const next = option.value === 'auto' ? autoThemeNow() : option.value
-              revealTheme(next, () => setChoice(option.value), centreOf(event.currentTarget))
+              switchTo(next, () => setChoice(option.value), event.currentTarget)
             }}
           >
             {option.label}
           </button>
         ))}
       </div>
+      <span className="sr-only" aria-live="polite">
+        {announcement}
+      </span>
     </div>
   )
 }

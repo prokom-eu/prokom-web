@@ -25,7 +25,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         onClick={(event) => {
           const next = theme === 'dark' ? 'light' : 'dark'
           revealTheme(next, setTheme, centreOf(event.currentTarget))
-          setAnnouncement(next === 'dark' ? 'Włączono ciemny motyw.' : 'Włączono jasny motyw.')
+          setAnnouncement(themeAnnouncement(next))
         }}
         className={`theme-toggle ${className ?? ''}`}
       >
@@ -44,6 +44,11 @@ export function ThemeToggle({ className }: { className?: string }) {
       </span>
     </>
   )
+}
+
+/** What the `aria-live` region says after a switch (spec §1 „Dostępność”). */
+export function themeAnnouncement(theme: 'light' | 'dark'): string {
+  return theme === 'dark' ? 'Włączono ciemny motyw.' : 'Włączono jasny motyw.'
 }
 
 /** Moon (switch to dark) and sun (switch to light); CSS shows one, as with the labels. */
