@@ -96,9 +96,14 @@ export function subcategoryLinks(category: ListedCategory): {
  * H1 of a subcategory page (K3-KATALOG §9: „Laptopy dla firm — Lenovo i Dell”): the name and up
  * to 3 brands with the most products.
  */
-export function subcategoryTitle(name: string, brands: readonly { name: string }[]): string {
+export function subcategoryTitle(
+  name: string,
+  brands: readonly { name: string }[],
+  forFirms = true,
+): string {
   const names = brands.slice(0, 3).map((brand) => brand.name)
-  return names.length > 0 ? `${name} dla firm — ${listNames(names)}` : `${name} dla firm`
+  const base = forFirms ? `${name} dla firm` : name
+  return names.length > 0 ? `${base} — ${listNames(names)}` : base
 }
 
 /** „Do … często dobierane”: as many tiles as the board has. */

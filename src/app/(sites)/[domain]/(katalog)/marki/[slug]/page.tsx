@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { brandMetaTitle, localDescription, salonMetaTitle } from '@/lib/biznes/seo'
+import { brandMetaTitle, localDescription, salonMetaTitle, seoVoice } from '@/lib/biznes/seo'
 import { notFound, permanentRedirect } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
@@ -72,15 +72,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: salonMetaTitle(
           salon.h1a,
           salon.brands.map((item) => item.name),
+          seoVoice(tenant.line),
         ),
-        description: salon.lead ? localDescription(salon.lead) : undefined,
+        description: salon.lead ? localDescription(salon.lead, seoVoice(tenant.line)) : undefined,
         slug: salon.slug,
       }
     : brand
       ? {
-          title: brandMetaTitle(brand.name, brandTitle(brand.name, brand.shortDescription)),
+          title: brandMetaTitle(
+            brand.name,
+            brandTitle(brand.name, brand.shortDescription),
+            seoVoice(tenant.line),
+          ),
           description: brand.shortDescription
-            ? localDescription(brand.shortDescription)
+            ? localDescription(brand.shortDescription, seoVoice(tenant.line))
             : undefined,
           slug: brand.slug,
         }
@@ -105,7 +110,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: page.description,
       // `openGraph` of a page replaces the layout's whole. A salon shows its first hero photo
       // (audit 01.11), the rest the site's picture or the line mark.
-      images: salonImage ? [{ ...salonImage }] : ogImages(settings?.seo.ogImage ?? null, 'biznes'),
+      images: salonImage
+        ? [{ ...salonImage }]
+        : ogImages(settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }

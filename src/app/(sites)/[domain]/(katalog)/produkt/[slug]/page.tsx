@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { HIGHLIGHTS } from '@/sites/biznes/components/product/ProductHero'
-import { fitTitle } from '@/lib/biznes/seo'
+import { fitTitle, seoVoice } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { fillSuggestions } from '@/lib/biznes/related'
@@ -104,10 +104,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         product.variants.map((variant) => variant.name),
       ),
     product.category ? `— ${product.category.name}` : undefined,
+    { voice: seoVoice(tenant.line) },
   )
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = product.seo.description ?? product.benefit
-  const description = descriptionSource ? biznesDescription(descriptionSource) : undefined
+  const description = descriptionSource
+    ? biznesDescription(descriptionSource, seoVoice(tenant.line))
+    : undefined
   const settings = await getSiteSettings(tenant.id)
   // One canonical per card: `?wersja=` only picks the configurator (K31-ZMIANY §13.5).
   const canonical = productHref(product.slug)
@@ -124,7 +127,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null, 'biznes'),
+      images: ogImages(product.images[0] ?? settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }
@@ -266,6 +269,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
         <div className="mt-5 max-md:mt-0 md:mt-7">
           <ProductHero
+            line={tenant.line}
             product={product}
             icon={listed ? cardIcon(listed, index) : 'store'}
             cover={cardCover(
@@ -316,7 +320,7 @@ export default async function ProductPage({ params }: Props) {
       </StickyAction>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 md:gap-28 md:pt-20 md:pb-24 lg:px-8">
         <ProductBento id={ID.overview} heading={product.heading} tiles={tiles} />
-        <ProductAbout id={ID.about} product={product} />
+        <ProductAbout id={ID.about} product={product} line={tenant.line} />
         {product.configurator && <ProductConfigurator config={product.configurator} />}
         <ProductVideos id={ID.video} videos={product.videos} poster={product.images[0] ?? null} />
         <ProductSpecs id={ID.specs} rows={product.specs} />
