@@ -24,8 +24,14 @@ import type { Line } from '@/lib/tenant/lines'
  */
 export function ThemeCarry({ line }: { line: Line }) {
   useEffect(() => {
-    const clean = cleanThemeParam(window.location.href)
-    if (clean !== null) window.history.replaceState(null, '', clean)
+    // A task later: this effect runs before the router's own (children first), and only the
+    // router's effect patches `replaceState` — called earlier, the router would keep `?motyw` and
+    // lose its history state (Back would then show the wrong page).
+    const timer = setTimeout(() => {
+      const clean = cleanThemeParam(window.location.href)
+      if (clean !== null) window.history.replaceState(null, '', clean)
+    }, 0)
+    return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {
@@ -36,7 +42,10 @@ export function ThemeCarry({ line }: { line: Line }) {
       const carried = withThemeParam(original, storedTheme() ?? 'auto', window.location.href)
       if (carried === null) return
       link.setAttribute('href', carried)
-      setTimeout(() => link.setAttribute('href', original), 0)
+      // Restored only if React has not changed the link meanwhile.
+      setTimeout(() => {
+        if (link.getAttribute('href') === carried) link.setAttribute('href', original)
+      }, 0)
     }
     // Capture: before any handler that could navigate; `auxclick` = middle button, a new tab.
     document.addEventListener('click', onClick, true)

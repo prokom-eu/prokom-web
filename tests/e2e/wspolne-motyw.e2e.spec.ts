@@ -83,6 +83,20 @@ test.describe('the choice between our domains (spec §3)', () => {
     expect(await page.evaluate(() => localStorage.getItem('pk-theme'))).toBe('light')
   })
 
+  test('after the clean-up the router still works: a link, then Back', async ({ page }) => {
+    await page.goto(site('software.localhost', '/?motyw=jasny'))
+    await expect.poll(() => new URL(page.url()).search).toBe('')
+    const link = page.locator('main a[href^="/"]').first()
+    await hydrated(link)
+    const target = await link.getAttribute('href')
+    await link.click()
+    await page.waitForURL((url) => url.pathname === target)
+    await page.goBack()
+    await page.waitForURL((url) => url.pathname === '/')
+    await expect(page.locator('main a[href^="/"]').first()).toHaveAttribute('href', target ?? '')
+    expect(new URL(page.url()).search).toBe('')
+  })
+
   test('an unknown value is ignored and cleared too', async ({ page }) => {
     await page.goto(site('software.localhost', '/?motyw=zielony'))
     await expect(html(page)).toHaveAttribute('data-theme', 'dark')
