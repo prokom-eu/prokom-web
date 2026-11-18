@@ -81,7 +81,8 @@ test.describe('Software brand bar and capsule', () => {
     await expect(kreator.locator('.sw-cap-pill__badge')).toHaveText('60 s')
     await expect(cta(page)).toHaveAttribute('href', '/kontakt')
     await expect(cta(page)).toHaveAccessibleName('Bezpłatna wycena')
-    await expect(capsule(page).getByRole('button', { name: 'Tryb ciemny' })).toBeVisible()
+    // Software starts dark (ADR-015 v24), so the button offers the light theme (ADR-028).
+    await expect(capsule(page).getByRole('button', { name: 'Jasny motyw' })).toBeVisible()
     // The seed publishes posts: the footer leads to them (hidden without a published post).
     await expect(page.locator('header a[href="/aktualnosci"]')).toHaveCount(0)
     await expect(page.locator('footer a[href="/aktualnosci"]').first()).toBeAttached()

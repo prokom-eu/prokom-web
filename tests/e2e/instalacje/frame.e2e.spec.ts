@@ -25,12 +25,15 @@ test.describe('Instalacje frame', () => {
   })
 
   test('follows the system theme', async ({ page }) => {
+    // By day, so Auto is the system (at night it is dark anyway — ADR-028).
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z'))
     await page.emulateMedia({ colorScheme: 'light' })
     await page.goto(site(HOST))
     expect(await page.evaluate(surface)).toBe('#f4f5f1')
 
+    // A system change while on the page is applied by `ThemeCarry` (spec §2.3).
     await page.emulateMedia({ colorScheme: 'dark' })
-    expect(await page.evaluate(surface)).toBe('#101412')
+    await expect.poll(() => page.evaluate(surface)).toBe('#101412')
   })
 
   test('is installable: theme colour, safe areas and a manifest (ADR-I004)', async ({ page }) => {

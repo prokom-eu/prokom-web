@@ -86,7 +86,7 @@ Tak, bez ciasteczek i bez zewnętrznych usług. Każda domena ma osobny `localSt
 
 ### 3.3. Odbieranie (strona, na którą klient wchodzi)
 - Skrypt w `<head>` (§2.1 pkt 1) czyta `motyw`, zapisuje wybór, ustawia `data-theme`.
-- **Usunięcie parametru z paska adresu dopiero po hydratacji**, przez natywne `window.history.replaceState(window.history.state, '', czystyAdres)` (Next.js od 14.1 synchronizuje natywne History API z routerem — **sprawdzić w dokumentacji zainstalowanej wersji** przed użyciem; nie `router.replace`, bo pobierałby RSC ponownie).
+- **Usunięcie parametru z paska adresu dopiero po hydratacji**, przez natywne `window.history.replaceState(null, '', czystyAdres)` (Next.js synchronizuje natywne History API z routerem — sprawdzone w dokumentacji Next 16.4; `null`, bo stan z `__NA` router pomija — ADR-028 „Rozstrzygnięcia przy wdrożeniu”; nie `router.replace`, bo pobierałby RSC ponownie).
 - Nieznana wartość parametru → ignorujemy i i tak usuwamy go z adresu.
 - Strony mają `canonical` bez parametru (już dziś) — nic więcej dla SEO.
 - Gaming: odbiera i **tylko usuwa** parametr (§5).

@@ -131,11 +131,12 @@ test.describe('Instalacje capsule (desktop)', () => {
   test('the capsule gets smaller after scrolling and the theme switch remembers', async ({
     page,
   }) => {
+    await page.clock.setFixedTime(new Date('2026-11-18T11:00:00Z')) // by day: Auto is light
     await page.emulateMedia({ colorScheme: 'light' })
     await open(page)
     await page.evaluate(() => window.scrollTo(0, 600))
     await expect(capsule(page)).toHaveAttribute('data-scrolled', '')
-    await capsule(page).getByRole('button', { name: 'Tryb ciemny' }).click()
+    await capsule(page).getByRole('button', { name: 'Ciemny motyw' }).click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await page.reload()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
