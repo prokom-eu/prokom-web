@@ -4,8 +4,12 @@ import path from 'path'
 import type { Payload, Where } from 'payload'
 
 import catalog from '../../../seed/prokominstalacje/katalog/katalog-inst.json'
+import brandFile from '../../../seed/prokominstalacje/katalog/marki-inst.json'
+import salonFile from '../../../seed/prokominstalacje/katalog/salony-inst.json'
 import dictionaryFile from '../../../seed/prokominstalacje/katalog/slowniki-inst.json'
+import type { K4BrandsFile } from '../biznes/k4Brands'
 import { k4Relations } from '../biznes/k4Catalog'
+import { k4ShowroomData, type K4Showroom } from '../biznes/k4Showrooms'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
 import {
   brandSlug,
@@ -199,6 +203,40 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
       data: { recommended, alternatives },
       ...local,
     })
+  }
+
+  // --- salons 2.0 of the brands (INST-K2): only brands marked `salon` in marki-inst.json ---
+  const brands = brandFile as unknown as K4BrandsFile & {
+    marki: Record<string, { salon?: boolean }>
+  }
+  const salons = salonFile.salony as unknown as Record<string, K4Showroom>
+  for (const [order, [key, salon]] of Object.entries(salons).entries()) {
+    if (!brands.marki[key]?.salon) continue
+    const { data, unknown } = k4ShowroomData(key, salon, order, {
+      brands,
+      partner: (name) => brandIds.get(name),
+      product: (slug) => productIds.get(slug),
+    })
+    if (unknown.length) log(`salon ${key}: nieznane karty ${unknown.join(', ')}`)
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'showrooms',
+      where: inTenant({ slug: { equals: data.slug } }),
+      limit: 1,
+      ...local,
+    })
+    if (existing) {
+      await payload.update({ collection: 'showrooms', id: existing.id, data, ...local })
+      count('salony (aktualizacja)')
+    } else {
+      await payload.create({
+        collection: 'showrooms',
+        data: { ...data, tenant: tenantId },
+        ...local,
+      })
+      count('salony (nowe)')
+    }
   }
 
   log(

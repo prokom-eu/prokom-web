@@ -31,6 +31,10 @@ export type CatalogUi = {
   /** The product's dark „Wycena na mailu” band. */
   productCtaTitle: string
   productCtaText: string
+  /** `/marki`: the lead after „N marek: ”, the „no salon” and „another brand” notes. */
+  brandsLead: string
+  brandsMissing: string
+  brandsOther: string
 }
 
 export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
@@ -46,6 +50,12 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
     productCtaText:
       'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+    brandsLead:
+      'od kas fiskalnych po serwery. Przy każdej pomożemy wybrać model, wdrożymy i zajmiemy się serwisem, a salony producentów pokazują serie, porównania i gotowe konfiguracje.',
+    brandsMissing:
+      'Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy u dystrybutorów.',
+    brandsOther:
+      'Współpracujemy z dystrybutorami sprzętu i oprogramowania w całej Polsce. Sprawdzimy dostępność i przygotujemy ofertę.',
   },
   instalacje: {
     searchPlaceholder:
@@ -60,6 +70,12 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     productCtaTitle: 'Kilka kamer, alarm albo cały obiekt?',
     productCtaText:
       'Dodaj sprzęt do zapytania i napisz, gdzie ma działać. Przygotujemy ofertę z montażem, konfiguracją aplikacji i serwisem.',
+    brandsLead:
+      'monitoring, alarmy, domofony i sprzęt AV. Przy każdej dobierzemy model do budynku, zamontujemy i zostaniemy w serwisie, a salony marek pokazują serie i to, co do czego pasuje.',
+    brandsMissing:
+      'Montujemy też sprzęt innych marek. Napisz, czego szukasz, a dobierzemy model do Twojego obiektu.',
+    brandsOther:
+      'Masz już kamery albo alarm innej marki? Sprawdzimy, co da się z nimi połączyć, i zaproponujemy rozbudowę.',
   },
 }
 

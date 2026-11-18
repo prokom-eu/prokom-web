@@ -62,6 +62,12 @@ describe('catalog copy of a line (ADR-029, INST-K1)', () => {
       productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
       productCtaText:
         'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+      brandsLead:
+        'od kas fiskalnych po serwery. Przy każdej pomożemy wybrać model, wdrożymy i zajmiemy się serwisem, a salony producentów pokazują serie, porównania i gotowe konfiguracje.',
+      brandsMissing:
+        'Dostarczamy więcej marek, niż pokazujemy. Napisz, czego szukasz, a sprawdzimy u dystrybutorów.',
+      brandsOther:
+        'Współpracujemy z dystrybutorami sprzętu i oprogramowania w całej Polsce. Sprawdzimy dostępność i przygotujemy ofertę.',
     })
   })
 

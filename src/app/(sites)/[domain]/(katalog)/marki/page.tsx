@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
-import { buildBrandsPage } from '@/lib/catalog/brandsPage'
+import { brandGroupsByDepartment, buildBrandsPage } from '@/lib/catalog/brandsPage'
 import { getBrandsPageInput, getCatalogIndex, getCatalogTexts } from '@/lib/catalog/data'
 import { BRANDS_PATH } from '@/lib/catalog/filters'
-import { catalogTextLine } from '@/lib/catalog/texts'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
@@ -20,8 +19,6 @@ type Props = { params: Promise<{ domain: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireCatalogTenant(params)
-  // The Instalacje brands page comes with its salons (INST-K2); until then no Biznes copy here.
-  if (tenant.line !== 'biznes') notFound()
   const [settings, texts] = await Promise.all([
     getSiteSettings(tenant.id),
     getCatalogTexts(tenant.id, catalogTextLine(tenant.line)),
@@ -46,18 +43,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 /**
  * Brands `/marki` (runda 1411 R7, board `Marki.dc.html`): the dark header with the search, the
  * four authorisations and one grid of the other brands — each to its showroom, own page or the
- * offer filtered by the brand. The brands come from the groups of `BiznesSettings.brands`.
+ * offer filtered by the brand. Biznes: the groups of `BiznesSettings.brands`; Instalacje: its
+ * departments (ADR-029).
  */
 export default async function BrandsPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
-  // The Instalacje brands page comes with its salons (INST-K2); until then no Biznes copy here.
-  if (tenant.line !== 'biznes') notFound()
   const [index, input, origin] = await Promise.all([
     getCatalogIndex(tenant.id),
     getBrandsPageInput(tenant.id),
     requestOrigin(),
   ])
-  const page = buildBrandsPage({ ...input, index })
+  // Instalacje has no brand groups in its settings: one group per department (ADR-029).
+  const groups = input.groups.length ? input.groups : brandGroupsByDepartment(index, input.partners)
+  const page = buildBrandsPage({ ...input, groups, index })
   const crumbs: Crumb[] = [
     { name: 'Strona główna', href: '/' },
     { name: 'Marki', href: BRANDS_PATH },
@@ -79,7 +77,12 @@ export default async function BrandsPage({ params }: Props) {
       />
       <Container wide className="pt-6 pb-14 sm:pt-8 sm:pb-20">
         <Breadcrumbs items={crumbs} />
-        <BrandsDirectory total={page.total} authorized={page.authorized} others={page.others} />
+        <BrandsDirectory
+          total={page.total}
+          authorized={page.authorized}
+          others={page.others}
+          ui={CATALOG_UI[catalogTextLine(tenant.line)]}
+        />
       </Container>
     </>
   )
