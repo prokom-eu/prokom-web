@@ -84,6 +84,11 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - **Produkcja tylko po akceptacji szefa w Asanie** i tylko przez pipeline (`docs/wdrozenia.md`). Nie wdrażaj ręcznie, nie uruchamiaj migracji na serwerze bez mojej zgody.
 - Przed wdrożeniem produkcji: kopia bazy. Każde wdrożenie da się cofnąć do poprzedniego obrazu.
 
+## Audyt bezpieczeństwa (11.2026)
+- Plan, zasady i polecenia sesji: `docs/bezpieczenstwo/AUDYT-PLAN.md`; wyniki w `docs/bezpieczenstwo/ZNALEZISKA-2026-11.md`, konta w `DOSTEPY.md`.
+- Sesje AB1–AB3 są **tylko do odczytu** — zero zmian w kodzie, na serwerze, w DNS i w bazie; naprawy dopiero w AB4 osobnymi PR-ami.
+- Sekrety nigdy nie trafiają do plików, PR-ów, commitów ani odpowiedzi — tylko nazwy kluczy albo wartości zamaskowane (`sk-…abcd`).
+
 ## Git
 - `main` = produkcja, `develop` = staging. Gałęzie: `feat/<opis>`, `fix/<opis>`, `chore/<opis>`, `docs/<opis>`.
 - **Nigdy nie pushuj bezpośrednio na `main` ani `develop`** — tylko PR z zielonym CI, scalanie przez squash.
