@@ -668,11 +668,18 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
  * (its label hidden only visually, it stays the name); `nav` — the tighter menu of the cramped
  * capsule; `cta` — the short action label. Labels hidden this way stay accessible names.
  */
-.cap-wrap[data-fit~='theme'] .cap-btn--theme,
-.cap-wrap[data-fit~='search'] .cap-btn--search {
+.cap-wrap[data-fit~='theme'] .cap-btn--theme {
   justify-content: center;
   min-width: 40px;
   padding: 0;
+}
+.cap-wrap[data-fit~='search'] .cap-btn--search {
+  justify-content: center;
+  min-width: 44px;
+  padding: 0;
+}
+[data-scrolled].cap-wrap[data-fit~='search'] .cap-btn--search {
+  min-width: 40px;
 }
 .cap-wrap[data-fit~='theme'] .cap-btn--theme .theme-toggle__labels,
 .cap-wrap[data-fit~='search'] .cap-btn--search > :not(svg, kbd, .sr-only) {
@@ -687,8 +694,9 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   display: none;
 }
 .cap-wrap[data-fit~='nav'] .cap {
+  /* Only the gap: `padding` of the capsule is transitioned, a measurement mid-way would make the
+     fit go back and forth. */
   gap: 8px;
-  padding-left: 20px;
 }
 .cap-wrap[data-fit~='nav'] .cap__nav ul {
   gap: 0;
@@ -709,7 +717,6 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 /* Last step (the longest menu at 1081 px): the tightest spacing and a slightly smaller mark. */
 .cap-wrap[data-fit~='tight'] .cap {
   gap: 6px;
-  padding-left: 16px;
 }
 .cap-wrap[data-fit~='tight'] .cap-link {
   padding-inline: 6px;

@@ -14,9 +14,9 @@ const free = (page: Page) =>
       const s = getComputedStyle(el)
       return s.display !== 'none' && s.position !== 'absolute' && s.position !== 'fixed'
     })
-    const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
+    const used = items.reduce((sum, el) => sum + (el as HTMLElement).offsetWidth, 0)
     const inner = cap.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
-    return inner - used - (parseFloat(style.columnGap) || 0) * Math.max(0, items.length - 1)
+    return inner - used - (parseFloat(style.columnGap) || 0) * Math.max(0, items.length - 1) + 1
   })
 
 const HOSTS = ['biznes.localhost', 'instalacje.localhost', 'software.localhost', 'prokom.localhost']
@@ -27,6 +27,8 @@ for (const host of HOSTS) {
       test(`${width} px`, async ({ page }) => {
         await page.setViewportSize({ width, height: 800 })
         await page.goto(site(host))
+        // The fit runs after hydration (`CapsuleShell`): wait for it, then check.
+        await expect(page.locator('.cap-wrap[data-fit-ready]')).toBeAttached({ timeout: 15_000 })
         await expect.poll(() => free(page)).toBeGreaterThanOrEqual(0)
         // The action ends inside the capsule's border.
         const inside = await page.locator('.cap').evaluate((cap) => {
@@ -36,12 +38,20 @@ for (const host of HOSTS) {
         })
         expect(inside).toBe(true)
         // One row of menu entries.
-        const tops = await page
-          .locator('.cap__nav .cap-link')
-          .evaluateAll((links) => [
-            ...new Set(links.map((l) => Math.round(l.getBoundingClientRect().top))),
-          ])
+        const tops = await page.locator('.cap__nav .cap-link').evaluateAll((links) => [
+          ...new Set(
+            links
+              // Entries a line hides on narrower desktops (the hub's „O firmie”) are not in the row.
+              .filter((l) => (l as HTMLElement).offsetParent)
+              .map((l) => Math.round(l.getBoundingClientRect().top)),
+          ),
+        ])
         expect(tops.length).toBeLessThanOrEqual(1)
+
+        // Scrolled: the smaller capsule must hold everything too.
+        await page.mouse.wheel(0, 900)
+        await expect(page.locator('.cap-wrap[data-scrolled]')).toBeAttached()
+        await expect.poll(() => free(page)).toBeGreaterThanOrEqual(0)
       })
     }
   })

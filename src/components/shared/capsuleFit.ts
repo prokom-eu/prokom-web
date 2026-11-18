@@ -16,7 +16,9 @@ export function capsuleFree(capsule: HTMLElement): number {
     const s = getComputedStyle(el)
     return s.display !== 'none' && s.position !== 'absolute' && s.position !== 'fixed'
   })
-  const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
+  // Layout widths (`offsetWidth`): the scrolled capsule shrinks its mark with `scale`, which
+  // `getBoundingClientRect` would count as free room that is not there. 1 px for rounding.
+  const used = items.reduce((sum, el) => sum + (el as HTMLElement).offsetWidth, 0)
   const inner = capsule.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
-  return inner - used - (parseFloat(style.columnGap) || 0) * Math.max(0, items.length - 1)
+  return inner - used - (parseFloat(style.columnGap) || 0) * Math.max(0, items.length - 1) + 1
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react'
 
 import { capsuleFree, FIT_STEPS } from './capsuleFit'
 import { useHideOnScroll } from './useHideOnScroll'
@@ -71,27 +71,42 @@ export function CapsuleShell({ children, paused, state }: Props) {
  * „Twój projekt” gone). Labels stay the accessible names — only hidden visually.
  */
 function useCapsuleFit(wrap: RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
+  // Layout effect: the fitted capsule is what the first painted frame after hydration shows.
+  useLayoutEffect(() => {
     const element = wrap.current
     const capsule = element?.querySelector<HTMLElement>('.cap')
     if (!element || !capsule) return
     const desktop = window.matchMedia('(min-width: 1081px)')
+    let steps = ''
     const fit = () => {
       element.removeAttribute('data-fit')
-      if (!desktop.matches) return
-      const steps: string[] = []
-      for (const step of FIT_STEPS) {
-        if (capsuleFree(capsule) >= 0) break
-        steps.push(step)
-        element.setAttribute('data-fit', steps.join(' '))
+      const next: string[] = []
+      if (desktop.matches) {
+        for (const step of FIT_STEPS) {
+          if (capsuleFree(capsule) >= 0) break
+          next.push(step)
+          element.setAttribute('data-fit', next.join(' '))
+        }
       }
+      steps = next.join(' ')
+      // For tests and debugging: the first fit is done (also when nothing had to give way).
+      element.setAttribute('data-fit-ready', steps || 'none')
     }
     fit()
-    const observer = new ResizeObserver(fit)
+    // The row's parts change size without the capsule doing so: menu entries (fonts), buttons
+    // and the action with its live count (`CartCount`, „Twój projekt”). Not the mega menus.
+    const observer = new ResizeObserver(() => {
+      const before = steps
+      fit()
+      if (steps !== before) element.dispatchEvent(new Event('capsulefit'))
+    })
     observer.observe(capsule)
-    for (const part of capsule.querySelectorAll('.cap__nav ul, .cap__extras'))
+    for (const part of capsule.querySelectorAll(':scope > .cap__nav > ul, :scope > .cap__actions'))
       observer.observe(part)
-    void document.fonts?.ready.then(fit)
-    return () => observer.disconnect()
+    desktop.addEventListener('change', fit)
+    return () => {
+      observer.disconnect()
+      desktop.removeEventListener('change', fit)
+    }
   }, [wrap])
 }
