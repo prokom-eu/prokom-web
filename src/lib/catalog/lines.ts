@@ -9,9 +9,9 @@ export const CATALOG_LINES = ['biznes', 'instalacje'] as const satisfies readonl
 /**
  * Instalacje opens its catalog by a deliberate switch, not as a side effect of data: one
  * published product must not put Biznes texts and unstyled pages on prokominstalacje.pl.
- * Turned on in `inst/k1-katalog`, together with the line's catalog texts and styles.
+ * Turned on in `inst/k1-katalog`, together with the line's import, texts and styles.
  */
-export const INSTALACJE_CATALOG_ENABLED = false
+export const INSTALACJE_CATALOG_ENABLED = true
 
 function isCatalogLine(line: Line): boolean {
   return (CATALOG_LINES as readonly Line[]).includes(line)

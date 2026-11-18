@@ -11,9 +11,10 @@ describe('catalog lines (ADR-029)', () => {
     expect(isCatalogOpen('biznes', 0)).toBe(true)
   })
 
-  it('keeps Instalacje closed until the switch of inst/k1-katalog, whatever the data', () => {
-    expect(INSTALACJE_CATALOG_ENABLED).toBe(false)
-    expect(isCatalogOpen('instalacje', 120)).toBe(false)
+  it('opens Instalacje since inst/k1-katalog; switched off, whatever the data, it stays closed', () => {
+    expect(INSTALACJE_CATALOG_ENABLED).toBe(true)
+    expect(isCatalogOpen('instalacje', 120)).toBe(true)
+    expect(isCatalogOpen('instalacje', 120, false)).toBe(false)
   })
 
   it('opens Instalacje, once switched on, only with published products', () => {
