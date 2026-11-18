@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Heading } from '@/components/ui/Heading'
-import { getCatalogIndex } from '@/lib/catalog/data'
+import { getCatalogIndex, getCatalogTexts } from '@/lib/catalog/data'
 import {
   CATALOG_PATH,
   catalogSeo,
@@ -9,6 +9,7 @@ import {
   parseCatalogState,
   type ParamSource,
 } from '@/lib/catalog/filters'
+import { catalogTextLine } from '@/lib/catalog/texts'
 import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { plural } from '@/lib/plural'
@@ -24,29 +25,20 @@ type Props = {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
-const TITLE = 'Cała oferta dla firm'
-/** `<title>` with the region (SEO lokalne 13.11); the H1 stays `TITLE`. */
-const META_TITLE = 'Oferta dla firm — Rabka-Zdrój i Podhale'
-/** Meta description (≤ 155 characters, audit 01.11); the lead below is longer. */
-const DESCRIPTION =
-  'Sprzęt, programy i usługi dla firm z Rabki-Zdroju, Podhala i Małopolski: dobór, wdrożenie i serwis. Dodaj pozycje do zapytania — wycena na mailu.'
-/** Lead of the K4 board `Web-Oferta`. */
-const LEAD =
-  'Sprzęt, programy i usługi dla firm i instytucji, z doborem, wdrożeniem i serwisem. Cen nie podajemy na stronie: dodaj pozycje do zapytania, a przygotujemy wycenę.'
-
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const tenant = await requireCatalogTenant(params)
-  const [index, settings] = await Promise.all([
+  const [index, settings, texts] = await Promise.all([
     getCatalogIndex(tenant.id),
     getSiteSettings(tenant.id),
+    getCatalogTexts(tenant.id, catalogTextLine(tenant.line)),
   ])
   const seo = catalogSeo(
     parseCatalogState((await searchParams) as ParamSource, index),
     index.products.length,
   )
   return {
-    title: META_TITLE,
-    description: DESCRIPTION,
+    title: texts.offerMetaTitle,
+    description: texts.offerDescription,
     alternates: { canonical: seo.canonical },
     // Staging stays closed whatever the view; elsewhere a filtered view is not indexed.
     robots:
@@ -56,9 +48,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       locale: 'pl_PL',
       siteName: tenant.name,
       url: seo.canonical,
-      title: META_TITLE,
-      description: DESCRIPTION,
-      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
+      title: texts.offerMetaTitle,
+      description: texts.offerDescription,
+      images: ogImages(settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }
@@ -66,7 +58,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 /** Offer `/oferta` (K4 board `Web-Oferta`): header on the server, the list as a client island. */
 export default async function CatalogPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
-  const [index, origin] = await Promise.all([getCatalogIndex(tenant.id), requestOrigin()])
+  const [index, origin, texts] = await Promise.all([
+    getCatalogIndex(tenant.id),
+    requestOrigin(),
+    getCatalogTexts(tenant.id, catalogTextLine(tenant.line)),
+  ])
   const brands = brandCount(index)
   const crumbs = [
     { name: 'Strona główna', href: '/' },
@@ -104,9 +100,11 @@ export default async function CatalogPage({ params }: Props) {
               Oferta
             </p>
             <Heading level={1} className="mt-2 max-md:sr-only">
-              {TITLE}
+              {texts.offerTitle}
             </Heading>
-            <p className="mt-3 text-lg leading-relaxed text-ink-2 max-md:hidden">{LEAD}</p>
+            <p className="mt-3 text-lg leading-relaxed text-ink-2 max-md:hidden">
+              {texts.offerLead}
+            </p>
           </div>
           {stats.length > 0 && (
             <dl className="grid grid-cols-3 gap-2 max-md:hidden lg:min-w-[380px]">

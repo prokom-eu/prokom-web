@@ -1007,6 +1007,67 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   font-size: 12px;
   opacity: 0.6;
 }
+/* Theme entry (`RailTheme`, ADR-028 §6): the action as a rail row, under it Jasny · Ciemny ·
+   Auto, shown like the labels — only while the rail is open. */
+.srail__theme {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 2px;
+}
+.srail__item .theme-toggle__icon {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-text);
+}
+.srail__choices {
+  display: flex;
+  gap: 4px;
+  margin: 0 8px 4px 47px;
+  padding: 3px;
+  border-radius: 11px;
+  background: var(--surface-2);
+  opacity: 0;
+  /* Not clickable while folded: the first pill reaches into the 64 px of the folded rail. */
+  pointer-events: none;
+  transition: opacity var(--dur-hover);
+}
+.srail:is(:hover, :focus-within):not([data-collapsed]) .srail__choices {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* A low window (as the rows above): the pills closer, so the rail stays inside the screen. */
+@media (max-height: 1000px) {
+  .srail__choices {
+    margin-bottom: 2px;
+    padding: 2px;
+  }
+  .srail__choices button {
+    height: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .srail__choices {
+    transition: none;
+  }
+}
+.srail__choices button {
+  flex: 1;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.srail__choices button[aria-pressed='true'] {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent);
+}
 .srail__sep {
   flex: none;
   height: 1px;
@@ -1542,5 +1603,173 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   }
   .theme-toggle:hover .theme-toggle__icon {
     rotate: none;
+  }
+}
+
+/*
+ * Brand bar „premium” (`BrandBar`, MOTYW-PASEK-LINII §4): lines as pills 6 px apart, a pill that
+ * follows the pointer and keyboard focus (`BrandBarPill`, 180 ms, the motion system's ease-out), the
+ * line's dash growing 11 → 18 px with a soft glow in its colour, the current line in a light tint
+ * of its colour, a tooltip with the line's description, and the lines coming in one after another.
+ * Height stays 38 px, so the capsule does not move. `--lc`: the line's colour (inline).
+ */
+.bbar-lines {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bbar-pill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 26px;
+  margin-top: -13px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cap-border) 60%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 180ms var(--ease-out),
+    width 180ms var(--ease-out),
+    opacity 180ms var(--ease-out);
+}
+.bbar-pill[data-on] {
+  opacity: 1;
+}
+.bbar-pill[data-instant] {
+  transition: none;
+}
+.bbar-item {
+  --lc: var(--lc-light);
+  position: relative;
+  display: flex;
+  animation: bbar-in 220ms var(--ease-out) calc(var(--i, 0) * 30ms) backwards;
+}
+.bbar-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--nav-ink-2);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 150ms;
+}
+.bbar-line:is(a):hover,
+.bbar-line:focus-visible {
+  color: var(--nav-ink);
+}
+.bbar-line:focus-visible {
+  outline: 2px solid var(--nav-active-ink);
+  outline-offset: 1px;
+}
+.bbar-line[aria-current='page'] {
+  background: color-mix(in srgb, var(--lc) 11%, transparent);
+  color: var(--nav-ink);
+  font-weight: 800;
+}
+/* A touch screen (a tablet held wide) keeps 24 px rows at least — 26 px already. */
+.bbar-dash {
+  display: block;
+  width: 11px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--lc);
+  transition:
+    width 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+.bbar-line:is(a):hover .bbar-dash,
+.bbar-line:focus-visible .bbar-dash {
+  width: 18px;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--lc) 55%, transparent);
+}
+.bbar-line[aria-current='page'] .bbar-dash {
+  width: 18px;
+}
+.bbar-tip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  z-index: 60;
+  padding: 6px 10px;
+  border: 1px solid var(--cap-border);
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 16%, transparent);
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, -4px);
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    visibility 0s 150ms;
+}
+@media (hover: hover) and (pointer: fine) {
+  .bbar-item:hover > .bbar-tip {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition:
+      opacity 150ms var(--ease-out) 350ms,
+      transform 150ms var(--ease-out) 350ms,
+      visibility 0s 350ms;
+  }
+}
+.bbar-line:focus-visible + .bbar-tip {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+  transition: none;
+}
+/* An invisible bridge over the 6 px gap: the pointer can move onto the tooltip (WCAG 1.4.13). */
+.bbar-tip::before {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 8px;
+  content: '';
+}
+/* Esc dismisses it until the next pointing or focus (`BrandBarPill`). */
+[data-tip-off] .bbar-tip {
+  visibility: hidden;
+}
+/* The right half gets its own thin divider (1 × 16 px) instead of a dot. */
+.bbar-right::before {
+  width: 1px;
+  height: 16px;
+  margin-right: -6px;
+  background: var(--cap-border);
+  content: '';
+}
+:root[data-theme='dark'] .bbar-item {
+  --lc: var(--lc-dark);
+}
+/* Revealed by a clip, not by opacity: half-transparent text in the first 400 ms would fail the
+   contrast checks of axe (and of a visitor's eye). */
+@keyframes bbar-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    translate: 0 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bbar-item {
+    animation: none;
+  }
+  .bbar-pill,
+  .bbar-line,
+  .bbar-dash,
+  .bbar-tip {
+    transition: none;
   }
 }
