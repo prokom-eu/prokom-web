@@ -6,8 +6,9 @@ export const INSTALACJE_CATALOG_CATEGORY = 'Instalacje · Sprzęt'
 
 /**
  * Category saved with an inquiry. The catalog list form sends none; on Instalacje its list
- * and „Zapytaj o frazę” get „Instalacje · Sprzęt”, so the office tells them from service
- * requests. A category sent by a form always wins.
+ * gets „Instalacje · Sprzęt”, so the office tells it from service requests. A category sent
+ * by a form always wins. („Zapytaj o frazę” is not accepted on Instalacje yet — `schema.ts`
+ * allows service keys only in `topics` there; INST-K1 decides.)
  */
 export function inquiryCategory(
   line: Line,
@@ -15,7 +16,7 @@ export function inquiryCategory(
   category: string | undefined,
 ): string | undefined {
   if (category) return category
-  if (line === 'instalacje' && (type === 'list' || type === 'search')) {
+  if (line === 'instalacje' && type === 'list') {
     return INSTALACJE_CATALOG_CATEGORY
   }
   return undefined

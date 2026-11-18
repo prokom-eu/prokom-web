@@ -6,16 +6,28 @@ import type { Line } from '../tenant/lines'
  */
 export const CATALOG_LINES = ['biznes', 'instalacje'] as const satisfies readonly Line[]
 
-export function isCatalogLine(line: Line): boolean {
+/**
+ * Instalacje opens its catalog by a deliberate switch, not as a side effect of data: one
+ * published product must not put Biznes texts and unstyled pages on prokominstalacje.pl.
+ * Turned on in `inst/k1-katalog`, together with the line's catalog texts and styles.
+ */
+export const INSTALACJE_CATALOG_ENABLED = false
+
+function isCatalogLine(line: Line): boolean {
   return (CATALOG_LINES as readonly Line[]).includes(line)
 }
 
 /**
  * Whether the catalog routes are open for a tenant. Biznes always (no extra query on
- * production); Instalacje only once its catalog has published products, so the routes stay
- * 404 until the import of INST-K1 — no empty `/oferta` in Google.
+ * production); Instalacje only when switched on and its catalog has published products —
+ * no empty `/oferta` in Google.
  */
-export function isCatalogOpen(line: Line, publishedProducts: number): boolean {
+export function isCatalogOpen(
+  line: Line,
+  publishedProducts: number,
+  instalacjeEnabled: boolean = INSTALACJE_CATALOG_ENABLED,
+): boolean {
   if (line === 'biznes') return true
+  if (line === 'instalacje' && !instalacjeEnabled) return false
   return isCatalogLine(line) && publishedProducts > 0
 }

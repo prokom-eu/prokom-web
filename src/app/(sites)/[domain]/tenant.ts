@@ -39,15 +39,16 @@ export async function requireLine(
 
 /**
  * Tenant of a catalog route (`/oferta`, `/produkt/…`, `/marki`, `/zapytanie`) — one engine for
- * Biznes and Instalacje (ADR-029). Instalacje opens once it has published products
- * (`lib/catalog/lines`); the index is the cached one the page reads anyway.
+ * Biznes and Instalacje (ADR-029). Instalacje opens only when switched on and with published
+ * products (`lib/catalog/lines`); while switched off, no query at all.
  */
 export async function requireCatalogTenant(
   params: Promise<{ domain: string }>,
 ): Promise<SiteTenant> {
   const tenant = await requireLine(params, CATALOG_LINES)
-  const count = tenant.line === 'biznes' ? 0 : (await getCatalogIndex(tenant.id)).products.length
-  if (!isCatalogOpen(tenant.line, count)) notFound()
+  if (tenant.line === 'biznes') return tenant
+  if (!isCatalogOpen(tenant.line, 1)) notFound()
+  if (!isCatalogOpen(tenant.line, (await getCatalogIndex(tenant.id)).products.length)) notFound()
   return tenant
 }
 

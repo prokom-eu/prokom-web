@@ -30,7 +30,7 @@ const MAX_PHRASE = 100
  * contact data on the server; the list (`pk-cart`) and the form are one client island.
  */
 export default async function InquiryListPage({ params, searchParams }: Props) {
-  // The layout already guards; repeated here so the page never renders on its own.
+  // No layout in `(katalog)`: the page itself is the guard.
   const tenant = await requireCatalogTenant(params)
   // The token carries the render time (minimum fill time): never from a cache.
   await connection()
