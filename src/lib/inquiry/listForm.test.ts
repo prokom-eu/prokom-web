@@ -104,6 +104,26 @@ describe('checkListRequired', () => {
     })
   })
 
+  it('asks Instalacje for a phone of at least 9 digits, e-mail or not (ADR-I002 §4)', () => {
+    const emailOnly = { ...values, phone: '', email: 'anna@firma.pl' }
+    expect(checkListRequired(emailOnly, 'list', { phoneRequired: true })).toEqual({
+      phone: LIST_FIELD_MESSAGES.phoneRequired,
+    })
+    expect(
+      checkListRequired({ ...values, phone: '600 100' }, 'list', { phoneRequired: true }),
+    ).toEqual({
+      phone: LIST_FIELD_MESSAGES.phoneRequired,
+    })
+    expect(checkListRequired(values, 'list', { phoneRequired: true })).toEqual({})
+    // The server agrees: the same list without a phone fails on Instalacje.
+    const body = (v: ListFormValues, phrase: string | null, items = cart) =>
+      buildListInquiryBody(v, { href, formToken: 't', cart: items, phrase })
+    expect(parseInquiryInput(body(emailOnly, null), 'instalacje').success).toBe(false)
+    expect(parseInquiryInput(body(values, null), 'instalacje').success).toBe(true)
+    // „Zapytaj o X” of the Instalacje catalog: a free phrase, not a service key.
+    expect(parseInquiryInput(body(values, 'kamera 4k', []), 'instalacje').success).toBe(true)
+  })
+
   it('accepts an e-mail instead of a phone (K4-FINAL §5)', () => {
     const emailOnly = {
       ...values,

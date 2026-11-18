@@ -126,7 +126,8 @@ function inquirySchemaFor(line: Line | undefined) {
 
     // Instalacje (ADR-I002 §4): services as their keys, each once. The planner's topics come
     // from its answers on the server, so the sent ones are not checked there.
-    if (line === 'instalacje' && data.type !== 'wizard') {
+    // „Zapytaj o X” of the catalog (ADR-029) carries the searched phrase, not a service key.
+    if (line === 'instalacje' && data.type !== 'wizard' && data.type !== 'search') {
       const unique = new Set(data.topics).size === data.topics.length
       if (!unique || !data.topics.every(isServiceKey)) issue('topics', 'unknown service')
     }

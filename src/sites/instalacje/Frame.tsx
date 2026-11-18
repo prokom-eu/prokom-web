@@ -13,6 +13,9 @@ import { toTelHref } from '@/lib/site/link'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
+import { CartDrawer } from '@/sites/biznes/components/CartDrawer'
+import { CartToast } from '@/sites/biznes/components/CartToast'
+
 import { navigation } from './dane/nawigacja'
 import { CtaBand } from './powloka/CtaBand'
 import { FooterRidge } from './powloka/FooterRidge'
@@ -93,6 +96,9 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           withShared={shared !== null}
         />
         <PageTransition>{children}</PageTransition>
+        {/* Inquiry list of the catalog (ADR-029): the shared drawer and toast, phone required. */}
+        <CartDrawer phone={phone} phoneRequired />
+        <CartToast />
         <CtaBand
           band={navigation.ctaBand}
           phone={phone}

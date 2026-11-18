@@ -7,6 +7,7 @@ import {
   getPublishedProductList,
 } from '../catalog/data'
 import { buildPlanScenes } from '../catalog/floorPlan'
+import { INSTALACJE_CATALOG_ENABLED } from '../catalog/lines'
 import { AREA_TOWNS } from '../instalacje/area'
 import { getInstalacjeObjectList } from '../instalacje/data'
 import { getPublishedPageList } from '../pages/data'
@@ -29,13 +30,16 @@ import { brandLinks, buildSiteMap, type SiteMapSection } from './siteLinks'
  * the guide posts, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
  */
 export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
+  // Biznes-only catalog pages (bundles, plan, configurator) follow `catalog`; the product
+  // catalog itself is shared with Instalacje (ADR-029) — `products` below.
   const catalog = tenant.line === 'biznes'
   const software = tenant.line === 'software'
   const instalacje = tenant.line === 'instalacje'
+  const products = catalog || (instalacje && INSTALACJE_CATALOG_ENABLED)
   const [
     pages,
     index,
-    products,
+    productList,
     posts,
     allBundles,
     solutions,
@@ -47,8 +51,8 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     solutionDates,
   ] = await Promise.all([
     getPublishedPageList(tenant.id),
-    catalog ? getCatalogIndex(tenant.id) : null,
-    catalog ? getPublishedProductList(tenant.id) : [],
+    products ? getCatalogIndex(tenant.id) : null,
+    products ? getPublishedProductList(tenant.id) : [],
     hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
     catalog ? getBundles(tenant.id) : [],
     software ? getSolutionsIndex(tenant.id) : null,
@@ -76,7 +80,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
       plan: Boolean(plans && buildPlanScenes(plans.records, new Set(indexed.keys())).length),
       // `/konfigurator` answers 404 without rules in the panel: listed only with them.
       configurator: Boolean(rules),
-      products: products.map(({ slug, name, updatedAt }) => ({
+      products: productList.map(({ slug, name, updatedAt }) => ({
         slug,
         name: indexed.get(slug)?.name ?? name,
         categories: indexed.get(slug)?.categories ?? [],

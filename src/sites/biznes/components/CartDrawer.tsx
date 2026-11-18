@@ -49,6 +49,8 @@ function useFormToken(enabled: boolean): [Token, () => void] {
 type Props = {
   /** Main phone of the line (`tel:`) for "albo zadzwoń"; `null` hides it. */
   phone: { label: string; href: string } | null
+  /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
+  phoneRequired?: boolean
 }
 
 const QTY_BUTTON =
@@ -61,7 +63,7 @@ const QTY_BUTTON =
  * Names and pictures come from the catalog index; once it loads, products the catalog no
  * longer has leave the list (spec. §8.1).
  */
-export function CartDrawer({ phone }: Props) {
+export function CartDrawer({ phone, phoneRequired = false }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -363,6 +365,7 @@ export function CartDrawer({ phone }: Props) {
                   cart={cart}
                   phrase={null}
                   onSent={onSent}
+                  phoneRequired={phoneRequired}
                 />
               ) : token.status === 'loading' ? (
                 <p className="text-ink-2" role="status">

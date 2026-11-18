@@ -27,6 +27,8 @@ type Props = {
   /** Office hours in short, e.g. „pn–pt 9:00–17:00”. */
   hours: string | null
   phone: { label: string; href: string } | null
+  /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
+  phoneRequired?: boolean
 }
 
 // `true` in the browser after hydration, `false` on the server and while hydrating.
@@ -87,7 +89,15 @@ function Steps({ sent }: { sent: boolean }) {
  * notes, „Często dobierane razem” and the contact form; after sending, the number and the
  * timeline, and the list is cleared. Names and pictures come from the catalog index.
  */
-export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hours, phone }: Props) {
+export function InquiryPage({
+  breadcrumbs,
+  formToken,
+  phrase,
+  callbackTime,
+  hours,
+  phone,
+  phoneRequired = false,
+}: Props) {
   const cart = useCart()
   const catalog = useCatalogIndex(true)
   const index = catalog.index
@@ -538,6 +548,7 @@ export function InquiryPage({ breadcrumbs, formToken, phrase, callbackTime, hour
               phrase={ask}
               promises={promises}
               onSent={onSent}
+              phoneRequired={phoneRequired}
             />
           )}
         </section>

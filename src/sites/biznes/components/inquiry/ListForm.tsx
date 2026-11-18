@@ -43,6 +43,8 @@ type Props = {
    * „Imię lub firma”, phone or e-mail, message and consent.
    */
   compact?: boolean
+  /** Instalacje: a phone, always (ADR-I002 §4) — not „phone or e-mail”. */
+  phoneRequired?: boolean
 }
 
 const FIELD_ORDER: ListFieldName[] = [
@@ -99,6 +101,7 @@ export function ListForm({
   promises = [],
   onSent,
   compact = false,
+  phoneRequired = false,
 }: Props) {
   const id = useId()
   const fieldId = (name: string) => `${id}-${name}`
@@ -123,7 +126,7 @@ export function ListForm({
     event.preventDefault()
     const form = event.currentTarget
     const values = readValues(form)
-    const missing = checkListRequired(values, type)
+    const missing = checkListRequired(values, type, { phoneRequired })
     setFormError(null)
     if (Object.keys(missing).length > 0) {
       showErrors(missing, form)
