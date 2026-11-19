@@ -4,24 +4,69 @@ import { SUPPLY_PAGE } from './procurement/links'
 /** Shortest meta description worth showing in results (audit 0611 P1-8: 100–155 characters). */
 export const META_DESCRIPTION_MIN = 100
 
-/** What a short text from the panel is completed with: who offers it and where. */
-const CONTEXT =
-  'Doradzimy, dobierzemy i dostarczymy z wdrożeniem i serwisem — PRO-KOM Biznes, Rabka-Zdrój.'
-/** The same, shorter — for a text of 55+ characters, so the whole stays within 155. */
-const CONTEXT_SHORT = 'Dobór, wdrożenie i serwis — PRO-KOM Biznes, Rabka-Zdrój.'
+/**
+ * The words a catalog line adds to its titles and descriptions (ADR-029: one catalog engine for
+ * Biznes and Instalacje). Every helper takes Biznes by default, so Biznes pages stay as they were.
+ */
+export type SeoVoice = {
+  /** What a short text from the panel is completed with: who offers it and where. */
+  context: string
+  /** The same, shorter — for a text of 55+ characters, so the whole stays within 155. */
+  contextShort: string
+  /** Where we work, closing a description that does not say it yet (within 155 characters). */
+  regionSentence: string
+  /** The same for a text that already offers the choice („Zapytaj o dobór”). */
+  regionSentenceNoChoice: string
+  /** What the site's title template adds to every subpage („%s | PRO-KOM Biznes”). */
+  titleSuffix: string
+  /** Name of the line in running text („w ofercie PRO-KOM Biznes”). */
+  name: string
+  /** Titles may add „dla firm” (Biznes sells to firms; Instalacje to homes and firms alike). */
+  forFirms: boolean
+}
+
+export const BIZNES_VOICE: SeoVoice = {
+  context:
+    'Doradzimy, dobierzemy i dostarczymy z wdrożeniem i serwisem — PRO-KOM Biznes, Rabka-Zdrój.',
+  contextShort: 'Dobór, wdrożenie i serwis — PRO-KOM Biznes, Rabka-Zdrój.',
+  regionSentence: ' Dobór i serwis w Rabce-Zdroju i na Podhalu.',
+  regionSentenceNoChoice: ' Wdrożenie i serwis w Rabce-Zdroju i na Podhalu.',
+  titleSuffix: ' | PRO-KOM Biznes',
+  name: 'PRO-KOM Biznes',
+  forFirms: true,
+}
+
+export const INSTALACJE_VOICE: SeoVoice = {
+  context:
+    'Dobierzemy, zamontujemy i skonfigurujemy, z serwisem — PRO-KOM Instalacje, Rabka-Zdrój.',
+  contextShort: 'Dobór, montaż i serwis — PRO-KOM Instalacje, Rabka-Zdrój.',
+  regionSentence: ' Dobór i montaż w Rabce-Zdroju i na Podhalu.',
+  regionSentenceNoChoice: ' Montaż i serwis w Rabce-Zdroju i na Podhalu.',
+  titleSuffix: ' | PRO-KOM Instalacje',
+  name: 'PRO-KOM Instalacje',
+  forFirms: false,
+}
+
+/** The voice of a catalog line (`requireCatalogTenant`: Biznes or Instalacje). */
+export function seoVoice(line: string): SeoVoice {
+  return line === 'instalacje' ? INSTALACJE_VOICE : BIZNES_VOICE
+}
+
+const baseMin = (voice: SeoVoice) => 30 - voice.titleSuffix.length
+const baseMax = (voice: SeoVoice) => 60 - voice.titleSuffix.length
 
 /**
  * Meta description of a Biznes page from a text of the panel: cut to 155 characters, and a text
  * under 100 characters („Drukarki etykiet”) completed with who offers it and where.
  */
-export function biznesDescription(text: string): string {
+export function biznesDescription(text: string, voice: SeoVoice = BIZNES_VOICE): string {
   const clean = text.replace(/\s+/g, ' ').trim()
   if (clean.length >= META_DESCRIPTION_MIN) return metaDescription(clean)
   const sentence = clean.replace(/[\s.,;:–—-]+$/, '')
-  if (!sentence) return CONTEXT
-  const long = `${sentence}. ${CONTEXT}`
+  if (!sentence) return voice.context
+  const long = `${sentence}. ${voice.context}`
   return metaDescription(
-    long.length <= META_DESCRIPTION_MAX ? long : `${sentence}. ${CONTEXT_SHORT}`,
+    long.length <= META_DESCRIPTION_MAX ? long : `${sentence}. ${voice.contextShort}`,
   )
 }
 
@@ -52,24 +97,21 @@ export const BIZNES_LOCAL_PAGES: ReadonlySet<string> = new Set([
 /** A title split by a dash or a colon („Wagi dla firm — Dibal”, „Systemy: GoPOS”). */
 const DASHED = / — |: | – /
 
-/** Where we work, closing a description that does not say it yet (within 155 characters). */
-const REGION_SENTENCE = ' Dobór i serwis w Rabce-Zdroju i na Podhalu.'
-/** The same for a text that already offers the choice („Zapytaj o dobór”). */
-const REGION_SENTENCE_NO_CHOICE = ' Wdrożenie i serwis w Rabce-Zdroju i na Podhalu.'
-
 /**
  * Meta description of a category-like page that always says where we work (SEO lokalne 13.11):
  * a text naming the region stays as `biznesDescription` makes it; another one keeps its whole
  * sentences that fit — or, when they make it too short, the text cut on a word — and ends with
  * the region sentence. Still under 100 characters: `biznesDescription` (it adds who and where).
  */
-export function localDescription(text: string): string {
+export function localDescription(text: string, voice: SeoVoice = BIZNES_VOICE): string {
   const clean = text.replace(/\s+/g, ' ').trim()
   // The text names the region and it survives the cut to 155 characters (not only the context
   // `biznesDescription` adds to a short text — that one would repeat „dobór”).
-  const described = biznesDescription(clean)
+  const described = biznesDescription(clean, voice)
   if (REGION.test(clean) && REGION.test(described)) return described
-  const region = /dob[óo]r|dobier/i.test(clean) ? REGION_SENTENCE_NO_CHOICE : REGION_SENTENCE
+  const region = /dob[óo]r|dobier/i.test(clean)
+    ? voice.regionSentenceNoChoice
+    : voice.regionSentence
   const room = META_DESCRIPTION_MAX - region.length
   let body = ''
   for (const sentence of clean.split(/(?<=[.!?])\s+/)) {
@@ -83,7 +125,7 @@ export function localDescription(text: string): string {
 }
 
 /** What the site's title template adds to every subpage („%s | PRO-KOM Biznes”). */
-export const TITLE_SUFFIX = ' | PRO-KOM Biznes'
+export const TITLE_SUFFIX = BIZNES_VOICE.titleSuffix
 /** A whole `<title>` of 30–60 characters (audit 0611 P1-8): the page's part within these. */
 export const TITLE_BASE_MIN = 30 - TITLE_SUFFIX.length
 export const TITLE_BASE_MAX = 60 - TITLE_SUFFIX.length
@@ -96,20 +138,22 @@ export const TITLE_BASE_MAX = 60 - TITLE_SUFFIX.length
 export function fitTitle(
   base: string,
   extend?: string,
-  { head: useHead = true }: { head?: boolean } = {},
+  { head: useHead = true, voice = BIZNES_VOICE }: { head?: boolean; voice?: SeoVoice } = {},
 ): string {
+  const min = baseMin(voice)
+  const max = baseMax(voice)
   const title = base.replace(/\s+/g, ' ').trim()
-  if (title.length < TITLE_BASE_MIN && extend) {
+  if (title.length < min && extend) {
     const longer = `${title} ${extend}`
-    return longer.length <= TITLE_BASE_MAX ? longer : title
+    return longer.length <= max ? longer : title
   }
-  if (title.length <= TITLE_BASE_MAX) return title
+  if (title.length <= max) return title
   const head = title.split(/ — |: | – /)[0]!.trim()
-  if (useHead && head.length >= TITLE_BASE_MIN && head.length <= TITLE_BASE_MAX) return head
-  const cut = title.slice(0, TITLE_BASE_MAX + 1)
+  if (useHead && head.length >= min && head.length <= max) return head
+  const cut = title.slice(0, max + 1)
   const space = cut.lastIndexOf(' ')
   // Cut on a word, without a dangling short word („… Omada z”) or punctuation.
-  return (space > 0 ? cut.slice(0, space) : cut.slice(0, TITLE_BASE_MAX))
+  return (space > 0 ? cut.slice(0, space) : cut.slice(0, max))
     .replace(/(?:\s+[a-ząćęłńóśźż]{1,2})+$/u, '')
     .replace(/[\s,.;:—–-]+$/u, '')
 }
@@ -120,10 +164,12 @@ export function fitTitle(
  * firm” only when the title does not say it; a long title gets the region on its short part
  * (`fitTitle`); a title naming the region already stays as `fitTitle` makes it.
  */
-export function localTitle(base: string): string {
+export function localTitle(base: string, voice: SeoVoice = BIZNES_VOICE): string {
   const title = base.replace(/\s+/g, ' ').trim()
-  if (REGION.test(title)) return fitTitle(title)
-  const forFirms = /dla firm/i.test(title) ? [] : [' dla firm — Rabka-Zdrój i Podhale']
+  const fit = (text: string) => fitTitle(text, undefined, { voice })
+  if (REGION.test(title)) return fit(title)
+  const forFirms =
+    !voice.forFirms || /dla firm/i.test(title) ? [] : [' dla firm — Rabka-Zdrój i Podhale']
   const forms = [
     ...forFirms,
     ' — Rabka-Zdrój i Podhale',
@@ -135,13 +181,13 @@ export function localTitle(base: string): string {
   const withRegion = (text: string) =>
     forms
       .map((form) => text + (DASHED.test(text) ? form.replace(/^ (dla firm )?— /, ', ') : form))
-      .find((t) => t.length <= TITLE_BASE_MAX)
+      .find((t) => t.length <= baseMax(voice))
   // Too long for any form: its first part (before „ — ” or „: ”, e.g. „Automaty vendingowe —
   // modele Optivendi”) with the region — the place weighs more for local search than the
   // brands after the dash — else the title as `fitTitle` makes it.
-  const short = fitTitle(title)
+  const short = fit(title)
   const head = title.split(/ — |: | – /)[0]!.trim()
-  const firstPart = head.length >= TITLE_BASE_MIN ? withRegion(head) : undefined
+  const firstPart = head.length >= baseMin(voice) ? withRegion(head) : undefined
   return withRegion(title) ?? withRegion(short) ?? firstPart ?? short
 }
 
@@ -149,9 +195,13 @@ export function localTitle(base: string): string {
  * `<title>` of a brand salon: the first line of its heading, without trailing punctuation;
  * a salon of several brands its heading does not name takes their names.
  */
-export function salonMetaTitle(h1a: string, brands: readonly string[] = []): string {
+export function salonMetaTitle(
+  h1a: string,
+  brands: readonly string[] = [],
+  voice: SeoVoice = BIZNES_VOICE,
+): string {
   const heading = h1a.replace(/[\s,:;.—–-]+$/u, '')
-  const plain = localTitle(heading)
+  const plain = localTitle(heading, voice)
   // A salon of several brands the heading does not name („Niszczarki dla firm”) shares its
   // title with the category: the brands instead of „dla firm”, while „Rabka-Zdrój” still fits
   // (audit 14.11 P1-5).
@@ -159,6 +209,7 @@ export function salonMetaTitle(h1a: string, brands: readonly string[] = []): str
   if (brands.length < 2 || named) return plain
   const withBrands = localTitle(
     `${heading.replace(/\s+dla firm$/i, '')} ${brands.slice(0, -1).join(', ')} i ${brands.at(-1)}`,
+    voice,
   )
   return withBrands.includes('Rabka-Zdrój') ? withBrands : plain
 }
@@ -168,9 +219,14 @@ export function salonMetaTitle(h1a: string, brands: readonly string[] = []): str
  * Rabka” fits at the end of a list (it reads as one more product) or no region at all, „<marka>
  * dla firm” with the region, as the salons.
  */
-export function brandMetaTitle(name: string, title: string): string {
-  const local = localTitle(title)
-  return local.includes('Rabka-Zdrój') ? local : localTitle(`${name} dla firm`)
+export function brandMetaTitle(
+  name: string,
+  title: string,
+  voice: SeoVoice = BIZNES_VOICE,
+): string {
+  const local = localTitle(title, voice)
+  if (local.includes('Rabka-Zdrój')) return local
+  return localTitle(voice.forFirms ? `${name} dla firm` : name, voice)
 }
 
 type LocalPage = {

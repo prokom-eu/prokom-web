@@ -63,7 +63,7 @@ export async function InstOfferBlock({ block, tenantId }: Props) {
     })),
   }))
   const total = areas.reduce((n, a) => n + a.solutions.length, 0)
-  const crumb = block.hero?.crumb || 'Pełna oferta'
+  const crumb = block.hero?.crumb || 'Wszystkie usługi'
 
   return (
     <>

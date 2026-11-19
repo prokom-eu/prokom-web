@@ -8,3 +8,35 @@
 @import '../../../styles/tokens-instalacje.css';
 
 @source '..';
+
+/* Catalog of the line (ADR-029): the routes of `(katalog)` render the shared catalog components,
+   which live with Biznes — their classes must be in this sheet too. Only what the catalog pages
+   reach (lineSheet.test.ts keeps the line's own imports covered). */
+@source '../../biznes/typography.ts';
+@source '../../biznes/components/AddToCartButton.tsx';
+@source '../../biznes/components/AddToCartButtonLazy.tsx';
+@source '../../biznes/components/Breadcrumbs.tsx';
+@source '../../biznes/components/CartDrawer.tsx';
+@source '../../biznes/components/CartToast.tsx';
+@source '../../biznes/components/CardCover.tsx';
+@source '../../biznes/components/HoursStatus.tsx';
+@source '../../biznes/components/InquirySteps.tsx';
+@source '../../biznes/components/PageLink.tsx';
+@source '../../biznes/components/ProductStage.tsx';
+@source '../../biznes/components/ProductThumb.tsx';
+@source '../../biznes/components/QuickView.tsx';
+@source '../../biznes/components/SearchIcon.tsx';
+@source '../../biznes/components/VideoFacade.tsx';
+@source '../../biznes/components/brand';
+@source '../../biznes/components/bundle';
+@source '../../biznes/components/catalog';
+@source '../../biznes/components/category';
+@source '../../biznes/components/forms';
+@source '../../biznes/components/home/AskQuoteTile.tsx';
+@source '../../biznes/components/home/FaqBiznes.tsx';
+@source '../../biznes/components/home/LiveHours.tsx';
+@source '../../biznes/components/home/SectionHead.tsx';
+@source '../../biznes/components/inquiry';
+@source '../../biznes/components/mobile';
+@source '../../biznes/components/motion';
+@source '../../biznes/components/product';

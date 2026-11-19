@@ -44,13 +44,18 @@ test.describe('Biznes-only routes', () => {
     await expect(page.locator('h1')).toHaveText('Twoje zapytanie')
   })
 
-  for (const host of ['instalacje.localhost', 'software.localhost']) {
-    test(`/zapytanie on ${host} → 404`, async ({ page }) => {
-      const response = await page.goto(site(host, '/zapytanie'))
-      expect(response?.status()).toBe(404)
-      await expect(page.locator('h1')).not.toHaveText('Twoje zapytanie')
-    })
-  }
+  test('/zapytanie on software.localhost → 404', async ({ page }) => {
+    const response = await page.goto(site('software.localhost', '/zapytanie'))
+    expect(response?.status()).toBe(404)
+    await expect(page.locator('h1')).not.toHaveText('Twoje zapytanie')
+  })
+
+  // ADR-029: the inquiry list of the Instalacje catalog, on its own domain.
+  test('/zapytanie renders on the Instalacje domain', async ({ page }) => {
+    const response = await page.goto(site('instalacje.localhost', '/zapytanie'))
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('h1')).toHaveText('Twoje zapytanie')
+  })
 })
 
 test.describe('catalog data in the panel', () => {

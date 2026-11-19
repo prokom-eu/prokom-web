@@ -39,6 +39,8 @@ export type PurchaseInput = {
   category: string | null
   subcategory: string | null
   brand: string | null
+  /** Catalog line (ADR-029); Biznes when left out. */
+  line?: string
 }
 
 /** A service of PRO-KOM itself: the own brand (K36 §5 — the board's `marka === 'PRO-KOM'`). */
@@ -52,6 +54,18 @@ function movesData({ category, subcategory }: PurchaseInput): boolean {
 
 /** The three items of the hero's service strip. */
 export function serviceStrip(input: PurchaseInput): ServiceItem[] {
+  // Instalacje sells the job, not the box: fitting, the app set up, the fitting warranty (spec. §2).
+  if (input.line === 'instalacje') {
+    return [
+      { icon: ICON.shield, title: 'Gwarancja producenta', text: 'zgłoszenia prowadzimy za Ciebie' },
+      {
+        icon: ICON.ready,
+        title: 'Montaż i konfiguracja',
+        text: 'aplikacja ustawiona przy odbiorze',
+      },
+      { icon: ICON.pin, title: 'Gwarancja na montaż', text: '24 miesiące — Rabka-Zdrój i Podhale' },
+    ]
+  }
   if (isOwnService(input)) {
     return [
       { icon: ICON.doc, title: 'Usługa PRO-KOM', text: 'robimy to sami, bez podwykonawców' },
@@ -78,6 +92,9 @@ export function serviceStrip(input: PurchaseInput): ServiceItem[] {
 
 /** „Co robimy przy zakupie” in one sentence (the board's `coRob9`). */
 export function purchaseSentence(input: PurchaseInput): string {
+  if (input.line === 'instalacje') {
+    return 'Dobór pod budynek, montaż, konfiguracja aplikacji w telefonie i serwis w jednej ofercie.'
+  }
   if (input.category === VENDING_CATEGORY) {
     return 'Dobór automatu, uruchomienie z Optivendi i szkolenie w jednej ofercie.'
   }

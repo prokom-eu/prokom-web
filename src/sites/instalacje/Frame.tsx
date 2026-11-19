@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
+import { drawerTexts } from '@/lib/catalog/texts'
 import { BrandBar } from '@/components/shared/BrandBar'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
@@ -12,6 +13,8 @@ import { getCompanyData } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { PublicSiteSettings } from '@/lib/site/public'
 import type { SiteTenant } from '@/lib/tenant/byHost'
+
+import { CartDrawer, CartToast } from './powloka/CatalogDrawerLazy'
 
 import { navigation } from './dane/nawigacja'
 import { CtaBand } from './powloka/CtaBand'
@@ -93,6 +96,9 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           withShared={shared !== null}
         />
         <PageTransition>{children}</PageTransition>
+        {/* Inquiry list of the catalog (ADR-029): the shared drawer and toast, phone required. */}
+        <CartDrawer phone={phone} phoneRequired texts={drawerTexts('instalacje')} />
+        <CartToast />
         <CtaBand
           band={navigation.ctaBand}
           phone={phone}

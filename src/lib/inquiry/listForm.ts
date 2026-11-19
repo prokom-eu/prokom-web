@@ -25,9 +25,11 @@ export type ListFormValues = {
 export type ListFieldName =
   'name' | 'phone' | 'company' | 'city' | 'email' | 'message' | 'consent' | 'items' | 'topics'
 
-export const LIST_FIELD_MESSAGES: Record<ListFieldName, string> = {
+export const LIST_FIELD_MESSAGES: Record<ListFieldName | 'phoneRequired', string> = {
   name: 'Podaj imię lub nazwę firmy.',
   phone: BIZNES_FIELD_MESSAGES.phone,
+  // Instalacje call back to arrange a visit: a phone, always (ADR-I002 §4).
+  phoneRequired: 'Podaj numer telefonu — oddzwonimy, żeby ustalić szczegóły.',
   company: 'Nazwa firmy jest za długa.',
   city: 'Nazwa miejscowości jest za długa.',
   // The server reports a bad format and a missing address for „E-mail” contact alike.
@@ -49,11 +51,17 @@ export function listInquiryType(itemCount: number, phrase: string | null): Inqui
 export function checkListRequired(
   values: ListFormValues,
   type: InquiryType,
+  { phoneRequired = false }: { phoneRequired?: boolean } = {},
 ): Partial<Record<ListFieldName, string>> {
   const errors: Partial<Record<ListFieldName, string>> = {}
   if (!values.name.trim()) errors.name = LIST_FIELD_MESSAGES.name
-  // A phone or an e-mail (K4-FINAL §5); the phone is the field shown first.
-  if (!values.phone.trim() && !values.email.trim()) errors.phone = LIST_FIELD_MESSAGES.phone
+  if (phoneRequired) {
+    // Instalacje: a phone of at least 9 digits, as the server checks (`schema.ts`).
+    if (values.phone.replace(/\D/g, '').length < 9) errors.phone = LIST_FIELD_MESSAGES.phoneRequired
+  } else if (!values.phone.trim() && !values.email.trim()) {
+    // A phone or an e-mail (K4-FINAL §5); the phone is the field shown first.
+    errors.phone = LIST_FIELD_MESSAGES.phone
+  }
   if (values.preferredContact === 'email' && !values.email.trim()) {
     errors.email = LIST_FIELD_MESSAGES.email
   }

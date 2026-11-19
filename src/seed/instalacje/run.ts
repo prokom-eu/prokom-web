@@ -9,6 +9,7 @@ import { seedInstalacjeGuide } from './guide'
 import { seedInstalacjeLegal } from './legal'
 import { seedArchNewsPhotos } from './archNewsPhotos'
 import { seedInstalacjeHome } from './home'
+import { seedInstalacjeCatalog } from './katalog'
 import { seedRealizationPhotos } from './realizationPhotos'
 import { SERVICE_PAGE_KEYS } from './servicePages'
 import {
@@ -422,6 +423,9 @@ export async function seedInstalacje(payload: Payload): Promise<void> {
   await seedSharedData(payload, 'instalacje', tenantId, (name, result) =>
     count(name, result === 'updated' ? 'updated' : result ? 'created' : 'skipped'),
   )
+
+  // --- catalog of the line (INST-K1, ADR-029): products, categories, brands, photos ---
+  await seedInstalacjeCatalog(payload, tenantId)
 
   for (const [name, c] of Object.entries(counters)) {
     log(`${name}: ${c.created} created, ${c.updated} updated, ${c.skipped} unchanged.`)

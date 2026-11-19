@@ -23,7 +23,7 @@ describe('llmsTxt', () => {
     )
     expect(text).toContain('- Bez strony: Opis.')
     expect(text).toContain('- [Pensjonat](https://prokominstalacje.pl/dla-kogo/pensjonaty)')
-    expect(text).toContain('- [Pełna oferta](https://prokominstalacje.pl/uslugi)')
+    expect(text).toContain('- [Wszystkie usługi](https://prokominstalacje.pl/uslugi)')
     expect(text).toContain('- Telefon: +48 889 003 889')
   })
 

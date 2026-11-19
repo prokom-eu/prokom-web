@@ -15,6 +15,7 @@ import {
   runCatalog,
   updateState,
   type CatalogState,
+  filterPanelParts,
 } from './filters'
 import { sourceFromSeed } from './seedSource.fixture'
 
@@ -359,5 +360,25 @@ describe('brandCount (audit 01.11: one number for the home page and Szybki start
       { slug: 'dell', name: 'Dell', status: 'none' as const },
     ]
     expect(brandCount({ brands })).toBe(2)
+  })
+})
+
+describe('filterPanelParts (ADR-029)', () => {
+  const product = (kind: 'device' | 'software', isNew = false) => ({ kind, isNew })
+  it('keeps the Biznes panel whatever is narrowed: decided by the whole catalog', () => {
+    expect(
+      filterPanelParts({
+        products: [product('device', true), product('software')] as never,
+        industries: [{ slug: 'handel' }] as never,
+      }),
+    ).toEqual({ kinds: true, isNew: true, industries: true })
+  })
+  it('hides what an Instalacje-like catalog does not have', () => {
+    expect(
+      filterPanelParts({
+        products: [product('device'), product('device')] as never,
+        industries: [],
+      }),
+    ).toEqual({ kinds: false, isNew: false, industries: false })
   })
 })

@@ -255,6 +255,22 @@ describe('buildCatalogIndex brand pages and subcategories (K3b′)', () => {
     expect(index.brands.find((brand) => brand.slug === 'ingenico')).not.toHaveProperty('page')
   })
 
+  // ADR-029 pkt 6: the brand page is shared and written for Biznes — on Instalacje a brand leads
+  // only to its own salon, never to the Biznes text.
+  it('marks no brand page where the line has no brand pages (Instalacje)', () => {
+    const instalacje = buildCatalogIndex({
+      tenantId: TENANT,
+      products: [card(1, { brand: lenovo, subcategory: 'Laptopy' })],
+      categories: [komp],
+      groups: [group] as unknown as CatalogSource['groups'],
+      industries: [],
+      pages: [],
+      settings: null,
+      brandPages: false,
+    })
+    expect(instalacje.brands.find((brand) => brand.slug === 'lenovo')).not.toHaveProperty('page')
+  })
+
   it('counts subcategories with products, in the panel order, with their addresses', () => {
     expect(index.categories[0]!.subcategories).toEqual([
       { name: 'Laptopy', slug: 'laptopy', count: 2 },

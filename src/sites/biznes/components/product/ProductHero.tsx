@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 
 import type { IconName } from '@/lib/catalog/options'
 import type { ProductView } from '@/lib/catalog/product'
@@ -34,6 +35,8 @@ type Props = {
   colorSlides: (number | null)[]
   /** „Potrzebujesz kilku sztuk? Policz stanowiska” (plan 0611 §6.4 #3) — IT categories only. */
   supply?: { label: string; href: string } | null
+  /** Catalog line (ADR-029): the service strip of Instalacje; Biznes when left out. */
+  line?: string
   /** Cover of a licence or a service without a photo (runda 1411 R8, `cardCover`). */
   cover?: CardCover | null
 }
@@ -54,6 +57,7 @@ export function ProductHero({
   colorSlides,
   supply = null,
   cover = null,
+  line,
 }: Props) {
   const { brand, category } = product
   const highlights = product.features.slice(0, HIGHLIGHTS)
@@ -62,6 +66,7 @@ export function ProductHero({
     category: category?.slug ?? null,
     subcategory: product.subcategory,
     brand: brand?.slug ?? null,
+    line,
   })
   return (
     <div className="grid gap-7 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
@@ -157,7 +162,7 @@ export function ProductHero({
             )}
           </div>
           <p className="text-sm text-ink-2">
-            Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.
+            {CATALOG_UI[catalogTextLine(line ?? 'biznes')].productPriceNote}
           </p>
           {supply && (
             <Link

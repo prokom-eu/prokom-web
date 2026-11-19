@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { CATALOG_TEXT_DEFAULTS, catalogTextLine, catalogTexts } from './texts'
+import { CATALOG_TEXT_DEFAULTS, CATALOG_UI, catalogTextLine, catalogTexts } from './texts'
 
 describe('catalog texts of a line (ADR-029 pkt 3)', () => {
   it('keeps the Biznes texts of /oferta and /marki word for word', () => {
@@ -44,5 +44,37 @@ describe('catalog texts of a line (ADR-029 pkt 3)', () => {
 
   it('uses the line defaults with no settings document', () => {
     expect(catalogTexts('instalacje', null)).toEqual(CATALOG_TEXT_DEFAULTS.instalacje)
+  })
+})
+
+describe('catalog copy of a line (ADR-029, INST-K1)', () => {
+  it('keeps the Biznes copy of the list and the product page word for word', () => {
+    expect(CATALOG_UI.biznes).toEqual({
+      searchPlaceholder:
+        'Szukaj w ofercie: nazwa, marka albo potrzeba, np. kasa mobilna, Wi-Fi dla gości, Subiekt',
+      helpText:
+        'Odpowiedz na kilka prostych pytań, a pokażemy rozwiązania dobrane do Twojej firmy.',
+      helpLabel: 'Otwórz konfigurator',
+      helpHref: '/konfigurator',
+      offListText:
+        'Dostarczamy też sprzęt i programy spoza listy. Sprawdzimy u dystrybutorów i odezwiemy się z ofertą.',
+      productPriceNote: 'Bez cen na stronie. Ofertę z wybraną wersją przygotujemy pod Twoją firmę.',
+      productCtaTitle: 'Potrzebujesz kilku sztuk albo całego stanowiska?',
+      productCtaText:
+        'Dodaj do zapytania, dopisz liczbę stanowisk i programy. Przygotujemy ofertę z konfiguracją, wdrożeniem i serwisem.',
+      sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
+      stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
+      stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],
+      productCtaEyebrow: 'Wycena na mailu',
+    })
+  })
+
+  it('gives Instalacje its own copy and a help link to its planner', () => {
+    const biznes = Object.values(CATALOG_UI.biznes).flat()
+    for (const [key, value] of Object.entries(CATALOG_UI.instalacje)) {
+      if (key === 'helpHref') continue
+      for (const text of [value].flat()) expect(biznes).not.toContain(text)
+    }
+    expect(CATALOG_UI.instalacje.helpHref).toBe('/zaplanuj')
   })
 })

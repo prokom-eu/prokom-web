@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { localDescription, localTitle } from '@/lib/biznes/seo'
+import { localDescription, localTitle, seoVoice } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import {
@@ -39,11 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { index, category, subcategory, view } = found
   const settings = await getSiteSettings(tenant.id)
   const brands = categoryBrands(subcategoryProducts(index, category.slug, subcategory.name), index)
-  const title = localTitle(subcategoryTitle(subcategory.name, brands))
+  const voice = seoVoice(tenant.line)
+  const title = localTitle(subcategoryTitle(subcategory.name, brands, voice.forFirms), voice)
   const count = subcategory.count
   // Own description for the own address (canonical on itself, not the category's lead).
   const description = localDescription(
-    `${title}: ${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} w ofercie PRO-KOM Biznes. Zapytaj o dobór i ofertę.`,
+    `${title}: ${count} ${plural(count, ['pozycja', 'pozycje', 'pozycji'])} w ofercie ${voice.name}. Zapytaj o dobór i ofertę.`,
+    voice,
   )
   const canonical = subcategoryHref(category.slug, subcategory.slug)
   return {
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(view.image ?? settings?.seo.ogImage ?? null, 'biznes'),
+      images: ogImages(view.image ?? settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }
@@ -73,6 +75,7 @@ export default async function SubcategoryPage({ params }: Props) {
   if (!found) notFound()
   return (
     <CategoryPageView
+      forFirms={tenant.line !== 'instalacje'}
       tenantId={tenant.id}
       origin={await requestOrigin()}
       index={found.index}

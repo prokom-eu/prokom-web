@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
+import type { CatalogUi } from '@/lib/catalog/texts'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
@@ -49,6 +50,19 @@ function useFormToken(enabled: boolean): [Token, () => void] {
 type Props = {
   /** Main phone of the line (`tel:`) for "albo zadzwoń"; `null` hides it. */
   phone: { label: string; href: string } | null
+  /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
+  phoneRequired?: boolean
+  /**
+   * The line's confirmation and help link (ADR-029), from `CATALOG_UI` on the server: the drawer
+   * sits in the chunk of the shared `[domain]` page, so the texts of both lines must not be
+   * bundled into it (every line's home would load them — Software's JS budget).
+   */
+  texts: DrawerTexts
+}
+
+export type DrawerTexts = Pick<CatalogUi, 'sentPhoned' | 'helpHref' | 'helpLabel'> & {
+  /** The help button's short text („Konfigurator” on Biznes). */
+  helpButton: string
 }
 
 const QTY_BUTTON =
@@ -61,7 +75,7 @@ const QTY_BUTTON =
  * Names and pictures come from the catalog index; once it loads, products the catalog no
  * longer has leave the list (spec. §8.1).
  */
-export function CartDrawer({ phone }: Props) {
+export function CartDrawer({ phone, phoneRequired = false, texts: ui }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -189,7 +203,7 @@ export function CartDrawer({ phone }: Props) {
             <p className="max-w-[34ch]">
               {/* K4-FINAL §7: the confirmation; by e-mail when no phone was given. */}
               {sent.phoned
-                ? 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.'
+                ? ui.sentPhoned
                 : 'Odpowiemy e-mailem w godzinach pracy i przygotujemy ofertę.'}
               {sent.emailed && ' Kopię listy wysłaliśmy na Twój e-mail.'}
             </p>
@@ -219,10 +233,10 @@ export function CartDrawer({ phone }: Props) {
                 Przeglądaj ofertę
               </Link>
               <Link
-                href="/konfigurator"
+                href={ui.helpHref}
                 className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
               >
-                Konfigurator
+                {ui.helpButton}
               </Link>
             </div>
             <Link href="/zapytanie" className="font-extrabold text-accent-text">
@@ -363,6 +377,7 @@ export function CartDrawer({ phone }: Props) {
                   cart={cart}
                   phrase={null}
                   onSent={onSent}
+                  phoneRequired={phoneRequired}
                 />
               ) : token.status === 'loading' ? (
                 <p className="text-ink-2" role="status">

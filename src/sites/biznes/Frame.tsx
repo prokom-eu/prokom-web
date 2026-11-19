@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { RevealObserver } from '@/components/motion/RevealObserver'
+import { drawerTexts } from '@/lib/catalog/texts'
 import { BrandBar } from '@/components/shared/BrandBar'
 import { CAPSULE } from '@/components/shared/capsule'
 import { MenuSheet } from '@/components/shared/MenuSheet'
@@ -113,7 +114,7 @@ export async function BiznesFrame({ tenant, settings, biznes, promo, children }:
           now={now}
         />
       )}
-      <CartDrawer phone={phone} />
+      <CartDrawer phone={phone} texts={drawerTexts('biznes')} />
       <CartToast />
       {action && <DrawerLinks href={action.href} />}
       {/* The preview of the shared elements renders its own copies (`/_wspolne`). */}

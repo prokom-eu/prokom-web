@@ -67,7 +67,7 @@ export const navigation: Navigation = {
       caption: 'Telefon, e-mail, salony',
     },
     {
-      label: 'Pełna oferta',
+      label: 'Wszystkie usługi',
       href: '/uslugi',
       icon: 'layers',
       caption: 'Wszystkie rozwiązania w jednym miejscu',
@@ -84,15 +84,17 @@ export const navigation: Navigation = {
   },
   // Krystian 19.11 (decyzja D12 rundy 18.11 + Realizacje): bez „Realizacje” i „Serwis” w kapsule —
   // menu mieści się z pełnymi napisami; obie strony zostają w „Więcej”, stopce i „Zgłoś awarię”.
+  // „Sprzęt” (INST-K1, ADR-029) prowadzi do katalogu.
   header: [
     { label: 'Dla architektów', href: '/dla-architektow', accent: true },
+    { label: 'Sprzęt', href: '/oferta' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Kontakt', href: '/kontakt' },
   ],
   megaServices: {
-    eyebrow: 'Pełna oferta',
+    eyebrow: 'Wszystkie usługi',
     text: '76 rozwiązań z filtrem po rodzaju obiektu. Projekt, montaż i serwis robi u nas ta sama ekipa.',
-    button: { label: 'Zobacz pełną ofertę →', href: '/uslugi' },
+    button: { label: 'Zobacz wszystkie usługi →', href: '/uslugi' },
     link: { label: 'Nie wiesz, od czego zacząć? Zaplanuj →', href: '/zaplanuj' },
   },
   megaObjects: {

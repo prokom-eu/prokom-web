@@ -1,5 +1,6 @@
 import { searchIndex } from '@/lib/catalog/catalogIndex'
 import { getCatalogIndex } from '@/lib/catalog/data'
+import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { log } from '@/lib/log'
 import { REQUEST_ID_HEADER, requestIdFrom } from '@/lib/requestId'
 import { getTenantByHost } from '@/lib/tenant/byHost'
@@ -8,9 +9,9 @@ import { normalizeHost } from '@/lib/tenant/host'
 const NO_STORE = { 'Cache-Control': 'no-store' }
 
 /**
- * `GET /api/catalog-index` — the catalog of the Biznes site for its search and filters
- * (ADR-012 §2.4). Only on a domain of a Biznes tenant: the tenant comes from `Host`, never
- * from the request, so one line's catalog cannot be read on another line's domain.
+ * `GET /api/catalog-index` — the catalog of a catalog line (Biznes, Instalacje — ADR-029) for its
+ * search, filters and inquiry list (ADR-012 §2.4). The tenant comes from `Host`, never from the
+ * request, so one line's catalog cannot be read on another line's domain.
  * Fetched by the browser only when the search opens or on `/oferta` (plan B, §4).
  */
 export async function GET(request: Request) {
@@ -18,7 +19,9 @@ export async function GET(request: Request) {
   let tenantId: number | undefined
   try {
     const tenant = host ? await getTenantByHost(host) : null
-    if (!tenant || tenant.line !== 'biznes') {
+    const catalogLine =
+      tenant?.line === 'biznes' || (tenant?.line === 'instalacje' && INSTALACJE_CATALOG_ENABLED)
+    if (!tenant || !catalogLine) {
       return Response.json({ error: 'not_found' }, { status: 404, headers: NO_STORE })
     }
     tenantId = tenant.id

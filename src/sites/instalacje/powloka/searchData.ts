@@ -3,6 +3,9 @@ import {
   getInstalacjeOffer,
   getInstalacjeRealizations,
 } from '@/lib/instalacje/data'
+import { getCatalogIndex } from '@/lib/catalog/data'
+import { catalogTag } from '@/lib/catalog/tags'
+import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { buildInstSearchIndex } from '@/lib/instalacje/searchIndex'
 import { cacheQuery } from '@/lib/cache'
 import { PAGE_CACHE_SECONDS } from '@/lib/pages/data'
@@ -28,16 +31,18 @@ const EXTRA_PAGES = [
  */
 export const getInstSearchIndex = (tenantId: number): Promise<LineSearchEntry[]> =>
   cacheQuery(() => loadInstSearchIndex(tenantId), ['inst-search-index', String(tenantId)], {
-    tags: [postsTag(tenantId), `tenant:${tenantId}:inst-search`],
+    // The catalog tag too: a card published in the panel shows up in the search at once.
+    tags: [postsTag(tenantId), `tenant:${tenantId}:inst-search`, catalogTag(tenantId)],
     revalidate: PAGE_CACHE_SECONDS,
   })()
 
 async function loadInstSearchIndex(tenantId: number): Promise<LineSearchEntry[]> {
-  const [menu, offer, posts, realizations] = await Promise.all([
+  const [menu, offer, posts, realizations, catalog] = await Promise.all([
     getInstalacjeMenu(tenantId),
     getInstalacjeOffer(tenantId),
     getPostList(tenantId, 'instalacje'),
     getInstalacjeRealizations(tenantId),
+    INSTALACJE_CATALOG_ENABLED ? getCatalogIndex(tenantId) : null,
   ])
   return buildInstSearchIndex({
     menu,
@@ -56,5 +61,11 @@ async function loadInstSearchIndex(tenantId: number): Promise<LineSearchEntry[]>
     })),
     pages: [...navigation.more, ...EXTRA_PAGES],
     faq: glownaSekcje.faq.items,
+    products: (catalog?.products ?? []).map((product) => ({
+      slug: product.slug,
+      name: product.name,
+      brand: catalog?.brands.find((brand) => brand.slug === product.brand)?.name ?? null,
+      category: catalog?.categories.find((c) => c.slug === product.categories[0])?.name ?? null,
+    })),
   })
 }

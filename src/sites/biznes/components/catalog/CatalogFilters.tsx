@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, type ReactNode } from 'react'
+import { CATALOG_UI, type CatalogUi } from '@/lib/catalog/texts'
+import { filterPanelParts } from '@/lib/catalog/filters'
 
 import { cx } from '@/components/ui/cx'
 import { brandPageHref } from '@/lib/catalog/brand'
@@ -44,6 +46,8 @@ type Props = {
   activeCount: number
   /** The „Filtry” heading; the phone sheet has its own title. */
   heading?: boolean
+  /** The line's help tile (ADR-029); Biznes when left out. */
+  ui?: CatalogUi
 }
 
 function toggle(list: string[], value: string): string[] {
@@ -152,6 +156,7 @@ export function CatalogFilters({
   onClear,
   activeCount,
   heading = true,
+  ui = CATALOG_UI.biznes,
 }: Props) {
   const categories = shown(
     index.categories.filter((category) => !state.group || category.group === state.group),
@@ -168,6 +173,10 @@ export function CatalogFilters({
       a.name.localeCompare(b.name, 'pl'),
   )
   const industries = shown(index.industries, facets.industries, state.industries)
+  const parts = filterPanelParts(index)
+  const showKinds = parts.kinds
+  const showNew = parts.isNew
+  const showIndustries = parts.industries
   // One brand chosen → „Zobacz markę” to its page or salon (K3-KATALOG §6).
   const chosenBrand =
     state.brands.length === 1 ? index.brands.find((b) => b.slug === state.brands[0]) : undefined
@@ -202,47 +211,52 @@ export function CatalogFilters({
         )}
       </div>
 
-      <div role="group" aria-label="Rodzaj" className="flex gap-0.5 rounded-xl bg-surface-2 p-1">
-        {SEGMENT.map((kind) => {
-          const on = state.kind === kind.value
-          const count = facets.kinds[kind.value ?? 'all']
-          return (
-            <button
-              key={kind.label}
-              type="button"
-              aria-pressed={on}
-              aria-label={`${kind.label} (${count})`}
-              onClick={() => onChange({ kind: kind.value })}
-              className={cx(
-                'min-h-9 min-w-0 flex-auto rounded-[9px] px-1 text-[12px] font-extrabold',
-                on ? 'bg-card text-ink shadow-sm' : 'text-ink-2 hover:text-ink',
-              )}
-            >
-              {kind.label}
-            </button>
-          )
-        })}
-      </div>
+      {/* A catalog of one kind (Instalacje: devices only) needs no „Rodzaj” segment. */}
+      {showKinds && (
+        <div role="group" aria-label="Rodzaj" className="flex gap-0.5 rounded-xl bg-surface-2 p-1">
+          {SEGMENT.map((kind) => {
+            const on = state.kind === kind.value
+            const count = facets.kinds[kind.value ?? 'all']
+            return (
+              <button
+                key={kind.label}
+                type="button"
+                aria-pressed={on}
+                aria-label={`${kind.label} (${count})`}
+                onClick={() => onChange({ kind: kind.value })}
+                className={cx(
+                  'min-h-9 min-w-0 flex-auto rounded-[9px] px-1 text-[12px] font-extrabold',
+                  on ? 'bg-card text-ink shadow-sm' : 'text-ink-2 hover:text-ink',
+                )}
+              >
+                {kind.label}
+              </button>
+            )
+          })}
+        </div>
+      )}
 
-      <label className="mt-3 flex min-h-12 cursor-pointer items-center gap-3">
-        <input
-          type="checkbox"
-          role="switch"
-          checked={state.isNew}
-          onChange={() => onChange({ isNew: !state.isNew })}
-          className="peer sr-only"
-        />
-        <span
-          aria-hidden="true"
-          className="relative h-6 w-10 shrink-0 rounded-full bg-surface-3 shadow-[inset_0_0_0_1px_var(--border-input)] transition-colors after:absolute after:left-0.5 after:top-0.5 after:size-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-accent-text peer-checked:after:translate-x-4 peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text motion-reduce:transition-none motion-reduce:after:transition-none"
-        />
-        <span className="flex flex-col leading-tight">
-          <b className="text-[0.95rem] font-extrabold text-ink">Tylko nowości</b>
-          <small className="text-xs font-bold text-ink-3">
-            {facets.isNew} {plural(facets.isNew, ['premiera', 'premiery', 'premier'])} na rynku
-          </small>
-        </span>
-      </label>
+      {showNew && (
+        <label className="mt-3 flex min-h-12 cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            role="switch"
+            checked={state.isNew}
+            onChange={() => onChange({ isNew: !state.isNew })}
+            className="peer sr-only"
+          />
+          <span
+            aria-hidden="true"
+            className="relative h-6 w-10 shrink-0 rounded-full bg-surface-3 shadow-[inset_0_0_0_1px_var(--border-input)] transition-colors after:absolute after:left-0.5 after:top-0.5 after:size-5 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-accent-text peer-checked:after:translate-x-4 peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text motion-reduce:transition-none motion-reduce:after:transition-none"
+          />
+          <span className="flex flex-col leading-tight">
+            <b className="text-[0.95rem] font-extrabold text-ink">Tylko nowości</b>
+            <small className="text-xs font-bold text-ink-3">
+              {facets.isNew} {plural(facets.isNew, ['premiera', 'premiery', 'premier'])} na rynku
+            </small>
+          </span>
+        </label>
+      )}
 
       <FilterGroup
         title="Kategoria"
@@ -340,49 +354,51 @@ export function CatalogFilters({
         )}
       </FilterGroup>
 
-      <FilterGroup
-        title="Branża"
-        icon={ICONS.industry}
-        selected={state.industries.length}
-        total={industries.length}
-        defaultOpen={state.industries.length > 0}
-      >
-        {(all) => (
-          <div className="flex flex-wrap gap-1.5">
-            {firstOrTicked(industries, all, state.industries).map((industry) => (
-              <label
-                key={industry.slug}
-                className="inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full bg-surface-2 px-3 text-sm font-bold text-ink-2 has-checked:bg-accent-text has-checked:text-accent-ink has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text"
-              >
-                <input
-                  type="checkbox"
-                  checked={state.industries.includes(industry.slug)}
-                  onChange={() => onChange({ industries: toggle(state.industries, industry.slug) })}
-                  className="sr-only"
-                />
-                {industry.name}
-                <small className="text-xs font-extrabold opacity-80">
-                  {facets.industries[industry.slug] ?? 0}
-                </small>
-              </label>
-            ))}
-          </div>
-        )}
-      </FilterGroup>
+      {showIndustries && (
+        <FilterGroup
+          title="Branża"
+          icon={ICONS.industry}
+          selected={state.industries.length}
+          total={industries.length}
+          defaultOpen={state.industries.length > 0}
+        >
+          {(all) => (
+            <div className="flex flex-wrap gap-1.5">
+              {firstOrTicked(industries, all, state.industries).map((industry) => (
+                <label
+                  key={industry.slug}
+                  className="inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full bg-surface-2 px-3 text-sm font-bold text-ink-2 has-checked:bg-accent-text has-checked:text-accent-ink has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent-text"
+                >
+                  <input
+                    type="checkbox"
+                    checked={state.industries.includes(industry.slug)}
+                    onChange={() =>
+                      onChange({ industries: toggle(state.industries, industry.slug) })
+                    }
+                    className="sr-only"
+                  />
+                  {industry.name}
+                  <small className="text-xs font-extrabold opacity-80">
+                    {facets.industries[industry.slug] ?? 0}
+                  </small>
+                </label>
+              ))}
+            </div>
+          )}
+        </FilterGroup>
+      )}
 
       <div className="mt-2 flex flex-col items-start gap-2 rounded-2xl bg-surface-2 p-4">
         <span className="flex size-9 items-center justify-center rounded-xl bg-card text-accent-text">
           <Glyph d={ICONS.wizard} size={20} />
         </span>
         <p className="font-bold text-ink">Nie wiesz, co wybrać?</p>
-        <p className="text-sm leading-snug text-ink-2">
-          Odpowiedz na kilka prostych pytań, a pokażemy rozwiązania dobrane do Twojej firmy.
-        </p>
+        <p className="text-sm leading-snug text-ink-2">{ui.helpText}</p>
         <Link
-          href="/konfigurator"
+          href={ui.helpHref}
           className="inline-flex min-h-10 items-center rounded-xl bg-accent-text px-4 text-sm font-bold text-accent-ink hover:bg-ink hover:text-surface"
         >
-          Otwórz konfigurator
+          {ui.helpLabel}
         </Link>
       </div>
     </div>

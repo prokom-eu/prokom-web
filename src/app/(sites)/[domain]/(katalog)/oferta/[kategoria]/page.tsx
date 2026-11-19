@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { localTitle } from '@/lib/biznes/seo'
+import { localTitle, seoVoice } from '@/lib/biznes/seo'
 import { notFound } from 'next/navigation'
 
 import { categoryHref } from '@/lib/catalog/category'
@@ -32,10 +32,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {}
   const settings = await getSiteSettings(tenant.id)
   // 30–60 characters with the site's suffix (audit 0611 P1-8): „Laptopy dla firm — Rabka-Zdrój”.
-  const title = localTitle(category.seo.title?.trim() || category.name)
+  const voice = seoVoice(tenant.line)
+  const title = localTitle(category.seo.title?.trim() || category.name, voice)
   // Panel texts can run long: cut to what results show in full (audit 01.11, as Software).
   const descriptionSource = category.seo.description ?? category.lead
-  const description = descriptionSource ? localDescription(descriptionSource) : undefined
+  const description = descriptionSource ? localDescription(descriptionSource, voice) : undefined
   const canonical = categoryHref(category.slug)
   return {
     title,
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(category.image ?? settings?.seo.ogImage ?? null, 'biznes'),
+      images: ogImages(category.image ?? settings?.seo.ogImage ?? null, tenant.line),
     },
   }
 }

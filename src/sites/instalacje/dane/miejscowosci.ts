@@ -55,7 +55,7 @@ export const townPage = {
   servicesHeading: (locative: string) => `Co montujemy ${locative} najczęściej`,
   servicesLead: 'Kolejność i opisy dobraliśmy do tej okolicy. Pełny zakres jest w ofercie.',
   serviceLink: 'Zobacz usługę',
-  allServices: { label: 'Pełna oferta', href: '/uslugi' },
+  allServices: { label: 'Wszystkie usługi', href: '/uslugi' },
   realizationsEyebrow: 'Realizacje z okolicy',
   realizationsHeading: 'Tu już pracowaliśmy',
   realizationsLink: { label: 'Wszystkie realizacje', href: '/realizacje' },

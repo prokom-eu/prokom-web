@@ -67,8 +67,10 @@ test.describe('HTML site map', () => {
     expect(text).not.toContain('Produkty i usługi')
     // Not „Polityka prywatności”: Instalacje have their own legal pages since I13.
     expect(text).not.toContain('Aktualności')
-    await expect(page.locator('main a[href^="/oferta"], main a[href^="/aktualnosci"]')).toHaveCount(
-      0,
-    )
+    // Its own catalog (ADR-029) under its own titles; never a Biznes card or news.
+    expect(text).toContain('Cały sprzęt')
+    await expect(
+      page.locator('main a[href^="/aktualnosci"], main a[href="/produkt/posnet-ergo-online"]'),
+    ).toHaveCount(0)
   })
 })

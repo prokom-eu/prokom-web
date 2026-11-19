@@ -15,7 +15,8 @@ type Input = {
 
 /** Pages every reader should know, in the order of the site (SEO §2.4). */
 const PAGES = [
-  ['Pełna oferta', '/uslugi'],
+  ['Wszystkie usługi', '/uslugi'],
+  ['Sprzęt (katalog bez cen)', '/oferta'],
   ['Zaplanuj instalację (kreator)', '/zaplanuj'],
   ['Serwis i przeglądy', '/serwis'],
   ['Dla architektów i deweloperów', '/dla-architektow'],

@@ -13,7 +13,16 @@ const LABEL = 'text-xs font-extrabold tracking-[0.1em] text-ink-2 uppercase'
  * kogo” (industries), „Wyróżnia się” (features), „Producent” and „Co robimy przy zakupie” (the
  * card's „W cenie” when set — replaces „W PRO-KOM w cenie” of stage 1).
  */
-export function ProductAbout({ id, product }: { id: string; product: ProductView }) {
+export function ProductAbout({
+  id,
+  product,
+  line,
+}: {
+  id: string
+  product: ProductView
+  /** Catalog line (ADR-029); Biznes when left out. */
+  line?: string
+}) {
   // Without the card's own list: the board's sentence for its category (K36 §13).
   const purchase =
     product.included.length > 0
@@ -22,6 +31,7 @@ export function ProductAbout({ id, product }: { id: string; product: ProductView
           category: product.category?.slug ?? null,
           subcategory: product.subcategory,
           brand: product.brand?.slug ?? null,
+          line,
         })
   return (
     <section

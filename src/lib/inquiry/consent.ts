@@ -25,7 +25,15 @@ export const MARKETING_CONSENT_TEXT =
   'Chcę otrzymywać od PRO-KOM informacje o nowościach i promocjach (zgoda dobrowolna, ' +
   'można ją wycofać w każdej chwili).'
 
-/** Under the button of the Biznes inquiry forms (K4-FINAL §1 and §5: only confirmed promises). */
+/**
+ * Under the button of the Biznes inquiry forms (K4-FINAL §1 and §5: only confirmed promises).
+ * Instalacje (catalog list, ADR-029): no 60-minute promise — the line calls back to arrange a
+ * visit (spec. §2: „24 h” only as the answer to a request, not here).
+ */
+export const INSTALACJE_INQUIRY_ADMIN_NOTE =
+  'Oddzwonimy, żeby ustalić szczegóły montażu. Dane wykorzystamy tylko do przygotowania ' +
+  'oferty; administrator: PRO-KOM Tadeusz Wójciak, Rabka-Zdrój.'
+
 export const INQUIRY_ADMIN_NOTE =
   'Oddzwaniamy w ciągu 60 minut w godzinach pracy. Dane wykorzystamy tylko do przygotowania ' +
   'oferty; administrator: PRO-KOM Tadeusz Wójciak, Rabka-Zdrój.'
