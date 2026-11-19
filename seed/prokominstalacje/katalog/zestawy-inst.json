@@ -387,7 +387,7 @@
    "dla": "Domek w górach lub na działce, w którym nikt nie mieszka na stałe, często bez internetu, a właściciel chce wiedzieć o włamaniu, zalaniu i pożarze z odległości.",
    "korzysc": "Alarm wysyła zdjęcie z czujki na telefon, więc od razu wiesz, czy jechać, czy dzwonić na policję.",
    "opis": [
-    "W pustym domku największym problemem nie jest syrena, tylko pewność: czy to włamanie, czy mysz. Czujki MotionCam przy alarmie robią serię zdjęć z podświetleniem podczerwienią i wysyłają je do aplikacji, więc decyzję podejmujesz, patrząc na zdjęcie, a nie na sam komunikat.",
+    "W pustym domku największym problemem jest pewność, a syrena to sprawa drugorzędna: czy to włamanie, czy mysz. Czujki MotionCam przy alarmie robią serię zdjęć z podświetleniem podczerwienią i wysyłają je do aplikacji, więc decyzję podejmujesz, patrząc na zdjęcie, nie na sam komunikat.",
     "Centrala Hub 2 (4G) działa na kartach SIM, więc w domku nie musi być stałego łącza. Kontaktron na drzwiach wejściowych zgłasza otwarcie, czujka zalania pod zlewem lub przy piecu daje znać o wycieku, zanim woda zaleje podłogę, a głośna syrena na elewacji płoszy intruza.",
     "Montaż robimy w jeden dzień, sprawdzamy zasięg sieci komórkowej w miejscu centrali i ustawiamy, kto dostaje powiadomienia. Przy kominku lub piecu na paliwo stałe polecamy czujkę FireProtect 2 z czujnikiem tlenku węgla."
    ],
@@ -720,7 +720,7 @@
    ],
    "why": [
     "DS-KIS702Y ma dwa przekaźniki zamków (do 30 V DC, 2 A) i monitor z Wi-Fi: furtka i brama działają z jednej stacji, a dzwonek odbierasz w telefonie.",
-    "Rejestrator DS-7608NXI-K1 obsługuje 8 kamer do 12 Mpx i współpracuje z analizą AcuSense, więc powiadomienia dotyczą ludzi i aut, a nie cieni.",
+    "Rejestrator DS-7608NXI-K1 obsługuje 8 kamer do 12 Mpx i współpracuje z analizą AcuSense, więc powiadomienia dotyczą ludzi i aut, nie cieni.",
     "Hub 2 Plus mieści 200 użytkowników i 25 grup: osobno uzbrajasz zaplecze, garaż i biuro, a personel ma własne kody.",
     "Hub Ajax pokazuje kamery Hikvision w swojej aplikacji, więc przy alarmie od razu patrzysz na obraz z miejsca zdarzenia."
    ],
@@ -1188,7 +1188,7 @@
    ],
    "why": [
     "DS-7604NI-Q1/4P ma 4 kanały i 4 porty PoE do 50 W łącznie, a wybrane kamery pobierają po 6,5–9,5 W, więc mieszczą się z zapasem.",
-    "Kamera /SL przy wejściu ma głośnik, migające światło i rozpoznaje ludzi oraz pojazdy, więc reaguje na człowieka przy witrynie, a nie na przejeżdżające auto.",
+    "Kamera /SL przy wejściu ma głośnik, migające światło i rozpoznaje ludzi oraz pojazdy, więc reaguje na człowieka przy witrynie, nie na przejeżdżające auto.",
     "PERFECTA 16 ma klasę Grade 2, wbudowany GSM na dwie karty SIM i aplikację PERFECTA CONTROL, więc nie zależy od internetu w lokalu.",
     "Sygnalizator SP-4003 ma 120 dB, metalową osłonę wewnętrzną i pracuje od −35 °C."
    ],
@@ -1568,7 +1568,7 @@
    "korzysc": "Ksiądz lub wolontariusz uruchamia transmisję jednym przyciskiem, a kamery same wracają do zapamiętanych ujęć.",
    "opis": [
     "Dwie kamery PTZ Canon CR-N350 wiszą na filarach lub chórze: jedna obejmuje ołtarz, druga ambonę i nawę. Ujęcia zapisujemy w kamerach, więc w czasie mszy wystarczy wybrać przycisk. Kamery dają obraz 4K i zoom optyczny 20×, a obraz po HDMI zamieniamy na sygnał sieciowy nadajnikami DARWIN HD, bo w kościele kable mają po kilkadziesiąt metrów.",
-    "W zakrystii lub na chórze stoi mikser Blackmagic ATEM Mini Pro: przełącza kamery, dodaje plansze z ogłoszeniami i wysyła transmisję przez Ethernet prosto na wybrany serwis. Dźwięk bierzemy z miksera nagłośnienia kościoła, a nie z mikrofonów kamer, dlatego w transmisji słychać czytania i śpiew tak samo jak w ławkach.",
+    "W zakrystii lub na chórze stoi mikser Blackmagic ATEM Mini Pro: przełącza kamery, dodaje plansze z ogłoszeniami i wysyła transmisję przez Ethernet prosto na wybrany serwis. Dźwięk bierzemy z miksera nagłośnienia kościoła, nie z mikrofonów kamer, dlatego w transmisji słychać czytania i śpiew tak samo jak w ławkach.",
     "Ustawiamy kamery, profile transmisji i konto kanału, a potem szkolimy osoby, które będą obsługiwać mszę. Zestaw ma status do potwierdzenia: przed wyceną oglądamy kościół, sprawdzamy łącze internetowe i miejsce na kamery."
    ],
    "el": [
