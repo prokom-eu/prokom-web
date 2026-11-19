@@ -27,7 +27,7 @@ type Props = {
 
 /**
  * Page frame of pro-kom.eu on the shared elements of the lines (spec §5, ADR-H001 pkt 3): brand bar,
- * header capsule with the „Oferta” mega menu, side rail on the home page, search window, shared
+ * header capsule with the „Oferta” mega menu, side rail on every page (runda 1811 D8), search window, shared
  * footer with the lines band, and on a phone the bottom bar and the menu sheet. Contact data, hours
  * and lines come from the panel (`CompanyData`, `SiteSettings.shared`), services from `HubServices`,
  * the pages of v1.1 from `HubSettings.pages` — no link to a page that is switched off.

@@ -147,6 +147,16 @@ export const HubSettings: CollectionConfig = {
             { name: 'number', label: 'Numer', type: 'text', required: true, maxLength: 30 },
           ],
         },
+        {
+          name: 'techPoint',
+          label: 'Punkt PRO-KOM Tech (miejscowość)',
+          type: 'text',
+          maxLength: 40,
+          admin: {
+            description:
+              'Wpisz miejscowość, jeśli to numer punktu Tech (np. Rabka-Zdrój) — pokaże się przy Tech na hubie obok Zakopanego i infolinii. Puste = zwykły numer.',
+          },
+        },
       ],
     },
     {
