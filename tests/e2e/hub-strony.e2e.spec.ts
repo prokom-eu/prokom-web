@@ -18,6 +18,10 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
       expect(response?.status()).toBe(200)
       await expect(page).toHaveTitle(title)
       await expect(page.locator('h1')).toHaveCount(1)
+      // The steps of „Nasza historia” fade in: axe reads their colours once the last one is in.
+      if (path === '/o-firmie') {
+        await expect(page.locator('.pk-story__steps li').last()).toHaveCSS('opacity', '1')
+      }
       const results = await new AxeBuilder({ page }).analyze()
       expect(results.violations).toEqual([])
     })
@@ -41,7 +45,14 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
   }) => {
     await page.goto(site(HUB, '/kontakt'))
     await expect(page.getByRole('link', { name: /Biuro.*18 267 65 11/ })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Serwis.*18 541 20 55/ })).toBeVisible()
+    // Runda 1811 D5: the Tech numbers on their own card — Rabka, Zakopane and the infoline.
+    for (const name of [
+      /Tech, Rabka-Zdrój: 18 541 20 55/,
+      /Tech, Zakopane: 18 541 20 15/,
+      /Tech, Infolinia: 883 200 151/,
+    ]) {
+      await expect(page.getByRole('link', { name })).toBeVisible()
+    }
     await expect(
       page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/).first(),
     ).toBeVisible()

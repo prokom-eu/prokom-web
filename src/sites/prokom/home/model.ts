@@ -8,6 +8,7 @@ import {
 } from '@/lib/prokom/home'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import type { HubLine } from '@/lib/prokom/lines'
+import type { TechPoint } from '@/lib/prokom/techPoints'
 import type { SharedCompany } from '@/lib/shared/project'
 import { hoursSummary } from '@/lib/site/hoursSummary'
 import { toTelHref } from '@/lib/site/link'
@@ -30,6 +31,8 @@ export type HomeLine = {
   url: string | null
   phone: string | null
   tel: string | null
+  /** Phones of the line's points (Tech, runda 1811 D5); empty = the line's one phone above. */
+  points: TechPoint[]
   /** The line's hours as written in its panel (Tech is also open on Saturdays). */
   hours: string | null
   promise: string | null
@@ -57,6 +60,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
+    points: contact.points ?? [],
     hours: contact.hours,
     promise: contact.promise,
     hero: home.hero.lines[contact.key],

@@ -251,6 +251,7 @@
     .pk-bx,
     .pk-hphones,
     .pk-btn-phone,
+    .pk-pn__point,
     .pk-hbtn:not(.pk-hbtn--accent, .pk-hbtn--line, .pk-hbtn--on-dark)
   ) {
   border-color: var(--lt-hair);
