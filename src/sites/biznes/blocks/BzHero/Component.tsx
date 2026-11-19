@@ -8,9 +8,11 @@ import { splitTime } from '@/lib/biznes/textParts'
 import { getCatalogIndex } from '@/lib/catalog/data'
 import { wheelGroups } from '@/lib/catalog/groups'
 import { K4_ORDER, partnerStatusLabel } from '@/lib/partners/badges'
+import { getPartnerNetworks } from '@/lib/partners/data'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import type { BzFactsBlock, BzHeroBlock as BzHeroBlockData } from '@/payload-types'
+import { PartnerNetworks } from '@/sites/biznes/components/brand/PartnerNetworks'
 
 import { DepartmentWheel } from './DepartmentWheelLazy'
 import { PointerLight } from './PointerLight'
@@ -50,9 +52,10 @@ const FOCUS =
  * two full-width call buttons, the bar becomes a scrolling row.
  */
 export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
-  const [index, settings] = await Promise.all([
+  const [index, settings, networks] = await Promise.all([
     getCatalogIndex(tenantId),
     getSiteSettings(tenantId),
+    getPartnerNetworks(tenantId),
   ])
   const groups = wheelGroups(index)
   const phones = block.showPhone
@@ -295,10 +298,17 @@ export async function BzHeroBlock({ block, isFirst, tenantId, stats }: Props) {
                 ))}
               </ul>
             )}
+            {/* Runda 1811 (D4): the partner network next to the producers', not among them. */}
+            <PartnerNetworks networks={networks} variant="tile" className="shrink-0" />
             {numbers.length > 0 && (
               <dl
                 data-light
-                className="bz-nums flex shrink-0 items-center gap-6 rounded-[18px] bg-surface-dark px-6 py-3 text-white min-[1080px]:max-[1279px]:basis-full"
+                className={`bz-nums flex shrink-0 items-center gap-6 rounded-[18px] bg-surface-dark px-6 py-3 text-white ${
+                  // With a partner network tile the numbers share its row (1080–1279 px).
+                  networks.length > 0
+                    ? 'min-[1080px]:max-[1279px]:flex-1'
+                    : 'min-[1080px]:max-[1279px]:basis-full'
+                }`}
               >
                 {numbers.map((stat) => (
                   <div key={stat.id ?? stat.value} className="flex flex-col-reverse gap-[3px]">
