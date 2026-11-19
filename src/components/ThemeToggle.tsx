@@ -1,6 +1,6 @@
 'use client'
 
-import { type RefObject, useLayoutEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 
@@ -12,18 +12,15 @@ import { useTheme } from './useTheme'
  * (ADR-013). Both labels and both icons are in the HTML and CSS (`wspolne.css` `.theme-toggle`)
  * shows the right one from `html[data-theme]`, set before the first paint — never a wrong label
  * until hydration. The label says the action, so there is no `aria-pressed` (spec §1).
- * In a capsule without room for the label (1081–1359 px, or a full capsule) only the icon shows;
- * the label stays the accessible name.
+ * In a capsule without room for the label (1081–1359 px, or a full capsule: `CapsuleShell`
+ * `data-fit`) only the icon shows; the label stays the accessible name.
  */
 export function ThemeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = useTheme()
   const [announcement, setAnnouncement] = useState('')
-  const button = useRef<HTMLButtonElement>(null)
-  useCompactWhenCramped(button)
   return (
     <>
       <button
-        ref={button}
         type="button"
         data-theme-toggle=""
         onClick={(event) => {
@@ -48,42 +45,6 @@ export function ThemeToggle({ className }: { className?: string }) {
       </span>
     </>
   )
-}
-
-/**
- * Icon only while the header capsule overflows (`data-compact`): from 1360 px the label fits
- * unless the line's capsule is full (Software with „Twój projekt”, which appears after hydration).
- * Measured on every size change of the capsule and of its buttons; the cramped 1081–1359 px case
- * is pure CSS, so there is no jump on load there.
- */
-function useCompactWhenCramped(ref: RefObject<HTMLButtonElement | null>) {
-  useLayoutEffect(() => {
-    const button = ref.current
-    const capsule = button?.closest<HTMLElement>('.cap')
-    if (!button || !capsule) return
-    // Free room of the capsule's row: inner width minus its in-flow items and gaps (`scrollWidth`
-    // would count the absolutely placed mega menus too).
-    const free = () => {
-      const style = getComputedStyle(capsule)
-      const items = [...capsule.children].filter((el) => {
-        const s = getComputedStyle(el)
-        return s.display !== 'none' && s.position !== 'absolute' && s.position !== 'fixed'
-      })
-      const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
-      const inner =
-        capsule.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
-      return inner - used - (parseFloat(style.columnGap) || 0) * (items.length - 1)
-    }
-    const fit = () => {
-      button.removeAttribute('data-compact')
-      if (free() < 0) button.setAttribute('data-compact', '')
-    }
-    fit()
-    const observer = new ResizeObserver(fit)
-    observer.observe(capsule)
-    if (button.parentElement) observer.observe(button.parentElement)
-    return () => observer.disconnect()
-  }, [ref])
 }
 
 /** What the `aria-live` region says after a switch (spec §1 „Dostępność”). */
