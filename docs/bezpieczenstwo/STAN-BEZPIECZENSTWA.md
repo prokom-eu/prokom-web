@@ -26,6 +26,11 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 | 19.11 | Tech | losowe nazwy plików klientów pod `/media/`, tylko formaty zdjęć (koniec wgrywania SVG/HTML) | prokom-system [#146](https://github.com/krystian2077/prokom-system/pull/146) |
 | 19.11 | wszystkie | **wdrożenie na produkcję** (akceptacja szefa): Tech eb2a1a4 (Django 5.2.19, #131, #138, #140, #146; nowa konfiguracja bramki), Gaming 42702e6 (#119), prokom-web 56f2314 (#755); bramka wdrożenia i proxy z limitem logowania na serwerze | `deploys.log` 19.11 |
 
+| 19.11, wieczór (AB5) | Tech | RODO: usunięcie konta z ponownym hasłem i pełną anonimizacją (konto, adresy, notatki, hasła urządzeń, kopie maili, ślady logowania, profile gościa), pełny eksport; sekret webhooka w stałym czasie, formularz bez treści błędów, kod OTP z `secrets`; backend i Celery bez roota (uid 10001) — produkcja | prokom-system [#161](https://github.com/krystian2077/prokom-system/pull/161), wydanie [#162](https://github.com/krystian2077/prokom-system/pull/162) |
+| 19.11, wieczór (AB5) | Gaming | Next 16.4.6 (poprawki bezpieczeństwa) — produkcja | prokom-gaming [#122](https://github.com/prokom-eu/prokom-gaming/pull/122) |
+| 19.11, wieczór (AB5) | prokom-web | `happy-dom` 21.0.4 (SSRF w parserze HTML zależności Payload) — na produkcję z najbliższym wydaniem | prokom-web [#781](https://github.com/prokom-eu/prokom-web/pull/781) |
+| 19.11, wieczór (AB5) | serwer | 11 starych kopii plików z sekretami usuniętych (`shred -u`) | S-09 |
+
 **Stan 19.11 wieczorem: wszystkie poprawki z audytu działają na produkcji.** Sprawdzone z zewnątrz: dokumentacja API i lista urządzeń Tech → 403, `nosniff` na `/media/`, panel GraphQL → 404, limit logowania (429 po 6 próbach) w panelu i Gaming, blokady dokumentów Gaming → 403. Statusy pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` każdego repo.
 
 ## 3. Co świadomie zostaje (z uzasadnieniem)
@@ -43,7 +48,8 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 | --- | --- | --- |
 | Stare serwisy PHP na nazwa.pl nadal odpowiadają pod starym adresem (S-01) — archiwum i usunięcie | Wysokie | do 25.11 (część K, Krystian) |
 | Next.js 14 → wspierana linia (z React 19) w Tech — backend już na Django 5.2 (T-03); krytyczne luki Next 14 bez wektora w naszej konfiguracji | Wysokie | do 15.12 (sesja ze zrzutami paneli) |
-| Utwardzenie SSH (S-14): skrypt `skrypty/ab4-ssh-utwardzenie.sh` — wymaga `sudo` Krystiana | Niskie | przy najbliższym logowaniu |
+| Utwardzenie SSH (S-14): skrypt `skrypty/ab4-ssh-utwardzenie.sh` — wymaga `sudo` Krystiana (instrukcja w §6) | Niskie | przy najbliższym logowaniu |
+| CAA w 6 domenach (S-11), DMARC `quarantine` w domenach linii (S-12) — instrukcja w §6 | Niskie | S-11 od razu, S-12 ok. 30.11 |
 | Alarm braku kopii produkcji web i Tech (S-04), limit B2 (S-05) | Średnie | do 30.11 |
 | Hetzner (stara Tech) — usunięcie i rotacja sekretów (T-20) | Średnie | po 30.11 |
 | CSP z ograniczeniem skryptów (W-03, G-04), pliki napraw za logowaniem (T-10) | Średnie | do 18.12 |
@@ -54,3 +60,17 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 - **RODO:** umowy powierzenia z webh.pl i Seohost; jakie dane trafiają do usług spoza UE (Sentry, Better Stack, Anthropic); okres przechowywania zapytań i danych napraw (T-18); polityki prywatności linii do sprawdzenia przez prawnika (AUDYT-PLAN §4 pkt 10).
 - **Dostęp awaryjny** do menedżera haseł dla szefa (jedna osoba zna wszystkie hasła — AUDYT-PLAN §4 pkt 12).
 - **Test penetracyjny** zewnętrznej firmy przed startem Strefy Klienta i PRO-KOM System (2027).
+
+## 6. Do zrobienia ręcznie przez Krystiana (Claude nie ma tych dostępów)
+
+Każdy punkt to kilka minut. Po zrobieniu: status w `ZNALEZISKA-2026-11.md` i wiersz w §2.
+
+1. **S-01 — stare serwisy PHP na nazwa.pl** (Wysokie): panel nazwa.pl → hosting `85.128.169.153` → pobrać archiwum plików i baz (zaszyfrować `age`, schować poza serwerem) → usunąć stare aplikacje i bazy albo wyłączyć hosting. Sprawdzenie: `curl -sI -H "Host: <stara-nazwa>" http://85.128.169.153/` nie zwraca strony.
+2. **S-14 — SSH** (z otwartą drugą sesją SSH na wypadek błędu):
+   `scp docs/bezpieczenstwo/skrypty/ab4-ssh-utwardzenie.sh prokom-vps:/tmp/` → `ssh -t prokom-vps "sudo bash /tmp/ab4-ssh-utwardzenie.sh; rm /tmp/ab4-ssh-utwardzenie.sh"` → z NOWEGO terminala `ssh prokom-vps true`.
+3. **S-11 — CAA** (najpierw `docs/dns.md`, potem dostawca): w prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl, prokomgaming.pl, prokomserwis.pl i pro-kom.pl rekord `CAA @ 0 issue "letsencrypt.org"`. Sprawdzenie: `nslookup -type=CAA <domena> 8.8.8.8`.
+4. **S-12 — DMARC** ok. 30.11, jeśli raporty na `kontakt@` są czyste: `_dmarc` → `v=DMARC1; p=quarantine; rua=mailto:kontakt@<domena>` (najpierw `docs/dns.md`).
+5. **S-04 — alarm kopii produkcji**: Better Stack → nowy heartbeat (co 24 h, tolerancja 2 h) dla prokom-web prod i Tech prod → adres wpisać w `.env.backup` jako `BACKUP_HEARTBEAT_URL_PROD` (opis w `.env.example`; dla Tech — analogicznie w jego `.env.backup`).
+6. **S-05 — limit B2**: Backblaze → Caps & Alerts → alert przy 8 GB i limit dzienny; albo płatny plan (koszt pomijalny przy ~10 GB).
+7. **T-20 — Hetzner (po 30.11)**: zaszyfrowane archiwum bazy i mediów → usunięcie serwera → rotacja `SECRET_KEY` Tech, hasła bazy i hasła SMTP (nowe wartości tylko do menedżera haseł i `.env.prod` na VPS).
+8. **2FA** do paneli: decyzja szefa o zakresie i terminie (§4).
