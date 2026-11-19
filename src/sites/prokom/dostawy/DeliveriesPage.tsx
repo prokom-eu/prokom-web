@@ -255,7 +255,8 @@ export async function DeliveriesPage({ tenant }: { tenant: SiteTenant }) {
               </tbody>
             </table>
           </div>
-          <div className="pk-sect__intro">
+          {/* `#przetargi`: the home page's „Zamówienia publiczne” links here (runda 1811 D14). */}
+          <div id="przetargi" className="pk-sect__intro scroll-mt-24">
             <span className="pk-eb">{page.formal.eyebrow}</span>
             <h3 className="pk-h3">{page.formal.title}</h3>
           </div>
