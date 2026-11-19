@@ -70,22 +70,20 @@ export function PartnerNetworks({
               </span>
             </span>
             <span className="flex flex-col text-[12.5px] leading-tight font-extrabold text-balance">
-              {network.website ? (
-                // The whole tile answers the click; the name of the link says where it goes.
-                <a
-                  href={network.website}
-                  target="_blank"
-                  rel="noopener"
-                  className={cx('after:absolute after:inset-0 after:rounded-[18px]', FOCUS)}
-                  aria-label={`${network.status} sieci ${network.name} — ${hostOf(network.website)} (nowa karta)`}
-                >
-                  {network.status}
-                </a>
-              ) : (
-                network.status
-              )}
+              {network.status}
               <span className="text-[11px] font-semibold">sieć partnerska</span>
             </span>
+            {network.website && (
+              // The link is the whole tile (a touch target as big as the tile, audit 32 px); its
+              // name says where it goes.
+              <a
+                href={network.website}
+                target="_blank"
+                rel="noopener"
+                className={cx('absolute inset-0 rounded-[18px]', FOCUS)}
+                aria-label={`${network.status} sieci ${network.name} — ${hostOf(network.website)} (nowa karta)`}
+              />
+            )}
           </li>
         ))}
       </ul>
