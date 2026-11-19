@@ -20,7 +20,11 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 | 18.11 | serwer | Nginx znów przeładowuje konfigurację (odnowione certyfikaty wejdą bez restartu) — doraźnie; restart serwera: nowe jądro i libc | odtworzenie proxy 22:4x, restart 23:14 (jądro 6.8.0-149) |
 | 18.11 | Tech | uprawnienia API (wiadomości, oferty, marki i modele), wygasające tokeny, blokada czasowa zamiast dezaktywacji, polityka haseł, logowanie Google, przypisanie kodem SMS wyłączone, dokumentacja API tylko dla admina, brak danych klienta przed potwierdzeniem e-maila, usuwanie napraw i cennik tylko admin | prokom-system [#131](https://github.com/krystian2077/prokom-system/pull/131) |
 | 18.11 | Gaming | hasło ustawia właściciel skrzynki po kliknięciu linku (przejęcie konta), blokady dokumentów panelu niewidoczne dla klientów, limit resetu hasła, ochrona CSRF i bezpieczne ciasteczko | prokom-gaming [#119](https://github.com/prokom-eu/prokom-gaming/pull/119) |
-| 18.11 | prokom-web | ochrona CSRF i bezpieczne ciasteczko panelu, partnerów edytuje tylko właściwa linia, limit prób logowania w Nginx (panel i Gaming), trwała poprawka wdrożenia Nginx | prokom-web [#755](https://github.com/prokom-eu/prokom-web/pull/755) |
+| 18.11 | prokom-web | ochrona CSRF i bezpieczne ciasteczko panelu, partnerów edytuje tylko właściwa linia, limit prób logowania w Nginx (panel i Gaming), trwała poprawka wdrożenia Nginx, drobne (unlock, limit plików, bez `X-Powered-By`) | prokom-web [#755](https://github.com/prokom-eu/prokom-web/pull/755) |
+| 19.11 | Tech | backend na Django 5.2 LTS i pakietach bez znanych luk (było 76 luk w produkcji) | prokom-system [#140](https://github.com/krystian2077/prokom-system/pull/140) |
+| 19.11 | Tech | śledzenie naprawy odporne na zgadywanie (blokada per zgłoszenie), panel admina Django tylko dla superużytkowników | prokom-system [#138](https://github.com/krystian2077/prokom-system/pull/138) |
+| 19.11 | Tech | losowe nazwy plików klientów pod `/media/`, tylko formaty zdjęć (koniec wgrywania SVG/HTML) | prokom-system [#146](https://github.com/krystian2077/prokom-system/pull/146) |
+| 19.11 | Tech | poprawki AB4 (#131) wdrożone na staging | `deploy.sh staging 3f8a828` |
 
 PR-y #131, #119 i #755 czekają na scalenie i wdrożenie (Tech: wydanie na `master`; prokom-web: kroki na serwerze z opisu PR). Statusy pojedynczych pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` (uzupełniana po scaleniu i wdrożeniu).
 
@@ -38,7 +42,7 @@ PR-y #131, #119 i #755 czekają na scalenie i wdrożenie (Tech: wydanie na `mast
 | Pozycja | Ryzyko | Kiedy |
 | --- | --- | --- |
 | Stare serwisy PHP na nazwa.pl nadal odpowiadają pod starym adresem (S-01) — archiwum i usunięcie | Wysokie | do 25.11 (część K, Krystian) |
-| Aktualizacja Django 5.1 → 5.2 LTS i Next.js 14 → wspierana linia w Tech (T-03) | Wysokie | backend do 25.11, front do 15.12 |
+| Next.js 14 → wspierana linia (z React 19) w Tech — backend już w #140 (T-03) | Wysokie | do 15.12 (sesja ze zrzutami paneli) |
 | Alarm braku kopii produkcji web i Tech (S-04), limit B2 (S-05) | Średnie | do 30.11 |
 | Hetzner (stara Tech) — usunięcie i rotacja sekretów (T-20) | Średnie | po 30.11 |
 | CSP z ograniczeniem skryptów (W-03, G-04), pliki napraw za logowaniem (T-10), `/admin/` Tech (T-13) | Średnie | do 18.12 |

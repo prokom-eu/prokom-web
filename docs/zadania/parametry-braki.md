@@ -2,7 +2,7 @@
 
 Wygenerowane przez `node scripts/parametry-braki.ts` z `seed/prokombiznes/k4/katalog-k4.json`. Nie edytuj ręcznie. Obowiązkowe klucze kategorii są w `src/lib/biznes/requiredSpecs.ts`.
 
-**Stan:** 431 gotowych kart · 26 z brakami · 48 brakujących pól.
+**Stan:** 459 gotowych kart · 25 z brakami · 45 brakujących pól.
 
 Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło karty, data w `sprawdzono`). Gdy producent danej wartości nie podaje, wpis zostaje tutaj z dopiskiem, gdzie szukano. Nie zgadujemy. Po uzupełnieniu uruchom skrypt ponownie. Test `requiredSpecs.test.ts` pilnuje, żeby lista tylko malała. Uzupełnianie idzie kategoriami w sesjach 3–4 (KATALOG-DANE-2).
 
@@ -18,16 +18,6 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `kyocera-ecosys-m8124cidn-m8130cidn` | Obciążenie miesięczne | [źródło karty](https://www.kyoceradocumentsolutions.eu/en/products/mfp/ECOSYSM8130CIDN.html) |
 | `tusze-tonery` | Typ, Format, Prędkość druku, Rozdzielczość, Druk dwustronny, Papier, Łączność, Obciążenie miesięczne, Pamięć, Panel, Wymiary, Waga | — (brak źródła) |
 
-## av (5)
-
-| slug | brakuje | gdzie szukać |
-|---|---|---|
-| `logitech-rally-bar-huddle` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/rallybarhuddle.html) |
-| `avtek-ops` | Przekątna | [źródło karty](https://avtek.pl/produkty/monitory-interaktywne/avtek-ops-i5-13505h-8gb-256gbwin-11-pro,1tv469) |
-| `dell-wideokonferencje` | Przekątna | [źródło karty](https://www.dell.com/pl-pl/shop/kamery-internetowe/ar/8332) |
-| `logitech-meetup-2` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/conference-cameras/meetup2.html) |
-| `logitech-rally-bar-mini` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/rallybarmini.html) |
-
 ## kody (4)
 
 | slug | brakuje | gdzie szukać |
@@ -37,6 +27,15 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `elzab-czytnik-kodow-bs80-2d-usb-kit-z-podstawka` | Waga | [źródło karty](https://www.elzab.com.pl/pl/kody-kreskowe/czytniki-kodow-kreskowych/reczne2d/elzab-bs80-2d) |
 | `sunmi-blink-blink-2` | Waga | [źródło karty](https://www.sunmi.com/en/blink2/) |
 
+## ekrany (4)
+
+| slug | brakuje | gdzie szukać |
+|---|---|---|
+| `logitech-rally-bar-huddle` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/rallybarhuddle.html) |
+| `dell-wideokonferencje` | Przekątna | [źródło karty](https://www.dell.com/pl-pl/shop/kamery-internetowe/ar/8332) |
+| `logitech-meetup-2` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/conference-cameras/meetup2.html) |
+| `logitech-rally-bar-mini` | Przekątna | [źródło karty](https://www.logitech.com/pl-pl/products/video-conferencing/room-solutions/rallybarmini.html) |
+
 ## vend (3)
 
 | slug | brakuje | gdzie szukać |
@@ -45,12 +44,12 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 | `optivendi-kluczomat` | Płatności | [źródło karty](https://optivendi.pl/strona/depozytor-na-klucze) |
 | `elzab-kw3` | Zasilanie, Montaż, Wymiary | [źródło karty](https://www.elzab.com.pl/pl/strefa-dla-klienta/kasy-wirtualne-specjalizowane/kasa-wirtualna-kw3) |
 
-## komputery (2)
+## av (2)
 
 | slug | brakuje | gdzie szukać |
 |---|---|---|
-| `dell-stacje-dokujace` | Procesor, Pamięć RAM, Dysk, System | [źródło karty](https://www.dell.com/en-us/shop/docking-stations/ar/8407) |
-| `apple-imac-24-m4` | Procesor, Zasilacz, System, Obudowa i wymiary | [źródło karty](https://www.apple.com/pl/imac/specs/) |
+| `avtek-ops` | Przekątna | [źródło karty](https://avtek.pl/produkty/monitory-interaktywne/avtek-ops-i5-13505h-8gb-256gbwin-11-pro,1tv469) |
+| `avtek-framewings` | Rozdzielczość, Złącza | [źródło karty](https://www.vidis.pl/produkty/uchwyty/scienny-system-montazowy-avtek-framewings-75,1mv156) |
 
 ## pos (1)
 
@@ -70,11 +69,11 @@ Zasada: brak uzupełniamy **tylko** ze strony albo PDF-u producenta (źródło k
 |---|---|---|
 | `posnet-werion` | Wymiary | [źródło karty](https://www.posnet.com.pl/produkty/product/201/weryfikator-cen-werion) |
 
-## laptopy (1)
+## komputery (1)
 
 | slug | brakuje | gdzie szukać |
 |---|---|---|
-| `apple-macbook-pro-m5` | Procesor | [źródło karty](https://www.apple.com/pl/macbook-pro/specs/) |
+| `dell-stacje-dokujace` | Procesor, Pamięć RAM, Dysk, System | [źródło karty](https://www.dell.com/en-us/shop/docking-stations/ar/8407) |
 
 ## monitory (1)
 
