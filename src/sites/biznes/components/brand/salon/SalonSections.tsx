@@ -65,7 +65,8 @@ function SectionHead({
   title: string
   lead?: string | null
   id: string
-  note?: boolean
+  /** The „bez cen” pill; a string replaces its computer text (Instalacje: no offer by e-mail). */
+  note?: boolean | string
   /** Shorter H2 below 768 px (board App-Marka: „Pełna oferta · 44”). */
   phoneTitle?: string
 }) {
@@ -100,7 +101,9 @@ function SectionHead({
       </div>
       {note && (
         <span className="rounded-full bg-surface-2 px-3 py-1.5 text-xs font-extrabold text-ink-2 max-md:col-start-2 max-md:whitespace-nowrap max-md:row-start-1 max-md:self-center min-[768px]:self-end">
-          <span className="max-md:hidden">bez cen · oferta na mailu</span>
+          <span className="max-md:hidden">
+            {typeof note === 'string' ? note : 'bez cen · oferta na mailu'}
+          </span>
           <span className="min-[768px]:hidden">bez cen</span>
         </span>
       )}
@@ -403,12 +406,15 @@ export function SalonPlans({
   brand,
   eyebrow,
   id,
+  priceNote = true,
 }: {
   section: PlanSection
   compare: SalonView['compare']
   brand: string
   eyebrow: string
   id: string
+  /** Text of the „bez cen” pill on a computer (default: the Biznes one). */
+  priceNote?: true | string
 }) {
   const mainCols =
     section.main.length === 4 ? 'min-[1200px]:grid-cols-4' : 'min-[1080px]:grid-cols-3'
@@ -424,7 +430,7 @@ export function SalonPlans({
         eyebrow={section.eyebrow ?? eyebrow}
         title={section.title ?? `Polecane modele ${brand}`}
         lead={section.lead}
-        note
+        note={priceNote}
       />
       <div className="flex flex-col gap-8 max-md:gap-6">
         {section.main.length > 0 && (

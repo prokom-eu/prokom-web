@@ -1,0 +1,24 @@
+{
+  "_uwaga": "INST-K2 (runda 18.11, §3.4): rozwiązania „Transmisje i streaming” w obszarze Nagłośnienie, poza paczką oferta-76.json — numery importu po jej 76 pozycjach (77–79), żeby nie przesunąć istniejących. Sprzęt: kategoria katalogu `streaming`. Bez cen i bez obietnic spoza spec. Instalacji §2.",
+  "usluga": "snd",
+  "rozwiazania": [
+    {
+      "nazwa": "Transmisja mszy z kościoła",
+      "opis": "Kamera obrotowa, mikser i nadawanie na YouTube albo stronę parafii, z dźwiękiem prosto z nagłośnienia kościoła.",
+      "obiekty": ["inst"],
+      "kolejnosc": 9
+    },
+    {
+      "nazwa": "Transmisje sesji rady gminy",
+      "opis": "Obraz z sali obrad i dźwięk z mikrofonów radnych, nadawane w internecie i zapisywane na potrzeby archiwum.",
+      "obiekty": ["inst"],
+      "kolejnosc": 10
+    },
+    {
+      "nazwa": "Transmisje wydarzeń i koncertów",
+      "opis": "Kilka kamer, mikser wizji i streaming z sali, kościoła albo plenerowej sceny, z obsługą przy jednym mikserze.",
+      "obiekty": ["inst", "firma", "pens", "rest"],
+      "kolejnosc": 11
+    }
+  ]
+}

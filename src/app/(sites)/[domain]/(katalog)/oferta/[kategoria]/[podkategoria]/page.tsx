@@ -17,6 +17,7 @@ import { robotsMeta } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
+import { CatalogHelp } from '@/sites/instalacje/sekcje/CatalogHelp'
 
 import { requestOrigin, requireCatalogTenant } from '../../../../tenant'
 
@@ -82,6 +83,15 @@ export default async function SubcategoryPage({ params }: Props) {
       listed={found.category}
       category={found.view}
       subcategory={found.subcategory}
+      contact={
+        tenant.line === 'instalacje' ? (
+          <CatalogHelp
+            tenantId={tenant.id}
+            heading={found.view.contact.heading}
+            topic={found.subcategory.name}
+          />
+        ) : undefined
+      }
     />
   )
 }

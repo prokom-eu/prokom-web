@@ -11,6 +11,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import { localDescription } from '@/lib/biznes/seo'
 import { CategoryPageView } from '@/sites/biznes/components/category/CategoryPageView'
+import { CatalogHelp } from '@/sites/instalacje/sekcje/CatalogHelp'
 
 import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
@@ -66,6 +67,15 @@ export default async function CategoryPage({ params }: Props) {
       index={index}
       listed={listed}
       category={category}
+      contact={
+        tenant.line === 'instalacje' ? (
+          <CatalogHelp
+            tenantId={tenant.id}
+            heading={category.contact.heading}
+            topic={category.name}
+          />
+        ) : undefined
+      }
     />
   )
 }

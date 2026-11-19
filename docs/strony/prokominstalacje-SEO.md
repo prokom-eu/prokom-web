@@ -16,10 +16,13 @@ Zasada: **jedna intencja = jedna strona**. Dwie strony na tę samą frazę konku
 | problem / wiedza | `/poradnik/*` | monitoring a RODO, ile dni nagrań, jaka kamera do domu |
 | architekci i deweloperzy (współpraca przy projekcie) | `/dla-architektow` | smart home dla architektów, współpraca z architektami instalacje, projekt instalacji niskoprądowych, przygotowanie instalacji pod smart home na etapie budowy, głośniki do zabudowy w suficie projekt, okablowanie strukturalne dom jednorodzinny, teletechnika dla dewelopera; lokalnie: Zakopane, Nowy Targ, Podhale, Kraków (spec `prokominstalacje-architekci.md` §7) |
 | marka | `/o-firmie`, `/kontakt` | PRO-KOM instalacje, PRO-KOM Rabka |
+| sprzęt (katalog, ADR-029, od INST-K1) | `/oferta/<kategoria>`, `/produkt/<slug>`, `/marki/<marka>` | kamera Dahua WizSense z montażem, rejestrator Hikvision Podhale, alarm Satel z montażem, Ajax montaż Nowy Targ, wideodomofon Dahua montaż — zawsze „sprzęt + dobór/montaż”, nie sama sprzedaż |
+| transmisje (INST-K2) | `/naglosnienie` (rozwiązania „Transmisje i streaming” w `/uslugi`), sprzęt `/oferta/streaming` | transmisja mszy online, transmisja sesji rady gminy, streaming wydarzeń, kamera do transmisji z kościoła |
 
 - Miejscowości: Rabka-Zdrój, Zakopane, Nowy Targ, Jordanów, Mszana Dolna, Limanowa, Szczawnica, Białka Tatrzańska, Bukowina Tatrzańska, Poronin. **Nie robimy stron-klonów pod miejscowości** (wytyczne Google o stronach przejściowych). Miejscowości występują naturalnie w treści, w danych strukturalnych (`areaServed`) i na Kontakcie (mapa dojazdu). Osobne strony miejscowości — tylko z unikalną treścią (np. realizacje z danej miejscowości), w etapie 2. **Etap 2 od 13.11.2026 (ADR-I006):** strony `/obszar/<miasto>` z własną treścią dla 17 miejscowości od Podhala po Kraków (bez dzielnic Krakowa); zasady unikalności i lista — w ADR.
 - Rozdział `/dla-kogo/deweloperzy` ↔ `/dla-architektow`: strona obiektu = co dostaje inwestycja i jej mieszkańcy (zestawy, przekrój budynku); strona dla architektów = współpraca przy projekcie (etapy, liczby do projektu, wymiana plików, przepisy). Nie powtarzamy tekstów, linkujemy w obie strony.
 - Kanibalizacja z prokombiznes.pl: sprzedaż sprzętu dla firm → Biznes; projekt i montaż → Instalacje. Linkujemy krzyżowo, nie kopiujemy tekstów.
+- **Katalog Instalacji (ADR-029):** karty tylko sprzętu, który montujemy (monitoring, alarmy, domofony, kontrola dostępu, AV, streaming); sprzęt sieciowy zostaje w Biznesie. Opisy własne dla domeny (bez zdań z Biznesu i ze sklepów — kontrola < 12 wspólnych słów w K0), tytuły z „Rabka-Zdrój i Podhale” i sufiksem „| PRO-KOM Instalacje” (`SeoVoice`), bez „dla firm”. Karty `do-sprawdzenia` mają `noindex` i nie trafiają do `sitemap.xml`. Wspólna marka (np. Dahua na obu domenach): osobny tekst salonu na każdej domenie; marka bez salonu Instalacji → 404, nie strona z tekstem Biznesu.
 
 ## 2. Technika (zakres kodu — sprawdzane w I13 i w DoD każdej sesji)
 
@@ -39,6 +42,7 @@ Zasada: **jedna intencja = jedna strona**. Dwie strony na tę samą frazę konku
 - **Strona główna, Kontakt:** `LocalBusiness` (podtyp `HomeAndConstructionBusiness` albo `ProfessionalService` — wybór w I13), dwie lokalizacje (Rabka-Zdrój ul. Orkana 16B, Zakopane — adres od szefa), `openingHoursSpecification`, `telephone`, `geo`, `areaServed` (powiat nowotarski, tatrzański, limanowski, suski, myślenicki — lista w panelu), `priceRange` tylko jeśli szef zgodzi się na ceny.
 - **Usługi:** `Service` (`serviceType`, `provider` → LocalBusiness, `areaServed`, `offers` bez ceny), `FAQPage` z FAQ strony, `BreadcrumbList`.
 - **Obiekty:** `Service` + `FAQPage` + `BreadcrumbList`.
+- **Karty katalogu (`/produkt/*`):** `Product` / `ProductGroup` (warianty) **bez `offers`** — katalog nie ma cen (`lib/seo/jsonLd.ts`) + `BreadcrumbList`; salony marek: `Brand` z własnym opisem domeny.
 - **Ładowarki:** `Product` dla CC Home/Wall/City **bez `offers` z ceną** (tylko `brand`, `model`, `description`, `image`) — albo `Service` z `itemOffered`; decyzja w I9 po sprawdzeniu, czy Google nie zgłasza błędów brakującej ceny.
 - **Poradnik:** `Article` (autor = osoba z PRO-KOM z biogramem, data publikacji i aktualizacji).
 - **Realizacje:** `CreativeWork`/`ImageObject` z miejscowością (gdy będą zdjęcia i zgody).
@@ -67,6 +71,7 @@ Kontrast AA, nagłówki w kolejności (jeden H1), etykiety formularzy, `alt` opi
 - Usługa → obiekty, w których jest najważniejsza (sekcja „Podobne obiekty”/powiązane) i odwrotnie (zestawy na stronie obiektu linkują do usług).
 - Każda strona usługi linkuje do kreatora z parametrami i do 2–3 wpisów poradnika.
 - Każda strona usługi (sekcja „Powiązane”, I4/I16c) → `/dla-architektow` („Projektujesz? Współpraca dla architektów →”); `/dla-kogo/deweloperzy` i `/dla-kogo/budowy` → blok „Dla architektów i deweloperów”; wpisy Poradnika o projektowaniu → `/dla-architektow`.
+- Usługa → sprzęt (INST-K2): sekcja „Sprzęt do tej usługi” z 3 kartami i „Zobacz sprzęt” → kategoria katalogu (Monitoring, Alarmy, Kontrola dostępu, Domofony, Nagłośnienie → `/oferta/streaming`, Ekrany); kategoria → blok pomocy (telefon, zapytanie); nagłówek: mega menu „Sprzęt” z działami; główna: sekcja „Sprzęt i marki” (działy, salony, 8 kart).
 - Okruszki (breadcrumbs) na wszystkich podstronach.
 - Stopka: wszystkie usługi i obiekty (crawl), strony PRO-KOM (Biznes, Software, Tech, pro-kom.eu).
 

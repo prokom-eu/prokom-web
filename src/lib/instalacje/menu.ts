@@ -93,7 +93,10 @@ export type ShellTab = 'home' | 'services' | 'objects' | 'more' | null
  * Where a page sits in the shell: its bottom bar tab and what the desktop header marks — the
  * „Usługi”/„Dla kogo” menu buttons, or the `href` of a header link (prototype `navKey`).
  */
-export type ActiveSection = { tab: ShellTab; header: 'services' | 'objects' | string | null }
+export type ActiveSection = {
+  tab: ShellTab
+  header: 'services' | 'objects' | 'equipment' | string | null
+}
 
 const inSection = (pathname: string, href: string) =>
   pathname === href || pathname.startsWith(`${href}/`)
@@ -110,6 +113,10 @@ export function activeSection(
     return { tab: 'services', header: 'services' }
   }
   if (inSection(pathname, '/dla-kogo')) return { tab: 'objects', header: 'objects' }
+  // The catalog (ADR-029): its pages light up „Sprzęt” (a mega trigger or the plain link).
+  if (['/oferta', '/produkt', '/marki', '/zapytanie'].some((href) => inSection(pathname, href))) {
+    return { tab: 'more', header: 'equipment' }
+  }
   const link = navigation.header.find((item) => inSection(pathname, item.href))
   if (link) return { tab: 'more', header: link.href }
   if (navigation.more.some((item) => inSection(pathname, item.href))) {

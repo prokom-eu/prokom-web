@@ -41,3 +41,12 @@ Audyt produkcji 15.11 (P1-3), decyzja Krystiana: 24 wpisy Biznesu, publikowane o
 - **Wycofany wpis** (usunięty albo przemianowany w panelu) trafia do `RETIRED_GUIDE_SLUGS` — inaczej skrypt utworzyłby go ponownie.
 - Produkty pod wpisem są szukane po slugu karty w bazie produkcji; brakująca karta jest pomijana z ostrzeżeniem w logu.
 - **Daty publikacji:** wpisy jednego przebiegu dostają daty co minutę wstecz od chwili importu, w kolejności `BIZNES_GUIDE_POSTS` (pierwszy = najnowszy, wyróżniony na głównej). Partia uruchomiona później jest w całości nowsza od wcześniejszych — jeśli na górze ma zostać konkretny wpis (np. o KSeF), zmień mu datę w panelu albo uruchom partie razem.
+
+## Rozstrzygnięcia 19.11 — katalog Instalacji po starcie linii
+
+Instalacje działają na produkcji od 13.11, a katalog sprzętu (ADR-029, INST-K0…K2) przychodzi później. Pełny import linii (`seed:instalacje`) nadpisałby strony, usługi i teksty edytowane w panelu, więc:
+
+1. **Osobny import `pnpm seed:instalacje-katalog`** (`scripts/prod-line-content.sh instalacje-katalog`): zapisuje tylko kolekcje katalogu (działy, kategorie, karty, zdjęcia `inst-*`, salony), we wspólnych markach (`partners`) **tylko dopisuje tenanta Instalacji** (nazwy, logo, statusy Biznesu bez zmian; nowe marki — tylko tenant Instalacji), `InstalacjeSettings.homeFeatured` — tylko gdy puste. Dane firmy, strony, usługi, obiekty, ustawienia linii: nietknięte.
+2. **Bezpiecznik zamiast „linia ma domenę produkcji”:** odmowa, gdy tenant ma już karty katalogu (drugi przebieg nadpisałby ich edycje z panelu) — wtedy tylko `PO_STARCIE=1` z decyzji Krystiana (także po błędzie w połowie, gdy w panelu nie ma jeszcze edycji kart).
+3. **Rozwiązania oferty:** import tylko **tworzy** te dodane do paczki po starcie (`legacyId` > 76, `LIVE_SOLUTIONS_UNTIL` — streaming 77–79), istniejących nie zmienia; rozwiązanie 1–76 usunięte w panelu nie wraca (jak `RETIRED_GUIDE_SLUGS` wpisów Biznesu). Kolejne nowe rozwiązania z paczki: podnieść `LIVE_SOLUTIONS_UNTIL` po ich imporcie.
+4. Szyna „Sprzęt” (dane linii w `SiteSettings.shared`) — ręcznie w panelu, import jej nie zmienia.

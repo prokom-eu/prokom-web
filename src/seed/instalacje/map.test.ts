@@ -24,6 +24,7 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
+import { COPY_WORDS } from '../../lib/instalacje/copyWords'
 import { LAW_WORDS } from '../../lib/instalacje/lawWords'
 import { isInstIconName } from '../../sites/instalacje/icons'
 import { withoutLaw } from './bezPrzepisow'
@@ -142,10 +143,21 @@ describe('objects', () => {
 describe('offer', () => {
   const solutions = solutionsToImport()
 
-  it('imports 76 solutions in 10 areas with unique import ids', () => {
-    expect(solutions).toHaveLength(76)
+  it('imports the 76 package solutions, then the 3 of „Transmisje i streaming” (ids 77–79)', () => {
+    expect(solutions).toHaveLength(79)
     expect(new Set(solutions.map((s) => s.serviceKey)).size).toBe(10)
-    expect(new Set(solutions.map((s) => s.legacyId)).size).toBe(76)
+    expect(new Set(solutions.map((s) => s.legacyId)).size).toBe(79)
+    // The package keeps its ids: the added ones only come after it.
+    expect(solutions.slice(76).map((s) => [s.legacyId, s.serviceKey])).toEqual([
+      [77, 'snd'],
+      [78, 'snd'],
+      [79, 'snd'],
+    ])
+    expect(solutions[76]!.data.name).toBe('Transmisja mszy z kościoła')
+    // Runda v6 §2.2: the added texts keep clear of the generated-copy phrasings.
+    for (const s of solutions.slice(76)) {
+      expect(JSON.stringify(s.data)).not.toMatch(COPY_WORDS)
+    }
   })
 
   it('uses only the offer filter categories', () => {

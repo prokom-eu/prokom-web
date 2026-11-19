@@ -14,12 +14,12 @@ async function open(page: Page, path: string) {
 test.describe('Instalacje full offer', () => {
   test.use({ viewport: { width: 1440, height: 1000 } })
 
-  test('lists 76 solutions in 10 areas, the search and the object filter narrow it', async ({
+  test('lists 79 solutions in 10 areas (76 + 3 of „Transmisje i streaming”), the search and the object filter narrow it', async ({
     page,
   }) => {
     await open(page, '/uslugi')
     await expect(page.locator('.ofa')).toHaveCount(10)
-    await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 76 z 76')
+    await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 79 z 79')
     // Three per area until „Pokaż wszystkie”.
     await expect(page.locator('#o-kam .ofi:visible')).toHaveCount(3)
     await page
@@ -41,7 +41,7 @@ test.describe('Instalacje full offer', () => {
     )
     await expect(page.locator('#o-tel')).toBeVisible()
     await page.getByRole('button', { name: 'pokaż wszystko' }).click()
-    await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 76 z 76')
+    await expect(page.locator('.ofcnt')).toContainText('Pokazujemy 79 z 79')
   })
 
   test('nothing found → the planner with the phrase in the description (RUNDA-V5 §8)', async ({
@@ -97,7 +97,7 @@ test.describe('Instalacje full offer on a phone', () => {
       .click()
     await expect(page.getByRole('dialog', { name: 'Rodzaj obiektu' })).toBeHidden()
     await expect(page.locator('.ofsf')).toHaveText('Deweloper')
-    await expect(page.locator('.ofcnt')).not.toContainText('76 z 76')
+    await expect(page.locator('.ofcnt')).not.toContainText('79 z 79')
     // One search field at a time: the compact one only after the hero's has scrolled away.
     await expect(page.getByRole('searchbox', { name: 'Szukaj w ofercie' })).toHaveCount(1)
     await page.evaluate(() => window.scrollTo({ top: 2000, behavior: 'instant' }))

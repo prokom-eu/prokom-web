@@ -96,6 +96,18 @@ describe('activeSection', () => {
     })
   })
 
+  it('puts the catalog pages under „Sprzęt” (INST-K2)', () => {
+    for (const path of [
+      '/oferta',
+      '/oferta/kamery-ip',
+      '/produkt/x',
+      '/marki/dahua',
+      '/zapytanie',
+    ]) {
+      expect(activeSection(path, menu, navigation)).toEqual({ tab: 'more', header: 'equipment' })
+    }
+  })
+
   it('has no section for other addresses (planner, legal pages, 404)', () => {
     expect(activeSection('/zaplanuj', menu, navigation)).toEqual({ tab: null, header: null })
     expect(activeSection('/nie-ma-takiej', menu, navigation)).toEqual({ tab: null, header: null })

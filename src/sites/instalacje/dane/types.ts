@@ -57,6 +57,8 @@ export type Navigation = {
   /** Promo columns of the two mega menu panels. */
   megaServices: MegaPromo
   megaObjects: MegaPromo
+  /** „Sprzęt ▾” (INST-K2): the catalog's departments; the title is `title`. */
+  megaEquipment: MegaPromo
   /** Band above the footer (`zrodlo/footer.html` → `.cta`); hidden on the start page. */
   ctaBand: { eyebrow: string; title: string; text: string; button: { label: string; href: string } }
   /** Footer (`zrodlo/footer.html`). Contact, salons and hours come from the panel. */

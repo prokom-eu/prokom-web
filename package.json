@@ -29,6 +29,7 @@
     "seed:biznes-wpisy": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/biznes/wpisyIndex.ts",
     "seed:prokom": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/prokom/index.ts --",
     "seed:instalacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/index.ts",
+    "seed:instalacje-katalog": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/katalogIndex.ts",
     "software:posts": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/software/software-posts.ts --",
     "inst:texts": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/inst-texts.ts --",
     "inst:realizacje": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/instalacje/inst-realizacje.ts --",

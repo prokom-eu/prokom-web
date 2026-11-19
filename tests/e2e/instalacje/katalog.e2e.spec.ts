@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-import { setTheme, site } from '../helpers'
+import { hydrated, setTheme, site } from '../helpers'
 import { INST_HOST } from './pages'
 
 // INST-K1 (ADR-029): the catalog of prokominstalacje.pl on the engine of Biznes — its own cards,
@@ -35,6 +35,19 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await expect(main).not.toContainText(/\d\s?zł|PLN|stanowisk i programy/)
   })
 
+  // INST-K2: under a category the line's own help (call, ask) — not the Biznes form and promises.
+  test('a category ends with the Instalacje help, not the Biznes form', async ({ page }) => {
+    await page.goto(inst('/oferta/kamery-ip'))
+    const help = page.locator('#kontakt')
+    await expect(help.getByRole('link', { name: 'Zapytaj o ten sprzęt' })).toHaveAttribute(
+      'href',
+      /\/zapytanie\?fraza=/,
+    )
+    await expect(page.locator('main')).not.toContainText(
+      /Wycena na mailu|Twojej firmy|telefon albo e-mail/,
+    )
+  })
+
   test('a Biznes card is 404 on the Instalacje domain', async ({ page }) => {
     const response = await page.goto(inst('/produkt/posnet-ergo-online'))
     expect(response?.status()).toBe(404)
@@ -61,6 +74,7 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     const salon = await page.goto(inst('/marki/dahua'))
     expect(salon?.status()).toBe(200)
     await expect(page.locator('main')).toContainText('DMSS')
+    await expect(page.locator('main')).not.toContainText('oferta na mailu')
     const noSalon = await page.goto(inst('/marki/edbak'))
     expect(noSalon?.status()).toBe(404)
   })
@@ -69,11 +83,23 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(inst('/'))
     const header = page.locator('[data-site-header]')
-    await expect(header.getByRole('link', { name: 'Sprzęt', exact: true })).toHaveAttribute(
+    await expect(header.getByRole('link', { name: 'Serwis', exact: true })).toHaveCount(0)
+    // INST-K2: „Sprzęt ▾” opens the catalog departments with their categories.
+    const trigger = header.getByRole('button', { name: 'Sprzęt' })
+    await hydrated(trigger)
+    await trigger.click()
+    const panel = page.locator('#mega-equipment')
+    await expect(panel).toBeVisible()
+    await expect(panel.getByRole('link', { name: /Kamery IP/ })).toHaveAttribute(
+      'href',
+      '/oferta/kamery-ip',
+    )
+    await expect(panel.getByRole('link', { name: 'Cały sprzęt →' })).toHaveAttribute(
       'href',
       '/oferta',
     )
-    await expect(header.getByRole('link', { name: 'Serwis', exact: true })).toHaveCount(0)
+    await page.keyboard.press('Escape')
+    await expect(panel).toBeHidden()
   })
 
   // INST-K2 (D17): „Sprzęt i marki” on the home page — departments, salons, eight cards, the planner.
@@ -115,6 +141,23 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await page.locator('#sprzet').scrollIntoViewIfNeeded()
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)
     expect(overflow).toBeLessThanOrEqual(0)
+  })
+
+  // INST-K2 streaming: a service page leads to its equipment; streaming solutions in /uslugi.
+  test('Nagłośnienie leads to the streaming equipment („Zobacz sprzęt”)', async ({ page }) => {
+    await page.goto(inst('/naglosnienie'))
+    const section = page.locator('#sprzet-uslugi')
+    await expect(section).toContainText('Sprzęt do tej usługi')
+    await expect(section.getByRole('link', { name: 'Zobacz sprzęt' })).toHaveAttribute(
+      'href',
+      '/oferta/streaming',
+    )
+    await expect(section).not.toContainText(/\d\s?zł|PLN/)
+  })
+
+  test('/uslugi lists the streaming solutions', async ({ page }) => {
+    await page.goto(inst('/uslugi'))
+    await expect(page.locator('main')).toContainText('Transmisje sesji rady gminy')
   })
 
   for (const theme of ['light', 'dark'] as const) {
