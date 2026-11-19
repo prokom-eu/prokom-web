@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { setTheme, site } from './helpers'
 
-// pro-kom.eu shell (H1-2, spec §5): capsule with the „Oferta” mega menu, rail on the home page,
+// pro-kom.eu shell (H1-2, spec §5): capsule with the „Oferta” mega menu, rail on every page (runda 1811 D8),
 // bottom bar and sheet on a phone, dark theme by default. Needs `pnpm seed` (tenant `prokom`).
 const HUB = 'prokom.localhost'
 

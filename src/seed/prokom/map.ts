@@ -313,17 +313,16 @@ export function hubBrands(): HubBrands {
 
 type PhoneRow = { label: string; number: string; techPoint?: string | null }
 
-const digits = (value: string) => value.replace(/\D/g, '')
-
 /**
  * `HubSettings.extraPhones` after a seed run: the package fills an empty list; a stored list stays
- * (panel edits win) — only a package Tech point is marked on the stored row with the same number
- * while that row has none (runda 1811 D5: staging and production already have the numbers).
+ * as it is (panel edits win). The Rabka Tech point of databases from before runda 1811 is marked
+ * once by the migration `20261119_000423_hub_tech_punkty`.
  */
 export function extraPhonesAfterSeed(stored: readonly PhoneRow[] | null | undefined): PhoneRow[] {
   if (!stored?.length) return PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone }))
-  return stored.map(({ label, number, techPoint }) => {
-    const pkg = PROKOM_EXTRA_PHONES.find((row) => digits(row.number) === digits(number))
-    return { label, number, techPoint: techPoint?.trim() || pkg?.techPoint || null }
-  })
+  return stored.map(({ label, number, techPoint }) => ({
+    label,
+    number,
+    techPoint: techPoint ?? null,
+  }))
 }

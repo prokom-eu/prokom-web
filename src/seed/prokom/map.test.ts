@@ -171,16 +171,12 @@ describe('extraPhonesAfterSeed (runda 1811 D5)', () => {
     expect(extraPhonesAfterSeed([]).map((row) => row.techPoint)).toEqual([null, 'Rabka-Zdrój'])
   })
 
-  it('keeps the stored list and marks only the package Tech point by its number', () => {
+  it('keeps the stored list as it is — a point cleared in the panel stays cleared', () => {
     const stored = [
       { label: 'Biuro', number: '182676511', techPoint: null },
       { label: 'Serwis Tech', number: '18 541 20 55', techPoint: null },
       { label: 'Nowy z panelu', number: '18 000 00 00', techPoint: 'Nowy Targ' },
     ]
-    expect(extraPhonesAfterSeed(stored)).toEqual([
-      { label: 'Biuro', number: '182676511', techPoint: null },
-      { label: 'Serwis Tech', number: '18 541 20 55', techPoint: 'Rabka-Zdrój' },
-      { label: 'Nowy z panelu', number: '18 000 00 00', techPoint: 'Nowy Targ' },
-    ])
+    expect(extraPhonesAfterSeed(stored)).toEqual(stored)
   })
 })
