@@ -2902,20 +2902,20 @@
   {
    "slug_seed": "ajax-starterkit-hub-2",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "zestawy-startowe",
    "marka": "Ajax",
    "rodzaj": "Urządzenia",
    "seria": "StarterKit Hub 2",
-   "nazwa": "Ajax zestaw startowy Hub 2 (4G) z czujkami, syreną i kamerą TurretCam 5 Mpx (zestaw podstawowy i rozszerzony)",
+   "nazwa": "Ajax zestaw alarmowy Hub 2 (4G) z czujkami, syreną i kamerą TurretCam 5 Mpx (wersja podstawowa i rozszerzona)",
    "krotka": "Ajax zestaw Hub 2 (4G) z kamerą",
    "podtytul": "Hub 2 (4G), czujki ruchu, otwarcia i zalania, pilot, syrena zewnętrzna, czujnik jakości powietrza i kamera 5 Mpx — w wersji z 1 lub 2 kamerami.",
    "korzysc": "Gotowy komplet alarmu i monitoringu dla domu — jedna aplikacja do czujek, syreny i kamery.",
    "opis": [
-    "To zestaw na start dla domu albo domku letniskowego: centrala Hub 2 (4G) z kompletem czujek, syreną zewnętrzną i kamerą Ajax TurretCam. Wszystko pracuje w jednej aplikacji Ajax, więc alarm, powiadomienia i podgląd z kamery masz w jednym miejscu. Zestaw rozszerzony dodaje drugą czujkę ruchu, klawiaturę KeyPad i drugą kamerę — dla większego domu lub budynku z warsztatem.",
-    "W zestawie podstawowym są: Hub 2 (4G) z Ethernetem i dwiema kartami SIM, czujka ruchu MotionProtect (odporna na zwierzęta do 20 kg), czujka otwarcia DoorProtect, czujka zalania LeaksProtect, pilot SpaceControl (4 przyciski, w tym napadowy), syrena zewnętrzna StreetSiren do 113 dB oraz LifeQuality, który mierzy CO₂, temperaturę i wilgotność. Kamera TurretCam 5 Mpx z obiektywem 2,8 mm ma według producenta podświetlenie IR do ok. 50 m, zasilanie PoE i szczelność IP66. Wszystkie elementy występują w kolorze białym albo czarnym.",
+    "To zestaw sklepowy złożony z urządzeń Ajax — dobry początek dla domu albo domku letniskowego: centrala Hub 2 (4G) z kompletem czujek, syreną zewnętrzną i kamerą Ajax TurretCam. Wszystko pracuje w jednej aplikacji Ajax, więc alarm, powiadomienia i podgląd z kamery masz w jednym miejscu. Zestaw rozszerzony dodaje drugą czujkę ruchu, klawiaturę KeyPad i drugą kamerę — dla większego domu lub budynku z warsztatem.",
+    "W zestawie podstawowym są: Hub 2 (4G) z Ethernetem i dwiema kartami micro-SIM (2G/3G/LTE), czujka ruchu MotionProtect (odporna na zwierzęta do 20 kg), czujka otwarcia DoorProtect, czujka zalania LeaksProtect, pilot SpaceControl (4 przyciski, w tym napadowy), syrena zewnętrzna StreetSiren do 113 dB oraz LifeQuality, który mierzy CO₂, temperaturę i wilgotność. Kamera TurretCam 5 Mpx z obiektywem 2,8 mm ma według producenta podświetlenie IR do ok. 50 m, zasilanie PoE i szczelność IP66. Wszystkie elementy występują w kolorze białym albo czarnym.",
     "Zestaw to dobry punkt wyjścia, ale w PRO-KOM zawsze dopasowujemy go do domu: dokładamy czujki otwarcia na kolejne drzwi i okna, a kamerę wieszamy tam, gdzie naprawdę widać wejście. Kamera potrzebuje kabla sieciowego z PoE i karty microSD albo rejestratora — to również przygotowujemy. Konfigurujemy aplikację Ajax, scenariusze (np. włączanie światła przy alarmie) i konta domowników. Montaż ma 24 mies. gwarancji, a rozbudowę o kolejne urządzenia robimy w dowolnym momencie."
    ],
    "cechy": [
@@ -2926,7 +2926,7 @@
    "parametry": [
     {
      "k": "Centrala",
-     "v": "Hub 2 (4G) Jeweller — Ethernet + 2 × SIM (LTE), do 100 urządzeń"
+     "v": "Hub 2 (4G) Jeweller — Ethernet + 2 × micro-SIM (2G/3G/LTE), do 100 urządzeń"
     },
     {
      "k": "Czujki ruchu",
@@ -2962,7 +2962,7 @@
     },
     {
      "k": "Kamera — zasilanie i nagrywanie",
-     "v": "PoE 802.3af/at lub 12 V; microSD 32–256 GB (brak w zestawie) lub rejestrator"
+     "v": "PoE 802.3af/at lub 12 V; microSD do 256 GB, klasa V30 lub szybsza (brak w zestawie) lub rejestrator"
     },
     {
      "k": "Kamera — obudowa",
@@ -3040,12 +3040,12 @@
    },
    "faq": [
     {
-     "q": "Czy zestaw startowy wystarczy na cały dom?",
+     "q": "Czy ten zestaw wystarczy na cały dom?",
      "a": "Zwykle trzeba go uzupełnić — w zestawie jest jedna czujka otwarcia, a dom ma kilkoro drzwi i wiele okien. Po obejrzeniu budynku podpowiadamy, ile czujek dołożyć."
     },
     {
      "q": "Gdzie nagrywa kamera z zestawu?",
-     "a": "TurretCam zapisuje na karcie microSD 32–256 GB (kupowanej osobno) albo na rejestratorze. Podgląd obrazu w czasie rzeczywistym jest w aplikacji Ajax."
+     "a": "TurretCam zapisuje na karcie microSD do 256 GB (kupowanej osobno) albo na rejestratorze. Podgląd obrazu w czasie rzeczywistym jest w aplikacji Ajax."
     },
     {
      "q": "Czy kamera potrzebuje osobnego zasilania?",
@@ -3131,7 +3131,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/ajax-starterkit-hub-2-01.webp",
@@ -4564,7 +4564,7 @@
   {
    "slug_seed": "satel-abax-2-acu-280",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "huby",
@@ -4768,7 +4768,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-abax-2-acu-280-01.webp",
@@ -4780,7 +4780,7 @@
   {
    "slug_seed": "satel-abax-2-apd-200",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "czujki-ruchu",
@@ -4789,22 +4789,22 @@
    "seria": "ABAX 2",
    "nazwa": "Satel ABAX 2 APD-200 — bezprzewodowa czujka ruchu PIR (APD-200, APD-200 Pet)",
    "krotka": "Satel APD-200 (ABAX 2)",
-   "podtytul": "Czujka PIR z podwójnym pyroelementem, obszar 15 × 24 m (wersja Pet: 14 × 16 m, zwierzęta do 20 kg), bateria CR123A.",
+   "podtytul": "Czujka PIR ABAX 2: APD-200 z podwójnym pyroelementem, obszar 15 × 24 m; wersja Pet z poczwórnym, 14 × 16 m, zwierzęta do 20 kg. Bateria CR123A.",
    "korzysc": "Czujka ruchu do systemu Satel, którą montujesz bez kabla — także w zabytkowych i wykończonych wnętrzach.",
    "opis": [
     "APD-200 to bezprzewodowa czujka ruchu systemu Satel ABAX 2. Pracuje z kontrolerami ACU-280 i ACU-220, retransmiterem ARU-200 oraz centralami BE WAVE, więc pasuje zarówno do rozbudowy przewodowego alarmu INTEGRA lub VERSA, jak i do nowej instalacji bezprzewodowej. Sprawdza się w kościołach, szkołach, biurach i domach, gdzie nie chcemy prowadzić przewodów po ścianach.",
-    "Czujka wykrywa ruch podwójnym pyroelementem z cyfrową analizą sygnału i kompensacją temperatury. Według producenta standardowa wersja obejmuje obszar 15 × 24 m w kącie 90°, a opcjonalne soczewki zmieniają ją w czujkę kurtynową (CT-CL) lub dalekiego zasięgu (LR-CL). APD-200 Pet ma obszar 14 × 16 m w kącie 83° i ignoruje zwierzęta do 20 kg. Obie zasila bateria CR123A 3 V, a tryb ECO według producenta wydłuża jej pracę nawet czterokrotnie; czujka ma też wbudowany pomiar temperatury.",
+    "APD-200 wykrywa ruch podwójnym pyroelementem, a wersja Pet poczwórnym, obie z cyfrową analizą sygnału i kompensacją temperatury. Według producenta standardowa wersja obejmuje obszar 15 × 24 m w kącie 90°, a opcjonalne soczewki zmieniają ją w czujkę kurtynową (CT-CL) lub dalekiego zasięgu (LR-CL). APD-200 Pet ma obszar 14 × 16 m w kącie 83° i ignoruje zwierzęta do 20 kg. Obie zasila bateria CR123A 3 V, a tryb ECO według producenta wydłuża jej pracę nawet czterokrotnie; czujka ma też wbudowany pomiar temperatury.",
     "W PRO-KOM dobieramy wersję do obiektu: Pet do domów ze zwierzętami, zwykłą APD-200 — do hal, korytarzy i kościołów, gdzie potrzebny jest większy zasięg. Przed montażem mierzymy siłę sygnału do kontrolera w programie ABAX 2 Soft i w razie potrzeby dodajemy retransmiter. Konfigurację robimy w DLOADX, a zmianę ustawień i aktualizacje — zdalnie, bez zdejmowania czujki. Na montaż dajemy 24 mies. gwarancji."
    ],
    "cechy": [
-    "podwójny pyroelement",
+    "podwójny lub poczwórny pyroelement",
     "wersja Pet do 20 kg",
     "tryb ECO"
    ],
    "parametry": [
     {
      "k": "Czujnik",
-     "v": "PIR z podwójnym pyroelementem, cyfrowy algorytm detekcji, kompensacja temperatury"
+     "v": "PIR: APD-200 — podwójny pyroelement, APD-200 Pet — poczwórny; cyfrowy algorytm detekcji, kompensacja temperatury"
     },
     {
      "k": "Obszar wykrywania (wg producenta)",
@@ -4816,7 +4816,7 @@
     },
     {
      "k": "Soczewki opcjonalne",
-     "v": "kurtynowa CT-CL, dalekiego zasięgu LR-CL (APD-200); regulowane lusterko strefy podejścia"
+     "v": "tylko APD-200: soczewka kurtynowa CT-CL, dalekiego zasięgu LR-CL i regulowane lusterko strefy podejścia"
     },
     {
      "k": "System",
@@ -4999,7 +4999,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-abax-2-apd-200-01.webp",
@@ -5524,9 +5524,9 @@
    "podtytul": "Centrala Grade 2 z wbudowanym GSM na dwie karty SIM, 8 wejściami (do 16), aplikacją PERFECTA CONTROL i manipulatorem LCD.",
    "korzysc": "Gotowy komplet do domu lub małej firmy: alarm z powiadomieniami w telefonie bez linii telefonicznej i bez osobnego modułu.",
    "opis": [
-    "PERFECTA 16 to centrala Satel przeznaczona do mieszkań, domów, segmentów, małych biur i sklepów. Zestaw łączy centralę z manipulatorem PRF-LCD i kompletem przewodowych czujek ruchu — w zależności od wersji od 8 do 16 sztuk — więc obejmuje wszystko, co potrzebne do typowego domu. Spełnia wymagania Grade 2 normy EN 50131, czyli poziom przyjęty dla budynków mieszkalnych i małych firm. Obsługa jest prosta: kod na klawiaturze, aplikacja w telefonie albo pilot.",
+    "PERFECTA 16 to centrala Satel przeznaczona do mieszkań, domów, segmentów, małych biur i sklepów. Zestaw sklepowy łączy centralę z manipulatorem PRF-LCD i kompletem przewodowych czujek ruchu — w zależności od wersji od 8 do 16 sztuk — więc obejmuje wszystko, co potrzebne do typowego domu. Spełnia wymagania Grade 2 normy EN 50131, czyli poziom przyjęty dla budynków mieszkalnych i małych firm. Obsługa jest prosta: kod na klawiaturze, aplikacja w telefonie albo pilot.",
     "Centrala ma na płycie 8 wejść i 4 wyjścia, a modułami INT-E i INT-O można dojść do 16 wejść i 12 wyjść. Wbudowany moduł GSM/GPRS z dwoma gniazdami nano-SIM wysyła powiadomienia PUSH do aplikacji PERFECTA CONTROL, SMS-y i komunikaty głosowe na 8 numerów, a przy kłopotach z zasięgiem przełącza się na drugą kartę. Dom można podzielić na 2 strefy z trybami dziennym, nocnym i pełnym, np. parter uzbrojony w nocy, a piętro wolne. Do centrali podłączysz do 4 manipulatorów PRF-LCD i do 15 użytkowników; piloty 433 MHz działają po dodaniu modułu INT-RX-S.",
-    "Zestaw ze sklepu traktujemy jako punkt wyjścia: po obejrzeniu domu sprawdzamy, czy liczba czujek pasuje do pomieszczeń, i proponujemy czujki zewnętrzne lub kontaktrony tam, gdzie mają sens. PRO-KOM rozmieszcza czujki, prowadzi przewody, montuje centralę z akumulatorem i sygnalizator, a potem zakłada konto w PERFECTA CONTROL i pokazuje domownikom obsługę. Przed montażem sprawdzamy zasięg sieci komórkowej; jeśli jest słaby, proponujemy wersję PERFECTA 16-LTE z oferty Satel. Montaż ma 24 mies. gwarancji, a serwis i przeglądy robimy na miejscu."
+    "Zestaw ze sklepu traktujemy jako punkt wyjścia: po obejrzeniu domu sprawdzamy, czy liczba czujek pasuje do pomieszczeń, i proponujemy czujki zewnętrzne lub kontaktrony tam, gdzie mają sens. PRO-KOM rozmieszcza czujki, prowadzi przewody, montuje centralę z akumulatorem i sygnalizator, a potem zakłada konto w PERFECTA CONTROL i pokazuje domownikom obsługę. Przed montażem sprawdzamy zasięg sieci komórkowej; jeśli jest słaby, proponujemy wersję PERFECTA 16 LTE z oferty Satel. Montaż ma 24 mies. gwarancji, a serwis i przeglądy robimy na miejscu."
    ],
    "cechy": [
     "GSM na 2 karty SIM",
@@ -5584,7 +5584,7 @@
     },
     {
      "k": "Czujki w zestawie",
-     "v": "8, 14, 15 lub 16 przewodowych czujek ruchu (wg wersji zestawu; typ czujek do potwierdzenia przy zamówieniu)"
+     "v": "8, 14, 15 lub 16 przewodowych czujek ruchu (zestaw sklepowy, nie producenta; typ czujek do potwierdzenia przy zamówieniu)"
     },
     {
      "k": "Warunki pracy",
@@ -5746,7 +5746,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-perfecta-01.webp",
@@ -13023,9 +13023,9 @@
    "podtytul": "Zdalnie sterowane kamery PTZ 4K60 z zoomem optycznym 20× (40× w Full HD), autofokusem hybrydowym, NDI HX2, SRT i RTMP",
    "korzysc": "Jedna osoba z pilota lub aplikacji pokazuje ołtarz, mównicę i salę w zbliżeniu — bez operatora przy kamerze.",
    "opis": [
-    "Canon CR-N350 i CR-N400 to nowe kamery PTZ, czyli obrotowe kamery z zoomem sterowane zdalnie, do transmisji z kościołów, sal obrad, auli, sal konferencyjnych i domów kultury. Kamerę montuje się na ścianie lub suficie, a realizator obraca ją, przybliża i zapisuje gotowe ujęcia (presety) — np. ołtarz, ambona, chór albo stół prezydium. Według producenta obie mają też tryb wycinania pionowego kadru 9:16 równolegle z pełnym obrazem, przydatny do mediów społecznościowych.",
-    "Obie kamery nagrywają w 4K przy 60 kl./s, mają przetwornik CMOS 1/2,3″, procesor DIGIC DV7, autofokus hybrydowy i zoom optyczny 20×, rozszerzany do 40× w Full HD. Przesyłają obraz przez sieć (NDI HX2, RTSP/RTP, RTMP/RTMPS, SRT) i dają się sterować przez LAN, Wi-Fi, port szeregowy, podczerwień i USB-C. CR-N350 wyprowadza 4K przez HDMI i Full HD przez 3G-SDI, a droższy CR-N400 dodaje wyjście 12G-SDI dla 4K, Genlock, kod czasowy i dwa wejścia XLR. Dystrybutor oferuje wersje białe i czarne oraz opcjonalną licencję automatycznego śledzenia osoby (Auto Tracking).",
-    "PRO-KOM dobiera miejsca montażu kamer tak, żeby obejmowały najważniejsze ujęcia bez przeszkód, prowadzi przewód sieciowy (zasilanie PoE według karty producenta) i sygnał wideo do miksera lub enkodera. Programujemy presety, łączymy kamery z mikserem (np. ATEM Mini, Roland VR-6HD) albo z kontrolerem PTZ i uczymy obsługi. Dbamy o aktualizacje i serwis. Montaż ma 24-miesięczną gwarancję PRO-KOM."
+    "Canon CR-N350 i CR-N400 to nowe kamery PTZ, czyli obrotowe kamery z zoomem sterowane zdalnie, do transmisji z kościołów, sal obrad, auli, sal konferencyjnych i domów kultury. Kamerę montuje się na ścianie lub suficie, a realizator obraca ją, przybliża i zapisuje gotowe ujęcia (presety) — np. ołtarz, ambona, chór albo stół prezydium. Według producenta obie mają też tryb wycinania pionowego kadru 9:16, przydatny do mediów społecznościowych.",
+    "Obie kamery nagrywają w 4K przy 60 kl./s, mają przetwornik CMOS 1/2,3″, procesor DIGIC DV7, autofokus hybrydowy i zoom optyczny 20×, rozszerzany do 40× w Full HD. Przesyłają obraz przez sieć (NDI HX2, RTSP/RTP, RTMP/RTMPS, SRT) i dają się sterować przez LAN, Wi-Fi, port szeregowy, podczerwień i USB-C. CR-N350 wyprowadza 4K przez HDMI i Full HD przez 3G-SDI, a droższy CR-N400 ma wyjście 12G/3G-SDI dla 4K, Genlock, kod czasowy i dwa wejścia XLR. W zestawie jest podstawowe śledzenie osoby (Auto Tracking Lite); pełna aplikacja Auto Tracking to płatna usługa Canon.",
+    "PRO-KOM dobiera miejsca montażu kamer tak, żeby obejmowały najważniejsze ujęcia bez przeszkód, prowadzi przewód sieciowy z zasilaniem PoE++ (802.3bt) albo osobny zasilacz 12 V i sygnał wideo do miksera lub enkodera. Programujemy presety, łączymy kamery z mikserem (np. ATEM Mini, Roland VR-6HD) albo z kontrolerem PTZ i uczymy obsługi. Dbamy o aktualizacje i serwis. Montaż ma 24-miesięczną gwarancję PRO-KOM."
    ],
    "cechy": [
     "4K60 i zoom 20×",
@@ -13051,7 +13051,7 @@
     },
     {
      "k": "Wyjścia wideo",
-     "v": "CR-N350: HDMI (4K), 3G-SDI (do 1080p60); CR-N400: dodatkowo 12G-SDI (4K60)"
+     "v": "CR-N350: HDMI (do 4K60), 3G-SDI (do 1080p60; przy 4K tylko HDMI); CR-N400: HDMI (4K60) i jedno wyjście 12G/3G-SDI (4K60)"
     },
     {
      "k": "Protokoły IP",
@@ -13063,19 +13063,23 @@
     },
     {
      "k": "Audio",
-     "v": "CR-N400: 2 × XLR; CR-N350: wg karty producenta"
+     "v": "CR-N350: wejście mikrofonowe mini-jack 3,5 mm; CR-N400: 2 × XLR (zbalansowane) i mini-jack 3,5 mm"
     },
     {
      "k": "Synchronizacja",
-     "v": "CR-N400: Genlock i kod czasowy (BNC)"
+     "v": "CR-N400: Genlock i kod czasowy (BNC); CR-N350: kod czasowy tylko w sygnale SDI"
     },
     {
      "k": "Kadr pionowy",
-     "v": "jednoczesny wycinek 9:16"
+     "v": "tryb wycinania pionowego 9:16 (strumień IP 1080 × 1920)"
     },
     {
      "k": "Śledzenie osoby",
-     "v": "opcjonalna licencja Auto Tracking (w ofercie dystrybutora)"
+     "v": "Auto Tracking (Lite) w zestawie; pełna aplikacja Auto Tracking jako płatna usługa Canon"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "PoE++ (IEEE 802.3bt) lub 12 V DC — PoE i PoE+ nie wystarczą"
     },
     {
      "k": "Kolory",
@@ -13116,8 +13120,8 @@
      {
       "nazwa": "Auto Tracking",
       "wartosci": [
-       "bez licencji",
-       "z licencją Auto Tracking"
+       "Auto Tracking Lite (w zestawie)",
+       "pełna aplikacja Auto Tracking (płatna)"
       ],
       "uwaga": "Śledzenie przydaje się przy kaznodziei czy prelegencie, który chodzi po scenie.",
       "dl": false,
@@ -13148,15 +13152,15 @@
    "faq": [
     {
      "q": "Czy kamera PTZ zastąpi operatora przy transmisji mszy?",
-     "a": "W dużej mierze tak: zapisujemy ujęcia (presety), a realizator przełącza je jednym przyciskiem. Z licencją Auto Tracking kamera może też sama śledzić osobę."
+     "a": "W dużej mierze tak: zapisujemy ujęcia (presety), a realizator przełącza je jednym przyciskiem. Dzięki funkcji Auto Tracking kamera może też sama śledzić osobę."
     },
     {
      "q": "Czym CR-N350 różni się od CR-N400?",
-     "a": "Oba modele mają tę samą optykę i 4K60. CR-N400 dodaje wyjście 12G-SDI dla 4K, Genlock, kod czasowy i wejścia XLR — potrzebne przy profesjonalnej realizacji."
+     "a": "Oba modele mają tę samą optykę i 4K60. CR-N400 ma wyjście 12G-SDI dla 4K, Genlock, kod czasowy i wejścia XLR — potrzebne przy profesjonalnej realizacji."
     },
     {
      "q": "Czy kamerę podłączę samym kablem sieciowym?",
-     "a": "Kamery przesyłają obraz i sterowanie przez sieć (NDI, SRT, RTMP). Sposób zasilania i wymagany standard PoE potwierdzamy w karcie producenta przy projekcie."
+     "a": "Tak, jeśli przełącznik daje PoE++ (IEEE 802.3bt) — przez jeden kabel idzie wtedy obraz, sterowanie i zasilanie. Zwykłe PoE i PoE+ nie wystarczą; wtedy kamerę zasila zasilacz 12 V."
     },
     {
      "q": "Ile kamer potrzeba w średniej wielkości kościele?",
@@ -13185,6 +13189,18 @@
     "Firma, biuro i hala"
    ],
    "zrodla": [
+    {
+     "url": "http://asia.canon/en/business/cr-n350/main/specification",
+     "etykieta": "Specyfikacja CR-N350 — Canon",
+     "host": "asia.canon",
+     "data": "2026-11-19"
+    },
+    {
+     "url": "http://asia.canon/en/business/cr-n400/main/specification",
+     "etykieta": "Specyfikacja CR-N400 — Canon",
+     "host": "asia.canon",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://www.canon-europe.com/ptz-cameras/cr-n400/specifications/",
      "etykieta": "Strona producenta — Canon",
@@ -13223,7 +13239,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [],
    "zdjecia_brak": true
   },
@@ -15206,7 +15222,7 @@
   {
    "slug_seed": "dahua-ipc-hdw1x39t-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -15218,7 +15234,7 @@
    "podtytul": "Kamery kulkowe 6 Mpx (3200×1800) i 8 Mpx (3840×2160), obiektyw 2,8 mm, podczerwień do 30 m i ciepłe światło, PoE.",
    "korzysc": "Prosta kamera z wysoką rozdzielczością, która w nocy pokazuje obraz w kolorze, gdy coś się dzieje.",
    "opis": [
-    "To podstawowe kamery Dahua z linii Entry w obudowie „kulkowej” (turret, u producenta: eyeball) — metalowa głowica osadzona w podstawie, którą po montażu ustawia się w dowolnym kierunku. Pasują pod okap domu, nad wejście do pensjonatu, na ścianę sklepu albo do hali. Taka obudowa nie ma szyby przed diodami, więc podczerwień nie odbija się na niej i obraz w nocy nie jest zamglony.",
+    "To podstawowe kamery Dahua z linii Entry w obudowie „kulkowej” (turret, u producenta: eyeball) — metalowa głowica osadzona w podstawie, którą po montażu ustawia się w dowolnym kierunku. Pasują pod okap domu, nad wejście do pensjonatu, na ścianę sklepu albo do hali. Metalowa obudowa ma szczelność IP67.",
     "Model 1639 nagrywa w 6 Mpx, a 1839 w 8 Mpx (4K), co daje więcej szczegółów przy szerokim kadrze z obiektywu 2,8 mm. Obie mają tryb Smart Dual Light: w nocy pracuje niewidoczna podczerwień (do 30 m według producenta), a gdy w kadrze pojawi się ruch, kamera może włączyć ciepłe białe światło i nagrywać w kolorze. Mają wbudowany mikrofon, obudowę IP67 i zasilanie jednym kablem sieciowym (PoE). Nie mają gniazda karty pamięci — nagrania trafiają do rejestratora.",
     "PRO-KOM dobiera rozdzielczość i miejsce montażu do obiektu, tak żeby kamera widziała wejście, podjazd albo kasę zamiast nieba. Montujemy kamery z rejestratorem Dahua, dyskiem do nagrań ciągłych i przełącznikiem PoE, konfigurujemy podgląd w aplikacji DMSS na telefonie i powiadomienia o ruchu. Na montaż dajemy 24 miesiące gwarancji, a później zajmujemy się serwisem i aktualizacjami."
    ],
@@ -15246,7 +15262,7 @@
     },
     {
      "k": "Kąt widzenia (poziomo, 2,8 mm)",
-     "v": "1639: 108° (rewizja S7), 110° (karta S6); 1839: do potwierdzenia u producenta"
+     "v": "1639 (S7): 108°; 1839 (S6): 110°; przy 3,6 mm: 90° / 86°"
     },
     {
      "k": "Oświetlenie",
@@ -15254,7 +15270,7 @@
     },
     {
      "k": "Zasięg oświetlenia (wg producenta)",
-     "v": "podczerwień do 30 m; ciepłe światło do 30 m wg karty S6 (1639 w rewizji S7: do 20 m przy 2,8 mm)"
+     "v": "podczerwień do 30 m; ciepłe światło: 1639 (S7) do 20 m przy 2,8 mm, 1839 (S6) do 30 m"
     },
     {
      "k": "Audio",
@@ -15266,7 +15282,7 @@
     },
     {
      "k": "Zasilanie",
-     "v": "12 V DC lub PoE (802.3af); 1639: maks. 4,6 W przy PoE"
+     "v": "12 V DC lub PoE (802.3af); maks. przy PoE: 1639 (S7) 4,6 W, 1839 (S6) 5,8 W"
     },
     {
      "k": "Szczelność",
@@ -15283,12 +15299,12 @@
    ],
    "warianty_opis": [
     {
-     "model": "IPC-HDW1639T-A-IL-0280B-S6",
-     "roznica": "6 Mpx (3200×1800), obiektyw 2,8 mm — szeroki kadr podwórka lub wejścia przy rozsądnym zużyciu dysku."
+     "model": "IPC-HDW1639T-A-IL-0280B-S7",
+     "roznica": "6 Mpx (3200×1800), obiektyw 2,8 mm, kąt 108°, ciepłe światło do 20 m — szeroki kadr podwórka lub wejścia przy rozsądnym zużyciu dysku."
     },
     {
      "model": "IPC-HDW1839T-A-IL-0280B-S6",
-     "roznica": "8 Mpx (4K, 3840×2160), obiektyw 2,8 mm — więcej szczegółów na brzegach kadru, większe pliki nagrań."
+     "roznica": "8 Mpx (4K, 3840×2160), obiektyw 2,8 mm, kąt 110°, ciepłe światło do 30 m — więcej szczegółów na brzegach kadru, większe pliki nagrań."
     }
    ],
    "konfigurator": {
@@ -15377,6 +15393,12 @@
    ],
    "zrodla": [
     {
+     "url": "https://materialfile.dahuasecurity.com/uploads/cpq/88311/datasheet/DH-IPC-HDW1639T-A-IL_S7_datasheet_20261105_English.pdf",
+     "etykieta": "Karta katalogowa IPC-HDW1639T-A-IL (S7) — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://www.dahuasecurity.com/bd/products/All-Products/Network-Cameras/WizSense-2-Series/Smart-Dual-Light/IPC-HDW1639T-A-IL=S7",
      "etykieta": "Strona producenta — Dahua",
      "host": "dahuasecurity.com",
@@ -15419,7 +15441,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hdw1x39t-a-il-01.webp",
@@ -15446,7 +15468,7 @@
   {
    "slug_seed": "dahua-ipc-hfw1x39tc-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -15458,7 +15480,7 @@
    "podtytul": "Tubowe kamery 6 Mpx i 8 Mpx (4K) z obiektywem 2,8 mm, podczerwienią i ciepłym światłem do 30 m według producenta.",
    "korzysc": "Wyraźnie widoczna kamera na elewacji, która odstrasza i nagrywa podwórko w wysokiej rozdzielczości.",
    "opis": [
-    "Kamery tubowe z linii Entry to klasyczny „walec” na uchwycie, który od razu widać na ścianie — dla wielu klientów to zaleta, bo kamera sama w sobie zniechęca do wejścia na posesję. Sprawdzają się na narożniku domu, nad bramą wjazdową, na ścianie magazynu i przy parkingu pensjonatu. Daszek nad obiektywem chroni przed deszczem i śniegiem.",
+    "Kamery tubowe z linii Entry to klasyczny „walec” na uchwycie, który od razu widać na ścianie — dla wielu klientów to zaleta, bo kamera sama w sobie zniechęca do wejścia na posesję. Sprawdzają się na narożniku domu, nad bramą wjazdową, na ścianie magazynu i przy parkingu pensjonatu. Metalowa obudowa ma szczelność IP67.",
     "IPC-HFW1639TC-A-IL daje obraz 6 Mpx, a IPC-HFW1839TC-A-IL — 8 Mpx (3840×2160), czyli 4K. Według kart producenta obie mają podczerwień i ciepłe światło o zasięgu do 30 m, a funkcja Smart Dual Light zapala białe światło dopiero wtedy, gdy w kadrze pojawi się człowiek. Obiektyw 2,8 mm obejmuje szeroki fragment podwórka, wbudowany mikrofon nagrywa dźwięk, a obudowa ma klasę IP67. Model 8 Mpx przy pełnej rozdzielczości nagrywa do 20 klatek na sekundę.",
     "W PRO-KOM zaczynamy od obejrzenia posesji: ustalamy, które miejsca kamera ma obejmować i na jakiej wysokości ją zawiesić, żeby twarz była rozpoznawalna. Kamerę łączymy z rejestratorem Dahua i dyskiem, zasilamy przez przełącznik PoE jednym kablem, a podgląd i powiadomienia ustawiamy w aplikacji DMSS. Po montażu (gwarancja 24 mies.) pomagamy w obsłudze i serwisie."
    ],
@@ -15470,7 +15492,7 @@
    "parametry": [
     {
      "k": "Obudowa",
-     "v": "tubowa (bullet), metalowa, z daszkiem"
+     "v": "tubowa (bullet), metalowa"
     },
     {
      "k": "Rozdzielczość",
@@ -15490,7 +15512,7 @@
     },
     {
      "k": "Kąt widzenia (poziomo, 2,8 mm)",
-     "v": "1839TC: 110°; 1639TC: do potwierdzenia u producenta"
+     "v": "110° (oba modele); przy 3,6 mm: 1639TC 91°, 1839TC 86°"
     },
     {
      "k": "Oświetlenie (wg producenta)",
@@ -15506,7 +15528,7 @@
     },
     {
      "k": "Zasilanie",
-     "v": "12 V DC lub PoE (802.3af); 1839TC: maks. ok. 5,8 W przy PoE"
+     "v": "12 V DC lub PoE (802.3af); maks. przy PoE: 1639TC ok. 5,3 W, 1839TC ok. 5,8 W"
     },
     {
      "k": "Szczelność",
@@ -15653,7 +15675,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hfw1x39tc-a-il-01.webp",
@@ -16131,7 +16153,7 @@
   {
    "slug_seed": "dahua-ipc-hdbw1439e1-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -16140,11 +16162,11 @@
    "seria": "Entry",
    "nazwa": "Dahua kamera IP kopułkowa 4 Mpx z obiektywem 2,8 mm (IPC-HDBW1439E1-A-IL)",
    "krotka": "Dahua kamera kopułkowa 4 Mpx",
-   "podtytul": "Płaska kamera kopułkowa 4 Mpx (2560×1440) z obiektywem 2,8 mm i doświetleniem w nocy — parametry do potwierdzenia u producenta.",
+   "podtytul": "Kopułka 4 Mpx (2560×1440) z obiektywem 2,8 lub 3,6 mm, Smart Dual Light do 30 m, WDR 120 dB, IP67 i IK08.",
    "korzysc": "Dyskretna kopułka na sufit, po której trudno poznać, w którą stronę patrzy.",
    "opis": [
-    "Kamera kopułkowa to niska „kopułka” pod kloszem, montowana zwykle na suficie albo wysoko na ścianie. Z zewnątrz nie widać, gdzie skierowany jest obiektyw, a sama obudowa jest trudniejsza do przestawienia niż kamera tubowa. Dlatego wybiera się ją do wnętrz: recepcja pensjonatu, sala sklepu, biuro, korytarz w budynku firmy.",
-    "Według danych dystrybutora model IPC-HDBW1439E1-A-IL nagrywa w 4 Mpx (2560×1440) z obiektywem 2,8 mm, ma wbudowany mikrofon, obudowę IP67 i zasilanie PoE. Oznaczenie „-IL” Dahua stosuje dla kamer z doświetleniem podczerwienią i ciepłym światłem. Na stronie producenta nie znaleźliśmy jednak karty tego modelu, dlatego zasięgi, kąt widzenia i pobór mocy potwierdzimy przed sprzedażą.",
+    "Kamera kopułkowa to niska „kopułka” pod kloszem, montowana zwykle na suficie albo wysoko na ścianie. Z zewnątrz nie widać, gdzie skierowany jest obiektyw, a sama obudowa jest trudniejsza do przestawienia niż kamera tubowa. Najczęściej trafia do wnętrz — recepcja pensjonatu, sala sklepu, biuro, korytarz — ale dzięki IP67 i IK08 sprawdzi się też pod wiatą lub okapem.",
+    "IPC-HDBW1439E1-A-IL nagrywa w 4 Mpx (2560×1440) z przetwornika 1/3 cala, z obiektywem 2,8 mm (95,5°) albo 3,6 mm (78,4°). Smart Dual Light łączy podczerwień i ciepłe światło o zasięgu do 30 m, a po wykryciu człowieka kamera może nagrywać w nocy w kolorze. Ma WDR 120 dB, wbudowany mikrofon, obudowę IP67 i IK08 oraz zasilanie PoE (maks. 7,9 W). Nie ma gniazda karty pamięci — nagrania zapisuje rejestrator.",
     "PRO-KOM dobiera kopułki do wnętrz tak, żeby obejmowały kasę, wejście i przejścia bez martwych stref. Montujemy je razem z rejestratorem Dahua, dyskiem i przełącznikiem PoE, ustawiamy maski prywatności tam, gdzie kamera nie powinna patrzeć, i konfigurujemy podgląd w aplikacji DMSS. Instalacja ma 24 miesiące gwarancji na montaż."
    ],
    "cechy": [
@@ -16155,27 +16177,35 @@
    "parametry": [
     {
      "k": "Obudowa",
-     "v": "kopułkowa (dome) — do potwierdzenia u producenta"
+     "v": "kopułkowa (dome), metal + tworzywo; wandaloodporna"
     },
     {
      "k": "Rozdzielczość",
-     "v": "4 Mpx (2560×1440) — wg danych dystrybutora"
+     "v": "4 Mpx (2560×1440) przy 25/30 kl/s"
     },
     {
      "k": "Przetwornik",
-     "v": "CMOS 1/2,9 cala — wg danych dystrybutora"
+     "v": "CMOS 1/3 cala"
     },
     {
      "k": "Obiektyw",
-     "v": "stały 2,8 mm"
+     "v": "stały 2,8 mm lub 3,6 mm"
     },
     {
      "k": "Kąt widzenia (poziomo)",
-     "v": "ok. 95° — do potwierdzenia u producenta"
+     "v": "95,5° (2,8 mm); 78,4° (3,6 mm)"
     },
     {
      "k": "Oświetlenie",
-     "v": "podczerwień i białe światło (oznaczenie -IL) — zasięg do potwierdzenia"
+     "v": "Smart Dual Light: podczerwień do 30 m i ciepłe światło do 30 m"
+    },
+    {
+     "k": "WDR",
+     "v": "120 dB"
+    },
+    {
+     "k": "Analiza obrazu",
+     "v": "wykrywanie człowieka (SMD)"
     },
     {
      "k": "Audio",
@@ -16183,34 +16213,47 @@
     },
     {
      "k": "Zapis",
-     "v": "bez microSD — rejestrator"
+     "v": "bez microSD — rejestrator lub FTP"
     },
     {
      "k": "Zasilanie",
-     "v": "PoE lub 12 V DC — pobór do potwierdzenia"
+     "v": "12 V DC lub PoE 802.3af; maks. 7,9 W przy PoE"
     },
     {
-     "k": "Szczelność",
-     "v": "IP67 — wg danych dystrybutora"
+     "k": "Szczelność i odporność",
+     "v": "IP67, IK08"
+    },
+    {
+     "k": "Temperatura pracy",
+     "v": "−40…+60 °C"
+    },
+    {
+     "k": "Wymiary",
+     "v": "Ø109,9 × 81 mm; 0,33 kg"
     },
     {
      "k": "Zgodność",
-     "v": "ONVIF, aplikacja DMSS"
+     "v": "ONVIF Profile S i T; DMSS, Smart PSS Lite, DSS"
     }
    ],
    "warianty_opis": [
     {
      "model": "IPC-HDBW1439E1-A-IL-0280B-S6",
-     "roznica": "Jedyny model serii w katalogu: 4 Mpx, obiektyw 2,8 mm, obudowa kopułkowa."
+     "roznica": "4 Mpx, obiektyw 2,8 mm, kąt 95,5° — sala sklepu, recepcja, wejście."
+    },
+    {
+     "model": "IPC-HDBW1439E1-A-IL-0360B-S6",
+     "roznica": "4 Mpx, obiektyw 3,6 mm, kąt 78,4° — korytarz, kasa, dalszy plan."
     }
    ],
    "konfigurator": {
-    "opis": "Jeden model z obiektywem 2,8 mm. Szczegóły techniczne potwierdzamy przy wycenie.",
+    "opis": "Wybierasz ogniskową: 2,8 mm do szerokiego kadru albo 3,6 mm do węższego, dalszego.",
     "opcje": [
      {
       "nazwa": "Ogniskowa",
       "wartosci": [
-       "2,8 mm"
+       "2,8 mm (szeroki kadr)",
+       "3,6 mm (węższy kadr)"
       ],
       "dl": false,
       "pom": ""
@@ -16270,10 +16313,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.dahuasecurity.com/products/network-products/network-cameras",
-     "etykieta": "Strona producenta — Dahua (brak strony modelu)",
-     "host": "dahuasecurity.com",
-     "data": "2026-11-18"
+     "url": "https://material.dahuasecurity.com/uploads/cpq/prm-os-srv-res/smart/datasheetzipfiles/DH-IPC-HDBW1439E1-A-IL_S6_datasheet_20250423.pdf",
+     "etykieta": "Karta katalogowa IPC-HDBW1439E1-A-IL (S6) — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -16300,7 +16343,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-01.webp",
@@ -20238,7 +20281,7 @@
   {
    "slug_seed": "bcs-p-tip24fcl3-ai1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -20442,7 +20485,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-tip24fcl3-ai1-01.webp",
@@ -20469,7 +20512,7 @@
   {
    "slug_seed": "bcs-p-eip2xfcl3-ai1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -20482,7 +20525,7 @@
    "korzysc": "Kolorowy obraz z sufitu korytarza, holu czy wiaty, z kamery, która zużywa mało energii.",
    "opis": [
     "Kopułkowe kamery BCS POINT z serii FCL3 mają te same rozwiązania co tubowa TIP24, ale w obudowie montowanej na suficie lub pod okapem. Sprawdzają się w holach szkół, korytarzach urzędów, kruchtach kościołów, recepcjach pensjonatów i nad wejściami do domów. Obudowa ma szczelność IP67, więc kamery można stosować także na zewnątrz. Z dołu wyglądają dyskretniej niż tuba, co ma znaczenie w zabytkowych i reprezentacyjnych wnętrzach.",
-    "BCS-P-EIP24FCL3-Ai1 ma 4 Mpx (2688 × 1520), przetwornik 1/1,8″ i obiektyw 2,8 mm F1.0 o kącie 110° w poziomie; BCS-P-EIP26FCL3-Ai1 to wersja 6 Mpx tej samej rodziny. W nocy kamery używają białego światła NightColor o zasięgu do 30 m zamiast podczerwieni, więc obraz pozostaje kolorowy. Model 4 Mpx ma WDR 120 dB, mikrofon, gniazdo microSD do 256 GB i pobór mocy maks. 2,8 W. Funkcje Ai wykrywają wtargnięcie i przekroczenie linii z rozpoznaniem człowieka.",
+    "BCS-P-EIP24FCL3-Ai1 ma 4 Mpx (2688 × 1520), przetwornik 1/1,8″ i obiektyw 2,8 mm F1.0 o kącie 110° w poziomie; BCS-P-EIP26FCL3-Ai1 to wersja 6 Mpx (3072 × 2048) z tym samym przetwornikiem i obiektywem. W nocy kamery używają białego światła NightColor o zasięgu do 30 m zamiast podczerwieni, więc obraz pozostaje kolorowy. Obie mają WDR 120 dB, mikrofon, gniazdo microSD (do 256 GB w EIP24, do 512 GB w EIP26) i pobór mocy maks. 2,8 W. Funkcje Ai wykrywają wtargnięcie i przekroczenie linii z rozpoznaniem człowieka.",
     "Kopułki BCS montujemy na suficie albo na ścianie z akcesoriami BCS, dobierając miejsce tak, by obejmowały drzwi i ciągi komunikacyjne. Zasilanie i sygnał prowadzimy jednym przewodem z przełącznika PoE do rejestratora BCS, a podgląd ustawiamy w aplikacji mobilnej i programie BCS Manager. W budynkach publicznych liczbę kamer i okres zapisu dopasowujemy do regulaminu monitoringu obowiązującego w placówce. Montaż ma 24 miesiące gwarancji, a serwis robimy u klienta."
    ],
    "cechy": [
@@ -20493,26 +20536,26 @@
    "parametry": [
     {
      "k": "Rozdzielczość",
-     "v": "EIP24: 4 Mpx (2688 × 1520); EIP26: 6 Mpx"
+     "v": "EIP24: 4 Mpx (2688 × 1520); EIP26: 6 Mpx (3072 × 2048)"
     },
     {
-     "k": "Przetwornik (EIP24)",
+     "k": "Przetwornik",
      "v": "1/1,8″ Progressive Scan CMOS"
     },
     {
      "k": "Obiektyw",
-     "v": "2,8 mm F1.0; EIP24: kąt poziomy 110,4°"
+     "v": "2,8 mm F1.0; kąt poziomy 110,4°"
     },
     {
-     "k": "Czułość (EIP24)",
+     "k": "Czułość",
      "v": "0,0003 lx (F1.0)"
     },
     {
      "k": "Doświetlenie",
-     "v": "białe światło NightColor, do 30 m"
+     "v": "białe światło NightColor (EIP26: NightColor 2.0), do 30 m"
     },
     {
-     "k": "WDR (EIP24)",
+     "k": "WDR",
      "v": "120 dB"
     },
     {
@@ -20524,15 +20567,15 @@
      "v": "wbudowany mikrofon"
     },
     {
-     "k": "Zapis (EIP24)",
-     "v": "microSD do 256 GB; NAS (NFS)"
+     "k": "Zapis",
+     "v": "EIP24: microSD do 256 GB; EIP26: do 512 GB; NAS (NFS)"
     },
     {
      "k": "Zasilanie",
-     "v": "PoE 802.3af lub 12 V DC; EIP24: maks. 2,8 W"
+     "v": "PoE 802.3af lub 12 V DC; maks. 2,8 W"
     },
     {
-     "k": "Obudowa (EIP24)",
+     "k": "Obudowa",
      "v": "IP67, ochrona przepięciowa 4 kV; Ø118 × 106 mm; 0,48 kg"
     },
     {
@@ -20540,7 +20583,7 @@
      "v": "−30…60 °C"
     },
     {
-     "k": "Zgodność (EIP24)",
+     "k": "Zgodność",
      "v": "ONVIF S/G/T; NDAA (wg producenta)"
     }
    ],
@@ -20551,7 +20594,7 @@
     },
     {
      "model": "BCS-P-EIP26FCL3-Ai1",
-     "roznica": "6 Mpx w tej samej obudowie kopułkowej z NightColor — więcej szczegółów w szerokim kadrze."
+     "roznica": "6 Mpx (3072 × 2048) w tej samej obudowie, NightColor 2.0, microSD do 512 GB — więcej szczegółów w szerokim kadrze."
     }
    ],
    "konfigurator": {
@@ -20635,6 +20678,12 @@
    ],
    "zrodla": [
     {
+     "url": "https://www.montersi.pl/instrukcje/BCS-P-EIP26FCL3-Ai-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-P-EIP26FCL3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://bcs.pl/pl/4mpx/4090-bcs-p-eip24fcl3-ai1-5904890713512.html",
      "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
@@ -20671,7 +20720,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-eip2xfcl3-ai1-01.webp",
@@ -20683,7 +20732,7 @@
   {
    "slug_seed": "bcs-p-dip15fsr3-ai",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -20692,16 +20741,16 @@
    "seria": "BCS POINT",
    "nazwa": "BCS POINT kamera kopułkowa IP 5 Mpx wandaloodporna IK10 (BCS-P-DIP15FSR3-Ai)",
    "krotka": "BCS POINT kopułka 5 Mpx IK10",
-   "podtytul": "Metalowa kopułka 5 Mpx z obiektywem 2,8 mm, podczerwienią, odpornością na uderzenia IK10, szczelnością IP67, mikrofonem i głośnikiem",
+   "podtytul": "Metalowa kopułka 5 Mpx z obiektywem 2,8 mm, podczerwienią, odpornością na uderzenia IK10, szczelnością IP67 i mikrofonem",
    "korzysc": "Kamera do miejsc, gdzie ktoś może ją uderzyć lub próbować zasłonić — korytarz szkoły, klatka schodowa, wiata.",
    "opis": [
     "BCS-P-DIP15FSR3-Ai to kopułkowa kamera z linii BCS POINT w metalowej obudowie odpornej na uderzenia (klasa IK10). Wybiera się ją do miejsc, w których kamera jest w zasięgu ręki: na korytarze szkół, klatki schodowe, szatnie, wiaty, wejścia do urzędów czy kościołów. Szczelność IP67 pozwala montować ją również na zewnątrz. Niska, płaska obudowa jest mniej widoczna niż kamera tubowa.",
-    "Kamera nagrywa obraz 5 Mpx (2880 × 1620) z przetwornika 1/2,7″ przez obiektyw 2,8 mm o kącie około 110°. W nocy przełącza się na podczerwień, a czułość w kolorze podawana jest na 0,003 lx przy F1.6. Ma wbudowany mikrofon i głośnik, gniazdo microSD i obsługę ONVIF, a pobór mocy wynosi około 4,4 W. Funkcje Ai pomagają odróżnić człowieka od innych obiektów przy alarmach.",
+    "Kamera nagrywa obraz 5 Mpx (2880 × 1620) z przetwornika 1/2,7″ przez obiektyw 2,8 mm o kącie około 110°. W nocy przełącza się na podczerwień, a czułość w kolorze podawana jest na 0,003 lx przy F1.6. Ma wbudowany mikrofon, gniazdo microSD do 512 GB, WDR 120 dB i obsługę ONVIF, a pobór mocy wynosi około 4,4 W. Funkcje Ai pomagają odróżnić człowieka od innych obiektów przy alarmach.",
     "W szkołach i budynkach publicznych montujemy takie kopułki na suficie, możliwie wysoko, i ustawiamy maski prywatności tam, gdzie obraz nie powinien obejmować np. drzwi toalet. Kamery łączymy z rejestratorem BCS przez przełącznik PoE, a dostęp dla dyrekcji lub administratora konfigurujemy w aplikacji BCS. Dysk dobieramy do okresu przechowywania nagrań ustalonego w regulaminie. Wykonany montaż ma 24-miesięczną gwarancję PRO-KOM, a serwis prowadzimy na miejscu."
    ],
    "cechy": [
     "IK10",
-    "mikrofon i głośnik",
+    "wbudowany mikrofon",
     "metalowa kopułka"
    ],
    "parametry": [
@@ -20735,15 +20784,15 @@
     },
     {
      "k": "Audio",
-     "v": "mikrofon i głośnik"
+     "v": "wbudowany mikrofon"
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 512 GB; NAS (NFS)"
     },
     {
      "k": "Zgodność i sieć",
-     "v": "ONVIF; HTTPS, 802.1x, SNMP"
+     "v": "ONVIF S/G/T; HTTPS, 802.1x, SNMP; NDAA (wg producenta)"
     },
     {
      "k": "Pobór mocy",
@@ -20751,7 +20800,7 @@
     },
     {
      "k": "Obudowa",
-     "v": "metalowa; Ø110 × 62 mm; 0,76 kg"
+     "v": "metalowa; Ø109 × 81 mm; 0,36 kg; ochrona przepięciowa 4 kV"
     },
     {
      "k": "Temperatura pracy",
@@ -20761,7 +20810,7 @@
    "warianty_opis": [
     {
      "model": "BCS-P-DIP15FSR3-Ai",
-     "roznica": "5 Mpx, metalowa kopułka IK10 z podczerwienią, mikrofon i głośnik — do miejsc narażonych na zniszczenie."
+     "roznica": "5 Mpx, metalowa kopułka IK10 z podczerwienią i mikrofonem — do miejsc narażonych na zniszczenie."
     }
    ],
    "konfigurator": {
@@ -20789,7 +20838,7 @@
      },
      {
       "k": "Audio",
-      "v": "mikrofon i głośnik"
+      "v": "mikrofon"
      }
     ],
     "popularne": [
@@ -20811,10 +20860,6 @@
     {
      "q": "Czy kamera w szkole może nagrywać dźwięk?",
      "a": "Kamera ma mikrofon, ale w szkołach zwykle go wyłączamy, bo nagrywanie rozmów wymaga osobnej podstawy. O ustawieniach decyduje administrator monitoringu."
-    },
-    {
-     "q": "Do czego przydaje się głośnik w kamerze?",
-     "a": "Przez głośnik można nadać komunikat z aplikacji, np. poprosić osobę o opuszczenie terenu po godzinach. Na co dzień może pozostać nieużywany."
     },
     {
      "q": "Czy nocny obraz z tej kopułki jest kolorowy?",
@@ -20844,6 +20889,12 @@
     "Firma, biuro i hala"
    ],
    "zrodla": [
+    {
+     "url": "https://www.montersi.pl/instrukcje/BCS_P_DIP15FSR3_Ai___karta_katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-P-DIP15FSR3-Ai (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://bcs.pl/pl/",
      "etykieta": "Strona producenta — BCS",
@@ -20875,7 +20926,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-dip15fsr3-ai-01.webp",
@@ -20915,8 +20966,8 @@
    "korzysc": "Kamera na mroźne zimy: w danych katalogowych ma pracę od −40 °C i może nagrywać w kolorze, gdy coś się dzieje.",
    "opis": [
     "BCS LINE to linia kamer BCS do typowych instalacji w domach, firmach i budynkach publicznych, z prostą konfiguracją i polskim wsparciem. Modele TIP15 i TIP18 mają tubową obudowę IP67 i podany zakres pracy od −40 do 60 °C, co ma znaczenie w górach, gdzie zimą mróz bywa silny. Montuje się je na elewacji, przy bramie, nad wejściem do budynku albo na parkingu. Oznaczenie Ai mówi o wbudowanej analizie obrazu.",
-    "BCS-L-TIP15FCR3L3-Ai1 nagrywa 5 Mpx (2960 × 1668), a BCS-L-TIP18FCR3L3-Ai1 8 Mpx (3840 × 2160); obie mają przetwornik 1/2,7″ i obiektyw 2,8 mm F1.6 o kącie 111°. Podwójne doświetlenie łączy podczerwień i białe diody o zasięgu do 30 m, więc w nocy można wybrać obraz czarno-biały albo kolorowy. Kamery mają mikrofon, gniazdo microSD, obsługę ONVIF i pobór mocy ok. 5,5 W (TIP15) oraz 5,9 W (TIP18). Wersja 8 Mpx daje więcej szczegółów na szerokim kadrze, ale potrzebuje więcej miejsca na dysku.",
-    "Dobieramy rozdzielczość do miejsca: 5 Mpx zwykle wystarcza przy domu i wejściu, 8 Mpx proponujemy na place i parkingi. Montujemy kamery z puszką, zasilamy przez PoE i łączymy z rejestratorem BCS LINE, gdzie ustawiamy analizę Ai oraz harmonogram białego światła. Konfigurujemy aplikację BCS na telefonach właściciela i osób odpowiedzialnych za obiekt. Na montaż PRO-KOM daje 24 miesiące gwarancji i serwisuje instalację."
+    "BCS-L-TIP15FCR3L3-Ai1 nagrywa 5 Mpx (2960 × 1668), a BCS-L-TIP18FCR3L3-Ai1 8 Mpx (3840 × 2160); obie mają przetwornik 1/2,7″ i obiektyw 2,8 mm F1.6 o kącie 111°. Doświetlenie ma zasięg do 30 m: TIP18 łączy podczerwień z białymi diodami, więc w nocy może nagrywać w kolorze. Kamery mają WDR 120 dB, mikrofon, gniazdo microSD do 256 GB, obsługę ONVIF S/G/T i pobór mocy ok. 5,5 W (TIP15) oraz 5,9 W (TIP18). Wersja 8 Mpx daje więcej szczegółów na szerokim kadrze, ale potrzebuje więcej miejsca na dysku.",
+    "Dobieramy rozdzielczość do miejsca: 5 Mpx zwykle wystarcza przy domu i wejściu, 8 Mpx proponujemy na place i parkingi. Montujemy kamery z puszką, zasilamy przez PoE i łączymy z rejestratorem BCS LINE, gdzie ustawiamy analizę Ai (przekroczenie linii, wtargnięcie z rozpoznaniem osoby i pojazdu). Konfigurujemy aplikację BCS na telefonach właściciela i osób odpowiedzialnych za obiekt. Na montaż PRO-KOM daje 24 miesiące gwarancji i serwisuje instalację."
    ],
    "cechy": [
     "IR + białe światło",
@@ -20942,15 +20993,15 @@
     },
     {
      "k": "Doświetlenie",
-     "v": "podczerwień + białe diody, do 30 m"
+     "v": "TIP18: podczerwień + białe diody, do 30 m; TIP15: podczerwień do 30 m (białe światło — do potwierdzenia u producenta)"
     },
     {
      "k": "WDR",
-     "v": "tak"
+     "v": "120 dB"
     },
     {
      "k": "Analiza",
-     "v": "Ai (wbudowana analiza obrazu)"
+     "v": "przekroczenie linii i wtargnięcie z rozpoznaniem osoby i pojazdu; SMD 4.0"
     },
     {
      "k": "Audio",
@@ -20958,11 +21009,11 @@
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 256 GB; FTP/SFTP, NAS"
     },
     {
      "k": "Zgodność",
-     "v": "ONVIF"
+     "v": "ONVIF S/G/T"
     },
     {
      "k": "Pobór mocy",
@@ -21027,8 +21078,8 @@
      "a": "W danych katalogowych zakres pracy zaczyna się od −40 °C, czyli z zapasem na górskie zimy. Ważne jest też szczelne zakończenie przewodów w puszce, o co dbamy przy montażu."
     },
     {
-     "q": "Czy mogę zdecydować, kiedy świeci białe światło?",
-     "a": "Tak, doświetlenie da się ustawić na samą podczerwień, światło białe albo tryb mieszany, także według harmonogramu. Przy domach w zabudowie często wybieramy podczerwień z kolorem tylko po wykryciu ruchu."
+     "q": "Czy w nocy obraz może być kolorowy?",
+     "a": "Model 8 Mpx (TIP18) ma oprócz podczerwieni białe diody, więc po zmroku może nagrywać w kolorze. Sposób pracy doświetlenia ustawiamy przy konfiguracji, a dla modelu 5 Mpx potwierdzamy go u producenta przed zamówieniem."
     },
     {
      "q": "Ile miejsca zajmą nagrania z wersji 8 Mpx?",
@@ -21064,6 +21115,18 @@
    ],
    "zrodla": [
     {
+     "url": "https://montersi.pl/instrukcje/BCS-L-TIP15FCR3L3-AI1-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-L-TIP15FCR3L3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
+     "url": "https://montersi.pl/instrukcje/BCS-L-TIP18FCR3L3-AI1-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-L-TIP18FCR3L3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://bcs.pl/pl/",
      "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
@@ -21094,7 +21157,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-tip1xfcr3l3-ai1-01.webp",
@@ -21134,8 +21197,8 @@
    "korzysc": "Podgląd mieszkania, domku czy recepcji z telefonu bez kucia ścian — wystarczy gniazdko i Wi-Fi.",
    "opis": [
     "Kamery BCS LINE HOME to małe, obrotowe kamery do wnętrz, które łączą się przez Wi-Fi, więc nie trzeba prowadzić kabla sieciowego. Pasują do mieszkania, domku letniskowego, części wspólnych apartamentu na wynajem, małego biura albo recepcji. Kamera obraca się i pochyla, więc z jednego miejsca obejrzysz prawie cały pokój. Wystarczy postawić ją na półce albo przykręcić do ściany lub sufitu w pobliżu gniazdka.",
-    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 20 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86°, podczerwień i białe światło do około 30 m oraz obsługę ONVIF. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, nie na zewnątrz.",
-    "Kamery Wi-Fi konfigurujemy na miejscu: sprawdzamy zasięg sieci w miejscu montażu, łączymy kamerę z Wi-Fi i zakładamy dostęp w aplikacji na telefonach domowników lub właściciela apartamentu. Ustawiamy powiadomienia o ruchu i zapis na karcie microSD. Przy wynajmie krótkoterminowym doradzamy, gdzie kamera może wisieć, żeby nie naruszać prywatności gości, a model PTHOME07 z ONVIF możemy dodatkowo dołączyć do rejestratora. Na wykonany montaż PRO-KOM daje 24 miesiące gwarancji."
+    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 10 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86° oraz podczerwień i białe światło do około 30 m. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, nie na zewnątrz.",
+    "Kamery Wi-Fi konfigurujemy na miejscu: sprawdzamy zasięg sieci w miejscu montażu, łączymy kamerę z Wi-Fi i zakładamy dostęp w aplikacji BCS Manager na telefonach domowników lub właściciela apartamentu. Ustawiamy powiadomienia o ruchu i zapis na karcie microSD. Przy wynajmie krótkoterminowym doradzamy, gdzie kamera może wisieć, żeby nie naruszać prywatności gości. Na wykonany montaż PRO-KOM daje 24 miesiące gwarancji."
    ],
    "cechy": [
     "Wi-Fi bez kabla",
@@ -21145,7 +21208,7 @@
    "parametry": [
     {
      "k": "Rozdzielczość",
-     "v": "5 Mpx (2880 × 1620), 25 kl./s"
+     "v": "5 Mpx (2880 × 1620)"
     },
     {
      "k": "Przetwornik",
@@ -21157,15 +21220,15 @@
     },
     {
      "k": "Ruch",
-     "v": "obrót i pochylanie (pan/tilt) z aplikacji"
+     "v": "obrót (ok. 350°) i pochylanie z aplikacji, śledzenie ruchu, wykrywanie człowieka"
     },
     {
      "k": "Doświetlenie",
-     "v": "PTHOME01, 02: podczerwień do ok. 20 m; PTHOME07: IR + białe, do ok. 30 m"
+     "v": "PTHOME01, 02: podczerwień do ok. 10 m; PTHOME07: IR + białe, do ok. 30 m"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi"
+     "v": "Wi-Fi 2,4 GHz; port RJ-45"
     },
     {
      "k": "Audio",
@@ -21173,11 +21236,11 @@
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 256 GB"
     },
     {
-     "k": "Zgodność",
-     "v": "ONVIF: tylko PTHOME07"
+     "k": "Aplikacja",
+     "v": "BCS Manager (iOS, Android)"
     },
     {
      "k": "Pobór mocy",
@@ -21195,15 +21258,15 @@
    "warianty_opis": [
     {
      "model": "BCS-L-PTHOME01",
-     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 20 m, pobór ok. 3,8 W."
+     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 10 m, pobór ok. 3,8 W."
     },
     {
      "model": "BCS-L-PTHOME02",
-     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 20 m, pobór ok. 4 W; różnice wobec PTHOME01 do potwierdzenia u producenta."
+     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 10 m, pobór ok. 4 W; inna obudowa niż PTHOME01."
     },
     {
      "model": "BCS-L-PTHOME07",
-     "roznica": "5 Mpx z dwoma przetwornikami, kąt ok. 86°, podczerwień i białe światło do ok. 30 m, obsługa ONVIF."
+     "roznica": "5 Mpx z dwoma przetwornikami, kąt ok. 86°, podczerwień i białe światło do ok. 30 m."
     }
    ],
    "konfigurator": {
@@ -21214,9 +21277,8 @@
       "wartosci": [
        "PTHOME01 (jeden obiektyw)",
        "PTHOME02 (jeden obiektyw)",
-       "PTHOME07 (dwa obiektywy, IR + białe, ONVIF)"
+       "PTHOME07 (dwa obiektywy, IR + białe)"
       ],
-      "uwaga": "Tylko PTHOME07 obsługuje ONVIF i może pracować z rejestratorem.",
       "dl": false,
       "pom": ""
      }
@@ -21257,7 +21319,7 @@
     },
     {
      "q": "Czym PTHOME07 różni się od PTHOME01 i PTHOME02?",
-     "a": "Ma dwa przetworniki i szerszy kąt (ok. 86°), dokłada białe światło do podczerwieni i obsługuje ONVIF, więc można ją podłączyć do rejestratora."
+     "a": "Ma dwa przetworniki i szerszy kąt (ok. 86°), a do podczerwieni dokłada białe światło, więc w nocy może pokazać obraz w kolorze."
     },
     {
      "q": "Czy mogę porozmawiać przez kamerę z domownikiem?",
@@ -21317,7 +21379,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-pthome0x-01.webp",
@@ -31271,7 +31333,7 @@
   {
    "slug_seed": "bcs-l-nvr0401-4ke-4p",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "rejestratory",
    "podkategoria": "nvr",
@@ -31464,7 +31526,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-nvr0401-4ke-4p-01.webp",
@@ -32198,7 +32260,7 @@
   {
    "slug_seed": "dahua-ktd01-f",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "dostep",
    "kategoria": "wideodomofony",
    "podkategoria": "zestawy",
@@ -32222,7 +32284,7 @@
    "parametry": [
     {
      "k": "Skład zestawu",
-     "v": "stacja DHI-VTO2202F-P (S2/S3), monitor DHI-VTH5422HW, przełącznik 2-żyłowy DHI-VTNS2003B-2"
+     "v": "stacja DHI-VTO2202F-P-S2, monitor DHI-VTH5422HW, przełącznik 2-żyłowy DHI-VTNS2003B-2"
     },
     {
      "k": "Okablowanie",
@@ -32242,7 +32304,7 @@
     },
     {
      "k": "Sterowanie zamkiem",
-     "v": "1 wyjście zamka, przycisk wyjścia, czujnik stanu drzwi; wyjście 12 V, 600 mA"
+     "v": "1 wyjście zamka (drugi zamek z modułem rozszerzeń), przycisk wyjścia, czujnik stanu drzwi; wyjście 12 V, 600 mA (przy zasilaniu stacji z PoE — przełącznik 802.3at)"
     },
     {
      "k": "Pamięć",
@@ -32276,11 +32338,11 @@
    "warianty_opis": [
     {
      "model": "KTD01(F)",
-     "roznica": "Zestaw do montażu podtynkowego stacji (puszka podtynkowa); skład urządzeń jak w KTD01 — do potwierdzenia u producenta."
+     "roznica": "VTO2202F-P-S2 + VTH5422HW + VTNS2003B-2 z puszką podtynkową VTM114."
     },
     {
      "model": "KTD01(S)",
-     "roznica": "Ten sam komplet z akcesoriami do montażu natynkowego stacji."
+     "roznica": "Ten sam komplet z puszką natynkową VTM115."
     }
    ],
    "konfigurator": {
@@ -32348,7 +32410,7 @@
     },
     {
      "q": "Czy z wyjścia stacji zasilę elektrozaczep?",
-     "a": "Stacja ma wyjście 12 V do 600 mA i wyjście sterowania zamkiem — to wystarcza dla wielu elektrozaczepów. Przy zamku o większym poborze dokładamy osobny zasilacz."
+     "a": "Stacja ma wyjście 12 V do 600 mA i wyjście sterowania zamkiem — to wystarcza dla wielu elektrozaczepów (przy zasilaniu stacji z PoE potrzebny jest przełącznik 802.3at). Przy zamku o większym poborze dokładamy osobny zasilacz."
     }
    ],
    "polecane": [
@@ -32374,6 +32436,12 @@
     "Deweloper"
    ],
    "zrodla": [
+    {
+     "url": "https://materialfile.dahuasecurity.com/uploads/cpq/prm-os-srv-res/smart/datasheetzipfiles/DHI-KTD01(S)_S2_datasheet_20241204.pdf",
+     "etykieta": "Karta katalogowa KTD01(S) S2 — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://www.dahuasecurity.com/products/video-intercoms/2-wire-ip/kit/2-wire-ip-kit/ktd01=s2",
      "etykieta": "Strona producenta — Dahua",
@@ -32411,7 +32479,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ktd01-f-01.webp",
