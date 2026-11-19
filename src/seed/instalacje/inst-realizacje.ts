@@ -69,14 +69,14 @@ async function main() {
   const sitePassword = process.env.INST_TEXTS_BASIC || undefined
   const login = await fetch(`${base}/api/users/login`, {
     method: 'POST',
-    headers: panelHeaders(undefined, sitePassword),
+    headers: panelHeaders(undefined, sitePassword, base),
     body: JSON.stringify({ email, password }),
   })
   if (!login.ok) throw new Error(`Logowanie: ${login.status}`)
   const { token } = (await login.json()) as { token: string }
 
   async function api<T>(url: string, init?: RequestInit): Promise<T> {
-    const headers = panelHeaders(token, sitePassword)
+    const headers = panelHeaders(token, sitePassword, base)
     // A multipart upload sets its own Content-Type (with the boundary).
     if (typeof init?.body !== 'string') delete headers['Content-Type']
     const res = await fetch(`${base}${url}`, { ...init, headers })
@@ -163,7 +163,7 @@ async function main() {
   // The token would stay valid until it expires: log out.
   await fetch(`${base}/api/users/logout`, {
     method: 'POST',
-    headers: panelHeaders(token, sitePassword),
+    headers: panelHeaders(token, sitePassword, base),
   }).catch(() => undefined)
   if (failed.length) {
     console.error(`Niezapisane:\n${failed.join('\n')}`)

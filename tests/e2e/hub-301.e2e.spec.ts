@@ -11,8 +11,8 @@ test('old pro-kom.eu addresses: 301 to the new target', async ({ request }) => {
     const response = await request.get(site(HOST, from), { maxRedirects: 0 })
     expect(response.status(), from).toBe(301)
     const location = response.headers()['location'] ?? ''
-    expect(to.startsWith('/') ? new URL(location, site(HOST, '/')).pathname : location, from).toBe(
-      to,
-    )
+    // A hub target may carry an anchor (`/o-firmie#alsen`, runda 1811 D4).
+    const url = new URL(location, site(HOST, '/'))
+    expect(to.startsWith('/') ? url.pathname + url.hash : location, from).toBe(to)
   }
 })
