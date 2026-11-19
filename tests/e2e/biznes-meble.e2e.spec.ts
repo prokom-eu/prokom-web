@@ -13,9 +13,11 @@ test.describe('Biznes: meble akustyczne (runda 1811, D2)', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Meble akustyczne')
     const cards = page.locator('[data-category-grid] > li h3 a')
     await expect(cards).toHaveCount(5)
-    for (const name of ['SonoCubo S', 'SonoCubo M', 'SonoCubo L', 'SonoVelo (']) {
+    for (const name of ['SonoCubo S', 'SonoCubo M', 'SonoCubo L', 'Extension']) {
       await expect(cards.filter({ hasText: name }), name).toHaveCount(1)
     }
+    // The screen and its accessories (the cards show their short name).
+    await expect(cards.filter({ hasText: 'SonoVelo' })).toHaveCount(2)
     await expect(page.locator('main')).not.toContainText(/\d\s?zł/)
   })
 

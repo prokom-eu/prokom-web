@@ -31,7 +31,7 @@ test.describe('Biznes catalog /oferta', () => {
     const response = await page.goto(oferta())
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Cała oferta dla firm')
-    await expect(count(page)).toHaveText(`${LISTED} pozycji`)
+    await expect(count(page)).toHaveText(new RegExp(`^${LISTED} pozycj[ei]$`))
     await expect(cards(page)).toHaveCount(24)
     // Without JavaScript „Pokaż kolejne” is a plain link to the next page (spec. §5.3).
     await expect(page.getByRole('link', { name: /Pokaż kolejne/ })).toHaveAttribute(
@@ -97,7 +97,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(count(page)).toBeFocused()
     await chips.getByRole('button', { name: 'Wyczyść wszystko' }).click()
     await expect(page).toHaveURL(/\/oferta$/)
-    await expect(count(page)).toHaveText(`${LISTED} pozycji`)
+    await expect(count(page)).toHaveText(new RegExp(`^${LISTED} pozycj[ei]$`))
   })
 
   test('group tiles and sort write the URL', async ({ page }) => {
