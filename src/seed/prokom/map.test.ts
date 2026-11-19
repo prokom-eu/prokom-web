@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   TOOL_LINKS,
+  extraPhonesAfterSeed,
   hubHelp,
   hubPlans,
   hubServices,
@@ -112,7 +113,7 @@ describe('slugOf', () => {
 })
 
 describe('hub seed — company facts (spec §3)', () => {
-  it('has the facts and statuses of the spec, all approved', () => {
+  it('has the facts and statuses of the spec, approved but the ALSEN figures', () => {
     expect(hubTrust().map((row) => `${row.value}: ${row.label}`)).toEqual([
       'Od 2004: firma z Rabki-Zdroju',
       '100+: klientów firmowych',
@@ -122,8 +123,22 @@ describe('hub seed — company facts (spec §3)', () => {
       'InsERT: Autoryzowany partner',
       'Optivendi: Partner',
       'COMEX: We współpracy',
+      'ALSEN: Autoryzowany partner',
+      'ALSEN 350+: sklepów sieci ALSEN',
+      'ALSEN Rabka: salon = punkt partnerski ALSEN',
     ])
-    expect(hubTrust().every((row) => row.approved)).toBe(true)
+    expect(
+      hubTrust()
+        .filter((row) => !row.approved)
+        .map((row) => row.value),
+    ).toEqual(['ALSEN 350+', 'ALSEN Rabka'])
+  })
+
+  it('keeps the approval given in the panel to a fact the package leaves waiting', () => {
+    const stored = [{ id: 'r', value: 'ALSEN Rabka', label: 'x', approved: true }]
+    expect(mergeTrust(stored, hubTrust()).find((row) => row.value === 'ALSEN Rabka')).toMatchObject(
+      { id: 'r', approved: true },
+    )
   })
 
   it('keeps facts added in the panel and the row ids of the package facts', () => {
@@ -148,5 +163,20 @@ describe('siteContactUpdate — hub contact (second number 15.11)', () => {
     const base = { phone: '883 200 151', email: 'biuro@pro-kom.eu', footer: { text: 'Tekst.' } }
     expect(siteContactUpdate({ ...base, phone2: null })).toEqual({ phone2: '889 003 889' })
     expect(siteContactUpdate({ ...base, phone2: '600 000 000' })).toBeNull()
+  })
+})
+
+describe('extraPhonesAfterSeed (runda 1811 D5)', () => {
+  it('fills an empty list with the package numbers, Rabka marked as the Tech point', () => {
+    expect(extraPhonesAfterSeed([]).map((row) => row.techPoint)).toEqual([null, 'Rabka-Zdrój'])
+  })
+
+  it('keeps the stored list as it is — a point cleared in the panel stays cleared', () => {
+    const stored = [
+      { label: 'Biuro', number: '182676511', techPoint: null },
+      { label: 'Serwis Tech', number: '18 541 20 55', techPoint: null },
+      { label: 'Nowy z panelu', number: '18 000 00 00', techPoint: 'Nowy Targ' },
+    ]
+    expect(extraPhonesAfterSeed(stored)).toEqual(stored)
   })
 })

@@ -666,6 +666,51 @@ function home() {
         },
       ],
     },
+    // Runda 1811 D14 (the boss, 18.11): public procurement and larger deliveries — a premium
+    // section after „Współpraca”, leading to /inwestycje-i-dostawy. Facts from the hub's data
+    // (SWZ, documents for grants, optional set-up); no figures and no names of buyers.
+    procurement: {
+      eyebrow: 'Zamówienia publiczne i większe dostawy',
+      title: 'Szkoły, gminy, szpitale i firmy — jedna oferta na całe zamówienie.',
+      lead: 'Odpowiadamy na zapytania ofertowe i przetargi, realizujemy dostawy sprzętu dla szkół, gmin i firm. Sprzęt IT, AV i wyposażenie z linii Biznes, Instalacje i Tech zbieramy w jedną ofertę — z dokumentami do odbioru i rozliczenia.',
+      points: [
+        {
+          icon: 'doc',
+          title: 'Przetargi i zapytania ofertowe',
+          text: 'Ofertę przygotowujemy według SWZ albo opisu przedmiotu zamówienia.',
+        },
+        {
+          icon: 'box',
+          title: 'Większe dostawy sprzętu',
+          text: 'Pracownie, stanowiska, sprzęt AV i wyposażenie pod adres. Konfiguracja, montaż i szkolenie — jeśli są w ofercie.',
+        },
+        {
+          icon: 'users',
+          title: 'Jedna faktura i jeden opiekun',
+          text: 'Całe zamówienie prowadzi jedna osoba — bez szukania kilku dostawców.',
+        },
+        {
+          icon: 'receipt',
+          title: 'Dokumenty do dofinansowań',
+          text: 'Do zamówień z dofinansowaniem przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia.',
+        },
+      ],
+      stepsLabel: 'Jak to przebiega',
+      forLabel: 'Dla kogo',
+      audiences: [
+        { icon: 'grad', label: 'Szkoły' },
+        { icon: 'building', label: 'Gminy i urzędy' },
+        { icon: 'heart', label: 'Szpitale i uzdrowiska' },
+        { icon: 'bed', label: 'Hotele' },
+        { icon: 'brief', label: 'Firmy' },
+      ],
+      examplesLabel: 'Realizowaliśmy dla',
+      // TODO(krystian): 3–4 completed orders for institutions with the boss's consent to show the
+      // name — each with its own fact in `HubSettings.trust` (approved in the panel).
+      examples: [],
+      cta: { label: 'Wyślij zapytanie ofertowe', href: '/inwestycje-i-dostawy#formularz' },
+      more: { label: 'Zobacz zamówienia i dostawy', href: '/inwestycje-i-dostawy#przetargi' },
+    },
     coverage: {
       // :830–854
       eyebrow: 'Gdzie działamy',
@@ -801,7 +846,41 @@ function brands() {
         text: 'Telefony i tablety tych marek naprawiamy w salonie w Rabce-Zdroju. Bezpłatna diagnoza i wycena, naprawy też kurierem.',
       },
     ],
-    note: 'Status autoryzowanego serwisu lub partnera dotyczy tylko czterech marek u góry.',
+    // Runda 1811, D4 (decision of Krystian 18.11.2026): PRO-KOM is an authorised partner of the
+    // ALSEN network — a network of shops, not a producer, so its own card next to the four.
+    // Figures and the Rabka point wait for confirmation behind unapproved facts (`hubTrust()`).
+    network: {
+      name: 'ALSEN',
+      slug: 'alsen',
+      status: 'Autoryzowany partner',
+      fact: 'ALSEN',
+      line: 'biznes',
+      label: 'Sieć partnerska',
+      text: 'Ogólnopolska sieć sklepów komputerowych. Sprzęt z sieci ALSEN dobierzemy, skonfigurujemy i obsłużymy na miejscu.',
+      website: 'https://www.alsen.pl/',
+      linkLabel: 'Strona sieci ALSEN',
+      aboutTitle: 'Autoryzowany partner ALSEN',
+      paragraphs: [
+        {
+          text: 'PRO-KOM jest autoryzowanym partnerem ALSEN — ogólnopolskiej sieci sklepów komputerowych. Dla klienta to dostęp do szerokiej oferty sprzętu i akcesoriów bez szukania po wielu sklepach.',
+          facts: ['ALSEN'],
+        },
+        {
+          // TODO(krystian): confirm the number of shops on alsen.pl on the day of publishing
+          // and the link with AB, then approve the fact „ALSEN 350+” in the panel.
+          text: 'ALSEN to ponad 350 sklepów w całej Polsce, związanych z dystrybutorem AB.',
+          facts: ['ALSEN', 'ALSEN 350+'],
+        },
+        {
+          text: 'Sprzęt dobieramy do zadania, konfigurujemy i zostajemy pod telefonem po zakupie — tak jak przy wszystkim, co robimy.',
+          facts: ['ALSEN'],
+        },
+      ],
+      // TODO(krystian): is the salon in Rabka-Zdrój the ALSEN partner point? Then approve the
+      // fact „ALSEN Rabka” in the panel and the line shows under the salon card of /kontakt.
+      salonNote: { text: 'Punkt partnerski ALSEN', facts: ['ALSEN', 'ALSEN Rabka'] },
+    },
+    note: 'Status autoryzowanego serwisu lub partnera producenta dotyczy tylko czterech marek u góry.',
     allLink: 'Wszystkie marki i autoryzacje',
   }
 }

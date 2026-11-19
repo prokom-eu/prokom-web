@@ -24,7 +24,10 @@ describe('brand pictures (H9)', () => {
   })
 
   it('logos are named as in the package (a renamed brand would lose its logo)', () => {
-    const named = new Set(brandsModel.groups.flatMap((group) => group.brands))
+    const named = new Set([
+      ...brandsModel.groups.flatMap((group) => group.brands),
+      ...(brandsModel.network ? [brandsModel.network.name] : []),
+    ])
     const unused = Object.keys(BRAND_LOGOS).filter(
       (name) => !named.has(name) && !(AUTHORIZED as readonly string[]).includes(name),
     )

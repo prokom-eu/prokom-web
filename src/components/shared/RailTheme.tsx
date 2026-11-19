@@ -1,15 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 
 import { themeAnnouncement, ThemeIcons } from '@/components/ThemeToggle'
 import { useTheme, useThemeChoice, autoThemeNow, type ThemeChoice } from '@/components/useTheme'
 import { centreOf, revealTheme } from '@/lib/motion/themeReveal'
 
-const CHOICES: { value: ThemeChoice; label: string }[] = [
-  { value: 'light', label: 'Jasny' },
-  { value: 'dark', label: 'Ciemny' },
-  { value: 'auto', label: 'Auto' },
+const CHOICES: { value: ThemeChoice; label: string; icon: ReactNode }[] = [
+  {
+    value: 'light',
+    label: 'Jasny',
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4" />
+      </>
+    ),
+  },
+  { value: 'dark', label: 'Ciemny', icon: <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" /> },
+  {
+    value: 'auto',
+    label: 'Auto',
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 3.5v17a8.5 8.5 0 0 0 0-17Z" fill="currentColor" stroke="none" />
+      </>
+    ),
+  },
 ]
 
 /**
@@ -53,7 +71,13 @@ export function RailTheme() {
           </span>
         </span>
       </button>
-      <div className="srail__choices" role="group" aria-label="Motyw strony">
+      <div
+        className="srail__choices"
+        role="group"
+        aria-label="Motyw strony"
+        // The sliding thumb (`::before`) goes under the chosen option.
+        style={{ '--choice': CHOICES.findIndex((o) => o.value === choice) } as CSSProperties}
+      >
         {CHOICES.map((option) => (
           <button
             key={option.value}
@@ -64,6 +88,20 @@ export function RailTheme() {
               switchTo(next, () => setChoice(option.value), event.currentTarget)
             }}
           >
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              {option.icon}
+            </svg>
             {option.label}
           </button>
         ))}

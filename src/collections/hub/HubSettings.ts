@@ -147,6 +147,35 @@ export const HubSettings: CollectionConfig = {
             { name: 'number', label: 'Numer', type: 'text', required: true, maxLength: 30 },
           ],
         },
+        {
+          name: 'techPoint',
+          label: 'Punkt PRO-KOM Tech (miejscowość)',
+          type: 'text',
+          maxLength: 40,
+          admin: {
+            description:
+              'Wpisz miejscowość, jeśli to numer punktu Tech (np. Rabka-Zdrój) — pokaże się przy Tech na hubie obok Zakopanego i infolinii. Puste = zwykły numer.',
+          },
+        },
+      ],
+    },
+    {
+      name: 'extraEmails',
+      label: 'Dodatkowe adresy e-mail (Kontakt)',
+      type: 'array',
+      admin: {
+        description:
+          'Stare adresy używane latami (runda 18.11, D15) — pokazywane na /kontakt obok głównego adresu huba. Włącz „Pokazuj” dopiero, gdy skrzynka działa i ktoś ją odbiera. Główny adres jest w Ustawieniach strony — adres taki sam jak główny nie jest powtarzany.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'label', label: 'Opis', type: 'text', required: true, maxLength: 40 },
+            { name: 'email', label: 'Adres', type: 'email', required: true },
+            { name: 'published', label: 'Pokazuj', type: 'checkbox', defaultValue: false },
+          ],
+        },
       ],
     },
     {

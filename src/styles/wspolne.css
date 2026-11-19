@@ -1071,52 +1071,79 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent-text);
 }
 .srail__choices {
-  display: flex;
-  gap: 4px;
-  margin: 0 8px 4px 47px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2px 4px 4px;
   padding: 3px;
-  border-radius: 11px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   background: var(--surface-2);
   opacity: 0;
-  /* Not clickable while folded: the first pill reaches into the 64 px of the folded rail. */
+  /* Not clickable while folded: the first option reaches into the 64 px of the folded rail. */
   pointer-events: none;
   transition: opacity var(--dur-hover);
+}
+/* The thumb under the chosen option (Krystian 19.11: „ładniej”) — the accent tint of the line,
+   gliding between the three places on the motion system's curve. */
+.srail__choices::before {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 3);
+  border-radius: 9px;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-text) 22%, transparent);
+  content: '';
+  transform: translateX(calc(100% * var(--choice, 2)));
+  transition: transform 260ms var(--ease-theme);
 }
 .srail:is(:hover, :focus-within):not([data-collapsed]) .srail__choices {
   opacity: 1;
   pointer-events: auto;
 }
-/* A low window (as the rows above): the pills closer, so the rail stays inside the screen. */
-@media (max-height: 1000px) {
-  .srail__choices {
-    margin-bottom: 2px;
-    padding: 2px;
-  }
-  .srail__choices button {
-    height: 24px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .srail__choices {
-    transition: none;
-  }
-}
 .srail__choices button {
-  flex: 1;
-  height: 28px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 30px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 9px;
   background: none;
   color: var(--ink-2);
   font: inherit;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+  transition: color var(--dur-hover);
+}
+.srail__choices button:hover {
+  color: var(--ink);
 }
 .srail__choices button[aria-pressed='true'] {
-  background: var(--card);
-  color: var(--ink);
-  box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--accent-text);
+}
+.srail__choices button svg {
+  flex: none;
+}
+/* A low window (as the rows above): the options lower, so the rail stays inside the screen. */
+@media (max-height: 1000px) {
+  .srail__choices {
+    margin-bottom: 2px;
+  }
+  .srail__choices button {
+    height: 26px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .srail__choices,
+  .srail__choices::before {
+    transition: none;
+  }
 }
 .srail__sep {
   flex: none;

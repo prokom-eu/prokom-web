@@ -6,6 +6,7 @@ import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { getEnv } from '@/lib/env'
 import { issueFormToken } from '@/lib/inquiry/spam'
 import { HUB_ABOUT } from '@/lib/prokom/about'
+import { visibleNetwork } from '@/lib/prokom/brands'
 import { getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { hubPageMetadata, type HubDescribedPath } from '@/lib/prokom/seo'
@@ -13,8 +14,14 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
-import { AboutStory, AboutValues } from './AboutStory'
-import { BranchNote, ExtraPhones } from './ExtraContacts'
+import { AboutNetwork, AboutStory, AboutValues } from './AboutStory'
+import {
+  BranchNote,
+  ExtraEmails,
+  ExtraPhones,
+  PartnerPointNote,
+  TechPointsCard,
+} from './ExtraContacts'
 import { SaturdayNote } from './SaturdayNote'
 
 /**
@@ -61,7 +68,9 @@ export async function hubSlugPage(
   if (!shared) return null
   const env = getEnv()
   const settings = await getHubSettings(tenant.id)
+  const network = visibleNetwork(settings.brands, settings.trust)
   if (slug === 'kontakt') {
+    const lineContacts = await getHubLineContacts(tenant.id)
     return (
       <ContactPage
         shared={shared}
@@ -74,8 +83,13 @@ export async function hubSlugPage(
           // Notes split between the hero columns so both are about as tall (16.11).
           heroBelow: (
             <>
-              <SaturdayNote lines={await getHubLineContacts(tenant.id)} />
+              <SaturdayNote lines={lineContacts} />
+              <TechPointsCard lines={lineContacts} />
               <ExtraPhones phones={settings.extraPhones} />
+              <ExtraEmails emails={settings.extraEmails} main={shared.line.email} />
+              {network && (
+                <PartnerPointNote text={network.salonNote} href={`/o-firmie#${network.slug}`} />
+              )}
             </>
           ),
           heroAside: <BranchNote branch={settings.branch} />,
@@ -93,7 +107,12 @@ export async function hubSlugPage(
       slots={{
         // „Nasza historia” and „Co nas wyróżnia” (16.11): code defaults, the panel adds the rest.
         afterStats: <AboutStory about={HUB_ABOUT} />,
-        afterRules: <AboutValues about={HUB_ABOUT} brands={settings.brands} />,
+        afterRules: (
+          <>
+            <AboutValues about={HUB_ABOUT} brands={settings.brands} network={network} />
+            <AboutNetwork network={network} />
+          </>
+        ),
         ...(settings.branch && {
           beforeVisit: (
             <section aria-label={settings.branch.name} className={`${PAGE_CONTAINER} py-6`}>

@@ -1,0 +1,2114 @@
+{
+ "kolejnosc": [
+  "zestaw-inst-dom-4-kamery-start",
+  "zestaw-inst-dom-posesja-rozbudowany",
+  "zestaw-inst-dom-ajax-kamery",
+  "zestaw-inst-domek-letniskowy",
+  "zestaw-inst-apartament-wynajem",
+  "zestaw-inst-pensjonat-kamery-alarm-domofon",
+  "zestaw-inst-hotel-monitoring-dostep",
+  "zestaw-inst-sala-konferencyjna",
+  "zestaw-inst-restauracja-sala-weselna",
+  "zestaw-inst-sklep-kamery-alarm-satel",
+  "zestaw-inst-firma-wejscie-twarz-karta",
+  "zestaw-inst-hala-magazyn-ptz-alarm",
+  "zestaw-inst-modernizacja-koncentryk",
+  "zestaw-inst-kosciol-transmisja-mszy",
+  "zestaw-inst-szkola-monitoring-alarm",
+  "zestaw-inst-gmina-swietlica-remiza",
+  "zestaw-inst-budowa-kontener",
+  "zestaw-inst-deweloper-czesci-wspolne"
+ ],
+ "grupy": [
+  "Dom i domek letniskowy",
+  "Apartament na wynajem",
+  "Pensjonat",
+  "Hotel",
+  "Restauracja i sala weselna",
+  "Sklep i salon",
+  "Firma, biuro i hala",
+  "Kościół i parafia",
+  "Szkoła i przedszkole",
+  "Gmina i urząd",
+  "Deweloper",
+  "Budowa"
+ ],
+ "zestawy": {
+  "zestaw-inst-dom-4-kamery-start": {
+   "nazwa": "Dom — 4 kamery IP z rejestratorem PoE",
+   "grupa": "Dom i domek letniskowy",
+   "poziom": "Start",
+   "status": "do-potwierdzenia",
+   "dla": "Dom jednorodzinny albo domek z działką, w którym chcesz widzieć wjazd, wejście, taras i ogród, a nagrania trzymać na miejscu, nie w chmurze.",
+   "korzysc": "Cztery kamery na jednym przewodzie każda: rejestrator sam je zasila, a obraz masz w telefonie.",
+   "opis": [
+    "Najprostszy sensowny monitoring domu: dwie kamery tubowe patrzą na wjazd i furtkę, dwie kulkowe pilnują drzwi wejściowych i tarasu. Do każdej kamery prowadzimy jedną skrętkę, która niesie i obraz, i zasilanie, więc na elewacji nie ma zasilaczy ani gniazdek.",
+    "Rejestrator Dahua NVR2104-P-4KS3 ma wbudowane 4 porty PoE o łącznej mocy 36 W, a kamery Dahua Entry 4 Mpx pobierają po kilka watów, więc zapas jest spory. Dysk WD Purple przeznaczony do pracy ciągłej zapisuje obraz ze wszystkich kamer, a stare nagrania nadpisują się same.",
+    "Montujemy kamery, układamy przewody, ustawiamy kadry tak, żeby nie obejmowały posesji sąsiadów, i konfigurujemy aplikację DMSS na Twoim telefonie. Na montaż dajemy 24 mies. gwarancji, a później możesz wymienić kamery na mocniejsze bez zmiany rejestratora."
+   ],
+   "el": [
+    {
+     "s": "dahua-nvr2104-p-4ks3",
+     "rola": "rejestrator z wbudowanym PoE",
+     "w": "NVR2104-P-4KS3, 4 kanały, 4 porty PoE 36 W",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw1439tl1-a-il",
+     "rola": "kamera tubowa na wjazd i furtkę",
+     "w": "IPC-HFW1439TL1-A-IL 4 Mpx, 2,8 mm",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw1x39v-a-il",
+     "rola": "kamera kulkowa przy drzwiach i tarasie",
+     "w": "IPC-HDW1439V-A-IL 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD23PURZ 2 TB; dłuższe archiwum: WD64PURZ 6 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-pfa130-e",
+     "rola": "puszka montażowa pod kamerę kulkową",
+     "w": "PFA130-E biała (czarna: PFA130-E-B) — zgodność wg tabeli Dahua",
+     "q": 2,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-ipc-hfw1439tl1-a-il",
+     "na": "dahua-ipc-hfw2x49s-s-il",
+     "kiedy": "Gdy chcesz, żeby kamera sama odróżniała człowieka i auto od liści i kota oraz nagrywała też na kartę microSD."
+    },
+    {
+     "z": "wd-purple",
+     "na": "seagate-skyhawk",
+     "kiedy": "Gdy wolisz dysk Seagate: SkyHawk ma pojemności 2, 4 i 6 TB i też jest przeznaczony do pracy ciągłej."
+    },
+    {
+     "z": "dahua-nvr2104-p-4ks3",
+     "na": "dahua-nvr41xxhs-ei",
+     "kiedy": "Gdy rejestrator ma rozpoznawać twarze lub pilnować linii ogrodzenia; ten model nie ma PoE, więc kamery zasila osobny przełącznik."
+    }
+   ],
+   "why": [
+    "NVR2104-P-4KS3 ma 4 kanały i 4 porty PoE (802.3af/at, łącznie 36 W): każda kamera Entry pobiera poniżej 8 W, więc rejestrator zasila wszystkie bez dodatkowego przełącznika.",
+    "Kamery i rejestrator są jednej marki, dzięki czemu wszystko widzisz w jednej aplikacji DMSS i nie walczysz z różnymi ustawieniami.",
+    "Kamery Entry 4 Mpx mają po dwie diody podczerwieni i ciepłego światła do 30 m, obudowę IP67 i pracują od −40 °C: zima na Podhalu im nie straszna.",
+    "Rejestrator przyjmie kamery do 12 Mpx i dysk do 20 TB, więc rozbudowa nie wymaga wymiany całego zestawu."
+   ],
+   "usl": [
+    "Monitoring domu i posesji",
+    "Rejestratory NVR i dyski do monitoringu",
+    "Monitoring ustawiony pod RODO"
+   ],
+   "faq": [
+    {
+     "q": "Czy do kamer trzeba ciągnąć prąd?",
+     "a": "Nie. Każda kamera dostaje zasilanie tą samą skrętką, którą przesyła obraz, prosto z portu PoE rejestratora."
+    },
+    {
+     "q": "Jak długo będą trzymane nagrania?",
+     "a": "Zależy od dysku, rozdzielczości i ruchu przed kamerami. Przy montażu ustawiamy zapis tak, żeby archiwum obejmowało co najmniej kilka dni, a przy większym dysku odpowiednio dłużej."
+    },
+    {
+     "q": "Czy zobaczę kamery w telefonie poza domem?",
+     "a": "Tak, w aplikacji Dahua DMSS, jeśli rejestrator ma dostęp do internetu. Konfigurujemy ją na Twoim telefonie przy odbiorze."
+    },
+    {
+     "q": "Czy mogę mieć więcej niż 4 kamery?",
+     "a": "Ten rejestrator ma 4 kanały. Przy większej liczbie kamer wybierz zestaw rozbudowany z rejestratorem 8-kanałowym."
+    }
+   ]
+  },
+  "zestaw-inst-dom-posesja-rozbudowany": {
+   "nazwa": "Dom z dużą posesją — 6 kamer z kolorem w nocy i zoomem na bramę",
+   "grupa": "Dom i domek letniskowy",
+   "poziom": "Rozbudowany",
+   "status": "do-potwierdzenia",
+   "dla": "Dom z dużą działką, garażem i budynkiem gospodarczym albo posesja przy drodze, gdzie liczą się kolor po zmroku, czytelny obraz bramy i alarm tylko od ludzi i aut.",
+   "korzysc": "Kamery same odróżniają człowieka i auto od zwierząt, a nocą pokazują kolory, nie szare plamy.",
+   "opis": [
+    "Na dużej posesji zwykłe kamery generują dziesiątki fałszywych powiadomień: liście, sarny, światła aut na drodze. W tym zestawie kamery WizSense 2 i WizColor analizują obraz same i powiadamiają tylko o ludziach i pojazdach, a rejestrator NVR4108HS-EI dodatkowo pilnuje linii ogrodzenia.",
+    "Dwie kamery WizColor z dużym przetwornikiem 1/1,8 cala i obiektywem F1.0 obserwują wjazd i podwórko w kolorze nawet po zmroku. Trzy kamery kulkowe w metalowej obudowie pilnują drzwi, garażu i tarasu. Kamera z motozoomem 2,7–13,5 mm patrzy na bramę z daleka: kadr przybliżasz z aplikacji, bez wchodzenia na drabinę.",
+    "Kamery łączymy przez przełącznik PoE dobrany do ich liczby i poboru (wyceniamy go razem z okablowaniem), a rejestrator stawiamy w szafce z dostępem do sieci. Zostają dwa wolne kanały, np. na budynek gospodarczy. Montaż obejmuje ustawienie stref analizy i masek prywatności oraz konfigurację aplikacji dla domowników."
+   ],
+   "el": [
+    {
+     "s": "dahua-nvr41xxhs-ei",
+     "rola": "rejestrator z AI",
+     "w": "NVR4108HS-EI, 8 kanałów",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49tl-s-led-pro",
+     "rola": "kamera z kolorem w nocy na wjazd i podwórko",
+     "w": "IPC-HFW2849TL-S-LED-0280B-PRO 8 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw2x49tm-s-il",
+     "rola": "kamera kulkowa przy drzwiach, garażu i tarasie",
+     "w": "IPC-HDW2449TM-S-IL 4 Mpx, metalowa",
+     "q": 3,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49t-zas-il-27135",
+     "rola": "kamera z motozoomem na bramę",
+     "w": "IPC-HFW2449T-ZAS-IL 4 Mpx, 2,7–13,5 mm",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "seagate-skyhawk",
+     "rola": "dysk do rejestratora",
+     "w": "ST4000VX016 4 TB; dłuższe archiwum: ST6000VX009 6 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-pfa130-e",
+     "rola": "puszka pod kamerę kulkową",
+     "w": "PFA130-E — zgodność wg tabeli Dahua",
+     "q": 3,
+     "ob": false
+    },
+    {
+     "s": "dahua-pfa152-e",
+     "rola": "adapter na słupek przy bramie",
+     "w": "PFA152-E do słupów 80–150 mm",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-nvr41xxhs-ei",
+     "na": "dahua-nvr42xx-ei",
+     "kiedy": "Gdy chcesz dwa dyski albo podłączyć do rejestratora czujki i syrenę przez wejścia i wyjścia alarmowe."
+    },
+    {
+     "z": "dahua-ipc-hdw2x49tm-s-il",
+     "na": "dahua-ipc-hdw1x39t-a-il",
+     "kiedy": "Gdy przy drzwiach wystarczy prostsza kamera Entry 6 lub 8 Mpx bez analizy obrazu w kamerze."
+    },
+    {
+     "z": "seagate-skyhawk",
+     "na": "wd-purple",
+     "kiedy": "Gdy archiwum ma być długie: WD Purple Pro 10 TB mieści kilka razy więcej nagrań."
+    }
+   ],
+   "why": [
+    "NVR4108HS-EI przyjmuje 8 kamer do 16 Mpx i sam wykrywa twarze oraz przekroczenie linii na 2 kanałach, a analizę SMD z kamer WizSense wykorzystuje na pozostałych.",
+    "WizColor ma przetwornik 1/1,8 cala i obiektyw F1.0: zbiera tyle światła, że po zmroku zachowuje kolory, a ciepłe światło do 20 m doświetla tylko wtedy, gdy trzeba.",
+    "Motozoom 2,7–13,5 mm z IR i ciepłym światłem do 60 m pozwala ustawić kadr bramy tak, żeby rozpoznać auto, zamiast oglądać kropkę na końcu podjazdu.",
+    "Wszystkie kamery mają IP67, pracują od −40 °C i przyjmują kartę microSD jako zapis awaryjny przy przerwie w sieci."
+   ],
+   "usl": [
+    "Monitoring domu i posesji",
+    "Kamery z kolorem w nocy i detekcją AI",
+    "Switche PoE, UPS i szafa rack",
+    "Monitoring ustawiony pod RODO"
+   ],
+   "faq": [
+    {
+     "q": "Czy sarna albo kot nie uruchomią alarmu?",
+     "a": "Kamery WizSense 2 i WizColor odróżniają ludzi i pojazdy od innych obiektów, więc powiadomienia ustawiamy tylko na te dwie klasy. Pojedyncze pomyłki zdarzają się w każdym systemie, dlatego strefy dobieramy na miejscu."
+    },
+    {
+     "q": "Po co przełącznik PoE, skoro rejestrator ma porty sieciowe?",
+     "a": "NVR4108HS-EI nie zasila kamer. Przełącznik PoE daje każdej kamerze prąd po skrętce; dobieramy go do liczby kamer i ich poboru mocy."
+    },
+    {
+     "q": "Czy mogę później dołożyć kamerę na budynek gospodarczy?",
+     "a": "Tak, w rejestratorze zostają 2 wolne kanały. Gdy budynek stoi dalej niż zasięg skrętki, łączymy go mostem radiowym albo światłowodem."
+    },
+    {
+     "q": "Czy kamera z zoomem rozpozna tablicę rejestracyjną?",
+     "a": "To zależy od odległości, kąta i oświetlenia. Do odczytu tablic służą osobne kamery ANPR; w tym zestawie zoom służy do czytelnego podglądu bramy."
+    }
+   ]
+  },
+  "zestaw-inst-dom-ajax-kamery": {
+   "nazwa": "Dom z alarmem Ajax i dwiema kamerami w jednej aplikacji",
+   "grupa": "Dom i domek letniskowy",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Zamieszkany dom, w którym chcesz alarm bez kucia ścian, czujkę dymu i podgląd wejść, a wszystko uzbrajać i sprawdzać z telefonu.",
+   "korzysc": "Alarm, czujka dymu i podgląd kamer w jednej aplikacji, montowane bez bruzd w ścianach.",
+   "opis": [
+    "Bezprzewodowy alarm Ajax zakładamy w ciągu jednej wizyty, bez kucia i malowania. Czujki ruchu chronią parter i wiatrołap, kontaktrony pilnują drzwi wejściowych i tarasowych, a klawiatura przy wejściu pozwala uzbroić dom kodem, gdy nie masz przy sobie telefonu.",
+    "Centrala Hub 2 (4G) łączy się z internetem kablem i dodatkowo przez dwie karty SIM, więc odcięcie przewodu nie wyłącza powiadomień, a akumulator podtrzymuje ją przy braku prądu. Syrena zewnętrzna odstrasza, wewnętrzna informuje domowników, a dwie kamery Dahua przy drzwiach i na podjeździe widać w aplikacji Ajax obok czujek.",
+    "Przy montażu sprawdzamy siłę sygnału każdej czujki, ustawiamy tryb nocny, kody dla domowników i powiadomienia. Na montaż dajemy 24 mies. gwarancji, a system można w przyszłości rozszerzyć o czujki zalania, kolejne kamery i sterowanie bramą."
+   ],
+   "el": [
+    {
+     "s": "ajax-hub-2",
+     "rola": "centrala alarmowa",
+     "w": "Hub 2 (4G) Jeweller — Ethernet + 2 × SIM LTE",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-motionprotect",
+     "rola": "czujka ruchu",
+     "w": "MotionProtect Jeweller (odporna na zwierzęta do 20 kg)",
+     "q": 3,
+     "ob": true
+    },
+    {
+     "s": "ajax-doorprotect",
+     "rola": "czujka otwarcia drzwi",
+     "w": "DoorProtect Jeweller — drzwi wejściowe i tarasowe",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-keypad",
+     "rola": "klawiatura przy wejściu",
+     "w": "KeyPad Jeweller, biała lub czarna",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-streetsiren",
+     "rola": "syrena zewnętrzna",
+     "w": "StreetSiren Jeweller, 85–113 dB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-homesiren",
+     "rola": "syrena wewnętrzna",
+     "w": "HomeSiren Jeweller",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "ajax-fireprotect-2",
+     "rola": "czujka dymu i temperatury",
+     "w": "FireProtect 2 RB (Heat/Smoke) — korytarz przy sypialniach",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "ajax-glassprotect",
+     "rola": "czujka zbicia szyby",
+     "w": "GlassProtect — duże przeszklenia salonu",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "dahua-nvr2104-p-4ks3",
+     "rola": "rejestrator z PoE",
+     "w": "NVR2104-P-4KS3 — 2 kanały wolne na rozbudowę",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw1x39v-a-il",
+     "rola": "kamera przy drzwiach i na podjeździe",
+     "w": "IPC-HDW1439V-A-IL 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD23PURZ 2 TB",
+     "q": 1,
+     "ob": true
+    }
+   ],
+   "zam": [
+    {
+     "z": "ajax-hub-2",
+     "na": "ajax-hub-2-plus",
+     "kiedy": "Gdy dom jest duży albo z budynkami obok: Hub 2 Plus obsłuży 200 urządzeń i ma też Wi-Fi."
+    },
+    {
+     "z": "ajax-motionprotect",
+     "na": "ajax-motioncam",
+     "kiedy": "Gdy przy alarmie chcesz od razu dostać zdjęcia z pomieszczenia, żeby ocenić, czy to włamanie."
+    },
+    {
+     "z": "ajax-hub-2",
+     "na": "ajax-starterkit-hub-2",
+     "kiedy": "Gdy wolisz komplet z pudełka: hub, czujki ruchu, otwarcia i zalania, pilot, syrena i kamera Ajax."
+    }
+   ],
+   "why": [
+    "Hub 2 obsłuży do 100 urządzeń Ajax i do 25 kamer Dahua lub Hikvision, więc podgląd wejścia masz w tej samej aplikacji co alarm.",
+    "Łączność przez Ethernet i dwie karty SIM z LTE oraz akumulator 3 Ah (do 15 h według producenta) utrzymują powiadomienia przy awarii internetu albo prądu.",
+    "Czujki Ajax działają na bateriach do 5–7 lat i mają zasięg radiowy liczony w setkach metrów, więc nie trzeba prowadzić do nich przewodów.",
+    "Rejestrator z wbudowanym PoE zasila kamery po skrętce i ma 2 wolne kanały na kolejne kamery."
+   ],
+   "usl": [
+    "Alarm bezprzewodowy bez kucia ścian",
+    "Alarm do domu i mieszkania",
+    "Monitoring domu i posesji"
+   ],
+   "faq": [
+    {
+     "q": "Czy pies nie będzie uruchamiał alarmu?",
+     "a": "MotionProtect ignoruje zwierzęta do 20 kg i 50 cm wysokości. Przy większym psie ustawiamy czujki i strefy tak, żeby zwierzę nie wchodziło w ich pole w trybie uzbrojenia."
+    },
+    {
+     "q": "Co, jeśli ktoś przetnie kabel internetu?",
+     "a": "Hub 2 (4G) przełączy się na kartę SIM i dalej wyśle powiadomienie. Dwie karty różnych operatorów dają jeszcze jedną drogę zapasową."
+    },
+    {
+     "q": "Czy kamery muszą być marki Ajax?",
+     "a": "Nie. Hub 2 pokazuje w aplikacji kamery i rejestratory m.in. Dahua i Hikvision, do 25 sztuk."
+    },
+    {
+     "q": "Jak często wymienia się baterie?",
+     "a": "Według producenta baterie w czujkach ruchu wytrzymują do 5 lat, w kontaktronach do 7 lat. Aplikacja z wyprzedzeniem informuje o słabej baterii."
+    }
+   ]
+  },
+  "zestaw-inst-domek-letniskowy": {
+   "nazwa": "Domek letniskowy — alarm na kartę SIM ze zdjęciami z czujek",
+   "grupa": "Dom i domek letniskowy",
+   "poziom": "Start",
+   "status": "do-potwierdzenia",
+   "dla": "Domek w górach lub na działce, w którym nikt nie mieszka na stałe, często bez internetu, a właściciel chce wiedzieć o włamaniu, zalaniu i pożarze z odległości.",
+   "korzysc": "Alarm wysyła zdjęcie z czujki na telefon, więc od razu wiesz, czy jechać, czy dzwonić na policję.",
+   "opis": [
+    "W pustym domku największym problemem jest pewność, a syrena to sprawa drugorzędna: czy to włamanie, czy mysz. Czujki MotionCam przy alarmie robią serię zdjęć z podświetleniem podczerwienią i wysyłają je do aplikacji, więc decyzję podejmujesz, patrząc na zdjęcie, nie na sam komunikat.",
+    "Centrala Hub 2 (4G) działa na kartach SIM, więc w domku nie musi być stałego łącza. Kontaktron na drzwiach wejściowych zgłasza otwarcie, czujka zalania pod zlewem lub przy piecu daje znać o wycieku, zanim woda zaleje podłogę, a głośna syrena na elewacji płoszy intruza.",
+    "Montaż robimy w jeden dzień, sprawdzamy zasięg sieci komórkowej w miejscu centrali i ustawiamy, kto dostaje powiadomienia. Przy kominku lub piecu na paliwo stałe polecamy czujkę FireProtect 2 z czujnikiem tlenku węgla."
+   ],
+   "el": [
+    {
+     "s": "ajax-hub-2",
+     "rola": "centrala alarmowa na kartę SIM",
+     "w": "Hub 2 (4G) Jeweller — karta SIM z transmisją danych",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-motioncam",
+     "rola": "czujka ruchu ze zdjęciami",
+     "w": "MotionCam Jeweller — salon i wejście",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-doorprotect",
+     "rola": "czujka otwarcia drzwi",
+     "w": "DoorProtect Jeweller",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-streetsiren",
+     "rola": "syrena zewnętrzna",
+     "w": "StreetSiren Jeweller, biała lub czarna (drewniana elewacja)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-leaksprotect",
+     "rola": "czujka zalania",
+     "w": "LeaksProtect Jeweller — pod zlewem lub przy piecu",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-fireprotect-2",
+     "rola": "czujka dymu, temperatury i CO",
+     "w": "FireProtect 2 RB (Heat/Smoke/CO) — przy kominku",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "ajax-keypad",
+     "rola": "klawiatura przy drzwiach",
+     "w": "KeyPad Jeweller — dla rodziny bez aplikacji",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "ajax-motioncam",
+     "na": "ajax-motionprotect",
+     "kiedy": "Gdy wystarczy sam komunikat o ruchu bez zdjęć, np. w drugim pomieszczeniu."
+    },
+    {
+     "z": "ajax-hub-2",
+     "na": "ajax-starterkit-hub-2",
+     "kiedy": "Gdy chcesz od razu kamerę Ajax na zewnątrz i czujnik jakości powietrza w jednym pudełku."
+    },
+    {
+     "z": "ajax-streetsiren",
+     "na": "ajax-homesiren",
+     "kiedy": "Gdy syrena ma być tylko w środku, np. w zabudowie szeregowej, gdzie głośny sygnał na elewacji przeszkadzałby sąsiadom."
+    }
+   ],
+   "why": [
+    "MotionCam wysyła serię zdjęć do 640 × 480 px; według producenta pierwsze dociera w ok. 9 s, także przez sieć komórkową.",
+    "Hub 2 (4G) ma dwa gniazda SIM i akumulator do 15 h, więc pracuje bez internetu kablowego i przy chwilowym braku prądu.",
+    "LeaksProtect reaguje na wodę w 0,15 s i ma styki na czterech bokach, dlatego działa położony luzem na podłodze.",
+    "StreetSiren ma do 113 dB, obudowę IP54 i pracuje na bateriach do 5 lat, więc nie wymaga przewodu na elewacji."
+   ],
+   "usl": [
+    "Ochrona domu letniskowego",
+    "Alarm bezprzewodowy bez kucia ścian"
+   ],
+   "faq": [
+    {
+     "q": "Czy alarm zadziała bez internetu w domku?",
+     "a": "Tak. Hub 2 (4G) wysyła alarmy i zdjęcia przez kartę SIM. Przed montażem sprawdzamy zasięg w miejscu, gdzie stanie centrala."
+    },
+    {
+     "q": "Co, jeśli zimą domek jest nieogrzewany?",
+     "a": "Hub i czujki Ajax pracują według producenta od −10 °C. W domku, który zimą wychładza się mocniej, zostawiamy minimalne ogrzewanie albo dobieramy miejsce montażu."
+    },
+    {
+     "q": "Kto dostanie powiadomienie?",
+     "a": "Każda osoba z kontem w aplikacji Ajax, której nadasz uprawnienia: np. Ty, sąsiad i członek rodziny."
+    },
+    {
+     "q": "Czy czujka zalania wyłączy wodę?",
+     "a": "Sama nie. Powiadamia o wycieku; zawór odcinający można dołożyć w rozbudowie systemu."
+    }
+   ]
+  },
+  "zestaw-inst-apartament-wynajem": {
+   "nazwa": "Apartament na wynajem — wejście na kod, czujki i kamera przy drzwiach",
+   "grupa": "Apartament na wynajem",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Apartament lub domek na wynajem krótkoterminowy w Zakopanem, Białce czy Rabce, gdzie gość ma wejść sam o dowolnej porze, a właściciel chce wiedzieć o zalaniu i dymie.",
+   "korzysc": "Każdy gość dostaje własny kod, który kasujesz po wyjeździe, bez przekazywania kluczy.",
+   "opis": [
+    "Samodzielne zameldowanie wymaga wejścia, które nie zależy od klucza pod wycieraczką. Czytnik Dahua ASI1201E przy drzwiach przyjmuje kody i karty: każdemu gościowi nadajesz osobny kod, a po wymeldowaniu go usuwasz. Drzwi trzyma zwora 280 kg, a czytnik pracuje w sieci, więc kody zmienisz zdalnie.",
+    "W środku montujemy tylko czujki, nigdy kamery, bo prywatność gościa jest ważniejsza niż podgląd. Hub Ajax pilnuje czujki dymu, temperatury i tlenku węgla oraz czujek zalania w łazience i kuchni przez cały czas, niezależnie od tego, czy apartament jest zajęty. Kamera Wi-Fi na zewnątrz pokazuje tylko podejście do drzwi.",
+    "Zasilacz Pulsar daje osobne wyjścia dla czytnika i zwory. Zwora po zaniku prądu zwalnia drzwi, dlatego mechaniczny zamek w drzwiach zostaje jako drugie zamknięcie na czas, gdy apartament stoi pusty. Ustawiamy też aplikacje i uczymy właściciela obsługi kodów."
+   ],
+   "el": [
+    {
+     "s": "dahua-asi1201e-v1",
+     "rola": "czytnik kodów i kart przy drzwiach",
+     "w": "ASI1201E-V1, praca w sieci TCP/IP",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-asf280a-v1",
+     "rola": "zwora elektromagnetyczna",
+     "w": "ASF280A-V1 280 kg + wspornik dobrany do drzwi",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "pulsar-hpsdc",
+     "rola": "zasilacz czytnika i zwory",
+     "w": "HPSDC-12V4X1A — czytnik i zwora na osobnych wyjściach",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-hub-2",
+     "rola": "centrala czujek bezpieczeństwa",
+     "w": "Hub 2 (4G) Jeweller",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-fireprotect-2",
+     "rola": "czujka dymu, temperatury i CO",
+     "w": "FireProtect 2 RB (Heat/Smoke/CO)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-leaksprotect",
+     "rola": "czujka zalania",
+     "w": "LeaksProtect — łazienka i kuchnia",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-doorprotect",
+     "rola": "czujka otwarcia drzwi",
+     "w": "DoorProtect — informacja o wejściu, gdy apartament stoi pusty",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "dahua-p8f-pv-pro",
+     "rola": "kamera przy wejściu z zewnątrz",
+     "w": "Picoo P8F-PV 8 Mpx, Wi-Fi 6, zapis na microSD",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-asi1201e-v1",
+     "na": "hikvision-ds-k1t802e",
+     "kiedy": "Gdy wystarczą karty EM i kody, a czytnik montujemy wewnątrz klatki lub pod zadaszeniem."
+    },
+    {
+     "z": "dahua-asf280a-v1",
+     "na": "hikvision-ds-k4h250s",
+     "kiedy": "Gdy zwora ma pracować na 24 V albo drzwi są dwuskrzydłowe."
+    },
+    {
+     "z": "ajax-hub-2",
+     "na": "ajax-hub-2-plus",
+     "kiedy": "Gdy w jednym budynku masz kilka apartamentów i chcesz je rozdzielić na grupy w jednej centrali."
+    }
+   ],
+   "why": [
+    "ASI1201E zapamięta 30 000 kodów i kart, ma klawiaturę z podświetleniem, IP66 i pracę od −30 °C, więc nadaje się na drzwi od strony podwórka.",
+    "Zwora ASF280A trzyma 280 kg, ma diodę stanu i wyjście czujnika drzwi; zasilacz Pulsar ma bezpiecznik na każdym wyjściu.",
+    "FireProtect 2 z czujnikiem CO i LeaksProtect działają przez cały czas, także gdy alarm włamaniowy jest wyłączony na czas pobytu gości.",
+    "Kamera tylko na zewnątrz i tylko na wejście to rozwiązanie zgodne z oczekiwaniami gości co do prywatności."
+   ],
+   "usl": [
+    "Zamki z kodem do apartamentów",
+    "Harmonogramy i historia wejść",
+    "Alarm bezprzewodowy bez kucia ścian"
+   ],
+   "faq": [
+    {
+     "q": "Czy kod gościa zmienię na odległość?",
+     "a": "Tak, czytnik pracuje w sieci TCP/IP. Sposób zdalnego zarządzania kodami ustawiamy przy montażu, zależnie od łącza w apartamencie."
+    },
+    {
+     "q": "Co się stanie przy braku prądu?",
+     "a": "Zwora zwalnia drzwi bez zasilania, dlatego zostawiamy w drzwiach zwykły zamek. Gdy apartament stoi pusty, zamykasz go dodatkowo na klucz."
+    },
+    {
+     "q": "Czy mogę mieć kamerę w salonie?",
+     "a": "Nie polecamy i nie montujemy kamer w częściach wynajmowanych gościom. W środku zostają czujki dymu, CO i zalania."
+    },
+    {
+     "q": "Czy czujka dymu zastępuje instalację przeciwpożarową?",
+     "a": "Nie. To dodatkowa ochrona z powiadomieniem na telefon; wymagania przeciwpożarowe dla obiektu określają odrębne przepisy."
+    }
+   ]
+  },
+  "zestaw-inst-pensjonat-kamery-alarm-domofon": {
+   "nazwa": "Pensjonat — 6 kamer, wideodomofon na furtkę i bramę, alarm zaplecza",
+   "grupa": "Pensjonat",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Pensjonat lub dom gościnny z parkingiem i ogrodem, gdzie gospodarz otwiera furtkę z telefonu, pilnuje aut gości i zabezpiecza zaplecze, kotłownię i biuro.",
+   "korzysc": "Furtkę i bramę otwierasz z telefonu, parking widzisz w nagraniach, a zaplecze chroni alarm.",
+   "opis": [
+    "W pensjonacie gospodarz rzadko siedzi przy recepcji. Wideodomofon Hikvision DS-KIS702Y ma dwa niezależne przekaźniki: jednym otwierasz furtkę, drugim bramę na parking, a dzwonek odbierasz w aplikacji Hik-Connect także z ogrodu albo z miasta. Zestaw pracuje na dwóch żyłach, więc często wykorzystamy stary przewód od domofonu.",
+    "Cztery kamery tubowe AcuSense z doświetleniem do 40 m pilnują parkingu, wejścia i ogrodu, dwie kamery turret 6 lub 8 Mpx obejmują hol i recepcję. Rejestrator na 8 kanałów odróżnia ludzi i pojazdy, a dysk 6 TB trzyma nagrania z całego obiektu. Kamer nie kierujemy na okna pokoi ani wejścia do łazienek.",
+    "Alarm Ajax z centralą Hub 2 Plus chroni zaplecze, kotłownię, garaż i biuro, które są puste, gdy goście chodzą po korytarzach. Pokoje gości zostają poza strefą. Kamery zasila przełącznik PoE dobrany do obiektu, a całość konfigurujemy w aplikacjach dla gospodarzy."
+   ],
+   "el": [
+    {
+     "s": "hikvision-ds-76xxnxi-k1",
+     "rola": "rejestrator AcuSense",
+     "w": "DS-7608NXI-K1(D), 8 kanałów",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd2043g2-li",
+     "rola": "kamera tubowa na parking, wejście i ogród",
+     "w": "DS-2CD2043G2-LI 4 Mpx, IR do 40 m",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd23x3g2-li2u",
+     "rola": "kamera turret w holu i recepcji",
+     "w": "DS-2CD2363G2-LI2U 6 Mpx, czarna",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD64PURZ 6 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-kis702y",
+     "rola": "wideodomofon 2-żyłowy na furtkę i bramę",
+     "w": "DS-KIS702Y, monitor 7 cali z Wi-Fi",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-hub-2-plus",
+     "rola": "centrala alarmu zaplecza",
+     "w": "Hub 2 Plus Jeweller",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-doorprotect",
+     "rola": "czujka otwarcia drzwi zaplecza i kotłowni",
+     "w": "DoorProtect Jeweller",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "ajax-motionprotect",
+     "rola": "czujka ruchu w biurze i garażu",
+     "w": "MotionProtect Jeweller",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-keypad",
+     "rola": "klawiatura przy wejściu dla personelu",
+     "w": "KeyPad Jeweller",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-streetsiren",
+     "rola": "syrena zewnętrzna",
+     "w": "StreetSiren Jeweller",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-1280zj-xs",
+     "rola": "puszka pod kamerę",
+     "w": "DS-1280ZJ-XS — zgodność z modelem kamery do sprawdzenia",
+     "q": 4,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "hikvision-ds-76xxnxi-k1",
+     "na": "hikvision-ds-76xxnxi-k2",
+     "kiedy": "Gdy kamer będzie więcej niż 8 albo chcesz dwa dyski na dłuższe archiwum."
+    },
+    {
+     "z": "hikvision-ds-2cd2043g2-li",
+     "na": "hikvision-ds-2cd2t43g2-4li",
+     "kiedy": "Gdy parking jest długi: ta kamera doświetla do 80 m i ma obudowę odporną na uderzenia IK10."
+    },
+    {
+     "z": "hikvision-ds-kis702y",
+     "na": "dahua-ktx01-s",
+     "kiedy": "Gdy wystarczy jedno wejście zamka i wolisz system Dahua z aplikacją DMSS."
+    },
+    {
+     "z": "ajax-hub-2-plus",
+     "na": "ajax-hub-2",
+     "kiedy": "Gdy pensjonat jest mały i wystarczy 50 użytkowników oraz 100 urządzeń."
+    }
+   ],
+   "why": [
+    "DS-KIS702Y ma dwa przekaźniki zamków (do 30 V DC, 2 A) i monitor z Wi-Fi: furtka i brama działają z jednej stacji, a dzwonek odbierasz w telefonie.",
+    "Rejestrator DS-7608NXI-K1 obsługuje 8 kamer do 12 Mpx i współpracuje z analizą AcuSense, więc powiadomienia dotyczą ludzi i aut, nie cieni.",
+    "Hub 2 Plus mieści 200 użytkowników i 25 grup: osobno uzbrajasz zaplecze, garaż i biuro, a personel ma własne kody.",
+    "Hub Ajax pokazuje kamery Hikvision w swojej aplikacji, więc przy alarmie od razu patrzysz na obraz z miejsca zdarzenia."
+   ],
+   "usl": [
+    "Monitoring pensjonatu i hotelu",
+    "Wideodomofon na starych dwóch przewodach",
+    "Brama i furtka sterowane z telefonu",
+    "Alarm dla firmy i sklepu"
+   ],
+   "faq": [
+    {
+     "q": "Czy wideodomofon wykorzysta stary przewód?",
+     "a": "Zwykle tak, bo DS-KIS702Y pracuje na dwóch żyłach. Przed montażem mierzymy stan przewodu; uszkodzony wymieniamy."
+    },
+    {
+     "q": "Czy kamery mogą obejmować korytarze z pokojami?",
+     "a": "Korytarz tak, ale nie wnętrza pokoi ani łazienek. Kadry ustawiamy z maskami prywatności, a gości informuje tablica o monitoringu."
+    },
+    {
+     "q": "Czy alarm nie będzie przeszkadzał gościom?",
+     "a": "Nie. Czujki chronią tylko zaplecze, biuro, kotłownię i garaż. Części dla gości zostają poza strefą alarmu."
+    },
+    {
+     "q": "Czy gospodarz i personel mogą mieć osobne uprawnienia?",
+     "a": "Tak. W aplikacji Ajax nadajesz każdemu osobne konto lub kod i wybierasz, które grupy może uzbrajać."
+    }
+   ]
+  },
+  "zestaw-inst-hotel-monitoring-dostep": {
+   "nazwa": "Hotel — 15 kamer, nocne wejście na kartę i zaplecze dla personelu",
+   "grupa": "Hotel",
+   "poziom": "Rozbudowany",
+   "status": "do-potwierdzenia",
+   "dla": "Hotel z recepcją, parkingiem, restauracją i zapleczem, w którym nocą goście wchodzą sami na kartę, a do magazynu i kuchni ma wstęp tylko personel.",
+   "korzysc": "Gość wchodzi nocą na kartę, personel ma uprawnienia do swoich drzwi, a każde zdarzenie jest w nagraniu.",
+   "opis": [
+    "Hotel potrzebuje więcej niż kamer na parking. Rejestrator Dahua NVR4216-EI na dwa dyski obsługuje 16 kamer: tubowe na elewacjach, kulkowe w holu, restauracji i na korytarzach, kamery WizColor na wjeździe i kamerę obrotową z zoomem 5×, która pilnuje parkingu i ostrzega światłem oraz syreną.",
+    "Wejście główne po zamknięciu recepcji obsługuje wideodomofon IP KTP03 z czytnikiem kart: gość z kartą wchodzi sam, pozostali dzwonią do monitora w recepcji. Drzwi do kuchni i magazynu zamyka sterownik Dahua ASC3202B z dwoma czytnikami i zworami, który zapisuje, kto i kiedy wszedł.",
+    "Projekt obejmuje rozmieszczenie kamer, okablowanie, szafę z przełącznikami PoE (PoE+ dla kamery obrotowej) i zasilaczem awaryjnym, uprawnienia dla działów i szkolenie recepcji. Kamery ustawiamy z maskami prywatności, a czas przechowywania nagrań dobieramy do polityki hotelu."
+   ],
+   "el": [
+    {
+     "s": "dahua-nvr42xx-ei",
+     "rola": "rejestrator na 16 kamer i 2 dyski",
+     "w": "NVR4216-EI",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "seagate-skyhawk",
+     "rola": "dyski do rejestratora",
+     "w": "ST6000VX009 6 TB",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49s-s-il",
+     "rola": "kamera tubowa na elewacje i wejścia",
+     "w": "IPC-HFW2449S-S-IL 4 Mpx",
+     "q": 6,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw2x49tm-s-il",
+     "rola": "kamera kulkowa w holu, restauracji i na korytarzach",
+     "w": "IPC-HDW2449TM-S-IL 4 Mpx",
+     "q": 6,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49tl-s-led-pro",
+     "rola": "kamera z kolorem w nocy na wjazd",
+     "w": "IPC-HFW2849TL-S-LED-0280B-PRO 8 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-sd3e405db-gny-a-pv1",
+     "rola": "kamera obrotowa na parking",
+     "w": "SD3E405DB-GNY-A-PV1, zoom 5×, zasilanie PoE+",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ktp03",
+     "rola": "wideodomofon IP z czytnikiem kart na wejściu nocnym",
+     "w": "KTP03 — stacja z czytnikiem, monitor w recepcji, przełącznik PoE",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-asc3202b",
+     "rola": "sterownik dostępu kuchni i magazynu",
+     "w": "ASC3202B na 2 drzwi, PoE 802.3at",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-asi1201e-v1",
+     "rola": "czytnik kart i kodów przy drzwiach personelu",
+     "w": "ASI1201E-V1 jako czytnik Wiegand sterownika",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-asf280a-v1",
+     "rola": "zwora do drzwi zaplecza",
+     "w": "ASF280A-V1 280 kg",
+     "q": 3,
+     "ob": true
+    },
+    {
+     "s": "pulsar-hpsdc",
+     "rola": "zasilacz zwory wejścia nocnego",
+     "w": "HPSDC-12V4X1A",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-asi6213s-pw",
+     "rola": "terminal z rozpoznawaniem twarzy dla personelu",
+     "w": "ASI6213S-PW — wejście służbowe",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-nvr42xx-ei",
+     "na": "hikvision-ds-76xxnxi-k2",
+     "kiedy": "Gdy hotel ma już kamery Hikvision: DS-7632NXI-K2 obsłuży do 32 kamer na dwóch dyskach."
+    },
+    {
+     "z": "dahua-sd3e405db-gny-a-pv1",
+     "na": "dahua-ipc-hfw2x49t-zas-il-27135",
+     "kiedy": "Gdy parking jest wąski i wystarczy stały kadr z motozoomem zamiast kamery obrotowej."
+    },
+    {
+     "z": "dahua-asi1201e-v1",
+     "na": "dahua-asi6213s-pw",
+     "kiedy": "Gdy personel ma wchodzić twarzą zamiast kartą, a terminal ma też rejestrować czas pracy."
+    }
+   ],
+   "why": [
+    "NVR4216-EI przyjmuje 16 kamer do 16 Mpx, ma dwa dyski po 20 TB, port gigabitowy i 4 wejścia alarmowe, więc obsłuży cały obiekt z jednego miejsca.",
+    "KTP03 ma czytnik kart IC z pamięcią 10 000 kart i monitor do recepcji: nocne wejście działa bez portiera.",
+    "ASC3202B steruje dwojgiem drzwi, przyjmuje do 4 czytników i zapisuje 300 000 zdarzeń, a przy zasilaniu PoE podaje do zamków 1200 mA.",
+    "Kamera obrotowa ma IR do 50 m, światło ostrzegawcze i syrenę, więc odstrasza, zanim ktoś podejdzie do aut gości."
+   ],
+   "usl": [
+    "Monitoring pensjonatu i hotelu",
+    "Hotelowe zamki na karty",
+    "Karty i breloki dla pracowników",
+    "Switche PoE, UPS i szafa rack"
+   ],
+   "faq": [
+    {
+     "q": "Czy karty do wejścia nocnego to te same karty co do pokoi?",
+     "a": "Nie zakładamy tego. Zamki w drzwiach pokoi to osobny system hotelowy; czytnik KTP03 obsługuje karty IC, a zgodność z kartami pokojowymi sprawdzamy przy projekcie."
+    },
+    {
+     "q": "Czy recepcja zobaczy gościa przy drzwiach?",
+     "a": "Tak, monitor KTP03 pokazuje obraz ze stacji przy wejściu i pozwala otworzyć drzwi."
+    },
+    {
+     "q": "Dlaczego kamera obrotowa wymaga PoE+?",
+     "a": "Kamera pobiera do 15 W, więcej niż daje zwykły port PoE. Zasilamy ją z portu PoE+ (802.3at) albo z zasilacza 12 V 2 A."
+    },
+    {
+     "q": "Czy historia wejść personelu jest zapisywana?",
+     "a": "Tak, sterownik ASC3202B zapisuje do 300 000 zdarzeń: kto, którymi drzwiami i o której godzinie."
+    }
+   ]
+  },
+  "zestaw-inst-sala-konferencyjna": {
+   "nazwa": "Sala konferencyjna — ekran na ścianie, obraz z laptopa z gniazda przy stole",
+   "grupa": "Hotel",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Sala konferencyjna w hotelu, sala szkoleniowa w firmie albo sala obrad, gdzie prelegent podłącza laptopa przy stole, a obraz ma trafić na duży ekran bez kabla przez całą salę.",
+   "korzysc": "Prelegent wpina laptopa w gniazdo przy stole, a obraz 4K pojawia się na ekranie w kilka sekund.",
+   "opis": [
+    "Kabel HDMI przeciągnięty przez salę to najczęstsza przyczyna spóźnionych prezentacji. W tym zestawie gniazdo nadajnika Turtle AV CHAZY 4K WP przy stole przyjmuje HDMI albo USB-C, a obraz idzie siecią do odbiornika przy ekranie. Ten sam sygnał można wysłać na kilka ekranów naraz.",
+    "Ekran wieszamy na płaskim uchwycie Neomounts LEVEL 550, który trzyma go blisko ściany. Gdy sala jest dzielona albo potrzebny jest drugi ekran dla dalszych rzędów, dokładamy matrycę HDMI 4×4 i mobilny wózek. W salach z projektorem montujemy uchwyt sufitowy z regulacją długości.",
+    "Ekran lub monitor interaktywny dobieramy osobno do wielkości sali. Prowadzimy okablowanie, konfigurujemy przesył AV w sieci oddzielonej od sieci gości i uczymy obsługi personel sali. Na montaż dajemy 24 mies. gwarancji."
+   ],
+   "el": [
+    {
+     "s": "turtle-av-chazy-4k",
+     "rola": "przesył obrazu 4K przez sieć",
+     "w": "1 × CHAZY 4K WP TX przy stole + 1 × CHAZY 4K RX przy ekranie",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "neomounts-level-550-wl30-wl35",
+     "rola": "uchwyt ścienny ekranu",
+     "w": "LEVEL 550 stały lub uchylny — dobrany do przekątnej i masy",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "turtle-av-videowall-matrix",
+     "rola": "matryca HDMI na kilka ekranów i źródeł",
+     "w": "Videowall 4×4",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "neomounts-move-go",
+     "rola": "wózek z drugim ekranem dla dalszych rzędów",
+     "w": "MOVE Go 55–86″",
+     "q": 1,
+     "ob": false
+    },
+    {
+     "s": "neomounts-cl25",
+     "rola": "uchwyt sufitowy projektora",
+     "w": "CL25 regulowany — sala z projektorem",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "turtle-av-chazy-4k",
+     "na": "turtle-av-darwin-hd",
+     "kiedy": "Gdy wystarczy obraz Full HD: DARWIN HD działa w H.265 i może być zasilany z PoE."
+    },
+    {
+     "z": "neomounts-level-550-wl30-wl35",
+     "na": "edbak-fsm",
+     "kiedy": "Gdy wolisz polski uchwyt niskoprofilowy do ekranów 32–86″."
+    },
+    {
+     "z": "neomounts-level-550-wl30-wl35",
+     "na": "neomounts-cl35",
+     "kiedy": "Gdy ściana jest przeszklona albo zbyt słaba i ekran trzeba zawiesić pod sufitem."
+    },
+    {
+     "z": "neomounts-move-go",
+     "na": "edbak-tre-tr",
+     "kiedy": "Gdy wózek ma unieść większy ekran: modele Edbak mają udźwig do 130 kg."
+    }
+   ],
+   "why": [
+    "CHAZY 4K przesyła obraz do 2160p60 4:4:4 w JPEG 2000 z niskim opóźnieniem, a nadajnik WP ma wejścia HDMI i USB-C dla każdego laptopa.",
+    "Sygnał z nadajnika trafia do jednego albo wielu odbiorników jednocześnie, więc rozbudowa o kolejny ekran nie wymaga nowych kabli przez salę.",
+    "LEVEL 550 trzyma ekrany 24–86″ do 40–60 kg z odstępem od ściany od 2,3 cm, więc ekran nie wystaje nad głowami siedzących.",
+    "Matryca 4×4 obsługuje tryby ściany wideo i multiview oraz przełącza źródła bez przerwy w obrazie."
+   ],
+   "usl": [
+    "Sale konferencyjne i sale obrad",
+    "Projektory i ekrany projekcyjne",
+    "Okablowanie strukturalne"
+   ],
+   "faq": [
+    {
+     "q": "Czy laptop z samym USB-C podłączy się bez przejściówki?",
+     "a": "Tak, nadajnik CHAZY 4K WP ma wejście USB-C obok HDMI."
+    },
+    {
+     "q": "Czy przesył obrazu obciąży sieć hotelu?",
+     "a": "Przesył AV ustawiamy w oddzielnej sieci lub VLAN-ie, z dala od Wi-Fi gości, żeby obraz był stabilny."
+    },
+    {
+     "q": "Czy w zestawie jest ekran?",
+     "a": "Nie. Ekran, monitor interaktywny lub projektor dobieramy osobno do wielkości sali i odległości widzów."
+    },
+    {
+     "q": "Czy mogę pokazać ten sam obraz na dwóch ekranach?",
+     "a": "Tak. Odbiorniki CHAZY mogą odbierać ten sam sygnał, a matryca 4×4 rozdziela źródła na kilka ekranów."
+    }
+   ]
+  },
+  "zestaw-inst-restauracja-sala-weselna": {
+   "nazwa": "Restauracja i sala weselna — monitoring sali, baru i parkingu oraz ekrany na przyjęcia",
+   "grupa": "Restauracja i sala weselna",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Restauracja z salą na przyjęcia, barem, ogródkiem i parkingiem, gdzie właściciel chce widzieć kasę i wejścia, a goście wesela pokazują zdjęcia i filmy na ekranach.",
+   "korzysc": "Kasa, zaplecze i parking w nagraniach, a obraz z laptopa trafia na ekrany sali po sieci.",
+   "opis": [
+    "W lokalu gastronomicznym monitoring chroni głównie przed sporami: czy reszta została wydana, kto wjechał w auto na parkingu, kto wyszedł tylnymi drzwiami. Cztery kamery kulkowe WizSense 2 obejmują kasę, bar, salę i wejście na zaplecze, a dwie kamery WizColor pilnują w kolorze parkingu i ogródka także po zmroku.",
+    "Rejestrator NVR4108HS-EI ma 8 kanałów i zapas na dwie kolejne kamery, a dysk 4 TB mieści nagrania z całego lokalu. Kamery zasila przełącznik PoE dobierany do instalacji. Mikrofony w kamerach zostawiamy wyłączone, bo rozmowy gości przy stolikach nie powinny być nagrywane.",
+    "Na wesela i imprezy firmowe dokładamy dwa ekrany na płaskich uchwytach i przesył DARWIN HD: zespół lub kamerzysta podłącza laptopa w jednym miejscu sali, a obraz idzie siecią na oba ekrany. Same ekrany dobieramy do wielkości sali."
+   ],
+   "el": [
+    {
+     "s": "dahua-nvr41xxhs-ei",
+     "rola": "rejestrator",
+     "w": "NVR4108HS-EI, 8 kanałów",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw2x49tm-s-il",
+     "rola": "kamera kulkowa: kasa, bar, sala, zaplecze",
+     "w": "IPC-HDW2449TM-S-IL 4 Mpx",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49tl-s-led-pro",
+     "rola": "kamera z kolorem w nocy: parking i ogródek",
+     "w": "IPC-HFW2449TL-S-LED-0280B-PRO 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "seagate-skyhawk",
+     "rola": "dysk do rejestratora",
+     "w": "ST4000VX016 4 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "turtle-av-darwin-hd",
+     "rola": "przesył obrazu z laptopa na ekrany sali",
+     "w": "1 × DARWIN HD TX + 2 × DARWIN HD RX",
+     "q": 3,
+     "ob": false
+    },
+    {
+     "s": "neomounts-level-550-wl30-wl35",
+     "rola": "uchwyt ścienny ekranu na sali",
+     "w": "LEVEL 550 uchylny",
+     "q": 2,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-ipc-hdw2x49tm-s-il",
+     "na": "dahua-ipc-hdw1x39t-a-il",
+     "kiedy": "Gdy nad kasą potrzebujesz wyższej rozdzielczości 6 lub 8 Mpx, a analiza obrazu w kamerze nie jest potrzebna."
+    },
+    {
+     "z": "dahua-nvr41xxhs-ei",
+     "na": "dahua-nvr42xx-ei",
+     "kiedy": "Gdy lokal ma dwie sale i parking na kilkanaście kamer: NVR4216-EI obsłuży 16 kanałów na dwóch dyskach."
+    },
+    {
+     "z": "neomounts-level-550-wl30-wl35",
+     "na": "neomounts-move-up",
+     "kiedy": "Gdy ekran ma stać przy parkiecie tylko w czasie przyjęć, a na co dzień zostać w magazynie."
+    }
+   ],
+   "why": [
+    "Kamery WizSense 2 mają metalową obudowę, IR do 30 m i kartę microSD do 512 GB jako zapis awaryjny, a WizColor dają kolor na parkingu po zmroku.",
+    "NVR4108HS-EI przyjmie 8 kamer do 16 Mpx i rozpozna twarze na wybranych kanałach, np. przy wejściu na zaplecze.",
+    "DARWIN HD przesyła 1080p60 w H.265 jeden do wielu, więc jedno źródło trafia na kilka ekranów bez przeciągania HDMI przez parkiet.",
+    "Zestaw dzieli się na dwie części: monitoring działa codziennie, a ekrany możesz dodać przed sezonem weselnym."
+   ],
+   "usl": [
+    "Monitoring firmy, hali i placu",
+    "Monitoring ustawiony pod RODO",
+    "Ściany wideo"
+   ],
+   "faq": [
+    {
+     "q": "Czy kamera nad kasą może nagrywać dźwięk?",
+     "a": "Nagrywanie rozmów gości i pracowników budzi poważne wątpliwości prawne, dlatego mikrofony zostawiamy wyłączone."
+    },
+    {
+     "q": "Czy zobaczę lokal z telefonu w nocy?",
+     "a": "Tak, w aplikacji Dahua DMSS, jeśli rejestrator ma dostęp do internetu."
+    },
+    {
+     "q": "Czy ekrany są w zestawie?",
+     "a": "Nie. Dobieramy je do sali; w zestawie są uchwyty i przesył obrazu."
+    },
+    {
+     "q": "Czy monitoring w ogródku obejmie chodnik?",
+     "a": "Kadry ustawiamy tak, żeby obejmowały teren lokalu, a fragmenty chodnika i ulicy zasłaniamy maskami prywatności."
+    }
+   ]
+  },
+  "zestaw-inst-sklep-kamery-alarm-satel": {
+   "nazwa": "Sklep — 4 kamery z rejestratorem PoE i alarm Satel na kartę SIM",
+   "grupa": "Sklep i salon",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Sklep, salon lub punkt usługowy z jedną salą sprzedaży i zapleczem, gdzie trzeba widzieć kasę i witrynę, a po zamknięciu chronić lokal alarmem z powiadomieniem.",
+   "korzysc": "Kamery nagrywają kasę i salę, a po zamknięciu alarm Satel powiadamia Cię przez kartę SIM.",
+   "opis": [
+    "Kamera turret nad kasą rejestruje wydawanie reszty w rozdzielczości 6 lub 8 Mpx, dwie kamery na sali obejmują regały, a kamera tubowa przy wejściu z głośnikiem i migającym światłem ostrzega po godzinach każdego, kto zatrzyma się przy witrynie. Rejestrator Hikvision z 4 portami PoE zasila wszystkie kamery.",
+    "Alarm opiera się na centrali Satel PERFECTA 16 sprzedawanej w zestawie z manipulatorem PRF-LCD i czujkami ruchu. Centrala ma własny moduł GSM na dwie karty SIM, więc powiadomienia docierają także wtedy, gdy w lokalu nie ma internetu albo ktoś odetnie przewód. Syrena zewnętrzna z lampą jest widoczna z ulicy.",
+    "Czujki rozmieszczamy w sali, na zapleczu i przy drzwiach, ustawiamy kody dla pracowników i aplikację PERFECTA CONTROL dla właściciela. Kamery konfigurujemy w Hik-Connect, a obraz kasy pokazujemy tylko osobom upoważnionym."
+   ],
+   "el": [
+    {
+     "s": "hikvision-ds-76xxni-q1",
+     "rola": "rejestrator z 4 portami PoE",
+     "w": "DS-7604NI-Q1/4P(E), PoE do 50 W",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd23x3g2-li2u",
+     "rola": "kamera turret nad kasą",
+     "w": "DS-2CD2383G2-LI2U 8 Mpx",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd13x3g2-liu",
+     "rola": "kamera turret na salę sprzedaży",
+     "w": "DS-2CD1343G2-LIU 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd10x3g2-liuf",
+     "rola": "kamera tubowa z odstraszaniem przy wejściu",
+     "w": "DS-2CD1043G2-LIUF/SL 4 Mpx",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD23PURZ 2 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-perfecta",
+     "rola": "centrala alarmowa z manipulatorem i czujkami",
+     "w": "PERFECTA 16 + PRF-LCD + 8 czujek ruchu",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-sp-4001-sp-4003",
+     "rola": "sygnalizator zewnętrzny",
+     "w": "SP-4003 R z dodatkowymi lampami",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-spw-210-spw-220",
+     "rola": "sygnalizator wewnętrzny",
+     "w": "SPW-210 R",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "satel-perfecta",
+     "na": "ajax-hub-2",
+     "kiedy": "Gdy lokal jest wynajęty i nie wolno kuć ścian: alarm bezprzewodowy Ajax z czujkami MotionProtect."
+    },
+    {
+     "z": "hikvision-ds-76xxni-q1",
+     "na": "hikvision-ds-76xxnxi-k1",
+     "kiedy": "Gdy kamer będzie więcej niż 4 albo chcesz rozpoznawania twarzy przy wejściu; kamery zasila wtedy przełącznik PoE."
+    },
+    {
+     "z": "hikvision-ds-2cd13x3g2-liu",
+     "na": "hikvision-ds-2cd1367g3-liuf",
+     "kiedy": "Gdy sala jest słabo oświetlona po zamknięciu: ColorVu 3.0 z obiektywem F1.0 daje kolorowy obraz."
+    }
+   ],
+   "why": [
+    "DS-7604NI-Q1/4P ma 4 kanały i 4 porty PoE do 50 W łącznie, a wybrane kamery pobierają po 6,5–9,5 W, więc mieszczą się z zapasem.",
+    "Kamera /SL przy wejściu ma głośnik, migające światło i rozpoznaje ludzi oraz pojazdy, więc reaguje na człowieka przy witrynie, nie na przejeżdżające auto.",
+    "PERFECTA 16 ma klasę Grade 2, wbudowany GSM na dwie karty SIM i aplikację PERFECTA CONTROL, więc nie zależy od internetu w lokalu.",
+    "Sygnalizator SP-4003 ma 120 dB, metalową osłonę wewnętrzną i pracuje od −35 °C."
+   ],
+   "usl": [
+    "Alarm dla firmy i sklepu",
+    "Monitoring firmy, hali i placu",
+    "Monitoring ustawiony pod RODO"
+   ],
+   "faq": [
+    {
+     "q": "Czy alarm wyśle powiadomienie bez internetu?",
+     "a": "Tak. PERFECTA 16 ma własny moduł GSM i wysyła powiadomienia PUSH, SMS i komunikaty głosowe przez kartę SIM."
+    },
+    {
+     "q": "Czy pracownicy mogą mieć własne kody?",
+     "a": "Tak, centrala obsługuje do 15 haseł użytkowników, a w pamięci zdarzeń widać, kto uzbroił i rozbroił system."
+    },
+    {
+     "q": "Czy nagrania z kasy obejrzy każdy pracownik?",
+     "a": "Nie musi. W rejestratorze i aplikacji tworzymy konta z ograniczonymi uprawnieniami."
+    },
+    {
+     "q": "Czy alarm można podłączyć do agencji ochrony?",
+     "a": "Tak, PERFECTA 16 może wysyłać zdarzenia do stacji monitorowania. Konfigurację ustalamy z wybraną agencją."
+    }
+   ]
+  },
+  "zestaw-inst-firma-wejscie-twarz-karta": {
+   "nazwa": "Wejście do firmy — terminal twarzy z rozmową, monitor w biurze, sterownik i zwora",
+   "grupa": "Firma, biuro i hala",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Biuro, warsztat lub siedziba firmy z jednym głównym wejściem, przez które pracownicy wchodzą twarzą albo kartą, a kurier i klient dzwonią do biura.",
+   "korzysc": "Pracownik wchodzi bez klucza, gość dzwoni do biura, a każde wejście zostaje w historii.",
+   "opis": [
+    "Przy drzwiach montujemy terminal Hikvision DS-K1T344MBWX-E1: pracownicy otwierają drzwi twarzą, kartą Mifare, kodem albo kodem QR, a gość naciska przycisk wywołania i rozmawia z osobą w biurze przez monitor DS-KH6320-WTE1. Z monitora i z aplikacji Hik-Connect otwierasz drzwi zdalnie.",
+    "Za zamek odpowiada sterownik DS-K2601T we własnej obudowie z zasilaczem 230 V i miejscem na akumulator, więc drzwi działają też przy krótkiej przerwie w zasilaniu. Zwora DS-K4H250S trzyma 272 kg i melduje, czy drzwi są domknięte. Sterownik pamięta 100 000 kart i 300 000 zdarzeń.",
+    "Wgrywamy twarze i karty pracowników, ustawiamy harmonogramy, np. wejście tylko w godzinach pracy, i uczymy osobę z biura dodawania nowych użytkowników. Zwora wymaga sprawdzenia wymagań dotyczących dróg ewakuacyjnych w budynku, dlatego dobieramy przycisk wyjścia i sposób zwolnienia drzwi."
+   ],
+   "el": [
+    {
+     "s": "hikvision-ds-k1t344mbwx-e1",
+     "rola": "terminal twarzy i kart z przyciskiem wywołania",
+     "w": "DS-K1T344MBWX-E1, PoE 802.3at",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-kh6320-wte1",
+     "rola": "monitor IP w biurze",
+     "w": "DS-KH6320-WTE1, 7 cali",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-k2601t",
+     "rola": "sterownik drzwi z zasilaczem",
+     "w": "DS-K2601T + akumulator w obudowie",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-k4h250s",
+     "rola": "zwora elektromagnetyczna",
+     "w": "DS-K4H250S 272 kg, 12 V",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-k1t802e",
+     "rola": "czytnik kart i kodów na drzwiach wewnętrznych",
+     "w": "DS-K1T802E — np. serwerownia lub magazyn",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "hikvision-ds-k1t344mbwx-e1",
+     "na": "dahua-asi6213s-pw",
+     "kiedy": "Gdy system ma być na Dahua: wtedy sterownik ASC3202B i zwora ASF280A."
+    },
+    {
+     "z": "hikvision-ds-k1t344mbwx-e1",
+     "na": "hikvision-ds-k1t802e",
+     "kiedy": "Gdy wystarczą karty EM i kody, bez rozpoznawania twarzy i rozmowy z biurem."
+    },
+    {
+     "z": "hikvision-ds-k4h250s",
+     "na": "dahua-asf280a-v1",
+     "kiedy": "Gdy przy zworze potrzebny jest przewodowy sygnał stanu drzwi do innego systemu, np. alarmu."
+    }
+   ],
+   "why": [
+    "Terminal rozpoznaje twarz według producenta poniżej 0,2 s, obsługuje 3000 użytkowników i ma IP65, więc pracuje przy wejściu od zewnątrz.",
+    "Terminal rozmawia z monitorem Hikvision, dzięki czemu przy jednych drzwiach nie potrzebujesz osobno wideodomofonu i czytnika.",
+    "DS-K2601T ma zasilacz w obudowie z miejscem na akumulator, antypassback i alarm za długo otwartych drzwi.",
+    "Zwora DS-K4H250S nadaje się do drzwi drewnianych, szklanych i metalowych i ma diodę stanu widoczną dla pracowników."
+   ],
+   "usl": [
+    "Karty i breloki dla pracowników",
+    "Harmonogramy i historia wejść",
+    "Wideodomofon z aplikacją"
+   ],
+   "faq": [
+    {
+     "q": "Czy pracownik bez zgody na twarz może wejść kartą?",
+     "a": "Tak. Terminal obsługuje karty Mifare, kody i kody QR, więc rozpoznawanie twarzy jest jedną z opcji, nie obowiązkiem."
+    },
+    {
+     "q": "Co się stanie przy braku prądu?",
+     "a": "Sterownik ma miejsce na akumulator, który podtrzymuje pracę. Zwora bez zasilania zwalnia drzwi, co ułatwia ewakuację."
+    },
+    {
+     "q": "Czy otworzę drzwi kurierowi z telefonu?",
+     "a": "Tak, z aplikacji Hik-Connect albo z monitora w biurze po rozmowie z osobą przy terminalu."
+    },
+    {
+     "q": "Czy zobaczę, kto wszedł do firmy wczoraj wieczorem?",
+     "a": "Tak, sterownik zapisuje zdarzenia z datą i użytkownikiem, a historię przeglądasz w programie lub przeglądarce."
+    }
+   ]
+  },
+  "zestaw-inst-hala-magazyn-ptz-alarm": {
+   "nazwa": "Hala i plac magazynowy — kamery dalekiego zasięgu, PTZ 25× i alarm Satel z ochroną placu",
+   "grupa": "Firma, biuro i hala",
+   "poziom": "Rozbudowany",
+   "status": "do-potwierdzenia",
+   "dla": "Hala produkcyjna, magazyn lub skład budowlany z placem, rampą i bramą wjazdową, gdzie trzeba widzieć daleko w nocy i wykryć intruza na placu, zanim dojdzie do budynku.",
+   "korzysc": "Plac widać na 80 m w nocy, kamera PTZ śledzi intruza, a czujki zewnętrzne alarmują jeszcze przed drzwiami hali.",
+   "opis": [
+    "Duży plac wymaga innych kamer niż dom. Osiem kamer Hikvision DS-2CD2T43G2-4LI doświetla do 80 m i ma obudowę odporną na uderzenia, więc pokrywa długie elewacje i ogrodzenie. Kamera obrotowa z zoomem 25× i automatycznym śledzeniem pokazuje szczegóły: numer naczepy przy rampie albo twarz przy bramie.",
+    "Alarm opiera się na centrali Satel INTEGRA 64 Plus klasy Grade 3. Czujki OPAL Pro chronią plac, kurtyny AGATE pilnują bramy i rampy, a czujki dualne SLIM-DUAL zabezpieczają biuro i pomieszczenia socjalne. Moduł ETHM-1 Plus daje aplikację i transmisję do stacji monitorowania.",
+    "Projekt obejmuje okablowanie, szafę z przełącznikiem PoE+ dobranym do kamer, zasilacz awaryjny i podział alarmu na strefy (biuro, magazyn, plac). Ustawiamy też analizę AcuSense tak, żeby pracownicy zmiany nocnej nie generowali alarmów w strefach, w których pracują."
+   ],
+   "el": [
+    {
+     "s": "hikvision-ds-76xxnxi-k2",
+     "rola": "rejestrator na 16 kamer i 2 dyski",
+     "w": "DS-7616NXI-K2(D)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dyski do rejestratora",
+     "w": "WD102PURP Purple Pro 10 TB",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2cd2t43g2-4li",
+     "rola": "kamera dalekiego zasięgu na elewacje i ogrodzenie",
+     "w": "DS-2CD2T43G2-4LI 4 Mpx, IR do 80 m",
+     "q": 8,
+     "ob": true
+    },
+    {
+     "s": "hikvision-ds-2de4425iwg1-e",
+     "rola": "kamera obrotowa PTZ na rampę i bramę",
+     "w": "DS-2DE4425IWG1-E, zoom 25×, PoE+",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-integra-plus",
+     "rola": "centrala alarmowa Grade 3",
+     "w": "INTEGRA 64 Plus",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-int-ksg2",
+     "rola": "manipulator z czytnikiem kart",
+     "w": "INT-KSG2R-B przy wejściu do biura",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-opal-pro",
+     "rola": "czujka zewnętrzna placu",
+     "w": "OPAL Pro / OPAL Pro GY",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "satel-agate",
+     "rola": "czujka kurtynowa bramy i rampy",
+     "w": "AGATE + BRACKET E",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "satel-slim-dual",
+     "rola": "czujka dualna w biurze i socjalnym",
+     "w": "SLIM-DUAL",
+     "q": 6,
+     "ob": true
+    },
+    {
+     "s": "satel-sp-4001-sp-4003",
+     "rola": "sygnalizator zewnętrzny",
+     "w": "SP-4003 R",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-ethm-1-plus",
+     "rola": "moduł Ethernet: aplikacja i monitoring",
+     "w": "ETHM-1 Plus",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-spw-210-spw-220",
+     "rola": "sygnalizator wewnętrzny",
+     "w": "SPW-220 R",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "hikvision-ds-2de4425iwg1-e",
+     "na": "dahua-sd3e405db-gny-a-pv1",
+     "kiedy": "Gdy plac jest mały: kamera Dahua z zoomem 5× ma światło ostrzegawcze i syrenę, ale wtedy rejestrator i reszta kamer też na Dahua."
+    },
+    {
+     "z": "hikvision-ds-76xxnxi-k2",
+     "na": "dahua-nvr42xx-ei",
+     "kiedy": "Gdy cały monitoring ma być na Dahua: NVR4216-EI na 16 kamer i dwa dyski."
+    },
+    {
+     "z": "satel-slim-dual",
+     "na": "satel-aqua-ring",
+     "kiedy": "Gdy w biurze jest sufit podwieszany i czujka ma wisieć na suficie na wysokości do 4,5 m."
+    },
+    {
+     "z": "satel-integra-plus",
+     "na": "satel-integra",
+     "kiedy": "Gdy nie jest wymagana klasa Grade 3: INTEGRA 64 ma 16 wejść na płycie i zasilacz 3 A."
+    }
+   ],
+   "why": [
+    "DS-2CD2T43G2-4LI ma doświetlenie do 80 m, WDR 120 dB, AcuSense i obudowę IK10, więc nadaje się na elewację hali przy drodze dojazdowej.",
+    "DS-7616NXI-K2 obsługuje 16 kamer do 12 Mpx na dwóch dyskach po 16 TB i ma port gigabitowy, więc 9 kamer zostawia zapas na rozbudowę.",
+    "OPAL Pro i AGATE to czujki zewnętrzne IP54 pracujące od −40 °C, z dwoma torami detekcji ograniczającymi fałszywe alarmy od pogody.",
+    "INTEGRA 64 Plus ma klasę Grade 3, 16 wejść na płycie i obsługę 3EOL, co często wymaga ubezpieczyciel magazynu."
+   ],
+   "usl": [
+    "Monitoring firmy, hali i placu",
+    "Alarm dla firmy i sklepu",
+    "Switche PoE, UPS i szafa rack",
+    "Mosty radiowe między budynkami"
+   ],
+   "faq": [
+    {
+     "q": "Czy kamera PTZ sama pojedzie za intruzem?",
+     "a": "Tak, DS-2DE4425IWG1-E ma automatyczne śledzenie. Wymaga zasilania PoE+ (802.3at) albo 12 V."
+    },
+    {
+     "q": "Czy czujki placu nie będą alarmować przy śniegu i deszczu?",
+     "a": "OPAL Pro i AGATE łączą podczerwień z mikrofalą i adaptują się do warunków pogodowych. Strefy i czułość ustawiamy na miejscu."
+    },
+    {
+     "q": "Czy alarm i kamery mogą działać razem?",
+     "a": "Tak, rejestrator ma wejścia alarmowe 4/1, a centrala może przekazać sygnał o naruszeniu strefy. Sposób powiązania ustalamy w projekcie."
+    },
+    {
+     "q": "Czy wymagana jest klasa Grade 3?",
+     "a": "To zależy od ubezpieczyciela i rodzaju towaru. INTEGRA 64 Plus i manipulator INT-KSG2R spełniają Grade 3 według producenta."
+    }
+   ]
+  },
+  "zestaw-inst-modernizacja-koncentryk": {
+   "nazwa": "Modernizacja starego monitoringu — kamery HD na istniejącym koncentryku",
+   "grupa": "Firma, biuro i hala",
+   "poziom": "Start",
+   "status": "do-potwierdzenia",
+   "dla": "Warsztat, sklep, gospodarstwo lub dom ze starym monitoringiem analogowym, w którym kable koncentryczne są w ścianach, a obraz jest rozmyty i nieczytelny.",
+   "korzysc": "Ostry obraz HD bez kucia i bez nowych kabli: wymieniamy kamery i rejestrator, przewody zostają.",
+   "opis": [
+    "Wiele obiektów ma koncentryk ułożony kilkanaście lat temu i kamery, na których trudno rozpoznać twarz. Nie trzeba wszystkiego zrywać: kamery HDCVI przesyłają obraz HD tym samym koncentrykiem, a rejestrator hybrydowy Dahua XVR5108HS-I3/T przyjmuje je na 8 wejściach BNC. Zostawiamy też drogę do kamer IP w przyszłości.",
+    "Cztery kamery tubowe 5 Mpx z obudową IP67 trafiają na zewnątrz, cztery kopułki Full HD do środka. Zasilacz Pulsar HPSDC z 8 wyjściami i bezpiecznikiem na każdym zastępuje stare zasilacze rozsiane po obiekcie. Rejestrator wyposażamy w nowy dysk do pracy ciągłej i aplikację DMSS.",
+    "Zanim zaproponujemy wymianę, mierzymy stan przewodów i złączy: uszkodzone odcinki wymieniamy, a dobre zostają. Stare urządzenia demontujemy, a nowe ustawiamy tak, żeby kadry obejmowały to samo co wcześniej, tylko wyraźniej."
+   ],
+   "el": [
+    {
+     "s": "dahua-xvr51xxhs-i3-t",
+     "rola": "rejestrator hybrydowy",
+     "w": "XVR5108HS-I3/T, 8 wejść BNC + kanały IP",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-hac-hfw1500rl-s3",
+     "rola": "kamera tubowa HDCVI na zewnątrz",
+     "w": "HAC-HFW1500RL 5 Mpx, IP67",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "dahua-hac-hdw1200trq-s6",
+     "rola": "kopułka HDCVI do wnętrz",
+     "w": "HAC-HDW1200TRQ 2 Mpx",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "pulsar-hpsdc",
+     "rola": "zasilacz kamer",
+     "w": "HPSDC-12V8X1A, 8 wyjść po 1 A",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD64PURZ 6 TB",
+     "q": 1,
+     "ob": true
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-xvr51xxhs-i3-t",
+     "na": "hikvision-ids-72xxhqhi-m1",
+     "kiedy": "Gdy cały system ma być Hikvision: iDS-7208HQHI-M1/XT z kamerami Turbo HD."
+    },
+    {
+     "z": "dahua-hac-hfw1500rl-s3",
+     "na": "hikvision-ds-2ce17x0t-lfs",
+     "kiedy": "Gdy na zewnątrz chcesz kamery z mikrofonem i białym światłem do 40 m; wtedy rejestrator Hikvision iDS."
+    },
+    {
+     "z": "dahua-hac-hdw1200trq-s6",
+     "na": "hikvision-ds-2ce76x0t-lmfs",
+     "kiedy": "Gdy kopułka wewnątrz ma być metalowa i z mikrofonem; wtedy także rejestrator Hikvision."
+    }
+   ],
+   "why": [
+    "XVR5108HS-I3/T przyjmuje kamery HDCVI, AHD, TVI i analogowe na 8 wejściach BNC oraz do 12 kanałów IP, więc łączy starą i nową instalację.",
+    "Kamera 5 Mpx ma Starlight, kąt 113° i IR do 30 m, a kopułka 2 Mpx ma kąt 102°; obie pobierają do kilku watów z 12 V.",
+    "HPSDC-12V8X1A daje 8 wyjść po 1 A (łącznie 7 A) z osobnym bezpiecznikiem i sygnalizacją przepalenia, więc awaria jednej kamery nie wyłącza pozostałych.",
+    "Rejestrator nagrywa 5 Mpx z pełną płynnością na pierwszych kanałach, a na pozostałych do 12 kl./s, co przy monitoringu obiektu w zupełności wystarcza."
+   ],
+   "usl": [
+    "Przejęcie i modernizacja starego monitoringu",
+    "Rejestratory NVR i dyski do monitoringu",
+    "Monitoring firmy, hali i placu"
+   ],
+   "faq": [
+    {
+     "q": "Czy mój stary koncentryk się nada?",
+     "a": "Najczęściej tak, ale sprawdzamy go przed wyceną. Zawilgocone lub skorodowane odcinki i złącza wymieniamy."
+    },
+    {
+     "q": "Czy mogę później dołożyć kamerę IP?",
+     "a": "Tak. XVR5108HS-I3/T obsługuje do 12 kanałów IP, licząc razem z wejściami analogowymi przełączonymi na IP."
+    },
+    {
+     "q": "Czy rejestrator nagra dźwięk?",
+     "a": "Rejestrator obsługuje dźwięk po koncentryku, ale kamery z tego zestawu nie mają mikrofonu. Nagrywanie dźwięku zalecamy tylko tam, gdzie jest to dopuszczalne."
+    },
+    {
+     "q": "Czy zobaczę obraz w telefonie?",
+     "a": "Tak, w aplikacji Dahua DMSS po podłączeniu rejestratora do internetu."
+    }
+   ]
+  },
+  "zestaw-inst-kosciol-transmisja-mszy": {
+   "nazwa": "Kościół — transmisja mszy z dwóch kamer PTZ do internetu",
+   "grupa": "Kościół i parafia",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Parafia, która chce transmitować msze, śluby i pogrzeby na kanał parafii, z obrazem ołtarza i ambony oraz dźwiękiem z istniejącego nagłośnienia.",
+   "korzysc": "Ksiądz lub wolontariusz uruchamia transmisję jednym przyciskiem, a kamery same wracają do zapamiętanych ujęć.",
+   "opis": [
+    "Dwie kamery PTZ Canon CR-N350 wiszą na filarach lub chórze: jedna obejmuje ołtarz, druga ambonę i nawę. Ujęcia zapisujemy w kamerach, więc w czasie mszy wystarczy wybrać przycisk. Kamery dają obraz 4K i zoom optyczny 20×, a obraz po HDMI zamieniamy na sygnał sieciowy nadajnikami DARWIN HD, bo w kościele kable mają po kilkadziesiąt metrów.",
+    "W zakrystii lub na chórze stoi mikser Blackmagic ATEM Mini Pro: przełącza kamery, dodaje plansze z ogłoszeniami i wysyła transmisję przez Ethernet prosto na wybrany serwis. Dźwięk bierzemy z miksera nagłośnienia kościoła, nie z mikrofonów kamer, dlatego w transmisji słychać czytania i śpiew tak samo jak w ławkach.",
+    "Ustawiamy kamery, profile transmisji i konto kanału, a potem szkolimy osoby, które będą obsługiwać mszę. Zestaw ma status do potwierdzenia: przed wyceną oglądamy kościół, sprawdzamy łącze internetowe i miejsce na kamery."
+   ],
+   "el": [
+    {
+     "s": "canon-cr-n350-cr-n400",
+     "rola": "kamera PTZ 4K na ołtarz i ambonę",
+     "w": "CR-N350, biała lub czarna",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "turtle-av-darwin-hd",
+     "rola": "przesył obrazu z kamer przez sieć",
+     "w": "2 × DARWIN HD TX przy kamerach + 2 × DARWIN HD RX przy mikserze",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "blackmagic-atem-mini",
+     "rola": "mikser wizji z transmisją",
+     "w": "ATEM Mini Pro — 4 × HDMI, RTMP/SRT",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "blackmagic-streaming-encoder",
+     "rola": "zapasowy enkoder transmisji",
+     "w": "Streaming Encoder HD — gdy kamery mają wyjście SDI",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "blackmagic-atem-mini",
+     "na": "roland-vr-6hd",
+     "kiedy": "Gdy mikrofony chcesz podłączyć wprost do miksera: VR-6HD ma 6 wejść XLR/TRS z zasilaniem fantomowym."
+    },
+    {
+     "z": "blackmagic-atem-mini",
+     "na": "magewell-director-mini",
+     "kiedy": "Gdy kamery mają trafiać do miksera siecią NDI bez nadajników, a obsługa ma się odbywać z ekranu dotykowego."
+    },
+    {
+     "z": "turtle-av-darwin-hd",
+     "na": "turtle-av-chazy-4k",
+     "kiedy": "Gdy obraz ma iść przez sieć w 4K, np. także na ekran w kaplicy lub salce."
+    }
+   ],
+   "why": [
+    "CR-N350 ma obraz 4K60, zoom optyczny 20× i hybrydowy autofokus, a sterowanie przez LAN pozwala zapamiętać ujęcia ołtarza i ambony.",
+    "DARWIN HD przenosi 1080p60 po sieci i może być zasilany z PoE, więc długie odcinki w kościele pokonujemy skrętką zamiast drogiego HDMI.",
+    "ATEM Mini Pro ma 4 wejścia HDMI, wbudowany streaming RTMP/SRT przez Ethernet, nagrywanie na dysk USB i wejścia audio na mikser nagłośnienia.",
+    "Kamery PTZ nie wymagają operatora za statywem, więc transmisję obsłuży jedna osoba z zakrystii."
+   ],
+   "usl": [
+    "Nagłośnienie kościoła",
+    "Okablowanie strukturalne",
+    "Łącze zapasowe"
+   ],
+   "faq": [
+    {
+     "q": "Jakie łącze internetowe jest potrzebne?",
+     "a": "Stabilne łącze z dobrym wysyłaniem danych. Przed montażem mierzymy łącze w kościele; ATEM Mini Pro może też użyć telefonu 4G/5G podłączonego przez USB."
+    },
+    {
+     "q": "Czy transmisję obsłuży osoba bez doświadczenia?",
+     "a": "Tak. Ujęcia są zapisane w kamerach, a transmisję startuje się przyciskiem na mikserze. Po montażu szkolimy obsługę."
+    },
+    {
+     "q": "Czy msza będzie nagrywana?",
+     "a": "ATEM Mini Pro nagrywa transmisję na dysk USB, więc nagranie można udostępnić później."
+    },
+    {
+     "q": "Czy kamery będą widoczne w kościele?",
+     "a": "Kamery są niewielkie, w kolorze białym lub czarnym, i montujemy je tak, żeby nie zasłaniały wnętrza ani zabytkowego wystroju."
+    }
+   ]
+  },
+  "zestaw-inst-szkola-monitoring-alarm": {
+   "nazwa": "Szkoła — monitoring BCS i alarm Satel z czujkami bezprzewodowymi w salach",
+   "grupa": "Szkoła i przedszkole",
+   "poziom": "Rozbudowany",
+   "status": "do-potwierdzenia",
+   "dla": "Szkoła podstawowa lub przedszkole z korytarzami, wejściami, boiskiem i parkingiem, gdzie alarm trzeba założyć w trakcie roku szkolnego, bez kucia w każdej sali.",
+   "korzysc": "Sale chronią czujki bezprzewodowe montowane bez kucia, a kamery BCS pilnują wejść, korytarzy i boiska.",
+   "opis": [
+    "Monitoring opiera się na urządzeniach polskiej marki BCS. Cztery wandaloodporne kopułki IK10 obejmują wejścia i korytarze, kamera kopułkowa NightColor pilnuje holu, a trzy kamery tubowe z białym doświetleniem obserwują boisko i parking. Rejestrator BCS Point na 8 kanałów zapisuje obraz na dysku do pracy ciągłej.",
+    "Alarm buduje centrala Satel INTEGRA 64 Plus z dwoma manipulatorami z czytnikiem kart: woźny uzbraja szkołę zbliżeniem karty. W salach lekcyjnych pracują czujki bezprzewodowe APD-200 systemu ABAX 2 przez kontroler ACU-280, więc montaż nie wymaga bruzd ani malowania. Korytarze chronią przewodowe czujki dualne.",
+    "Kamer nie kierujemy do sal lekcyjnych, toalet ani szatni. Ustalamy z dyrekcją strefy alarmu (budynek główny, sala gimnastyczna, kuchnia), uprawnienia i powiadomienia, a przełącznik PoE dla kamer dobieramy do szafy w szkole. Instalację wykonujemy w ferie lub po lekcjach."
+   ],
+   "el": [
+    {
+     "s": "bcs-p-nvr0x01-4k",
+     "rola": "rejestrator na 8 kamer",
+     "w": "BCS-P-NVR0801-4K(3)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "wd-purple",
+     "rola": "dysk do rejestratora",
+     "w": "WD64PURZ 6 TB (rejestrator obsługuje dysk do 8 TB)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "bcs-p-dip15fsr3-ai",
+     "rola": "wandaloodporna kopułka na wejścia i korytarze",
+     "w": "BCS-P-DIP15FSR3-Ai 5 Mpx, IK10",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "bcs-p-eip2xfcl3-ai1",
+     "rola": "kopułka NightColor w holu",
+     "w": "BCS-P-EIP24FCL3-Ai1 4 Mpx",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "bcs-p-tip24fcl3-ai1",
+     "rola": "kamera tubowa na boisko i parking",
+     "w": "BCS-P-TIP24FCL3-Ai1 4 Mpx",
+     "q": 3,
+     "ob": true
+    },
+    {
+     "s": "satel-integra-plus",
+     "rola": "centrala alarmowa",
+     "w": "INTEGRA 64 Plus",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-int-ksg2",
+     "rola": "manipulator z czytnikiem kart",
+     "w": "INT-KSG2R — wejście główne i wejście do sali gimnastycznej",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "satel-abax-2-acu-280",
+     "rola": "kontroler czujek bezprzewodowych",
+     "w": "ACU-280 (ABAX 2)",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-abax-2-apd-200",
+     "rola": "bezprzewodowa czujka ruchu w sali lekcyjnej",
+     "w": "APD-200 — liczba zależna od liczby sal",
+     "q": 12,
+     "ob": true
+    },
+    {
+     "s": "satel-slim-dual",
+     "rola": "przewodowa czujka dualna na korytarzu",
+     "w": "SLIM-DUAL",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "satel-sp-4001-sp-4003",
+     "rola": "sygnalizator zewnętrzny",
+     "w": "SP-4003 R",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-ethm-1-plus",
+     "rola": "moduł Ethernet: aplikacja i monitoring",
+     "w": "ETHM-1 Plus",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-spw-210-spw-220",
+     "rola": "sygnalizator wewnętrzny",
+     "w": "SPW-210 R",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "bcs-p-dip15fsr3-ai",
+     "na": "bcs-l-tip1xfcr3l3-ai1",
+     "kiedy": "Gdy przy wejściu potrzebujesz kamery tubowej 8 Mpx z IR i białym światłem do pracy od −40 °C."
+    },
+    {
+     "z": "satel-slim-dual",
+     "na": "satel-slim-pir",
+     "kiedy": "Gdy korytarz jest prosty i wystarczy czujka podczerwieni bez mikrofali."
+    },
+    {
+     "z": "satel-int-ksg2",
+     "na": "satel-int-klcd",
+     "kiedy": "Gdy przy wejściu bocznym wystarczy klasyczny manipulator z klawiszami, bez czytnika kart."
+    }
+   ],
+   "why": [
+    "Kopułka BCS DIP15 ma metalową obudowę IK10 i IP67, więc lepiej znosi uderzenia i próby zniszczenia na korytarzu.",
+    "ACU-280 obsłuży do 48 urządzeń ABAX 2 z szyfrowaniem AES i współpracuje z INTEGRA Plus, a APD-200 chroni salę o wymiarach do 15 × 24 m.",
+    "INT-KSG2R ma czytnik MIFARE i klasę Grade 3: personel uzbraja i rozbraja strefy kartą zamiast kodu zapisanego na kartce.",
+    "BCS-P-NVR0801 przyjmie 8 kamer do 8 Mpx i jest obsługiwany z przeglądarki, programu BCS Manager i aplikacji mobilnej."
+   ],
+   "usl": [
+    "Alarm dla firmy i sklepu",
+    "Monitoring ustawiony pod RODO",
+    "Switche PoE, UPS i szafa rack"
+   ],
+   "faq": [
+    {
+     "q": "Czy montaż czujek w salach wymaga kucia?",
+     "a": "Nie. APD-200 to czujki bezprzewodowe na baterię, które montujemy na ścianie bez przewodów."
+    },
+    {
+     "q": "Czy kamery będą w salach lekcyjnych?",
+     "a": "Nie. Kamery obejmują wejścia, korytarze, hol, boisko i parking; sale, toalety i szatnie zostają poza monitoringiem."
+    },
+    {
+     "q": "Czy sala gimnastyczna może mieć osobny alarm?",
+     "a": "Tak. Centrala dzieli system na strefy, więc salę gimnastyczną uzbraja się osobno, np. przy zajęciach popołudniowych."
+    },
+    {
+     "q": "Co, jeśli sal jest więcej niż 12?",
+     "a": "Kontroler ACU-280 obsłuży do 48 urządzeń bezprzewodowych, więc liczbę czujek dobieramy do budynku."
+    }
+   ]
+  },
+  "zestaw-inst-gmina-swietlica-remiza": {
+   "nazwa": "Świetlica, remiza lub budynek gminy — 4 kamery BCS i alarm Satel",
+   "grupa": "Gmina i urząd",
+   "poziom": "Start",
+   "status": "do-potwierdzenia",
+   "dla": "Świetlica wiejska, remiza OSP, ośrodek kultury lub mały budynek gminny, który przez większość tygodnia stoi pusty i ma plac lub parking przed wejściem.",
+   "korzysc": "Prosty system na polskich urządzeniach: kamery z jednym rejestratorem PoE i alarm z powiadomieniem na telefon gospodarza.",
+   "opis": [
+    "Rejestrator BCS z wbudowanym przełącznikiem PoE zasila cztery kamery jedną skrętką na kamerę. Dwie kamery tubowe NightColor pilnują placu i wejścia, dwie kopułki obejmują salę i wejście boczne. Polska marka BCS obsługuje rejestrator przez przeglądarkę, program BCS Manager i aplikację mobilną.",
+    "Budynek chroni centrala Satel PERFECTA 16 z manipulatorem i czujkami ruchu. Ma własny moduł GSM na kartę SIM, więc powiadomienie dostaje sołtys, prezes OSP albo gospodarz obiektu także wtedy, gdy w budynku nie ma internetu. Syrena z lampą na elewacji odstrasza przy próbie wejścia.",
+    "Instalację wykonujemy w jeden lub dwa dni, ustawiamy kody dla użytkowników sali i tablice informujące o monitoringu. Przygotowujemy też opis zakresu dla gminy, przydatny przy zapytaniu ofertowym."
+   ],
+   "el": [
+    {
+     "s": "bcs-l-nvr0401-4ke-4p",
+     "rola": "rejestrator z wbudowanym PoE",
+     "w": "BCS-L-NVR0401-4KE-4P(2), PoE 36 W",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "bcs-p-tip24fcl3-ai1",
+     "rola": "kamera tubowa na plac i wejście",
+     "w": "BCS-P-TIP24FCL3-Ai1 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "bcs-p-eip2xfcl3-ai1",
+     "rola": "kopułka na salę i wejście boczne",
+     "w": "BCS-P-EIP24FCL3-Ai1 4 Mpx",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "seagate-skyhawk",
+     "rola": "dysk do rejestratora",
+     "w": "ST4000VX016 4 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-perfecta",
+     "rola": "alarm budynku: centrala GSM, manipulator LCD i czujki",
+     "w": "zestaw PERFECTA 16 z PRF-LCD i 8 czujkami ruchu",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "satel-sp-4001-sp-4003",
+     "rola": "sygnalizator zewnętrzny",
+     "w": "SP-4001 R",
+     "q": 1,
+     "ob": true
+    }
+   ],
+   "zam": [
+    {
+     "z": "bcs-l-nvr0401-4ke-4p",
+     "na": "bcs-p-nvr0x01-4k",
+     "kiedy": "Gdy kamer będzie do 8: BCS-P-NVR0801 bez PoE, kamery zasila wtedy osobny przełącznik."
+    },
+    {
+     "z": "bcs-p-eip2xfcl3-ai1",
+     "na": "bcs-p-dip15fsr3-ai",
+     "kiedy": "Gdy kopułka wisi nisko i jest narażona na uderzenia: metalowa obudowa IK10."
+    },
+    {
+     "z": "satel-perfecta",
+     "na": "satel-integra",
+     "kiedy": "Gdy budynek ma kilka części z osobnymi użytkownikami: INTEGRA 32 z manipulatorem INT-KLCD ma do 4 partycji."
+    }
+   ],
+   "why": [
+    "BCS-L-NVR0401-4KE-4P ma 4 porty PoE do 36 W łącznie, a kamery BCS Point pobierają do 2,8 W, więc rejestrator zasila je z dużym zapasem.",
+    "Kamery NightColor z obiektywem F1.0 i białym doświetleniem do 30 m dają kolorowy obraz placu w nocy.",
+    "PERFECTA 16 ma wbudowany GSM na dwie karty SIM i aplikację PERFECTA CONTROL, więc działa w budynku bez stałego łącza.",
+    "Kamery, rejestrator i alarm pochodzą od polskich marek: BCS i Satel."
+   ],
+   "usl": [
+    "Alarm dla firmy i sklepu",
+    "Monitoring firmy, hali i placu",
+    "Monitoring ustawiony pod RODO"
+   ],
+   "faq": [
+    {
+     "q": "Czy system zadziała bez internetu w budynku?",
+     "a": "Alarm tak, bo PERFECTA 16 wysyła powiadomienia przez kartę SIM. Podgląd kamer z telefonu wymaga łącza internetowego."
+    },
+    {
+     "q": "Kto może uzbrajać alarm?",
+     "a": "Każdy użytkownik z własnym kodem, np. gospodarz, prezes OSP, osoby wynajmujące salę. Centrala obsługuje do 15 haseł."
+    },
+    {
+     "q": "Czy przygotujecie opis do zapytania ofertowego?",
+     "a": "Tak, opisujemy zakres i wymagania techniczne. Treść zapytania i tryb zamówienia ustala gmina."
+    },
+    {
+     "q": "Czy monitoring placu obejmie drogę?",
+     "a": "Kadry ograniczamy do terenu obiektu, a fragmenty drogi i sąsiednich posesji zasłaniamy maskami prywatności."
+    }
+   ]
+  },
+  "zestaw-inst-budowa-kontener": {
+   "nazwa": "Budowa — alarm kontenera i magazynu narzędzi na kartę SIM",
+   "grupa": "Budowa",
+   "poziom": "Start",
+   "status": "do-potwierdzenia",
+   "dla": "Plac budowy z kontenerem biurowym lub magazynem narzędzi, bez stałego internetu i z prądem z rozdzielnicy budowlanej, gdzie kradzieże zdarzają się nocą i w weekendy.",
+   "korzysc": "Montaż w godzinę, praca bez internetu, zdjęcie z miejsca włamania na telefonie kierownika.",
+   "opis": [
+    "Na budowie liczy się szybki montaż i to, że po zakończeniu prac system przenosisz na kolejną inwestycję. Hub Ajax z kartami SIM nie potrzebuje stałego łącza, czujki są bezprzewodowe, a wszystko przykręcamy do ścian kontenera bez okablowania.",
+    "Kontaktrony pilnują drzwi kontenera i magazynu, czujki MotionCam przy alarmie robią serię zdjęć, a głośna syrena na zewnątrz płoszy złodzieja. Hub pracuje z akumulatorem, więc wyłączenie rozdzielnicy nie odcina powiadomień. Uzbrajasz z klawiatury albo z aplikacji, także zdalnie po wyjściu ostatniej ekipy.",
+    "Centrala i czujki Ajax pracują według producenta od −10 °C, dlatego montujemy je w kontenerze ogrzewanym lub ocieplonym. Kamery z rejestratorem i routerem LTE na plac budowy wyceniamy jako rozszerzenie, po sprawdzeniu zasięgu i zasilania."
+   ],
+   "el": [
+    {
+     "s": "ajax-hub-2",
+     "rola": "centrala na kartę SIM",
+     "w": "Hub 2 (4G) Jeweller — 2 karty SIM różnych operatorów",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-motioncam",
+     "rola": "czujka ruchu ze zdjęciami",
+     "w": "MotionCam Jeweller — kontener i magazyn",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-doorprotect",
+     "rola": "czujka otwarcia drzwi kontenera",
+     "w": "DoorProtect Jeweller",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "ajax-streetsiren",
+     "rola": "syrena zewnętrzna",
+     "w": "StreetSiren Jeweller na bateriach",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "ajax-keypad",
+     "rola": "klawiatura do uzbrajania",
+     "w": "KeyPad Jeweller",
+     "q": 1,
+     "ob": false
+    }
+   ],
+   "zam": [
+    {
+     "z": "ajax-hub-2",
+     "na": "ajax-hub-2-plus",
+     "kiedy": "Gdy na jednej budowie chronisz kilka kontenerów i chcesz dla każdego osobną grupę oraz Wi-Fi jako dodatkową drogę."
+    },
+    {
+     "z": "ajax-motioncam",
+     "na": "ajax-motionprotect",
+     "kiedy": "Gdy w drugim pomieszczeniu wystarczy powiadomienie o ruchu bez zdjęć."
+    },
+    {
+     "z": "ajax-doorprotect",
+     "na": "ajax-glassprotect",
+     "kiedy": "Gdy kontener biurowy ma duże okno, przez które łatwiej wejść niż przez drzwi."
+    }
+   ],
+   "why": [
+    "Hub 2 (4G) łączy się przez dwie karty SIM z LTE i ma akumulator do 15 h, więc działa na budowie bez łącza i przy wyłączonej rozdzielnicy.",
+    "MotionCam wysyła serię zdjęć przy alarmie, dzięki czemu kierownik budowy od razu wie, czy wezwać policję.",
+    "StreetSiren ma do 113 dB, akcelerometr wykrywający zerwanie i baterie do 5 lat.",
+    "Urządzenia montowane bez przewodów przenosisz na następną budowę i dodajesz do tej samej aplikacji."
+   ],
+   "usl": [
+    "Kamery tam, gdzie nie ma kabla",
+    "Alarm bezprzewodowy bez kucia ścian",
+    "Łącze zapasowe"
+   ],
+   "faq": [
+    {
+     "q": "Czy alarm zadziała, gdy na noc wyłączamy prąd na budowie?",
+     "a": "Tak, hub przechodzi na akumulator, który według producenta wystarcza do 15 h, a czujki i syrena działają na bateriach."
+    },
+    {
+     "q": "Czy system zadziała zimą w kontenerze?",
+     "a": "Hub i czujki pracują według producenta od −10 °C. W nieogrzewanym kontenerze przy silnym mrozie urządzenia mogą wyjść poza ten zakres, dlatego montujemy je w części ogrzewanej."
+    },
+    {
+     "q": "Czy możemy przenieść alarm na inną budowę?",
+     "a": "Tak. Demontaż i ponowny montaż zajmują niewiele czasu, a ustawienia zostają w aplikacji Ajax."
+    },
+    {
+     "q": "Czy da się dodać kamery na plac?",
+     "a": "Tak, jako rozszerzenie z rejestratorem i routerem LTE. Najpierw sprawdzamy zasięg sieci komórkowej i zasilanie na placu."
+    }
+   ]
+  },
+  "zestaw-inst-deweloper-czesci-wspolne": {
+   "nazwa": "Budynek dewelopera — kamery części wspólnych i wejścia na kartę",
+   "grupa": "Deweloper",
+   "poziom": "Standard",
+   "status": "do-potwierdzenia",
+   "dla": "Deweloper lub wykonawca małego budynku wielorodzinnego, który przekazuje wspólnocie gotowy monitoring wjazdu, garażu i klatek oraz wejścia do rowerowni i garażu na kartę lub kod.",
+   "korzysc": "Wspólnota dostaje działający monitoring i wejścia na karty, z dokumentacją i jednym wykonawcą do serwisu.",
+   "opis": [
+    "W budynkach wielorodzinnych spory najczęściej dotyczą garażu, rowerowni i śmietnika. Siedem kamer Dahua WizSense 2 obejmuje wjazd, bramę garażu, wnętrze garażu, klatki i rowerownię, a rejestrator NVR4108HS-EI z jednym wolnym kanałem zapisuje obraz w szafie teletechnicznej budynku.",
+    "Drzwi rowerowni i wejście z garażu na klatkę otwierają czytniki Dahua ASI1201E na karty IC i kody. Każdy lokator dostaje kartę, a zarząd wspólnoty może ją zablokować po zgubieniu. Zwora i czytniki zasila zasilacz Pulsar z osobnym bezpiecznikiem na każde urządzenie.",
+    "Wideodomofony do lokali i instalację w klatkach projektujemy osobno, razem z resztą teletechniki budynku. Po zakończeniu przekazujemy dokumentację powykonawczą, hasła administratora i instrukcję dla zarządcy, a na montaż dajemy 24 mies. gwarancji."
+   ],
+   "el": [
+    {
+     "s": "dahua-nvr41xxhs-ei",
+     "rola": "rejestrator",
+     "w": "NVR4108HS-EI, 8 kanałów",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hfw2x49s-s-il",
+     "rola": "kamera tubowa na wjazd, bramę garażu i śmietnik",
+     "w": "IPC-HFW2449S-S-IL 4 Mpx",
+     "q": 3,
+     "ob": true
+    },
+    {
+     "s": "dahua-ipc-hdw2x49tm-s-il",
+     "rola": "kamera kulkowa w garażu, na klatkach i w rowerowni",
+     "w": "IPC-HDW2449TM-S-IL 4 Mpx",
+     "q": 4,
+     "ob": true
+    },
+    {
+     "s": "seagate-skyhawk",
+     "rola": "dysk do rejestratora",
+     "w": "ST4000VX016 4 TB",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "dahua-asi1201e-v1",
+     "rola": "czytnik kart i kodów",
+     "w": "ASI1201E-V1 — rowerownia i wejście z garażu",
+     "q": 2,
+     "ob": true
+    },
+    {
+     "s": "dahua-asf280a-v1",
+     "rola": "zwora do drzwi rowerowni",
+     "w": "ASF280A-V1 280 kg",
+     "q": 1,
+     "ob": true
+    },
+    {
+     "s": "pulsar-hpsdc",
+     "rola": "zasilacz czytników i zwory",
+     "w": "HPSDC-12V4X1A",
+     "q": 1,
+     "ob": true
+    }
+   ],
+   "zam": [
+    {
+     "z": "dahua-nvr41xxhs-ei",
+     "na": "dahua-nvr42xx-ei",
+     "kiedy": "Gdy budynek ma więcej klatek lub garaż na dwóch poziomach: 16 kanałów i dwa dyski."
+    },
+    {
+     "z": "dahua-asi1201e-v1",
+     "na": "dahua-asi6213s-pw",
+     "kiedy": "Gdy na wejściu głównym ma być terminal z ekranem, rozpoznawaniem twarzy i kodami QR."
+    },
+    {
+     "z": "dahua-ipc-hfw2x49s-s-il",
+     "na": "dahua-ipc-hfw2x49tl-s-led-pro",
+     "kiedy": "Gdy wjazd jest słabo oświetlony, a obraz ma pozostać kolorowy w nocy."
+    }
+   ],
+   "why": [
+    "NVR4108HS-EI obsłuży 8 kamer do 16 Mpx i rozpozna twarze na wybranych kanałach, np. przy wejściu do rowerowni.",
+    "Kamery WizSense 2 mają IR do 30 m, kartę microSD do 512 GB i IP67, więc pracują także w nieogrzewanym garażu i na zewnątrz.",
+    "ASI1201E zapamięta 30 000 kart i kodów, pracuje samodzielnie albo w sieci i ma IP66, więc wystarczy na cały okres użytkowania budynku.",
+    "Jeden producent kamer i czytników oznacza jedną aplikację i prostszą obsługę dla zarządcy wspólnoty."
+   ],
+   "usl": [
+    "Kontrola dostępu we wspólnocie",
+    "Domofony i wideodomofony w klatkach",
+    "Pomiary i dokumentacja powykonawcza",
+    "Monitoring ustawiony pod RODO"
+   ],
+   "faq": [
+    {
+     "q": "Kto po odbiorze zarządza kartami?",
+     "a": "Zarządca lub zarząd wspólnoty. Przekazujemy hasła administratora i instrukcję dodawania oraz blokowania kart."
+    },
+    {
+     "q": "Czy kamery mogą obejmować drzwi do mieszkań?",
+     "a": "Nie ustawiamy kamer na wejścia do lokali. Obejmujemy części wspólne: wjazd, garaż, klatki i rowerownię."
+    },
+    {
+     "q": "Czy wideodomofony do mieszkań są w zestawie?",
+     "a": "Nie. System wideodomofonowy dla klatek projektujemy osobno, zależnie od liczby lokali i wymagań inwestora."
+    },
+    {
+     "q": "Czy dostaniemy dokumentację do odbioru?",
+     "a": "Tak, przekazujemy dokumentację powykonawczą z rozmieszczeniem urządzeń i opisem konfiguracji."
+    }
+   ]
+  }
+ }
+}

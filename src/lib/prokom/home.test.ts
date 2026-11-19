@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { hubBrands, hubHelp, hubHome, hubPlans } from '../../seed/prokom/map'
-import { brandsSchema, visibleAuthorizations } from './brands'
+import { hubBrands, hubHelp, hubHome, hubPlans, hubTrust } from '../../seed/prokom/map'
+import { brandsSchema, visibleAuthorizations, visibleNetwork } from './brands'
 import { fillPromise, fillTokens, homeSchema, PROMISE, withVisibleFacts } from './home'
 import { HUB_LINES } from './lines'
 
@@ -111,5 +111,76 @@ describe('brands (HubSettings.brands)', () => {
     ])
     const phone = { ...brands, note: 'Zadzwoń: 600 100 200' }
     expect(brandsSchema.safeParse(phone).success).toBe(false)
+  })
+})
+
+describe('partner network (runda 1811 D4: ALSEN)', () => {
+  const approved = (values: string[]) => values.map((value) => ({ value }))
+
+  it('is ALSEN, an authorised partner with its own https site, not one of the four', () => {
+    const { network, authorizations } = hubBrands()
+    expect(network).toMatchObject({
+      name: 'ALSEN',
+      slug: 'alsen',
+      status: 'Autoryzowany partner',
+      website: 'https://www.alsen.pl/',
+    })
+    expect(authorizations.map((row) => row.name)).not.toContain('ALSEN')
+    const promoted = { ...hubBrands(), network: { ...network!, status: 'Autoryzowany serwis' } }
+    expect(brandsSchema.safeParse(promoted).success).toBe(false)
+    const http = { ...hubBrands(), network: { ...network!, website: 'http://www.alsen.pl/' } }
+    expect(brandsSchema.safeParse(http).success).toBe(false)
+  })
+
+  it('shows only while its fact is visible', () => {
+    expect(visibleNetwork(hubBrands(), approved(['Posnet']))).toBeNull()
+    expect(visibleNetwork(null, approved(['ALSEN']))).toBeNull()
+  })
+
+  it('hides unconfirmed figures and the Rabka point until their facts are approved', () => {
+    const base = visibleNetwork(hubBrands(), approved(['ALSEN']))!
+    expect(base.paragraphs.join(' ')).not.toMatch(/350/)
+    expect(base.salonNote).toBeNull()
+    const all = visibleNetwork(hubBrands(), approved(['ALSEN', 'ALSEN 350+', 'ALSEN Rabka']))!
+    expect(all.paragraphs.join(' ')).toMatch(/350/)
+    expect(all.salonNote).toBe('Punkt partnerski ALSEN')
+  })
+
+  it('has its facts in the package: the partnership approved, the figures waiting', () => {
+    const facts = new Map(hubTrust().map((row) => [row.value, row.approved]))
+    expect(facts.get('ALSEN')).toBe(true)
+    expect(facts.get('ALSEN 350+')).toBe(false)
+    expect(facts.get('ALSEN Rabka')).toBe(false)
+  })
+})
+
+describe('procurement (runda 1811 D14)', () => {
+  const { procurement } = hubHome()
+
+  it('leads to /inwestycje-i-dostawy, its form and its tenders anchor', () => {
+    expect(procurement?.cta.href).toBe('/inwestycje-i-dostawy#formularz')
+    expect(procurement?.more.href).toBe('/inwestycje-i-dostawy#przetargi')
+    expect(procurement?.points.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('names no buyers and promises no wins or prices', () => {
+    expect(procurement?.examples).toEqual([])
+    const texts = JSON.stringify(procurement).toLowerCase()
+    for (const phrase of ['wygrywamy', 'najtańsz', 'zł', 'cena']) {
+      expect(texts, phrase).not.toContain(phrase)
+    }
+  })
+
+  it('is optional, so texts stored before it stay valid', () => {
+    const { procurement: _p, ...older } = hubHome()
+    expect(homeSchema.safeParse(older).success).toBe(true)
+  })
+
+  it('shows an example of a buyer only with a fact', () => {
+    const noFact = {
+      ...hubHome(),
+      procurement: { ...procurement!, examples: [{ text: 'Gmina X', facts: [] }] },
+    }
+    expect(homeSchema.safeParse(noFact).success).toBe(false)
   })
 })

@@ -8,7 +8,16 @@ import { hydrated, site } from './helpers'
 const HUB = 'prokom.localhost'
 
 /** Sections every seeded hub shows (news only with posts, brands with data — not listed). */
-const SECTIONS = ['start', 'linie', 'dobierz', 'narzedzia', 'pomoc', 'wspolpraca', 'zasieg']
+const SECTIONS = [
+  'start',
+  'linie',
+  'dobierz',
+  'narzedzia',
+  'pomoc',
+  'wspolpraca',
+  'zamowienia',
+  'zasieg',
+]
 const MORE = ['pytania', 'kontakt']
 
 test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
@@ -41,6 +50,40 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     await tabs.nth(1).click()
     await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true')
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'false')
+  })
+
+  test('Tech shows its points: Rabka, Zakopane and the infoline (runda 1811 D5)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HUB, '/#kontakt'))
+    const row = page.locator('#kontakt .pk-clr--points')
+    for (const name of [
+      /Rabka-Zdrój\W+18 541 20 55/,
+      /Zakopane\W+18 541 20 15/,
+      /Infolinia\W+883/,
+    ]) {
+      await expect(row.getByRole('link', { name })).toHaveAttribute('href', /^tel:\+48\d{9}$/)
+    }
+    const tabs = page.locator('#linie').getByRole('tab')
+    await hydrated(tabs.first())
+    await page.locator('#linie').getByRole('tab', { name: /Tech/ }).click()
+    await expect(page.locator('#linie .pk-pn__points')).toContainText('Zakopane')
+  })
+
+  test('„Zamówienia publiczne” leads to the form and the tenders of /inwestycje-i-dostawy (D14)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/#zamowienia'))
+    const section = page.locator('section#zamowienia')
+    await expect(section.getByRole('heading', { level: 2 })).toContainText('jedna oferta')
+    await expect(section.getByRole('link', { name: /Wyślij zapytanie ofertowe/ })).toHaveAttribute(
+      'href',
+      '/inwestycje-i-dostawy#formularz',
+    )
+    await expect(section.locator('.pk-proc__axis li')).toHaveCount(6)
+    await page.goto(site(HUB, '/inwestycje-i-dostawy#przetargi'))
+    await expect(page.locator('#przetargi')).toBeVisible()
   })
 
   test('„Dobierz” shows the plan of the chosen persona', async ({ page }) => {

@@ -25,6 +25,7 @@ export const PROKOM_SHARED: SharedGroup = {
       { anchorId: 'narzedzia', label: 'Załatw online', icon: 'bolt' },
       { anchorId: 'pomoc', label: 'Co zrobić, gdy…', icon: 'help' },
       { anchorId: 'wspolpraca', label: 'Współpraca', icon: 'building' },
+      { anchorId: 'zamowienia', label: 'Zamówienia', icon: 'doc' },
       { anchorId: 'marki', label: 'Marki', icon: 'shield' },
       { anchorId: 'zasieg', label: 'Zasięg', icon: 'map' },
       { anchorId: 'aktualnosci', label: 'Aktualności', icon: 'news' },
@@ -137,8 +138,24 @@ export const PROKOM_SITE = {
  * salon, so it is not in `CompanyData.locations` (the other lines show Rabka only).
  */
 export const PROKOM_EXTRA_PHONES = [
-  { label: 'Biuro (stacjonarny)', number: '18 267 65 11' },
-  { label: 'Serwis PRO-KOM Tech, Rabka-Zdrój', number: '18 541 20 55' },
+  { label: 'Biuro (stacjonarny)', number: '18 267 65 11', techPoint: null },
+  // Runda 1811 D5: the Tech point of Rabka — shown next to Tech on the hub with Zakopane.
+  {
+    label: 'Serwis PRO-KOM Tech, Rabka-Zdrój',
+    number: '18 541 20 55',
+    techPoint: 'Rabka-Zdrój',
+  },
+] as const
+
+/**
+ * Old addresses of the company the boss keeps (runda 1811 D15), on `/kontakt` next to the hub's
+ * main address. „Zamówienia”, not „sklep” (no shop on pro-kom.eu, decision 01.11).
+ * TODO(krystian): switch `sklep@pro-kom.pl` on in the panel only once the mailbox works, someone
+ * reads it and the pro-kom.pl domain stays (then a line in docs/dns.md).
+ */
+export const PROKOM_EXTRA_EMAILS = [
+  { label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu', published: true },
+  { label: 'Zamówienia', email: 'sklep@pro-kom.pl', published: false },
 ] as const
 
 export const PROKOM_BRANCH = {

@@ -3,6 +3,7 @@
  * `hub-services`, `hub-tools`, `hub-help` and `hub-plans` (ADR-H002 §3). Pure functions, so the
  * counts and the exceptions are tested without a database; `run.ts` writes the result.
  */
+import { PROKOM_EXTRA_PHONES } from '../shared/prokom'
 import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '../../payload-types'
 import { isHubLine, type HubLine } from '../../lib/prokom/lines'
 import { normalizeText } from '../../lib/shared/search/normalize'
@@ -222,6 +223,7 @@ type TrustRow = NonNullable<HubSetting['trust']>[number]
 export function hubTrust(): TrustRow[] {
   const spec = 'spec prokomeu §3'
   const k4 = 'K4-FINAL §1'
+  const rounds = 'runda-1811 D4'
   return [
     { value: 'Od 2004', label: 'firma z Rabki-Zdroju', source: spec, approved: true },
     { value: '100+', label: 'klientów firmowych', source: spec, approved: true },
@@ -231,12 +233,23 @@ export function hubTrust(): TrustRow[] {
     { value: 'InsERT', label: 'Autoryzowany partner', source: k4, approved: true },
     { value: 'Optivendi', label: 'Partner', source: k4, approved: true },
     { value: 'COMEX', label: 'We współpracy', source: k4, approved: true },
+    // Runda 1811, D4: the ALSEN partnership is confirmed (Krystian 18.11.2026); the figure and
+    // the Rabka point wait for Krystian — unapproved, so production hides the texts using them.
+    { value: 'ALSEN', label: 'Autoryzowany partner', source: rounds, approved: true },
+    { value: 'ALSEN 350+', label: 'sklepów sieci ALSEN', source: rounds, approved: false },
+    {
+      value: 'ALSEN Rabka',
+      label: 'salon = punkt partnerski ALSEN',
+      source: rounds,
+      approved: false,
+    },
   ]
 }
 
 /**
  * Facts after a seed run: a fact of the package replaces the stored one with the same value (its
- * row id kept), facts added in the panel stay after them — the boss's additions never disappear.
+ * row id kept; an approval given in the panel to a fact the package leaves waiting stays — but a
+ * package fact approved here cannot be switched off in the panel: change `hubTrust()` for that), facts added in the panel stay after them — the boss's additions never disappear.
  */
 export function mergeTrust(
   stored: readonly TrustRow[] | null | undefined,
@@ -245,7 +258,12 @@ export function mergeTrust(
   const own = new Map((stored ?? []).map((row) => [row.value, row]))
   const values = new Set(pkg.map((row) => row.value))
   return [
-    ...pkg.map((row) => ({ ...row, id: own.get(row.value)?.id })),
+    // A fact the package leaves waiting keeps the approval given in the panel (runda 1811).
+    ...pkg.map((row) => ({
+      ...row,
+      id: own.get(row.value)?.id,
+      approved: row.approved || own.get(row.value)?.approved === true,
+    })),
     ...(stored ?? []).filter((row) => !values.has(row.value)),
   ]
 }
@@ -291,4 +309,20 @@ export function hubForHome(): HubForHome {
 export function hubBrands(): HubBrands {
   const { _zrodlo: _source, ...data } = brandsModel
   return brandsSchema.parse(data)
+}
+
+type PhoneRow = { label: string; number: string; techPoint?: string | null }
+
+/**
+ * `HubSettings.extraPhones` after a seed run: the package fills an empty list; a stored list stays
+ * as it is (panel edits win). The Rabka Tech point of databases from before runda 1811 is marked
+ * once by the migration `20261119_000423_hub_tech_punkty`.
+ */
+export function extraPhonesAfterSeed(stored: readonly PhoneRow[] | null | undefined): PhoneRow[] {
+  if (!stored?.length) return PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone }))
+  return stored.map(({ label, number, techPoint }) => ({
+    label,
+    number,
+    techPoint: techPoint ?? null,
+  }))
 }
