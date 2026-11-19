@@ -24,9 +24,9 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 | 19.11 | Tech | backend na Django 5.2 LTS i pakietach bez znanych luk (było 76 luk w produkcji) | prokom-system [#140](https://github.com/krystian2077/prokom-system/pull/140) |
 | 19.11 | Tech | śledzenie naprawy odporne na zgadywanie (blokada per zgłoszenie), panel admina Django tylko dla superużytkowników | prokom-system [#138](https://github.com/krystian2077/prokom-system/pull/138) |
 | 19.11 | Tech | losowe nazwy plików klientów pod `/media/`, tylko formaty zdjęć (koniec wgrywania SVG/HTML) | prokom-system [#146](https://github.com/krystian2077/prokom-system/pull/146) |
-| 19.11 | Tech | poprawki AB4 (#131) wdrożone na staging | `deploy.sh staging 3f8a828` |
+| 19.11 | wszystkie | **wdrożenie na produkcję** (akceptacja szefa): Tech eb2a1a4 (Django 5.2.19, #131, #138, #140, #146; nowa konfiguracja bramki), Gaming 42702e6 (#119), prokom-web 56f2314 (#755); bramka wdrożenia i proxy z limitem logowania na serwerze | `deploys.log` 19.11 |
 
-PR-y #131, #119 i #755 czekają na scalenie i wdrożenie (Tech: wydanie na `master`; prokom-web: kroki na serwerze z opisu PR). Statusy pojedynczych pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` (uzupełniana po scaleniu i wdrożeniu).
+**Stan 19.11 wieczorem: wszystkie poprawki z audytu działają na produkcji.** Sprawdzone z zewnątrz: dokumentacja API i lista urządzeń Tech → 403, `nosniff` na `/media/`, panel GraphQL → 404, limit logowania (429 po 6 próbach) w panelu i Gaming, blokady dokumentów Gaming → 403. Statusy pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` każdego repo.
 
 ## 3. Co świadomie zostaje (z uzasadnieniem)
 
@@ -42,10 +42,11 @@ PR-y #131, #119 i #755 czekają na scalenie i wdrożenie (Tech: wydanie na `mast
 | Pozycja | Ryzyko | Kiedy |
 | --- | --- | --- |
 | Stare serwisy PHP na nazwa.pl nadal odpowiadają pod starym adresem (S-01) — archiwum i usunięcie | Wysokie | do 25.11 (część K, Krystian) |
-| Next.js 14 → wspierana linia (z React 19) w Tech — backend już w #140 (T-03) | Wysokie | do 15.12 (sesja ze zrzutami paneli) |
+| Next.js 14 → wspierana linia (z React 19) w Tech — backend już na Django 5.2 (T-03); krytyczne luki Next 14 bez wektora w naszej konfiguracji | Wysokie | do 15.12 (sesja ze zrzutami paneli) |
+| Utwardzenie SSH (S-14): skrypt `skrypty/ab4-ssh-utwardzenie.sh` — wymaga `sudo` Krystiana | Niskie | przy najbliższym logowaniu |
 | Alarm braku kopii produkcji web i Tech (S-04), limit B2 (S-05) | Średnie | do 30.11 |
 | Hetzner (stara Tech) — usunięcie i rotacja sekretów (T-20) | Średnie | po 30.11 |
-| CSP z ograniczeniem skryptów (W-03, G-04), pliki napraw za logowaniem (T-10), `/admin/` Tech (T-13) | Średnie | do 18.12 |
+| CSP z ograniczeniem skryptów (W-03, G-04), pliki napraw za logowaniem (T-10) | Średnie | do 18.12 |
 | Drugi składnik logowania (2FA) do paneli — obiecany w dokumencie z 12.10 | Średnie | decyzja szefa: zakres i termin |
 
 ## 5. Do decyzji szefa lub prawnika
