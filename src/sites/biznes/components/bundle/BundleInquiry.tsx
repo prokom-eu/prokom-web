@@ -26,12 +26,15 @@ export function BundleInquiry({
   services,
   children,
   after,
+  sendNote,
 }: {
   name: string
   rows: BundleRow[]
   services: string[]
   children: ReactNode
   after: ReactNode
+  /** What happens after sending — per line (`CATALOG_UI.bundleSendNote`). */
+  sendNote: string
 }) {
   const [optional, setOptional] = useState<ReadonlySet<string>>(new Set())
   // Said when no toast shows: notes added to listed items only, or the list is full.
@@ -127,8 +130,8 @@ export function BundleInquiry({
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-white/75" aria-live="polite">
           {items.length}{' '}
-          {plural(items.length, ['pozycja trafi', 'pozycje trafią', 'pozycji trafi'])} do zapytania.
-          Ofertę dostaniesz na mailu.
+          {plural(items.length, ['pozycja trafi', 'pozycje trafią', 'pozycji trafi'])} do zapytania.{' '}
+          {sendNote}
         </p>
         {/* On a phone the sticky bar carries the action and its notice. */}
         <div className="mt-5 max-md:hidden">{ask}</div>

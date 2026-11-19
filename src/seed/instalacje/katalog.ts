@@ -7,6 +7,8 @@ import catalog from '../../../seed/prokominstalacje/katalog/katalog-inst.json'
 import brandFile from '../../../seed/prokominstalacje/katalog/marki-inst.json'
 import salonFile from '../../../seed/prokominstalacje/katalog/salony-inst.json'
 import dictionaryFile from '../../../seed/prokominstalacje/katalog/slowniki-inst.json'
+import bundleFile from '../../../seed/prokominstalacje/katalog/zestawy-inst.json'
+import { nextBundleStatus } from '../biznes/k3Bundles'
 import type { K4BrandsFile } from '../biznes/k4Brands'
 import { k4Relations } from '../biznes/k4Catalog'
 import { k4ShowroomData, type K4Showroom } from '../biznes/k4Showrooms'
@@ -23,6 +25,7 @@ import {
   type InstCard,
   type InstDictionaries,
 } from './katalogMap'
+import { instBundleData, orderedBundles, type InstBundlesFile } from './zestawy'
 
 /** Eight cards of „Najczęściej wybierane” on the home page until the panel sets its own. */
 export const HOME_FEATURED = [
@@ -323,6 +326,39 @@ export async function seedInstalacjeCatalog(payload: Payload, tenantId: number):
         ...local,
       })
       count('salony (nowe)')
+    }
+  }
+
+  // --- ready bundles (INST-K3), after the cards they list; „Gotowe” from the panel stays ---
+  const cardStatus = new Map(cards.map((card) => [card.slug_seed, card.status]))
+  const bundleRefs = {
+    product: (slug: string) => productIds.get(slug),
+    cardStatus: (slug: string) => cardStatus.get(slug),
+  }
+  for (const [order, [slug, bundle]] of orderedBundles(
+    bundleFile as unknown as InstBundlesFile,
+  ).entries()) {
+    const data = instBundleData(slug, bundle, order + 1, bundleRefs)
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'bundles',
+      where: inTenant({ slug: { equals: slug } }),
+      limit: 1,
+      ...local,
+    })
+    if (existing) {
+      const update = {
+        ...data,
+        contentStatus: nextBundleStatus(data.contentStatus, existing.contentStatus),
+      }
+      if (!hasSameValues(existing, update)) {
+        await payload.update({ collection: 'bundles', id: existing.id, data: update, ...local })
+        count('zestawy (aktualizacja)')
+      } else count('zestawy (bez zmian)')
+    } else {
+      await payload.create({ collection: 'bundles', data: { ...data, tenant: tenantId }, ...local })
+      count('zestawy (nowe)')
     }
   }
 

@@ -73,6 +73,17 @@ describe('catalog copy of a line (ADR-029, INST-K1)', () => {
       brandsSearchPlaceholder: 'Szukaj marki, np. Posnet, Apple, UniFi',
       brandsMissingTitle: 'Nie mamy jeszcze salonu tej marki',
       brandsOtherTitle: 'Szukasz innej marki?',
+      bundlesMetaTitle: 'Gotowe zestawy dla firm — Rabka-Zdrój',
+      bundlesDescription:
+        'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Na Podhalu, wycena na mailu.',
+      bundlesTitle: 'Gotowe zestawy: sprzęt, program i usługi, które działają razem',
+      bundlesLead:
+        'Sprawdzamy, czy elementy zestawu działają razem: złącza, sterowniki i zgodność z programem. Każdy możesz zmienić, a my doradzimy, co i kiedy.',
+      bundlesEmpty:
+        'Nie mamy jeszcze gotowego zestawu z tymi filtrami. Dobierzemy go pod Twoją firmę.',
+      bundlesNone:
+        'Zestawy właśnie przygotowujemy. Sprzęt i programy znajdziesz w katalogu. Dobierzemy komplet pod Twoją firmę.',
+      bundleSendNote: 'Ofertę dostaniesz na mailu.',
       sentPhoned: 'Oddzwonimy w ciągu 60 minut w godzinach pracy i przygotujemy ofertę.',
       stepQuote: ['Wycena na mailu', 'z wariantami do wyboru i terminem realizacji'],
       stepDelivery: ['Dostawa i wdrożenie', 'konfiguracja, fiskalizacja i szkolenie u Ciebie'],

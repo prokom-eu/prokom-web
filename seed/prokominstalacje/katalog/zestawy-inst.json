@@ -38,7 +38,7 @@
    "nazwa": "Dom — 4 kamery IP z rejestratorem PoE",
    "grupa": "Dom i domek letniskowy",
    "poziom": "Start",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Dom jednorodzinny albo domek z działką, w którym chcesz widzieć wjazd, wejście, taras i ogród, a nagrania trzymać na miejscu, nie w chmurze.",
    "korzysc": "Cztery kamery na jednym przewodzie każda: rejestrator sam je zasila, a obraz masz w telefonie.",
    "opis": [
@@ -134,7 +134,7 @@
    "nazwa": "Dom z dużą posesją — 6 kamer z kolorem w nocy i zoomem na bramę",
    "grupa": "Dom i domek letniskowy",
    "poziom": "Rozbudowany",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Dom z dużą działką, garażem i budynkiem gospodarczym albo posesja przy drodze, gdzie liczą się kolor po zmroku, czytelny obraz bramy i alarm tylko od ludzi i aut.",
    "korzysc": "Kamery same odróżniają człowieka i auto od zwierząt, a nocą pokazują kolory, nie szare plamy.",
    "opis": [
@@ -245,7 +245,7 @@
    "nazwa": "Dom z alarmem Ajax i dwiema kamerami w jednej aplikacji",
    "grupa": "Dom i domek letniskowy",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Zamieszkany dom, w którym chcesz alarm bez kucia ścian, czujkę dymu i podgląd wejść, a wszystko uzbrajać i sprawdzać z telefonu.",
    "korzysc": "Alarm, czujka dymu i podgląd kamer w jednej aplikacji, montowane bez bruzd w ścianach.",
    "opis": [
@@ -383,7 +383,7 @@
    "nazwa": "Domek letniskowy — alarm na kartę SIM ze zdjęciami z czujek",
    "grupa": "Dom i domek letniskowy",
    "poziom": "Start",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Domek w górach lub na działce, w którym nikt nie mieszka na stałe, często bez internetu, a właściciel chce wiedzieć o włamaniu, zalaniu i pożarze z odległości.",
    "korzysc": "Alarm wysyła zdjęcie z czujki na telefon, więc od razu wiesz, czy jechać, czy dzwonić na policję.",
    "opis": [
@@ -492,7 +492,7 @@
    "nazwa": "Apartament na wynajem — wejście na kod, czujki i kamera przy drzwiach",
    "grupa": "Apartament na wynajem",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Apartament lub domek na wynajem krótkoterminowy w Zakopanem, Białce czy Rabce, gdzie gość ma wejść sam o dowolnej porze, a właściciel chce wiedzieć o zalaniu i dymie.",
    "korzysc": "Każdy gość dostaje własny kod, który kasujesz po wyjeździe, bez przekazywania kluczy.",
    "opis": [
@@ -609,7 +609,7 @@
    "nazwa": "Pensjonat — 6 kamer, wideodomofon na furtkę i bramę, alarm zaplecza",
    "grupa": "Pensjonat",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Pensjonat lub dom gościnny z parkingiem i ogrodem, gdzie gospodarz otwiera furtkę z telefonu, pilnuje aut gości i zabezpiecza zaplecze, kotłownię i biuro.",
    "korzysc": "Furtkę i bramę otwierasz z telefonu, parking widzisz w nagraniach, a zaplecze chroni alarm.",
    "opis": [
@@ -753,7 +753,7 @@
    "nazwa": "Hotel — 15 kamer, nocne wejście na kartę i zaplecze dla personelu",
    "grupa": "Hotel",
    "poziom": "Rozbudowany",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Hotel z recepcją, parkingiem, restauracją i zapleczem, w którym nocą goście wchodzą sami na kartę, a do magazynu i kuchni ma wstęp tylko personel.",
    "korzysc": "Gość wchodzi nocą na kartę, personel ma uprawnienia do swoich drzwi, a każde zdarzenie jest w nagraniu.",
    "opis": [
@@ -899,7 +899,7 @@
    "nazwa": "Sala konferencyjna — ekran na ścianie, obraz z laptopa z gniazda przy stole",
    "grupa": "Hotel",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Sala konferencyjna w hotelu, sala szkoleniowa w firmie albo sala obrad, gdzie prelegent podłącza laptopa przy stole, a obraz ma trafić na duży ekran bez kabla przez całą salę.",
    "korzysc": "Prelegent wpina laptopa w gniazdo przy stole, a obraz 4K pojawia się na ekranie w kilka sekund.",
    "opis": [
@@ -1000,7 +1000,7 @@
    "nazwa": "Restauracja i sala weselna — monitoring sali, baru i parkingu oraz ekrany na przyjęcia",
    "grupa": "Restauracja i sala weselna",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Restauracja z salą na przyjęcia, barem, ogródkiem i parkingiem, gdzie właściciel chce widzieć kasę i wejścia, a goście wesela pokazują zdjęcia i filmy na ekranach.",
    "korzysc": "Kasa, zaplecze i parking w nagraniach, a obraz z laptopa trafia na ekrany sali po sieci.",
    "opis": [
@@ -1103,7 +1103,7 @@
    "nazwa": "Sklep — 4 kamery z rejestratorem PoE i alarm Satel na kartę SIM",
    "grupa": "Sklep i salon",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Sklep, salon lub punkt usługowy z jedną salą sprzedaży i zapleczem, gdzie trzeba widzieć kasę i witrynę, a po zamknięciu chronić lokal alarmem z powiadomieniem.",
    "korzysc": "Kamery nagrywają kasę i salę, a po zamknięciu alarm Satel powiadamia Cię przez kartę SIM.",
    "opis": [
@@ -1220,7 +1220,7 @@
    "nazwa": "Wejście do firmy — terminal twarzy z rozmową, monitor w biurze, sterownik i zwora",
    "grupa": "Firma, biuro i hala",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Biuro, warsztat lub siedziba firmy z jednym głównym wejściem, przez które pracownicy wchodzą twarzą albo kartą, a kurier i klient dzwonią do biura.",
    "korzysc": "Pracownik wchodzi bez klucza, gość dzwoni do biura, a każde wejście zostaje w historii.",
    "opis": [
@@ -1316,7 +1316,7 @@
    "nazwa": "Hala i plac magazynowy — kamery dalekiego zasięgu, PTZ 25× i alarm Satel z ochroną placu",
    "grupa": "Firma, biuro i hala",
    "poziom": "Rozbudowany",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Hala produkcyjna, magazyn lub skład budowlany z placem, rampą i bramą wjazdową, gdzie trzeba widzieć daleko w nocy i wykryć intruza na placu, zanim dojdzie do budynku.",
    "korzysc": "Plac widać na 80 m w nocy, kamera PTZ śledzi intruza, a czujki zewnętrzne alarmują jeszcze przed drzwiami hali.",
    "opis": [
@@ -1467,7 +1467,7 @@
    "nazwa": "Modernizacja starego monitoringu — kamery HD na istniejącym koncentryku",
    "grupa": "Firma, biuro i hala",
    "poziom": "Start",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Warsztat, sklep, gospodarstwo lub dom ze starym monitoringiem analogowym, w którym kable koncentryczne są w ścianach, a obraz jest rozmyty i nieczytelny.",
    "korzysc": "Ostry obraz HD bez kucia i bez nowych kabli: wymieniamy kamery i rejestrator, przewody zostają.",
    "opis": [
@@ -1563,7 +1563,7 @@
    "nazwa": "Kościół — transmisja mszy z dwóch kamer PTZ do internetu",
    "grupa": "Kościół i parafia",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Parafia, która chce transmitować msze, śluby i pogrzeby na kanał parafii, z obrazem ołtarza i ambony oraz dźwiękiem z istniejącego nagłośnienia.",
    "korzysc": "Ksiądz lub wolontariusz uruchamia transmisję jednym przyciskiem, a kamery same wracają do zapamiętanych ujęć.",
    "opis": [
@@ -1652,7 +1652,7 @@
    "nazwa": "Szkoła — monitoring BCS i alarm Satel z czujkami bezprzewodowymi w salach",
    "grupa": "Szkoła i przedszkole",
    "poziom": "Rozbudowany",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Szkoła podstawowa lub przedszkole z korytarzami, wejściami, boiskiem i parkingiem, gdzie alarm trzeba założyć w trakcie roku szkolnego, bez kucia w każdej sali.",
    "korzysc": "Sale chronią czujki bezprzewodowe montowane bez kucia, a kamery BCS pilnują wejść, korytarzy i boiska.",
    "opis": [
@@ -1804,7 +1804,7 @@
    "nazwa": "Świetlica, remiza lub budynek gminy — 4 kamery BCS i alarm Satel",
    "grupa": "Gmina i urząd",
    "poziom": "Start",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Świetlica wiejska, remiza OSP, ośrodek kultury lub mały budynek gminny, który przez większość tygodnia stoi pusty i ma plac lub parking przed wejściem.",
    "korzysc": "Prosty system na polskich urządzeniach: kamery z jednym rejestratorem PoE i alarm z powiadomieniem na telefon gospodarza.",
    "opis": [
@@ -1907,7 +1907,7 @@
    "nazwa": "Budowa — alarm kontenera i magazynu narzędzi na kartę SIM",
    "grupa": "Budowa",
    "poziom": "Start",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Plac budowy z kontenerem biurowym lub magazynem narzędzi, bez stałego internetu i z prądem z rozdzielnicy budowlanej, gdzie kradzieże zdarzają się nocą i w weekendy.",
    "korzysc": "Montaż w godzinę, praca bez internetu, zdjęcie z miejsca włamania na telefonie kierownika.",
    "opis": [
@@ -2003,7 +2003,7 @@
    "nazwa": "Budynek dewelopera — kamery części wspólnych i wejścia na kartę",
    "grupa": "Deweloper",
    "poziom": "Standard",
-   "status": "do-potwierdzenia",
+   "status": "gotowe",
    "dla": "Deweloper lub wykonawca małego budynku wielorodzinnego, który przekazuje wspólnocie gotowy monitoring wjazdu, garażu i klatek oraz wejścia do rowerowni i garażu na kartę lub kod.",
    "korzysc": "Wspólnota dostaje działający monitoring i wejścia na karty, z dokumentacją i jednym wykonawcą do serwisu.",
    "opis": [

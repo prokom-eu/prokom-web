@@ -27,11 +27,14 @@ export function BundleList({
   areas,
   industries,
   sizes,
+  emptyText,
 }: {
   bundles: BundleCardData[]
   areas: { value: BundleArea; label: string }[]
   industries: { slug: string; name: string }[]
   sizes: string[]
+  /** Said when no bundle passes the filters — per line (`CATALOG_UI.bundlesEmpty`). */
+  emptyText: string
 }) {
   const [filter, setFilter] = useState<BundleFilter>({ area: null, industry: null, size: null })
   const industryId = useId()
@@ -130,9 +133,7 @@ export function BundleList({
         </ul>
       ) : (
         <div className="flex flex-col items-start gap-3 rounded-[22px] bg-surface-2 p-6">
-          <p className="leading-relaxed text-ink-2">
-            Nie mamy jeszcze gotowego zestawu z tymi filtrami. Dobierzemy go pod Twoją firmę.
-          </p>
+          <p className="leading-relaxed text-ink-2">{emptyText}</p>
           <button
             type="button"
             onClick={() => setFilter({ area: null, industry: null, size: null })}

@@ -160,8 +160,23 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     await expect(page.locator('main')).toContainText('Transmisje sesji rady gminy')
   })
 
+  // INST-K3: the line's ready bundles — its own texts, no Biznes promise, bundle pages 200.
+  test('/zestawy lists the Instalacje bundles with its own copy', async ({ page }) => {
+    const response = await page.goto(inst('/zestawy'))
+    expect(response?.status()).toBe(200)
+    const main = page.locator('main')
+    await expect(main.locator('h1')).toContainText('kamery, alarm i domofon')
+    await expect(main).not.toContainText(/dla firm|wycena na mailu|Posnet/i)
+    const first = main.locator('a[href^="/zestawy/zestaw-inst-"]').first()
+    const href = await first.getAttribute('href')
+    const bundle = await page.goto(inst(href!))
+    expect(bundle?.status()).toBe(200)
+    await expect(page.locator('main')).not.toContainText(/Ofertę dostaniesz na mailu|\d\s?zł/)
+    await expect(page.locator('#twoj-zestaw')).toContainText('do zapytania. Oddzwonimy')
+  })
+
   for (const theme of ['light', 'dark'] as const) {
-    for (const path of ['/oferta', PRODUCT, '/marki', '/marki/dahua']) {
+    for (const path of ['/oferta', PRODUCT, '/marki', '/marki/dahua', '/zestawy']) {
       test(`axe WCAG AA on ${path} (${theme})`, async ({ page }) => {
         await setTheme(page, theme)
         await page.goto(inst(path))
