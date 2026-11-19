@@ -23,6 +23,7 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 | 18.11 | prokom-web | ochrona CSRF i bezpieczne ciasteczko panelu, partnerów edytuje tylko właściwa linia, limit prób logowania w Nginx (panel i Gaming), trwała poprawka wdrożenia Nginx, drobne (unlock, limit plików, bez `X-Powered-By`) | prokom-web [#755](https://github.com/prokom-eu/prokom-web/pull/755) |
 | 19.11 | Tech | backend na Django 5.2 LTS i pakietach bez znanych luk (było 76 luk w produkcji) | prokom-system [#140](https://github.com/krystian2077/prokom-system/pull/140) |
 | 19.11 | Tech | śledzenie naprawy odporne na zgadywanie (blokada per zgłoszenie), panel admina Django tylko dla superużytkowników | prokom-system [#138](https://github.com/krystian2077/prokom-system/pull/138) |
+| 19.11 | Tech | losowe nazwy plików klientów pod `/media/`, tylko formaty zdjęć (koniec wgrywania SVG/HTML) | prokom-system [#146](https://github.com/krystian2077/prokom-system/pull/146) |
 | 19.11 | Tech | poprawki AB4 (#131) wdrożone na staging | `deploy.sh staging 3f8a828` |
 
 PR-y #131, #119 i #755 czekają na scalenie i wdrożenie (Tech: wydanie na `master`; prokom-web: kroki na serwerze z opisu PR). Statusy pojedynczych pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` (uzupełniana po scaleniu i wdrożeniu).
