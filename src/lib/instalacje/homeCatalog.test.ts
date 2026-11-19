@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { featuredProducts, homeDepartments } from './homeCatalog'
+import { featuredProducts, homeDepartments, homeSalons, SALON_LOGOS } from './homeCatalog'
 
 const product = (slug: string, group: string, image = true) =>
   ({
@@ -45,5 +45,28 @@ describe('home „Sprzęt i marki” (INST-K2)', () => {
     const many = { products: Array.from({ length: 12 }, (_, i) => product(`p${i}`, 'mon')) }
     const chosen = featuredProducts(many, ['p5', 'gone', 'p2'])
     expect(chosen.map((p) => p.slug)).toEqual(['p5', 'p2', 'p0', 'p1', 'p3', 'p4', 'p6', 'p7'])
+  })
+})
+
+describe('home salon tiles (INST-K3)', () => {
+  const card = (slug: string, brand: string) => ({ slug, brand }) as never
+  it('one tile per salon with its brands, card count and logo (own first, else the file)', () => {
+    const salons = homeSalons({
+      brands: [
+        { slug: 'dahua', name: 'Dahua', salon: 'dahua' },
+        { slug: 'edbak', name: 'Edbak' },
+        {
+          slug: 'zz',
+          name: 'ZZ',
+          salon: 'zz',
+          logo: { url: '/zz.svg', width: 10, height: 5, alt: 'ZZ' },
+        },
+      ] as never,
+      products: [card('a', 'dahua'), card('b', 'dahua'), card('c', 'edbak'), card('d', 'zz')],
+    })
+    expect(salons).toEqual([
+      { slug: 'dahua', name: 'Dahua', count: 2, logo: SALON_LOGOS.dahua },
+      { slug: 'zz', name: 'ZZ', count: 1, logo: { src: '/zz.svg', width: 10, height: 5 } },
+    ])
   })
 })
