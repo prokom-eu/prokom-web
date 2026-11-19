@@ -5,9 +5,10 @@ import { seedProkomLegal } from './legal'
 import { seedProkomRedirects } from './redirects'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { PROKOM_BRANCH, PROKOM_EXTRA_PHONES, PROKOM_SITE } from '../shared/prokom'
+import { PROKOM_BRANCH, PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
 import {
+  extraPhonesAfterSeed,
   hubBrands,
   hubCooperation,
   hubDeliveries,
@@ -114,9 +115,7 @@ export async function seedProkom(payload: Payload): Promise<void> {
     forBusiness: hubForBusiness(),
     forHome: hubForHome(),
     // Contact data: the package only fills empty fields — later edits in the panel stay.
-    extraPhones: hubSettings?.extraPhones?.length
-      ? hubSettings.extraPhones.map(({ label, number }) => ({ label, number }))
-      : PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone })),
+    extraPhones: extraPhonesAfterSeed(hubSettings?.extraPhones),
     branch: hubSettings?.branch?.street ? hubSettings.branch : { ...PROKOM_BRANCH },
   }
   if (!hubSettings) {

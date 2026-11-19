@@ -3,6 +3,7 @@
  * `hub-services`, `hub-tools`, `hub-help` and `hub-plans` (ADR-H002 §3). Pure functions, so the
  * counts and the exceptions are tested without a database; `run.ts` writes the result.
  */
+import { PROKOM_EXTRA_PHONES } from '../shared/prokom'
 import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '../../payload-types'
 import { isHubLine, type HubLine } from '../../lib/prokom/lines'
 import { normalizeText } from '../../lib/shared/search/normalize'
@@ -308,4 +309,20 @@ export function hubForHome(): HubForHome {
 export function hubBrands(): HubBrands {
   const { _zrodlo: _source, ...data } = brandsModel
   return brandsSchema.parse(data)
+}
+
+type PhoneRow = { label: string; number: string; techPoint?: string | null }
+
+/**
+ * `HubSettings.extraPhones` after a seed run: the package fills an empty list; a stored list stays
+ * as it is (panel edits win). The Rabka Tech point of databases from before runda 1811 is marked
+ * once by the migration `20261119_000423_hub_tech_punkty`.
+ */
+export function extraPhonesAfterSeed(stored: readonly PhoneRow[] | null | undefined): PhoneRow[] {
+  if (!stored?.length) return PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone }))
+  return stored.map(({ label, number, techPoint }) => ({
+    label,
+    number,
+    techPoint: techPoint ?? null,
+  }))
 }

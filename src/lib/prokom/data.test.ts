@@ -147,7 +147,7 @@ describe('toHubSettings', () => {
       { ...doc, extraPhones: [{ label: 'Biuro', number: '18 267 65 11', id: 'a' }], branch },
       'production',
     )
-    expect(view.extraPhones).toEqual([{ label: 'Biuro', number: '18 267 65 11' }])
+    expect(view.extraPhones).toEqual([{ label: 'Biuro', number: '18 267 65 11', techPoint: null }])
     expect(view.branch).toEqual({
       name: 'Zakopane',
       street: 'ul. Stanisława Staszica 8',
