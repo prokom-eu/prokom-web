@@ -61,8 +61,9 @@ test.describe('Biznes home: Zaopatrzenie firm and the brand strips (B2-3)', () =
     const { json } = await api(
       page,
       'GET',
-      // The seller's own brand (PRO-KOM) is not a strip tile, as in the prototype.
-      `/api/partners?where[tenants][in]=${biznes}&where[slug][not_equals]=pro-kom&limit=0&depth=0`,
+      // The seller's own brand (PRO-KOM) is not a strip tile, as in the prototype; neither is a
+      // partner network (ALSEN, runda 1811 D4 — no offer to link to).
+      `/api/partners?where[tenants][in]=${biznes}&where[slug][not_in]=pro-kom,alsen&limit=0&depth=0`,
     )
     const total = json.totalDocs as number
     await page.goto(site('biznes.localhost'))
