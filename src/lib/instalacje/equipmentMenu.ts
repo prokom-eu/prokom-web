@@ -1,5 +1,7 @@
+import { bundleHref, bundleLabel, type BundleView, listBundles } from '../catalog/bundle'
 import type { CatalogIndex } from '../catalog/catalogIndex'
 import { plural } from '../plural'
+import { type HomeSalon, homeSalons } from './homeCatalog'
 import type { MenuColumn } from './menu'
 
 /** Line icons (`InstIcon`) of the catalog categories; a new category gets `tool`. */
@@ -45,4 +47,49 @@ export function equipmentColumns(index: {
       },
     ]
   })
+}
+
+/**
+ * A short showcase of bundles: the first of each area in the panel order, then the rest — so three
+ * bundles show a house, a guesthouse and a firm instead of three houses.
+ */
+export function pickBundles<T extends { slug: string; area: string }>(
+  bundles: readonly T[],
+  size: number,
+): T[] {
+  const seen = new Set<string>()
+  const firsts = bundles.filter((bundle) => !seen.has(bundle.area) && seen.add(bundle.area))
+  return [...firsts, ...bundles.filter((bundle) => !firsts.includes(bundle))].slice(0, size)
+}
+
+/** Bundles named in the „Sprzęt” mega menu. */
+export const MENU_BUNDLES = 3
+
+export type EquipmentExtras = {
+  salons: HomeSalon[]
+  bundles: { slug: string; name: string; label: string; href: string }[]
+  bundleCount: number
+}
+
+/**
+ * The rest of the „Sprzęt” mega menu (INST-K3): the salon logos and the first ready bundles of
+ * the line (listed cards only, „Gotowe” only — like `/zestawy`), with their count.
+ */
+export function equipmentExtras(
+  index: Pick<CatalogIndex, 'brands' | 'products'>,
+  views: readonly BundleView[],
+): EquipmentExtras {
+  const bundles = listBundles(views, new Set(index.products.map((product) => product.slug))).filter(
+    (bundle) => bundle.indexable,
+  )
+  return {
+    salons: homeSalons(index),
+    bundles: pickBundles(bundles, MENU_BUNDLES).map((bundle) => ({
+      slug: bundle.slug,
+      name: bundle.name,
+      label: bundleLabel(bundle),
+      href: bundleHref(bundle.slug),
+    })),
+    bundleCount: bundles.length,
+  }
 }

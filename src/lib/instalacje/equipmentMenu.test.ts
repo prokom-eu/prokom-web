@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { equipmentColumns } from './equipmentMenu'
+import { equipmentColumns, equipmentExtras, pickBundles } from './equipmentMenu'
 
 const index = {
   groups: [
@@ -44,5 +44,60 @@ describe('equipmentColumns', () => {
 
   it('is empty without categories (the header keeps the plain link)', () => {
     expect(equipmentColumns({ groups: index.groups, categories: [] })).toEqual([])
+  })
+})
+
+describe('equipmentExtras (INST-K3)', () => {
+  const view = (slug: string, ready: boolean, product = 'cam') =>
+    ({
+      slug,
+      name: `Zestaw ${slug}`,
+      area: 'dom',
+      areaLabel: 'Dom i apartament',
+      level: 'Start',
+      indexable: ready,
+      items: [{ product, mandatory: true }],
+      swaps: [],
+      services: [],
+    }) as never
+  it('names the first ready bundles with listed cards, counts them and lists the salons', () => {
+    const extras = equipmentExtras(
+      {
+        brands: [{ slug: 'dahua', name: 'Dahua', salon: 'dahua' }] as never,
+        products: [{ slug: 'cam', brand: 'dahua' }] as never,
+      },
+      [
+        view('a', true),
+        view('b', false),
+        view('c', true, 'gone'),
+        view('d', true),
+        view('e', true),
+        view('f', true),
+      ],
+    )
+    expect(extras.bundleCount).toBe(4)
+    expect(extras.bundles.map((bundle) => bundle.slug)).toEqual(['a', 'd', 'e'])
+    expect(extras.bundles[0]).toEqual({
+      slug: 'a',
+      name: 'Zestaw a',
+      label: 'Dom i apartament · Start',
+      href: '/zestawy/a',
+    })
+    expect(extras.salons.map((salon) => salon.slug)).toEqual(['dahua'])
+  })
+})
+
+describe('pickBundles (INST-K3)', () => {
+  it('takes the first bundle of each area, then fills up in order', () => {
+    const b = (slug: string, area: string) => ({ slug, area })
+    const list = [
+      b('d1', 'dom'),
+      b('d2', 'dom'),
+      b('n1', 'noclegi'),
+      b('d3', 'dom'),
+      b('f1', 'firma'),
+    ]
+    expect(pickBundles(list, 3).map((x) => x.slug)).toEqual(['d1', 'n1', 'f1'])
+    expect(pickBundles(list, 4).map((x) => x.slug)).toEqual(['d1', 'n1', 'f1', 'd2'])
   })
 })

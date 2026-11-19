@@ -98,6 +98,15 @@ test.describe('Instalacje catalog (INST-K1)', () => {
       'href',
       '/oferta',
     )
+    // INST-K3: ready bundles and salon logos in the panel.
+    await expect(panel.getByRole('link', { name: /Wszystkie zestawy/ })).toHaveAttribute(
+      'href',
+      '/zestawy',
+    )
+    await expect(panel.getByRole('link', { name: 'Salon Dahua' })).toHaveAttribute(
+      'href',
+      '/marki/dahua',
+    )
     await page.keyboard.press('Escape')
     await expect(panel).toBeHidden()
   })

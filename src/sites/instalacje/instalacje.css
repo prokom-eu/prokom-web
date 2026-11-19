@@ -208,6 +208,97 @@ html[data-line='instalacje'].pk-lock body {
     font-size: 14px;
     color: var(--accent-text);
   }
+  /* „Sprzęt ▾” (INST-K3): ready bundles in the side panel, salon logos across the bottom. */
+  & .megaeq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 2px 0 4px;
+    padding: 0;
+  }
+  & .megaeq-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    transition:
+      box-shadow 0.2s,
+      translate 0.2s;
+  }
+  & .megaeq-list b {
+    font-family: var(--font-body);
+    font-stretch: 100%;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  & .megaeq-list span {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+  & .megasal {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin-top: 4px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  & .megasal .megah {
+    margin: 0;
+  }
+  & .megasal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+  }
+  & .megasal ul a {
+    display: grid;
+    place-items: center;
+    width: 132px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--inst-brand-tile);
+    box-shadow: inset 0 0 0 1px var(--inst-brand-tile-line);
+    transition:
+      box-shadow 0.2s,
+      translate 0.2s;
+  }
+  & .megasal ul img {
+    width: auto;
+    max-width: 96px;
+    height: 20px;
+    object-fit: contain;
+  }
+  & .megasal ul b {
+    font-size: 14px;
+    color: var(--inst-brand-tile-ink);
+  }
+  & .megasal .megal {
+    margin-left: auto;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    & .megaeq-list a:hover,
+    & .megasal ul a:hover {
+      translate: 0 -2px;
+      box-shadow:
+        inset 0 0 0 1px var(--accent-text),
+        0 10px 22px -14px var(--inst-brand-tile-shadow);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    & .megaeq-list a,
+    & .megasal ul a {
+      transition: none;
+    }
+  }
   & .iconb {
     width: 44px;
     height: 44px;

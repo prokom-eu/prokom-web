@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type KeyboardEvent, useEffect, useRef, useState } from 'react'
@@ -9,6 +10,7 @@ import { MenuButton } from '@/components/shared/MenuButton'
 import { type CapsuleNavItem, SiteHeader } from '@/components/shared/SiteHeader'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { Icon } from '@/components/ui/Icon'
+import type { EquipmentExtras } from '@/lib/instalacje/equipmentMenu'
 import { activeSection, type InstMenu, type MenuColumn } from '@/lib/instalacje/menu'
 import { requestSearch } from '@/lib/site/searchOpen'
 
@@ -36,6 +38,8 @@ type Props = {
   menu: InstMenu
   /** Columns of „Sprzęt ▾” (catalog departments); empty = the plain „Sprzęt” link. */
   equipment: MenuColumn[]
+  /** Salons and ready bundles of „Sprzęt ▾” (INST-K3); `null` = the promo alone. */
+  equipmentMore: EquipmentExtras | null
   /** The search window and the menu sheet are there (they need the shared data of the panel). */
   withShared: boolean
 }
@@ -76,6 +80,65 @@ function Promo({ promo, title, warm }: { promo: MegaPromo; title: string; warm?:
 }
 
 /**
+ * The side panel of „Sprzęt ▾” (INST-K3): the first ready bundles with the way to all of them and
+ * to the whole offer — in place of the plain promo once the line has bundles.
+ */
+function EquipmentPanel({ more, promo }: { more: EquipmentExtras; promo: MegaPromo }) {
+  return (
+    <div className="megap megaeq">
+      <span className="eye text-[12px]">Gotowe zestawy</span>
+      <ul className="megaeq-list" role="list">
+        {more.bundles.map((bundle) => (
+          <li key={bundle.slug}>
+            <Link href={bundle.href}>
+              <b>{bundle.name}</b>
+              <span>{bundle.label}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link href="/zestawy" className="btn btn-p btn-s self-start">
+        Wszystkie zestawy ({more.bundleCount}) →
+      </Link>
+      <Link href={promo.button.href} className="megal">
+        {promo.button.label}
+      </Link>
+    </div>
+  )
+}
+
+/** The salon logos under the departments of „Sprzęt ▾” (INST-K3). */
+function SalonStrip({ more }: { more: EquipmentExtras }) {
+  return (
+    <div className="megasal">
+      <span className="megah">Salony marek</span>
+      <ul role="list">
+        {more.salons.map((salon) => (
+          <li key={salon.slug}>
+            <Link href={`/marki/${salon.slug}`} aria-label={`Salon ${salon.name}`}>
+              {salon.logo ? (
+                <Image
+                  src={salon.logo.src}
+                  alt=""
+                  width={salon.logo.width}
+                  height={salon.logo.height}
+                  unoptimized
+                />
+              ) : (
+                <b>{salon.name}</b>
+              )}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link href="/marki" className="megal">
+        Wszystkie marki →
+      </Link>
+    </div>
+  )
+}
+
+/**
  * The Instalacje line in the shared header capsule (L1-I, NAGLOWEK-KAPSULA, board 11): the
  * capsule brings the layout, states and stickiness; the line brings its menu (two mega menus
  * „Usługi” and „Dla kogo” + five links: „Poradnik” gave its place to search on 16.11 and stays in
@@ -86,7 +149,14 @@ function Promo({ promo, title, warm }: { promo: MegaPromo; title: string; warm?:
  * leaves, a click toggles (closes when open > 600 ms), Esc closes and returns focus, a press
  * outside closes, Tab loops inside the open panel and its trigger. One panel at a time.
  */
-export function InstHeader({ homeLabel, navigation, menu, equipment, withShared }: Props) {
+export function InstHeader({
+  homeLabel,
+  navigation,
+  menu,
+  equipment,
+  equipmentMore,
+  withShared,
+}: Props) {
   const pathname = usePathname()
   const [mega, setMega] = useState<Mega | null>(null)
   const [shownPath, setShownPath] = useState(pathname)
@@ -195,7 +265,9 @@ export function InstHeader({ homeLabel, navigation, menu, equipment, withShared 
           // „Sprzęt”: as many columns as departments with cards, then the promo.
           style={
             which === 'equipment'
-              ? { gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr)) 1fr` }
+              ? {
+                  gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr)) minmax(260px, 1.2fr)`,
+                }
               : undefined
           }
           hidden={mega !== which}
@@ -207,8 +279,13 @@ export function InstHeader({ homeLabel, navigation, menu, equipment, withShared 
             <Promo promo={navigation.megaServices} title={offerText(menu.offer)} />
           ) : which === 'objects' ? (
             <Promo promo={navigation.megaObjects} title={navigation.megaObjects.title ?? ''} warm />
+          ) : equipmentMore && equipmentMore.bundles.length > 0 ? (
+            <EquipmentPanel more={equipmentMore} promo={navigation.megaEquipment} />
           ) : (
             <Promo promo={navigation.megaEquipment} title={navigation.megaEquipment.title ?? ''} />
+          )}
+          {which === 'equipment' && equipmentMore && equipmentMore.salons.length > 0 && (
+            <SalonStrip more={equipmentMore} />
           )}
         </div>
       </div>

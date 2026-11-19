@@ -6,10 +6,10 @@ import { BrandBar } from '@/components/shared/BrandBar'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
 import { TabBar } from '@/components/shared/TabBar'
-import { getCatalogIndex } from '@/lib/catalog/data'
+import { getBundles, getCatalogIndex } from '@/lib/catalog/data'
 import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { getInstalacjeMenu } from '@/lib/instalacje/data'
-import { equipmentColumns } from '@/lib/instalacje/equipmentMenu'
+import { equipmentColumns, equipmentExtras } from '@/lib/instalacje/equipmentMenu'
 import { log } from '@/lib/log'
 import { getSharedData } from '@/lib/shared/getSharedData'
 import { paletteActions } from '@/lib/shared/search/palette'
@@ -49,7 +49,7 @@ type Props = {
  * (`CompanyData`, `SiteSettings.shared`) — nothing written in code, no messenger links (decisions 01.11, D10).
  */
 export async function InstalacjeFrame({ tenant, settings, promo, children }: Props) {
-  const [menu, shared, company, catalog] = await Promise.all([
+  const [menu, shared, company, catalog, bundles] = await Promise.all([
     getInstalacjeMenu(tenant.id),
     getSharedData(tenant.id),
     getCompanyData(),
@@ -60,8 +60,15 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           return null
         })
       : null,
+    INSTALACJE_CATALOG_ENABLED
+      ? getBundles(tenant.id).catch(() => {
+          log.warn({ tenant: tenant.id }, 'Bundles for the equipment menu failed')
+          return []
+        })
+      : [],
   ])
   const equipment = catalog ? equipmentColumns(catalog) : []
+  const equipmentMore = catalog ? equipmentExtras(catalog, bundles) : null
   const telHref = settings?.phone ? toTelHref(settings.phone) : null
   const phone = settings?.phone && telHref ? { label: settings.phone, href: telHref } : null
   const homeLabel = `${tenant.name} — strona główna`
@@ -106,6 +113,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           navigation={navigation}
           menu={menu}
           equipment={equipment}
+          equipmentMore={equipmentMore}
           withShared={shared !== null}
         />
         <PageTransition>{children}</PageTransition>
