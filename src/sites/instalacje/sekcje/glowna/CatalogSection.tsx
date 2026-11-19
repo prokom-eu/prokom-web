@@ -7,6 +7,7 @@ import { productHref } from '@/lib/catalog/card'
 import { getBundles, getCatalogIndex } from '@/lib/catalog/data'
 import { INSTALACJE_CATALOG_ENABLED } from '@/lib/catalog/lines'
 import { featuredProducts, homeDepartments, homeSalons } from '@/lib/instalacje/homeCatalog'
+import { pickBundles } from '@/lib/instalacje/equipmentMenu'
 import { getHomeFeaturedSlugs } from '@/lib/instalacje/homeCatalogData'
 import { plural } from '@/lib/plural'
 import { BundleTile } from '@/sites/biznes/components/bundle/BundleTile'
@@ -191,7 +192,7 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
               </Link>
             </div>
             <ul className="isp-bundles" role="list">
-              {bundles.slice(0, HOME_BUNDLES).map((bundle) => (
+              {pickBundles(bundles, HOME_BUNDLES).map((bundle) => (
                 <li key={bundle.slug}>
                   <BundleTile bundle={bundleCard(bundle, products)} headingLevel={3} />
                 </li>
