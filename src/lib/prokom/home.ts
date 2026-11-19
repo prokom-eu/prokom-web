@@ -18,6 +18,7 @@ export { withVisibleFacts } from './schema'
 /** Stands for the line's promise (spec §3) — kept in its panel, never in these texts. */
 export const PROMISE = '{obietnica}'
 
+import { ICON_NAMES } from '../shared/icons'
 import { HUB_LINES, type HubLine } from './lines'
 
 /*
@@ -193,6 +194,30 @@ export const homeSchema = z
       cta: text(40),
     }),
     final: z.object({ title: text(120), write: text(40), choose: text(40) }),
+    /**
+     * „Zamówienia publiczne, przetargi i większe dostawy” (runda 1811 D14) — optional, so texts
+     * stored before it stay valid; the steps come from `HubSettings.deliveries`. Names of buyers
+     * (`examples`) only behind facts approved by the boss — none in the package.
+     */
+    procurement: z
+      .object({
+        ...head,
+        points: z
+          .array(titled.extend({ icon: z.enum(ICON_NAMES) }))
+          .min(3)
+          .max(4),
+        stepsLabel: text(40),
+        forLabel: text(40),
+        audiences: z
+          .array(z.object({ icon: z.enum(ICON_NAMES), label: text(40) }))
+          .min(1)
+          .max(6),
+        examplesLabel: text(40),
+        examples: z.array(z.object({ text: text(120), facts: factKeys.min(1) })).max(4),
+        cta: z.object({ label: text(40), href: hubHref }),
+        more: z.object({ label: text(40), href: hubHref }),
+      })
+      .nullish(),
   })
   .strict()
   .superRefine(noContactData)
