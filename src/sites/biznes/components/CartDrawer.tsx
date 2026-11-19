@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
+import type { CatalogUi } from '@/lib/catalog/texts'
 
 import { ICON_BUTTON } from '@/components/ui/iconButton'
 import { cartCount, MAX_QTY, suggestFor } from '@/lib/cart/cart'
@@ -52,8 +52,17 @@ type Props = {
   phone: { label: string; href: string } | null
   /** Instalacje: the form asks for a phone, always (ADR-I002 §4). */
   phoneRequired?: boolean
-  /** Catalog line (ADR-029): its confirmation and help link; Biznes when left out. */
-  line?: string
+  /**
+   * The line's confirmation and help link (ADR-029), from `CATALOG_UI` on the server: the drawer
+   * sits in the chunk of the shared `[domain]` page, so the texts of both lines must not be
+   * bundled into it (every line's home would load them — Software's JS budget).
+   */
+  texts: DrawerTexts
+}
+
+export type DrawerTexts = Pick<CatalogUi, 'sentPhoned' | 'helpHref' | 'helpLabel'> & {
+  /** The help button's short text („Konfigurator” on Biznes). */
+  helpButton: string
 }
 
 const QTY_BUTTON =
@@ -66,8 +75,7 @@ const QTY_BUTTON =
  * Names and pictures come from the catalog index; once it loads, products the catalog no
  * longer has leave the list (spec. §8.1).
  */
-export function CartDrawer({ phone, phoneRequired = false, line }: Props) {
-  const ui = CATALOG_UI[catalogTextLine(line ?? 'biznes')]
+export function CartDrawer({ phone, phoneRequired = false, texts: ui }: Props) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
@@ -228,7 +236,7 @@ export function CartDrawer({ phone, phoneRequired = false, line }: Props) {
                 href={ui.helpHref}
                 className="inline-flex min-h-12 items-center rounded-xl border-[1.5px] border-border-input px-5 font-extrabold text-ink hover:border-ink"
               >
-                {line === 'instalacje' ? ui.helpLabel : 'Konfigurator'}
+                {ui.helpButton}
               </Link>
             </div>
             <Link href="/zapytanie" className="font-extrabold text-accent-text">
