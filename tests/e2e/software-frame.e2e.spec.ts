@@ -297,17 +297,19 @@ test.describe('Software „Twój projekt”', () => {
       await page.reload()
       await expect(projectButton(page)).toBeVisible()
       // Free space of the row: its inner width minus its items and the gaps between them.
-      const free = await capsule(page)
-        .locator('.cap')
-        .evaluate((row) => {
-          const style = getComputedStyle(row)
-          const inner =
-            row.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
-          const items = [...row.children].filter((el) => getComputedStyle(el).display !== 'none')
-          const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
-          return inner - used - (parseFloat(style.columnGap) || 0) * (items.length - 1)
-        })
-      expect(free).toBeGreaterThanOrEqual(0)
+      const free = () =>
+        capsule(page)
+          .locator('.cap')
+          .evaluate((row) => {
+            const style = getComputedStyle(row)
+            const inner =
+              row.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight)
+            const items = [...row.children].filter((el) => getComputedStyle(el).display !== 'none')
+            const used = items.reduce((sum, el) => sum + el.getBoundingClientRect().width, 0)
+            return inner - used - (parseFloat(style.columnGap) || 0) * (items.length - 1)
+          })
+      // The capsule fits itself after hydration (`CapsuleShell` `data-fit`): poll.
+      await expect.poll(free).toBeGreaterThanOrEqual(0)
       expect(await page.evaluate(() => document.scrollingElement!.scrollWidth)).toBe(width)
     })
   }
