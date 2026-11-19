@@ -23,6 +23,7 @@ import gallery from '../../../seed/prokombiznes/media-produkty-v2.json'
 import search from '../../../seed/prokombiznes/wyszukiwarka.json'
 import { wizardSchema } from '../../lib/catalog/wizard'
 import { mailWording, seedBiznesTextFixes } from './textFixes'
+import { ALSEN, alsenChanges, readAlsenLogo } from './alsen'
 import { k4Wizard, type K4WizardFile } from './k4Wizard'
 import { mapConcurrent } from '../concurrency'
 import { parseGalleryLimit, SEED_CONTEXT } from '../config'
@@ -580,6 +581,49 @@ export async function seedBiznesCatalog(payload: Payload): Promise<void> {
       })
     }
     count('partners (K4 marki)', same ? false : 'updated')
+  }
+
+  // --- ALSEN (runda 1811, D4): the partner network on Biznes and pro-kom.eu (when the hub's
+  // tenant exists); status and „no page” from the package, the panel's site and logo stay ---
+  {
+    const {
+      docs: [hub],
+    } = await payload.find({
+      collection: 'tenants',
+      where: { slug: { equals: 'prokom' } },
+      limit: 1,
+      ...local,
+    })
+    const tenantIds = hub ? [tenant.id, hub.id] : [tenant.id]
+    const {
+      docs: [existing],
+    } = await payload.find({
+      collection: 'partners',
+      where: { slug: { equals: ALSEN.slug } },
+      limit: 1,
+      ...local,
+    })
+    const change = alsenChanges(existing ?? null, tenantIds)
+    if (change) {
+      const file = change.uploadLogo ? await readAlsenLogo() : undefined
+      if (existing) {
+        await payload.update({
+          collection: 'partners',
+          id: existing.id,
+          data: change.data,
+          ...(file && { file }),
+          ...local,
+        })
+      } else {
+        await payload.create({
+          collection: 'partners',
+          data: { ...ALSEN, brandPage: { hasPage: false }, tenants: tenantIds },
+          ...(file && { file }),
+          ...local,
+        })
+      }
+    }
+    count('partners ALSEN', existing ? (change ? 'updated' : false) : true)
   }
 
   // --- products from K3: found by `legacyIds` (K3 ids + those of the katalog v2 product) ---
