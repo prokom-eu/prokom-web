@@ -6,6 +6,7 @@
 #   ZAMIEN_STRONY=gopos,insert SSH=… bash scripts/prod-line-content.sh biznes   # §2a, once
 #   SSH=… bash scripts/prod-line-content.sh prokom      # pro-kom.eu hub (`seed:prokom`, H7-2)
 #   SSH=… bash scripts/prod-line-content.sh biznes-wpisy  # only the missing Biznes guide posts
+#   SSH=… bash scripts/prod-line-content.sh instalacje-katalog  # catalog of the live Instalacje
 # Unlike scripts/staging-content.sh there is no database swap: production keeps taking inquiries
 # and panel edits of the live lines, and a swap would lose those of the import window. Instead the
 # line's import (`pnpm seed:<line>`, idempotent, tenant-scoped; never touches users, tenants,
@@ -19,6 +20,10 @@
 # `biznes-wpisy` (ADR-027 „Rozstrzygnięcia 15.11”): only `seed:biznes-wpisy` — creates the
 # Biznes guide posts that are missing, never changes an existing one and has no media, so it runs
 # on the live line without PO_STARCIE and without the media download.
+# `instalacje-katalog` (INST-K1/K2, ADR-029): only `seed:instalacje-katalog` — the catalog of the
+# live prokominstalacje.pl (cards, photos, brands, salons) and the offer's missing solutions
+# (created only). The rest of the line is not touched, so it runs on the live line; once the
+# tenant has cards (a second run would overwrite their panel edits) only with PO_STARCIE=1.
 set -euo pipefail
 export MSYS_NO_PATHCONV=1
 
@@ -29,7 +34,9 @@ case "$line" in
   biznes | prokom) tenant="$line" seed="$line" media=1 ;;
   # Only adds posts (no media, no change to anything stored): safe on the live Biznes.
   biznes-wpisy) tenant=biznes seed=biznes-wpisy media=0 ;;
-  *) echo "usage: scripts/prod-line-content.sh biznes|prokom|biznes-wpisy" >&2; exit 2 ;;
+  # Catalog of the live Instalacje only (cards and photos): its pages and texts stay.
+  instalacje-katalog) tenant=instalacje seed=instalacje-katalog media=1 ;;
+  *) echo "usage: scripts/prod-line-content.sh biznes|prokom|biznes-wpisy|instalacje-katalog" >&2; exit 2 ;;
 esac
 
 SSH="${SSH:-ssh}" # Git Bash on Windows: SSH=/c/Windows/System32/OpenSSH/ssh.exe (key in the agent)
@@ -69,8 +76,18 @@ pending="$(comm -23 \
 # A live line is edited in the production panel; the package would overwrite those edits.
 live="$(prod_sql "select count(*) from tenants_domains d join tenants t on t.id = d._parent_id
   where t.slug = '$tenant' and d.environment = 'production'")"
+if [ "$seed" = instalacje-katalog ]; then
+  # The line is live, its catalog is new: the first import adds; a later one overwrites card edits.
+  live="$(prod_sql "select count(*) from products p join tenants t on t.id = p.tenant_id
+    where t.slug = '$tenant'")"
+fi
 if [ "$live" != 0 ] && [ "$media" = 1 ] && [ "${PO_STARCIE:-}" != 1 ]; then
-  echo "$line already has a production domain: the import would overwrite its panel edits." >&2
+  if [ "$seed" = instalacje-katalog ]; then
+    echo "Instalacje already has $live catalog cards on production: the import would overwrite" >&2
+    echo "their panel edits." >&2
+  else
+    echo "$line already has a production domain: the import would overwrite its panel edits." >&2
+  fi
   echo "Only on Krystian's decision: PO_STARCIE=1 bash scripts/prod-line-content.sh $line" >&2
   exit 1
 fi
@@ -90,6 +107,8 @@ remote_sh "grep -q '^DATABASE_URL=.*@postgres:5432/prokom_prod' $remote/.env.pro
 if [ "$media" = 1 ]; then
   echo "Production ${tag:0:7}: the $line package goes straight into its database (other lines and"
   echo "the shared company data stay as they are)${ZAMIEN_STRONY:+; pages replaced: $ZAMIEN_STRONY}."
+  [ "$seed" != instalacje-katalog ] ||
+    echo "Instalacje is live: only its catalog and the missing offer solutions are added."
 else
   [ -z "${ZAMIEN_STRONY:-}" ] || { echo "ZAMIEN_STRONY is for the biznes import, not $line." >&2; exit 1; }
   echo "Production ${tag:0:7}: only the missing Biznes guide posts are created, published at once"
@@ -218,8 +237,8 @@ log "upload: media the import added"
 upload_media
 
 log "check: every media file of $line and every brand logo is on the server"
-tenant_files="select filename from media where tenant_id = (select id from tenants where slug = '$line')"
-for size in small medium large; do tenant_files+=" union select sizes_${size}_filename from media where tenant_id = (select id from tenants where slug = '$line')"; done
+tenant_files="select filename from media where tenant_id = (select id from tenants where slug = '$tenant')"
+for size in small medium large; do tenant_files+=" union select sizes_${size}_filename from media where tenant_id = (select id from tenants where slug = '$tenant')"; done
 missing="$(comm -23 \
   <(prod_sql "select 'media/' || f from ($tenant_files) x(f) where f is not null
     union select 'partners/' || filename from partners where filename is not null
@@ -236,7 +255,10 @@ fi
 log "app cache: fetch-cache cleared (the in-memory part expires on its own — no restart)"
 remote_sh "docker exec $app sh -c 'rm -rf /app/.next/cache/fetch-cache/*'"
 remote_sh "echo \"\$(date -u +%Y-%m-%dT%H:%M:%SZ) prod content of $seed imported at ${tag:0:7}\" >>$remote/../deploys.log"
-if [ "$media" = 1 ]; then
+if [ "$seed" = instalacje-katalog ]; then
+  log "done — check https://prokominstalacje.pl/oferta, a salon (/marki/dahua) and the home section"
+  log "„Sprzęt i marki”; the rail entry „Sprzęt” goes in by hand in the panel (runbook §3a)"
+elif [ "$media" = 1 ]; then
   log "done — next: runbook §3a (domain in the panel, smoke, porownaj-tresc --po-imporcie, §3a.1)"
 else
   log "done — check https://prokombiznes.pl/aktualnosci (new posts, home page news)"
