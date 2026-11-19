@@ -112,7 +112,7 @@ describe('slugOf', () => {
 })
 
 describe('hub seed — company facts (spec §3)', () => {
-  it('has the facts and statuses of the spec, all approved', () => {
+  it('has the facts and statuses of the spec, approved but the ALSEN figures', () => {
     expect(hubTrust().map((row) => `${row.value}: ${row.label}`)).toEqual([
       'Od 2004: firma z Rabki-Zdroju',
       '100+: klientów firmowych',
@@ -122,8 +122,22 @@ describe('hub seed — company facts (spec §3)', () => {
       'InsERT: Autoryzowany partner',
       'Optivendi: Partner',
       'COMEX: We współpracy',
+      'ALSEN: Autoryzowany partner',
+      'ALSEN 350+: sklepów sieci ALSEN',
+      'ALSEN Rabka: salon = punkt partnerski ALSEN',
     ])
-    expect(hubTrust().every((row) => row.approved)).toBe(true)
+    expect(
+      hubTrust()
+        .filter((row) => !row.approved)
+        .map((row) => row.value),
+    ).toEqual(['ALSEN 350+', 'ALSEN Rabka'])
+  })
+
+  it('keeps the approval given in the panel to a fact the package leaves waiting', () => {
+    const stored = [{ id: 'r', value: 'ALSEN Rabka', label: 'x', approved: true }]
+    expect(mergeTrust(stored, hubTrust()).find((row) => row.value === 'ALSEN Rabka')).toMatchObject(
+      { id: 'r', approved: true },
+    )
   })
 
   it('keeps facts added in the panel and the row ids of the package facts', () => {

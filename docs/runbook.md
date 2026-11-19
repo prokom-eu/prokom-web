@@ -41,7 +41,7 @@ Dopiero po `test is successful` — `up -d nginx`, a po nim `docker compose … 
 
 Odnawianie certyfikatów: kontener `certbot` (`renew --webroot`) — także tych wystawionych `--standalone`.
 
-**Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
+**Nginx widzi stare pliki po wdrożeniu stagingu (9.11.2026; od audytu AB4 bramka nadpisuje `docker/nginx` w miejscu — po zainstalowaniu nowej bramki i jednym `--force-recreate` problem nie wraca, zmiany w `templates/` dalej wymagają odtworzenia kontenera):** wdrożenie podmienia katalogi `docker/nginx/` na serwerze, a działający kontener ma podpięty katalog sprzed podmiany (`/etc/nginx/snippets/` pusty). Strony działają, ale każdy `nginx -s reload` — także automatyczny co 6 h po odnowieniu certyfikatu — kończy się błędem `open() "/etc/nginx/snippets/…" failed`. Sprawdzenie: `docker exec prokom-proxy-nginx-1 nginx -t`. Naprawa: komenda wyżej z `--force-recreate` (kilka sekund przerwy). Przed każdą zmianą domen proxy zacznij od `nginx -t`.
 
 **Nowy certyfikat bez zatrzymywania Nginx** (domeny, których Nginx jeszcze nie obsługuje — domyślny blok odpowiada 444, więc `--webroot` sam nie przejdzie): tymczasowy blok tylko na porcie 80 w katalogu `sites` (tmpfs, znika przy restarcie), certyfikat, usunięcie bloku:
 ```bash

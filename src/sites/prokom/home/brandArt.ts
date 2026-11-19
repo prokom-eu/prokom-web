@@ -35,6 +35,8 @@ export const BRAND_LOGOS: Record<string, BrandPicture> = {
   Samsung: { src: '/instalacje/marki/samsung.webp', width: 361, height: 120 },
   APART: { src: '/instalacje/marki/apart.webp', width: 457, height: 120 },
   RCF: { src: '/instalacje/marki/rcf.webp', width: 120, height: 120 },
+  // Runda 1811, D4: from Krystian (`seed/partnerzy/alsen.png`); TODO(krystian): the vector logo.
+  ALSEN: { src: '/prokom/marki/alsen.webp', width: 480, height: 122 },
 }
 
 /** One product of each authorization (photos with a transparent background, Biznes package). */
