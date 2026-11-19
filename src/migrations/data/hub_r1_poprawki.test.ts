@@ -9,9 +9,15 @@ import { extraEmailsWith1911, instRailWith1911, trustWith1911 } from './hub_r1_p
 describe('hub_r1_poprawki (19.11 follow-up for production)', () => {
   it('brings the data of the round to the package of this commit', () => {
     const pkg = hubTrust()
-    for (const row of trustWith1911(TRUST_1811) ?? []) expect(pkg).toContainEqual(row)
+    const trust = trustWith1911(TRUST_1811)
+    expect(trust).not.toBeNull()
+    for (const row of trust ?? []) expect(pkg).toContainEqual(row)
     expect(extraEmailsWith1911(EXTRA_EMAILS_1811)).toEqual(PROKOM_EXTRA_EMAILS)
-    expect(instRailWith1911(INSTALACJE_SHARED.rail?.sections)).toBeNull()
+    const rail = INSTALACJE_SHARED.rail?.sections ?? []
+    expect(instRailWith1911(rail)).toBeNull()
+    // The package has „Sprzęt” right after „Usługi” — where the migration puts it.
+    const at = rail.findIndex((row) => row.anchorId === 'uslugi')
+    expect(rail[at + 1]?.anchorId).toBe('sprzet')
   })
 
   it('approves only the two ALSEN facts and changes nothing once approved', () => {
