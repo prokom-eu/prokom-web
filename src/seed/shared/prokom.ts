@@ -150,12 +150,12 @@ export const PROKOM_EXTRA_PHONES = [
 /**
  * Old addresses of the company the boss keeps (runda 1811 D15), on `/kontakt` next to the hub's
  * main address. „Zamówienia”, not „sklep” (no shop on pro-kom.eu, decision 01.11).
- * TODO(krystian): switch `sklep@pro-kom.pl` on in the panel only once the mailbox works, someone
- * reads it and the pro-kom.pl domain stays (then a line in docs/dns.md).
+ * The shop mailbox in use has always been `sklep@pro-kom.eu` (Krystian 19.11.2026; nobody reads
+ * `sklep@pro-kom.pl` and that domain has no MX).
  */
 export const PROKOM_EXTRA_EMAILS = [
   { label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu', published: true },
-  { label: 'Zamówienia', email: 'sklep@pro-kom.pl', published: false },
+  { label: 'Zamówienia', email: 'sklep@pro-kom.eu', published: true },
 ] as const
 
 export const PROKOM_BRANCH = {
