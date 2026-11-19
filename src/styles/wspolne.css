@@ -662,18 +662,67 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
 .cap-btn--theme .theme-toggle__icon {
   color: var(--nav-active-ink);
 }
-/* Not enough room even from 1360 px (Software with „Twój projekt”): `ThemeToggle` falls back to
-   the icon, as in the cramped capsule. */
-.cap-btn--theme[data-compact] {
+/*
+ * A capsule whose row is too short gives way step by step (`CapsuleShell` → `data-fit`, Krystian
+ * 18.11: nothing sticks out): `theme` — the theme button as an icon; `search` — search as a loupe
+ * (its label hidden only visually, it stays the name); `nav` — the tighter menu of the cramped
+ * capsule; `cta` — the short action label. Labels hidden this way stay accessible names.
+ */
+.cap-wrap[data-fit~='theme'] .cap-btn--theme {
+  justify-content: center;
+  min-width: 40px;
   padding: 0;
 }
-.cap-btn--theme[data-compact] .theme-toggle__labels {
+.cap-wrap[data-fit~='search'] .cap-btn--search {
+  justify-content: center;
+  min-width: 44px;
+  padding: 0;
+}
+[data-scrolled].cap-wrap[data-fit~='search'] .cap-btn--search {
+  min-width: 40px;
+}
+.cap-wrap[data-fit~='theme'] .cap-btn--theme .theme-toggle__labels,
+.cap-wrap[data-fit~='search'] .cap-btn--search > :not(svg, kbd, .sr-only) {
   position: absolute;
   width: 1px;
   height: 1px;
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+.cap-wrap[data-fit~='search'] .cap-btn--search kbd {
+  display: none;
+}
+.cap-wrap[data-fit~='nav'] .cap {
+  /* Only the gap: `padding` of the capsule is transitioned, a measurement mid-way would make the
+     fit go back and forth. */
+  gap: 8px;
+}
+.cap-wrap[data-fit~='nav'] .cap__nav ul {
+  gap: 0;
+}
+.cap-wrap[data-fit~='nav'] .cap-link {
+  padding: 9px;
+  font-size: 14px;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta {
+  padding: 0 16px;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta__long {
+  display: none;
+}
+.cap-wrap[data-fit~='cta'] .cap-cta__short {
+  display: inline;
+}
+/* Last step (the longest menu at 1081 px): the tightest spacing and a slightly smaller mark. */
+.cap-wrap[data-fit~='tight'] .cap {
+  gap: 6px;
+}
+.cap-wrap[data-fit~='tight'] .cap-link {
+  padding-inline: 6px;
+}
+.cap-wrap[data-fit~='tight'] .cap__logo {
+  --logo-h: 30px;
 }
 /* Mega menu of a line: 10 px under the capsule, the same width and radius; an invisible bridge
    over the gap keeps it open while the pointer crosses. */
@@ -723,7 +772,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   }
   /* The cramped capsule has no room for a label (Instalacje's longest menu at 1081 px): the
      icon only, the label stays the accessible name (visually hidden, not removed). */
-  .cap-btn--theme {
+  .cap-btn--theme,
+  [data-scrolled] .cap-btn--theme {
     padding: 0;
   }
   .cap-btn--theme .theme-toggle__labels {
@@ -1740,7 +1790,8 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   content: '';
 }
 /* Esc dismisses it until the next pointing or focus (`BrandBarPill`). */
-[data-tip-off] .bbar-tip {
+/* Stronger than the hover and focus rules above (0,3,0), so Esc wins while still pointing. */
+.bbar-lines[data-tip-off] .bbar-item > .bbar-tip {
   visibility: hidden;
 }
 /* The right half gets its own thin divider (1 × 16 px) instead of a dot. */
