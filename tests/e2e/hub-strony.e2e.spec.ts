@@ -18,6 +18,17 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
       expect(response?.status()).toBe(200)
       await expect(page).toHaveTitle(title)
       await expect(page.locator('h1')).toHaveCount(1)
+      // Entrance animations (the steps of „Nasza historia”) fade in: axe reads their colours only
+      // once they have finished, not half-transparent.
+      await page.waitForFunction(() =>
+        document
+          .getAnimations()
+          .every(
+            (animation) =>
+              animation.playState !== 'running' ||
+              !Number.isFinite(animation.effect?.getComputedTiming().endTime ?? 0),
+          ),
+      )
       const results = await new AxeBuilder({ page }).analyze()
       expect(results.violations).toEqual([])
     })

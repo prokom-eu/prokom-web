@@ -273,12 +273,10 @@ function LinePanel({
           <ul className="pk-pn__points" role="list">
             {line.points.map((point) => (
               <li key={point.tel}>
-                <a
-                  href={point.tel}
-                  className="pk-pn__point"
-                  aria-label={`${line.name}, ${point.label}: ${point.phone}`}
-                >
+                <a href={point.tel} className="pk-pn__point">
+                  <span className="sr-only">{line.name}, </span>
                   <small>{point.label}</small>
+                  <span className="sr-only">: </span>
                   <b>{point.phone}</b>
                 </a>
               </li>
