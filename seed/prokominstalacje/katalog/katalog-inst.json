@@ -384,23 +384,13 @@
      "plik": "media/produkty/dahua-pfa152-e-01.webp",
      "zrodlo": "https://www.eltrox.pl/27895-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-pfa152-e-02.webp",
-     "zrodlo": "https://www.eltrox.pl/27896-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-pfa152-e-03.webp",
-     "zrodlo": "https://www.eltrox.pl/27897-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
   {
    "slug_seed": "hikvision-ds-1280zj-xs",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "akcesoria-cctv",
    "podkategoria": "uchwyty-i-puszki",
@@ -409,11 +399,11 @@
    "seria": "DS-1280ZJ-XS",
    "nazwa": "Hikvision DS-1280ZJ-XS aluminiowa puszka montażowa do kamer (DS-1280ZJ-XS)",
    "krotka": "Hikvision DS-1280ZJ-XS puszka do kamer",
-   "podtytul": "Biała puszka ze stopu aluminium o średnicy ok. 100 mm i wysokości ok. 43 mm, masa ok. 320 g, do kamer kopułkowych i tubowych.",
+   "podtytul": "Biała puszka ze stopu aluminium 100 × 43,5 × 132,1 mm, masa ok. 320 g, do kamer kopułkowych i tubowych.",
    "korzysc": "Porządny montaż kamery Hikvision: przewody i złącza schowane w puszce zamiast w otworze w elewacji.",
    "opis": [
     "DS-1280ZJ-XS to puszka montażowa Hikvision, na której osadza się kamerę na ścianie lub suficie. W puszce mieszczą się złącza i zapas kabla, więc nie trzeba ich wciskać w otwór w ścianie ani zostawiać na zewnątrz. To jedno z najczęściej stosowanych akcesoriów przy mniejszych kamerach Hikvision w domach, pensjonatach i sklepach. Producent opisuje ją jako puszkę do kamer kopułkowych (turret, dome) i tubowych; zgodność konkretnego modelu potwierdza tabela akcesoriów Hikvision.",
-    "Puszka jest wykonana ze stopu aluminium w kolorze białym. Strony regionalne producenta podają wymiary ok. Φ100 × 43,2 × 129 mm i masę ok. 320 g; karty katalogowe wersji czarnej i szarej mówią o 100 × 43,5 × 132,1 mm. Hikvision ma też wersje DS-1280ZJ-XS(Black) i DS-1280ZJ-XS-Grey w innych kolorach. Stopnia szczelności i nośności nie udało się potwierdzić na stronie producenta, dlatego karta wymaga sprawdzenia przed publikacją.",
+    "Puszka jest wykonana ze stopu aluminium. Według karty katalogowej Hikvision ma wymiary 100 × 43,5 × 132,1 mm i waży ok. 320 g — tak samo w wersji białej, czarnej DS-1280ZJ-XS(Black) i szarej DS-1280ZJ-XS-Grey. Kolor dobieramy do kamery i elewacji, a zgodność otworów montażowych z konkretną kamerą sprawdzamy w tabeli akcesoriów producenta.",
     "PRO-KOM dobiera puszkę razem z kamerą, sprawdzając w tabeli Hikvision, czy otwory się pokrywają. Montujemy puszkę na elewacji lub suficie, wprowadzamy przewód sieciowy, zabezpieczamy złącza i przykręcamy kamerę. Potem dodajemy kamerę do rejestratora, ustawiamy kadr i podgląd w aplikacji Hik-Connect. Przy serwisie puszka pozwala wymienić kamerę bez ponownego wiercenia."
    ],
    "cechy": [
@@ -436,7 +426,7 @@
     },
     {
      "k": "Wymiary",
-     "v": "ok. Φ100 × 43,2 × 129 mm (strona producenta); w kartach wersji Black/Grey 100 × 43,5 × 132,1 mm"
+     "v": "100 × 43,5 × 132,1 mm (wszystkie kolory)"
     },
     {
      "k": "Masa",
@@ -451,16 +441,16 @@
      "v": "ścienny lub sufitowy"
     },
     {
-     "k": "Szczelność",
-     "v": "do potwierdzenia u producenta"
+     "k": "Wersje",
+     "v": "DS-1280ZJ-XS (biała), DS-1280ZJ-XS(Black), DS-1280ZJ-XS-Grey"
     },
     {
-     "k": "Nośność",
-     "v": "do potwierdzenia u producenta"
+     "k": "Przeznaczenie",
+     "v": "osłona złączy i zapasu przewodu pod kamerą"
     },
     {
-     "k": "Temperatura pracy",
-     "v": "do potwierdzenia u producenta"
+     "k": "Mocowanie kamery",
+     "v": "kamera przykręcana do puszki — otwory wg tabeli zgodności Hikvision"
     }
    ],
    "warianty_opis": [
@@ -488,8 +478,8 @@
       "v": "stop aluminium"
      },
      {
-      "k": "Średnica",
-      "v": "ok. 100 mm"
+      "k": "Wymiary",
+      "v": "100 × 43,5 × 132,1 mm"
      }
     ],
     "popularne": [
@@ -541,16 +531,16 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/mena-en/products/Accessories/CCTV-Accessories/Junction/ds-1280zj-xs/",
+     "url": "https://www.hikvision.com/en/products/IP-Products/cctv-accessories/junctions/ds-1280zj-xs/",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     },
     {
-     "url": "https://assets.hikvision.com/prd/public/all/doc/m000002064/DS-1280ZJ-XS_Datasheet_20241202.pdf",
+     "url": "https://assets.hikvision.com/prd/normal/all/doc/m000002064/DS-1280ZJ-XS_Datasheet_20241202.pdf",
      "etykieta": "Karta katalogowa — Hikvision DS-1280ZJ-XS",
      "host": "hikvision.com · PDF",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -578,17 +568,12 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-1280zj-xs-01.webp",
      "zrodlo": "https://www.eltrox.pl/25763-product_main_2x/adapter-hikvision-ds-1280zj-xs.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-1280zj-xs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/25764-product_main_2x/adapter-hikvision-ds-1280zj-xs.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -604,22 +589,22 @@
    "seria": "DS-1473ZJ",
    "nazwa": "Hikvision DS-1473ZJ-155B uchwyt ścienny z puszką do kamer kopułkowych (DS-1473ZJ-155B, DS-1473ZJ-155B(Black))",
    "krotka": "Hikvision DS-1473ZJ-155B uchwyt ścienny z puszką",
-   "podtytul": "Aluminiowy wysięgnik ścienny ze zintegrowaną puszką, z mocowaniem średnicy 155 mm, w wersji białej lub czarnej.",
+   "podtytul": "Aluminiowy wysięgnik ścienny z kapturkiem do montażu kamery kopułkowej, nośność do 3 kg, w wersji białej lub czarnej.",
    "korzysc": "Kamera kopułkowa wysunięta od ściany, z przewodami schowanymi w uchwycie — lepszy kąt widzenia wzdłuż elewacji.",
    "opis": [
-    "DS-1473ZJ-155B to ścienny uchwyt Hikvision w kształcie wysięgnika, na którego końcu zawiesza się kamerę kopułkową. Odsunięcie kamery od ściany pozwala patrzeć wzdłuż elewacji, na wejście czy parking, bez zasłaniania obrazu przez róg budynku lub rynnę. Litera „B” w nazwie oznacza wersję ze zintegrowaną puszką, w której mieszczą się złącza i zapas przewodu. Uchwyt stosuje się przy obiektach takich jak pensjonaty, hotele, hale i parkingi.",
-    "Uchwyt jest wykonany ze stopu aluminium i według strony producenta występuje w kolorze białym (DS-1473ZJ-155B) oraz czarnym (DS-1473ZJ-155B(Black)); wersja bez puszki nosi oznaczenie DS-1473ZJ-155. Mocowanie kamery ma średnicę 155 mm, a lista zgodności Hikvision łączy uchwyt z konkretnymi seriami kamer, czasem przez dodatkowy adapter. Dokładnych wymiarów, masy i nośności nie udało się potwierdzić na stronie producenta — dane z dystrybucji (Φ155 × 243 × 300 mm) wymagają sprawdzenia przed publikacją.",
-    "Przed montażem PRO-KOM sprawdza, czy wybrana kamera jest na liście zgodności tego uchwytu i czy potrzebny jest adapter. Uchwyt montujemy na nośnej ścianie, bo wysięgnik z kamerą działa jak dźwignia, a przewód prowadzimy wewnątrz, do puszki. Po montażu ustawiamy kadr, dodajemy kamerę do rejestratora i konfigurujemy podgląd w Hik-Connect. Montaż jest objęty 24-miesięczną gwarancją PRO-KOM."
+    "DS-1473ZJ-155B to ścienny uchwyt Hikvision w kształcie wysięgnika, na którego końcu zawiesza się kamerę kopułkową. Odsunięcie kamery od ściany pozwala patrzeć wzdłuż elewacji, na wejście czy parking, bez zasłaniania obrazu przez róg budynku lub rynnę. Litera „B” w nazwie oznacza wersję z kapturkiem, który ułatwia przykręcenie kamery do wysięgnika. Uchwyt stosuje się przy obiektach takich jak pensjonaty, hotele, hale i parkingi.",
+    "Uchwyt jest wykonany ze stopu aluminium i występuje w kolorze białym (DS-1473ZJ-155B) oraz czarnym (DS-1473ZJ-155B(Black)); sam wysięgnik bez kapturka nosi oznaczenie DS-1473ZJ-155. Według karty Hikvision ma wymiary Φ155 × 243 × 300 mm, waży 1750 g i utrzyma kamerę do 3 kg. Lista zgodności producenta wskazuje m.in. kopułki serii DS-2CD27x5 i 27x3G0 oraz mini PTZ 55x5/55x6 G0.",
+    "Przed montażem PRO-KOM sprawdza, czy wybrana kamera jest na liście zgodności tego uchwytu i czy potrzebny jest adapter. Uchwyt montujemy na nośnej ścianie, bo wysięgnik z kamerą działa jak dźwignia, a przewód prowadzimy wewnątrz wysięgnika. Po montażu ustawiamy kadr, dodajemy kamerę do rejestratora i konfigurujemy podgląd w Hik-Connect. Montaż jest objęty 24-miesięczną gwarancją PRO-KOM."
    ],
    "cechy": [
     "wysięgnik ścienny",
-    "puszka w uchwycie",
+    "kapturek do kamery",
     "biały lub czarny"
    ],
    "parametry": [
     {
      "k": "Typ",
-     "v": "uchwyt ścienny (wysięgnik) ze zintegrowaną puszką"
+     "v": "uchwyt ścienny (wysięgnik) z kapturkiem do kamery kopułkowej"
     },
     {
      "k": "Materiał",
@@ -635,7 +620,7 @@
     },
     {
      "k": "Zastosowanie",
-     "v": "kamery kopułkowe Hikvision zgodne wg listy producenta (część przez adapter)"
+     "v": "kopułki Hikvision z listy zgodności, m.in. serie DS-2CD27x5, 27x3G0 i mini PTZ 55x5/55x6 G0"
     },
     {
      "k": "Montaż",
@@ -643,29 +628,29 @@
     },
     {
      "k": "Prowadzenie przewodu",
-     "v": "wewnątrz uchwytu, złącza w puszce"
+     "v": "przewód prowadzony wewnątrz wysięgnika"
     },
     {
      "k": "Wymiary",
-     "v": "do potwierdzenia u producenta (dystrybutor: Φ155 × 243 × 300 mm)"
+     "v": "Φ155 × 243 × 300 mm"
     },
     {
      "k": "Masa",
-     "v": "do potwierdzenia u producenta"
+     "v": "1750 g"
     },
     {
      "k": "Nośność",
-     "v": "do potwierdzenia u producenta"
+     "v": "maks. 3 kg (ściana musi utrzymać 3 × masę kamery z uchwytem)"
     }
    ],
    "warianty_opis": [
     {
      "model": "DS-1473ZJ-155B",
-     "roznica": "biały uchwyt ścienny ze zintegrowaną puszką."
+     "roznica": "biały wysięgnik z kapturkiem do kamery kopułkowej."
     },
     {
      "model": "DS-1473ZJ-155B(Black)",
-     "roznica": "ten sam uchwyt z puszką w kolorze czarnym."
+     "roznica": "ten sam uchwyt w kolorze czarnym."
     }
    ],
    "konfigurator": {
@@ -680,12 +665,12 @@
       "dl": false
      },
      {
-      "nazwa": "Puszka",
+      "nazwa": "Wersja",
       "wartosci": [
-       "z puszką (155B)",
-       "bez puszki (DS-1473ZJ-155)"
+       "z kapturkiem do kamery (155B)",
+       "sam uchwyt (DS-1473ZJ-155)"
       ],
-      "uwaga": "Wersja bez puszki to osobny model.",
+      "uwaga": "Wersja bez kapturka to osobny model.",
       "dl": false
      }
     ],
@@ -713,7 +698,7 @@
     },
     {
      "q": "Czym różni się DS-1473ZJ-155B od DS-1473ZJ-155?",
-     "a": "Wersja z „B” ma zintegrowaną puszkę na złącza i zapas przewodu. Model bez „B” to sam uchwyt."
+     "a": "Wersja z „B” ma kapturek (adapter), na którym osadza się kamerę kopułkową. Model bez „B” to sam wysięgnik."
     },
     {
      "q": "Czy uchwyt pasuje do każdej kamery kopułkowej Hikvision?",
@@ -764,6 +749,12 @@
      "etykieta": "Lista zgodności uchwytów — Hikvision",
      "host": "hikvision.com · PDF",
      "data": "2026-11-18"
+    },
+    {
+     "url": "https://www.ness.com.au/images/uploaded/Products/Datasheets/Ness_114-482_Hikvision_datasheet.pdf",
+     "etykieta": "Karta katalogowa Hikvision (kopia u dystrybutora)",
+     "host": "ness.com.au · PDF",
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -791,7 +782,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-1473zj-01.webp",
@@ -1029,11 +1020,6 @@
      "plik": "media/produkty/seagate-skyhawk-01.webp",
      "zrodlo": "https://www.eltrox.pl/102237-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/seagate-skyhawk-02.webp",
-     "zrodlo": "https://www.eltrox.pl/102231-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
-     "ujecie": "ujęcie 2"
     },
     {
      "plik": "media/produkty/seagate-skyhawk-03.webp",
@@ -2922,20 +2908,20 @@
   {
    "slug_seed": "ajax-starterkit-hub-2",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "zestawy-startowe",
    "marka": "Ajax",
    "rodzaj": "Urządzenia",
    "seria": "StarterKit Hub 2",
-   "nazwa": "Ajax zestaw startowy Hub 2 (4G) z czujkami, syreną i kamerą TurretCam 5 Mpx (zestaw podstawowy i rozszerzony)",
+   "nazwa": "Ajax zestaw alarmowy Hub 2 (4G) z czujkami, syreną i kamerą TurretCam 5 Mpx (wersja podstawowa i rozszerzona)",
    "krotka": "Ajax zestaw Hub 2 (4G) z kamerą",
    "podtytul": "Hub 2 (4G), czujki ruchu, otwarcia i zalania, pilot, syrena zewnętrzna, czujnik jakości powietrza i kamera 5 Mpx — w wersji z 1 lub 2 kamerami.",
    "korzysc": "Gotowy komplet alarmu i monitoringu dla domu — jedna aplikacja do czujek, syreny i kamery.",
    "opis": [
-    "To zestaw na start dla domu albo domku letniskowego: centrala Hub 2 (4G) z kompletem czujek, syreną zewnętrzną i kamerą Ajax TurretCam. Wszystko pracuje w jednej aplikacji Ajax, więc alarm, powiadomienia i podgląd z kamery masz w jednym miejscu. Zestaw rozszerzony dodaje drugą czujkę ruchu, klawiaturę KeyPad i drugą kamerę — dla większego domu lub budynku z warsztatem.",
-    "W zestawie podstawowym są: Hub 2 (4G) z Ethernetem i dwiema kartami SIM, czujka ruchu MotionProtect (odporna na zwierzęta do 20 kg), czujka otwarcia DoorProtect, czujka zalania LeaksProtect, pilot SpaceControl (4 przyciski, w tym napadowy), syrena zewnętrzna StreetSiren do 113 dB oraz LifeQuality, który mierzy CO₂, temperaturę i wilgotność. Kamera TurretCam 5 Mpx z obiektywem 2,8 mm ma według producenta podświetlenie IR do ok. 50 m, zasilanie PoE i szczelność IP66. Wszystkie elementy występują w kolorze białym albo czarnym.",
+    "To zestaw sklepowy złożony z urządzeń Ajax — dobry początek dla domu albo domku letniskowego: centrala Hub 2 (4G) z kompletem czujek, syreną zewnętrzną i kamerą Ajax TurretCam. Wszystko pracuje w jednej aplikacji Ajax, więc alarm, powiadomienia i podgląd z kamery masz w jednym miejscu. Zestaw rozszerzony dodaje drugą czujkę ruchu, klawiaturę KeyPad i drugą kamerę — dla większego domu lub budynku z warsztatem.",
+    "W zestawie podstawowym są: Hub 2 (4G) z Ethernetem i dwiema kartami micro-SIM (2G/3G/LTE), czujka ruchu MotionProtect (odporna na zwierzęta do 20 kg), czujka otwarcia DoorProtect, czujka zalania LeaksProtect, pilot SpaceControl (4 przyciski, w tym napadowy), syrena zewnętrzna StreetSiren do 113 dB oraz LifeQuality, który mierzy CO₂, temperaturę i wilgotność. Kamera TurretCam 5 Mpx z obiektywem 2,8 mm ma według producenta podświetlenie IR do ok. 50 m, zasilanie PoE i szczelność IP66. Wszystkie elementy występują w kolorze białym albo czarnym.",
     "Zestaw to dobry punkt wyjścia, ale w PRO-KOM zawsze dopasowujemy go do domu: dokładamy czujki otwarcia na kolejne drzwi i okna, a kamerę wieszamy tam, gdzie naprawdę widać wejście. Kamera potrzebuje kabla sieciowego z PoE i karty microSD albo rejestratora — to również przygotowujemy. Konfigurujemy aplikację Ajax, scenariusze (np. włączanie światła przy alarmie) i konta domowników. Montaż ma 24 mies. gwarancji, a rozbudowę o kolejne urządzenia robimy w dowolnym momencie."
    ],
    "cechy": [
@@ -2946,7 +2932,7 @@
    "parametry": [
     {
      "k": "Centrala",
-     "v": "Hub 2 (4G) Jeweller — Ethernet + 2 × SIM (LTE), do 100 urządzeń"
+     "v": "Hub 2 (4G) Jeweller — Ethernet + 2 × micro-SIM (2G/3G/LTE), do 100 urządzeń"
     },
     {
      "k": "Czujki ruchu",
@@ -2982,7 +2968,7 @@
     },
     {
      "k": "Kamera — zasilanie i nagrywanie",
-     "v": "PoE 802.3af/at lub 12 V; microSD 32–256 GB (brak w zestawie) lub rejestrator"
+     "v": "PoE 802.3af/at lub 12 V; microSD do 256 GB, klasa V30 lub szybsza (brak w zestawie) lub rejestrator"
     },
     {
      "k": "Kamera — obudowa",
@@ -3060,12 +3046,12 @@
    },
    "faq": [
     {
-     "q": "Czy zestaw startowy wystarczy na cały dom?",
+     "q": "Czy ten zestaw wystarczy na cały dom?",
      "a": "Zwykle trzeba go uzupełnić — w zestawie jest jedna czujka otwarcia, a dom ma kilkoro drzwi i wiele okien. Po obejrzeniu budynku podpowiadamy, ile czujek dołożyć."
     },
     {
      "q": "Gdzie nagrywa kamera z zestawu?",
-     "a": "TurretCam zapisuje na karcie microSD 32–256 GB (kupowanej osobno) albo na rejestratorze. Podgląd obrazu w czasie rzeczywistym jest w aplikacji Ajax."
+     "a": "TurretCam zapisuje na karcie microSD do 256 GB (kupowanej osobno) albo na rejestratorze. Podgląd obrazu w czasie rzeczywistym jest w aplikacji Ajax."
     },
     {
      "q": "Czy kamera potrzebuje osobnego zasilania?",
@@ -3151,7 +3137,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/ajax-starterkit-hub-2-01.webp",
@@ -4584,7 +4570,7 @@
   {
    "slug_seed": "satel-abax-2-acu-280",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "huby",
@@ -4788,7 +4774,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-abax-2-acu-280-01.webp",
@@ -4800,7 +4786,7 @@
   {
    "slug_seed": "satel-abax-2-apd-200",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "alarm",
    "kategoria": "alarmy-bezprzewodowe",
    "podkategoria": "czujki-ruchu",
@@ -4809,22 +4795,22 @@
    "seria": "ABAX 2",
    "nazwa": "Satel ABAX 2 APD-200 — bezprzewodowa czujka ruchu PIR (APD-200, APD-200 Pet)",
    "krotka": "Satel APD-200 (ABAX 2)",
-   "podtytul": "Czujka PIR z podwójnym pyroelementem, obszar 15 × 24 m (wersja Pet: 14 × 16 m, zwierzęta do 20 kg), bateria CR123A.",
+   "podtytul": "Czujka PIR ABAX 2: APD-200 z podwójnym pyroelementem, obszar 15 × 24 m; wersja Pet z poczwórnym, 14 × 16 m, zwierzęta do 20 kg. Bateria CR123A.",
    "korzysc": "Czujka ruchu do systemu Satel, którą montujesz bez kabla — także w zabytkowych i wykończonych wnętrzach.",
    "opis": [
     "APD-200 to bezprzewodowa czujka ruchu systemu Satel ABAX 2. Pracuje z kontrolerami ACU-280 i ACU-220, retransmiterem ARU-200 oraz centralami BE WAVE, więc pasuje zarówno do rozbudowy przewodowego alarmu INTEGRA lub VERSA, jak i do nowej instalacji bezprzewodowej. Sprawdza się w kościołach, szkołach, biurach i domach, gdzie nie chcemy prowadzić przewodów po ścianach.",
-    "Czujka wykrywa ruch podwójnym pyroelementem z cyfrową analizą sygnału i kompensacją temperatury. Według producenta standardowa wersja obejmuje obszar 15 × 24 m w kącie 90°, a opcjonalne soczewki zmieniają ją w czujkę kurtynową (CT-CL) lub dalekiego zasięgu (LR-CL). APD-200 Pet ma obszar 14 × 16 m w kącie 83° i ignoruje zwierzęta do 20 kg. Obie zasila bateria CR123A 3 V, a tryb ECO według producenta wydłuża jej pracę nawet czterokrotnie; czujka ma też wbudowany pomiar temperatury.",
+    "APD-200 wykrywa ruch podwójnym pyroelementem, a wersja Pet poczwórnym, obie z cyfrową analizą sygnału i kompensacją temperatury. Według producenta standardowa wersja obejmuje obszar 15 × 24 m w kącie 90°, a opcjonalne soczewki zmieniają ją w czujkę kurtynową (CT-CL) lub dalekiego zasięgu (LR-CL). APD-200 Pet ma obszar 14 × 16 m w kącie 83° i ignoruje zwierzęta do 20 kg. Obie zasila bateria CR123A 3 V, a tryb ECO według producenta wydłuża jej pracę nawet czterokrotnie; czujka ma też wbudowany pomiar temperatury.",
     "W PRO-KOM dobieramy wersję do obiektu: Pet do domów ze zwierzętami, zwykłą APD-200 — do hal, korytarzy i kościołów, gdzie potrzebny jest większy zasięg. Przed montażem mierzymy siłę sygnału do kontrolera w programie ABAX 2 Soft i w razie potrzeby dodajemy retransmiter. Konfigurację robimy w DLOADX, a zmianę ustawień i aktualizacje — zdalnie, bez zdejmowania czujki. Na montaż dajemy 24 mies. gwarancji."
    ],
    "cechy": [
-    "podwójny pyroelement",
+    "podwójny lub poczwórny pyroelement",
     "wersja Pet do 20 kg",
     "tryb ECO"
    ],
    "parametry": [
     {
      "k": "Czujnik",
-     "v": "PIR z podwójnym pyroelementem, cyfrowy algorytm detekcji, kompensacja temperatury"
+     "v": "PIR: APD-200 — podwójny pyroelement, APD-200 Pet — poczwórny; cyfrowy algorytm detekcji, kompensacja temperatury"
     },
     {
      "k": "Obszar wykrywania (wg producenta)",
@@ -4836,7 +4822,7 @@
     },
     {
      "k": "Soczewki opcjonalne",
-     "v": "kurtynowa CT-CL, dalekiego zasięgu LR-CL (APD-200); regulowane lusterko strefy podejścia"
+     "v": "tylko APD-200: soczewka kurtynowa CT-CL, dalekiego zasięgu LR-CL i regulowane lusterko strefy podejścia"
     },
     {
      "k": "System",
@@ -5019,7 +5005,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-abax-2-apd-200-01.webp",
@@ -5544,9 +5530,9 @@
    "podtytul": "Centrala Grade 2 z wbudowanym GSM na dwie karty SIM, 8 wejściami (do 16), aplikacją PERFECTA CONTROL i manipulatorem LCD.",
    "korzysc": "Gotowy komplet do domu lub małej firmy: alarm z powiadomieniami w telefonie bez linii telefonicznej i bez osobnego modułu.",
    "opis": [
-    "PERFECTA 16 to centrala Satel przeznaczona do mieszkań, domów, segmentów, małych biur i sklepów. Zestaw łączy centralę z manipulatorem PRF-LCD i kompletem przewodowych czujek ruchu — w zależności od wersji od 8 do 16 sztuk — więc obejmuje wszystko, co potrzebne do typowego domu. Spełnia wymagania Grade 2 normy EN 50131, czyli poziom przyjęty dla budynków mieszkalnych i małych firm. Obsługa jest prosta: kod na klawiaturze, aplikacja w telefonie albo pilot.",
+    "PERFECTA 16 to centrala Satel przeznaczona do mieszkań, domów, segmentów, małych biur i sklepów. Zestaw sklepowy łączy centralę z manipulatorem PRF-LCD i kompletem przewodowych czujek ruchu — w zależności od wersji od 8 do 16 sztuk — więc obejmuje wszystko, co potrzebne do typowego domu. Spełnia wymagania Grade 2 normy EN 50131, czyli poziom przyjęty dla budynków mieszkalnych i małych firm. Obsługa jest prosta: kod na klawiaturze, aplikacja w telefonie albo pilot.",
     "Centrala ma na płycie 8 wejść i 4 wyjścia, a modułami INT-E i INT-O można dojść do 16 wejść i 12 wyjść. Wbudowany moduł GSM/GPRS z dwoma gniazdami nano-SIM wysyła powiadomienia PUSH do aplikacji PERFECTA CONTROL, SMS-y i komunikaty głosowe na 8 numerów, a przy kłopotach z zasięgiem przełącza się na drugą kartę. Dom można podzielić na 2 strefy z trybami dziennym, nocnym i pełnym, np. parter uzbrojony w nocy, a piętro wolne. Do centrali podłączysz do 4 manipulatorów PRF-LCD i do 15 użytkowników; piloty 433 MHz działają po dodaniu modułu INT-RX-S.",
-    "Zestaw ze sklepu traktujemy jako punkt wyjścia: po obejrzeniu domu sprawdzamy, czy liczba czujek pasuje do pomieszczeń, i proponujemy czujki zewnętrzne lub kontaktrony tam, gdzie mają sens. PRO-KOM rozmieszcza czujki, prowadzi przewody, montuje centralę z akumulatorem i sygnalizator, a potem zakłada konto w PERFECTA CONTROL i pokazuje domownikom obsługę. Przed montażem sprawdzamy zasięg sieci komórkowej; jeśli jest słaby, proponujemy wersję PERFECTA 16-LTE z oferty Satel. Montaż ma 24 mies. gwarancji, a serwis i przeglądy robimy na miejscu."
+    "Zestaw ze sklepu traktujemy jako punkt wyjścia: po obejrzeniu domu sprawdzamy, czy liczba czujek pasuje do pomieszczeń, i proponujemy czujki zewnętrzne lub kontaktrony tam, gdzie mają sens. PRO-KOM rozmieszcza czujki, prowadzi przewody, montuje centralę z akumulatorem i sygnalizator, a potem zakłada konto w PERFECTA CONTROL i pokazuje domownikom obsługę. Przed montażem sprawdzamy zasięg sieci komórkowej; jeśli jest słaby, proponujemy wersję PERFECTA 16 LTE z oferty Satel. Montaż ma 24 mies. gwarancji, a serwis i przeglądy robimy na miejscu."
    ],
    "cechy": [
     "GSM na 2 karty SIM",
@@ -5604,7 +5590,7 @@
     },
     {
      "k": "Czujki w zestawie",
-     "v": "8, 14, 15 lub 16 przewodowych czujek ruchu (wg wersji zestawu; typ czujek do potwierdzenia przy zamówieniu)"
+     "v": "8, 14, 15 lub 16 przewodowych czujek ruchu (zestaw sklepowy, nie producenta; typ czujek do potwierdzenia przy zamówieniu)"
     },
     {
      "k": "Warunki pracy",
@@ -5766,7 +5752,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/satel-perfecta-01.webp",
@@ -6729,11 +6715,6 @@
      "plik": "media/produkty/satel-slim-pir-03.webp",
      "zrodlo": "https://www.eltrox.pl/42632-product_main_2x/satel-czujka-ruchu-pir-slim-pir.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/satel-slim-pir-04.webp",
-     "zrodlo": "https://www.eltrox.pl/269701-product_main_2x/satel-czujka-ruchu-pir-slim-pir.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -6967,11 +6948,6 @@
      "plik": "media/produkty/satel-slim-dual-03.webp",
      "zrodlo": "https://www.eltrox.pl/42674-product_main_2x/satel-dualna-czujka-ruchu-pir-mw-slim-dual.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/satel-slim-dual-04.webp",
-     "zrodlo": "https://www.eltrox.pl/42675-product_main_2x/satel-dualna-czujka-ruchu-pir-mw-slim-dual.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -11355,11 +11331,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/edbak-pmv-01.webp",
-     "zrodlo": "https://edbak.com/wp-content/uploads/2019/07/PMV100.png",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/edbak-pmv-02.webp",
      "zrodlo": "https://edbak.com/wp-content/uploads/2019/07/PMV200-1-1.jpg",
      "ujecie": "ujęcie 2"
@@ -11835,11 +11806,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/edbak-mtr200-01.webp",
-     "zrodlo": "https://edbak.com/wp-content/uploads/2026/02/MTR200.png",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/edbak-mtr200-02.webp",
      "zrodlo": "https://edbak.com/wp-content/uploads/2026/02/MTR200_front-scaled.png",
@@ -13063,9 +13029,9 @@
    "podtytul": "Zdalnie sterowane kamery PTZ 4K60 z zoomem optycznym 20× (40× w Full HD), autofokusem hybrydowym, NDI HX2, SRT i RTMP",
    "korzysc": "Jedna osoba z pilota lub aplikacji pokazuje ołtarz, mównicę i salę w zbliżeniu — bez operatora przy kamerze.",
    "opis": [
-    "Canon CR-N350 i CR-N400 to nowe kamery PTZ, czyli obrotowe kamery z zoomem sterowane zdalnie, do transmisji z kościołów, sal obrad, auli, sal konferencyjnych i domów kultury. Kamerę montuje się na ścianie lub suficie, a realizator obraca ją, przybliża i zapisuje gotowe ujęcia (presety) — np. ołtarz, ambona, chór albo stół prezydium. Według producenta obie mają też tryb wycinania pionowego kadru 9:16 równolegle z pełnym obrazem, przydatny do mediów społecznościowych.",
-    "Obie kamery nagrywają w 4K przy 60 kl./s, mają przetwornik CMOS 1/2,3″, procesor DIGIC DV7, autofokus hybrydowy i zoom optyczny 20×, rozszerzany do 40× w Full HD. Przesyłają obraz przez sieć (NDI HX2, RTSP/RTP, RTMP/RTMPS, SRT) i dają się sterować przez LAN, Wi-Fi, port szeregowy, podczerwień i USB-C. CR-N350 wyprowadza 4K przez HDMI i Full HD przez 3G-SDI, a droższy CR-N400 dodaje wyjście 12G-SDI dla 4K, Genlock, kod czasowy i dwa wejścia XLR. Dystrybutor oferuje wersje białe i czarne oraz opcjonalną licencję automatycznego śledzenia osoby (Auto Tracking).",
-    "PRO-KOM dobiera miejsca montażu kamer tak, żeby obejmowały najważniejsze ujęcia bez przeszkód, prowadzi przewód sieciowy (zasilanie PoE według karty producenta) i sygnał wideo do miksera lub enkodera. Programujemy presety, łączymy kamery z mikserem (np. ATEM Mini, Roland VR-6HD) albo z kontrolerem PTZ i uczymy obsługi. Dbamy o aktualizacje i serwis. Montaż ma 24-miesięczną gwarancję PRO-KOM."
+    "Canon CR-N350 i CR-N400 to nowe kamery PTZ, czyli obrotowe kamery z zoomem sterowane zdalnie, do transmisji z kościołów, sal obrad, auli, sal konferencyjnych i domów kultury. Kamerę montuje się na ścianie lub suficie, a realizator obraca ją, przybliża i zapisuje gotowe ujęcia (presety) — np. ołtarz, ambona, chór albo stół prezydium. Według producenta obie mają też tryb wycinania pionowego kadru 9:16, przydatny do mediów społecznościowych.",
+    "Obie kamery nagrywają w 4K przy 60 kl./s, mają przetwornik CMOS 1/2,3″, procesor DIGIC DV7, autofokus hybrydowy i zoom optyczny 20×, rozszerzany do 40× w Full HD. Przesyłają obraz przez sieć (NDI HX2, RTSP/RTP, RTMP/RTMPS, SRT) i dają się sterować przez LAN, Wi-Fi, port szeregowy, podczerwień i USB-C. CR-N350 wyprowadza 4K przez HDMI i Full HD przez 3G-SDI, a droższy CR-N400 ma wyjście 12G/3G-SDI dla 4K, Genlock, kod czasowy i dwa wejścia XLR. W zestawie jest podstawowe śledzenie osoby (Auto Tracking Lite); pełna aplikacja Auto Tracking to płatna usługa Canon.",
+    "PRO-KOM dobiera miejsca montażu kamer tak, żeby obejmowały najważniejsze ujęcia bez przeszkód, prowadzi przewód sieciowy z zasilaniem PoE++ (802.3bt) albo osobny zasilacz 12 V i sygnał wideo do miksera lub enkodera. Programujemy presety, łączymy kamery z mikserem (np. ATEM Mini, Roland VR-6HD) albo z kontrolerem PTZ i uczymy obsługi. Dbamy o aktualizacje i serwis. Montaż ma 24-miesięczną gwarancję PRO-KOM."
    ],
    "cechy": [
     "4K60 i zoom 20×",
@@ -13091,7 +13057,7 @@
     },
     {
      "k": "Wyjścia wideo",
-     "v": "CR-N350: HDMI (4K), 3G-SDI (do 1080p60); CR-N400: dodatkowo 12G-SDI (4K60)"
+     "v": "CR-N350: HDMI (do 4K60), 3G-SDI (do 1080p60; przy 4K tylko HDMI); CR-N400: HDMI (4K60) i jedno wyjście 12G/3G-SDI (4K60)"
     },
     {
      "k": "Protokoły IP",
@@ -13103,19 +13069,23 @@
     },
     {
      "k": "Audio",
-     "v": "CR-N400: 2 × XLR; CR-N350: wg karty producenta"
+     "v": "CR-N350: wejście mikrofonowe mini-jack 3,5 mm; CR-N400: 2 × XLR (zbalansowane) i mini-jack 3,5 mm"
     },
     {
      "k": "Synchronizacja",
-     "v": "CR-N400: Genlock i kod czasowy (BNC)"
+     "v": "CR-N400: Genlock i kod czasowy (BNC); CR-N350: kod czasowy tylko w sygnale SDI"
     },
     {
      "k": "Kadr pionowy",
-     "v": "jednoczesny wycinek 9:16"
+     "v": "tryb wycinania pionowego 9:16 (strumień IP 1080 × 1920)"
     },
     {
      "k": "Śledzenie osoby",
-     "v": "opcjonalna licencja Auto Tracking (w ofercie dystrybutora)"
+     "v": "Auto Tracking (Lite) w zestawie; pełna aplikacja Auto Tracking jako płatna usługa Canon"
+    },
+    {
+     "k": "Zasilanie",
+     "v": "PoE++ (IEEE 802.3bt) lub 12 V DC — PoE i PoE+ nie wystarczą"
     },
     {
      "k": "Kolory",
@@ -13156,8 +13126,8 @@
      {
       "nazwa": "Auto Tracking",
       "wartosci": [
-       "bez licencji",
-       "z licencją Auto Tracking"
+       "Auto Tracking Lite (w zestawie)",
+       "pełna aplikacja Auto Tracking (płatna)"
       ],
       "uwaga": "Śledzenie przydaje się przy kaznodziei czy prelegencie, który chodzi po scenie.",
       "dl": false,
@@ -13188,15 +13158,15 @@
    "faq": [
     {
      "q": "Czy kamera PTZ zastąpi operatora przy transmisji mszy?",
-     "a": "W dużej mierze tak: zapisujemy ujęcia (presety), a realizator przełącza je jednym przyciskiem. Z licencją Auto Tracking kamera może też sama śledzić osobę."
+     "a": "W dużej mierze tak: zapisujemy ujęcia (presety), a realizator przełącza je jednym przyciskiem. Dzięki funkcji Auto Tracking kamera może też sama śledzić osobę."
     },
     {
      "q": "Czym CR-N350 różni się od CR-N400?",
-     "a": "Oba modele mają tę samą optykę i 4K60. CR-N400 dodaje wyjście 12G-SDI dla 4K, Genlock, kod czasowy i wejścia XLR — potrzebne przy profesjonalnej realizacji."
+     "a": "Oba modele mają tę samą optykę i 4K60. CR-N400 ma wyjście 12G-SDI dla 4K, Genlock, kod czasowy i wejścia XLR — potrzebne przy profesjonalnej realizacji."
     },
     {
      "q": "Czy kamerę podłączę samym kablem sieciowym?",
-     "a": "Kamery przesyłają obraz i sterowanie przez sieć (NDI, SRT, RTMP). Sposób zasilania i wymagany standard PoE potwierdzamy w karcie producenta przy projekcie."
+     "a": "Tak, jeśli przełącznik daje PoE++ (IEEE 802.3bt) — przez jeden kabel idzie wtedy obraz, sterowanie i zasilanie. Zwykłe PoE i PoE+ nie wystarczą; wtedy kamerę zasila zasilacz 12 V."
     },
     {
      "q": "Ile kamer potrzeba w średniej wielkości kościele?",
@@ -13225,6 +13195,18 @@
     "Firma, biuro i hala"
    ],
    "zrodla": [
+    {
+     "url": "http://asia.canon/en/business/cr-n350/main/specification",
+     "etykieta": "Specyfikacja CR-N350 — Canon",
+     "host": "asia.canon",
+     "data": "2026-11-19"
+    },
+    {
+     "url": "http://asia.canon/en/business/cr-n400/main/specification",
+     "etykieta": "Specyfikacja CR-N400 — Canon",
+     "host": "asia.canon",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://www.canon-europe.com/ptz-cameras/cr-n400/specifications/",
      "etykieta": "Strona producenta — Canon",
@@ -13263,7 +13245,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [],
    "zdjecia_brak": true
   },
@@ -13462,11 +13444,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/turtle-av-videowall-matrix-01.webp",
-     "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/4x4-videowall-small-hero_web.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/turtle-av-videowall-matrix-02.webp",
      "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/4x4-VW-back-left_web.jpg",
@@ -13705,11 +13682,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/turtle-av-chazy-4k-01.webp",
-     "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/Chazy-4K-small-hero_web.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/turtle-av-chazy-4k-02.webp",
      "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/Chazy-Fam_TX.jpg",
@@ -14590,11 +14562,6 @@
      "plik": "media/produkty/hikvision-ds-2ce76x0t-lmfs-01.webp",
      "zrodlo": "https://www.eltrox.pl/174128-product_main_2x/kamera-4w1-hikvision-ds-2ce76k0t-lmfs-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce76x0t-lmfs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174130-product_main_2x/kamera-4w1-hikvision-ds-2ce76k0t-lmfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -14814,11 +14781,6 @@
      "plik": "media/produkty/hikvision-ds-2ce16k0t-lpfs-03.webp",
      "zrodlo": "https://www.eltrox.pl/239997-product_main_2x/kamera-4w1-hikvision-ds-2ce16k0t-lpfs-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce16k0t-lpfs-04.webp",
-     "zrodlo": "https://www.eltrox.pl/239998-product_main_2x/kamera-4w1-hikvision-ds-2ce16k0t-lpfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -15048,11 +15010,6 @@
      "plik": "media/produkty/hikvision-ds-2ce17x0t-lfs-01.webp",
      "zrodlo": "https://www.eltrox.pl/174014-product_main_2x/kamera-4w1-hikvision-ds-2ce17k0t-lfs-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce17x0t-lfs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174015-product_main_2x/kamera-4w1-hikvision-ds-2ce17k0t-lfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -15265,18 +15222,13 @@
      "plik": "media/produkty/hikvision-ds-2ce10kf3t-le-01.webp",
      "zrodlo": "https://www.eltrox.pl/174167-product_main_2x/kamera-4w1-hikvision-ds-2ce10kf3t-le-2-8mm-o-std-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce10kf3t-le-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174168-product_main_2x/kamera-4w1-hikvision-ds-2ce10kf3t-le-2-8mm-o-std-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
   {
    "slug_seed": "dahua-ipc-hdw1x39t-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -15288,7 +15240,7 @@
    "podtytul": "Kamery kulkowe 6 Mpx (3200×1800) i 8 Mpx (3840×2160), obiektyw 2,8 mm, podczerwień do 30 m i ciepłe światło, PoE.",
    "korzysc": "Prosta kamera z wysoką rozdzielczością, która w nocy pokazuje obraz w kolorze, gdy coś się dzieje.",
    "opis": [
-    "To podstawowe kamery Dahua z linii Entry w obudowie „kulkowej” (turret, u producenta: eyeball) — metalowa głowica osadzona w podstawie, którą po montażu ustawia się w dowolnym kierunku. Pasują pod okap domu, nad wejście do pensjonatu, na ścianę sklepu albo do hali. Taka obudowa nie ma szyby przed diodami, więc podczerwień nie odbija się na niej i obraz w nocy nie jest zamglony.",
+    "To podstawowe kamery Dahua z linii Entry w obudowie „kulkowej” (turret, u producenta: eyeball) — metalowa głowica osadzona w podstawie, którą po montażu ustawia się w dowolnym kierunku. Pasują pod okap domu, nad wejście do pensjonatu, na ścianę sklepu albo do hali. Metalowa obudowa ma szczelność IP67.",
     "Model 1639 nagrywa w 6 Mpx, a 1839 w 8 Mpx (4K), co daje więcej szczegółów przy szerokim kadrze z obiektywu 2,8 mm. Obie mają tryb Smart Dual Light: w nocy pracuje niewidoczna podczerwień (do 30 m według producenta), a gdy w kadrze pojawi się ruch, kamera może włączyć ciepłe białe światło i nagrywać w kolorze. Mają wbudowany mikrofon, obudowę IP67 i zasilanie jednym kablem sieciowym (PoE). Nie mają gniazda karty pamięci — nagrania trafiają do rejestratora.",
     "PRO-KOM dobiera rozdzielczość i miejsce montażu do obiektu, tak żeby kamera widziała wejście, podjazd albo kasę zamiast nieba. Montujemy kamery z rejestratorem Dahua, dyskiem do nagrań ciągłych i przełącznikiem PoE, konfigurujemy podgląd w aplikacji DMSS na telefonie i powiadomienia o ruchu. Na montaż dajemy 24 miesiące gwarancji, a później zajmujemy się serwisem i aktualizacjami."
    ],
@@ -15316,7 +15268,7 @@
     },
     {
      "k": "Kąt widzenia (poziomo, 2,8 mm)",
-     "v": "1639: 108° (rewizja S7), 110° (karta S6); 1839: do potwierdzenia u producenta"
+     "v": "1639 (S7): 108°; 1839 (S6): 110°; przy 3,6 mm: 90° / 86°"
     },
     {
      "k": "Oświetlenie",
@@ -15324,7 +15276,7 @@
     },
     {
      "k": "Zasięg oświetlenia (wg producenta)",
-     "v": "podczerwień do 30 m; ciepłe światło do 30 m wg karty S6 (1639 w rewizji S7: do 20 m przy 2,8 mm)"
+     "v": "podczerwień do 30 m; ciepłe światło: 1639 (S7) do 20 m przy 2,8 mm, 1839 (S6) do 30 m"
     },
     {
      "k": "Audio",
@@ -15336,7 +15288,7 @@
     },
     {
      "k": "Zasilanie",
-     "v": "12 V DC lub PoE (802.3af); 1639: maks. 4,6 W przy PoE"
+     "v": "12 V DC lub PoE (802.3af); maks. przy PoE: 1639 (S7) 4,6 W, 1839 (S6) 5,8 W"
     },
     {
      "k": "Szczelność",
@@ -15353,12 +15305,12 @@
    ],
    "warianty_opis": [
     {
-     "model": "IPC-HDW1639T-A-IL-0280B-S6",
-     "roznica": "6 Mpx (3200×1800), obiektyw 2,8 mm — szeroki kadr podwórka lub wejścia przy rozsądnym zużyciu dysku."
+     "model": "IPC-HDW1639T-A-IL-0280B-S7",
+     "roznica": "6 Mpx (3200×1800), obiektyw 2,8 mm, kąt 108°, ciepłe światło do 20 m — szeroki kadr podwórka lub wejścia przy rozsądnym zużyciu dysku."
     },
     {
      "model": "IPC-HDW1839T-A-IL-0280B-S6",
-     "roznica": "8 Mpx (4K, 3840×2160), obiektyw 2,8 mm — więcej szczegółów na brzegach kadru, większe pliki nagrań."
+     "roznica": "8 Mpx (4K, 3840×2160), obiektyw 2,8 mm, kąt 110°, ciepłe światło do 30 m — więcej szczegółów na brzegach kadru, większe pliki nagrań."
     }
    ],
    "konfigurator": {
@@ -15447,6 +15399,12 @@
    ],
    "zrodla": [
     {
+     "url": "https://materialfile.dahuasecurity.com/uploads/cpq/88311/datasheet/DH-IPC-HDW1639T-A-IL_S7_datasheet_20261105_English.pdf",
+     "etykieta": "Karta katalogowa IPC-HDW1639T-A-IL (S7) — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://www.dahuasecurity.com/bd/products/All-Products/Network-Cameras/WizSense-2-Series/Smart-Dual-Light/IPC-HDW1639T-A-IL=S7",
      "etykieta": "Strona producenta — Dahua",
      "host": "dahuasecurity.com",
@@ -15489,7 +15447,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hdw1x39t-a-il-01.webp",
@@ -15516,7 +15474,7 @@
   {
    "slug_seed": "dahua-ipc-hfw1x39tc-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -15528,7 +15486,7 @@
    "podtytul": "Tubowe kamery 6 Mpx i 8 Mpx (4K) z obiektywem 2,8 mm, podczerwienią i ciepłym światłem do 30 m według producenta.",
    "korzysc": "Wyraźnie widoczna kamera na elewacji, która odstrasza i nagrywa podwórko w wysokiej rozdzielczości.",
    "opis": [
-    "Kamery tubowe z linii Entry to klasyczny „walec” na uchwycie, który od razu widać na ścianie — dla wielu klientów to zaleta, bo kamera sama w sobie zniechęca do wejścia na posesję. Sprawdzają się na narożniku domu, nad bramą wjazdową, na ścianie magazynu i przy parkingu pensjonatu. Daszek nad obiektywem chroni przed deszczem i śniegiem.",
+    "Kamery tubowe z linii Entry to klasyczny „walec” na uchwycie, który od razu widać na ścianie — dla wielu klientów to zaleta, bo kamera sama w sobie zniechęca do wejścia na posesję. Sprawdzają się na narożniku domu, nad bramą wjazdową, na ścianie magazynu i przy parkingu pensjonatu. Metalowa obudowa ma szczelność IP67.",
     "IPC-HFW1639TC-A-IL daje obraz 6 Mpx, a IPC-HFW1839TC-A-IL — 8 Mpx (3840×2160), czyli 4K. Według kart producenta obie mają podczerwień i ciepłe światło o zasięgu do 30 m, a funkcja Smart Dual Light zapala białe światło dopiero wtedy, gdy w kadrze pojawi się człowiek. Obiektyw 2,8 mm obejmuje szeroki fragment podwórka, wbudowany mikrofon nagrywa dźwięk, a obudowa ma klasę IP67. Model 8 Mpx przy pełnej rozdzielczości nagrywa do 20 klatek na sekundę.",
     "W PRO-KOM zaczynamy od obejrzenia posesji: ustalamy, które miejsca kamera ma obejmować i na jakiej wysokości ją zawiesić, żeby twarz była rozpoznawalna. Kamerę łączymy z rejestratorem Dahua i dyskiem, zasilamy przez przełącznik PoE jednym kablem, a podgląd i powiadomienia ustawiamy w aplikacji DMSS. Po montażu (gwarancja 24 mies.) pomagamy w obsłudze i serwisie."
    ],
@@ -15540,7 +15498,7 @@
    "parametry": [
     {
      "k": "Obudowa",
-     "v": "tubowa (bullet), metalowa, z daszkiem"
+     "v": "tubowa (bullet), metalowa"
     },
     {
      "k": "Rozdzielczość",
@@ -15560,7 +15518,7 @@
     },
     {
      "k": "Kąt widzenia (poziomo, 2,8 mm)",
-     "v": "1839TC: 110°; 1639TC: do potwierdzenia u producenta"
+     "v": "110° (oba modele); przy 3,6 mm: 1639TC 91°, 1839TC 86°"
     },
     {
      "k": "Oświetlenie (wg producenta)",
@@ -15576,7 +15534,7 @@
     },
     {
      "k": "Zasilanie",
-     "v": "12 V DC lub PoE (802.3af); 1839TC: maks. ok. 5,8 W przy PoE"
+     "v": "12 V DC lub PoE (802.3af); maks. przy PoE: 1639TC ok. 5,3 W, 1839TC ok. 5,8 W"
     },
     {
      "k": "Szczelność",
@@ -15723,7 +15681,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hfw1x39tc-a-il-01.webp",
@@ -15971,11 +15929,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/dahua-ipc-hdw1x39v-a-il-01.webp",
-     "zrodlo": "https://www.eltrox.pl/266887-product_main_2x/kamera-ip-dahua-ipc-hdw1439v-a-il-0280b.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/dahua-ipc-hdw1x39v-a-il-02.webp",
      "zrodlo": "https://www.eltrox.pl/266888-product_main_2x/kamera-ip-dahua-ipc-hdw1439v-a-il-0280b.jpg",
      "ujecie": "ujęcie 2"
@@ -16197,11 +16150,6 @@
      "ujecie": "ujęcie 2"
     },
     {
-     "plik": "media/produkty/dahua-ipc-hfw1439tl1-a-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/266799-product_main_2x/kamera-ip-dahua-ipc-hfw1439tl1-a-il-0280b.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
      "plik": "media/produkty/dahua-ipc-hfw1439tl1-a-il-04.webp",
      "zrodlo": "https://www.eltrox.pl/266800-product_main_2x/kamera-ip-dahua-ipc-hfw1439tl1-a-il-0280b.jpg",
      "ujecie": "ujęcie 4"
@@ -16211,7 +16159,7 @@
   {
    "slug_seed": "dahua-ipc-hdbw1439e1-a-il",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -16220,11 +16168,11 @@
    "seria": "Entry",
    "nazwa": "Dahua kamera IP kopułkowa 4 Mpx z obiektywem 2,8 mm (IPC-HDBW1439E1-A-IL)",
    "krotka": "Dahua kamera kopułkowa 4 Mpx",
-   "podtytul": "Płaska kamera kopułkowa 4 Mpx (2560×1440) z obiektywem 2,8 mm i doświetleniem w nocy — parametry do potwierdzenia u producenta.",
+   "podtytul": "Kopułka 4 Mpx (2560×1440) z obiektywem 2,8 lub 3,6 mm, Smart Dual Light do 30 m, WDR 120 dB, IP67 i IK08.",
    "korzysc": "Dyskretna kopułka na sufit, po której trudno poznać, w którą stronę patrzy.",
    "opis": [
-    "Kamera kopułkowa to niska „kopułka” pod kloszem, montowana zwykle na suficie albo wysoko na ścianie. Z zewnątrz nie widać, gdzie skierowany jest obiektyw, a sama obudowa jest trudniejsza do przestawienia niż kamera tubowa. Dlatego wybiera się ją do wnętrz: recepcja pensjonatu, sala sklepu, biuro, korytarz w budynku firmy.",
-    "Według danych dystrybutora model IPC-HDBW1439E1-A-IL nagrywa w 4 Mpx (2560×1440) z obiektywem 2,8 mm, ma wbudowany mikrofon, obudowę IP67 i zasilanie PoE. Oznaczenie „-IL” Dahua stosuje dla kamer z doświetleniem podczerwienią i ciepłym światłem. Na stronie producenta nie znaleźliśmy jednak karty tego modelu, dlatego zasięgi, kąt widzenia i pobór mocy potwierdzimy przed sprzedażą.",
+    "Kamera kopułkowa to niska „kopułka” pod kloszem, montowana zwykle na suficie albo wysoko na ścianie. Z zewnątrz nie widać, gdzie skierowany jest obiektyw, a sama obudowa jest trudniejsza do przestawienia niż kamera tubowa. Najczęściej trafia do wnętrz — recepcja pensjonatu, sala sklepu, biuro, korytarz — ale dzięki IP67 i IK08 sprawdzi się też pod wiatą lub okapem.",
+    "IPC-HDBW1439E1-A-IL nagrywa w 4 Mpx (2560×1440) z przetwornika 1/3 cala, z obiektywem 2,8 mm (95,5°) albo 3,6 mm (78,4°). Smart Dual Light łączy podczerwień i ciepłe światło o zasięgu do 30 m, a po wykryciu człowieka kamera może nagrywać w nocy w kolorze. Ma WDR 120 dB, wbudowany mikrofon, obudowę IP67 i IK08 oraz zasilanie PoE (maks. 7,9 W). Nie ma gniazda karty pamięci — nagrania zapisuje rejestrator.",
     "PRO-KOM dobiera kopułki do wnętrz tak, żeby obejmowały kasę, wejście i przejścia bez martwych stref. Montujemy je razem z rejestratorem Dahua, dyskiem i przełącznikiem PoE, ustawiamy maski prywatności tam, gdzie kamera nie powinna patrzeć, i konfigurujemy podgląd w aplikacji DMSS. Instalacja ma 24 miesiące gwarancji na montaż."
    ],
    "cechy": [
@@ -16235,27 +16183,35 @@
    "parametry": [
     {
      "k": "Obudowa",
-     "v": "kopułkowa (dome) — do potwierdzenia u producenta"
+     "v": "kopułkowa (dome), metal + tworzywo; wandaloodporna"
     },
     {
      "k": "Rozdzielczość",
-     "v": "4 Mpx (2560×1440) — wg danych dystrybutora"
+     "v": "4 Mpx (2560×1440) przy 25/30 kl/s"
     },
     {
      "k": "Przetwornik",
-     "v": "CMOS 1/2,9 cala — wg danych dystrybutora"
+     "v": "CMOS 1/3 cala"
     },
     {
      "k": "Obiektyw",
-     "v": "stały 2,8 mm"
+     "v": "stały 2,8 mm lub 3,6 mm"
     },
     {
      "k": "Kąt widzenia (poziomo)",
-     "v": "ok. 95° — do potwierdzenia u producenta"
+     "v": "95,5° (2,8 mm); 78,4° (3,6 mm)"
     },
     {
      "k": "Oświetlenie",
-     "v": "podczerwień i białe światło (oznaczenie -IL) — zasięg do potwierdzenia"
+     "v": "Smart Dual Light: podczerwień do 30 m i ciepłe światło do 30 m"
+    },
+    {
+     "k": "WDR",
+     "v": "120 dB"
+    },
+    {
+     "k": "Analiza obrazu",
+     "v": "wykrywanie człowieka (SMD)"
     },
     {
      "k": "Audio",
@@ -16263,34 +16219,43 @@
     },
     {
      "k": "Zapis",
-     "v": "bez microSD — rejestrator"
+     "v": "bez microSD — rejestrator lub FTP"
     },
     {
      "k": "Zasilanie",
-     "v": "PoE lub 12 V DC — pobór do potwierdzenia"
+     "v": "12 V DC lub PoE 802.3af; maks. 7,9 W przy PoE"
     },
     {
-     "k": "Szczelność",
-     "v": "IP67 — wg danych dystrybutora"
+     "k": "Szczelność i odporność",
+     "v": "IP67, IK08"
+    },
+    {
+     "k": "Temperatura i wymiary",
+     "v": "−40…+60 °C; Ø109,9 × 81 mm, 0,33 kg"
     },
     {
      "k": "Zgodność",
-     "v": "ONVIF, aplikacja DMSS"
+     "v": "ONVIF Profile S i T; DMSS, Smart PSS Lite, DSS"
     }
    ],
    "warianty_opis": [
     {
      "model": "IPC-HDBW1439E1-A-IL-0280B-S6",
-     "roznica": "Jedyny model serii w katalogu: 4 Mpx, obiektyw 2,8 mm, obudowa kopułkowa."
+     "roznica": "4 Mpx, obiektyw 2,8 mm, kąt 95,5° — sala sklepu, recepcja, wejście."
+    },
+    {
+     "model": "IPC-HDBW1439E1-A-IL-0360B-S6",
+     "roznica": "4 Mpx, obiektyw 3,6 mm, kąt 78,4° — korytarz, kasa, dalszy plan."
     }
    ],
    "konfigurator": {
-    "opis": "Jeden model z obiektywem 2,8 mm. Szczegóły techniczne potwierdzamy przy wycenie.",
+    "opis": "Wybierasz ogniskową: 2,8 mm do szerokiego kadru albo 3,6 mm do węższego, dalszego.",
     "opcje": [
      {
       "nazwa": "Ogniskowa",
       "wartosci": [
-       "2,8 mm"
+       "2,8 mm (szeroki kadr)",
+       "3,6 mm (węższy kadr)"
       ],
       "dl": false,
       "pom": ""
@@ -16325,6 +16290,10 @@
     {
      "q": "Czy kopułkę da się zamontować na suficie podwieszanym?",
      "a": "Zwykle tak — montujemy ją na płycie sufitu lub na puszce. Sposób mocowania sprawdzamy na miejscu, bo zależy od konstrukcji sufitu."
+    },
+    {
+     "q": "Czy ta kopułka nagrywa w nocy w kolorze?",
+     "a": "Domyślnie w nocy pracuje podczerwień i obraz jest czarno-biały. W trybie Smart Dual Light kamera po wykryciu człowieka włącza ciepłe światło (do 30 m) i nagrywa w kolorze."
     }
    ],
    "polecane": [
@@ -16350,10 +16319,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.dahuasecurity.com/products/network-products/network-cameras",
-     "etykieta": "Strona producenta — Dahua (brak strony modelu)",
-     "host": "dahuasecurity.com",
-     "data": "2026-11-18"
+     "url": "https://material.dahuasecurity.com/uploads/cpq/prm-os-srv-res/smart/datasheetzipfiles/DH-IPC-HDBW1439E1-A-IL_S6_datasheet_20250423.pdf",
+     "etykieta": "Karta katalogowa IPC-HDBW1439E1-A-IL (S6) — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -16380,7 +16349,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-01.webp",
@@ -16391,11 +16360,6 @@
      "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-02.webp",
      "zrodlo": "https://www.eltrox.pl/228261-product_main_2x/kamera-ip-dahua-ipc-hdbw1439e1-a-il-0280b-s6.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/278773-product_main_2x/kamera-ip-dahua-ipc-hdbw1439e1-a-il-0280b-s6.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -16653,16 +16617,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-01.webp",
-     "zrodlo": "https://www.eltrox.pl/135257-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-02.webp",
-     "zrodlo": "https://www.eltrox.pl/153429-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
-     "ujecie": "ujęcie 2"
-    },
     {
      "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-03.webp",
      "zrodlo": "https://www.eltrox.pl/77045-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
@@ -16923,21 +16877,6 @@
      "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-01.webp",
      "zrodlo": "https://www.eltrox.pl/74234-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-02.webp",
-     "zrodlo": "https://www.eltrox.pl/74227-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/74228-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-04.webp",
-     "zrodlo": "https://www.eltrox.pl/74229-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -17170,11 +17109,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49tl-s-led-pro-01.webp",
-     "zrodlo": "https://www.eltrox.pl/179246-product_main_2x/kamera-ip-dahua-ipc-hfw2449tl-s-led-0280b-pro.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/dahua-ipc-hfw2x49tl-s-led-pro-02.webp",
      "zrodlo": "https://www.eltrox.pl/179247-product_main_2x/kamera-ip-dahua-ipc-hfw2449tl-s-led-0280b-pro.jpg",
@@ -17416,11 +17350,6 @@
      "plik": "media/produkty/dahua-ipc-hfw2x49t-zas-il-27135-02.webp",
      "zrodlo": "https://www.eltrox.pl/187661-product_main_2x/kamera-ip-dahua-ipc-hfw2849t-zas-il-27135.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49t-zas-il-27135-03.webp",
-     "zrodlo": "https://www.eltrox.pl/278755-product_main_2x/kamera-ip-dahua-ipc-hfw2849t-zas-il-27135.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -17633,11 +17562,6 @@
      "plik": "media/produkty/dahua-sd3e405db-gny-a-pv1-02.webp",
      "zrodlo": "https://www.eltrox.pl/266858-product_main_2x/kamera-ip-dahua-sd3e405db-gny-a-pv1.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-sd3e405db-gny-a-pv1-03.webp",
-     "zrodlo": "https://www.eltrox.pl/266859-product_main_2x/kamera-ip-dahua-sd3e405db-gny-a-pv1.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -17850,7 +17774,7 @@
   {
    "slug_seed": "hikvision-ds-2cd10x1g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -18077,7 +18001,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd10x1g2-liu-01.webp",
@@ -18099,7 +18023,7 @@
   {
    "slug_seed": "hikvision-ds-2cd13x1g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -18307,13 +18231,8 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/hikvision-ds-2cd13x1g2-liu-01.webp",
-     "zrodlo": "https://www.eltrox.pl/221959-product_main_2x/kamera-ip-hikvision-ds-2cd1361g2-liu-2-8mm-pl.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/hikvision-ds-2cd13x1g2-liu-02.webp",
      "zrodlo": "https://www.eltrox.pl/268451-product_main_2x/kamera-ip-hikvision-ds-2cd1361g2-liu-2-8mm-pl.jpg",
@@ -18556,18 +18475,13 @@
      "plik": "media/produkty/hikvision-ds-2cd10x3g2-liuf-01.webp",
      "zrodlo": "https://www.eltrox.pl/191731-product_main_2x/kamera-ip-hikvision-ds-2cd1083g2-liuf-sl-2-8mm-pl.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd10x3g2-liuf-02.webp",
-     "zrodlo": "https://www.eltrox.pl/191732-product_main_2x/kamera-ip-hikvision-ds-2cd1083g2-liuf-sl-2-8mm-pl.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
   {
    "slug_seed": "hikvision-ds-2cd13x3g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -18615,7 +18529,7 @@
     },
     {
      "k": "WDR",
-     "v": "1363: 120 dB"
+     "v": "120 dB (oba modele)"
     },
     {
      "k": "Audio",
@@ -18645,7 +18559,7 @@
     },
     {
      "model": "DS-2CD1363G2-LIU",
-     "roznica": "6 Mpx, przetwornik 1/2,4″, kąt 105°, WDR 120 dB — więcej szczegółów i lepszy obraz pod światło."
+     "roznica": "6 Mpx, przetwornik 1/2,4″, kąt 105° — więcej szczegółów na szerokim kadrze."
     }
    ],
    "konfigurator": {
@@ -18770,7 +18684,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-01.webp",
@@ -18786,18 +18700,13 @@
      "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-03.webp",
      "zrodlo": "https://www.eltrox.pl/236797-product_main_2x/kamera-ip-hikvision-ds-2cd1363g2-liu-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-04.webp",
-     "zrodlo": "https://www.eltrox.pl/236798-product_main_2x/kamera-ip-hikvision-ds-2cd1363g2-liu-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
   {
    "slug_seed": "hikvision-ds-2cd1t67g3-liuf",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -18829,7 +18738,7 @@
     },
     {
      "k": "Obiektyw",
-     "v": "2,8 mm, F1.0 (w ofercie producenta także 4 mm)"
+     "v": "2,8 mm, F1.0, kąt 109° (w ofercie producenta także 4 mm)"
     },
     {
      "k": "Czułość w kolorze (wg producenta)",
@@ -18841,7 +18750,7 @@
     },
     {
      "k": "Doświetlenie",
-     "v": "hybrydowe: podczerwień + białe światło"
+     "v": "hybrydowe: podczerwień + białe światło, do 50 m"
     },
     {
      "k": "Ostrzeganie",
@@ -18964,16 +18873,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/europe/products/IP-Products/Network-Cameras/value-series/ds-2cd1t67g3-liu-f---sl---srb-/",
+     "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/value-series/ds-2cd1t67g3-liu-f---sx-/?subName=DS-2CD1T67G3-LIUF/SL",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
-    },
-    {
-     "url": "https://assets.hikvision.com/prd/normal/all/doc/sm000104375/DS-2CD1T67G3-LIUF_LSL_Datasheet_20260820.pdf",
-     "etykieta": "Karta katalogowa pokrewnej wersji DS-2CD1T67G3-LIUF/LSL — Hikvision",
-     "host": "hikvision.com · PDF",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -19000,24 +18903,19 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd1t67g3-liuf-01.webp",
      "zrodlo": "https://www.eltrox.pl/258368-product_main_2x/kamera-ip-hikvision-ds-2cd1t67g3-liuf-sl-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd1t67g3-liuf-02.webp",
-     "zrodlo": "https://www.eltrox.pl/258369-product_main_2x/kamera-ip-hikvision-ds-2cd1t67g3-liuf-sl-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
   {
    "slug_seed": "hikvision-ds-2cd1367g3-liuf",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -19030,7 +18928,7 @@
    "korzysc": "Kolorowy obraz wejścia i podjazdu po zmroku z kamery, która mieści się dyskretnie pod okapem.",
    "opis": [
     "DS-2CD1367G3-LIUF/SL to kamera turret z technologią ColorVu 3.0: zamiast czarno-białego obrazu z podczerwieni stara się nagrywać kolor także po zmroku. Kulista obudowa dobrze wygląda pod okapem domu, w wiatrołapie, na ganku pensjonatu czy nad wejściem do sklepu. Dopisek /SL oznacza wbudowane białe światło migające, którym kamera może zasygnalizować, że osoba została zauważona. Litera F to gniazdo na kartę microSD.",
-    "Przetwornik 1/2,4″ daje obraz 6 Mpx (3200 × 1800), a jasny obiektyw F1.0 pozwala, według producenta, zachować kolor przy oświetleniu 0,0005 lx. Funkcja wykrywania ruchu 3.0 rozróżnia ludzi i pojazdy, więc stroboskop nie musi reagować na każdy ruch w kadrze. Kamera ma wbudowany mikrofon, a wersja /SL także głośnik, oraz gniazdo kart microSD do 512 GB. Od tubowej siostry DS-2CD1T67G3-LIUF/SL różni się przede wszystkim obudową — turret montuje się zwykle na suficie lub pod okapem.",
+    "Przetwornik 1/2,4″ daje obraz 6 Mpx (3200 × 1800), a jasny obiektyw F1.0 pozwala, według producenta, zachować kolor przy oświetleniu 0,0005 lx. Funkcja wykrywania ruchu 3.0 rozróżnia ludzi i pojazdy, więc stroboskop nie musi reagować na każdy ruch w kadrze. Kamera ma wbudowany mikrofon, a wersja /SL także głośnik, oraz gniazdo kart microSD do 512 GB. Od tubowej siostry DS-2CD1T67G3-LIUF/SL różni się obudową i zasięgiem doświetlenia (turret do 30 m, tuba do 50 m) — turret montuje się zwykle na suficie lub pod okapem.",
     "Na miejscu sprawdzamy, czy w pobliżu jest choć trochę światła — ColorVu najlepiej działa tam, gdzie świeci latarnia albo lampa nad wejściem. Kamerę montujemy na suficie lub ścianie, podłączamy do przełącznika PoE i rejestratora Hikvision z odpowiednim dyskiem albo zostawiamy z samą kartą microSD. W Hik-Connect ustawiamy powiadomienia, strefy i zachowanie światła ostrzegawczego. Wykonany montaż ma 24 miesiące gwarancji PRO-KOM, a w razie potrzeby przyjeżdżamy z serwisem."
    ],
    "cechy": [
@@ -19069,7 +18967,7 @@
     },
     {
      "k": "Audio",
-     "v": "mikrofon; głośnik w wersji /SL"
+     "v": "mikrofon; głośnik w wersji /SL (wg producenta)"
     },
     {
      "k": "Zapis w kamerze",
@@ -19180,10 +19078,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/cz/products/IP-Products/Network-Cameras/value-series/ds-2cd1367g3-liu-f---sl---srb-",
+     "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/value-series/ds-2cd1367g3-liu-f---sx-/?subName=DS-2CD1367G3-LIUF/SL",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -19210,7 +19108,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-01.webp",
@@ -19226,11 +19124,6 @@
      "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-03.webp",
      "zrodlo": "https://www.eltrox.pl/248000-product_main_2x/kamera-ip-hikvision-ds-2cd1367g3-liuf-sl-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-04.webp",
-     "zrodlo": "https://www.eltrox.pl/248001-product_main_2x/kamera-ip-hikvision-ds-2cd1367g3-liuf-sl-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -19452,11 +19345,6 @@
      "plik": "media/produkty/hikvision-ds-2cd2043g2-li-01.webp",
      "zrodlo": "https://www.eltrox.pl/172231-product_main_2x/kamera-ip-hikvision-ds-2cd2043g2-li-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd2043g2-li-02.webp",
-     "zrodlo": "https://www.eltrox.pl/172232-product_main_2x/kamera-ip-hikvision-ds-2cd2043g2-li-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -19706,11 +19594,6 @@
      "plik": "media/produkty/hikvision-ds-2cd23x3g2-li2u-01.webp",
      "zrodlo": "https://www.eltrox.pl/249785-product_main_2x/kamera-ip-hikvision-ds-2cd2363g2-li2u-2-8mm-black-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd23x3g2-li2u-02.webp",
-     "zrodlo": "https://www.eltrox.pl/253827-product_main_2x/kamera-ip-hikvision-ds-2cd2363g2-li2u-2-8mm-black-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -19930,11 +19813,6 @@
      "plik": "media/produkty/hikvision-ds-2cd2t43g2-4li-01.webp",
      "zrodlo": "https://www.eltrox.pl/172163-product_main_2x/kamera-ip-hikvision-ds-2cd2t43g2-4li-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd2t43g2-4li-02.webp",
-     "zrodlo": "https://www.eltrox.pl/172164-product_main_2x/kamera-ip-hikvision-ds-2cd2t43g2-4li-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -20394,26 +20272,16 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-01.webp",
-     "zrodlo": "https://www.eltrox.pl/257017-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-02.webp",
      "zrodlo": "https://www.eltrox.pl/257018-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-03.webp",
-     "zrodlo": "https://www.eltrox.pl/257019-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
   {
    "slug_seed": "bcs-p-tip24fcl3-ai1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -20617,7 +20485,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-tip24fcl3-ai1-01.webp",
@@ -20644,7 +20512,7 @@
   {
    "slug_seed": "bcs-p-eip2xfcl3-ai1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -20657,7 +20525,7 @@
    "korzysc": "Kolorowy obraz z sufitu korytarza, holu czy wiaty, z kamery, która zużywa mało energii.",
    "opis": [
     "Kopułkowe kamery BCS POINT z serii FCL3 mają te same rozwiązania co tubowa TIP24, ale w obudowie montowanej na suficie lub pod okapem. Sprawdzają się w holach szkół, korytarzach urzędów, kruchtach kościołów, recepcjach pensjonatów i nad wejściami do domów. Obudowa ma szczelność IP67, więc kamery można stosować także na zewnątrz. Z dołu wyglądają dyskretniej niż tuba, co ma znaczenie w zabytkowych i reprezentacyjnych wnętrzach.",
-    "BCS-P-EIP24FCL3-Ai1 ma 4 Mpx (2688 × 1520), przetwornik 1/1,8″ i obiektyw 2,8 mm F1.0 o kącie 110° w poziomie; BCS-P-EIP26FCL3-Ai1 to wersja 6 Mpx tej samej rodziny. W nocy kamery używają białego światła NightColor o zasięgu do 30 m zamiast podczerwieni, więc obraz pozostaje kolorowy. Model 4 Mpx ma WDR 120 dB, mikrofon, gniazdo microSD do 256 GB i pobór mocy maks. 2,8 W. Funkcje Ai wykrywają wtargnięcie i przekroczenie linii z rozpoznaniem człowieka.",
+    "BCS-P-EIP24FCL3-Ai1 ma 4 Mpx (2688 × 1520), przetwornik 1/1,8″ i obiektyw 2,8 mm F1.0 o kącie 110° w poziomie; BCS-P-EIP26FCL3-Ai1 to wersja 6 Mpx (3072 × 2048) z tym samym przetwornikiem i obiektywem. W nocy kamery używają białego światła NightColor o zasięgu do 30 m zamiast podczerwieni, więc obraz pozostaje kolorowy. Obie mają WDR 120 dB, mikrofon, gniazdo microSD (do 256 GB w EIP24, do 512 GB w EIP26) i pobór mocy maks. 2,8 W. Funkcje Ai wykrywają wtargnięcie i przekroczenie linii z rozpoznaniem człowieka.",
     "Kopułki BCS montujemy na suficie albo na ścianie z akcesoriami BCS, dobierając miejsce tak, by obejmowały drzwi i ciągi komunikacyjne. Zasilanie i sygnał prowadzimy jednym przewodem z przełącznika PoE do rejestratora BCS, a podgląd ustawiamy w aplikacji mobilnej i programie BCS Manager. W budynkach publicznych liczbę kamer i okres zapisu dopasowujemy do regulaminu monitoringu obowiązującego w placówce. Montaż ma 24 miesiące gwarancji, a serwis robimy u klienta."
    ],
    "cechy": [
@@ -20668,26 +20536,26 @@
    "parametry": [
     {
      "k": "Rozdzielczość",
-     "v": "EIP24: 4 Mpx (2688 × 1520); EIP26: 6 Mpx"
+     "v": "EIP24: 4 Mpx (2688 × 1520); EIP26: 6 Mpx (3072 × 2048)"
     },
     {
-     "k": "Przetwornik (EIP24)",
+     "k": "Przetwornik",
      "v": "1/1,8″ Progressive Scan CMOS"
     },
     {
      "k": "Obiektyw",
-     "v": "2,8 mm F1.0; EIP24: kąt poziomy 110,4°"
+     "v": "2,8 mm F1.0; kąt poziomy 110,4°"
     },
     {
-     "k": "Czułość (EIP24)",
+     "k": "Czułość",
      "v": "0,0003 lx (F1.0)"
     },
     {
      "k": "Doświetlenie",
-     "v": "białe światło NightColor, do 30 m"
+     "v": "białe światło NightColor (EIP26: NightColor 2.0), do 30 m"
     },
     {
-     "k": "WDR (EIP24)",
+     "k": "WDR",
      "v": "120 dB"
     },
     {
@@ -20699,15 +20567,15 @@
      "v": "wbudowany mikrofon"
     },
     {
-     "k": "Zapis (EIP24)",
-     "v": "microSD do 256 GB; NAS (NFS)"
+     "k": "Zapis",
+     "v": "EIP24: microSD do 256 GB; EIP26: do 512 GB; NAS (NFS)"
     },
     {
      "k": "Zasilanie",
-     "v": "PoE 802.3af lub 12 V DC; EIP24: maks. 2,8 W"
+     "v": "PoE 802.3af lub 12 V DC; maks. 2,8 W"
     },
     {
-     "k": "Obudowa (EIP24)",
+     "k": "Obudowa",
      "v": "IP67, ochrona przepięciowa 4 kV; Ø118 × 106 mm; 0,48 kg"
     },
     {
@@ -20715,7 +20583,7 @@
      "v": "−30…60 °C"
     },
     {
-     "k": "Zgodność (EIP24)",
+     "k": "Zgodność",
      "v": "ONVIF S/G/T; NDAA (wg producenta)"
     }
    ],
@@ -20726,7 +20594,7 @@
     },
     {
      "model": "BCS-P-EIP26FCL3-Ai1",
-     "roznica": "6 Mpx w tej samej obudowie kopułkowej z NightColor — więcej szczegółów w szerokim kadrze."
+     "roznica": "6 Mpx (3072 × 2048) w tej samej obudowie, NightColor 2.0, microSD do 512 GB — więcej szczegółów w szerokim kadrze."
     }
    ],
    "konfigurator": {
@@ -20810,6 +20678,12 @@
    ],
    "zrodla": [
     {
+     "url": "https://www.montersi.pl/instrukcje/BCS-P-EIP26FCL3-Ai-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-P-EIP26FCL3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://bcs.pl/pl/4mpx/4090-bcs-p-eip24fcl3-ai1-5904890713512.html",
      "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
@@ -20846,7 +20720,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-eip2xfcl3-ai1-01.webp",
@@ -20858,7 +20732,7 @@
   {
    "slug_seed": "bcs-p-dip15fsr3-ai",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "kopulkowe",
@@ -20867,16 +20741,16 @@
    "seria": "BCS POINT",
    "nazwa": "BCS POINT kamera kopułkowa IP 5 Mpx wandaloodporna IK10 (BCS-P-DIP15FSR3-Ai)",
    "krotka": "BCS POINT kopułka 5 Mpx IK10",
-   "podtytul": "Metalowa kopułka 5 Mpx z obiektywem 2,8 mm, podczerwienią, odpornością na uderzenia IK10, szczelnością IP67, mikrofonem i głośnikiem",
+   "podtytul": "Metalowa kopułka 5 Mpx z obiektywem 2,8 mm, podczerwienią, odpornością na uderzenia IK10, szczelnością IP67 i mikrofonem",
    "korzysc": "Kamera do miejsc, gdzie ktoś może ją uderzyć lub próbować zasłonić — korytarz szkoły, klatka schodowa, wiata.",
    "opis": [
     "BCS-P-DIP15FSR3-Ai to kopułkowa kamera z linii BCS POINT w metalowej obudowie odpornej na uderzenia (klasa IK10). Wybiera się ją do miejsc, w których kamera jest w zasięgu ręki: na korytarze szkół, klatki schodowe, szatnie, wiaty, wejścia do urzędów czy kościołów. Szczelność IP67 pozwala montować ją również na zewnątrz. Niska, płaska obudowa jest mniej widoczna niż kamera tubowa.",
-    "Kamera nagrywa obraz 5 Mpx (2880 × 1620) z przetwornika 1/2,7″ przez obiektyw 2,8 mm o kącie około 110°. W nocy przełącza się na podczerwień, a czułość w kolorze podawana jest na 0,003 lx przy F1.6. Ma wbudowany mikrofon i głośnik, gniazdo microSD i obsługę ONVIF, a pobór mocy wynosi około 4,4 W. Funkcje Ai pomagają odróżnić człowieka od innych obiektów przy alarmach.",
+    "Kamera nagrywa obraz 5 Mpx (2880 × 1620) z przetwornika 1/2,7″ przez obiektyw 2,8 mm o kącie około 110°. W nocy przełącza się na podczerwień, a czułość w kolorze podawana jest na 0,003 lx przy F1.6. Ma wbudowany mikrofon, gniazdo microSD do 512 GB, WDR 120 dB i obsługę ONVIF, a pobór mocy wynosi około 4,4 W. Funkcje Ai pomagają odróżnić człowieka od innych obiektów przy alarmach.",
     "W szkołach i budynkach publicznych montujemy takie kopułki na suficie, możliwie wysoko, i ustawiamy maski prywatności tam, gdzie obraz nie powinien obejmować np. drzwi toalet. Kamery łączymy z rejestratorem BCS przez przełącznik PoE, a dostęp dla dyrekcji lub administratora konfigurujemy w aplikacji BCS. Dysk dobieramy do okresu przechowywania nagrań ustalonego w regulaminie. Wykonany montaż ma 24-miesięczną gwarancję PRO-KOM, a serwis prowadzimy na miejscu."
    ],
    "cechy": [
     "IK10",
-    "mikrofon i głośnik",
+    "wbudowany mikrofon",
     "metalowa kopułka"
    ],
    "parametry": [
@@ -20910,15 +20784,15 @@
     },
     {
      "k": "Audio",
-     "v": "mikrofon i głośnik"
+     "v": "wbudowany mikrofon"
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 512 GB; NAS (NFS)"
     },
     {
      "k": "Zgodność i sieć",
-     "v": "ONVIF; HTTPS, 802.1x, SNMP"
+     "v": "ONVIF S/G/T; HTTPS, 802.1x, SNMP; NDAA (wg producenta)"
     },
     {
      "k": "Pobór mocy",
@@ -20926,7 +20800,7 @@
     },
     {
      "k": "Obudowa",
-     "v": "metalowa; Ø110 × 62 mm; 0,76 kg"
+     "v": "metalowa; Ø109 × 81 mm; 0,36 kg; ochrona przepięciowa 4 kV"
     },
     {
      "k": "Temperatura pracy",
@@ -20936,7 +20810,7 @@
    "warianty_opis": [
     {
      "model": "BCS-P-DIP15FSR3-Ai",
-     "roznica": "5 Mpx, metalowa kopułka IK10 z podczerwienią, mikrofon i głośnik — do miejsc narażonych na zniszczenie."
+     "roznica": "5 Mpx, metalowa kopułka IK10 z podczerwienią i mikrofonem — do miejsc narażonych na zniszczenie."
     }
    ],
    "konfigurator": {
@@ -20964,7 +20838,7 @@
      },
      {
       "k": "Audio",
-      "v": "mikrofon i głośnik"
+      "v": "mikrofon"
      }
     ],
     "popularne": [
@@ -20988,8 +20862,8 @@
      "a": "Kamera ma mikrofon, ale w szkołach zwykle go wyłączamy, bo nagrywanie rozmów wymaga osobnej podstawy. O ustawieniach decyduje administrator monitoringu."
     },
     {
-     "q": "Do czego przydaje się głośnik w kamerze?",
-     "a": "Przez głośnik można nadać komunikat z aplikacji, np. poprosić osobę o opuszczenie terenu po godzinach. Na co dzień może pozostać nieużywany."
+     "q": "Na ile dni nagrań wystarczy karta w kamerze?",
+     "a": "Kamera przyjmuje kartę microSD do 512 GB, ale w szkołach i urzędach główny zapis prowadzimy na rejestratorze z dyskiem. Karta jest wtedy zapasem na wypadek przerwy w sieci."
     },
     {
      "q": "Czy nocny obraz z tej kopułki jest kolorowy?",
@@ -21019,6 +20893,12 @@
     "Firma, biuro i hala"
    ],
    "zrodla": [
+    {
+     "url": "https://www.montersi.pl/instrukcje/BCS_P_DIP15FSR3_Ai___karta_katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-P-DIP15FSR3-Ai (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://bcs.pl/pl/",
      "etykieta": "Strona producenta — BCS",
@@ -21050,7 +20930,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-p-dip15fsr3-ai-01.webp",
@@ -21090,8 +20970,8 @@
    "korzysc": "Kamera na mroźne zimy: w danych katalogowych ma pracę od −40 °C i może nagrywać w kolorze, gdy coś się dzieje.",
    "opis": [
     "BCS LINE to linia kamer BCS do typowych instalacji w domach, firmach i budynkach publicznych, z prostą konfiguracją i polskim wsparciem. Modele TIP15 i TIP18 mają tubową obudowę IP67 i podany zakres pracy od −40 do 60 °C, co ma znaczenie w górach, gdzie zimą mróz bywa silny. Montuje się je na elewacji, przy bramie, nad wejściem do budynku albo na parkingu. Oznaczenie Ai mówi o wbudowanej analizie obrazu.",
-    "BCS-L-TIP15FCR3L3-Ai1 nagrywa 5 Mpx (2960 × 1668), a BCS-L-TIP18FCR3L3-Ai1 8 Mpx (3840 × 2160); obie mają przetwornik 1/2,7″ i obiektyw 2,8 mm F1.6 o kącie 111°. Podwójne doświetlenie łączy podczerwień i białe diody o zasięgu do 30 m, więc w nocy można wybrać obraz czarno-biały albo kolorowy. Kamery mają mikrofon, gniazdo microSD, obsługę ONVIF i pobór mocy ok. 5,5 W (TIP15) oraz 5,9 W (TIP18). Wersja 8 Mpx daje więcej szczegółów na szerokim kadrze, ale potrzebuje więcej miejsca na dysku.",
-    "Dobieramy rozdzielczość do miejsca: 5 Mpx zwykle wystarcza przy domu i wejściu, 8 Mpx proponujemy na place i parkingi. Montujemy kamery z puszką, zasilamy przez PoE i łączymy z rejestratorem BCS LINE, gdzie ustawiamy analizę Ai oraz harmonogram białego światła. Konfigurujemy aplikację BCS na telefonach właściciela i osób odpowiedzialnych za obiekt. Na montaż PRO-KOM daje 24 miesiące gwarancji i serwisuje instalację."
+    "BCS-L-TIP15FCR3L3-Ai1 nagrywa 5 Mpx (2960 × 1668), a BCS-L-TIP18FCR3L3-Ai1 8 Mpx (3840 × 2160); obie mają przetwornik 1/2,7″ i obiektyw 2,8 mm F1.6 o kącie 111°. Doświetlenie ma zasięg do 30 m: TIP18 łączy podczerwień z białymi diodami, więc w nocy może nagrywać w kolorze. Kamery mają WDR 120 dB, mikrofon, gniazdo microSD do 256 GB, obsługę ONVIF S/G/T i pobór mocy ok. 5,5 W (TIP15) oraz 5,9 W (TIP18). Wersja 8 Mpx daje więcej szczegółów na szerokim kadrze, ale potrzebuje więcej miejsca na dysku.",
+    "Dobieramy rozdzielczość do miejsca: 5 Mpx zwykle wystarcza przy domu i wejściu, 8 Mpx proponujemy na place i parkingi. Montujemy kamery z puszką, zasilamy przez PoE i łączymy z rejestratorem BCS LINE, gdzie ustawiamy analizę Ai (przekroczenie linii, wtargnięcie z rozpoznaniem osoby i pojazdu). Konfigurujemy aplikację BCS na telefonach właściciela i osób odpowiedzialnych za obiekt. Na montaż PRO-KOM daje 24 miesiące gwarancji i serwisuje instalację."
    ],
    "cechy": [
     "IR + białe światło",
@@ -21117,15 +20997,15 @@
     },
     {
      "k": "Doświetlenie",
-     "v": "podczerwień + białe diody, do 30 m"
+     "v": "TIP18: podczerwień + białe diody, do 30 m; TIP15: podczerwień do 30 m (białe światło — do potwierdzenia u producenta)"
     },
     {
      "k": "WDR",
-     "v": "tak"
+     "v": "120 dB"
     },
     {
      "k": "Analiza",
-     "v": "Ai (wbudowana analiza obrazu)"
+     "v": "przekroczenie linii i wtargnięcie z rozpoznaniem osoby i pojazdu; SMD 4.0"
     },
     {
      "k": "Audio",
@@ -21133,11 +21013,11 @@
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 256 GB; FTP/SFTP, NAS"
     },
     {
      "k": "Zgodność",
-     "v": "ONVIF"
+     "v": "ONVIF S/G/T"
     },
     {
      "k": "Pobór mocy",
@@ -21202,8 +21082,8 @@
      "a": "W danych katalogowych zakres pracy zaczyna się od −40 °C, czyli z zapasem na górskie zimy. Ważne jest też szczelne zakończenie przewodów w puszce, o co dbamy przy montażu."
     },
     {
-     "q": "Czy mogę zdecydować, kiedy świeci białe światło?",
-     "a": "Tak, doświetlenie da się ustawić na samą podczerwień, światło białe albo tryb mieszany, także według harmonogramu. Przy domach w zabudowie często wybieramy podczerwień z kolorem tylko po wykryciu ruchu."
+     "q": "Czy w nocy obraz może być kolorowy?",
+     "a": "Model 8 Mpx (TIP18) ma oprócz podczerwieni białe diody, więc po zmroku może nagrywać w kolorze. Sposób pracy doświetlenia ustawiamy przy konfiguracji, a dla modelu 5 Mpx potwierdzamy go u producenta przed zamówieniem."
     },
     {
      "q": "Ile miejsca zajmą nagrania z wersji 8 Mpx?",
@@ -21239,6 +21119,18 @@
    ],
    "zrodla": [
     {
+     "url": "https://montersi.pl/instrukcje/BCS-L-TIP15FCR3L3-AI1-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-L-TIP15FCR3L3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
+     "url": "https://montersi.pl/instrukcje/BCS-L-TIP18FCR3L3-AI1-Karta%20katalogowa.pdf",
+     "etykieta": "Karta katalogowa BCS-L-TIP18FCR3L3-Ai1 (kopia u dystrybutora)",
+     "host": "montersi.pl · PDF",
+     "data": "2026-11-19"
+    },
+    {
      "url": "https://bcs.pl/pl/",
      "etykieta": "Strona producenta — BCS",
      "host": "bcs.pl",
@@ -21269,7 +21161,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-tip1xfcr3l3-ai1-01.webp",
@@ -21309,8 +21201,8 @@
    "korzysc": "Podgląd mieszkania, domku czy recepcji z telefonu bez kucia ścian — wystarczy gniazdko i Wi-Fi.",
    "opis": [
     "Kamery BCS LINE HOME to małe, obrotowe kamery do wnętrz, które łączą się przez Wi-Fi, więc nie trzeba prowadzić kabla sieciowego. Pasują do mieszkania, domku letniskowego, części wspólnych apartamentu na wynajem, małego biura albo recepcji. Kamera obraca się i pochyla, więc z jednego miejsca obejrzysz prawie cały pokój. Wystarczy postawić ją na półce albo przykręcić do ściany lub sufitu w pobliżu gniazdka.",
-    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 20 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86°, podczerwień i białe światło do około 30 m oraz obsługę ONVIF. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, nie na zewnątrz.",
-    "Kamery Wi-Fi konfigurujemy na miejscu: sprawdzamy zasięg sieci w miejscu montażu, łączymy kamerę z Wi-Fi i zakładamy dostęp w aplikacji na telefonach domowników lub właściciela apartamentu. Ustawiamy powiadomienia o ruchu i zapis na karcie microSD. Przy wynajmie krótkoterminowym doradzamy, gdzie kamera może wisieć, żeby nie naruszać prywatności gości, a model PTHOME07 z ONVIF możemy dodatkowo dołączyć do rejestratora. Na wykonany montaż PRO-KOM daje 24 miesiące gwarancji."
+    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 10 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86° oraz podczerwień i białe światło do około 30 m. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, nie na zewnątrz.",
+    "Kamery Wi-Fi konfigurujemy na miejscu: sprawdzamy zasięg sieci w miejscu montażu, łączymy kamerę z Wi-Fi i zakładamy dostęp w aplikacji BCS Manager na telefonach domowników lub właściciela apartamentu. Ustawiamy powiadomienia o ruchu i zapis na karcie microSD. Przy wynajmie krótkoterminowym doradzamy, gdzie kamera może wisieć, żeby nie naruszać prywatności gości. Na wykonany montaż PRO-KOM daje 24 miesiące gwarancji."
    ],
    "cechy": [
     "Wi-Fi bez kabla",
@@ -21320,7 +21212,7 @@
    "parametry": [
     {
      "k": "Rozdzielczość",
-     "v": "5 Mpx (2880 × 1620), 25 kl./s"
+     "v": "5 Mpx (2880 × 1620)"
     },
     {
      "k": "Przetwornik",
@@ -21332,15 +21224,15 @@
     },
     {
      "k": "Ruch",
-     "v": "obrót i pochylanie (pan/tilt) z aplikacji"
+     "v": "obrót (ok. 350°) i pochylanie z aplikacji, śledzenie ruchu, wykrywanie człowieka"
     },
     {
      "k": "Doświetlenie",
-     "v": "PTHOME01, 02: podczerwień do ok. 20 m; PTHOME07: IR + białe, do ok. 30 m"
+     "v": "PTHOME01, 02: podczerwień do ok. 10 m; PTHOME07: IR + białe, do ok. 30 m"
     },
     {
      "k": "Łączność",
-     "v": "Wi-Fi"
+     "v": "Wi-Fi 2,4 GHz; port RJ-45"
     },
     {
      "k": "Audio",
@@ -21348,11 +21240,11 @@
     },
     {
      "k": "Zapis",
-     "v": "microSD"
+     "v": "microSD do 256 GB"
     },
     {
-     "k": "Zgodność",
-     "v": "ONVIF: tylko PTHOME07"
+     "k": "Aplikacja",
+     "v": "BCS Manager (iOS, Android)"
     },
     {
      "k": "Pobór mocy",
@@ -21370,15 +21262,15 @@
    "warianty_opis": [
     {
      "model": "BCS-L-PTHOME01",
-     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 20 m, pobór ok. 3,8 W."
+     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 10 m, pobór ok. 3,8 W."
     },
     {
      "model": "BCS-L-PTHOME02",
-     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 20 m, pobór ok. 4 W; różnice wobec PTHOME01 do potwierdzenia u producenta."
+     "roznica": "5 Mpx, jeden obiektyw 3,6 mm (ok. 74°), podczerwień do ok. 10 m, pobór ok. 4 W; inna obudowa niż PTHOME01."
     },
     {
      "model": "BCS-L-PTHOME07",
-     "roznica": "5 Mpx z dwoma przetwornikami, kąt ok. 86°, podczerwień i białe światło do ok. 30 m, obsługa ONVIF."
+     "roznica": "5 Mpx z dwoma przetwornikami, kąt ok. 86°, podczerwień i białe światło do ok. 30 m."
     }
    ],
    "konfigurator": {
@@ -21389,9 +21281,8 @@
       "wartosci": [
        "PTHOME01 (jeden obiektyw)",
        "PTHOME02 (jeden obiektyw)",
-       "PTHOME07 (dwa obiektywy, IR + białe, ONVIF)"
+       "PTHOME07 (dwa obiektywy, IR + białe)"
       ],
-      "uwaga": "Tylko PTHOME07 obsługuje ONVIF i może pracować z rejestratorem.",
       "dl": false,
       "pom": ""
      }
@@ -21432,7 +21323,7 @@
     },
     {
      "q": "Czym PTHOME07 różni się od PTHOME01 i PTHOME02?",
-     "a": "Ma dwa przetworniki i szerszy kąt (ok. 86°), dokłada białe światło do podczerwieni i obsługuje ONVIF, więc można ją podłączyć do rejestratora."
+     "a": "Ma dwa przetworniki i szerszy kąt (ok. 86°), a do podczerwieni dokłada białe światło, więc w nocy może pokazać obraz w kolorze."
     },
     {
      "q": "Czy mogę porozmawiać przez kamerę z domownikiem?",
@@ -21492,7 +21383,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-pthome0x-01.webp",
@@ -21958,19 +21849,14 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/dahua-asi6213s-pw-01.webp",
+     "plik": "media/produkty/dahua-asi6213s-pw-ekran-01.webp",
      "zrodlo": "https://www.eltrox.pl/192601-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
-     "ujecie": "zdjęcie producenta"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     },
     {
      "plik": "media/produkty/dahua-asi6213s-pw-02.webp",
      "zrodlo": "https://www.eltrox.pl/192602-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-asi6213s-pw-03.webp",
-     "zrodlo": "https://www.eltrox.pl/192603-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -22419,11 +22305,6 @@
      "plik": "media/produkty/dahua-asc3202b-01.webp",
      "zrodlo": "https://www.eltrox.pl/80821-product_main_2x/kontroler-dahua-asc3202b.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-asc3202b-02.webp",
-     "zrodlo": "https://www.eltrox.pl/80822-product_main_2x/kontroler-dahua-asc3202b.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -23080,11 +22961,6 @@
      "plik": "media/produkty/hikvision-ds-k4h250s-01.webp",
      "zrodlo": "https://www.eltrox.pl/255851-product_main_2x/zwora-hikvision-ds-k4h250s.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-k4h250s-02.webp",
-     "zrodlo": "https://www.eltrox.pl/255852-product_main_2x/zwora-hikvision-ds-k4h250s.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -23308,11 +23184,6 @@
      "plik": "media/produkty/hikvision-ds-k2601t-01.webp",
      "zrodlo": "https://www.eltrox.pl/64989-product_main_2x/kontroler-dostepu-hikvision-ds-k2601t.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-k2601t-02.webp",
-     "zrodlo": "https://www.eltrox.pl/64984-product_main_2x/kontroler-dostepu-hikvision-ds-k2601t.jpg",
-     "ujecie": "ujęcie 2"
     },
     {
      "plik": "media/produkty/hikvision-ds-k2601t-03.webp",
@@ -28300,11 +28171,6 @@
      "plik": "media/produkty/hikvision-ds-2se4c425mwg-e-26-01.webp",
      "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000070247/main_mainview/%E7%BA%A2%E5%A4%96%E7%90%8320-%E6%99%BA%E8%83%BD%E6%8B%BC%E6%8E%A5-%E6%AD%A3%E9%9D%A2.png",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2se4c425mwg-e-26-02.webp",
-     "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000070247/structure_structsizeview/DS-2SE4C425MWG-E26F0_Dimensionsimage_1.png",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -28522,14 +28388,9 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-kis604-s-d-01.webp",
+     "plik": "media/produkty/hikvision-ds-kis604-s-d-ekran-01.webp",
      "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000188282/main_mainview/KIS604.png",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-kis604-s-d-02.webp",
-     "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000188282/outline_rightside45view/KIS604-P%E5%B7%A6%E8%A7%86%E5%9B%BE.png",
-     "ujecie": "ujęcie 2"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     }
    ]
   },
@@ -30955,11 +30816,6 @@
      "plik": "media/produkty/hikvision-ds-76xxnxi-k1-01.webp",
      "zrodlo": "https://www.eltrox.pl/173795-product_main_2x/rejestrator-ip-hikvision-ds-7608nxi-k1-d-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-76xxnxi-k1-02.webp",
-     "zrodlo": "https://www.eltrox.pl/173796-product_main_2x/rejestrator-ip-hikvision-ds-7608nxi-k1-d-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -31214,11 +31070,6 @@
      "plik": "media/produkty/hikvision-ds-76xxnxi-k2-01.webp",
      "zrodlo": "https://www.eltrox.pl/212265-product_main_2x/rejestrator-ip-hikvision-ds-7632nxi-k2-d-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-76xxnxi-k2-02.webp",
-     "zrodlo": "https://www.eltrox.pl/265227-product_main_2x/rejestrator-ip-hikvision-ds-7632nxi-k2-d-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -31486,7 +31337,7 @@
   {
    "slug_seed": "bcs-l-nvr0401-4ke-4p",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "rejestratory",
    "podkategoria": "nvr",
@@ -31679,7 +31530,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/bcs-l-nvr0401-4ke-4p-01.webp",
@@ -32178,11 +32029,6 @@
      "plik": "media/produkty/dahua-ktx01-s-01.webp",
      "zrodlo": "https://www.eltrox.pl/184865-product_main_2x/zestaw-wideodomofonowy-dahua-ktx01-s-wi-fi-2-wire.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ktx01-s-02.webp",
-     "zrodlo": "https://www.eltrox.pl/184866-product_main_2x/zestaw-wideodomofonowy-dahua-ktx01-s-wi-fi-2-wire.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -32412,28 +32258,13 @@
      "plik": "media/produkty/dahua-ktp03-01.webp",
      "zrodlo": "https://www.eltrox.pl/260781-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-02.webp",
-     "zrodlo": "https://www.eltrox.pl/146793-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-03.webp",
-     "zrodlo": "https://www.eltrox.pl/69268-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-04.webp",
-     "zrodlo": "https://www.eltrox.pl/69269-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
   {
    "slug_seed": "dahua-ktd01-f",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "dostep",
    "kategoria": "wideodomofony",
    "podkategoria": "zestawy",
@@ -32457,7 +32288,7 @@
    "parametry": [
     {
      "k": "Skład zestawu",
-     "v": "stacja DHI-VTO2202F-P (S2/S3), monitor DHI-VTH5422HW, przełącznik 2-żyłowy DHI-VTNS2003B-2"
+     "v": "stacja DHI-VTO2202F-P-S2, monitor DHI-VTH5422HW, przełącznik 2-żyłowy DHI-VTNS2003B-2"
     },
     {
      "k": "Okablowanie",
@@ -32477,7 +32308,7 @@
     },
     {
      "k": "Sterowanie zamkiem",
-     "v": "1 wyjście zamka, przycisk wyjścia, czujnik stanu drzwi; wyjście 12 V, 600 mA"
+     "v": "1 wyjście zamka (drugi zamek z modułem rozszerzeń), przycisk wyjścia, czujnik stanu drzwi; wyjście 12 V, 600 mA (przy zasilaniu stacji z PoE — przełącznik 802.3at)"
     },
     {
      "k": "Pamięć",
@@ -32511,11 +32342,11 @@
    "warianty_opis": [
     {
      "model": "KTD01(F)",
-     "roznica": "Zestaw do montażu podtynkowego stacji (puszka podtynkowa); skład urządzeń jak w KTD01 — do potwierdzenia u producenta."
+     "roznica": "VTO2202F-P-S2 + VTH5422HW + VTNS2003B-2 z puszką podtynkową VTM114."
     },
     {
      "model": "KTD01(S)",
-     "roznica": "Ten sam komplet z akcesoriami do montażu natynkowego stacji."
+     "roznica": "Ten sam komplet z puszką natynkową VTM115."
     }
    ],
    "konfigurator": {
@@ -32583,7 +32414,7 @@
     },
     {
      "q": "Czy z wyjścia stacji zasilę elektrozaczep?",
-     "a": "Stacja ma wyjście 12 V do 600 mA i wyjście sterowania zamkiem — to wystarcza dla wielu elektrozaczepów. Przy zamku o większym poborze dokładamy osobny zasilacz."
+     "a": "Stacja ma wyjście 12 V do 600 mA i wyjście sterowania zamkiem — to wystarcza dla wielu elektrozaczepów (przy zasilaniu stacji z PoE potrzebny jest przełącznik 802.3at). Przy zamku o większym poborze dokładamy osobny zasilacz."
     }
    ],
    "polecane": [
@@ -32609,6 +32440,12 @@
     "Deweloper"
    ],
    "zrodla": [
+    {
+     "url": "https://materialfile.dahuasecurity.com/uploads/cpq/prm-os-srv-res/smart/datasheetzipfiles/DHI-KTD01(S)_S2_datasheet_20241204.pdf",
+     "etykieta": "Karta katalogowa KTD01(S) S2 — Dahua",
+     "host": "dahuasecurity.com · PDF",
+     "data": "2026-11-19"
+    },
     {
      "url": "https://www.dahuasecurity.com/products/video-intercoms/2-wire-ip/kit/2-wire-ip-kit/ktd01=s2",
      "etykieta": "Strona producenta — Dahua",
@@ -32646,7 +32483,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/dahua-ktd01-f-01.webp",
@@ -32883,16 +32720,16 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-kis702y-01.webp",
+     "plik": "media/produkty/hikvision-ds-kis702y-ekran-01.webp",
      "zrodlo": "https://www.eltrox.pl/76085-product_main_2x/zestaw-wiedodomofonu-hikvision-ds-kis702y.jpg",
-     "ujecie": "zdjęcie producenta"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     }
    ]
   },
   {
    "slug_seed": "hikvision-ds-kh6320-wte1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "dostep",
    "kategoria": "wideodomofony",
    "podkategoria": "monitory",
@@ -33103,7 +32940,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-kh6320-wte1-01.webp",
