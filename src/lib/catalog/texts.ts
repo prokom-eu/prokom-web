@@ -48,6 +48,16 @@ export type CatalogUi = {
   stepDelivery: [string, string]
   /** Eyebrow of the product's dark band. */
   productCtaEyebrow: string
+  /** `/zestawy` (INST-K3): `<title>`, meta description, H1, lead and the empty filter. */
+  bundlesMetaTitle: string
+  bundlesDescription: string
+  bundlesTitle: string
+  bundlesLead: string
+  bundlesEmpty: string
+  /** `/zestawy` with no bundle to show at all (none yet, or their cards hidden). */
+  bundlesNone: string
+  /** „Twój zestaw” on a bundle page: what happens after sending. */
+  bundleSendNote: string
 }
 
 export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
@@ -78,6 +88,17 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     brandsSearchPlaceholder: 'Szukaj marki, np. Posnet, Apple, UniFi',
     brandsMissingTitle: 'Nie mamy jeszcze salonu tej marki',
     brandsOtherTitle: 'Szukasz innej marki?',
+    bundlesMetaTitle: 'Gotowe zestawy dla firm — Rabka-Zdrój',
+    bundlesDescription:
+      'Zestawy dla sklepu, gastronomii, noclegów, biura, gabinetu i szkoły: sprzęt, program i wdrożenie, które działają razem. Na Podhalu, wycena na mailu.',
+    bundlesTitle: 'Gotowe zestawy: sprzęt, program i usługi, które działają razem',
+    bundlesLead:
+      'Sprawdzamy, czy elementy zestawu działają razem: złącza, sterowniki i zgodność z programem. Każdy możesz zmienić, a my doradzimy, co i kiedy.',
+    bundlesEmpty:
+      'Nie mamy jeszcze gotowego zestawu z tymi filtrami. Dobierzemy go pod Twoją firmę.',
+    bundlesNone:
+      'Zestawy właśnie przygotowujemy. Sprzęt i programy znajdziesz w katalogu. Dobierzemy komplet pod Twoją firmę.',
+    bundleSendNote: 'Ofertę dostaniesz na mailu.',
   },
   instalacje: {
     searchPlaceholder:
@@ -108,6 +129,17 @@ export const CATALOG_UI: Record<CatalogTextLine, CatalogUi> = {
     brandsSearchPlaceholder: 'Szukaj marki, np. Dahua, Satel, Ajax',
     brandsMissingTitle: 'Tej marki nie ma jeszcze w salonach',
     brandsOtherTitle: 'Masz sprzęt innej marki?',
+    bundlesMetaTitle: 'Zestawy kamer i alarmów — Podhale',
+    bundlesDescription:
+      'Zestawy kamer, alarmów i domofonów dla domu, pensjonatu, firmy i parafii: sprzęt dobrany do siebie, z montażem i aplikacją. Rabka-Zdrój i Podhale.',
+    bundlesTitle: 'Gotowe zestawy: kamery, alarm i domofon dobrane do budynku',
+    bundlesLead:
+      'Każdy zestaw składamy z urządzeń, które sprawdziliśmy razem przy montażu. Dopasujemy go do Twojego obiektu, zamontujemy i skonfigurujemy aplikacje.',
+    bundlesEmpty:
+      'Nie mamy jeszcze gotowego zestawu z tymi filtrami. Dobierzemy sprzęt do Twojego budynku.',
+    bundlesNone:
+      'Zestawy właśnie przygotowujemy. Sprzęt znajdziesz w katalogu, a komplet dobierzemy do Twojego budynku.',
+    bundleSendNote: 'Oddzwonimy, żeby ustalić szczegóły montażu.',
   },
 }
 

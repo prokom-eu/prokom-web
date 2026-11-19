@@ -19,7 +19,8 @@ import { pageRobots } from '@/lib/seo/robots'
 import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
-import { fitTitle, localDescription, TITLE_BASE_MAX } from '@/lib/biznes/seo'
+import { fitTitle, localDescription, seoVoice } from '@/lib/biznes/seo'
+import { CATALOG_UI, catalogTextLine } from '@/lib/catalog/texts'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
 import { BundleInquiry, type BundleRow } from '@/sites/biznes/components/bundle/BundleInquiry'
 import {
@@ -32,12 +33,12 @@ import {
 import { ProductThumb } from '@/sites/biznes/components/ProductThumb'
 import { ProductFaq } from '@/sites/biznes/components/product/ProductSections'
 
-import { requestOrigin, requireLine } from '../../../tenant'
+import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
 
 async function load(params: Props['params']) {
-  const tenant = await requireLine(params, 'biznes')
+  const tenant = await requireCatalogTenant(params)
   const { slug } = await params
   if (!isValidSlug(slug)) return { tenant, index: null, bundle: null }
   const [index, bundles] = await Promise.all([getCatalogIndex(tenant.id), getBundles(tenant.id)])
@@ -53,11 +54,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const settings = await getSiteSettings(tenant.id)
   // 30–60 characters with the suffix (audit 0611 P1-8): „Zestaw: …” when it fits, else the
   // name cut on a word — whole, so two Wi-Fi bundles keep different titles.
+  const voice = seoVoice(tenant.line)
   const named = `Zestaw: ${bundle.name}`
   const title =
-    named.length <= TITLE_BASE_MAX ? named : fitTitle(bundle.name, undefined, { head: false })
+    named.length <= 60 - voice.titleSuffix.length
+      ? named
+      : fitTitle(bundle.name, undefined, { head: false, voice })
   const canonical = bundleHref(bundle.slug)
-  const description = bundle.benefit ? localDescription(bundle.benefit) : undefined
+  const description = bundle.benefit ? localDescription(bundle.benefit, voice) : undefined
   return {
     title,
     description,
@@ -71,7 +75,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: canonical,
       title,
       description,
-      images: ogImages(settings?.seo.ogImage ?? null, 'biznes'),
+      images: ogImages(settings?.seo.ogImage ?? null, catalogTextLine(tenant.line)),
     },
   }
 }
@@ -142,6 +146,7 @@ export default async function BundlePage({ params }: Props) {
           name={bundle.name}
           rows={rows}
           services={bundle.services.map((slug) => product(slug).name)}
+          sendNote={CATALOG_UI[catalogTextLine(tenant.line)].bundleSendNote}
           after={
             <>
               <BundleSwaps

@@ -229,10 +229,15 @@ export function BundleRelated({ links }: { links: { name: string; href: string }
 export function BundlesHero({
   crumbs,
   eyebrow,
+  title,
+  lead,
   photos,
 }: {
   crumbs: Crumb[]
   eyebrow: string
+  /** H1 and the promise — per line (`CATALOG_UI`). */
+  title: string
+  lead: string
   photos: IndexImage[]
 }) {
   return (
@@ -254,12 +259,9 @@ export function BundlesHero({
               {eyebrow}
             </p>
             <h1 id="zestawy-h1" className={BZ_H1}>
-              Gotowe zestawy: sprzęt, program i usługi, które działają razem
+              {title}
             </h1>
-            <p className="max-w-[52ch] leading-relaxed text-white/80">
-              Sprawdzamy, czy elementy zestawu działają razem: złącza, sterowniki i zgodność z
-              programem. Każdy możesz zmienić, a my doradzimy, co i kiedy.
-            </p>
+            <p className="max-w-[52ch] leading-relaxed text-white/80">{lead}</p>
           </div>
           {photos.length > 0 && (
             <ul aria-hidden="true" className="grid grid-cols-2 gap-4 max-[1079px]:hidden">

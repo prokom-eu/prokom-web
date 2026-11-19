@@ -35,8 +35,8 @@ import {
  * the guide posts, on lines with news the posts. Shared by `sitemap.xml` and `/mapa-strony`.
  */
 export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<SiteMapSection[]> {
-  // Biznes-only catalog pages (bundles, plan, configurator) follow `catalog`; the product
-  // catalog itself is shared with Instalacje (ADR-029) — `products` below.
+  // Biznes-only catalog pages (plan, configurator) follow `catalog`; the product catalog and the
+  // ready bundles are shared with Instalacje (ADR-029, INST-K3) — `products` below.
   const catalog = tenant.line === 'biznes'
   const software = tenant.line === 'software'
   const instalacje = tenant.line === 'instalacje'
@@ -59,7 +59,7 @@ export async function loadSiteMap(tenant: { id: number; line: Line }): Promise<S
     products ? getCatalogIndex(tenant.id) : null,
     products ? getPublishedProductList(tenant.id) : [],
     hasNews(tenant.line) || hasGuide(tenant.line) ? getPostList(tenant.id, tenant.line) : null,
-    catalog ? getBundles(tenant.id) : [],
+    products ? getBundles(tenant.id) : [],
     software ? getSolutionsIndex(tenant.id) : null,
     software ? getIndustryPageList(tenant.id) : null,
     instalacje ? getInstalacjeObjectList(tenant.id) : null,

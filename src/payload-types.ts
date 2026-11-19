@@ -5123,7 +5123,20 @@ export interface Bundle {
   contentStatus: 'ready' | 'needs-review';
   hiddenItems?: string | null;
   name: string;
-  area: 'sklep' | 'gastronomia' | 'noclegi' | 'biuro' | 'gabinet' | 'szkola' | 'siec' | 'ekrany';
+  area:
+    | 'sklep'
+    | 'gastronomia'
+    | 'noclegi'
+    | 'biuro'
+    | 'gabinet'
+    | 'szkola'
+    | 'siec'
+    | 'ekrany'
+    | 'dom'
+    | 'firma'
+    | 'kosciol'
+    | 'gmina'
+    | 'budowa';
   /**
    * Z paczki, np. „gastronomia-lada” — kreator dobiera po niej.
    */

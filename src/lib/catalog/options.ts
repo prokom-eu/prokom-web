@@ -49,6 +49,12 @@ export const BUNDLE_AREAS = [
   { label: 'Szkoła', value: 'szkola' },
   { label: 'Sieć i Wi-Fi', value: 'siec' },
   { label: 'Ekrany', value: 'ekrany' },
+  // Instalacje (INST-K3): areas of its own bundles; the chips show only the areas a line uses.
+  { label: 'Dom i apartament', value: 'dom' },
+  { label: 'Firma i hala', value: 'firma' },
+  { label: 'Kościół i parafia', value: 'kosciol' },
+  { label: 'Gmina i urząd', value: 'gmina' },
+  { label: 'Budowa i deweloper', value: 'budowa' },
 ] as const
 
 export type BundleArea = (typeof BUNDLE_AREAS)[number]['value']
