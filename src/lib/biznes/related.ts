@@ -32,7 +32,9 @@ export const CATEGORY_SERVICES: Readonly<Record<string, readonly string[]>> = {
   'programy-sprzedazowe-erp': ['pomoc-zdalna', 'przygotowanie-komputera'],
   'programy-branzowe': ['pomoc-zdalna', 'integracja-kasy'],
   'klawiatury-myszy-sluchawki': ['przygotowanie-komputera'],
-  'ekrany-projektory': ['przeglad-it'],
+  'tablice-interaktywne': ['przygotowanie-komputera', 'przeglad-it'],
+  projektory: ['przeglad-it'],
+  'ekrany-informacyjne': ['przeglad-it', 'siec-wifi-montaz'],
 }
 
 /** Last resort for any category: help that fits every device and program of a firm. */

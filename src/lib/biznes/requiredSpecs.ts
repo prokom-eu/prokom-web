@@ -16,6 +16,12 @@ const slot = (label: string, pattern: string): SpecSlot => ({
 
 const SIZE = slot('Wymiary', 'wymiar')
 const WEIGHT = slot('Waga', 'wag|mas')
+const AV_SLOTS = [
+  slot('Przekątna', 'przekątn|ekran|rozmiar|matryc'),
+  slot('Rozdzielczość', 'rozdzielczo'),
+  slot('Złącza', 'złącz|wejści|port|łączność'),
+  slot('Montaż', 'vesa|montaż|uchwyt'),
+]
 
 /** Category code of the package (`kategoria`) → its required slots. */
 export const REQUIRED_SPECS: Readonly<Record<string, readonly SpecSlot[]>> = {
@@ -179,11 +185,15 @@ export const REQUIRED_SPECS: Readonly<Record<string, readonly SpecSlot[]>> = {
   ],
   // Servers, NAS and UPS share one category: only what all of them have.
   serw: [slot('Obudowa / montaż', 'obudow|wymiar|montaż|typ|topologi')],
-  av: [
-    slot('Przekątna', 'przekątn|ekran|rozmiar|matryc'),
+  // Runda 1811 (D1): `av` (now the boards) and `ekrany` keep the slots of „Ekrany i projektory”;
+  // a projector is compared by its light.
+  av: AV_SLOTS,
+  ekrany: AV_SLOTS,
+  projektory: [
+    slot('Jasność', 'jasno'),
     slot('Rozdzielczość', 'rozdzielczo'),
+    slot('Źródło światła', 'źródło światła|lamp|laser'),
     slot('Złącza', 'złącz|wejści|port|łączność'),
-    slot('Montaż', 'vesa|montaż|uchwyt'),
   ],
   vend: [
     slot('Płatności', 'płatnoś'),

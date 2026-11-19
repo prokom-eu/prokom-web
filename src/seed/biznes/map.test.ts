@@ -24,6 +24,8 @@ import {
   productLegacyIds,
   productUpdateData,
   PREVIOUS_CATEGORY_SLUGS,
+  missingSynonyms,
+  updatedSynonyms,
   searchData,
   skipMediaFile,
   slugFromName,
@@ -490,6 +492,42 @@ describe('search settings', () => {
     expect(data.synonyms).toContainEqual({ phrase: 'notebook', expansions: ['laptop'] })
     expect(data.stopWords).toContain('szukam')
     expect(data.popular).toHaveLength(8)
+  })
+
+  it('finds the boards and projectors by the words schools use (runda 1811, D1)', () => {
+    const { synonyms } = searchData(search)
+    const of = (phrase: string) => synonyms.find((row) => row.phrase === phrase)?.expansions
+    expect(of('multimedialna')).toContain('interaktywn')
+    expect(of('dotykowy')).toContain('interaktywn')
+    expect(of('rzutnik')).toContain('projektor')
+  })
+
+  it('adds only the phrases the panel lacks — an edited phrase stays (runda 1811)', () => {
+    const stored = [
+      { phrase: 'tablica', expansions: ['moja'] },
+      { phrase: 'laptop', expansions: ['laptop'] },
+    ]
+    const seed = [
+      { phrase: 'tablica', expansions: ['interaktywn'] },
+      { phrase: 'rzutnik', expansions: ['projektor'] },
+    ]
+    expect(missingSynonyms(stored, seed)).toEqual([
+      { phrase: 'rzutnik', expansions: ['projektor'] },
+    ])
+    expect(missingSynonyms([{ phrase: ' Rzutnik ', expansions: [] }], seed)).toEqual([
+      { phrase: 'tablica', expansions: ['interaktywn'] },
+    ])
+    expect(missingSynonyms(null, seed)).toEqual(seed)
+  })
+
+  it('moves a changed package phrase only while the panel kept the old value', () => {
+    const seed = searchData(search).synonyms
+    const untouched = [{ phrase: 'tablica', expansions: ['interaktywny'] }]
+    expect(updatedSynonyms(untouched, seed)).toEqual([
+      { phrase: 'tablica', expansions: ['interaktywn', 'tablic'] },
+    ])
+    expect(updatedSynonyms([{ phrase: 'tablica', expansions: ['moja'] }], seed)).toBeNull()
+    expect(updatedSynonyms([{ phrase: 'laptop', expansions: ['laptop'] }], seed)).toBeNull()
   })
 })
 
