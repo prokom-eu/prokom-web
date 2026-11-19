@@ -91,5 +91,6 @@ export function homeSalons(index: Pick<CatalogIndex, 'brands' | 'products'>): Ho
       : (SALON_LOGOS[brand.salon] ?? null)
     salons.set(brand.salon, salon)
   }
-  return [...salons.values()]
+  // A salon whose brands have no listed card would say „0 pozycji”: left out.
+  return [...salons.values()].filter((salon) => salon.count > 0)
 }

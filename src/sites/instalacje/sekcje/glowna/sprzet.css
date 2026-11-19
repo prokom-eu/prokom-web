@@ -26,10 +26,6 @@
 
   & .isp-stats {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 4px 28px;
-    margin: 0;
     padding: 18px 24px;
     border-radius: 22px;
     background:
@@ -61,8 +57,14 @@
     }
   }
 
+  & .isp-stats-list {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 4px 28px;
+    margin: 0;
+  }
+
   & .isp-stats-note {
-    grid-column: 1 / -1;
     margin: 10px 0 0;
     padding-top: 10px;
     border-top: 1px solid var(--border);
@@ -407,15 +409,22 @@
     & .isp-bundles {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    /* Two columns: the third bundle would stand alone — „Wszystkie zestawy” leads on. */
+    & .isp-bundles > li:nth-child(3) {
+      display: none;
+    }
   }
 
   /* Phone (MOBILE-APLIKACJA): rows that snap like an app; a tile peeks at the edge. */
   @media (max-width: 760px) {
     & .isp-stats {
       width: 100%;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
       padding: 14px 16px;
-
+    }
+    & .isp-stats-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    & .isp-stats {
       & b {
         font-size: 1.6rem;
       }
@@ -428,12 +437,12 @@
       grid-auto-flow: column;
       grid-template-columns: none;
       gap: 12px;
-      margin: 0 -20px;
-      padding: 2px 20px 8px;
+      margin: 0 -16px;
+      padding: 2px 16px 8px;
       overflow-x: auto;
       overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
-      scroll-padding-inline: 20px;
+      scroll-padding-inline: 16px;
       scrollbar-width: none;
     }
     & .isp-deps {
@@ -454,8 +463,8 @@
     & .isp-feat-list > li {
       scroll-snap-align: start;
     }
-    & .isp-block-head .isp-more {
-      order: 2;
+    & .isp-bundles > li:nth-child(3) {
+      display: block;
     }
     & .isp-cta .isp-btn {
       flex: 1 1 100%;
