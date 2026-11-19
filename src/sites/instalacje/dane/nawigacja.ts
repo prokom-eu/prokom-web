@@ -82,10 +82,10 @@ export const navigation: Navigation = {
     ],
     fault: { label: 'Zgłoś awarię', href: '/serwis#zglos' },
   },
+  // Krystian 19.11 (decyzja D12 rundy 18.11 + Realizacje): bez „Realizacje” i „Serwis” w kapsule —
+  // menu mieści się z pełnymi napisami; obie strony zostają w „Więcej”, stopce i „Zgłoś awarię”.
   header: [
     { label: 'Dla architektów', href: '/dla-architektow', accent: true },
-    { label: 'Realizacje', href: '/realizacje' },
-    { label: 'Serwis', href: '/serwis' },
     { label: 'O firmie', href: '/o-firmie' },
     { label: 'Kontakt', href: '/kontakt' },
   ],
