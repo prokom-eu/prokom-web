@@ -384,16 +384,6 @@
      "plik": "media/produkty/dahua-pfa152-e-01.webp",
      "zrodlo": "https://www.eltrox.pl/27895-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-pfa152-e-02.webp",
-     "zrodlo": "https://www.eltrox.pl/27896-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-pfa152-e-03.webp",
-     "zrodlo": "https://www.eltrox.pl/27897-product_main_2x/uchwyt-dahua-pfa152-e.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -584,11 +574,6 @@
      "plik": "media/produkty/hikvision-ds-1280zj-xs-01.webp",
      "zrodlo": "https://www.eltrox.pl/25763-product_main_2x/adapter-hikvision-ds-1280zj-xs.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-1280zj-xs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/25764-product_main_2x/adapter-hikvision-ds-1280zj-xs.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -1029,11 +1014,6 @@
      "plik": "media/produkty/seagate-skyhawk-01.webp",
      "zrodlo": "https://www.eltrox.pl/102237-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/seagate-skyhawk-02.webp",
-     "zrodlo": "https://www.eltrox.pl/102231-product_main_2x/dysk-hdd-seagate-skyhawk-st4000vx016-4tb.jpg",
-     "ujecie": "ujęcie 2"
     },
     {
      "plik": "media/produkty/seagate-skyhawk-03.webp",
@@ -6729,11 +6709,6 @@
      "plik": "media/produkty/satel-slim-pir-03.webp",
      "zrodlo": "https://www.eltrox.pl/42632-product_main_2x/satel-czujka-ruchu-pir-slim-pir.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/satel-slim-pir-04.webp",
-     "zrodlo": "https://www.eltrox.pl/269701-product_main_2x/satel-czujka-ruchu-pir-slim-pir.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -6967,11 +6942,6 @@
      "plik": "media/produkty/satel-slim-dual-03.webp",
      "zrodlo": "https://www.eltrox.pl/42674-product_main_2x/satel-dualna-czujka-ruchu-pir-mw-slim-dual.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/satel-slim-dual-04.webp",
-     "zrodlo": "https://www.eltrox.pl/42675-product_main_2x/satel-dualna-czujka-ruchu-pir-mw-slim-dual.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -11355,11 +11325,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/edbak-pmv-01.webp",
-     "zrodlo": "https://edbak.com/wp-content/uploads/2019/07/PMV100.png",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/edbak-pmv-02.webp",
      "zrodlo": "https://edbak.com/wp-content/uploads/2019/07/PMV200-1-1.jpg",
      "ujecie": "ujęcie 2"
@@ -11835,11 +11800,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/edbak-mtr200-01.webp",
-     "zrodlo": "https://edbak.com/wp-content/uploads/2026/02/MTR200.png",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/edbak-mtr200-02.webp",
      "zrodlo": "https://edbak.com/wp-content/uploads/2026/02/MTR200_front-scaled.png",
@@ -13463,11 +13423,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/turtle-av-videowall-matrix-01.webp",
-     "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/4x4-videowall-small-hero_web.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/turtle-av-videowall-matrix-02.webp",
      "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/4x4-VW-back-left_web.jpg",
      "ujecie": "ujęcie 2"
@@ -13705,11 +13660,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/turtle-av-chazy-4k-01.webp",
-     "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/Chazy-4K-small-hero_web.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/turtle-av-chazy-4k-02.webp",
      "zrodlo": "https://turtleav.com/wp-content/uploads/2026/10/Chazy-Fam_TX.jpg",
@@ -14590,11 +14540,6 @@
      "plik": "media/produkty/hikvision-ds-2ce76x0t-lmfs-01.webp",
      "zrodlo": "https://www.eltrox.pl/174128-product_main_2x/kamera-4w1-hikvision-ds-2ce76k0t-lmfs-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce76x0t-lmfs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174130-product_main_2x/kamera-4w1-hikvision-ds-2ce76k0t-lmfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -14814,11 +14759,6 @@
      "plik": "media/produkty/hikvision-ds-2ce16k0t-lpfs-03.webp",
      "zrodlo": "https://www.eltrox.pl/239997-product_main_2x/kamera-4w1-hikvision-ds-2ce16k0t-lpfs-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce16k0t-lpfs-04.webp",
-     "zrodlo": "https://www.eltrox.pl/239998-product_main_2x/kamera-4w1-hikvision-ds-2ce16k0t-lpfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -15048,11 +14988,6 @@
      "plik": "media/produkty/hikvision-ds-2ce17x0t-lfs-01.webp",
      "zrodlo": "https://www.eltrox.pl/174014-product_main_2x/kamera-4w1-hikvision-ds-2ce17k0t-lfs-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce17x0t-lfs-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174015-product_main_2x/kamera-4w1-hikvision-ds-2ce17k0t-lfs-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -15265,11 +15200,6 @@
      "plik": "media/produkty/hikvision-ds-2ce10kf3t-le-01.webp",
      "zrodlo": "https://www.eltrox.pl/174167-product_main_2x/kamera-4w1-hikvision-ds-2ce10kf3t-le-2-8mm-o-std-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2ce10kf3t-le-02.webp",
-     "zrodlo": "https://www.eltrox.pl/174168-product_main_2x/kamera-4w1-hikvision-ds-2ce10kf3t-le-2-8mm-o-std-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -15971,11 +15901,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/dahua-ipc-hdw1x39v-a-il-01.webp",
-     "zrodlo": "https://www.eltrox.pl/266887-product_main_2x/kamera-ip-dahua-ipc-hdw1439v-a-il-0280b.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/dahua-ipc-hdw1x39v-a-il-02.webp",
      "zrodlo": "https://www.eltrox.pl/266888-product_main_2x/kamera-ip-dahua-ipc-hdw1439v-a-il-0280b.jpg",
      "ujecie": "ujęcie 2"
@@ -16197,11 +16122,6 @@
      "ujecie": "ujęcie 2"
     },
     {
-     "plik": "media/produkty/dahua-ipc-hfw1439tl1-a-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/266799-product_main_2x/kamera-ip-dahua-ipc-hfw1439tl1-a-il-0280b.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
      "plik": "media/produkty/dahua-ipc-hfw1439tl1-a-il-04.webp",
      "zrodlo": "https://www.eltrox.pl/266800-product_main_2x/kamera-ip-dahua-ipc-hfw1439tl1-a-il-0280b.jpg",
      "ujecie": "ujęcie 4"
@@ -16391,11 +16311,6 @@
      "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-02.webp",
      "zrodlo": "https://www.eltrox.pl/228261-product_main_2x/kamera-ip-dahua-ipc-hdbw1439e1-a-il-0280b-s6.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdbw1439e1-a-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/278773-product_main_2x/kamera-ip-dahua-ipc-hdbw1439e1-a-il-0280b-s6.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -16653,16 +16568,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-01.webp",
-     "zrodlo": "https://www.eltrox.pl/135257-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-02.webp",
-     "zrodlo": "https://www.eltrox.pl/153429-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
-     "ujecie": "ujęcie 2"
-    },
     {
      "plik": "media/produkty/dahua-ipc-hfw2x49s-s-il-03.webp",
      "zrodlo": "https://www.eltrox.pl/77045-product_main_2x/kamera-ip-dahua-ipc-hfw2849s-s-il-0280b.jpg",
@@ -16923,21 +16828,6 @@
      "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-01.webp",
      "zrodlo": "https://www.eltrox.pl/74234-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-02.webp",
-     "zrodlo": "https://www.eltrox.pl/74227-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-03.webp",
-     "zrodlo": "https://www.eltrox.pl/74228-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hdw2x49tm-s-il-04.webp",
-     "zrodlo": "https://www.eltrox.pl/74229-product_main_2x/kamera-ip-dahua-8mpx-ipc-hdw2849tm-s-il-0280b.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -17170,11 +17060,6 @@
    "wideo": [],
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49tl-s-led-pro-01.webp",
-     "zrodlo": "https://www.eltrox.pl/179246-product_main_2x/kamera-ip-dahua-ipc-hfw2449tl-s-led-0280b-pro.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
     {
      "plik": "media/produkty/dahua-ipc-hfw2x49tl-s-led-pro-02.webp",
      "zrodlo": "https://www.eltrox.pl/179247-product_main_2x/kamera-ip-dahua-ipc-hfw2449tl-s-led-0280b-pro.jpg",
@@ -17416,11 +17301,6 @@
      "plik": "media/produkty/dahua-ipc-hfw2x49t-zas-il-27135-02.webp",
      "zrodlo": "https://www.eltrox.pl/187661-product_main_2x/kamera-ip-dahua-ipc-hfw2849t-zas-il-27135.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ipc-hfw2x49t-zas-il-27135-03.webp",
-     "zrodlo": "https://www.eltrox.pl/278755-product_main_2x/kamera-ip-dahua-ipc-hfw2849t-zas-il-27135.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -17633,11 +17513,6 @@
      "plik": "media/produkty/dahua-sd3e405db-gny-a-pv1-02.webp",
      "zrodlo": "https://www.eltrox.pl/266858-product_main_2x/kamera-ip-dahua-sd3e405db-gny-a-pv1.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-sd3e405db-gny-a-pv1-03.webp",
-     "zrodlo": "https://www.eltrox.pl/266859-product_main_2x/kamera-ip-dahua-sd3e405db-gny-a-pv1.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -18310,11 +18185,6 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-2cd13x1g2-liu-01.webp",
-     "zrodlo": "https://www.eltrox.pl/221959-product_main_2x/kamera-ip-hikvision-ds-2cd1361g2-liu-2-8mm-pl.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/hikvision-ds-2cd13x1g2-liu-02.webp",
      "zrodlo": "https://www.eltrox.pl/268451-product_main_2x/kamera-ip-hikvision-ds-2cd1361g2-liu-2-8mm-pl.jpg",
      "ujecie": "ujęcie 2"
@@ -18556,11 +18426,6 @@
      "plik": "media/produkty/hikvision-ds-2cd10x3g2-liuf-01.webp",
      "zrodlo": "https://www.eltrox.pl/191731-product_main_2x/kamera-ip-hikvision-ds-2cd1083g2-liuf-sl-2-8mm-pl.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd10x3g2-liuf-02.webp",
-     "zrodlo": "https://www.eltrox.pl/191732-product_main_2x/kamera-ip-hikvision-ds-2cd1083g2-liuf-sl-2-8mm-pl.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -18786,11 +18651,6 @@
      "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-03.webp",
      "zrodlo": "https://www.eltrox.pl/236797-product_main_2x/kamera-ip-hikvision-ds-2cd1363g2-liu-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-04.webp",
-     "zrodlo": "https://www.eltrox.pl/236798-product_main_2x/kamera-ip-hikvision-ds-2cd1363g2-liu-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -19006,11 +18866,6 @@
      "plik": "media/produkty/hikvision-ds-2cd1t67g3-liuf-01.webp",
      "zrodlo": "https://www.eltrox.pl/258368-product_main_2x/kamera-ip-hikvision-ds-2cd1t67g3-liuf-sl-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd1t67g3-liuf-02.webp",
-     "zrodlo": "https://www.eltrox.pl/258369-product_main_2x/kamera-ip-hikvision-ds-2cd1t67g3-liuf-sl-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -19226,11 +19081,6 @@
      "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-03.webp",
      "zrodlo": "https://www.eltrox.pl/248000-product_main_2x/kamera-ip-hikvision-ds-2cd1367g3-liuf-sl-2-8mm-.jpg",
      "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-04.webp",
-     "zrodlo": "https://www.eltrox.pl/248001-product_main_2x/kamera-ip-hikvision-ds-2cd1367g3-liuf-sl-2-8mm-.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -19452,11 +19302,6 @@
      "plik": "media/produkty/hikvision-ds-2cd2043g2-li-01.webp",
      "zrodlo": "https://www.eltrox.pl/172231-product_main_2x/kamera-ip-hikvision-ds-2cd2043g2-li-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd2043g2-li-02.webp",
-     "zrodlo": "https://www.eltrox.pl/172232-product_main_2x/kamera-ip-hikvision-ds-2cd2043g2-li-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -19706,11 +19551,6 @@
      "plik": "media/produkty/hikvision-ds-2cd23x3g2-li2u-01.webp",
      "zrodlo": "https://www.eltrox.pl/249785-product_main_2x/kamera-ip-hikvision-ds-2cd2363g2-li2u-2-8mm-black-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd23x3g2-li2u-02.webp",
-     "zrodlo": "https://www.eltrox.pl/253827-product_main_2x/kamera-ip-hikvision-ds-2cd2363g2-li2u-2-8mm-black-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -19930,11 +19770,6 @@
      "plik": "media/produkty/hikvision-ds-2cd2t43g2-4li-01.webp",
      "zrodlo": "https://www.eltrox.pl/172163-product_main_2x/kamera-ip-hikvision-ds-2cd2t43g2-4li-2-8mm-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2cd2t43g2-4li-02.webp",
-     "zrodlo": "https://www.eltrox.pl/172164-product_main_2x/kamera-ip-hikvision-ds-2cd2t43g2-4li-2-8mm-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -20394,19 +20229,9 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-01.webp",
-     "zrodlo": "https://www.eltrox.pl/257017-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
      "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-02.webp",
      "zrodlo": "https://www.eltrox.pl/257018-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2de4425iwg1-e-03.webp",
-     "zrodlo": "https://www.eltrox.pl/257019-product_main_2x/kamera-ip-hikvision-ds-2de4425iwg1-e.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -21958,19 +21783,14 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/dahua-asi6213s-pw-01.webp",
+     "plik": "media/produkty/dahua-asi6213s-pw-ekran-01.webp",
      "zrodlo": "https://www.eltrox.pl/192601-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
-     "ujecie": "zdjęcie producenta"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     },
     {
      "plik": "media/produkty/dahua-asi6213s-pw-02.webp",
      "zrodlo": "https://www.eltrox.pl/192602-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
      "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-asi6213s-pw-03.webp",
-     "zrodlo": "https://www.eltrox.pl/192603-product_main_2x/kontroler-dostepu-do-rozpoznawania-twarzy-dahua-asi6213s-pw.jpg",
-     "ujecie": "ujęcie 3"
     }
    ]
   },
@@ -22419,11 +22239,6 @@
      "plik": "media/produkty/dahua-asc3202b-01.webp",
      "zrodlo": "https://www.eltrox.pl/80821-product_main_2x/kontroler-dahua-asc3202b.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-asc3202b-02.webp",
-     "zrodlo": "https://www.eltrox.pl/80822-product_main_2x/kontroler-dahua-asc3202b.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -23080,11 +22895,6 @@
      "plik": "media/produkty/hikvision-ds-k4h250s-01.webp",
      "zrodlo": "https://www.eltrox.pl/255851-product_main_2x/zwora-hikvision-ds-k4h250s.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-k4h250s-02.webp",
-     "zrodlo": "https://www.eltrox.pl/255852-product_main_2x/zwora-hikvision-ds-k4h250s.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -23308,11 +23118,6 @@
      "plik": "media/produkty/hikvision-ds-k2601t-01.webp",
      "zrodlo": "https://www.eltrox.pl/64989-product_main_2x/kontroler-dostepu-hikvision-ds-k2601t.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-k2601t-02.webp",
-     "zrodlo": "https://www.eltrox.pl/64984-product_main_2x/kontroler-dostepu-hikvision-ds-k2601t.jpg",
-     "ujecie": "ujęcie 2"
     },
     {
      "plik": "media/produkty/hikvision-ds-k2601t-03.webp",
@@ -28300,11 +28105,6 @@
      "plik": "media/produkty/hikvision-ds-2se4c425mwg-e-26-01.webp",
      "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000070247/main_mainview/%E7%BA%A2%E5%A4%96%E7%90%8320-%E6%99%BA%E8%83%BD%E6%8B%BC%E6%8E%A5-%E6%AD%A3%E9%9D%A2.png",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-2se4c425mwg-e-26-02.webp",
-     "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000070247/structure_structsizeview/DS-2SE4C425MWG-E26F0_Dimensionsimage_1.png",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -28522,14 +28322,9 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-kis604-s-d-01.webp",
+     "plik": "media/produkty/hikvision-ds-kis604-s-d-ekran-01.webp",
      "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000188282/main_mainview/KIS604.png",
-     "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-kis604-s-d-02.webp",
-     "zrodlo": "https://assets.hikvision.com/prd/normal/all/image/m000188282/outline_rightside45view/KIS604-P%E5%B7%A6%E8%A7%86%E5%9B%BE.png",
-     "ujecie": "ujęcie 2"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     }
    ]
   },
@@ -30955,11 +30750,6 @@
      "plik": "media/produkty/hikvision-ds-76xxnxi-k1-01.webp",
      "zrodlo": "https://www.eltrox.pl/173795-product_main_2x/rejestrator-ip-hikvision-ds-7608nxi-k1-d-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-76xxnxi-k1-02.webp",
-     "zrodlo": "https://www.eltrox.pl/173796-product_main_2x/rejestrator-ip-hikvision-ds-7608nxi-k1-d-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -31214,11 +31004,6 @@
      "plik": "media/produkty/hikvision-ds-76xxnxi-k2-01.webp",
      "zrodlo": "https://www.eltrox.pl/212265-product_main_2x/rejestrator-ip-hikvision-ds-7632nxi-k2-d-.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/hikvision-ds-76xxnxi-k2-02.webp",
-     "zrodlo": "https://www.eltrox.pl/265227-product_main_2x/rejestrator-ip-hikvision-ds-7632nxi-k2-d-.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -32178,11 +31963,6 @@
      "plik": "media/produkty/dahua-ktx01-s-01.webp",
      "zrodlo": "https://www.eltrox.pl/184865-product_main_2x/zestaw-wideodomofonowy-dahua-ktx01-s-wi-fi-2-wire.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ktx01-s-02.webp",
-     "zrodlo": "https://www.eltrox.pl/184866-product_main_2x/zestaw-wideodomofonowy-dahua-ktx01-s-wi-fi-2-wire.jpg",
-     "ujecie": "ujęcie 2"
     }
    ]
   },
@@ -32412,21 +32192,6 @@
      "plik": "media/produkty/dahua-ktp03-01.webp",
      "zrodlo": "https://www.eltrox.pl/260781-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
      "ujecie": "zdjęcie producenta"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-02.webp",
-     "zrodlo": "https://www.eltrox.pl/146793-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 2"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-03.webp",
-     "zrodlo": "https://www.eltrox.pl/69268-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 3"
-    },
-    {
-     "plik": "media/produkty/dahua-ktp03-04.webp",
-     "zrodlo": "https://www.eltrox.pl/69269-product_main_2x/zestaw-wideodomofonowy-dahua-ktp03.jpg",
-     "ujecie": "ujęcie 4"
     }
    ]
   },
@@ -32883,9 +32648,9 @@
    "sprawdzono": "2026-11-18",
    "zdjecia_premium": [
     {
-     "plik": "media/produkty/hikvision-ds-kis702y-01.webp",
+     "plik": "media/produkty/hikvision-ds-kis702y-ekran-01.webp",
      "zrodlo": "https://www.eltrox.pl/76085-product_main_2x/zestaw-wiedodomofonu-hikvision-ds-kis702y.jpg",
-     "ujecie": "zdjęcie producenta"
+     "ujecie": "zdjęcie producenta, ekran wygaszony"
     }
    ]
   },
