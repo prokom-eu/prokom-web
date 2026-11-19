@@ -1,7 +1,7 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 456,
+ "liczba": 460,
  "zmiany": {
   "zmieniona": 139,
   "drobne": 131,
@@ -71640,7 +71640,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "ekrany-informacyjne",
    "marka": "Samsung",
    "rodzaj": "Urządzenia",
@@ -72492,7 +72492,7 @@
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Logitech",
    "seria": "Wideokonferencje",
@@ -72663,8 +72663,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
-   "podkategoria": "projektory",
+   "kategoria": "projektory",
    "marka": "Sharp/NEC",
    "rodzaj": "Urządzenia",
    "nazwa": "Projektory Sharp/NEC do sali lekcyjnej i biura (ME403U, P554U, PE506UL, P547UL)",
@@ -73931,7 +73930,7 @@
    "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "av",
-   "podkategoria": "monitory-interaktywne",
+   "podkategoria": "suchoscieralne-akcesoria",
    "marka": "Avtek",
    "rodzaj": "Urządzenia",
    "nazwa": "Komputery Avtek OPS (Intel Core i5 / i7, Windows 11 Pro)",
@@ -74191,7 +74190,7 @@
    "status": "gotowe",
    "dzial": "biuro",
    "kategoria": "av",
-   "podkategoria": "monitory-interaktywne",
+   "podkategoria": "suchoscieralne-akcesoria",
    "marka": "Avtek",
    "rodzaj": "Urządzenia",
    "nazwa": "Avtek akcesoria do monitorów interaktywnych (statywy, kamera CAM4K, klucz Android)",
@@ -74390,7 +74389,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "ekrany-informacyjne",
    "marka": "Samsung",
    "rodzaj": "Urządzenia",
@@ -74657,7 +74656,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "ekrany-informacyjne",
    "marka": "Samsung",
    "rodzaj": "Urządzenia",
@@ -74916,7 +74915,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "ekrany-informacyjne",
    "marka": "Samsung",
    "rodzaj": "Urządzenia",
@@ -75151,7 +75150,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "ekrany-informacyjne",
    "marka": "Samsung",
    "rodzaj": "Urządzenia",
@@ -75423,8 +75422,7 @@
    "zmiana_k4": "drobne",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
-   "podkategoria": "projektory",
+   "kategoria": "projektory",
    "marka": "Sharp/NEC",
    "rodzaj": "Urządzenia",
    "nazwa": "Projektory laserowe Sharp/NEC do dużych sal konferencyjnych i aul (P627UL, P601Q, P721Q)",
@@ -75664,8 +75662,7 @@
    "zmiana_k4": "zmieniona",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
-   "podkategoria": "projektory",
+   "kategoria": "projektory",
    "marka": "Sharp/NEC",
    "rodzaj": "Urządzenia",
    "nazwa": "Projektory instalacyjne Sharp/NEC z wymienną optyką (PV710UL, PV800UL, PA803U, PA804UL, PA1004UL)",
@@ -75925,7 +75922,7 @@
    "zmiana_k4": "zmieniona",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Lenovo",
    "seria": "ThinkSmart",
@@ -76228,7 +76225,7 @@
    "zmiana_k4": "zmieniona",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Dell",
    "seria": "Wideokonferencje",
@@ -76463,7 +76460,7 @@
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Logitech",
    "seria": "Wideokonferencje",
@@ -76629,7 +76626,7 @@
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Logitech",
    "seria": "Wideokonferencje",
@@ -76821,7 +76818,7 @@
    "zmiana_k4": "nowa",
    "status": "gotowe",
    "dzial": "biuro",
-   "kategoria": "av",
+   "kategoria": "ekrany",
    "podkategoria": "wideokonferencje",
    "marka": "Logitech",
    "seria": "Wideokonferencje",
@@ -99415,6 +99412,888 @@
      "plik": "media/produkty/apple-ipad-mini-a20-pro-premium-03.webp",
      "zrodlo": "https://www.apple.com/newsroom/images/2026/10/apple-gives-ipad-mini-its-biggest-update-ever/article/Apple-iPad-mini-OLED-display-261026_inline.jpg.large.jpg",
      "ujecie": "Zbliżenie na ekran OLED z kolorowym zdjęciem gekona"
+    }
+   ]
+  },
+  {
+   "slug_seed": "nec-p525-p605-laser",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "projektory",
+   "marka": "Sharp/NEC",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Projektory laserowe NEC do sal lekcyjnych i spotkań (P525WL, P525UL, P605UL)",
+   "krotka": "Projektory laserowe NEC P525 i P605 do sal lekcyjnych i spotkań",
+   "podtytul": "Laser 20 000 h, 5000–6000 lm, WXGA lub WUXGA, 3LCD, HDBaseT, zoom 1,6x",
+   "korzysc": "Laserowy projektor do codziennej pracy w klasie lub salce spotkań — bez wymiany lamp.",
+   "opis": [
+    "Seria P525/P605 to projektory na salę, w której obraz wyświetla się kilka godzin dziennie: klasa, pracownia, salka szkoleniowa w urzędzie albo pokój spotkań w biurze. Laser zamiast lampy oznacza, że przez lata nie kupujesz zamiennych żarników, a jasność spada powoli — producent podaje 20 000 godzin do połowy jasności początkowej.",
+    "Modele różnią się jasnością i ostrością obrazu. P525WL i P525UL dają 5000 lm, przy czym pierwszy wyświetla WXGA 1280×800, a drugi WUXGA 1920×1200 — ten wybierasz, gdy na ekranie mają być drobne tabele albo arkusze. P605UL ma 6000 lm i WUXGA, więc lepiej radzi sobie w sali z dużymi oknami. Wszystkie używają matrycy 3LCD i obiektywu z ręcznym zoomem 1,6x oraz przesuwem obrazu w pionie i w poziomie.",
+    "Do projektora doprowadzisz obraz na kilka sposobów: dwa wejścia HDMI, HDBaseT (obraz i sterowanie po jednej skrętce z biurka nauczyciela lub szafy), VGA dla starszych laptopów i LAN do zdalnego zarządzania. Wbudowany głośnik ma 20 W. Producent daje 3 lata gwarancji na projektor i 3 lata lub 10 000 godzin na źródło światła.",
+    "W PRO-KOM mierzymy odległość od ekranu i sprawdzamy, ile światła wpada do sali, a potem proponujemy model i uchwyt. Montujemy projektor pod sufitem, prowadzimy kable albo HDBaseT, ustawiamy obraz i pokazujemy, jak przełączać źródła z pilota."
+   ],
+   "cechy": [
+    "laser 20 000 h",
+    "WXGA lub WUXGA",
+    "HDBaseT"
+   ],
+   "parametry": [
+    {
+     "k": "Jasność",
+     "v": "5 000 lm (P525WL, P525UL), 6 000 lm (P605UL); w trybie Eco ok. 60%"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WXGA 1280×800 (P525WL); WUXGA 1920×1200 (P525UL, P605UL)"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Kontrast",
+     "v": "500 000:1 (P525WL, P525UL), 600 000:1 (P605UL)"
+    },
+    {
+     "k": "Źródło światła i żywotność",
+     "v": "laser, 20 000 h do 50% jasności początkowej"
+    },
+    {
+     "k": "Rzut i obiektyw",
+     "v": "współczynnik rzutu 1,23–2,0:1, odległość 0,8–13,5 m, zoom ręczny 1,6x"
+    },
+    {
+     "k": "Przesuw obiektywu",
+     "v": "poziomo ±29%, pionowo +60%"
+    },
+    {
+     "k": "Złącza",
+     "v": "2× HDMI, 1× HDBaseT, VGA (mini D-sub), RJ-45 LAN, RS-232, USB A i B; Wi-Fi jako opcja"
+    },
+    {
+     "k": "Głośnik",
+     "v": "20 W mono"
+    },
+    {
+     "k": "Poziom hałasu",
+     "v": "22–27 dB(A) (P525WL, P525UL), 19–28 dB(A) (P605UL), zależnie od trybu"
+    },
+    {
+     "k": "Waga",
+     "v": "9,7 kg"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "projektor 3 lata; źródło światła 3 lata lub 10 000 h (co nastąpi pierwsze)"
+    },
+    {
+     "k": "Montaż",
+     "v": "pod sufitem lub na stole; uchwyt sufitowy dobierany osobno"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "NEC P525WL (60004328)",
+     "roznica": "WXGA 1280×800, 5 000 lm — do prezentacji i filmów w klasie."
+    },
+    {
+     "model": "NEC P525UL (60004708)",
+     "roznica": "WUXGA 1920×1200, 5 000 lm — ostrzejszy tekst, tabele i arkusze."
+    },
+    {
+     "model": "NEC P605UL (60004811)",
+     "roznica": "WUXGA 1920×1200, 6 000 lm i kontrast 600 000:1 — do jaśniejszej sali."
+    }
+   ],
+   "faq": [
+    {
+     "q": "P525WL, P525UL czy P605UL — który projektor wybrać do klasy?",
+     "a": "Do prezentacji i filmów wystarczy P525WL (WXGA, 5 000 lm). Gdy na ekranie są drobne tabele lub arkusze, lepszy jest P525UL z WUXGA. P605UL ma 6 000 lm i sprawdza się w sali z dużymi oknami, gdzie trudno zasłonić światło."
+    },
+    {
+     "q": "Ile wytrzyma laser w projektorze NEC P525 lub P605?",
+     "a": "Producent podaje 20 000 godzin do spadku jasności o połowę. Na źródło światła jest gwarancja 3 lata lub 10 000 godzin, a na sam projektor 3 lata."
+    },
+    {
+     "q": "Czy do projektora pod sufitem trzeba ciągnąć kabel HDMI?",
+     "a": "Nie musisz. Projektory mają wejście HDBaseT — obraz i sterowanie idą jedną skrętką z biurka albo szafy, a nadajnik HDBaseT przy biurku przyjmuje HDMI z laptopa."
+    },
+    {
+     "q": "Jak daleko od ekranu powinien wisieć projektor NEC P525/P605?",
+     "a": "Współczynnik rzutu wynosi 1,23–2,0:1, czyli dla obrazu szerokiego na 2 m projektor wisi ok. 2,5–4 m od ekranu. Zoom 1,6x i przesuw obiektywu pozwalają dopasować obraz bez przesuwania uchwytu."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz rozdzielczość i jasność. Laser, HDBaseT i obiektyw z zoomem 1,6x są w każdym modelu.",
+    "opcje": [
+     {
+      "nazwa": "Rozdzielczość",
+      "wartosci": [
+       "WXGA 1280×800 (P525WL)",
+       "WUXGA 1920×1200 (P525UL, P605UL)"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Jasność",
+      "wartosci": [
+       "5 000 lm",
+       "6 000 lm"
+      ],
+      "uwaga": "Jasność wg danych producenta.",
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Źródło światła",
+      "v": "laser"
+     },
+     {
+      "k": "Rzut",
+      "v": "standardowy (1,23–2,0:1)"
+     },
+     {
+      "k": "Wymienna optyka",
+      "v": "nie — obiektyw wbudowany z zoomem 1,6x"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Klasa, prezentacje i filmy",
+      "konfiguracja": "NEC P525WL (5 000 lm, WXGA) — kod 60004328"
+     },
+     {
+      "nazwa": "Pracownia, tabele i arkusze",
+      "konfiguracja": "NEC P525UL (5 000 lm, WUXGA) — kod 60004708"
+     },
+     {
+      "nazwa": "Jasna sala z dużymi oknami",
+      "konfiguracja": "NEC P605UL (6 000 lm, WUXGA) — kod 60004811"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-c925e",
+     "etykieta": "Logitech C925e"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości"
+    }
+   ],
+   "podobne": [
+    "sharp-nec-projektory-sala",
+    "sharp-nec-projektory-laser"
+   ],
+   "branze": [
+    "Szkoły i instytucje",
+    "Biura i usługi",
+    "Noclegi"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/p525wl.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    },
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/p525ul.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    },
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/p605ul.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    }
+   ],
+   "sprawdzono": "2026-11-18",
+   "wyrozniki": [
+    "laser 20 000 h",
+    "WXGA lub WUXGA",
+    "HDBaseT"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Jasność",
+     "v": "5 000–6 000 lm"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WXGA lub WUXGA"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Źródło światła",
+     "v": "laser 20 000 h"
+    },
+    {
+     "k": "Waga",
+     "v": "9,7 kg"
+    }
+   ],
+   "nowosc": true,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/nec-p525-p605-laser-premium-01.webp",
+     "zrodlo": "https://www.sharpdisplays.eu/p/download/v/6adfa6366509d910a1397ce2f749b931/cp/Products/Projectors/Products/CurrentProducts/P-Series/Shared/ProductPictures/P525UL_P525WL_P605UL_P547UL_P627UL/NEC_P_Series_upperslant_web.jpg",
+     "ujecie": "przód pod kątem, obiektyw z zoomem"
+    }
+   ]
+  },
+  {
+   "slug_seed": "nec-pa1505ul-pa1705ul",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "projektory",
+   "marka": "Sharp/NEC",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Projektory instalacyjne NEC o dużej jasności do auli i hal (PA1505UL, PA1705UL)",
+   "krotka": "Projektory NEC PA1505UL i PA1705UL o dużej jasności do auli i hal",
+   "podtytul": "Laser 14 000–16 000 lm, WUXGA, 3LCD, wymienne obiektywy z napędem, HDBaseT i 3G-SDI",
+   "korzysc": "Bardzo jasny projektor do auli, hali sportowej, kościoła albo sali widowiskowej.",
+   "opis": [
+    "PA1505UL i PA1705UL to projektory do dużych przestrzeni, w których zwykły projektor biurowy daje blady obraz: aula szkolna na kilkaset osób, hala sportowa, sala widowiskowa domu kultury, kościół albo duża sala konferencyjna w hotelu. Mają 14 000 i 16 000 lm, więc obraz jest czytelny także przy włączonym świetle i na ekranie szerokim na kilka metrów.",
+    "Oba modele pokazują obraz WUXGA 1920×1200 w technologii 3LCD z kontrastem 3 000 000:1. Obiektyw jest wymienny: standardowy ma współczynnik rzutu 1,25–2,01:1, a opcjonalne obejmują zakres od 0,53:1 (bardzo blisko ekranu) do 7,5:1 (z tyłu długiej sali). Zoom, ostrość i przesuw obrazu ustawiasz silnikiem z pilota, a korekcja trapezu wyrównuje obraz przy krzywym montażu.",
+    "Obraz można doprowadzić przez dwa HDMI, HDBaseT (z wyjściem do kolejnego urządzenia) albo 3G-SDI z kamery czy realizatora. Sterowanie działa po LAN i RS-232, więc projektor podłączysz do systemu sali. Laser wytrzymuje 20 000 godzin do połowy jasności, a gwarancja wynosi 3 lata na projektor oraz 3 lata lub 10 000 godzin na źródło światła. Urządzenie waży 28,7 kg i wymaga mocnego uchwytu.",
+    "Taki projektor dobieramy po wizji lokalnej: mierzymy salę, wybieramy obiektyw do miejsca montażu i sprawdzamy zasilanie. Montujemy go na uchwycie sufitowym, prowadzimy okablowanie HDBaseT lub SDI, ustawiamy geometrię obrazu i uczymy obsługi."
+   ],
+   "cechy": [
+    "14 000–16 000 lm",
+    "wymienne obiektywy",
+    "HDBaseT i 3G-SDI"
+   ],
+   "parametry": [
+    {
+     "k": "Jasność",
+     "v": "14 000 lm (PA1505UL), 16 000 lm (PA1705UL) wg ISO 21118"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WUXGA 1920×1200"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Kontrast",
+     "v": "3 000 000:1"
+    },
+    {
+     "k": "Źródło światła i żywotność",
+     "v": "laser, 20 000 h do 50% jasności początkowej"
+    },
+    {
+     "k": "Rzut i obiektyw",
+     "v": "wymienny obiektyw z napędem; standardowy NP54ZL 1,25–2,01:1, opcjonalne 0,53–7,5:1"
+    },
+    {
+     "k": "Przesuw obiektywu",
+     "v": "z napędem, do ±25% poziomo i ±65% pionowo (zależnie od obiektywu)"
+    },
+    {
+     "k": "Korekcja obrazu",
+     "v": "trapez poziomo ±40°, pionowo ±30°"
+    },
+    {
+     "k": "Złącza",
+     "v": "2× HDMI (HDCP 2.2), HDBaseT wejście i wyjście, 3G-SDI, RJ-45 LAN, RS-232, USB A"
+    },
+    {
+     "k": "Poziom hałasu",
+     "v": "38 / 35 dB(A) (PA1505UL), 43 / 37 dB(A) (PA1705UL) — tryb normalny / cichy"
+    },
+    {
+     "k": "Pobór mocy",
+     "v": "925 W (PA1505UL), 995 W (PA1705UL) w trybie normalnym"
+    },
+    {
+     "k": "Waga",
+     "v": "28,7 kg (bez obiektywu)"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "projektor 3 lata; źródło światła 3 lata lub 10 000 h (co nastąpi pierwsze)"
+    },
+    {
+     "k": "Montaż",
+     "v": "uchwyt sufitowy lub rama; dobór obiektywu do odległości od ekranu"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "NEC PA1505UL (60005971 biały, 60005928 czarny)",
+     "roznica": "14 000 lm, ciszej: 38 dB(A) w trybie normalnym."
+    },
+    {
+     "model": "NEC PA1705UL",
+     "roznica": "16 000 lm do największych sal; 43 dB(A) w trybie normalnym."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Do jakiej sali wystarczy NEC PA1505UL, a kiedy wybrać PA1705UL?",
+     "a": "PA1505UL (14 000 lm) wystarcza do typowej auli czy sali widowiskowej. PA1705UL (16 000 lm) wybierasz do największych przestrzeni, ekranów szerokich na wiele metrów albo sal, których nie da się zaciemnić."
+    },
+    {
+     "q": "Po co w projektorze PA1505UL wymienne obiektywy?",
+     "a": "Dzięki nim projektor może wisieć tam, gdzie da się go zamontować: blisko ekranu (obiektyw 0,53:1) albo na końcu długiej sali (do 7,5:1). Obiektyw dobieramy po pomiarze odległości."
+    },
+    {
+     "q": "Jak podłączyć kamerę lub realizator obrazu do projektora NEC PA?",
+     "a": "Projektory mają wejście 3G-SDI, typowe dla kamer i realizatorów, a także dwa HDMI i HDBaseT. Sterowanie z systemu sali działa po LAN albo RS-232."
+    },
+    {
+     "q": "Czy projektor NEC PA1505UL jest głośny w sali?",
+     "a": "W trybie normalnym PA1505UL ma 38 dB(A), a w cichym 35 dB(A). PA1705UL jest głośniejszy: 43 i 37 dB(A). Przy montażu wysoko pod sufitem auli nie przeszkadza to w czasie wystąpień."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz jasność i obiektyw. Laser, WUXGA, HDBaseT i 3G-SDI są w obu modelach.",
+    "opcje": [
+     {
+      "nazwa": "Jasność",
+      "wartosci": [
+       "14 000 lm (PA1505UL)",
+       "16 000 lm (PA1705UL)"
+      ],
+      "uwaga": "Producent podaje jasność wg ISO 21118.",
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Obiektyw",
+      "wartosci": [
+       "standardowy 1,25–2,01:1",
+       "krótkoogniskowy lub długoogniskowy (opcja)"
+      ],
+      "uwaga": "Dobieramy po pomiarze sali.",
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Źródło światła",
+      "v": "laser"
+     },
+     {
+      "k": "Rozdzielczość",
+      "v": "WUXGA 1920×1200"
+     },
+     {
+      "k": "Wymienna optyka",
+      "v": "tak — obiektywy z napędem"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Aula szkolna, sala widowiskowa",
+      "konfiguracja": "NEC PA1505UL (14 000 lm) z obiektywem standardowym"
+     },
+     {
+      "nazwa": "Hala, kościół, bardzo duży ekran",
+      "konfiguracja": "NEC PA1705UL (16 000 lm), obiektyw dobrany do sali"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-rally-bar-mini",
+     "etykieta": "Logitech Rally Bar Mini"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "sharp-nec-instalacyjne",
+    "sharp-nec-projektory-laser"
+   ],
+   "branze": [
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/pa1505ul.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    },
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/pa1705ul.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    }
+   ],
+   "sprawdzono": "2026-11-18",
+   "wyrozniki": [
+    "14 000–16 000 lm",
+    "wymienne obiektywy",
+    "HDBaseT i 3G-SDI"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Jasność",
+     "v": "14 000–16 000 lm"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WUXGA 1920×1200"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Źródło światła",
+     "v": "laser 20 000 h"
+    },
+    {
+     "k": "Waga",
+     "v": "28,7 kg"
+    }
+   ],
+   "nowosc": true,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/nec-pa1505ul-pa1705ul-premium-01.webp",
+     "zrodlo": "https://www.sharpdisplays.eu/p/download/v/3caa95e7c91568b3053927f71e11648f/cp/Products/Projectors/Products/CurrentProducts/PA-Series/Shared/Media/ProductPictures_PA5-Laser/PA1705UL-PA1505UL-W_slant_a_w_web.jpg",
+     "ujecie": "przód pod kątem, wersja biała"
+    }
+   ]
+  },
+  {
+   "slug_seed": "nec-me383w",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "projektory",
+   "marka": "Sharp/NEC",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Projektor NEC ME383W do małej sali i pracy w terenie",
+   "krotka": "Projektor NEC ME383W do małej sali i pracy w terenie",
+   "podtytul": "Lampa, 3600 lm, WXGA 1280×800, 3LCD, 2× HDMI, LAN, 3,2 kg",
+   "korzysc": "Lekki projektor lampowy do małej sali, świetlicy albo prezentacji u klienta.",
+   "opis": [
+    "NEC ME383W to prosty projektor do miejsc, gdzie obraz wyświetla się od czasu do czasu: mała sala spotkań, świetlica, pokój nauczycielski, sala parafialna albo prezentacje u klienta. Waży 3,2 kg, więc łatwo go przenieść między salami albo zabrać do samochodu, a ustawienie zajmuje kilka minut.",
+    "Projektor ma jasność 3600 lm i rozdzielczość WXGA 1280×800 w technologii 3LCD. Obiektyw z ręcznym zoomem 1,7x i współczynnikiem rzutu 1,2–2,1:1 pozwala ustawić obraz z odległości od ok. 1 do 11,5 m, a korekcja trapezu w pionie i poziomie (±30°) wyrównuje go, gdy projektor stoi z boku. Źródłem światła jest lampa: 10 000 godzin w trybie normalnym i 20 000 w trybie Eco.",
+    "Do laptopa podłączysz go przez jedno z dwóch wejść HDMI albo VGA. Jest też port LAN do zarządzania i opcjonalny moduł Wi-Fi oraz głośnik 16 W, który wystarcza do filmu w małym pomieszczeniu. Producent daje 3 lata gwarancji na projektor i 6 miesięcy lub 1000 godzin na lampę; zamienna lampa to NP47LP.",
+    "W PRO-KOM pomagamy wybrać między tym modelem a projektorem laserowym, gdy sprzęt będzie pracował codziennie. Do ME383W dobieramy ekran lub uchwyt, konfigurujemy połączenie z laptopami i — jeśli trzeba — moduł Wi-Fi."
+   ],
+   "cechy": [
+    "3600 lm",
+    "WXGA",
+    "3,2 kg"
+   ],
+   "parametry": [
+    {
+     "k": "Jasność",
+     "v": "3 600 lm (3 800 lm w trybie boost)"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WXGA 1280×800"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Kontrast",
+     "v": "16 000:1"
+    },
+    {
+     "k": "Źródło światła i żywotność",
+     "v": "lampa 225 W, 10 000 h (20 000 h w trybie Eco); zamienna lampa NP47LP"
+    },
+    {
+     "k": "Rzut i obiektyw",
+     "v": "współczynnik rzutu 1,2–2,1:1, odległość 0,94–11,59 m, zoom ręczny 1,7x"
+    },
+    {
+     "k": "Korekcja obrazu",
+     "v": "trapez poziomo i pionowo ±30°; bez przesuwu obiektywu"
+    },
+    {
+     "k": "Złącza",
+     "v": "2× HDMI, VGA (mini D-sub), RJ-45 LAN, RS-232, USB A i B; Wi-Fi jako opcja"
+    },
+    {
+     "k": "Głośnik",
+     "v": "16 W mono"
+    },
+    {
+     "k": "Poziom hałasu",
+     "v": "29 / 37 dB(A) (Eco / normalny)"
+    },
+    {
+     "k": "Waga",
+     "v": "3,2 kg"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "projektor 3 lata; lampa 6 miesięcy lub 1 000 h"
+    },
+    {
+     "k": "Montaż",
+     "v": "na stole albo pod sufitem (uchwyt osobno)"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "NEC ME383W (60005220)",
+     "roznica": "Jeden model: 3 600 lm, WXGA, lampa; moduł Wi-Fi dokupowany osobno."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy NEC ME383W nadaje się do codziennej pracy w klasie?",
+     "a": "Może pracować codziennie, ale przy kilku godzinach dziennie lampę wymienisz częściej. Do takiej sali zwykle proponujemy laserowy NEC P525, w którym nie wymienia się lamp."
+    },
+    {
+     "q": "Ile wytrzymuje lampa w projektorze NEC ME383W?",
+     "a": "Producent podaje 10 000 godzin w trybie normalnym i 20 000 godzin w trybie Eco. Zamienna lampa ma oznaczenie NP47LP."
+    },
+    {
+     "q": "Jak podłączyć laptopa do projektora NEC ME383W bez kabla?",
+     "a": "Projektor obsługuje opcjonalny moduł Wi-Fi. Bez niego laptop podłączysz kablem HDMI (są dwa wejścia) albo VGA."
+    },
+    {
+     "q": "Z jakiej odległości NEC ME383W wyświetli obraz na ekranie 2 m?",
+     "a": "Współczynnik rzutu wynosi 1,2–2,1:1, więc obraz szeroki na 2 m uzyskasz z odległości ok. 2,4–4,2 m. Zoom 1,7x pozwala dopasować go bez przestawiania projektora."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Jeden model. Do wyboru dodatki: moduł Wi-Fi, uchwyt sufitowy i ekran.",
+    "opcje": [
+     {
+      "nazwa": "Połączenie",
+      "wartosci": [
+       "HDMI / VGA (w zestawie)",
+       "Wi-Fi (moduł opcjonalny)"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Źródło światła",
+      "v": "lampa"
+     },
+     {
+      "k": "Rozdzielczość",
+      "v": "WXGA 1280×800"
+     },
+     {
+      "k": "Wymienna optyka",
+      "v": "nie — obiektyw wbudowany z zoomem 1,7x"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Mała sala, świetlica",
+      "konfiguracja": "NEC ME383W (3 600 lm, WXGA) — kod 60005220"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-c925e",
+     "etykieta": "Logitech C925e"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    },
+    {
+     "slug": "nec-p525-p605-laser",
+     "etykieta": "Projektor laserowy do codziennej pracy"
+    }
+   ],
+   "podobne": [
+    "sharp-nec-projektory-sala",
+    "nec-p525-p605-laser"
+   ],
+   "branze": [
+    "Szkoły i instytucje",
+    "Biura i usługi",
+    "Noclegi"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.sharpdisplays.eu/p/datasheet/en/datasheet/rp/me383w.xhtml",
+     "etykieta": "Strona producenta — Sharp/NEC",
+     "host": "sharpdisplays.eu"
+    }
+   ],
+   "sprawdzono": "2026-11-18",
+   "wyrozniki": [
+    "3600 lm",
+    "WXGA",
+    "3,2 kg"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Jasność",
+     "v": "3 600 lm"
+    },
+    {
+     "k": "Rozdzielczość",
+     "v": "WXGA 1280×800"
+    },
+    {
+     "k": "Technologia",
+     "v": "3LCD"
+    },
+    {
+     "k": "Źródło światła",
+     "v": "lampa 10 000 h"
+    },
+    {
+     "k": "Waga",
+     "v": "3,2 kg"
+    }
+   ],
+   "nowosc": true,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/nec-me383w-premium-01.webp",
+     "zrodlo": "https://www.sharpdisplays.eu/p/download/v/11b8b44e3fcadeb66be29d93714cbfc6/cp/Products/Projectors/Products/CurrentProducts/ME3-Series/ME383W/Media/ProductPictures/ME383W_slant_web.jpg",
+     "ujecie": "przód pod kątem"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-framewings",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "av",
+   "podkategoria": "suchoscieralne-akcesoria",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "nazwa": "Avtek FrameWings 75 — rama z tablicami suchościeralnymi do monitora interaktywnego",
+   "krotka": "Avtek FrameWings 75 — tablice suchościeralne przy monitorze interaktywnym",
+   "podtytul": "Rama ścienna z dwoma skrzydłami ceramicznymi do monitorów 65–75\", VESA do 800×600, do 100 kg",
+   "korzysc": "Monitor interaktywny i klasyczna tablica do pisania pisakiem w jednym miejscu na ścianie.",
+   "opis": [
+    "FrameWings to ścienna rama, na której wiesza się monitor interaktywny 65–75\", a po jego bokach dwa otwierane skrzydła z powierzchnią do pisania pisakiem suchościeralnym. W klasie nauczyciel ma więc obok ekranu miejsce na wzór, zadanie domowe albo notatkę, która zostaje na dłużej niż jeden slajd. Po lekcji skrzydła zamyka się jak tryptyk i zakrywają ekran.",
+    "Powierzchnia skrzydeł jest ceramiczno-stalowa (PolyVision), odporna na zarysowania i łatwa do czyszczenia, a do tego magnetyczna. Rama jest stalowa, w kolorze czarnym, przyjmuje monitory z mocowaniem VESA od 400×200 do 800×600 mm i ważące do 100 kg. Po zamknięciu zajmuje ok. 1,86 m szerokości, po otwarciu — ok. 2,74 m, przy głębokości ok. 21 cm.",
+    "Zestaw nie zawiera monitora: pasuje do monitorów interaktywnych Avtek z naszej oferty (np. TouchScreen 9 Mate G czy 8 Connect) i innych z mocowaniem w tym zakresie VESA. Rama waży ok. 17 kg, a producent daje 3 lata gwarancji. Przed montażem trzeba sprawdzić ścianę — przy ciężkim monitorze potrzebna jest nośna przegroda albo odpowiednie kotwy.",
+    "Montujemy FrameWings razem z monitorem: sprawdzamy ścianę i wysokość (inna dla młodszych klas, inna dla liceum), wieszamy ramę, podłączamy monitor do sieci i komputera nauczyciela, a potem pokazujemy, jak prowadzić lekcję na ekranie i tablicy jednocześnie."
+   ],
+   "cechy": [
+    "tablice ceramiczne",
+    "monitory 65–75\"",
+    "zakrywa ekran"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "rama ścienna z dwoma skrzydłami suchościeralnymi do monitora interaktywnego"
+    },
+    {
+     "k": "Rekomendowana przekątna",
+     "v": "65–75\""
+    },
+    {
+     "k": "Standard VESA",
+     "v": "400×200 – 800×600 mm"
+    },
+    {
+     "k": "Maksymalne obciążenie",
+     "v": "100 kg na ekran"
+    },
+    {
+     "k": "Powierzchnia skrzydeł",
+     "v": "ceramiczno-stalowa PolyVision, do pisaków suchościeralnych, magnetyczna"
+    },
+    {
+     "k": "Wymiary po zamknięciu",
+     "v": "1857 × 1000 × 211,5 mm"
+    },
+    {
+     "k": "Wymiary po otwarciu",
+     "v": "2741 × 1000 × 211,5 mm"
+    },
+    {
+     "k": "Materiał ramy",
+     "v": "stal (SPCC)"
+    },
+    {
+     "k": "Kolor",
+     "v": "czarny"
+    },
+    {
+     "k": "Waga",
+     "v": "rama 17,05 kg netto (20,78 kg z opakowaniem)"
+    },
+    {
+     "k": "Montaż",
+     "v": "na ścianie nośnej; monitor sprzedawany osobno"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "Avtek FrameWings 75 (1MV156)",
+     "roznica": "Do monitorów 65–75\", po otwarciu 2741 mm szerokości."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy Avtek FrameWings 75 ma w zestawie monitor interaktywny?",
+     "a": "Nie. To sama rama ze skrzydłami — monitor 65–75\" dobierasz osobno. Pasują monitory Avtek z naszej oferty i inne z mocowaniem VESA od 400×200 do 800×600 mm, ważące do 100 kg."
+    },
+    {
+     "q": "Czym pisze się po skrzydłach FrameWings?",
+     "a": "Pisakami suchościeralnymi, jak po zwykłej tablicy. Powierzchnia jest ceramiczno-stalowa, łatwo się czyści i trzyma magnesy."
+    },
+    {
+     "q": "Ile miejsca na ścianie zajmuje rama Avtek FrameWings 75?",
+     "a": "Po zamknięciu ok. 1,86 m szerokości, po otwarciu skrzydeł ok. 2,74 m, przy wysokości 1 m i głębokości ok. 21 cm. Warto zostawić wolne miejsce po bokach na otwarte skrzydła."
+    },
+    {
+     "q": "Czy FrameWings zakrywa monitor interaktywny po lekcji?",
+     "a": "Tak. Zamknięte skrzydła zakrywają cały ekran, więc gdy sala stoi pusta, monitora nie widać i mniej się kurzy."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Rama do monitorów 65–75\". Monitor interaktywny dobierasz osobno.",
+    "opcje": [
+     {
+      "nazwa": "Monitor",
+      "wartosci": [
+       "bez monitora",
+       "z monitorem Avtek 65\" lub 75\" (osobna karta)"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Skrzydła",
+      "v": "2 × tablica ceramiczna suchościeralna"
+     },
+     {
+      "k": "VESA",
+      "v": "400×200 – 800×600 mm"
+     },
+     {
+      "k": "Obciążenie",
+      "v": "do 100 kg"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Klasa szkolna",
+      "konfiguracja": "FrameWings 75 + monitor Avtek TouchScreen 9 Mate G 75\""
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "avtek-ts-9-mate-g",
+     "etykieta": "Monitor interaktywny Avtek"
+    },
+    {
+     "slug": "avtek-akcesoria-monitory",
+     "etykieta": "Akcesoria Avtek"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "avtek-akcesoria-monitory",
+    "avtek-ts-9-mate-g",
+    "avtek-ts-8-connect"
+   ],
+   "branze": [
+    "Szkoły i instytucje"
+   ],
+   "zrodla": [
+    {
+     "url": "https://www.vidis.pl/produkty/uchwyty/scienny-system-montazowy-avtek-framewings-75,1mv156",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "sprawdzono": "2026-11-18",
+   "wyrozniki": [
+    "tablice ceramiczne",
+    "monitory 65–75\"",
+    "zakrywa ekran"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Przekątna",
+     "v": "65–75\""
+    },
+    {
+     "k": "VESA",
+     "v": "do 800×600"
+    },
+    {
+     "k": "Obciążenie",
+     "v": "do 100 kg"
+    },
+    {
+     "k": "Szerokość",
+     "v": "1,86 / 2,74 m"
+    },
+    {
+     "k": "Waga",
+     "v": "17 kg"
+    }
+   ],
+   "nowosc": true,
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-framewings-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1MV156/1mv156-framewings-75-front-monitor-skrzydla-otwarte.png",
+     "ujecie": "przód, monitor i otwarte skrzydła"
+    },
+    {
+     "plik": "media/produkty/avtek-framewings-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1MV156/1mv156-framewings-75-kat-45-monitor-skrzydla-otwarte.png",
+     "ujecie": "pod kątem 45°, skrzydła otwarte"
+    },
+    {
+     "plik": "media/produkty/avtek-framewings-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1MV156/1mv156-framewings-75-front-skrzydla-otwarte.png",
+     "ujecie": "sama rama ze skrzydłami"
+    },
+    {
+     "plik": "media/produkty/avtek-framewings-premium-04.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_descriptions_files/1mv155-1mv156-framewings-sala-szkolna-otwarte-i-zamkniete-02.jpg",
+     "ujecie": "aranżacja: sala szkolna"
     }
    ]
   }
