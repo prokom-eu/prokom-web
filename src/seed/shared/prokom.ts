@@ -137,8 +137,13 @@ export const PROKOM_SITE = {
  * salon, so it is not in `CompanyData.locations` (the other lines show Rabka only).
  */
 export const PROKOM_EXTRA_PHONES = [
-  { label: 'Biuro (stacjonarny)', number: '18 267 65 11' },
-  { label: 'Serwis PRO-KOM Tech, Rabka-Zdrój', number: '18 541 20 55' },
+  { label: 'Biuro (stacjonarny)', number: '18 267 65 11', techPoint: null },
+  // Runda 1811 D5: the Tech point of Rabka — shown next to Tech on the hub with Zakopane.
+  {
+    label: 'Serwis PRO-KOM Tech, Rabka-Zdrój',
+    number: '18 541 20 55',
+    techPoint: 'Rabka-Zdrój',
+  },
 ] as const
 
 export const PROKOM_BRANCH = {

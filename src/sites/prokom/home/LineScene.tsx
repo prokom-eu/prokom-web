@@ -262,12 +262,27 @@ function LinePanel({
               {scene.cta} <span aria-hidden="true">↗</span>
             </a>
           )}
-          {line.phone && line.tel && (
+          {line.points.length === 0 && line.phone && line.tel && (
             <a href={line.tel} className="pk-btn-phone">
               {line.phone}
             </a>
           )}
         </div>
+        {/* Tech's points (runda 1811 D5): one number per point and the infoline. */}
+        {line.points.length > 0 && (
+          <ul className="pk-pn__points" role="list">
+            {line.points.map((point) => (
+              <li key={point.tel}>
+                <a href={point.tel} className="pk-pn__point">
+                  <span className="sr-only">{line.name}, </span>
+                  <small>{point.label}</small>
+                  <span className="sr-only">: </span>
+                  <b>{point.phone}</b>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
         <p className="pk-pn__who">
           <strong>Dla kogo:</strong> {scene.who}
         </p>

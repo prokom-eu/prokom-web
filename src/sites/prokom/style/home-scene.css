@@ -232,6 +232,41 @@
   gap: 12px;
   margin-top: 4px;
 }
+.pk-pn__points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+.pk-pn__point {
+  display: flex;
+  min-height: 52px;
+  flex-direction: column;
+  justify-content: center;
+  border: 1.5px solid var(--w22);
+  border-radius: 16px;
+  padding: 6px 16px;
+  line-height: 1.15;
+  transition: border-color 0.2s var(--ease);
+}
+.pk-pn__point:hover {
+  border-color: var(--ln);
+}
+.pk-pn__point:focus-visible {
+  outline: 2px solid var(--ln-text);
+  outline-offset: 2px;
+}
+.pk-pn__point small {
+  color: var(--k-ink3);
+  font-size: 12px;
+  font-weight: 700;
+}
+.pk-pn__point b {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-stretch: 118%;
+  font-weight: 800;
+  white-space: nowrap;
+}
 .pk-btn-line {
   display: flex;
   min-height: 52px;
