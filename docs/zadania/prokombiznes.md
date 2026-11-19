@@ -335,3 +335,13 @@ Plan, zakres PR-ów, prompty i otwarte decyzje: **`docs/zadania/prokombiznes-061
 | R9 | `chore/biznes-runda-1411-qa` | telefon i całość, Lighthouse, e2e, staging | — | — |
 
 Sesje: **A** R0–R2 · **B** R3–R5 · **C** R6–R8 · **D** R9 + staging (produkcja po bramkach jakości).
+
+### 7.5 Runda 1811 — BZ-R1 (od 18.11.2026)
+Źródło prawdy: **`docs/zadania/runda-1811.md`** §1 (D1, D2, D4, D6) i §3.2. Decyzje Krystiana z sesji 18.11: zgoda na pobieranie stron Vidis (FrameWings, meble akustyczne), ALSEN osobno — nie wliczany do autoryzacji producentów.
+
+| PR | Gałąź | Zakres | Migracja |
+|---|---|---|---|
+| 1 | `feat/biznes-kolo-nazwa` | koło w hero: w środku tylko nazwa, rdzeń = link (D6) — #744 | — |
+| 2 | `feat/biznes-tablice-projektory` | tablice / projektory / ekrany, 301, FrameWings, synonimy (D1) — #751 | — |
+| 3 | `feat/biznes-alsen` | ALSEN — „Sieci partnerskie” obok autoryzacji (D4) | — |
+| 4 | `feat/biznes-meble-akustyczne` | meble akustyczne Avtek, Plan firmy, STAN (D2) | — |

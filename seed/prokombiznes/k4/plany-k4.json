@@ -503,6 +503,13 @@
      "y": 63.41,
      "etykieta": "ThinkPad X1 Carbon",
      "opis": "laptop szefa"
+    },
+    {
+     "slug": "avtek-sonocubo-s",
+     "x": 88.75,
+     "y": 43.9,
+     "etykieta": "Budka akustyczna",
+     "opis": "rozmowy i Teams w ciszy"
     }
    ],
    "zes": [

@@ -73,6 +73,15 @@ const PATHS = ['/', '/kontakt']
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 
 async function expectNoViolations(page: Page) {
+  // The brand strips' loop copy (`aria-hidden`) takes its links out of the Tab order after
+  // hydration (`BrandMarquee`, `tabIndex = -1`): measure the page once that has run.
+  await page.waitForFunction(() =>
+    [
+      ...document.querySelectorAll<HTMLElement>(
+        '[data-marquee-copy] a, [data-marquee-copy] button',
+      ),
+    ].every((element) => element.tabIndex === -1),
+  )
   // Software mock-ups (`data-mockup`) are decorative pictures of sample firms in their own brand
   // colours (ADR-015 v24 pkt 4, `aria-hidden`); axe still measures text inside them.
   const { violations } = await new AxeBuilder({ page })
