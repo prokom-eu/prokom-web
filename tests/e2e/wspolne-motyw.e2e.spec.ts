@@ -38,15 +38,16 @@ test.describe('theme button (spec §1)', () => {
     await page.goto(site('biznes.localhost'))
     const button = header(page).locator('[data-theme-toggle]')
     await hydrated(button)
-    // Fonts in place first: the capsule fits itself to them.
+    // Fonts in place first: the capsule fits itself to them (`CapsuleShell` `data-fit`).
     await page.evaluate(() => document.fonts.ready)
-    await page.waitForTimeout(300)
+    await expect(page.locator('[data-site-header][data-fit-ready]')).toBeAttached()
     const before = (await button.boundingBox())?.width
     await expect(async () => {
       if ((await html(page).getAttribute('data-theme')) !== 'dark') await button.click()
       await expect(html(page)).toHaveAttribute('data-theme', 'dark', { timeout: 1000 })
     }).toPass()
-    expect((await button.boundingBox())?.width).toBe(before)
+    // The same width, give or take sub-pixel rounding.
+    expect((await button.boundingBox())?.width).toBeCloseTo(before ?? 0, 0)
   })
 })
 
@@ -127,6 +128,8 @@ test.describe('the choice between our domains (spec §3)', () => {
       .getByRole('link', { name: /Software/ })
       .first()
     await hydrated(link)
+    // `ThemeCarry` listens after hydration (an effect): a click before that is a plain link.
+    await expect(page.locator('html[data-theme-carry]')).toBeAttached()
     expect(await link.getAttribute('href')).not.toContain('motyw')
     await link.click()
 
