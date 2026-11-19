@@ -7,6 +7,7 @@ import type {
 
 import { adminOnly, adminOnlyField, adminOrSelf, ROLES } from '../lib/auth/access'
 import { passwordProblem } from '../lib/auth/password'
+import { panelResetEmailHtml } from '../lib/auth/resetEmail'
 
 // `updateByID` runs `beforeOperation` with `operation: 'update'`.
 const PASSWORD_OPERATIONS = new Set(['create', 'update', 'resetPassword'])
@@ -50,6 +51,10 @@ export const Users: CollectionConfig = {
     },
     maxLoginAttempts: 5,
     lockTime: 15 * 60 * 1000,
+    // Audit AB4: an absolute panel link (Payload's own would be relative behind nginx).
+    forgotPassword: {
+      generateEmailHTML: (args) => panelResetEmailHtml(args?.token ?? ''),
+    },
   },
   access: {
     create: adminOnly,
