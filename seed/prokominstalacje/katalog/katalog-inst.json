@@ -16,7 +16,7 @@
    "nazwa": "Dahua PFA130-E wodoszczelna puszka montażowa do kamer (PFA130-E)",
    "krotka": "Dahua PFA130-E puszka do kamer",
    "podtytul": "Aluminiowa puszka IP66 o średnicy 124 mm i wysokości 41 mm, nośność 3 kg, praca od −40 do +60 °C.",
-   "korzysc": "Złącza kamery chowają się w szczelnej puszce, a nie wiszą na elewacji — mniej awarii od wilgoci i porządny wygląd.",
+   "korzysc": "Złącza kamery chowają się w szczelnej puszce zamiast wisieć na elewacji — mniej awarii od wilgoci i porządny wygląd.",
    "opis": [
     "PFA130-E to okrągła puszka montażowa Dahua, którą mocuje się do ściany lub sufitu pod kamerą. W jej wnętrzu chowa się kabel sieciowy i wtyczki kamery, które inaczej zostałyby na zewnątrz, narażone na deszcz, mróz i ciekawskich. Kamera przykręcona do puszki tworzy z nią jedną, estetyczną całość. Puszka pasuje do wielu kamer Dahua typu kopułka i „eyeball”; dokładną zgodność podaje tabela akcesoriów producenta.",
     "Puszka jest wykonana ze stopu aluminium w kolorze białym, ma średnicę ok. 124 mm i wysokość 41 mm, a waży 0,34 kg. Według producenta ma szczelność IP66 i wytrzymuje obciążenie 3 kg. Pracuje w temperaturze od −40 do +60 °C, więc nadaje się do montażu na zewnątrz także w górach. Boczne wejście na rurkę ma gwint G3/4, co pozwala doprowadzić przewód w osłonie.",
@@ -410,7 +410,7 @@
    "nazwa": "Hikvision DS-1280ZJ-XS aluminiowa puszka montażowa do kamer (DS-1280ZJ-XS)",
    "krotka": "Hikvision DS-1280ZJ-XS puszka do kamer",
    "podtytul": "Biała puszka ze stopu aluminium o średnicy ok. 100 mm i wysokości ok. 43 mm, masa ok. 320 g, do kamer kopułkowych i tubowych.",
-   "korzysc": "Porządny montaż kamery Hikvision: przewody i złącza schowane w puszce, a nie w otworze w elewacji.",
+   "korzysc": "Porządny montaż kamery Hikvision: przewody i złącza schowane w puszce zamiast w otworze w elewacji.",
    "opis": [
     "DS-1280ZJ-XS to puszka montażowa Hikvision, na której osadza się kamerę na ścianie lub suficie. W puszce mieszczą się złącza i zapas kabla, więc nie trzeba ich wciskać w otwór w ścianie ani zostawiać na zewnątrz. To jedno z najczęściej stosowanych akcesoriów przy mniejszych kamerach Hikvision w domach, pensjonatach i sklepach. Producent opisuje ją jako puszkę do kamer kopułkowych (turret, dome) i tubowych; zgodność konkretnego modelu potwierdza tabela akcesoriów Hikvision.",
     "Puszka jest wykonana ze stopu aluminium w kolorze białym. Strony regionalne producenta podają wymiary ok. Φ100 × 43,2 × 129 mm i masę ok. 320 g; karty katalogowe wersji czarnej i szarej mówią o 100 × 43,5 × 132,1 mm. Hikvision ma też wersje DS-1280ZJ-XS(Black) i DS-1280ZJ-XS-Grey w innych kolorach. Stopnia szczelności i nośności nie udało się potwierdzić na stronie producenta, dlatego karta wymaga sprawdzenia przed publikacją.",
@@ -1320,7 +1320,7 @@
    "podtytul": "Zasilacze w metalowej obudowie: 4, 8 lub 16 wyjść 12 V po 1 A, każde z osobnym bezpiecznikiem, moc 48, 84 lub 180 W.",
    "korzysc": "Jeden zasilacz w szafce zasila wszystkie kamery analogowe HD, a awaria jednej kamery nie wyłącza pozostałych.",
    "opis": [
-    "HPSDC to zasilacze Pulsar do systemów monitoringu, w których kamery zasila się napięciem 12 V, a nie przez PoE — najczęściej to kamery analogowe HD podłączone do rejestratora DVR. Zamiast osobnego zasilacza przy każdej kamerze, montuje się jedną metalową skrzynkę przy rejestratorze, z której do kamer biegną przewody zasilające. Takie rozwiązanie porządkuje instalację w domu, sklepie, warsztacie czy pensjonacie. Producent oferuje wersje na 4, 8 i 16 wyjść.",
+    "HPSDC to zasilacze Pulsar do systemów monitoringu, w których kamery zasila się napięciem 12 V zamiast przez PoE — najczęściej to kamery analogowe HD podłączone do rejestratora DVR. Zamiast osobnego zasilacza przy każdej kamerze, montuje się jedną metalową skrzynkę przy rejestratorze, z której do kamer biegną przewody zasilające. Takie rozwiązanie porządkuje instalację w domu, sklepie, warsztacie czy pensjonacie. Producent oferuje wersje na 4, 8 i 16 wyjść.",
     "Każde wyjście daje do 1 A i jest chronione własnym bezpiecznikiem topikowym, więc zwarcie w przewodzie jednej kamery odcina tylko ją. Łączny prąd wynosi 4 A w wersji czterowyjściowej, 7 A w ośmiowyjściowej i 15 A w szesnastowyjściowej (moc 48, 84 i 180 W). Napięcie można podnieść potencjometrem z 12 do 15 V, co pomaga przy dłuższych przewodach. Zasilacze mają zabezpieczenia przeciwzwarciowe, przeciążeniowe, przepięciowe i nadnapięciowe, styk sabotażowy drzwiczek oraz wyjście sygnalizujące przepalenie bezpiecznika; wersja 16-wyjściowa jest chłodzona wentylatorem.",
     "PRO-KOM dobiera wielkość zasilacza po zsumowaniu poboru prądu kamer, zwłaszcza tych z oświetlaczem podczerwieni, który w nocy pobiera najwięcej — zostawiamy zapas, zamiast pracować na granicy mocy. Zasilacz montujemy przy rejestratorze, prowadzimy przewody do kamer odpowiedniego przekroju i ustawiamy napięcie tak, żeby na najdalszej kamerze było wystarczające. Wyjście awarii bezpiecznika możemy podłączyć do centrali alarmowej. Przy nowych instalacjach z kamerami IP zamiast zasilacza 12 V zwykle proponujemy rejestrator lub przełącznik PoE."
    ],
@@ -2706,7 +2706,7 @@
    "podtytul": "Syrena zewnętrzna do 113 dB, IP54, od −25 do +60 °C, na bateriach do 5 lat lub z zasilania 12 V.",
    "korzysc": "Alarm słychać w całej okolicy, a sama syrena na elewacji odstrasza, zanim ktoś spróbuje wejść.",
    "opis": [
-    "StreetSiren to syrena montowana na zewnątrz budynku — na elewacji domu, pensjonatu, hali czy budynku parafii. Jej zadanie jest proste: głośno zaalarmować sąsiadów i przechodniów oraz zniechęcić złodzieja samym widokiem. Nie wymaga kabla do centrali, więc można ją powiesić w najlepiej widocznym miejscu, a nie tam, gdzie da się dociągnąć przewód.",
+    "StreetSiren to syrena montowana na zewnątrz budynku — na elewacji domu, pensjonatu, hali czy budynku parafii. Jej zadanie jest proste: głośno zaalarmować sąsiadów i przechodniów oraz zniechęcić złodzieja samym widokiem. Nie wymaga kabla do centrali, więc można ją powiesić w najlepiej widocznym miejscu, niezależnie od tego, dokąd da się dociągnąć przewód.",
     "Głośność reguluje się od 85 do 113 dB (z 1 m), a czas alarmu od 3 sekund do 3 minut, w nowszym oprogramowaniu do 15 minut. Obudowa ma szczelność IP54 i pracuje w temperaturach od −25 do +60 °C, więc zniesie podhalańską zimę. Zasilają ją cztery baterie CR123A — według producenta do 5 lat — albo zewnętrzne źródło 6–20 V. Wbudowany akcelerometr podnosi alarm, gdy ktoś próbuje syrenę zerwać lub nią poruszyć.",
     "W PRO-KOM wieszamy syrenę wysoko (min. 2,5 m), w widocznym miejscu, ale poza zasięgiem ręki z parapetu czy daszku. Sprawdzamy siłę sygnału do huba — producent podaje do 1500 m w otwartym terenie, ale grube mury potrafią to mocno skrócić; w razie potrzeby dokładamy wzmacniacz ReX 2. Przy obiektach z instalacją 12 V podłączamy zasilanie stałe, żeby nie myśleć o bateriach. Ustawiamy głośność w aplikacji Ajax i dajemy 24 mies. gwarancji na montaż."
    ],
@@ -3065,7 +3065,7 @@
     },
     {
      "q": "Gdzie nagrywa kamera z zestawu?",
-     "a": "TurretCam zapisuje na karcie microSD 32–256 GB (kupowanej osobno) albo na rejestratorze. Podgląd na żywo jest w aplikacji Ajax."
+     "a": "TurretCam zapisuje na karcie microSD 32–256 GB (kupowanej osobno) albo na rejestratorze. Podgląd obrazu w czasie rzeczywistym jest w aplikacji Ajax."
     },
     {
      "q": "Czy kamera potrzebuje osobnego zasilania?",
@@ -3173,7 +3173,7 @@
    "nazwa": "Ajax MotionProtect — czujka ruchu PIR odporna na zwierzęta (MotionProtect Jeweller, Superior MotionProtect Fibra)",
    "krotka": "Ajax MotionProtect",
    "podtytul": "Czujka ruchu do 12 m, kąt 88,5°, ignoruje zwierzęta do 20 kg; wersja bezprzewodowa na baterii do 5 lat i przewodowa Fibra.",
-   "korzysc": "Pewnie wykrywa człowieka w pomieszczeniu, a nie reaguje na psa czy kota — mniej fałszywych alarmów.",
+   "korzysc": "Pewnie wykrywa człowieka w pomieszczeniu i nie reaguje na psa czy kota — mniej fałszywych alarmów.",
    "opis": [
     "MotionProtect to podstawowa czujka ruchu systemu Ajax: wykrywa ciepło ciała człowieka poruszającego się w pomieszczeniu (czujnik PIR). Montuje się ją w rogu salonu, korytarza, biura czy sklepu, tak żeby „widziała” drogę, którą musiałby przejść intruz. Sprawdza się w domach ze zwierzętami, bo ignoruje psy i koty do 20 kg i 50 cm wysokości.",
     "Czujka widzi do 12 m przy montażu na wysokości 2,4 m, a jej kąt poziomy to 88,5°. Algorytm SmartDetect analizuje sygnał, żeby nie reagować np. na nagrzany grzejnik, a kompensacja temperatury utrzymuje czułość od −10 do +40 °C. Wersja Jeweller jest bezprzewodowa: jedna bateria CR123A starcza według producenta do 5 lat, a zasięg do huba to do 1700 m w otwartym terenie. Superior MotionProtect Fibra to odmiana przewodowa — zasilana i podłączona 4-żyłowym kablem magistrali Fibra (linia do 2000 m skrętką U/UTP kat. 5), bez baterii.",
@@ -3538,7 +3538,7 @@
    "faq": [
     {
      "q": "Czy MotionCam nagrywa film jak kamera?",
-     "a": "Nie, robi serię zdjęć w chwili alarmu (do 5 klatek). To narzędzie do potwierdzenia alarmu, a nie do całodobowego nagrywania — do tego służą kamery monitoringu."
+     "a": "Nie, robi serię zdjęć w chwili alarmu (do 5 klatek). To narzędzie do potwierdzenia alarmu; całodobowe nagrywanie to zadanie kamer monitoringu."
     },
     {
      "q": "Czy zdjęcia z czujki będą czytelne w nocy?",
@@ -4003,7 +4003,7 @@
     },
     {
      "q": "Po co czujka zbicia szyby, skoro mam czujki ruchu?",
-     "a": "Bo działa także wtedy, gdy jesteś w domu i czujki ruchu są wyłączone. Alarm włącza się już przy wybiciu szyby, a nie dopiero po wejściu intruza."
+     "a": "Bo działa także wtedy, gdy jesteś w domu i czujki ruchu są wyłączone. Alarm włącza się już przy wybiciu szyby, zanim intruz wejdzie do środka."
     }
    ],
    "polecane": [
@@ -4111,7 +4111,7 @@
    "opis": [
     "FireProtect 2 to czujka pożarowa, która działa samodzielnie, ale łączy się też z alarmem Ajax. Gdy wykryje dym, szybki wzrost temperatury lub tlenek węgla, sama głośno alarmuje, a hub wysyła powiadomienie do aplikacji i uruchamia pozostałe czujki pożarowe w budynku. To dobre rozwiązanie do domów z kominkiem lub piecem, pensjonatów i apartamentów na wynajem, gdzie właściciel chce wiedzieć o zagrożeniu na odległość.",
     "Czujnik dymu jest optyczny, dwuzakresowy — rozpoznaje wielkość cząstek, dzięki czemu nie reaguje na parę wodną z łazienki. Czujnik temperatury alarmuje powyżej 64 °C albo przy wzroście o ponad 10 °C w ciągu minuty, a w wersji z CO czujnik czadu działa 10 lat i reaguje na stężenie w zależności od czasu (np. powyżej 300 ppm w ciągu 3 minut). Syrena ma 85 dB z 3 m, a dwie wymienne baterie CR123A starczają według producenta do 7 lat. Gdy połączenie z hubem zniknie, czujki potrafią wzajemnie się uruchomić (od odpowiedniej wersji oprogramowania).",
-    "W PRO-KOM dobieramy wersję do pomieszczenia: w kuchni i kotłowni lepiej sprawdza się czujka temperatury, w sypialniach i na korytarzach — dymu, a przy kominku i piecu gazowym — wersja z czujnikiem CO. Montujemy czujki na suficie zgodnie z zaleceniami producenta, łączymy je z hubem i ustawiamy powiadomienia dla domowników lub właściciela pensjonatu. Pamiętaj, że to ochrona domowa, a nie zastępstwo systemu sygnalizacji pożaru wymaganego przepisami w obiektach publicznych. Montaż obejmujemy 24-miesięczną gwarancją."
+    "W PRO-KOM dobieramy wersję do pomieszczenia: w kuchni i kotłowni lepiej sprawdza się czujka temperatury, w sypialniach i na korytarzach — dymu, a przy kominku i piecu gazowym — wersja z czujnikiem CO. Montujemy czujki na suficie zgodnie z zaleceniami producenta, łączymy je z hubem i ustawiamy powiadomienia dla domowników lub właściciela pensjonatu. Pamiętaj, że to ochrona domowa, która nie zastępuje systemu sygnalizacji pożaru wymaganego przepisami w obiektach publicznych. Montaż obejmujemy 24-miesięczną gwarancją."
    ],
    "cechy": [
     "dym, temperatura, CO",
@@ -4370,7 +4370,7 @@
    "nazwa": "Ajax LeaksProtect Jeweller — bezprzewodowa czujka zalania (biała, czarna)",
    "krotka": "Ajax LeaksProtect Jeweller",
    "podtytul": "Czujka zalania IP65 reagująca w 0,15 s, styki na czterech bokach, baterie AAA do 5 lat.",
-   "korzysc": "Dowiesz się o cieknącej pralce czy pękniętej rurze od razu, a nie wtedy, gdy woda zaleje sąsiada z dołu.",
+   "korzysc": "Dowiesz się o cieknącej pralce czy pękniętej rurze od razu, zanim woda zaleje sąsiada z dołu.",
    "opis": [
     "LeaksProtect to płaska czujka, którą kładzie się na podłodze tam, gdzie najczęściej pojawia się woda: pod pralką, zmywarką, przy bojlerze, w kotłowni, w łazience czy pod zlewem. Nie trzeba jej przykręcać ani podłączać — po prostu leży. To szczególnie przydatne w domku letniskowym i apartamencie na wynajem, gdzie właściciela często nie ma na miejscu.",
     "Czujka ma pary styków na wszystkich czterech bokach, więc wykryje wodę niezależnie od tego, z której strony napłynie. Reaguje w ciągu 0,15 s, a obudowa ma szczelność IP65 — może leżeć w wodzie. Zasilają ją dwie baterie AAA, które według producenta starczają do 5 lat; zasięg do huba to do 1300 m w otwartym terenie. Pracuje w temperaturach od 0 do +50 °C, czyli w pomieszczeniach ogrzewanych.",
@@ -6990,7 +6990,7 @@
    "podtytul": "Okrągłe czujki PIR do montażu na suficie (2,2–4,5 m), chronią 36 m² na 2,4 m i 80 m² na 3,7 m; zasilanie 12 V lub 24 V AC/DC.",
    "korzysc": "Ochrona pomieszczeń, w których nie ma gdzie powiesić czujki na ścianie — witryn, przeszklonych salonów i dużych sal.",
    "opis": [
-    "AQUA Ring to czujki ruchu Satel w płaskiej, okrągłej obudowie, które montuje się na suficie, a nie na ścianie. Rozwiązują problem pomieszczeń ze ścianami ze szkła, witryn sklepowych czy dużych sal, gdzie czujka ścienna miałaby martwe pola. Patrzą w dół, więc obejmują krąg pod sobą, a większa wysokość montażu oznacza większy chroniony obszar. Poza alarmem mogą też służyć automatyce, np. włączać światło, gdy system jest rozbrojony.",
+    "AQUA Ring to czujki ruchu Satel w płaskiej, okrągłej obudowie, które montuje się na suficie zamiast na ścianie. Rozwiązują problem pomieszczeń ze ścianami ze szkła, witryn sklepowych czy dużych sal, gdzie czujka ścienna miałaby martwe pola. Patrzą w dół, więc obejmują krąg pod sobą, a większa wysokość montażu oznacza większy chroniony obszar. Poza alarmem mogą też służyć automatyce, np. włączać światło, gdy system jest rozbrojony.",
     "Obie wersje mają ten sam zasięg: 36 m² przy montażu na 2,4 m i 80 m² na 3,7 m, przy dopuszczalnej wysokości od 2,2 do 4,5 m. Różnią się zasilaniem i wnętrzem: AQUA Ring zasilana jest napięciem 12 V DC i ma poczwórny pyroelement, a AQUA Ring S przyjmuje 24 V stałego lub zmiennego i ma podwójny pyroelement oraz funkcję prealarmu. Czujki pracują w temperaturze od −30 do +55 °C, mają trzystopniową regulację czułości i ochronę przed otwarciem obudowy. Obudowa ma średnicę 97 mm i grubość 29 mm.",
     "AQUA Ring dobieramy po zmierzeniu wysokości sufitu i powierzchni pomieszczenia — przy wysokich salach czasem wystarcza jedna czujka zamiast kilku ściennych. Wersję 24 V stosujemy tylko tam, gdzie instalacja w obiekcie pracuje na takim napięciu; w typowych systemach Satel montujemy model 12 V. PRO-KOM prowadzi przewody w suficie lub listwie, podłącza czujkę do centrali, testuje pole detekcji i ustawia czułość. Montaż obejmujemy 24-miesięczną gwarancją."
    ],
@@ -7099,7 +7099,7 @@
    },
    "faq": [
     {
-     "q": "Dlaczego czujka na suficie, a nie na ścianie?",
+     "q": "Dlaczego czujka na suficie zamiast na ścianie?",
      "a": "W pomieszczeniach z przeszklonymi ścianami lub witrynami nie ma dobrego miejsca na czujkę ścienną. Czujka sufitowa patrzy w dół i chroni krąg pod sobą bez martwych pól przy oknach."
     },
     {
@@ -7479,7 +7479,7 @@
    "opis": [
     "OPAL Pro to zewnętrzna czujka ruchu Satel do ochrony terenu wokół budynku: podjazdu, tarasu, wejścia czy placu przy hali. Łączy tor podczerwieni i mikrofalę, a algorytm autoadaptacji uczy się warunków — deszczu, śniegu, słońca i wiatru — żeby nie zgłaszać fałszywych alarmów. Nadaje się też do wnętrz o trudnych warunkach, np. nieogrzewanych hal i wiat. Występuje w obudowie białej oraz szarej (GY), dopasowanej do ciemniejszych elewacji.",
     "Czujka obejmuje kąt 100° i według producenta sięga ponad 15 m, a dodatkowo chroni obszar bezpośrednio pod sobą, więc próba podejścia i zerwania jej zostanie wykryta. Oprogramowanie ma opcję ignorowania małych zwierząt do 20 kg. Wbudowany czujnik zmierzchu steruje osobnym wyjściem, którym można włączać oświetlenie zewnętrzne, rolety czy bramę, a czułość torów i zmierzchu zmienia się pilotem OPT-1 bez otwierania obudowy. Obudowa ma IP54, pracuje od −40 do +55 °C, a przy montażu wewnątrz z aktywnym antymaskingiem czujka osiąga Grade 3.",
-    "Czujki zewnętrzne ustawiamy tak, żeby pilnowały drogi do budynku, a nie ulicy czy drzew poruszanych wiatrem — to najważniejsza część pracy przy OPAL Pro. PRO-KOM dobiera wysokość i kąt, w razie potrzeby uchwyt kulowy lub dystansowy z zestawów BRACKET C i BRACKET E, montuje czujkę i podłącza ją do centrali Satel. Pilotem OPT-1 ustawiamy czułość na miejscu, bez zdejmowania obudowy, a wyjście zmierzchowe możemy wykorzystać do sterowania lampami. Na montaż udzielamy 24 mies. gwarancji, a przy przeglądach sprawdzamy, czy rośliny nie weszły w pole detekcji."
+    "Czujki zewnętrzne ustawiamy tak, żeby pilnowały drogi do budynku i pomijały ulicę oraz drzewa poruszane wiatrem — to najważniejsza część pracy przy OPAL Pro. PRO-KOM dobiera wysokość i kąt, w razie potrzeby uchwyt kulowy lub dystansowy z zestawów BRACKET C i BRACKET E, montuje czujkę i podłącza ją do centrali Satel. Pilotem OPT-1 ustawiamy czułość na miejscu, bez zdejmowania obudowy, a wyjście zmierzchowe możemy wykorzystać do sterowania lampami. Na montaż udzielamy 24 mies. gwarancji, a przy przeglądach sprawdzamy, czy rośliny nie weszły w pole detekcji."
    ],
    "cechy": [
     "kąt 100°",
@@ -8718,7 +8718,7 @@
        "BL16 (42–86″, 60 kg)",
        "BL18 (43–86″, 60 kg)"
       ],
-      "uwaga": "Decyduje rozstaw VESA i masa ekranu, a nie sama przekątna — producent traktuje cale orientacyjnie.",
+      "uwaga": "Decyduje rozstaw VESA i masa ekranu, sama przekątna to za mało — producent traktuje cale orientacyjnie.",
       "dl": false,
       "pom": ""
      }
@@ -12136,7 +12136,7 @@
    "marka": "Blackmagic Design",
    "rodzaj": "Urządzenia",
    "seria": "ATEM Mini",
-   "nazwa": "Blackmagic Design ATEM Mini miksery wizji z transmisją na żywo (ATEM Mini Pro, ATEM Mini Pro ISO, ATEM Mini Extreme, ATEM Mini Extreme ISO G2)",
+   "nazwa": "Blackmagic Design ATEM Mini miksery wizji z wbudowanym streamingiem (ATEM Mini Pro, ATEM Mini Pro ISO, ATEM Mini Extreme, ATEM Mini Extreme ISO G2)",
    "krotka": "Blackmagic ATEM Mini miksery do transmisji",
    "podtytul": "Miksery wizji z 4 lub 8 wejściami HDMI, wbudowanym streamingiem RTMP/SRT przez Ethernet, nagrywaniem H.264 i mikserem audio",
    "korzysc": "Kilka kamer, komputer z prezentacją i mikrofony w jednej transmisji na YouTube — bez komputera do streamingu.",
@@ -12164,7 +12164,7 @@
      "v": "Pro, Pro ISO, Extreme: 2 × mini jack 3,5 mm stereo; Extreme ISO G2: 2 × XLR combo z fantomem +48 V i MADI"
     },
     {
-     "k": "Transmisja na żywo",
+     "k": "Streaming do internetu",
      "v": "wbudowany enkoder H.264, protokoły RTMP i SRT przez Ethernet; tethering telefonu 4G/5G przez USB"
     },
     {
@@ -12266,7 +12266,7 @@
     ],
     "popularne": [
      {
-      "nazwa": "Msza na żywo, 2–3 kamery",
+      "nazwa": "Transmisja mszy, 2–3 kamery",
       "konfiguracja": "ATEM Mini Pro"
      },
      {
@@ -13176,7 +13176,7 @@
     ],
     "popularne": [
      {
-      "nazwa": "Msza na żywo z ATEM Mini",
+      "nazwa": "Transmisja mszy z ATEM Mini",
       "konfiguracja": "2 × Canon CR-N350, kolor biały"
      },
      {
@@ -13635,7 +13635,7 @@
     },
     {
      "q": "Czy obraz będzie opóźniony względem dźwięku na sali?",
-     "a": "Kodek JPEG 2000 ma według producenta bardzo małe opóźnienie, odpowiednie także do prezentacji na żywo."
+     "a": "Kodek JPEG 2000 ma według producenta bardzo małe opóźnienie, odpowiednie także do prezentacji w czasie rzeczywistym."
     },
     {
      "q": "Czy można podłączyć laptop przez USB-C?",
@@ -13949,7 +13949,7 @@
    "opis": [
     "HAC-HDW1200TRQ to mała kopułka typu eyeball (kulka w podstawie, którą obraca się w trzech osiach) do monitoringu po kablu koncentrycznym. Pasuje tam, gdzie wisi już stara instalacja analogowa: w domu, przy wejściu do sklepu, na korytarzu pensjonatu albo w magazynie. Obudowę można przykręcić do sufitu, ściany lub słupka. To model z serii Lite, czyli prosty, bez funkcji analizy obrazu.",
     "Kamera daje obraz 2 Mpx (Full HD) z prędkością 25 klatek na sekundę. Obiektyw 2,8 mm widzi szeroko, 102° w poziomie, więc jedna kamera obejmie wejście razem z kawałkiem podjazdu. Po zmroku włączają się dwie diody podczerwieni, które według producenta doświetlają scenę na 30 m; obraz w nocy jest czarno-biały. Na jednym złączu BNC można wybrać sygnał CVI, TVI, AHD albo stary CVBS, dzięki czemu kamera dogada się z większością rejestratorów analogowych HD. Ta wersja (bez „-A” w kodzie) nie ma mikrofonu.",
-    "W PRO-KOM dobieramy miejsce i kąt tak, żeby kamera pokazywała twarz przy drzwiach, a nie tylko czubek głowy. Montujemy ją na istniejącym okablowaniu, sprawdzamy stan przewodu i złącz BNC, podpinamy do rejestratora XVR Dahua z dyskiem i ustawiamy podgląd w aplikacji DMSS na telefonie. Kamerę zasila się napięciem 12 V, więc przy kilku sztukach planujemy wspólny zasilacz albo przewód kombinowany. Na montaż dajemy 24 miesiące gwarancji i zostajemy na serwis."
+    "W PRO-KOM dobieramy miejsce i kąt tak, żeby kamera pokazywała twarz przy drzwiach, nie tylko czubek głowy. Montujemy ją na istniejącym okablowaniu, sprawdzamy stan przewodu i złącz BNC, podpinamy do rejestratora XVR Dahua z dyskiem i ustawiamy podgląd w aplikacji DMSS na telefonie. Kamerę zasila się napięciem 12 V, więc przy kilku sztukach planujemy wspólny zasilacz albo przewód kombinowany. Na montaż dajemy 24 miesiące gwarancji i zostajemy na serwis."
    ],
    "cechy": [
     "Full HD po koncentryku",
@@ -15290,7 +15290,7 @@
    "opis": [
     "To podstawowe kamery Dahua z linii Entry w obudowie „kulkowej” (turret, u producenta: eyeball) — metalowa głowica osadzona w podstawie, którą po montażu ustawia się w dowolnym kierunku. Pasują pod okap domu, nad wejście do pensjonatu, na ścianę sklepu albo do hali. Taka obudowa nie ma szyby przed diodami, więc podczerwień nie odbija się na niej i obraz w nocy nie jest zamglony.",
     "Model 1639 nagrywa w 6 Mpx, a 1839 w 8 Mpx (4K), co daje więcej szczegółów przy szerokim kadrze z obiektywu 2,8 mm. Obie mają tryb Smart Dual Light: w nocy pracuje niewidoczna podczerwień (do 30 m według producenta), a gdy w kadrze pojawi się ruch, kamera może włączyć ciepłe białe światło i nagrywać w kolorze. Mają wbudowany mikrofon, obudowę IP67 i zasilanie jednym kablem sieciowym (PoE). Nie mają gniazda karty pamięci — nagrania trafiają do rejestratora.",
-    "PRO-KOM dobiera rozdzielczość i miejsce montażu do obiektu, tak żeby kamera widziała wejście, podjazd albo kasę, a nie niebo. Montujemy kamery z rejestratorem Dahua, dyskiem do nagrań ciągłych i przełącznikiem PoE, konfigurujemy podgląd w aplikacji DMSS na telefonie i powiadomienia o ruchu. Na montaż dajemy 24 miesiące gwarancji, a później zajmujemy się serwisem i aktualizacjami."
+    "PRO-KOM dobiera rozdzielczość i miejsce montażu do obiektu, tak żeby kamera widziała wejście, podjazd albo kasę zamiast nieba. Montujemy kamery z rejestratorem Dahua, dyskiem do nagrań ciągłych i przełącznikiem PoE, konfigurujemy podgląd w aplikacji DMSS na telefonie i powiadomienia o ruchu. Na montaż dajemy 24 miesiące gwarancji, a później zajmujemy się serwisem i aktualizacjami."
    ],
    "cechy": [
     "6 lub 8 Mpx",
@@ -15764,7 +15764,7 @@
    "opis": [
     "Dwie najprostsze kamery kulkowe Dahua z linii Entry: lekka obudowa z plastikowym kloszem i metalowym wnętrzem, do montażu na ścianie lub suficie. Dobrze sprawdzają się w miejscach, gdzie nie trzeba rozpoznawać tablic z daleka — w korytarzu pensjonatu, przy drzwiach do mieszkania na wynajem, nad wejściem do domu, w małym sklepie. Mniejsza rozdzielczość oznacza też mniejsze pliki, więc ten sam dysk mieści dłuższą historię nagrań.",
     "HDW1239V nagrywa w Full HD (2 Mpx), a HDW1439V w 4 Mpx (2560×1440), oba do 25 klatek na sekundę. Obie mają po jednej diodzie podczerwieni i jednej diodzie ciepłego światła, każda według producenta świeci do 30 m. Kamera rozpoznaje sylwetkę człowieka i może wtedy przełączyć się na kolorowe nagrywanie. Model 4 Mpx ma lepsze odwzorowanie przy ostrym świetle z tyłu (WDR 120 dB), a 2 Mpx ma tylko cyfrowe WDR. Żaden z nich nie ma gniazda karty pamięci.",
-    "PRO-KOM łączy te kamery z rejestratorem Dahua tam, gdzie liczy się prosty, tani w eksploatacji system: kilka kamer, jeden przełącznik PoE, jeden dysk. Ustawiamy strefy wykrywania tak, żeby powiadomienia w aplikacji DMSS przychodziły od ludzi, a nie od gałęzi na wietrze. Montaż objęty jest 24-miesięczną gwarancją, a przy rozbudowie systemu dokładamy kolejne kamery do tego samego rejestratora."
+    "PRO-KOM łączy te kamery z rejestratorem Dahua tam, gdzie liczy się prosty, tani w eksploatacji system: kilka kamer, jeden przełącznik PoE, jeden dysk. Ustawiamy strefy wykrywania tak, żeby powiadomienia w aplikacji DMSS przychodziły od ludzi, nie od gałęzi na wietrze. Montaż objęty jest 24-miesięczną gwarancją, a przy rozbudowie systemu dokładamy kolejne kamery do tego samego rejestratora."
    ],
    "cechy": [
     "2 lub 4 Mpx",
@@ -16547,7 +16547,7 @@
    "faq": [
     {
      "q": "Co daje sztuczna inteligencja w kamerze WizSense?",
-     "a": "Kamera sama rozpoznaje człowieka i pojazd. Alarm z przekroczenia linii czy wejścia w strefę przychodzi tylko od nich, a nie od deszczu, cieni czy zwierząt — w praktyce to dużo mniej fałszywych powiadomień."
+     "a": "Kamera sama rozpoznaje człowieka i pojazd. Alarm z przekroczenia linii czy wejścia w strefę przychodzi tylko od nich, nie od deszczu, cieni czy zwierząt — w praktyce to dużo mniej fałszywych powiadomień."
     },
     {
      "q": "Czy mogę nagrywać bez rejestratora?",
@@ -16821,7 +16821,7 @@
      "a": "Wnętrze i funkcje są takie same, różni się obudowa. Kulkowa jest niższa i dyskretniejsza, a podczerwień nie odbija się od szybki, więc w nocy obraz bywa czystszy przy montażu pod okapem."
     },
     {
-     "q": "Czy kamera rozpozna, że po podwórku chodzi pies, a nie człowiek?",
+     "q": "Czy kamera rozpozna, że po podwórku chodzi pies, czy człowiek?",
      "a": "Analiza WizSense klasyfikuje cele jako człowieka lub pojazd. Alarm ustawiony na człowieka nie powinien reagować na zwierzęta, choć przy bardzo dużych psach warto przetestować ustawienia na miejscu."
     },
     {
@@ -16954,7 +16954,7 @@
    "nazwa": "Dahua WizColor kamery IP tubowe 4 i 8 Mpx z kolorowym obrazem w nocy (IPC-HFW2449TL-S-PRO, IPC-HFW2849TL-S-PRO)",
    "krotka": "Dahua WizColor kamery tubowe 4 i 8 Mpx",
    "podtytul": "Kamery WizColor z dużym przetwornikiem 1/1,8 cala i jasnym obiektywem F1.0 — kolor w nocy, 4 lub 8 Mpx, ciepłe światło do 20 m przy 2,8 mm.",
-   "korzysc": "Nocne nagrania w kolorze: widać kolor kurtki i samochodu, a nie tylko szarą sylwetkę.",
+   "korzysc": "Nocne nagrania w kolorze: widać kolor kurtki i samochodu, nie tylko szarą sylwetkę.",
    "opis": [
     "WizColor to kamery Dahua zaprojektowane do kolorowego obrazu po zmroku. Zamiast podczerwieni, która daje czarno-biały obraz, mają duży przetwornik 1/1,8 cala i bardzo jasny obiektyw F1.0 — zbierają tyle światła, że przy słabym oświetleniu ulicy czy podwórka nadal pokazują kolory. Gdy jest zupełnie ciemno, dopalają obraz czterema diodami ciepłego światła. To dobry wybór na parking, plac przed sklepem czy podjazd, gdzie kolor auta lub ubrania ma znaczenie.",
     "IPC-HFW2449TL-S-PRO nagrywa w 4 Mpx (2688×1520), a IPC-HFW2849TL-S-PRO w 8 Mpx (3840×2160). Z obiektywem 2,8 mm kąt w poziomie wynosi 105° w wersji 4 Mpx i 110° w wersji 8 Mpx; producent podaje zasięg ciepłego światła do 20 m (z obiektywem 6 mm do 50 m). Obie kamery mają analizę WizSense z rozróżnianiem człowieka i pojazdu, mikrofon, gniazdo microSD do 256 GB i obudowę IP67. Pobór mocy przy PoE to maksymalnie 6,3 W (4 Mpx) i 7,4 W (8 Mpx).",
@@ -17321,7 +17321,7 @@
     },
     {
      "q": "Czy kamera przybliża obraz w trakcie oglądania jak kamera obrotowa?",
-     "a": "Można zmienić zoom w dowolnej chwili, ale kamera nie obraca się sama za obiektem. To kamera stała z regulowanym kadrem, a nie kamera PTZ."
+     "a": "Można zmienić zoom w dowolnej chwili, ale kamera nie obraca się sama za obiektem. To kamera stała z regulowanym kadrem; to nie kamera PTZ."
     },
     {
      "q": "Jak daleko kamera widzi w nocy?",
@@ -17550,7 +17550,7 @@
     },
     {
      "q": "Czy mogę przez kamerę powiedzieć coś intruzowi?",
-     "a": "Tak, kamera ma mikrofon i głośnik. Przez aplikację DMSS możesz mówić na żywo albo puścić jeden z wbudowanych komunikatów ostrzegawczych."
+     "a": "Tak, kamera ma mikrofon i głośnik. Przez aplikację DMSS możesz mówić przez głośnik kamery albo puścić jeden z wbudowanych komunikatów ostrzegawczych."
     },
     {
      "q": "Czy jedna kamera obrotowa zastąpi kilka stałych?",
@@ -18238,7 +18238,7 @@
     },
     {
      "q": "Ile dni nagrań zmieści rejestrator?",
-     "a": "To zależy od pojemności dysku, liczby kamer i ustawień zapisu, a nie od samej kamery. Przy doborze liczymy dysk tak, żeby zmieścił tyle dni, ile potrzebujesz."
+     "a": "To zależy od pojemności dysku, liczby kamer i ustawień zapisu; sama kamera o tym nie decyduje. Przy doborze liczymy dysk tak, żeby zmieścił tyle dni, ile potrzebujesz."
     }
    ],
    "polecane": [
@@ -18346,7 +18346,7 @@
    "podtytul": "Tubowe kamery 4 lub 8 Mpx z głośnikiem, migającym światłem, kartą microSD do 512 GB i rozpoznawaniem ludzi oraz pojazdów",
    "korzysc": "Kamera, która nie tylko nagra intruza, ale też spłoszy go dźwiękiem i błyskiem światła, zanim podejdzie do drzwi.",
    "opis": [
-    "Wersje /SL tubowych kamer Hikvision Value mają wbudowany głośnik i migające światło ostrzegawcze, więc kamera może zareagować sama, gdy ktoś wejdzie w zaznaczoną strefę. To dobry wybór na posesję, plac przy hali, parking przy pensjonacie albo budowę, gdzie chcesz odstraszać, a nie tylko oglądać nagranie następnego dnia. Kamera odróżnia ludzi i pojazdy od liści czy zwierząt, dzięki czemu fałszywych alarmów jest mniej. Obudowa z metalu i tworzywa ma szczelność IP67.",
+    "Wersje /SL tubowych kamer Hikvision Value mają wbudowany głośnik i migające światło ostrzegawcze, więc kamera może zareagować sama, gdy ktoś wejdzie w zaznaczoną strefę. To dobry wybór na posesję, plac przy hali, parking przy pensjonacie albo budowę, gdzie chcesz odstraszać, nie tylko oglądać nagranie następnego dnia. Kamera odróżnia ludzi i pojazdy od liści czy zwierząt, dzięki czemu fałszywych alarmów jest mniej. Obudowa z metalu i tworzywa ma szczelność IP67.",
     "DS-2CD1043G2-LIUF/SL ma 4 Mpx, przetwornik 1/3″ i kąt 98°, a DS-2CD1083G2-LIUF/SL 8 Mpx (4K) i szerszy kadr 113°. Przy pełnej rozdzielczości model 8 Mpx nagrywa 12,5 kl./s, a 4 Mpx 20 kl./s — do szybkiego ruchu na wjeździe lepsza jest wersja 4 Mpx. Obie mają hybrydowe doświetlenie do 30 m, mikrofon i głośnik, więc przez aplikację można też odezwać się do osoby przed kamerą. Gniazdo microSD do 512 GB pozwala nagrywać w samej kamerze albo zabezpieczyć zapis, gdy zerwie się połączenie z rejestratorem.",
     "Ustalamy z Tobą, jakie zdarzenie ma uruchamiać dźwięk i światło oraz w jakich godzinach — inaczej ustawia się to przy domu, a inaczej na placu firmy pracującej na zmiany. Kamerę montujemy na wysokości, z której głośnik będzie dobrze słyszalny, zasilamy przez PoE i podłączamy do rejestratora Hikvision albo zostawiamy jako samodzielną z kartą. W Hik-Connect konfigurujemy powiadomienia i rozmowę przez kamerę. Na montaż dajemy 24 miesiące gwarancji, a później serwisujemy instalację."
    ],
@@ -19153,7 +19153,7 @@
     },
     {
      "q": "Czy obraz z kamery zobaczę na telefonie?",
-     "a": "Tak, przez aplikację Hik-Connect — zarówno na żywo, jak i nagrania z karty lub rejestratora. Konto i uprawnienia dla domowników zakładamy przy montażu."
+     "a": "Tak, przez aplikację Hik-Connect — zarówno obraz bieżący, jak i nagrania z karty lub rejestratora. Konto i uprawnienia dla domowników zakładamy przy montażu."
     }
    ],
    "polecane": [
@@ -20427,7 +20427,7 @@
    "opis": [
     "BCS-P-TIP24FCL3-Ai1 to tubowa kamera z linii BCS POINT — marki rozwijanej i wspieranej przez polską firmę. Przeznaczona jest na elewacje domów, budynków firmowych, szkół, urzędów i parafii, czyli wszędzie tam, gdzie liczy się kolorowy obraz w nocy i stabilna praca na zewnątrz. Obudowa ma szczelność IP67 i pracuje w temperaturach od −30 do 60 °C. Według karty producenta model jest zgodny z amerykańską ustawą NDAA, o co pytają niektóre zamówienia instytucji.",
     "Kamera ma 4 Mpx (2688 × 1520) i duży przetwornik 1/1,8″ z obiektywem 2,8 mm o jasności F1.0, który obejmuje 110° w poziomie. NightColor to rozwiązanie BCS, w którym zamiast podczerwieni kamera używa białego światła o zasięgu do 30 m, dzięki czemu nocne nagranie jest kolorowe. WDR 120 dB wyrównuje kadr przy jasnym tle, a funkcje Ai wykrywają przekroczenie linii i wtargnięcie w strefę z rozpoznawaniem ludzi. Kamera ma mikrofon, gniazdo microSD do 256 GB, a pobór mocy to maks. 2,8 W.",
-    "Dobieramy kamerę razem z rejestratorem BCS i dyskiem, tak żeby archiwum odpowiadało zasadom przechowywania nagrań w danym obiekcie. Montujemy ją na elewacji, zasilamy z przełącznika PoE i ustawiamy strefy Ai tak, żeby alarmy dotyczyły ludzi, a nie przejeżdżających aut. Konfigurujemy podgląd w aplikacji mobilnej BCS i w programie BCS Manager na komputerze. PRO-KOM daje na montaż 24 miesiące gwarancji i zostaje do dyspozycji przy serwisie."
+    "Dobieramy kamerę razem z rejestratorem BCS i dyskiem, tak żeby archiwum odpowiadało zasadom przechowywania nagrań w danym obiekcie. Montujemy ją na elewacji, zasilamy z przełącznika PoE i ustawiamy strefy Ai tak, żeby alarmy dotyczyły ludzi, nie przejeżdżających aut. Konfigurujemy podgląd w aplikacji mobilnej BCS i w programie BCS Manager na komputerze. PRO-KOM daje na montaż 24 miesiące gwarancji i zostaje do dyspozycji przy serwisie."
    ],
    "cechy": [
     "NightColor",
@@ -21309,7 +21309,7 @@
    "korzysc": "Podgląd mieszkania, domku czy recepcji z telefonu bez kucia ścian — wystarczy gniazdko i Wi-Fi.",
    "opis": [
     "Kamery BCS LINE HOME to małe, obrotowe kamery do wnętrz, które łączą się przez Wi-Fi, więc nie trzeba prowadzić kabla sieciowego. Pasują do mieszkania, domku letniskowego, części wspólnych apartamentu na wynajem, małego biura albo recepcji. Kamera obraca się i pochyla, więc z jednego miejsca obejrzysz prawie cały pokój. Wystarczy postawić ją na półce albo przykręcić do ściany lub sufitu w pobliżu gniazdka.",
-    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 20 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86°, podczerwień i białe światło do około 30 m oraz obsługę ONVIF. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, a nie na zewnątrz.",
+    "Wszystkie trzy modele mają rozdzielczość 5 Mpx (2880 × 1620), obiektyw 3,6 mm, mikrofon i głośnik do rozmowy oraz gniazdo microSD. PTHOME01 i PTHOME02 mają jeden obiektyw o kącie około 74° i podczerwień do około 20 m. PTHOME07 ma dwa przetworniki 1/3″, kąt około 86°, podczerwień i białe światło do około 30 m oraz obsługę ONVIF. Zakres pracy od −10 do 45 °C oznacza, że są to kamery do pomieszczeń, nie na zewnątrz.",
     "Kamery Wi-Fi konfigurujemy na miejscu: sprawdzamy zasięg sieci w miejscu montażu, łączymy kamerę z Wi-Fi i zakładamy dostęp w aplikacji na telefonach domowników lub właściciela apartamentu. Ustawiamy powiadomienia o ruchu i zapis na karcie microSD. Przy wynajmie krótkoterminowym doradzamy, gdzie kamera może wisieć, żeby nie naruszać prywatności gości, a model PTHOME07 z ONVIF możemy dodatkowo dołączyć do rejestratora. Na wykonany montaż PRO-KOM daje 24 miesiące gwarancji."
    ],
    "cechy": [
@@ -24058,11 +24058,11 @@
    "nazwa": "Ajax MotionProtect Outdoor Jeweller — zewnętrzna bezprzewodowa czujka ruchu",
    "krotka": "Ajax MotionProtect Outdoor Jeweller",
    "podtytul": "Dwa czujniki PIR, zasięg 3–15 m i kąt 90°, praca od −25 do +60 °C, IP55; baterie 2 × CR123A do 5 lat.",
-   "korzysc": "Alarm reaguje, gdy ktoś wchodzi na posesję, a nie dopiero, gdy jest już w środku.",
+   "korzysc": "Alarm reaguje, gdy ktoś wchodzi na posesję, nie dopiero, gdy jest już w środku.",
    "opis": [
     "MotionProtect Outdoor to czujka ruchu do pracy na zewnątrz: na elewacji domu, przy wjeździe, na tarasie pensjonatu albo przy placu składowym firmy. Wykrywa intruza, zanim dotrze do drzwi czy okien, dzięki czemu syrena lub powiadomienie zadziała wcześniej. Wymaga huba Ajax, z którym łączy się radiem na odległość do 1700 m w otwartym terenie.",
     "Czujka ma dwa niezależne czujniki podczerwieni, a alarm podnosi dopiero wtedy, gdy ruch potwierdzą oba — to ogranicza fałszywe alarmy od gałęzi czy słońca. Zasięg ustawia się suwakiem na obudowie od 3 do 15 m, przy montażu na wysokości 0,8–1,3 m, a kąt widzenia w poziomie wynosi 90°. Zwierzęta niższe niż ok. 80 cm, np. pies czy kot, nie powinny wywołać alarmu niezależnie od wagi. Producent podaje pracę od −25 do +60 °C, szczelność IP55 i do 5 lat na dwóch bateriach CR123A; czujkę można też zasilić z zewnętrznego źródła 5–28 V.",
-    "Na posesji dobieramy miejsce tak, żeby czujka patrzyła w poprzek spodziewanej drogi wejścia, a nie na ulicę, drzewa czy parking sąsiada. Zakładamy daszek Hood, który chroni przed śniegiem i deszczem, i ustawiamy czułość w aplikacji Ajax. Przy domach na Podhalu ważne jest, żeby zasięg czujki nie obejmował miejsca, gdzie zsuwa się śnieg z dachu. Dla potwierdzenia alarmu obrazem proponujemy wersję z aparatem — MotionCam Outdoor."
+    "Na posesji dobieramy miejsce tak, żeby czujka patrzyła w poprzek spodziewanej drogi wejścia, nie na ulicę, drzewa czy parking sąsiada. Zakładamy daszek Hood, który chroni przed śniegiem i deszczem, i ustawiamy czułość w aplikacji Ajax. Przy domach na Podhalu ważne jest, żeby zasięg czujki nie obejmował miejsca, gdzie zsuwa się śnieg z dachu. Dla potwierdzenia alarmu obrazem proponujemy wersję z aparatem — MotionCam Outdoor."
    ],
    "cechy": [
     "praca na zewnątrz",
@@ -24409,7 +24409,7 @@
    "faq": [
     {
      "q": "Czy czujka z aparatem zastąpi kamerę monitoringu?",
-     "a": "Nie. MotionCam Outdoor robi kilka zdjęć tylko przy alarmie, gdy system jest uzbrojony — nie nagrywa filmu i nie pozwala na podgląd na żywo jak kamera z rejestratorem. Służy do szybkiej weryfikacji, co uruchomiło alarm."
+     "a": "Nie. MotionCam Outdoor robi kilka zdjęć tylko przy alarmie, gdy system jest uzbrojony — nie nagrywa filmu i nie daje stałego podglądu obrazu jak kamera z rejestratorem. Służy do szybkiej weryfikacji, co uruchomiło alarm."
     },
     {
      "q": "Z którym hubem zadziałają zdjęcia z zewnętrznej czujki?",
@@ -24521,7 +24521,7 @@
    "nazwa": "Ajax DoorProtect Plus Jeweller — czujka otwarcia, wstrząsu i przechyłu (biała, czarna)",
    "krotka": "Ajax DoorProtect Plus Jeweller",
    "podtytul": "Kontaktron i akcelerometr w jednej obudowie: otwarcie, wstrząs i uchylenie (5–25°); bateria CR123A do 5 lat, zasięg do 1200 m.",
-   "korzysc": "Alarm reaguje już przy próbie wyważenia drzwi czy okna, a nie dopiero, gdy ktoś je otworzy.",
+   "korzysc": "Alarm reaguje już przy próbie wyważenia drzwi czy okna, nie dopiero, gdy ktoś je otworzy.",
    "opis": [
     "DoorProtect Plus to rozbudowana czujka otwarcia do drzwi, okien, bram garażowych i witryn. Oprócz zwykłego kontaktronu z magnesem ma akcelerometr, czyli czujnik ruchu samej obudowy. Dzięki temu wykrywa nie tylko otwarcie, ale też uderzenia i drgania przy próbie wyważenia oraz przechylenie skrzydła — np. uchylenie okna dachowego czy podniesienie bramy uchylnej.",
     "Czułość na wstrząsy ma 3 poziomy, a pojedyncze, przypadkowe stuknięcie można pominąć. Próg przechyłu ustawia się w aplikacji od 5 do 25°. Czujka ma też zaciski do podłączenia jednego zwykłego czujnika przewodowego typu NC, np. kontaktronu w drugim skrzydle. Zasila ją bateria CR123A — według producenta do 5 lat — a z hubem łączy się do 1200 m w otwartym terenie. W zestawie są dwa magnesy (duży i mały), a obudowa ma średnicę 20 mm i długość 90 mm.",
@@ -24756,7 +24756,7 @@
    "podtytul": "Dotykowa klawiatura z czytnikiem szyfrowanych kart Pass i breloków Tag (DESFire), do 200 kodów; 4 × AA do 3,5 roku.",
    "korzysc": "Pracownik czy gość przykłada kartę i alarm się wyłącza — bez zapamiętywania kodów i bez telefonu.",
    "opis": [
-    "KeyPad Plus to klawiatura do systemu Ajax, którą obsługuje się kodem albo zbliżeniowo: kartą Pass lub brelokiem Tag. To wygodne w firmie, szkole, pensjonacie czy apartamentach na wynajem, gdzie z alarmu korzysta wiele osób, a nie każda ma aplikację. Kartę zgubioną lub oddaną przez pracownika wyłącza się zdalnie, bez zmiany kodów pozostałym.",
+    "KeyPad Plus to klawiatura do systemu Ajax, którą obsługuje się kodem albo zbliżeniowo: kartą Pass lub brelokiem Tag. To wygodne w firmie, szkole, pensjonacie czy apartamentach na wynajem, gdzie z alarmu korzysta wiele osób, nie każda ma aplikację. Kartę zgubioną lub oddaną przez pracownika wyłącza się zdalnie, bez zmiany kodów pozostałym.",
     "Klawiatura czyta karty w technologii DESFire EV1/EV2 z szyfrowaniem, których nie da się prosto skopiować. Obsługuje do 200 kodów osobistych i tyle samo kodów pod przymusem (zależnie od huba), wspólny kod klawiatury oraz do 99 kodów dla osób bez konta Ajax. Przycisk funkcyjny może wysłać alarm napadowy albo wyciszyć czujki pożarowe. Po więcej niż trzech błędnych kodach w ciągu minuty blokuje się na 3–180 minut. Zasilają ją cztery baterie AA — według producenta do 3,5 roku — a zasięg do huba sięga 1700 m w otwartym terenie.",
     "Przy wdrożeniu w firmie lub pensjonacie zakładamy użytkowników w aplikacji Ajax, przypisujemy im karty albo breloki i ustalamy, które grupy (np. biuro, magazyn, część prywatna) mogą uzbrajać. Klawiaturę wieszamy w strefie wejścia od środka, bo jest przeznaczona do wnętrz. Karty Pass i breloki Tag dobieramy w potrzebnej liczbie; pokazujemy też osobie odpowiedzialnej, jak samodzielnie dodać lub zablokować kartę."
    ],
@@ -26668,7 +26668,7 @@
    "opis": [
     "IPC-HDW3849H-AS-PV-PRO to aktualna kamera kulkowa z linii TiOC PRO w serii WizSense 3 — następczyni popularnej, wycofanej już IPC-HDW3849H-AS-PV-S5. Skrót TiOC oznacza u Dahua „trzy w jednym”: obraz w kolorze także nocą, wykrywanie ludzi i pojazdów oraz aktywne odstraszanie. Kamerę wieszamy tam, gdzie zależy nam na reakcji, zanim coś się stanie: przy wejściu do domu, na tarasie pensjonatu, przy zapleczu sklepu albo nad drzwiami biura.",
     "Sensor 1/1,8 cala z jasnym obiektywem F1.0 daje obraz 8 Mpx (3840×2160) do 25 kl/s, a technologia WizColor wyciska kolor z resztek światła z latarni i okien. Gdy jest zupełnie ciemno, kamera dopala scenę ciepłym światłem albo podczerwienią — według producenta do 30 m przy obiektywie 2,8 mm i do 40 m przy 3,6 mm. Po wykryciu człowieka w strefie może włączyć czerwono-niebieskie światło i syrenę o głośności do 110 dB (z 10 cm), a podwójny mikrofon i głośnik pozwalają porozmawiać z osobą przed kamerą. Na pokładzie jest też wejście i wyjście alarmowe, gniazdo microSD do 512 GB i metalowa obudowa IP67.",
-    "W PRO-KOM ustawiamy strefy i linie tak, żeby syrena reagowała na człowieka przy drzwiach, a nie na przechodniów za płotem — to wymaga przymiarki na miejscu i kilku prób. Kamerę łączymy z rejestratorem Dahua z dyskiem, zasilamy z przełącznika PoE i konfigurujemy aplikację DMSS, w której właściciel jednym przyciskiem uzbraja i rozbraja odstraszanie. Montaż objęty jest 24-miesięczną gwarancją PRO-KOM, a serwis prowadzimy na miejscu na Podhalu i zdalnie."
+    "W PRO-KOM ustawiamy strefy i linie tak, żeby syrena reagowała na człowieka przy drzwiach, nie na przechodniów za płotem — to wymaga przymiarki na miejscu i kilku prób. Kamerę łączymy z rejestratorem Dahua z dyskiem, zasilamy z przełącznika PoE i konfigurujemy aplikację DMSS, w której właściciel jednym przyciskiem uzbraja i rozbraja odstraszanie. Montaż objęty jest 24-miesięczną gwarancją PRO-KOM, a serwis prowadzimy na miejscu na Podhalu i zdalnie."
    ],
    "cechy": [
     "syrena i światło",
@@ -27027,7 +27027,7 @@
    },
    "faq": [
     {
-     "q": "Dlaczego ta kamera potrzebuje PoE+, a nie zwykłego PoE?",
+     "q": "Dlaczego ta kamera potrzebuje PoE+, nie zwykłego PoE?",
      "a": "Przy jednoczesnej pracy oświetlaczy, syreny i analizy producent podaje pobór do 15,1 W z PoE, a to więcej niż daje port 802.3af. Dlatego podłączamy ją do portu PoE+ (802.3at) albo zasilacza 12 V."
     },
     {
@@ -27256,7 +27256,7 @@
    "faq": [
     {
      "q": "Czy kamera bez podczerwieni zobaczy coś w zupełnej ciemności?",
-     "a": "Tak, ale dzięki własnym diodom ciepłego światła, a nie podczerwieni. Według producenta oświetlają one do 20 m (2,8 mm) lub 30 m (3,6 mm). Gdy w pobliżu pali się latarnia, kamera często radzi sobie bez nich."
+     "a": "Tak, ale dzięki własnym diodom ciepłego światła, nie podczerwieni. Według producenta oświetlają one do 20 m (2,8 mm) lub 30 m (3,6 mm). Gdy w pobliżu pali się latarnia, kamera często radzi sobie bez nich."
     },
     {
      "q": "Dlaczego w pełnej rozdzielczości jest tylko 20 klatek na sekundę?",
@@ -28001,11 +28001,11 @@
     },
     {
      "q": "Czy obraz panoramy jest wygięty jak z rybiego oka?",
-     "a": "Nie, to dwa zwykłe obiektywy 4 mm, których obrazy są łączone w jeden szeroki pas. Przy wyborze miejsca montażu pilnujemy, żeby najważniejsze punkty terenu nie leżały tuż pod kamerą, tylko w głębi kadru."
+     "a": "Nie, to dwa zwykłe obiektywy 4 mm, których obrazy są łączone w jeden szeroki pas. Przy wyborze miejsca montażu pilnujemy, żeby najważniejsze punkty terenu leżały w głębi kadru, nie tuż pod kamerą."
     },
     {
      "q": "Jak wysoko trzeba ją powiesić?",
-     "a": "Zwykle wyżej niż zwykłą kamerę, np. pod okapem lub na wysokości piętra, żeby kadr 180° obejmował teren, a nie ścianę obok. Dokładne miejsce wybieramy na miejscu, sprawdzając obraz na żywo."
+     "a": "Zwykle wyżej niż zwykłą kamerę, np. pod okapem lub na wysokości piętra, żeby kadr 180° obejmował teren, nie ścianę obok. Dokładne miejsce wybieramy na miejscu, sprawdzając obraz z kamery w telefonie."
     }
    ],
    "polecane": [
@@ -29713,7 +29713,7 @@
    "opis": [
     "Seria NVR41xxHS-EI to kompaktowe rejestratory IP z linii WizSense — tak Dahua nazywa urządzenia z własną analizą obrazu opartą na sztucznej inteligencji. Mają tę samą małą obudowę co podstawowe modele, ale potrafią więcej. Sprawdzają się w pensjonacie, sklepie, biurze czy małej firmie, gdzie ważne jest szybkie przeszukiwanie nagrań. Są w wersjach na 4, 8 i 16 kamer, bez wbudowanego PoE.",
     "Wszystkie trzy przyjmują kamery do 16 Mpx. Rejestrator sam wykrywa i rozpoznaje twarze, pilnuje linii i stref (ochrona obwodowa dla 2 kanałów) oraz działa SMD Plus, czyli filtr, który odróżnia ludzi i pojazdy od liści, deszczu czy zmian światła na 4 kanałach. Modele 4104 i 4108 mają przepustowość 80 Mb/s i port 100 Mb/s, a 4116 do 256 Mb/s i port gigabitowy. Dysk jest jeden, do 20 TB według producenta, a obraz wychodzi przez HDMI 4K i VGA.",
-    "W PRO-KOM ustawiamy funkcje AI tak, żeby powiadomienia przychodziły wtedy, gdy ktoś naprawdę wejdzie na teren, a nie przy każdym ruchu gałęzi. Dobieramy przełącznik PoE i dysk, montujemy całość w szafce, konfigurujemy bazy twarzy, jeśli klient ich potrzebuje, oraz aplikację DMSS. Przy rozpoznawaniu twarzy przypominamy o zasadach ochrony danych osobowych. Montaż objęty jest 24-miesięczną gwarancją PRO-KOM."
+    "W PRO-KOM ustawiamy funkcje AI tak, żeby powiadomienia przychodziły wtedy, gdy ktoś naprawdę wejdzie na teren, nie przy każdym ruchu gałęzi. Dobieramy przełącznik PoE i dysk, montujemy całość w szafce, konfigurujemy bazy twarzy, jeśli klient ich potrzebuje, oraz aplikację DMSS. Przy rozpoznawaniu twarzy przypominamy o zasadach ochrony danych osobowych. Montaż objęty jest 24-miesięczną gwarancją PRO-KOM."
    ],
    "cechy": [
     "AI w rejestratorze",
@@ -30603,7 +30603,7 @@
     },
     {
      "q": "Na ile dni wystarczy dysk w rejestratorze Hikvision Q1?",
-     "a": "Zależy od pojemności dysku (maks. 8 TB), liczby kamer, ich rozdzielczości i ustawień nagrywania — ciągłe czy na ruch. Liczbę dni ustalamy po doborze kamer, a nie z góry."
+     "a": "Zależy od pojemności dysku (maks. 8 TB), liczby kamer, ich rozdzielczości i ustawień nagrywania — ciągłe czy na ruch. Liczbę dni ustalamy po doborze kamer, nie z góry."
     },
     {
      "q": "Jak oglądać kamery w telefonie?",
@@ -31608,7 +31608,7 @@
    },
    "faq": [
     {
-     "q": "Dlaczego rejestrator BCS, a nie Dahua czy Hikvision?",
+     "q": "Dlaczego rejestrator BCS, nie Dahua czy Hikvision?",
      "a": "BCS to polska marka monitoringu i część zamawiających, zwłaszcza instytucje, woli właśnie ją. Technicznie to rejestrator z PoE, AI i zgodnością ONVIF."
     },
     {
@@ -32904,9 +32904,9 @@
    "podtytul": "Monitor IP z ekranem dotykowym 7 cali (1024 × 600), Wi-Fi 2,4 GHz, 8 wejściami alarmowymi i podglądem do 16 kamer IP.",
    "korzysc": "Na jednym ekranie rozmawiasz z gościem, oglądasz kamery wokół domu i przekazujesz połączenie do telefonu.",
    "opis": [
-    "DS-KH6320-WTE1 to monitor do wideodomofonów IP Hikvision — do nowego systemu albo jako dodatkowy ekran na piętrze, w biurze czy recepcji pensjonatu. Pracuje w sieci IP, czyli łączy się skrętką (albo przez Wi-Fi), a nie po dwóch żyłach; do instalacji 2-żyłowych Hikvision ma osobne monitory z literą Y w nazwie. Według producenta cały system wideodomofonu można skonfigurować z jego ekranu, bez komputera, dzięki kreatorowi pierwszego uruchomienia. Z monitora oglądasz obraz ze stacji bramowej i kamer w częściach wspólnych.",
+    "DS-KH6320-WTE1 to monitor do wideodomofonów IP Hikvision — do nowego systemu albo jako dodatkowy ekran na piętrze, w biurze czy recepcji pensjonatu. Pracuje w sieci IP, czyli łączy się skrętką (albo przez Wi-Fi), nie po dwóch żyłach; do instalacji 2-żyłowych Hikvision ma osobne monitory z literą Y w nazwie. Według producenta cały system wideodomofonu można skonfigurować z jego ekranu, bez komputera, dzięki kreatorowi pierwszego uruchomienia. Z monitora oglądasz obraz ze stacji bramowej i kamer w częściach wspólnych.",
     "Ekran ma 7 cali, rozdzielczość 1024 × 600 i dotyk pojemnościowy, a menu jest dostępne m.in. po polsku. Monitor obsłuży do 17 stacji bramowych, 16 monitorów dodatkowych i podgląd z 16 kamer IP. Ma 8 wejść alarmowych (np. czujki, przycisk dzwonka) i 2 wyjścia przekaźnikowe do 30 V DC 0,3 A, a w gnieździe TF przyjmie kartę do 128 GB na zdjęcia i zdarzenia. Łączność to port RJ-45 10/100 Mb/s i Wi-Fi 2,4 GHz; obudowa ma tylko 15,1 mm grubości, a pobór mocy to do 5 W.",
-    "Montujemy monitor natynkowo na ścianie, łączymy go ze stacją bramową IP Hikvision i ustawiamy numery lokali, wiadomości głosowe oraz podgląd kamer. W aplikacji Hik-Connect konfigurujemy odbiór połączeń, podgląd na żywo i zdalne otwieranie — zamek (elektrozaczep lub zwora) jest podłączony do stacji bramowej, a monitor wysyła tylko polecenie otwarcia. Sposób zasilania (PoE z przełącznika lub zasilacz 12 V) dobieramy po sprawdzeniu wersji urządzenia, bo aktualna karta producenta go nie podaje. Na montaż dajemy 24 mies. gwarancji."
+    "Montujemy monitor natynkowo na ścianie, łączymy go ze stacją bramową IP Hikvision i ustawiamy numery lokali, wiadomości głosowe oraz podgląd kamer. W aplikacji Hik-Connect konfigurujemy odbiór połączeń, bieżący podgląd i zdalne otwieranie — zamek (elektrozaczep lub zwora) jest podłączony do stacji bramowej, a monitor wysyła tylko polecenie otwarcia. Sposób zasilania (PoE z przełącznika lub zasilacz 12 V) dobieramy po sprawdzeniu wersji urządzenia, bo aktualna karta producenta go nie podaje. Na montaż dajemy 24 mies. gwarancji."
    ],
    "cechy": [
     "ekran 7 cali",
@@ -32948,7 +32948,7 @@
     },
     {
      "k": "Aplikacja",
-     "v": "Hik-Connect: odbiór połączeń, otwieranie drzwi, podgląd na żywo"
+     "v": "Hik-Connect: odbiór połączeń, otwieranie drzwi, bieżący podgląd"
     },
     {
      "k": "Zasilanie",
