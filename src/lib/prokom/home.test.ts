@@ -153,3 +153,34 @@ describe('partner network (runda 1811 D4: ALSEN)', () => {
     expect(facts.get('ALSEN Rabka')).toBe(false)
   })
 })
+
+describe('procurement (runda 1811 D14)', () => {
+  const { procurement } = hubHome()
+
+  it('leads to /inwestycje-i-dostawy, its form and its tenders anchor', () => {
+    expect(procurement?.cta.href).toBe('/inwestycje-i-dostawy#formularz')
+    expect(procurement?.more.href).toBe('/inwestycje-i-dostawy#przetargi')
+    expect(procurement?.points.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('names no buyers and promises no wins or prices', () => {
+    expect(procurement?.examples).toEqual([])
+    const texts = JSON.stringify(procurement).toLowerCase()
+    for (const phrase of ['wygrywamy', 'najtańsz', 'zł', 'cena']) {
+      expect(texts, phrase).not.toContain(phrase)
+    }
+  })
+
+  it('is optional, so texts stored before it stay valid', () => {
+    const { procurement: _p, ...older } = hubHome()
+    expect(homeSchema.safeParse(older).success).toBe(true)
+  })
+
+  it('shows an example of a buyer only with a fact', () => {
+    const noFact = {
+      ...hubHome(),
+      procurement: { ...procurement!, examples: [{ text: 'Gmina X', facts: [] }] },
+    }
+    expect(homeSchema.safeParse(noFact).success).toBe(false)
+  })
+})

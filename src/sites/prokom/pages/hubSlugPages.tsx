@@ -15,7 +15,13 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { AboutNetwork, AboutStory, AboutValues } from './AboutStory'
-import { BranchNote, ExtraPhones, PartnerPointNote, TechPointsCard } from './ExtraContacts'
+import {
+  BranchNote,
+  ExtraEmails,
+  ExtraPhones,
+  PartnerPointNote,
+  TechPointsCard,
+} from './ExtraContacts'
 import { SaturdayNote } from './SaturdayNote'
 
 /**
@@ -80,6 +86,7 @@ export async function hubSlugPage(
               <SaturdayNote lines={lineContacts} />
               <TechPointsCard lines={lineContacts} />
               <ExtraPhones phones={settings.extraPhones} />
+              <ExtraEmails emails={settings.extraEmails} main={shared.line.email} />
               {network && (
                 <PartnerPointNote text={network.salonNote} href={`/o-firmie#${network.slug}`} />
               )}

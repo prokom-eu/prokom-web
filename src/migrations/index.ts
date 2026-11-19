@@ -125,7 +125,8 @@ import * as migration_20261115_201236_biznes_teksty_1511 from './20261115_201236
 import * as migration_20261115_222903_hub_kontakt_zakopane from './20261115_222903_hub_kontakt_zakopane'
 import * as migration_20261118_203040_inst_katalog_teksty from './20261118_203040_inst_katalog_teksty'
 import * as migration_20261119_000423_hub_tech_punkty from './20261119_000423_hub_tech_punkty'
-import * as migration_20261119_024801_inst_glowna_sprzet from './20261119_024801_inst_glowna_sprzet'
+import * as migration_20261119_001610_hub_dodatkowe_maile from './20261119_001610_hub_dodatkowe_maile'
+import * as migration_20261119_013000_hub_r1_tresc from './20261119_013000_hub_r1_tresc'
 
 export const migrations = [
   {
@@ -764,8 +765,13 @@ export const migrations = [
     name: '20261119_000423_hub_tech_punkty',
   },
   {
-    up: migration_20261119_024801_inst_glowna_sprzet.up,
-    down: migration_20261119_024801_inst_glowna_sprzet.down,
-    name: '20261119_024801_inst_glowna_sprzet',
+    up: migration_20261119_001610_hub_dodatkowe_maile.up,
+    down: migration_20261119_001610_hub_dodatkowe_maile.down,
+    name: '20261119_001610_hub_dodatkowe_maile',
+  },
+  {
+    up: migration_20261119_013000_hub_r1_tresc.up,
+    down: migration_20261119_013000_hub_r1_tresc.down,
+    name: '20261119_013000_hub_r1_tresc',
   },
 ]
