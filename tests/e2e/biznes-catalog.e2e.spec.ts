@@ -6,9 +6,9 @@ import { setTheme, site } from './helpers'
 // B5a: catalog `/oferta` — filters in the URL with facet counts, sort, „Pokaż kolejne”,
 // cards with „+ Do zapytania”, SEO of filtered views (spec. §5, §8.3, §9 pkt 4; ADR-012 §2.2).
 // Catalog from `pnpm seed`: `LISTED` cards (K3 + K3.1 + K4, K4a-1b; + 20 model cards of
-// PRODUKCJA-BIZNES-1211, + 4 Apple 14.11). Hidden (`ukryj` in mapa-slugow-k4.json, decision of
+// PRODUKCJA-BIZNES-1211, + 4 Apple 14.11, + 3 projectors and FrameWings of runda 1811). Hidden (`ukryj` in mapa-slugow-k4.json, decision of
 // 14.11): ThinkStation P4 and Dell U5226KW. One number here — the catalog changes with the package.
-const LISTED = 455
+const LISTED = 459
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const oferta = (query = '') => site('biznes.localhost', `/oferta${query}`)
 
@@ -199,7 +199,7 @@ test.describe('Biznes catalog /oferta', () => {
     await page.goto(oferta('?strona=999'))
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
-      /\/oferta\?strona=19$/,
+      new RegExp(`/oferta[?]strona=${Math.ceil(LISTED / 24)}$`),
     )
   })
 

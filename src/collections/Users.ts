@@ -7,6 +7,7 @@ import type {
 
 import { adminOnly, adminOnlyField, adminOrSelf, ROLES } from '../lib/auth/access'
 import { passwordProblem } from '../lib/auth/password'
+import { panelResetEmailHtml } from '../lib/auth/resetEmail'
 
 // `updateByID` runs `beforeOperation` with `operation: 'update'`.
 const PASSWORD_OPERATIONS = new Set(['create', 'update', 'resetPassword'])
@@ -43,14 +44,25 @@ export const Users: CollectionConfig = {
     defaultColumns: ['email', 'role'],
   },
   auth: {
+    // Audit AB4 (W-01): the session cookie only over https on staging and production.
+    cookies: {
+      secure: process.env.SITE_ENV === 'production' || process.env.SITE_ENV === 'staging',
+      sameSite: 'Lax',
+    },
     maxLoginAttempts: 5,
     lockTime: 15 * 60 * 1000,
+    // Audit AB4: an absolute panel link (Payload's own would be relative behind nginx).
+    forgotPassword: {
+      generateEmailHTML: (args) => panelResetEmailHtml(args?.token ?? ''),
+    },
   },
   access: {
     create: adminOnly,
     read: adminOrSelf,
     update: adminOrSelf,
     delete: adminOnly,
+    // Audit AB4 (W-07): by default an editor could unlock other users of his site.
+    unlock: adminOnly,
   },
   hooks: {
     beforeOperation: [enforcePasswordPolicy],

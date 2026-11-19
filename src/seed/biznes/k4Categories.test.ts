@@ -16,9 +16,11 @@ import {
   k4CategoryRedirects,
   k4Dictionaries as toK4,
   isRetiredTarget,
+  K4_CATEGORY_HEADINGS,
+  K4_SUBCATEGORY_PAGES,
   type K4Category,
 } from './k4Categories'
-import { CATEGORY_SLUGS } from './map'
+import { AV_SPLIT_REDIRECTS, CATEGORY_SLUGS, PREVIOUS_CATEGORY_SLUGS } from './map'
 
 const k3 = k31Dictionaries(k3Dictionaries, k31Featured)
 const dictionaries = toK4(k3, k4Dictionaries)
@@ -264,5 +266,79 @@ describe('isRetiredTarget (301 of an earlier import)', () => {
     expect(isRetiredTarget('/oferta/komputery-monitory-x')).toBe(false)
     expect(isRetiredTarget('/oferta/laptopy')).toBe(false)
     expect(isRetiredTarget('/produkt/lenovo-v14-g4')).toBe(false)
+  })
+
+  it('treats the old „Ekrany i projektory” addresses as retired (runda 1811, D1)', () => {
+    expect(isRetiredTarget('/oferta/ekrany-projektory')).toBe(true)
+    expect(isRetiredTarget('/oferta/ekrany-projektory/projektory')).toBe(true)
+    expect(isRetiredTarget('/oferta/tablice-interaktywne')).toBe(false)
+  })
+})
+
+describe('split of „Ekrany i projektory” (runda 1811, D1)', () => {
+  const pageOf = (path: string) => {
+    const [, , category, sub] = path.split('/')
+    const code = Object.keys(CATEGORY_SLUGS).find((key) => CATEGORY_SLUGS[key] === category)
+    const found = code ? byCode(code) : undefined
+    if (!found) return false
+    if (!sub) return true
+    return (
+      K4_SUBCATEGORY_PAGES.has(found.slug) && found.podkategorie.some((row) => row.slug === sub)
+    )
+  }
+
+  it('renames av to Tablice interaktywne and keeps the stored record (old slug)', () => {
+    expect(byCode('av').nazwa).toBe('Tablice interaktywne')
+    expect(CATEGORY_SLUGS.av).toBe('tablice-interaktywne')
+    expect(PREVIOUS_CATEGORY_SLUGS['tablice-interaktywne']).toEqual(['ekrany-projektory'])
+    expect(byCode('av').podkategorie.map((row) => row.slug)).toEqual([
+      'monitory-interaktywne',
+      'suchoscieralne-akcesoria',
+    ])
+  })
+
+  it('adds Projektory and Ekrany informacyjne i wideokonferencje right after it', () => {
+    const biuro = k4Dictionaries.dzialy.find((department) => department.slug === 'biuro')!
+    const at = biuro.kategorie.indexOf('av')
+    expect(biuro.kategorie.slice(at, at + 3)).toEqual(['av', 'projektory', 'ekrany'])
+    expect(CATEGORY_SLUGS.projektory).toBe('projektory')
+    expect(CATEGORY_SLUGS.ekrany).toBe('ekrany-informacyjne')
+    expect(K4_SUBCATEGORY_PAGES.has('ekrany')).toBe(true)
+  })
+
+  it('names both phrases in the H1 of the boards (SEO: schools search „tablica interaktywna”)', () => {
+    expect(K4_CATEGORY_HEADINGS['tablice-interaktywne']).toBe(
+      'Tablice interaktywne i monitory interaktywne dla szkół i firm',
+    )
+  })
+
+  it('sends every old address of the category to a page that exists', () => {
+    expect(AV_SPLIT_REDIRECTS).toEqual([
+      { from: '/oferta/ekrany-projektory', to: '/oferta/tablice-interaktywne' },
+      {
+        from: '/oferta/ekrany-projektory/monitory-interaktywne',
+        to: '/oferta/tablice-interaktywne',
+      },
+      { from: '/oferta/ekrany-projektory/projektory', to: '/oferta/projektory' },
+      {
+        from: '/oferta/ekrany-projektory/ekrany-informacyjne',
+        to: '/oferta/ekrany-informacyjne/ekrany-informacyjne',
+      },
+      {
+        from: '/oferta/ekrany-projektory/wideokonferencje',
+        to: '/oferta/ekrany-informacyjne/wideokonferencje',
+      },
+    ])
+    for (const rule of AV_SPLIT_REDIRECTS) expect(pageOf(rule.to), rule.to).toBe(true)
+  })
+
+  it('places every former av card and has at least 6 projector cards', () => {
+    const cards = k4Catalog.produkty.filter((card) =>
+      ['av', 'projektory', 'ekrany'].includes(card.kategoria),
+    )
+    for (const card of cards) {
+      expect(k4CardPlacement(card, k4Cards, dictionaries.kategorie).unknownSubcategory).toBeNull()
+    }
+    expect(cards.filter((card) => card.kategoria === 'projektory').length).toBeGreaterThanOrEqual(6)
   })
 })
