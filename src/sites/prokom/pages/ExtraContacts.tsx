@@ -61,3 +61,21 @@ export function BranchNote({ branch }: { branch: HubBranch | null }) {
     </div>
   )
 }
+
+/**
+ * „Punkt partnerski ALSEN” under the salon card (runda 1811, D4) — only once Krystian confirms the
+ * salon is the network's point (its fact approved); links to the section on `/o-firmie`.
+ */
+export function PartnerPointNote({ text, href }: { text: string | null; href: string }) {
+  if (!text) return null
+  return (
+    <p className="text-sm text-ink-2">
+      <a
+        href={href}
+        className={`font-bold text-accent-text underline-offset-4 hover:underline ${TAP_AREA}`}
+      >
+        {text}
+      </a>
+    </p>
+  )
+}
