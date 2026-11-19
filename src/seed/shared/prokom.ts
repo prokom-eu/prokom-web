@@ -24,6 +24,7 @@ export const PROKOM_SHARED: SharedGroup = {
       { anchorId: 'dobierz', label: 'Dobierz', icon: 'spark' },
       { anchorId: 'narzedzia', label: 'Załatw online', icon: 'bolt' },
       { anchorId: 'pomoc', label: 'Co zrobić, gdy…', icon: 'help' },
+      { anchorId: 'alsen', label: 'ALSEN', icon: 'star' },
       { anchorId: 'wspolpraca', label: 'Współpraca', icon: 'building' },
       { anchorId: 'zamowienia', label: 'Zamówienia', icon: 'doc' },
       { anchorId: 'marki', label: 'Marki', icon: 'shield' },

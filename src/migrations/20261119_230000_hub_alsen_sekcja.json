@@ -60563,21 +60563,7 @@
     "public.enum_bundles_area": {
       "name": "enum_bundles_area",
       "schema": "public",
-      "values": [
-        "sklep",
-        "gastronomia",
-        "noclegi",
-        "biuro",
-        "gabinet",
-        "szkola",
-        "siec",
-        "ekrany",
-        "dom",
-        "firma",
-        "kosciol",
-        "gmina",
-        "budowa"
-      ]
+      "values": ["sklep", "gastronomia", "noclegi", "biuro", "gabinet", "szkola", "siec", "ekrany"]
     },
     "public.enum_inst_arch_news_category": {
       "name": "enum_inst_arch_news_category",
@@ -60780,6 +60766,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "17f62dfa-d656-48f4-a77b-786f93140eb6",
+  "id": "43057f75-e6ad-4ec1-8b70-1f605a30356d",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

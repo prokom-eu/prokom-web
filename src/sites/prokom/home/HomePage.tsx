@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { getHubData, getHubSettings, hubOgImage } from '@/lib/prokom/data'
 import { getHubLineContacts } from '@/lib/prokom/lineContacts'
 import { getHubNews } from '@/lib/prokom/news'
+import { visibleNetwork } from '@/lib/prokom/brands'
 import { isHubLinkLive } from '@/lib/prokom/pages'
 import { hubPageMetadata } from '@/lib/prokom/seo'
 import { getEnv } from '@/lib/env'
@@ -12,6 +13,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
 import { Brands } from './Brands'
+import { Network } from './Network'
 import { Procurement } from './Procurement'
 import { Contact } from './Contact'
 import { Cooperation } from './Cooperation'
@@ -20,7 +22,15 @@ import { Faq } from './Faq'
 import { Final } from './Final'
 import { Hero } from './Hero'
 import { Choose, HelpPicker, LineScene } from './HomeIslands'
-import { choosePlans, faqTokens, helpCases, homeLines, quickTools, teamExamples } from './model'
+import {
+  addressLine,
+  choosePlans,
+  faqTokens,
+  helpCases,
+  homeLines,
+  quickTools,
+  teamExamples,
+} from './model'
 import { News } from './News'
 import { Tools } from './Tools'
 import { toolGroups } from './toolGroups'
@@ -67,6 +77,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
   const tel = phone ? toTelHref(phone) : null
   const phone2 = shared?.line.phone2 ?? null
   const pages = settings.pages
+  const network = visibleNetwork(settings.brands, settings.trust)
   const live = (href: string) => (isHubLinkLive(href, pages) ? href : null)
 
   return (
@@ -119,6 +130,15 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             cases={helpCases(home.help.slugs, hub.help, lines)}
             allHref={live('/pomoc')}
           />
+          {home.network && network && (
+            <Network
+              texts={home.network}
+              network={network}
+              facts={settings.trust}
+              address={addressLine(shared.company)}
+              pages={pages}
+            />
+          )}
           <Cooperation texts={home.cooperation} pages={pages} />
           {home.procurement && (
             <Procurement
@@ -134,6 +154,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
               facts={settings.trust}
               lines={lines}
               allHref={live('/partnerzy')}
+              showNetwork={!(home.network && network)}
             />
           )}
           <Coverage
