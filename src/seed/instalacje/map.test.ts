@@ -24,6 +24,7 @@ import {
   servicesToImport,
   solutionsToImport,
 } from './map'
+import { COPY_WORDS } from '../../lib/instalacje/copyWords'
 import { LAW_WORDS } from '../../lib/instalacje/lawWords'
 import { isInstIconName } from '../../sites/instalacje/icons'
 import { withoutLaw } from './bezPrzepisow'
@@ -152,7 +153,11 @@ describe('offer', () => {
       [78, 'snd'],
       [79, 'snd'],
     ])
-    expect(solutions[76]!.data.name).toBe('Transmisja mszy na żywo')
+    expect(solutions[76]!.data.name).toBe('Transmisja mszy z kościoła')
+    // Runda v6 §2.2: the added texts keep clear of the generated-copy phrasings.
+    for (const s of solutions.slice(76)) {
+      expect(JSON.stringify(s.data)).not.toMatch(COPY_WORDS)
+    }
   })
 
   it('uses only the offer filter categories', () => {
