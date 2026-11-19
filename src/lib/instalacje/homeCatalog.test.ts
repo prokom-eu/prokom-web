@@ -55,6 +55,7 @@ describe('home salon tiles (INST-K3)', () => {
       brands: [
         { slug: 'dahua', name: 'Dahua', salon: 'dahua' },
         { slug: 'edbak', name: 'Edbak' },
+        { slug: 'empty', name: 'Empty', salon: 'empty' },
         {
           slug: 'zz',
           name: 'ZZ',

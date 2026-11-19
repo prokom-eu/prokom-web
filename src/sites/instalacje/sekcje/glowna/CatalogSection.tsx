@@ -40,20 +40,22 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
   const bundles = listBundles(allBundles, new Set(products.keys())).filter(
     (bundle) => bundle.indexable,
   )
-  const stats = [
+  // Brands with a listed card only (the index may name a brand of a hidden card).
+  const brandCount = new Set(index.products.flatMap((product) => product.brand ?? [])).size
+  type Stat = { term: string; value: number; forms: [string, string, string] }
+  const bundleStat: Stat = {
+    term: 'Gotowe zestawy',
+    value: bundles.length,
+    forms: ['zestaw', 'zestawy', 'zestawów'],
+  }
+  const stats: Stat[] = [
     {
+      term: 'Pozycje w katalogu',
       value: index.products.length,
-      label: plural(index.products.length, ['pozycja', 'pozycje', 'pozycji']),
+      forms: ['pozycja', 'pozycje', 'pozycji'],
     },
-    { value: index.brands.length, label: plural(index.brands.length, ['marka', 'marki', 'marek']) },
-    ...(bundles.length
-      ? [
-          {
-            value: bundles.length,
-            label: plural(bundles.length, ['zestaw', 'zestawy', 'zestawów']),
-          },
-        ]
-      : []),
+    { term: 'Marki', value: brandCount, forms: ['marka', 'marki', 'marek'] },
+    ...(bundles.length ? [bundleStat] : []),
   ]
 
   return (
@@ -68,18 +70,20 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
               salon marki albo gotowy zestaw — sprzęt z montażem dobierzemy do Twojego obiektu.
             </p>
           </div>
-          <dl className="isp-stats" aria-label="Katalog w liczbach">
-            {stats.map((stat) => (
-              <div key={stat.label} className="isp-stat">
-                <dt className="sr-only">{stat.label}</dt>
-                <dd>
-                  <b>{stat.value}</b>
-                  <span aria-hidden="true">{stat.label}</span>
-                </dd>
-              </div>
-            ))}
+          <div className="isp-stats">
+            <dl className="isp-stats-list">
+              {stats.map((stat) => (
+                <div key={stat.term} className="isp-stat">
+                  <dt className="sr-only">{stat.term}</dt>
+                  <dd>
+                    <b>{stat.value}</b>
+                    <span aria-hidden="true">{plural(stat.value, stat.forms)}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
             <p className="isp-stats-note">bez cen · dobór i montaż u nas</p>
-          </dl>
+          </div>
         </div>
 
         <ul className="isp-deps" role="list">
@@ -177,8 +181,8 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
                   Gotowe zestawy
                 </h3>
                 <p className="isp-block-lead">
-                  Kamery, alarm i domofon dobrane do siebie — dla domu, pensjonatu, firmy i parafii.
-                  Każdy zestaw dopasujemy do budynku.
+                  Sprzęt dobrany do siebie i sprawdzony przy montażu. Każdy zestaw dopasujemy do
+                  Twojego budynku.
                 </p>
               </div>
               <Link href={BUNDLES_PATH} className="isp-more">
@@ -189,7 +193,7 @@ export async function CatalogSection({ tenantId }: { tenantId: number }) {
             <ul className="isp-bundles" role="list">
               {bundles.slice(0, HOME_BUNDLES).map((bundle) => (
                 <li key={bundle.slug}>
-                  <BundleTile bundle={bundleCard(bundle, products)} />
+                  <BundleTile bundle={bundleCard(bundle, products)} headingLevel={3} />
                 </li>
               ))}
             </ul>
