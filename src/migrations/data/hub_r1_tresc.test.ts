@@ -21,9 +21,12 @@ describe('hub_r1_tresc (HUB-R1 data for production)', () => {
     expect(NETWORK_1811).toEqual(hubBrands().network)
     expect(PROCUREMENT_1811).toEqual(hubHome().procurement)
     expect(BRANDS_NOTE_1811).toBe(hubBrands().note)
-    const pkg = hubTrust()
-    for (const row of TRUST_1811) expect(pkg).toContainEqual(row)
-    expect(EXTRA_EMAILS_1811).toEqual(PROKOM_EXTRA_EMAILS)
+    // Approvals and the shop mailbox changed on 19.11 — `hub_r1_poprawki` (its own test).
+    const pkg = hubTrust().map(({ value, label }) => ({ value, label }))
+    for (const { value, label } of TRUST_1811) expect(pkg).toContainEqual({ value, label })
+    expect(EXTRA_EMAILS_1811.map((row) => row.label)).toEqual(
+      PROKOM_EXTRA_EMAILS.map((row) => row.label),
+    )
     expect(railWith1811(PROKOM_SHARED.rail?.sections)).toBeNull()
   })
 

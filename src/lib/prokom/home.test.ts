@@ -146,11 +146,11 @@ describe('partner network (runda 1811 D4: ALSEN)', () => {
     expect(all.salonNote).toBe('Punkt partnerski ALSEN')
   })
 
-  it('has its facts in the package: the partnership approved, the figures waiting', () => {
+  it('has its facts in the package: all approved (figures — Krystian 19.11)', () => {
     const facts = new Map(hubTrust().map((row) => [row.value, row.approved]))
     expect(facts.get('ALSEN')).toBe(true)
-    expect(facts.get('ALSEN 350+')).toBe(false)
-    expect(facts.get('ALSEN Rabka')).toBe(false)
+    expect(facts.get('ALSEN 350+')).toBe(true)
+    expect(facts.get('ALSEN Rabka')).toBe(true)
   })
 })
 
