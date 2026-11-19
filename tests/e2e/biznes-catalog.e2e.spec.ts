@@ -6,9 +6,9 @@ import { setTheme, site } from './helpers'
 // B5a: catalog `/oferta` — filters in the URL with facet counts, sort, „Pokaż kolejne”,
 // cards with „+ Do zapytania”, SEO of filtered views (spec. §5, §8.3, §9 pkt 4; ADR-012 §2.2).
 // Catalog from `pnpm seed`: `LISTED` cards (K3 + K3.1 + K4, K4a-1b; + 20 model cards of
-// PRODUKCJA-BIZNES-1211, + 4 Apple 14.11, + 3 projectors and FrameWings of runda 1811). Hidden (`ukryj` in mapa-slugow-k4.json, decision of
+// PRODUKCJA-BIZNES-1211, + 4 Apple 14.11, + 3 projectors, FrameWings and 5 acoustic furniture of runda 1811). Hidden (`ukryj` in mapa-slugow-k4.json, decision of
 // 14.11): ThinkStation P4 and Dell U5226KW. One number here — the catalog changes with the package.
-const LISTED = 459
+const LISTED = 464
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
 const oferta = (query = '') => site('biznes.localhost', `/oferta${query}`)
 
@@ -31,7 +31,7 @@ test.describe('Biznes catalog /oferta', () => {
     const response = await page.goto(oferta())
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toHaveText('Cała oferta dla firm')
-    await expect(count(page)).toHaveText(`${LISTED} pozycji`)
+    await expect(count(page)).toHaveText(new RegExp(`^${LISTED} pozycj[ei]$`))
     await expect(cards(page)).toHaveCount(24)
     // Without JavaScript „Pokaż kolejne” is a plain link to the next page (spec. §5.3).
     await expect(page.getByRole('link', { name: /Pokaż kolejne/ })).toHaveAttribute(
@@ -105,7 +105,7 @@ test.describe('Biznes catalog /oferta', () => {
     await expect(count(page)).toBeFocused()
     await chips.getByRole('button', { name: 'Wyczyść wszystko' }).click()
     await expect(page).toHaveURL(/\/oferta$/)
-    await expect(count(page)).toHaveText(`${LISTED} pozycji`)
+    await expect(count(page)).toHaveText(new RegExp(`^${LISTED} pozycj[ei]$`))
   })
 
   test('group tiles and sort write the URL', async ({ page }) => {

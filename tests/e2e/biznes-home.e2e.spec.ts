@@ -374,7 +374,7 @@ test.describe('Biznes home page: industries, plan, steps', () => {
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true')
     const panel = plan.getByRole('tabpanel')
     await expect(panel.getByRole('heading', { level: 3, name: 'Sklep spożywczy' })).toBeVisible()
-    await expect(plan).toContainText('186')
+    await expect(plan).toContainText('187')
 
     // Six points first, the rest after „Pokaż wszystkie N”.
     const list = panel.getByRole('region', { name: 'Na tym planie' }).getByRole('listitem')

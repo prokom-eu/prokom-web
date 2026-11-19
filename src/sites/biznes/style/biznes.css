@@ -1807,7 +1807,12 @@
 }
 
 /* Bottom bar */
+/* Sticky at the panel's bottom: with 13 categories in a department (runda 1811) the panel
+   scrolls on a 720 px screen, and the search and the authorisations stay in reach. */
 [data-line='biznes'] .bmg__ft {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
