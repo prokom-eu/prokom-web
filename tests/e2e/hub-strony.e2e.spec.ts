@@ -78,6 +78,14 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     await expect(section.getByRole('img', { name: 'ALSEN' })).toBeVisible()
   })
 
+  test('/kontakt shows only the old e-mails switched on in the panel (runda 1811 D15)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/kontakt'))
+    // `sklep@pro-kom.pl` waits for Krystian (mailbox and domain); the main address is not doubled.
+    await expect(page.getByText('sklep@pro-kom.pl')).toHaveCount(0)
+  })
+
   test('the line sites keep their own /kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page).toHaveTitle(/PRO-KOM Biznes/)
