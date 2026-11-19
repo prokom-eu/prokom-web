@@ -49,6 +49,24 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     await expect(page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/)).toBeVisible()
   })
 
+  test('ALSEN: a card in the brands of the home page and its section on /o-firmie (runda 1811 D4)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/'))
+    const card = page.locator('#marki .pk-net')
+    await expect(card).toContainText('Autoryzowany partner')
+    await expect(card.getByRole('link', { name: /Strona sieci ALSEN/ })).toHaveAttribute(
+      'href',
+      'https://www.alsen.pl/',
+    )
+    await page.goto(site(HUB, '/o-firmie#alsen'))
+    const section = page.locator('section#alsen')
+    await expect(
+      section.getByRole('heading', { level: 2, name: 'Autoryzowany partner ALSEN' }),
+    ).toBeVisible()
+    await expect(section.getByRole('img', { name: 'ALSEN' })).toBeVisible()
+  })
+
   test('the line sites keep their own /kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page).toHaveTitle(/PRO-KOM Biznes/)

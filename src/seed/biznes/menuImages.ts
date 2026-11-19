@@ -24,7 +24,10 @@ export const MENU_IMAGES: Readonly<Record<string, string>> = {
   monitory: 'c-monitory.webp',
   'serwery-nas-ups': 'c-serw.webp',
   'drukarki-wielofunkcyjne': 'c-mfp.webp',
-  'ekrany-projektory': 'c-av.webp',
+  // Runda 1811 (D1): the old „Ekrany i projektory” thumbnail shows an interactive monitor.
+  // TODO(krystian): thumbnails of /oferta/projektory and /oferta/ekrany-informacyjne — until then
+  // the menu shows the photo of the category's featured product.
+  'tablice-interaktywne': 'c-av.webp',
   'programy-sprzedazowe-erp': 'c-progs.webp',
   'programy-branzowe': 'c-progb.webp',
   'microsoft-365-licencje': 'c-m365.webp',

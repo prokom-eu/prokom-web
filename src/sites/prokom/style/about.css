@@ -299,6 +299,84 @@
   font-weight: 800;
 }
 
+.pk-abauth__list a {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  text-decoration: none;
+}
+.pk-abauth__list a:hover b {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* „Autoryzowany partner ALSEN” (runda 1811 D4): logo on a light plate beside the text. */
+.pk-abnet {
+  scroll-margin-top: 96px;
+  padding-block: 24px 8px;
+}
+.pk-abnet__card {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) minmax(0, 1fr);
+  align-items: center;
+  gap: 28px 40px;
+  border: 1px solid color-mix(in srgb, var(--ln) 36%, var(--border));
+  border-radius: 28px;
+  padding: 28px;
+  background: var(--surface-2);
+}
+.pk-abnet__plate {
+  display: flex;
+  min-height: 132px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--c-white);
+}
+.pk-abnet__plate img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+.pk-abnet__text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+.pk-abnet__title {
+  margin-bottom: 8px;
+}
+.pk-abnet__link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 8px;
+  color: var(--ln-text);
+  font-weight: 800;
+  text-underline-offset: 4px;
+}
+.pk-abnet__link:hover {
+  text-decoration: underline;
+}
+@media (max-width: 760px) {
+  .pk-abnet__card {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .pk-abnet__plate {
+    min-height: 96px;
+    padding: 18px;
+  }
+  .pk-abnet__plate img {
+    max-width: 180px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pk-story__steps li,
   .pk-value,

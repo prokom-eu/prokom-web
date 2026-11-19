@@ -33,7 +33,9 @@
     "serw",
     "mfp",
     "niszczarki",
-    "av"
+    "av",
+    "projektory",
+    "ekrany"
    ]
   },
   {
@@ -429,22 +431,45 @@
   {
    "kod": "av",
    "dzial": "biuro",
-   "nazwa": "Ekrany i projektory",
-   "opis": "Avtek, Samsung, Sharp/NEC: monitory interaktywne, ekrany informacyjne, projektory",
+   "nazwa": "Tablice interaktywne",
+   "opis": "Tablice interaktywne i monitory interaktywne Avtek dla szkół i firm, tablice suchościeralne FrameWings, statywy i akcesoria",
    "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
-   "liczba_w_wizualizacji": 22,
+   "liczba_w_wizualizacji": 11,
    "podkategorie": [
     {
      "slug": "monitory-interaktywne",
      "nazwa": "Monitory interaktywne"
     },
     {
+     "slug": "suchoscieralne-akcesoria",
+     "nazwa": "Tablice suchościeralne i akcesoria"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "projektory",
+   "dzial": "biuro",
+   "nazwa": "Projektory",
+   "opis": "Sharp/NEC: projektory laserowe i lampowe do klas, sal konferencyjnych, auli i hal",
+   "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
+   "liczba_w_wizualizacji": 6,
+   "podkategorie": [],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "ekrany",
+   "dzial": "biuro",
+   "nazwa": "Ekrany informacyjne i wideokonferencje",
+   "opis": "Samsung, Logitech, Lenovo, Dell: ekrany informacyjne do recepcji i witryn, zestawy do sal wideokonferencyjnych",
+   "ikona": "M3 4h18v12H3z M8 20h8 M12 16v4",
+   "liczba_w_wizualizacji": 11,
+   "podkategorie": [
+    {
      "slug": "ekrany-informacyjne",
      "nazwa": "Ekrany informacyjne"
-    },
-    {
-     "slug": "projektory",
-     "nazwa": "Projektory"
     },
     {
      "slug": "wideokonferencje",

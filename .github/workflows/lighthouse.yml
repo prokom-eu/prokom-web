@@ -29,7 +29,9 @@ jobs:
     name: budget · staging
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # 20 URLs × 3 runs ≈ 22–25 min since the hub pages joined (14.11): 20 min cut every run
+    # short (cancelled, no verdict) — the production gate had no green run after 09.11.
+    timeout-minutes: 40
     environment: staging
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
