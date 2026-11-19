@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { AnalyticsScript } from '@/components/AnalyticsScript'
+import { drawerTexts } from '@/lib/catalog/texts'
 import { BrandBar } from '@/components/shared/BrandBar'
 import { MenuSheet } from '@/components/shared/MenuSheet'
 import { SiteFooter } from '@/components/shared/SiteFooter'
@@ -109,7 +110,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
         />
         <PageTransition>{children}</PageTransition>
         {/* Inquiry list of the catalog (ADR-029): the shared drawer and toast, phone required. */}
-        <CartDrawer phone={phone} phoneRequired line="instalacje" />
+        <CartDrawer phone={phone} phoneRequired texts={drawerTexts('instalacje')} />
         <CartToast />
         <CtaBand
           band={navigation.ctaBand}
