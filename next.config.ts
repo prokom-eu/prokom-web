@@ -7,8 +7,6 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
-  // Audit AB4 (W-07): no `X-Powered-By: Next.js` on the sites (Payload keeps its own on /admin).
-  poweredByHeader: false,
   // Docker image (ADR-004): `.next/standalone` holds the server and only the traced node_modules.
   output: 'standalone',
   // No `AGENTS.md` from `next dev` run by an AI agent (e2e, preview): the same rule already lives
