@@ -15,7 +15,7 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { AboutNetwork, AboutStory, AboutValues } from './AboutStory'
-import { BranchNote, ExtraPhones, PartnerPointNote } from './ExtraContacts'
+import { BranchNote, ExtraPhones, PartnerPointNote, TechPointsCard } from './ExtraContacts'
 import { SaturdayNote } from './SaturdayNote'
 
 /**
@@ -64,6 +64,7 @@ export async function hubSlugPage(
   const settings = await getHubSettings(tenant.id)
   const network = visibleNetwork(settings.brands, settings.trust)
   if (slug === 'kontakt') {
+    const lineContacts = await getHubLineContacts(tenant.id)
     return (
       <ContactPage
         shared={shared}
@@ -76,7 +77,8 @@ export async function hubSlugPage(
           // Notes split between the hero columns so both are about as tall (16.11).
           heroBelow: (
             <>
-              <SaturdayNote lines={await getHubLineContacts(tenant.id)} />
+              <SaturdayNote lines={lineContacts} />
+              <TechPointsCard lines={lineContacts} />
               <ExtraPhones phones={settings.extraPhones} />
               {network && (
                 <PartnerPointNote text={network.salonNote} href={`/o-firmie#${network.slug}`} />

@@ -4,6 +4,9 @@ import { getLineTenantRows } from '../posts/data'
 import { getSharedData } from '../shared/getSharedData'
 import type { SharedLine, SharedLineData } from '../shared/project'
 import { HUB_LINES, type HubLine } from './lines'
+import { getHubSettings } from './data'
+import { hubPhone } from './phone'
+import { techPoints, type TechPoint } from './techPoints'
 
 /** Lines with a site (tenant) of their own; Tech and Gaming live in `CompanyData.lines` only. */
 export const TENANT_LINES = [
@@ -23,28 +26,14 @@ export type HubLineContact = {
   hours: string | null
   /** The line's promise of spec §3, as written in the panel (never in the hub's code). */
   promise: string | null
+  /** Phones of the line's points (Tech: Rabka, Zakopane, infoline — runda 1811 D5); none = `[]`. */
+  points?: TechPoint[]
 }
 
 const isTenantLine = (value: unknown): value is TenantLine =>
   (TENANT_LINES as readonly unknown[]).includes(value)
 
-/** First two digits of Polish mobile numbers (UKE numbering plan); others are landlines. */
-const MOBILE_PREFIX = /^(?:45|5[0137]|6[069]|7[2389]|88)/
-
-/**
- * One way of showing a Polish number on the hub (audit H8 pkt 5): with or without `+48`, spaced
- * or not — a mobile reads in three groups of three digits, a landline as area code + 3-2-2, no
- * prefix. Anything else (a foreign or short number) stays as typed. `toTelHref` gives the same
- * `tel:` link for the shown and the typed form.
- */
-export function hubPhone(phone: string | null): string | null {
-  if (!phone) return null
-  const digits = phone.replace(/\D/g, '').replace(/^(?:0048|48)(?=\d{9}$)/, '')
-  if (digits.length !== 9) return phone.trim()
-  return MOBILE_PREFIX.test(digits)
-    ? digits.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3')
-    : digits.replace(/(\d{2})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4')
-}
+export { hubPhone } from './phone'
 
 type LineFields = Pick<SharedLineData, 'phone' | 'email' | 'hours' | 'responsePromise'>
 
@@ -106,5 +95,10 @@ export const getHubLineContacts = cache(async (hubTenantId: number): Promise<Hub
         : null
     }),
   )
-  return toHubLineContacts(hub.lines, own)
+  const contacts = toHubLineContacts(hub.lines, own)
+  // Tech's points (runda 1811 D5) from the hub's settings; the infoline is Tech's own number.
+  const settings = await getHubSettings(hubTenantId)
+  return contacts.map((contact) =>
+    contact.key === 'tech' ? { ...contact, points: techPoints(settings, contact.phone) } : contact,
+  )
 })

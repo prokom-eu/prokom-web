@@ -40249,129 +40249,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.instalacje_settings_rels": {
-      "name": "instalacje_settings_rels",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "order": {
-          "name": "order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "parent_id": {
-          "name": "parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "path": {
-          "name": "path",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "products_id": {
-          "name": "products_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "instalacje_settings_rels_order_idx": {
-          "name": "instalacje_settings_rels_order_idx",
-          "columns": [
-            {
-              "expression": "order",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "instalacje_settings_rels_parent_idx": {
-          "name": "instalacje_settings_rels_parent_idx",
-          "columns": [
-            {
-              "expression": "parent_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "instalacje_settings_rels_path_idx": {
-          "name": "instalacje_settings_rels_path_idx",
-          "columns": [
-            {
-              "expression": "path",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "instalacje_settings_rels_products_id_idx": {
-          "name": "instalacje_settings_rels_products_id_idx",
-          "columns": [
-            {
-              "expression": "products_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "instalacje_settings_rels_parent_fk": {
-          "name": "instalacje_settings_rels_parent_fk",
-          "tableFrom": "instalacje_settings_rels",
-          "tableTo": "instalacje_settings",
-          "columnsFrom": ["parent_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "instalacje_settings_rels_products_fk": {
-          "name": "instalacje_settings_rels_products_fk",
-          "tableFrom": "instalacje_settings_rels",
-          "tableTo": "products",
-          "columnsFrom": ["products_id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.inst_services_hero_facts": {
       "name": "inst_services_hero_facts",
       "schema": "",
@@ -54553,6 +54430,12 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "tech_point": {
+          "name": "tech_point",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {
@@ -60669,6 +60552,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "70c33c1f-d79f-4642-8c53-007e491aed07",
+  "id": "ca4065d4-3b9a-420e-bd0c-9a379f0c0726",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
