@@ -115,6 +115,7 @@ function SalonStrip({ more }: { more: EquipmentExtras }) {
       <ul role="list">
         {more.salons.map((salon) => (
           <li key={salon.slug}>
+            {/* Not `brandHref`: lib/catalog/brand would pull the catalog modules into this client chunk. */}
             <Link href={`/marki/${salon.slug}`} aria-label={`Salon ${salon.name}`}>
               {salon.logo ? (
                 <Image
