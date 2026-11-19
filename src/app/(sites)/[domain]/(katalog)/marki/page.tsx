@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/ui/Container'
 import { buildBrandsPage } from '@/lib/catalog/brandsPage'
@@ -21,8 +20,6 @@ type Props = { params: Promise<{ domain: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tenant = await requireCatalogTenant(params)
-  // The Instalacje brands page comes with its salons (INST-K2); until then no Biznes copy here.
-  if (tenant.line !== 'biznes') notFound()
   const [settings, texts] = await Promise.all([
     getSiteSettings(tenant.id),
     getCatalogTexts(tenant.id, catalogTextLine(tenant.line)),
@@ -52,8 +49,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function BrandsPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
-  // The Instalacje brands page comes with its salons (INST-K2); until then no Biznes copy here.
-  if (tenant.line !== 'biznes') notFound()
   const [index, input, origin, networks] = await Promise.all([
     getCatalogIndex(tenant.id),
     getBrandsPageInput(tenant.id),
