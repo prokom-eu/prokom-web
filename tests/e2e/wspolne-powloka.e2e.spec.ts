@@ -118,8 +118,10 @@ test.describe('/_wspolne — widths (NAGLOWEK-KAPSULA §3)', () => {
           ...new Set(links.map((l) => Math.round(l.getBoundingClientRect().top))),
         ])
       expect(tops).toHaveLength(1)
-      const fits = await capsule(page).evaluate((cap) => cap.scrollWidth <= cap.clientWidth)
-      expect(fits).toBe(true)
+      // The capsule fits itself after hydration (`CapsuleShell` `data-fit`): poll.
+      await expect
+        .poll(() => capsule(page).evaluate((cap) => cap.scrollWidth <= cap.clientWidth))
+        .toBe(true)
       await expect(capsule(page).locator('.cap-cta__short')).toBeVisible()
     })
   }

@@ -50,9 +50,12 @@ export function ThemeCarry({ line }: { line: Line }) {
     // Capture: before any handler that could navigate; `auxclick` = middle button, a new tab.
     document.addEventListener('click', onClick, true)
     document.addEventListener('auxclick', onClick, true)
+    // Listening from here on (e2e waits for it; a click before hydration is not carried).
+    document.documentElement.setAttribute('data-theme-carry', '')
     return () => {
       document.removeEventListener('click', onClick, true)
       document.removeEventListener('auxclick', onClick, true)
+      document.documentElement.removeAttribute('data-theme-carry')
     }
   }, [])
 

@@ -39,7 +39,10 @@ test.describe('pro-kom.eu — capsule widths (spec §5.2)', () => {
           ),
         ])
       expect(tops).toHaveLength(1)
-      expect(await capsule(page).evaluate((cap) => cap.scrollWidth <= cap.clientWidth)).toBe(true)
+      // The capsule fits itself after hydration (`CapsuleShell` `data-fit`): poll.
+      await expect
+        .poll(() => capsule(page).evaluate((cap) => cap.scrollWidth <= cap.clientWidth))
+        .toBe(true)
       const narrow = width <= 1340
       await expect(page.locator('.cap__nav [data-cap-key="/o-firmie"]')).toBeVisible({
         visible: !narrow,
