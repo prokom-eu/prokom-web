@@ -11,8 +11,11 @@ import type { BrandTile } from '@/lib/catalog/brandsPage'
 import { normalizeText } from '@/lib/catalog/normalize'
 import { openCartDrawer } from '@/lib/cart/store'
 import { partnerStatusLabel } from '@/lib/partners/badges'
+import type { PartnerNetwork } from '@/lib/partners/networks'
 import { plural } from '@/lib/plural'
 import { BZ_H1, BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
+
+import { PartnerNetworks } from './PartnerNetworks'
 
 // Logos are made for a light background: a white plate in both themes (as `BrandsHome`).
 const PLATE =
@@ -33,12 +36,15 @@ export function BrandsDirectory({
   authorized,
   others,
   ui = CATALOG_UI.biznes,
+  networks = [],
 }: {
   total: number
   authorized: BrandTile[]
   others: BrandTile[]
   /** The line's copy (ADR-029); Biznes when left out. */
   ui?: CatalogUi
+  /** Partner networks (runda 1811, D4: ALSEN) — their own row, not among the brands. */
+  networks?: readonly PartnerNetwork[]
 }) {
   const [query, setQuery] = useState('')
   const searchId = useId()
@@ -46,6 +52,9 @@ export function BrandsDirectory({
   const matches = (tile: BrandTile) => words.every((word) => tile.hay.includes(word))
   const shownAuth = authorized.filter(matches)
   const shownOthers = others.filter(matches)
+  const shownNetworks = networks.filter((network) =>
+    words.every((word) => normalizeText(network.name).includes(word)),
+  )
 
   return (
     <>
@@ -115,6 +124,12 @@ export function BrandsDirectory({
           </section>
         )}
 
+        {shownNetworks.length > 0 && (
+          <section aria-labelledby="marki-sieci" data-marki-networks="">
+            <PartnerNetworks networks={shownNetworks} variant="row" headingId="marki-sieci" />
+          </section>
+        )}
+
         {shownOthers.length > 0 && (
           <section aria-labelledby="marki-pozostale" className="flex flex-col gap-5">
             <div className="flex items-center gap-3.5">
@@ -137,7 +152,7 @@ export function BrandsDirectory({
           </section>
         )}
 
-        {shownAuth.length === 0 && shownOthers.length === 0 && (
+        {shownAuth.length === 0 && shownOthers.length === 0 && shownNetworks.length === 0 && (
           <div
             role="status"
             className="flex flex-col items-start gap-3 rounded-3xl bg-surface-2 p-6 sm:p-8"
