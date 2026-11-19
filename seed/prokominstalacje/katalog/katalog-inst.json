@@ -390,7 +390,7 @@
   {
    "slug_seed": "hikvision-ds-1280zj-xs",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "akcesoria-cctv",
    "podkategoria": "uchwyty-i-puszki",
@@ -399,11 +399,11 @@
    "seria": "DS-1280ZJ-XS",
    "nazwa": "Hikvision DS-1280ZJ-XS aluminiowa puszka montażowa do kamer (DS-1280ZJ-XS)",
    "krotka": "Hikvision DS-1280ZJ-XS puszka do kamer",
-   "podtytul": "Biała puszka ze stopu aluminium o średnicy ok. 100 mm i wysokości ok. 43 mm, masa ok. 320 g, do kamer kopułkowych i tubowych.",
+   "podtytul": "Biała puszka ze stopu aluminium 100 × 43,5 × 132,1 mm, masa ok. 320 g, do kamer kopułkowych i tubowych.",
    "korzysc": "Porządny montaż kamery Hikvision: przewody i złącza schowane w puszce zamiast w otworze w elewacji.",
    "opis": [
     "DS-1280ZJ-XS to puszka montażowa Hikvision, na której osadza się kamerę na ścianie lub suficie. W puszce mieszczą się złącza i zapas kabla, więc nie trzeba ich wciskać w otwór w ścianie ani zostawiać na zewnątrz. To jedno z najczęściej stosowanych akcesoriów przy mniejszych kamerach Hikvision w domach, pensjonatach i sklepach. Producent opisuje ją jako puszkę do kamer kopułkowych (turret, dome) i tubowych; zgodność konkretnego modelu potwierdza tabela akcesoriów Hikvision.",
-    "Puszka jest wykonana ze stopu aluminium w kolorze białym. Strony regionalne producenta podają wymiary ok. Φ100 × 43,2 × 129 mm i masę ok. 320 g; karty katalogowe wersji czarnej i szarej mówią o 100 × 43,5 × 132,1 mm. Hikvision ma też wersje DS-1280ZJ-XS(Black) i DS-1280ZJ-XS-Grey w innych kolorach. Stopnia szczelności i nośności nie udało się potwierdzić na stronie producenta, dlatego karta wymaga sprawdzenia przed publikacją.",
+    "Puszka jest wykonana ze stopu aluminium. Według karty katalogowej Hikvision ma wymiary 100 × 43,5 × 132,1 mm i waży ok. 320 g — tak samo w wersji białej, czarnej DS-1280ZJ-XS(Black) i szarej DS-1280ZJ-XS-Grey. Kolor dobieramy do kamery i elewacji, a zgodność otworów montażowych z konkretną kamerą sprawdzamy w tabeli akcesoriów producenta.",
     "PRO-KOM dobiera puszkę razem z kamerą, sprawdzając w tabeli Hikvision, czy otwory się pokrywają. Montujemy puszkę na elewacji lub suficie, wprowadzamy przewód sieciowy, zabezpieczamy złącza i przykręcamy kamerę. Potem dodajemy kamerę do rejestratora, ustawiamy kadr i podgląd w aplikacji Hik-Connect. Przy serwisie puszka pozwala wymienić kamerę bez ponownego wiercenia."
    ],
    "cechy": [
@@ -426,7 +426,7 @@
     },
     {
      "k": "Wymiary",
-     "v": "ok. Φ100 × 43,2 × 129 mm (strona producenta); w kartach wersji Black/Grey 100 × 43,5 × 132,1 mm"
+     "v": "100 × 43,5 × 132,1 mm (wszystkie kolory)"
     },
     {
      "k": "Masa",
@@ -441,16 +441,16 @@
      "v": "ścienny lub sufitowy"
     },
     {
-     "k": "Szczelność",
-     "v": "do potwierdzenia u producenta"
+     "k": "Wersje",
+     "v": "DS-1280ZJ-XS (biała), DS-1280ZJ-XS(Black), DS-1280ZJ-XS-Grey"
     },
     {
-     "k": "Nośność",
-     "v": "do potwierdzenia u producenta"
+     "k": "Przeznaczenie",
+     "v": "osłona złączy i zapasu przewodu pod kamerą"
     },
     {
-     "k": "Temperatura pracy",
-     "v": "do potwierdzenia u producenta"
+     "k": "Mocowanie kamery",
+     "v": "kamera przykręcana do puszki — otwory wg tabeli zgodności Hikvision"
     }
    ],
    "warianty_opis": [
@@ -478,8 +478,8 @@
       "v": "stop aluminium"
      },
      {
-      "k": "Średnica",
-      "v": "ok. 100 mm"
+      "k": "Wymiary",
+      "v": "100 × 43,5 × 132,1 mm"
      }
     ],
     "popularne": [
@@ -531,16 +531,16 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/mena-en/products/Accessories/CCTV-Accessories/Junction/ds-1280zj-xs/",
+     "url": "https://www.hikvision.com/en/products/IP-Products/cctv-accessories/junctions/ds-1280zj-xs/",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     },
     {
-     "url": "https://assets.hikvision.com/prd/public/all/doc/m000002064/DS-1280ZJ-XS_Datasheet_20241202.pdf",
+     "url": "https://assets.hikvision.com/prd/normal/all/doc/m000002064/DS-1280ZJ-XS_Datasheet_20241202.pdf",
      "etykieta": "Karta katalogowa — Hikvision DS-1280ZJ-XS",
      "host": "hikvision.com · PDF",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -568,7 +568,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-1280zj-xs-01.webp",
@@ -589,22 +589,22 @@
    "seria": "DS-1473ZJ",
    "nazwa": "Hikvision DS-1473ZJ-155B uchwyt ścienny z puszką do kamer kopułkowych (DS-1473ZJ-155B, DS-1473ZJ-155B(Black))",
    "krotka": "Hikvision DS-1473ZJ-155B uchwyt ścienny z puszką",
-   "podtytul": "Aluminiowy wysięgnik ścienny ze zintegrowaną puszką, z mocowaniem średnicy 155 mm, w wersji białej lub czarnej.",
+   "podtytul": "Aluminiowy wysięgnik ścienny z kapturkiem do montażu kamery kopułkowej, nośność do 3 kg, w wersji białej lub czarnej.",
    "korzysc": "Kamera kopułkowa wysunięta od ściany, z przewodami schowanymi w uchwycie — lepszy kąt widzenia wzdłuż elewacji.",
    "opis": [
-    "DS-1473ZJ-155B to ścienny uchwyt Hikvision w kształcie wysięgnika, na którego końcu zawiesza się kamerę kopułkową. Odsunięcie kamery od ściany pozwala patrzeć wzdłuż elewacji, na wejście czy parking, bez zasłaniania obrazu przez róg budynku lub rynnę. Litera „B” w nazwie oznacza wersję ze zintegrowaną puszką, w której mieszczą się złącza i zapas przewodu. Uchwyt stosuje się przy obiektach takich jak pensjonaty, hotele, hale i parkingi.",
-    "Uchwyt jest wykonany ze stopu aluminium i według strony producenta występuje w kolorze białym (DS-1473ZJ-155B) oraz czarnym (DS-1473ZJ-155B(Black)); wersja bez puszki nosi oznaczenie DS-1473ZJ-155. Mocowanie kamery ma średnicę 155 mm, a lista zgodności Hikvision łączy uchwyt z konkretnymi seriami kamer, czasem przez dodatkowy adapter. Dokładnych wymiarów, masy i nośności nie udało się potwierdzić na stronie producenta — dane z dystrybucji (Φ155 × 243 × 300 mm) wymagają sprawdzenia przed publikacją.",
-    "Przed montażem PRO-KOM sprawdza, czy wybrana kamera jest na liście zgodności tego uchwytu i czy potrzebny jest adapter. Uchwyt montujemy na nośnej ścianie, bo wysięgnik z kamerą działa jak dźwignia, a przewód prowadzimy wewnątrz, do puszki. Po montażu ustawiamy kadr, dodajemy kamerę do rejestratora i konfigurujemy podgląd w Hik-Connect. Montaż jest objęty 24-miesięczną gwarancją PRO-KOM."
+    "DS-1473ZJ-155B to ścienny uchwyt Hikvision w kształcie wysięgnika, na którego końcu zawiesza się kamerę kopułkową. Odsunięcie kamery od ściany pozwala patrzeć wzdłuż elewacji, na wejście czy parking, bez zasłaniania obrazu przez róg budynku lub rynnę. Litera „B” w nazwie oznacza wersję z kapturkiem, który ułatwia przykręcenie kamery do wysięgnika. Uchwyt stosuje się przy obiektach takich jak pensjonaty, hotele, hale i parkingi.",
+    "Uchwyt jest wykonany ze stopu aluminium i występuje w kolorze białym (DS-1473ZJ-155B) oraz czarnym (DS-1473ZJ-155B(Black)); sam wysięgnik bez kapturka nosi oznaczenie DS-1473ZJ-155. Według karty Hikvision ma wymiary Φ155 × 243 × 300 mm, waży 1750 g i utrzyma kamerę do 3 kg. Lista zgodności producenta wskazuje m.in. kopułki serii DS-2CD27x5 i 27x3G0 oraz mini PTZ 55x5/55x6 G0.",
+    "Przed montażem PRO-KOM sprawdza, czy wybrana kamera jest na liście zgodności tego uchwytu i czy potrzebny jest adapter. Uchwyt montujemy na nośnej ścianie, bo wysięgnik z kamerą działa jak dźwignia, a przewód prowadzimy wewnątrz wysięgnika. Po montażu ustawiamy kadr, dodajemy kamerę do rejestratora i konfigurujemy podgląd w Hik-Connect. Montaż jest objęty 24-miesięczną gwarancją PRO-KOM."
    ],
    "cechy": [
     "wysięgnik ścienny",
-    "puszka w uchwycie",
+    "kapturek do kamery",
     "biały lub czarny"
    ],
    "parametry": [
     {
      "k": "Typ",
-     "v": "uchwyt ścienny (wysięgnik) ze zintegrowaną puszką"
+     "v": "uchwyt ścienny (wysięgnik) z kapturkiem do kamery kopułkowej"
     },
     {
      "k": "Materiał",
@@ -620,7 +620,7 @@
     },
     {
      "k": "Zastosowanie",
-     "v": "kamery kopułkowe Hikvision zgodne wg listy producenta (część przez adapter)"
+     "v": "kopułki Hikvision z listy zgodności, m.in. serie DS-2CD27x5, 27x3G0 i mini PTZ 55x5/55x6 G0"
     },
     {
      "k": "Montaż",
@@ -628,29 +628,29 @@
     },
     {
      "k": "Prowadzenie przewodu",
-     "v": "wewnątrz uchwytu, złącza w puszce"
+     "v": "przewód prowadzony wewnątrz wysięgnika"
     },
     {
      "k": "Wymiary",
-     "v": "do potwierdzenia u producenta (dystrybutor: Φ155 × 243 × 300 mm)"
+     "v": "Φ155 × 243 × 300 mm"
     },
     {
      "k": "Masa",
-     "v": "do potwierdzenia u producenta"
+     "v": "1750 g"
     },
     {
      "k": "Nośność",
-     "v": "do potwierdzenia u producenta"
+     "v": "maks. 3 kg (ściana musi utrzymać 3 × masę kamery z uchwytem)"
     }
    ],
    "warianty_opis": [
     {
      "model": "DS-1473ZJ-155B",
-     "roznica": "biały uchwyt ścienny ze zintegrowaną puszką."
+     "roznica": "biały wysięgnik z kapturkiem do kamery kopułkowej."
     },
     {
      "model": "DS-1473ZJ-155B(Black)",
-     "roznica": "ten sam uchwyt z puszką w kolorze czarnym."
+     "roznica": "ten sam uchwyt w kolorze czarnym."
     }
    ],
    "konfigurator": {
@@ -665,12 +665,12 @@
       "dl": false
      },
      {
-      "nazwa": "Puszka",
+      "nazwa": "Wersja",
       "wartosci": [
-       "z puszką (155B)",
-       "bez puszki (DS-1473ZJ-155)"
+       "z kapturkiem do kamery (155B)",
+       "sam uchwyt (DS-1473ZJ-155)"
       ],
-      "uwaga": "Wersja bez puszki to osobny model.",
+      "uwaga": "Wersja bez kapturka to osobny model.",
       "dl": false
      }
     ],
@@ -698,7 +698,7 @@
     },
     {
      "q": "Czym różni się DS-1473ZJ-155B od DS-1473ZJ-155?",
-     "a": "Wersja z „B” ma zintegrowaną puszkę na złącza i zapas przewodu. Model bez „B” to sam uchwyt."
+     "a": "Wersja z „B” ma kapturek (adapter), na którym osadza się kamerę kopułkową. Model bez „B” to sam wysięgnik."
     },
     {
      "q": "Czy uchwyt pasuje do każdej kamery kopułkowej Hikvision?",
@@ -749,6 +749,12 @@
      "etykieta": "Lista zgodności uchwytów — Hikvision",
      "host": "hikvision.com · PDF",
      "data": "2026-11-18"
+    },
+    {
+     "url": "https://www.ness.com.au/images/uploaded/Products/Datasheets/Ness_114-482_Hikvision_datasheet.pdf",
+     "etykieta": "Karta katalogowa Hikvision (kopia u dystrybutora)",
+     "host": "ness.com.au · PDF",
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -776,7 +782,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-1473zj-01.webp",
@@ -16224,12 +16230,8 @@
      "v": "IP67, IK08"
     },
     {
-     "k": "Temperatura pracy",
-     "v": "−40…+60 °C"
-    },
-    {
-     "k": "Wymiary",
-     "v": "Ø109,9 × 81 mm; 0,33 kg"
+     "k": "Temperatura i wymiary",
+     "v": "−40…+60 °C; Ø109,9 × 81 mm, 0,33 kg"
     },
     {
      "k": "Zgodność",
@@ -16288,6 +16290,10 @@
     {
      "q": "Czy kopułkę da się zamontować na suficie podwieszanym?",
      "a": "Zwykle tak — montujemy ją na płycie sufitu lub na puszce. Sposób mocowania sprawdzamy na miejscu, bo zależy od konstrukcji sufitu."
+    },
+    {
+     "q": "Czy ta kopułka nagrywa w nocy w kolorze?",
+     "a": "Domyślnie w nocy pracuje podczerwień i obraz jest czarno-biały. W trybie Smart Dual Light kamera po wykryciu człowieka włącza ciepłe światło (do 30 m) i nagrywa w kolorze."
     }
    ],
    "polecane": [
@@ -17768,7 +17774,7 @@
   {
    "slug_seed": "hikvision-ds-2cd10x1g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -17995,7 +18001,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd10x1g2-liu-01.webp",
@@ -18017,7 +18023,7 @@
   {
    "slug_seed": "hikvision-ds-2cd13x1g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -18225,7 +18231,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd13x1g2-liu-02.webp",
@@ -18475,7 +18481,7 @@
   {
    "slug_seed": "hikvision-ds-2cd13x3g2-liu",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -18523,7 +18529,7 @@
     },
     {
      "k": "WDR",
-     "v": "1363: 120 dB"
+     "v": "120 dB (oba modele)"
     },
     {
      "k": "Audio",
@@ -18553,7 +18559,7 @@
     },
     {
      "model": "DS-2CD1363G2-LIU",
-     "roznica": "6 Mpx, przetwornik 1/2,4″, kąt 105°, WDR 120 dB — więcej szczegółów i lepszy obraz pod światło."
+     "roznica": "6 Mpx, przetwornik 1/2,4″, kąt 105° — więcej szczegółów na szerokim kadrze."
     }
    ],
    "konfigurator": {
@@ -18678,7 +18684,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd13x3g2-liu-01.webp",
@@ -18700,7 +18706,7 @@
   {
    "slug_seed": "hikvision-ds-2cd1t67g3-liuf",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "tubowe",
@@ -18732,7 +18738,7 @@
     },
     {
      "k": "Obiektyw",
-     "v": "2,8 mm, F1.0 (w ofercie producenta także 4 mm)"
+     "v": "2,8 mm, F1.0, kąt 109° (w ofercie producenta także 4 mm)"
     },
     {
      "k": "Czułość w kolorze (wg producenta)",
@@ -18744,7 +18750,7 @@
     },
     {
      "k": "Doświetlenie",
-     "v": "hybrydowe: podczerwień + białe światło"
+     "v": "hybrydowe: podczerwień + białe światło, do 50 m"
     },
     {
      "k": "Ostrzeganie",
@@ -18867,16 +18873,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/europe/products/IP-Products/Network-Cameras/value-series/ds-2cd1t67g3-liu-f---sl---srb-/",
+     "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/value-series/ds-2cd1t67g3-liu-f---sx-/?subName=DS-2CD1T67G3-LIUF/SL",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
-    },
-    {
-     "url": "https://assets.hikvision.com/prd/normal/all/doc/sm000104375/DS-2CD1T67G3-LIUF_LSL_Datasheet_20260820.pdf",
-     "etykieta": "Karta katalogowa pokrewnej wersji DS-2CD1T67G3-LIUF/LSL — Hikvision",
-     "host": "hikvision.com · PDF",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -18903,7 +18903,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd1t67g3-liuf-01.webp",
@@ -18915,7 +18915,7 @@
   {
    "slug_seed": "hikvision-ds-2cd1367g3-liuf",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "mon",
    "kategoria": "kamery-ip",
    "podkategoria": "turret",
@@ -18928,7 +18928,7 @@
    "korzysc": "Kolorowy obraz wejścia i podjazdu po zmroku z kamery, która mieści się dyskretnie pod okapem.",
    "opis": [
     "DS-2CD1367G3-LIUF/SL to kamera turret z technologią ColorVu 3.0: zamiast czarno-białego obrazu z podczerwieni stara się nagrywać kolor także po zmroku. Kulista obudowa dobrze wygląda pod okapem domu, w wiatrołapie, na ganku pensjonatu czy nad wejściem do sklepu. Dopisek /SL oznacza wbudowane białe światło migające, którym kamera może zasygnalizować, że osoba została zauważona. Litera F to gniazdo na kartę microSD.",
-    "Przetwornik 1/2,4″ daje obraz 6 Mpx (3200 × 1800), a jasny obiektyw F1.0 pozwala, według producenta, zachować kolor przy oświetleniu 0,0005 lx. Funkcja wykrywania ruchu 3.0 rozróżnia ludzi i pojazdy, więc stroboskop nie musi reagować na każdy ruch w kadrze. Kamera ma wbudowany mikrofon, a wersja /SL także głośnik, oraz gniazdo kart microSD do 512 GB. Od tubowej siostry DS-2CD1T67G3-LIUF/SL różni się przede wszystkim obudową — turret montuje się zwykle na suficie lub pod okapem.",
+    "Przetwornik 1/2,4″ daje obraz 6 Mpx (3200 × 1800), a jasny obiektyw F1.0 pozwala, według producenta, zachować kolor przy oświetleniu 0,0005 lx. Funkcja wykrywania ruchu 3.0 rozróżnia ludzi i pojazdy, więc stroboskop nie musi reagować na każdy ruch w kadrze. Kamera ma wbudowany mikrofon, a wersja /SL także głośnik, oraz gniazdo kart microSD do 512 GB. Od tubowej siostry DS-2CD1T67G3-LIUF/SL różni się obudową i zasięgiem doświetlenia (turret do 30 m, tuba do 50 m) — turret montuje się zwykle na suficie lub pod okapem.",
     "Na miejscu sprawdzamy, czy w pobliżu jest choć trochę światła — ColorVu najlepiej działa tam, gdzie świeci latarnia albo lampa nad wejściem. Kamerę montujemy na suficie lub ścianie, podłączamy do przełącznika PoE i rejestratora Hikvision z odpowiednim dyskiem albo zostawiamy z samą kartą microSD. W Hik-Connect ustawiamy powiadomienia, strefy i zachowanie światła ostrzegawczego. Wykonany montaż ma 24 miesiące gwarancji PRO-KOM, a w razie potrzeby przyjeżdżamy z serwisem."
    ],
    "cechy": [
@@ -18967,7 +18967,7 @@
     },
     {
      "k": "Audio",
-     "v": "mikrofon; głośnik w wersji /SL"
+     "v": "mikrofon; głośnik w wersji /SL (wg producenta)"
     },
     {
      "k": "Zapis w kamerze",
@@ -19078,10 +19078,10 @@
    ],
    "zrodla": [
     {
-     "url": "https://www.hikvision.com/cz/products/IP-Products/Network-Cameras/value-series/ds-2cd1367g3-liu-f---sl---srb-",
+     "url": "https://www.hikvision.com/en/products/IP-Products/Network-Cameras/value-series/ds-2cd1367g3-liu-f---sx-/?subName=DS-2CD1367G3-LIUF/SL",
      "etykieta": "Strona producenta — Hikvision",
      "host": "hikvision.com",
-     "data": "2026-11-18"
+     "data": "2026-11-19"
     }
    ],
    "wyrozniki": [
@@ -19108,7 +19108,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-2cd1367g3-liuf-01.webp",
@@ -20860,6 +20860,10 @@
     {
      "q": "Czy kamera w szkole może nagrywać dźwięk?",
      "a": "Kamera ma mikrofon, ale w szkołach zwykle go wyłączamy, bo nagrywanie rozmów wymaga osobnej podstawy. O ustawieniach decyduje administrator monitoringu."
+    },
+    {
+     "q": "Na ile dni nagrań wystarczy karta w kamerze?",
+     "a": "Kamera przyjmuje kartę microSD do 512 GB, ale w szkołach i urzędach główny zapis prowadzimy na rejestratorze z dyskiem. Karta jest wtedy zapasem na wypadek przerwy w sieci."
     },
     {
      "q": "Czy nocny obraz z tej kopułki jest kolorowy?",
@@ -32725,7 +32729,7 @@
   {
    "slug_seed": "hikvision-ds-kh6320-wte1",
    "zmiana_k4": "nowa",
-   "status": "do-sprawdzenia",
+   "status": "gotowe",
    "dzial": "dostep",
    "kategoria": "wideodomofony",
    "podkategoria": "monitory",
@@ -32936,7 +32940,7 @@
    ],
    "nowosc": false,
    "wideo": [],
-   "sprawdzono": "2026-11-18",
+   "sprawdzono": "2026-11-19",
    "zdjecia_premium": [
     {
      "plik": "media/produkty/hikvision-ds-kh6320-wte1-01.webp",
