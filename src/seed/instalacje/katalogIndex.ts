@@ -46,6 +46,7 @@ try {
     }),
     payload.find({
       collection: 'inst-services',
+      pagination: false,
       where: inTenant,
       limit: 100,
       draft: true,
@@ -55,6 +56,7 @@ try {
   const stored = new Set(solutions.docs.flatMap((doc) => (doc.legacyId ? [doc.legacyId] : [])))
   const serviceIds = new Map(services.docs.map((doc) => [doc.key, doc.id]))
   const missing = missingSolutions(solutionsToImport(), stored)
+  if (missing.length) log(`inst-solutions to create: ${missing.map((i) => i.legacyId).join(', ')}`)
   for (const item of missing) {
     const service = serviceIds.get(item.serviceKey)
     if (service === undefined) {

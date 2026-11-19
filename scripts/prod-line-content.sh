@@ -16,11 +16,11 @@
 # files the import adds go back — ALWAYS once the import has started, also after a failure, since
 # the database already points at them. Nothing on the server is deleted. The deploy lock is held
 # for the whole run. Refuses once the line has a production domain (its panel edits would be
-# overwritten) unless PO_STARCIE=1.
+# overwritten) unless PO_STARCIE=1 (instalacje-katalog: once the tenant has catalog cards).
 # `biznes-wpisy` (ADR-027 „Rozstrzygnięcia 15.11”): only `seed:biznes-wpisy` — creates the
 # Biznes guide posts that are missing, never changes an existing one and has no media, so it runs
 # on the live line without PO_STARCIE and without the media download.
-# `instalacje-katalog` (INST-K1/K2, ADR-029): only `seed:instalacje-katalog` — the catalog of the
+# `instalacje-katalog` (INST-K1/K2, ADR-027 „Rozstrzygnięcia 19.11”): only `seed:instalacje-katalog` — the catalog of the
 # live prokominstalacje.pl (cards, photos, brands, salons) and the offer's missing solutions
 # (created only). The rest of the line is not touched, so it runs on the live line; once the
 # tenant has cards (a second run would overwrite their panel edits) only with PO_STARCIE=1.
@@ -104,6 +104,10 @@ fi
 remote_sh "grep -q '^DATABASE_URL=.*@postgres:5432/prokom_prod' $remote/.env.prod" ||
   { echo "DATABASE_URL in .env.prod does not point at postgres:5432/prokom_prod." >&2; exit 1; }
 
+if [ "$seed" = instalacje-katalog ] && [ -n "${ZAMIEN_STRONY:-}" ]; then
+  echo "ZAMIEN_STRONY is for the biznes import, not $line." >&2
+  exit 1
+fi
 if [ "$media" = 1 ]; then
   echo "Production ${tag:0:7}: the $line package goes straight into its database (other lines and"
   echo "the shared company data stay as they are)${ZAMIEN_STRONY:+; pages replaced: $ZAMIEN_STRONY}."
@@ -153,6 +157,10 @@ cleanup() {
     echo "(the page cache was not cleared). Run again once the cause is fixed — it creates only" >&2
     echo "the missing posts." >&2
     rm -rf "$work"
+  elif [ "$rc" -ne 0 ] && [ "$started" = 1 ] && [ "$seed" = instalacje-katalog ]; then
+    echo "Failed after the import started: $work kept. Part of the catalog is already on the live" >&2
+    echo "prokominstalacje.pl. Once the cause is fixed: PO_STARCIE=1 … instalacje-katalog — safe," >&2
+    echo "the panel has no edits of these cards yet (the import is idempotent)." >&2
   elif [ "$rc" -ne 0 ] && [ "$started" = 1 ]; then
     echo "Failed after the import started: $work kept. The line is partly updated (no production" >&2
     echo "domain, nobody sees it) — run again (idempotent) once the cause is fixed." >&2
