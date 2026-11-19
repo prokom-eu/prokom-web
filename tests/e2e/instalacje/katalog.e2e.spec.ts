@@ -40,6 +40,31 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     expect(response?.status()).toBe(404)
   })
 
+  // INST-K2 (ADR-029 pkt 6): the brands of Instalacje lead to its own salons; a brand without a
+  // salon here has no page — never the Biznes text of the shared brand page.
+  test('/marki lists the Instalacje brands with its own copy', async ({ page }) => {
+    const response = await page.goto(inst('/marki'))
+    expect(response?.status()).toBe(200)
+    const main = page.locator('main')
+    await expect(main).toContainText('monitoring, alarmy, domofony')
+    await expect(main).not.toContainText(/kas fiskalnych|Posnet/)
+    await expect(main.getByRole('searchbox')).not.toHaveAttribute('placeholder', /Posnet/)
+    // A brand without a salon still lists its cards: to the offer filtered by it.
+    await expect(main.locator('a[href="/oferta?marka=edbak"]').first()).toBeVisible()
+    await expect(main.getByRole('link', { name: /Dahua/ }).first()).toHaveAttribute(
+      'href',
+      '/marki/dahua',
+    )
+  })
+
+  test('the Dahua salon renders; a brand without a salon is 404', async ({ page }) => {
+    const salon = await page.goto(inst('/marki/dahua'))
+    expect(salon?.status()).toBe(200)
+    await expect(page.locator('main')).toContainText('DMSS')
+    const noSalon = await page.goto(inst('/marki/edbak'))
+    expect(noSalon?.status()).toBe(404)
+  })
+
   test('the header leads to „Sprzęt”, not „Serwis” (D12)', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(inst('/'))
@@ -52,7 +77,7 @@ test.describe('Instalacje catalog (INST-K1)', () => {
   })
 
   for (const theme of ['light', 'dark'] as const) {
-    for (const path of ['/oferta', PRODUCT]) {
+    for (const path of ['/oferta', PRODUCT, '/marki', '/marki/dahua']) {
       test(`axe WCAG AA on ${path} (${theme})`, async ({ page }) => {
         await setTheme(page, theme)
         await page.goto(inst(path))

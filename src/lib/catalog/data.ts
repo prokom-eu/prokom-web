@@ -579,14 +579,20 @@ export const getBrandsPageInput = (tenantId: number): Promise<Omit<BrandsPageInp
         partnerIds: idsOf(group.partners),
       }))
       const ids = [...new Set(groups.flatMap((group) => group.partnerIds))]
+      // A line without brand groups in its settings (Instalacje, ADR-029): every brand of the
+      // tenant, without the shared one-line description (written for Biznes, pkt 6); the page
+      // shows them as one list (`/marki`).
+      const ownGroups = settings.docs.length > 0
       const partners =
-        ids.length === 0
+        ownGroups && ids.length === 0
           ? []
           : (
               await payload.find({
                 collection: 'partners',
-                where: { and: [{ id: { in: ids } }, { tenants: { in: [tenantId] } }] },
-                limit: ids.length,
+                where: ownGroups
+                  ? { and: [{ id: { in: ids } }, { tenants: { in: [tenantId] } }] }
+                  : { tenants: { in: [tenantId] } },
+                limit: ownGroups ? ids.length : MAX_RECORDS,
                 ...read,
               })
             ).docs.map((partner) => ({
@@ -594,7 +600,7 @@ export const getBrandsPageInput = (tenantId: number): Promise<Omit<BrandsPageInp
               slug: partner.slug ?? null,
               name: partner.name,
               status: partner.partnerStatus,
-              description: partner.brandPage?.shortDescription?.trim() || null,
+              description: ownGroups ? partner.brandPage?.shortDescription?.trim() || null : null,
               logo: brandLogo(partner) ?? null,
             }))
       return {
