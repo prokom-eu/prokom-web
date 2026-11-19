@@ -128,6 +128,7 @@ import * as migration_20261119_000423_hub_tech_punkty from './20261119_000423_hu
 import * as migration_20261119_001610_hub_dodatkowe_maile from './20261119_001610_hub_dodatkowe_maile'
 import * as migration_20261119_013000_hub_r1_tresc from './20261119_013000_hub_r1_tresc'
 import * as migration_20261119_030446_inst_glowna_sprzet from './20261119_030446_inst_glowna_sprzet'
+import * as migration_20261119_220000_hub_sklep_alsen from './20261119_220000_hub_sklep_alsen'
 
 export const migrations = [
   {
@@ -779,5 +780,10 @@ export const migrations = [
     up: migration_20261119_030446_inst_glowna_sprzet.up,
     down: migration_20261119_030446_inst_glowna_sprzet.down,
     name: '20261119_030446_inst_glowna_sprzet',
+  },
+  {
+    up: migration_20261119_220000_hub_sklep_alsen.up,
+    down: migration_20261119_220000_hub_sklep_alsen.down,
+    name: '20261119_220000_hub_sklep_alsen',
   },
 ]
