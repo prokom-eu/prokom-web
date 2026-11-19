@@ -215,6 +215,8 @@ test.describe('side rail — theme entry (1440 px)', () => {
     ['biznes.localhost', '/kontakt'],
     ['instalacje.localhost', '/monitoring'],
     ['software.localhost', '/kontakt'],
+    // Runda 1811 D8: the hub's subpages have the rail too (was home only, H1-2).
+    ['prokom.localhost', '/o-firmie'],
   ] as const) {
     test(`${host}: on the home page and on ${subpage}`, async ({ page }) => {
       for (const path of ['/', subpage]) {
@@ -223,9 +225,4 @@ test.describe('side rail — theme entry (1440 px)', () => {
       }
     })
   }
-
-  test('prokom.localhost: on the home page (subpages get the rail in HUB-R1)', async ({ page }) => {
-    await page.goto(site('prokom.localhost'))
-    await expect(page.locator('[data-site-rail] [data-rail-theme]')).toBeAttached()
-  })
 })

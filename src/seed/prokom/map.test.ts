@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   TOOL_LINKS,
+  extraPhonesAfterSeed,
   hubHelp,
   hubPlans,
   hubServices,
@@ -162,5 +163,24 @@ describe('siteContactUpdate — hub contact (second number 15.11)', () => {
     const base = { phone: '883 200 151', email: 'biuro@pro-kom.eu', footer: { text: 'Tekst.' } }
     expect(siteContactUpdate({ ...base, phone2: null })).toEqual({ phone2: '889 003 889' })
     expect(siteContactUpdate({ ...base, phone2: '600 000 000' })).toBeNull()
+  })
+})
+
+describe('extraPhonesAfterSeed (runda 1811 D5)', () => {
+  it('fills an empty list with the package numbers, Rabka marked as the Tech point', () => {
+    expect(extraPhonesAfterSeed([]).map((row) => row.techPoint)).toEqual([null, 'Rabka-Zdrój'])
+  })
+
+  it('keeps the stored list and marks only the package Tech point by its number', () => {
+    const stored = [
+      { label: 'Biuro', number: '182676511', techPoint: null },
+      { label: 'Serwis Tech', number: '18 541 20 55', techPoint: null },
+      { label: 'Nowy z panelu', number: '18 000 00 00', techPoint: 'Nowy Targ' },
+    ]
+    expect(extraPhonesAfterSeed(stored)).toEqual([
+      { label: 'Biuro', number: '182676511', techPoint: null },
+      { label: 'Serwis Tech', number: '18 541 20 55', techPoint: 'Rabka-Zdrój' },
+      { label: 'Nowy z panelu', number: '18 000 00 00', techPoint: 'Nowy Targ' },
+    ])
   })
 })

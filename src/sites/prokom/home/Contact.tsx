@@ -52,26 +52,17 @@ export function Contact({ texts, lines, company, email, now, contactHref }: Prop
             <ul className="pk-clines" role="list">
               {callable.map((line) => (
                 <li key={line.key} style={lineStyle(line.key)}>
-                  <a href={line.tel ?? undefined} className="pk-clr">
-                    <span className="pk-clr__badge" aria-hidden="true">
-                      <Mark label={line.label} size="xs" decorative />
-                    </span>
-                    <span className="pk-clr__text">
-                      <span className="pk-clr__name">
-                        <span className="sr-only">{line.name}: </span>
-                        {line.hero.short}
+                  {line.points.length > 0 ? (
+                    <PointsRow line={line} />
+                  ) : (
+                    <a href={line.tel ?? undefined} className="pk-clr">
+                      <LineLabel line={line} />
+                      <span className="pk-clr__phone">
+                        <Icon name="phone" />
+                        {line.phone}
                       </span>
-                      {(line.promise || line.hours) && (
-                        <span className="pk-clr__promise">
-                          {[line.hours, line.promise].filter(Boolean).join(' · ')}
-                        </span>
-                      )}
-                    </span>
-                    <span className="pk-clr__phone">
-                      <Icon name="phone" />
-                      {line.phone}
-                    </span>
-                  </a>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -125,5 +116,53 @@ export function Contact({ texts, lines, company, email, now, contactHref }: Prop
         </div>
       </div>
     </section>
+  )
+}
+
+/** Badge, short name and hours · promise of a line row. */
+function LineLabel({ line }: { line: HomeLine }) {
+  return (
+    <>
+      <span className="pk-clr__badge" aria-hidden="true">
+        <Mark label={line.label} size="xs" decorative />
+      </span>
+      <span className="pk-clr__text">
+        <span className="pk-clr__name">
+          <span className="sr-only">{line.name}: </span>
+          {line.hero.short}
+        </span>
+        {(line.promise || line.hours) && (
+          <span className="pk-clr__promise">
+            {[line.hours, line.promise].filter(Boolean).join(' · ')}
+          </span>
+        )}
+      </span>
+    </>
+  )
+}
+
+/**
+ * A line with points (Tech, runda 1811 D5): one phone per point and the infoline instead of a
+ * single number — the row is not a link itself, each number is.
+ */
+function PointsRow({ line }: { line: HomeLine }) {
+  return (
+    <div className="pk-clr pk-clr--points">
+      <LineLabel line={line} />
+      <ul className="pk-clr__points" role="list">
+        {line.points.map((point) => (
+          <li key={point.tel}>
+            <a
+              href={point.tel}
+              className="pk-clr__point"
+              aria-label={`${line.name}, ${point.label}: ${point.phone}`}
+            >
+              <small>{point.label}</small>
+              <b>{point.phone}</b>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

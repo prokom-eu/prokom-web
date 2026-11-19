@@ -3,6 +3,7 @@
  * `hub-services`, `hub-tools`, `hub-help` and `hub-plans` (ADR-H002 §3). Pure functions, so the
  * counts and the exceptions are tested without a database; `run.ts` writes the result.
  */
+import { PROKOM_EXTRA_PHONES } from '../shared/prokom'
 import type { HubHelp, HubPlan, HubService, HubSetting, HubTool } from '../../payload-types'
 import { isHubLine, type HubLine } from '../../lib/prokom/lines'
 import { normalizeText } from '../../lib/shared/search/normalize'
@@ -308,4 +309,21 @@ export function hubForHome(): HubForHome {
 export function hubBrands(): HubBrands {
   const { _zrodlo: _source, ...data } = brandsModel
   return brandsSchema.parse(data)
+}
+
+type PhoneRow = { label: string; number: string; techPoint?: string | null }
+
+const digits = (value: string) => value.replace(/\D/g, '')
+
+/**
+ * `HubSettings.extraPhones` after a seed run: the package fills an empty list; a stored list stays
+ * (panel edits win) — only a package Tech point is marked on the stored row with the same number
+ * while that row has none (runda 1811 D5: staging and production already have the numbers).
+ */
+export function extraPhonesAfterSeed(stored: readonly PhoneRow[] | null | undefined): PhoneRow[] {
+  if (!stored?.length) return PROKOM_EXTRA_PHONES.map((phone) => ({ ...phone }))
+  return stored.map(({ label, number, techPoint }) => {
+    const pkg = PROKOM_EXTRA_PHONES.find((row) => digits(row.number) === digits(number))
+    return { label, number, techPoint: techPoint?.trim() || pkg?.techPoint || null }
+  })
 }

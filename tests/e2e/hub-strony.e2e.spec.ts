@@ -41,7 +41,14 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
   }) => {
     await page.goto(site(HUB, '/kontakt'))
     await expect(page.getByRole('link', { name: /Biuro.*18 267 65 11/ })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Serwis.*18 541 20 55/ })).toBeVisible()
+    // Runda 1811 D5: the Tech numbers on their own card — Rabka, Zakopane and the infoline.
+    for (const name of [
+      /Tech, Rabka-Zdrój: 18 541 20 55/,
+      /Tech, Zakopane: 18 541 20 15/,
+      /Tech, Infolinia: 883 200 151/,
+    ]) {
+      await expect(page.getByRole('link', { name })).toBeVisible()
+    }
     await expect(
       page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/).first(),
     ).toBeVisible()

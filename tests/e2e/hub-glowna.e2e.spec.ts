@@ -43,6 +43,21 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'false')
   })
 
+  test('Tech shows its points: Rabka, Zakopane and the infoline (runda 1811 D5)', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto(site(HUB, '/#kontakt'))
+    const row = page.locator('#kontakt .pk-clr--points')
+    for (const name of [/Rabka-Zdrój: 18 541 20 55/, /Zakopane: 18 541 20 15/, /Infolinia: 883/]) {
+      await expect(row.getByRole('link', { name })).toHaveAttribute('href', /^tel:\+48\d{9}$/)
+    }
+    const tabs = page.locator('#linie').getByRole('tab')
+    await hydrated(tabs.first())
+    await page.locator('#linie').getByRole('tab', { name: /Tech/ }).click()
+    await expect(page.locator('#linie .pk-pn__points')).toContainText('Zakopane')
+  })
+
   test('„Dobierz” shows the plan of the chosen persona', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HUB, '/#dobierz'))
