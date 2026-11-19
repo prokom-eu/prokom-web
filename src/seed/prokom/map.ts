@@ -233,10 +233,10 @@ export function hubTrust(): TrustRow[] {
     { value: 'InsERT', label: 'Autoryzowany partner', source: k4, approved: true },
     { value: 'Optivendi', label: 'Partner', source: k4, approved: true },
     { value: 'COMEX', label: 'We współpracy', source: k4, approved: true },
-    // Runda 1811, D4: the ALSEN partnership is confirmed (Krystian 18.11.2026); the figure and
-    // the Rabka point wait for Krystian — unapproved, so production hides the texts using them.
+    // Runda 1811, D4: the ALSEN partnership is confirmed (Krystian 18.11.2026), the figure too
+    // (19.11.2026); the Rabka point waits for Krystian — unapproved, so production hides it.
     { value: 'ALSEN', label: 'Autoryzowany partner', source: rounds, approved: true },
-    { value: 'ALSEN 350+', label: 'sklepów sieci ALSEN', source: rounds, approved: false },
+    { value: 'ALSEN 350+', label: 'sklepów sieci ALSEN', source: rounds, approved: true },
     {
       value: 'ALSEN Rabka',
       label: 'salon = punkt partnerski ALSEN',
