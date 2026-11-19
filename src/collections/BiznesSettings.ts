@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { linkGroup } from '../blocks/fields'
+import { catalogTextsGroup } from '../fields/catalogTexts'
 import { adminOnly } from '../lib/auth/access'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateIconPath } from '../lib/catalog/svg'
@@ -32,6 +33,7 @@ export const BiznesSettings: CollectionConfig = {
   hooks: { beforeValidate: [onlyBiznesTenant], ...catalogRevalidationHooks },
   fields: [
     searchGroup,
+    catalogTextsGroup('biznes'),
     {
       name: 'news',
       label: 'Aktualności',
