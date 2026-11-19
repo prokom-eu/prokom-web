@@ -27,7 +27,8 @@ type Props = {
 const reportNoResults = () => track('szukaj_brak_wyniku', { miejsce: 'okno' })
 
 /**
- * Side rail of pro-kom.eu (spec §5.3: home page only) and the search window (spec §5.6): the
+ * Side rail of pro-kom.eu on every page (runda 1811 D8 — was home only, H1-2; subpages: folded
+ * „Strona główna”, „Na tej stronie” from three sections, the theme, „Do góry”) and the search window (spec §5.6): the
  * window searches the hub's index (`/api/hub-search-index` — lines, services, tools, help, pages),
  * fetched once per full page load when the browser is idle, or at once on the first request to
  * search (button or shortcut) — after the page itself, never in its way. Empty field: „Na skróty” with the five lines and „Najczęściej szukane” (`buildHubSearchProvider`, like Biznes). Opened by the rail's „Szukaj”, the capsule's search field, Ctrl/⌘K and „/”. A search that finds
@@ -69,7 +70,7 @@ export function ProkomRail({ sections, action, settings, actions, recentlyViewed
   const provider = useMemo(() => buildHubSearchProvider(entries, settings), [entries, settings])
   return (
     <>
-      {onHome && <SiteRail sections={sections} onHome action={action} />}
+      <SiteRail sections={sections} onHome={onHome} action={action} />
       <SearchDialog
         provider={provider}
         actions={actions}

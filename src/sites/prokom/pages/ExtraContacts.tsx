@@ -1,5 +1,6 @@
 import { TAP_AREA } from '@/components/shared/tapArea'
 import type { HubBranch } from '@/lib/prokom/data'
+import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import { toTelHref } from '@/lib/site/link'
 
 const CARD = 'flex flex-col gap-2 rounded-2xl border border-border bg-card p-4 text-sm'
@@ -25,13 +26,19 @@ function Phone({ number, label }: { number: string; label: string }) {
  * Landlines of the hub (decision 15.11): the same numbers as the Google business profile, kept
  * modest under the salon card of `/kontakt` — the main numbers stay the hub's two.
  */
-export function ExtraPhones({ phones }: { phones: readonly { label: string; number: string }[] }) {
-  if (!phones.length) return null
+export function ExtraPhones({
+  phones,
+}: {
+  phones: readonly { label: string; number: string; techPoint?: string | null }[]
+}) {
+  // A Tech point's number is on the Tech card (runda 1811 D5) — not twice on one page.
+  const own = phones.filter((phone) => !phone.techPoint)
+  if (!own.length) return null
   return (
     <div className={CARD}>
       <span className={KICKER}>Numery stacjonarne</span>
       <ul className="flex flex-col gap-3">
-        {phones.map((phone, index) => (
+        {own.map((phone, index) => (
           <li key={`${index}-${phone.number}`} className="flex flex-wrap justify-between gap-x-4">
             <span>{phone.label}</span>
             <Phone number={phone.number} label={phone.label} />
@@ -77,5 +84,27 @@ export function PartnerPointNote({ text, href }: { text: string | null; href: st
         {text}
       </a>
     </p>
+  )
+}
+
+/**
+ * The Tech points on `/kontakt` (runda 1811 D5): Rabka, Zakopane and the infoline — every number
+ * from the panel (`HubSettings`, `CompanyData.lines`). Nothing while Tech has no point numbers.
+ */
+export function TechPointsCard({ lines }: { lines: readonly HubLineContact[] }) {
+  const tech = lines.find((line) => line.key === 'tech')
+  if (!tech?.points?.length) return null
+  return (
+    <div className={CARD}>
+      <span className={KICKER}>PRO-KOM {tech.name}</span>
+      <ul className="flex flex-col gap-3">
+        {tech.points.map((point) => (
+          <li key={point.tel} className="flex flex-wrap justify-between gap-x-4">
+            <span>{point.label}</span>
+            <Phone number={point.phone} label={`${tech.name}, ${point.label}`} />
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

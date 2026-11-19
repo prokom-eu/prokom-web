@@ -6198,6 +6198,10 @@ export interface HubSetting {
     | {
         label: string;
         number: string;
+        /**
+         * Wpisz miejscowość, jeśli to numer punktu Tech (np. Rabka-Zdrój) — pokaże się przy Tech na hubie obok Zakopanego i infolinii. Puste = zwykły numer.
+         */
+        techPoint?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -10107,6 +10111,7 @@ export interface HubSettingsSelect<T extends boolean = true> {
     | {
         label?: T;
         number?: T;
+        techPoint?: T;
         id?: T;
       };
   branch?:
