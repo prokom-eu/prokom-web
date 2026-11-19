@@ -111,6 +111,8 @@ export const CATEGORY_SLUGS: Record<string, string> = {
   av: 'tablice-interaktywne',
   projektory: 'projektory',
   ekrany: 'ekrany-informacyjne',
+  // Runda 1811 (D2): budki i parawany akustyczne (Avtek, materiały Vidis).
+  meble: 'meble-akustyczne',
   progs: 'programy-sprzedazowe-erp',
   progb: 'programy-branzowe',
   m365: 'microsoft-365-licencje',

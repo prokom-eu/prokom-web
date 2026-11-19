@@ -33,6 +33,7 @@
     "serw",
     "mfp",
     "niszczarki",
+    "meble",
     "av",
     "projektory",
     "ekrany"
@@ -423,6 +424,26 @@
     {
      "slug": "wysokie-bezpieczenstwo",
      "nazwa": "Wysokie bezpieczeństwo (P-5)"
+    }
+   ],
+   "do_czego": null,
+   "dobor": null
+  },
+  {
+   "kod": "meble",
+   "dzial": "biuro",
+   "nazwa": "Meble akustyczne",
+   "opis": "Avtek: budki akustyczne do rozmów i spotkań, parawany akustyczne do open space i sal",
+   "ikona": "M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16 M9 21v-6h6v6",
+   "liczba_w_wizualizacji": 5,
+   "podkategorie": [
+    {
+     "slug": "budki-akustyczne",
+     "nazwa": "Budki akustyczne"
+    },
+    {
+     "slug": "parawany-akustyczne",
+     "nazwa": "Parawany akustyczne"
     }
    ],
    "do_czego": null,

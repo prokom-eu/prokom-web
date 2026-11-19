@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 import { site } from './helpers'
 
 // K31d′: „Plan Twojej firmy” 2.0 (`/plan-firmy`, spec. §6.12, `k4/boards/Web-Plan*`). Scenes from
-// `pnpm seed` (`seed:biznes`): 12 scenes, 186 points (`plany-k4.json`).
+// `pnpm seed` (`seed:biznes`): 12 scenes, 187 points (runda 1811: + budka akustyczna w Biurze) (`plany-k4.json`).
 const biznes = (path: string) => site('biznes.localhost', path)
 
 test.describe('Biznes plan of the company (K31d′)', () => {
@@ -14,7 +14,7 @@ test.describe('Biznes plan of the company (K31d′)', () => {
       'Plan Twojej firmy: kliknij urządzenie i zobacz, co pasuje',
     )
     await expect(page.locator('main dl').first()).toContainText('12')
-    await expect(page.locator('main dl').first()).toContainText('186')
+    await expect(page.locator('main dl').first()).toContainText('187')
     const scenes = page.getByRole('group', { name: 'Rodzaj firmy' }).getByRole('button')
     await expect(scenes).toHaveCount(12)
     // The scene's drawing only: a point without a photo has its icon (an <svg>) on the stage too.
