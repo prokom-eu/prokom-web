@@ -1166,13 +1166,6 @@ a.pk-ccard:hover {
   border-radius: 22px;
   padding: 20px;
   background: var(--w03);
-  transition:
-    border-color 0.3s var(--ease),
-    transform 0.35s var(--ease);
-}
-.pk-proc__point:hover {
-  border-color: color-mix(in srgb, var(--k-g) 45%, transparent);
-  transform: translateY(-3px);
 }
 .pk-proc__icon {
   display: flex;
@@ -1298,13 +1291,5 @@ a.pk-ccard:hover {
   }
   .pk-proc__axis li + li::before {
     display: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pk-proc__point {
-    transition: none;
-  }
-  .pk-proc__point:hover {
-    transform: none;
   }
 }

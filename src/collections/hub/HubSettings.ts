@@ -165,7 +165,7 @@ export const HubSettings: CollectionConfig = {
       type: 'array',
       admin: {
         description:
-          'Stare adresy używane latami (runda 18.11, D15) — pokazywane na /kontakt obok głównego adresu huba. Włącz „Pokazuj” dopiero, gdy skrzynka działa i ktoś ją odbiera. Główny adres jest w Ustawieniach strony.',
+          'Stare adresy używane latami (runda 18.11, D15) — pokazywane na /kontakt obok głównego adresu huba. Włącz „Pokazuj” dopiero, gdy skrzynka działa i ktoś ją odbiera. Główny adres jest w Ustawieniach strony — adres taki sam jak główny nie jest powtarzany.',
       },
       fields: [
         {

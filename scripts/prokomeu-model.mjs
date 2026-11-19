@@ -672,7 +672,7 @@ function home() {
     procurement: {
       eyebrow: 'Zamówienia publiczne i większe dostawy',
       title: 'Szkoły, gminy, szpitale i firmy — jedna oferta na całe zamówienie.',
-      lead: 'Odpowiadamy na zapytania ofertowe i przetargi. Sprzęt IT, AV i wyposażenie z linii Biznes, Instalacje i Tech zbieramy w jedną ofertę — z dokumentami do odbioru i rozliczenia.',
+      lead: 'Odpowiadamy na zapytania ofertowe i przetargi, realizujemy dostawy sprzętu dla szkół, gmin i firm. Sprzęt IT, AV i wyposażenie z linii Biznes, Instalacje i Tech zbieramy w jedną ofertę — z dokumentami do odbioru i rozliczenia.',
       points: [
         {
           icon: 'doc',

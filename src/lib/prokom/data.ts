@@ -340,3 +340,15 @@ export const getHubSettings = cache((tenantId: number): Promise<HubSettingsView>
 export async function hubOgImage(tenantId: number): Promise<PublicImage | null> {
   return (await getSiteSettings(tenantId))?.seo.ogImage ?? null
 }
+
+/**
+ * Old addresses to show next to the hub's main one (runda 1811 D15): the main address never
+ * twice, whatever its case. The list is already filtered to the addresses switched on.
+ */
+export function extraEmailsToShow(
+  emails: readonly { label: string; email: string }[],
+  main: string | null,
+): { label: string; email: string }[] {
+  const own = main?.trim().toLowerCase()
+  return emails.filter((row) => row.email.trim().toLowerCase() !== own)
+}

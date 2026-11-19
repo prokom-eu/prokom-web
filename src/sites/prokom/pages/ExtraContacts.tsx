@@ -1,6 +1,6 @@
 import { CopyEmail } from '@/components/shared/CopyEmail'
 import { TAP_AREA } from '@/components/shared/tapArea'
-import type { HubBranch } from '@/lib/prokom/data'
+import { extraEmailsToShow, type HubBranch } from '@/lib/prokom/data'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import { toTelHref } from '@/lib/site/link'
 
@@ -121,7 +121,7 @@ export function ExtraEmails({
   emails: readonly { label: string; email: string }[]
   main: string | null
 }) {
-  const own = emails.filter((row) => row.email.toLowerCase() !== main?.toLowerCase())
+  const own = extraEmailsToShow(emails, main)
   if (!own.length) return null
   return (
     <div className={CARD}>
