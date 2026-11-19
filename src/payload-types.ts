@@ -5600,6 +5600,10 @@ export interface InstalacjeSetting {
      */
     responseText?: string | null;
   };
+  /**
+   * Karty sekcji „Sprzęt i marki” na głównej, w tej kolejności; mniej niż 8 — reszta dopełniona wg „Polecane”. Puste = pierwsze karty wg „Polecane” (import katalogu wypełnia puste pole domyślną ósemką).
+   */
+  homeFeatured?: (number | Product)[] | null;
   catalog?: {
     /**
      * Puste pole = tekst domyślny linii (widoczny pod polem). Domyślnie: „Sprzęt do monitoringu, alarmów i domofonów”
@@ -9350,6 +9354,7 @@ export interface InstalacjeSettingsSelect<T extends boolean = true> {
         quote?: T;
         responseText?: T;
       };
+  homeFeatured?: T;
   catalog?:
     | T
     | {

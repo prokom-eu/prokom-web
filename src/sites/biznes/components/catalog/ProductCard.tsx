@@ -36,6 +36,8 @@ type Props = {
   variant?: 'catalog' | 'home'
   /** Right of the brand: the main category, or the series (showroom, category with series). */
   meta?: 'category' | 'series'
+  /** Level of the name's heading: 3 (default); 4 under an h3 of the section (Instalacje home). */
+  headingLevel?: 3 | 4
   /** „Podgląd” on the picture: opens the quick preview of the list (catalog grid only). */
   onPreview?: () => void
   /**
@@ -64,7 +66,9 @@ export function ProductCard({
   meta = 'category',
   onPreview,
   picture = 'lazy',
+  headingLevel = 3,
 }: Props) {
+  const Name = headingLevel === 4 ? 'h4' : 'h3'
   const list = layout === 'list'
   const home = variant === 'home'
   const href = productHref(product.slug)
@@ -219,14 +223,14 @@ export function ProductCard({
             {eyebrow}
           </p>
         )}
-        <h3 className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
+        <Name className="text-[15px] leading-[1.25] font-extrabold sm:text-[17px]">
           <Link
             href={href}
             className="inline-flex min-h-6 items-center text-ink hover:text-accent-text max-md:-my-2.5 max-md:min-h-11"
           >
             {product.name}
           </Link>
-        </h3>
+        </Name>
         {product.benefit && (
           <p
             className={cx(

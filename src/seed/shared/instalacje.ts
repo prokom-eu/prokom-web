@@ -20,6 +20,7 @@ export const INSTALACJE_SHARED: SharedGroup = {
       { anchorId: 'start', label: 'Start', icon: 'home' },
       { anchorId: 'dla-kogo', label: 'Dla kogo', icon: 'users' },
       { anchorId: 'uslugi', label: 'Usługi', icon: 'grid' },
+      { anchorId: 'sprzet', label: 'Sprzęt', icon: 'box' },
       { anchorId: 'architekci', label: 'Architekci', icon: 'compass' },
       { anchorId: 'realizacje', label: 'Realizacje', icon: 'star' },
       { anchorId: 'gory', label: 'Góry i zima', icon: 'mountain' },

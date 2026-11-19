@@ -12,6 +12,7 @@ export const PAGE_SHEET_ORDER = [
   'sekcje/sceny.css',
   'sekcje/sceny-ruch.css',
   'sekcje/glowna/glowna-sekcje.css',
+  'sekcje/glowna/sprzet.css',
   'sekcje/glowna/podhale-proces.css',
   'widzety/zaplanuj/zaplanuj.css',
   'widzety/serwis/serwis.css',

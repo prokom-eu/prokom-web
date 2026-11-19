@@ -127,6 +127,7 @@ import * as migration_20261118_203040_inst_katalog_teksty from './20261118_20304
 import * as migration_20261119_000423_hub_tech_punkty from './20261119_000423_hub_tech_punkty'
 import * as migration_20261119_001610_hub_dodatkowe_maile from './20261119_001610_hub_dodatkowe_maile'
 import * as migration_20261119_013000_hub_r1_tresc from './20261119_013000_hub_r1_tresc'
+import * as migration_20261119_030446_inst_glowna_sprzet from './20261119_030446_inst_glowna_sprzet'
 
 export const migrations = [
   {
@@ -773,5 +774,10 @@ export const migrations = [
     up: migration_20261119_013000_hub_r1_tresc.up,
     down: migration_20261119_013000_hub_r1_tresc.down,
     name: '20261119_013000_hub_r1_tresc',
+  },
+  {
+    up: migration_20261119_030446_inst_glowna_sprzet.up,
+    down: migration_20261119_030446_inst_glowna_sprzet.down,
+    name: '20261119_030446_inst_glowna_sprzet',
   },
 ]
