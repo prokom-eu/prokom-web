@@ -15,18 +15,19 @@ import {
   TRUST_1811,
   trustWith1811,
 } from './hub_r1_tresc'
+import { trustWith1911 } from './hub_r1_poprawki'
+import { emailsWithShop, trustWithAlsenFigure } from './hub_sklep_alsen'
 
 describe('hub_r1_tresc (HUB-R1 data for production)', () => {
+  // With the later data migrations of 19.11 (`hub_sklep_alsen`, `hub_r1_poprawki`) on top, as on production.
   it('is a copy of the package of this commit', () => {
     expect(NETWORK_1811).toEqual(hubBrands().network)
     expect(PROCUREMENT_1811).toEqual(hubHome().procurement)
     expect(BRANDS_NOTE_1811).toBe(hubBrands().note)
-    // Approvals and the shop mailbox changed on 19.11 — `hub_r1_poprawki` (its own test).
-    const pkg = hubTrust().map(({ value, label }) => ({ value, label }))
-    for (const { value, label } of TRUST_1811) expect(pkg).toContainEqual({ value, label })
-    expect(EXTRA_EMAILS_1811.map((row) => row.label)).toEqual(
-      PROKOM_EXTRA_EMAILS.map((row) => row.label),
-    )
+    const pkg = hubTrust()
+    const afterFigure = (trustWithAlsenFigure(TRUST_1811) ?? TRUST_1811) as typeof TRUST_1811
+    for (const row of trustWith1911(afterFigure) ?? afterFigure) expect(pkg).toContainEqual(row)
+    expect(emailsWithShop(EXTRA_EMAILS_1811)).toEqual(PROKOM_EXTRA_EMAILS)
     expect(railWith1811(PROKOM_SHARED.rail?.sections)).toBeNull()
   })
 

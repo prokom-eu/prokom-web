@@ -151,7 +151,8 @@ export const PROKOM_EXTRA_PHONES = [
 /**
  * Old addresses of the company the boss keeps (runda 1811 D15), on `/kontakt` next to the hub's
  * main address. „Zamówienia”, not „sklep” (no shop on pro-kom.eu, decision 01.11).
- * `sklep@pro-kom.pl` does not work — the working mailbox is `sklep@pro-kom.eu` (Krystian 19.11).
+ * The shop mailbox in use has always been `sklep@pro-kom.eu` (Krystian 19.11.2026; nobody reads
+ * `sklep@pro-kom.pl` and that domain has no MX).
  */
 export const PROKOM_EXTRA_EMAILS = [
   { label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu', published: true },

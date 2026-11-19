@@ -128,7 +128,8 @@ import * as migration_20261119_000423_hub_tech_punkty from './20261119_000423_hu
 import * as migration_20261119_001610_hub_dodatkowe_maile from './20261119_001610_hub_dodatkowe_maile'
 import * as migration_20261119_013000_hub_r1_tresc from './20261119_013000_hub_r1_tresc'
 import * as migration_20261119_030446_inst_glowna_sprzet from './20261119_030446_inst_glowna_sprzet'
-import * as migration_20261119_220000_hub_r1_poprawki from './20261119_220000_hub_r1_poprawki'
+import * as migration_20261119_220000_hub_sklep_alsen from './20261119_220000_hub_sklep_alsen'
+import * as migration_20261119_224000_hub_r1_poprawki from './20261119_224000_hub_r1_poprawki'
 import * as migration_20261119_230000_hub_alsen_sekcja from './20261119_230000_hub_alsen_sekcja'
 
 export const migrations = [
@@ -783,9 +784,14 @@ export const migrations = [
     name: '20261119_030446_inst_glowna_sprzet',
   },
   {
-    up: migration_20261119_220000_hub_r1_poprawki.up,
-    down: migration_20261119_220000_hub_r1_poprawki.down,
-    name: '20261119_220000_hub_r1_poprawki',
+    up: migration_20261119_220000_hub_sklep_alsen.up,
+    down: migration_20261119_220000_hub_sklep_alsen.down,
+    name: '20261119_220000_hub_sklep_alsen',
+  },
+  {
+    up: migration_20261119_224000_hub_r1_poprawki.up,
+    down: migration_20261119_224000_hub_r1_poprawki.down,
+    name: '20261119_224000_hub_r1_poprawki',
   },
   {
     up: migration_20261119_230000_hub_alsen_sekcja.up,

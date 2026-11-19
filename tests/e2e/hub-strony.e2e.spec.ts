@@ -88,8 +88,8 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     page,
   }) => {
     await page.goto(site(HUB, '/kontakt'))
-    // „Zamówienia” = `sklep@pro-kom.eu` (Krystian 19.11); `sklep@pro-kom.pl` does not work.
-    await expect(page.getByText('sklep@pro-kom.eu').first()).toBeVisible()
+    // The shop mailbox in use is on pro-kom.eu (Krystian 19.11); the unused pro-kom.pl one is gone.
+    await expect(page.locator('main').getByText('sklep@pro-kom.eu').first()).toBeVisible()
     await expect(page.getByText('sklep@pro-kom.pl')).toHaveCount(0)
   })
 

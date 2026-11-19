@@ -1,11 +1,11 @@
 import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 
-import { extraEmailsWith1911, instRailWith1911, trustWith1911 } from './data/hub_r1_poprawki'
+import { instRailWith1911, trustWith1911 } from './data/hub_r1_poprawki'
 
 /**
  * HUB-R1 follow-up (Krystian 19.11.2026) — data only, for databases the seeds do not write
- * (production): the ALSEN facts „350+” and „Rabka” approved, „Zamówienia” = `sklep@pro-kom.eu`
- * (shown) instead of the dead `sklep@pro-kom.pl`, and „Sprzęt” in the Instalacje home rail.
+ * (production): the fact „ALSEN Rabka” approved and „Sprzęt” in the Instalacje home rail
+ * (the figure and `sklep@pro-kom.eu` — `hub_sklep_alsen` before this one).
  * Through the Local API, changing only what still differs — a second run changes nothing.
  * `down` keeps the data (the texts are valid either way).
  */
@@ -35,13 +35,16 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
     })
     if (settings) {
       const trust = trustWith1911(settings.trust)
-      const extraEmails = extraEmailsWith1911(settings.extraEmails)
-      const data = { ...(trust && { trust }), ...(extraEmails && { extraEmails }) }
-      if (Object.keys(data).length) {
-        await payload.update({ collection: 'hub-settings', id: settings.id, data, ...local })
+      if (trust) {
+        await payload.update({
+          collection: 'hub-settings',
+          id: settings.id,
+          data: { trust },
+          ...local,
+        })
       }
       payload.logger.info(
-        `HUB-R1 poprawki: hub-settings — ${Object.keys(data).join(', ') || 'bez zmian'}`,
+        `HUB-R1 poprawki: fakt „ALSEN Rabka” — ${trust ? 'zatwierdzony' : 'bez zmian'}`,
       )
     }
   }
