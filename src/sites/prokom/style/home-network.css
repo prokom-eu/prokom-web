@@ -1,0 +1,354 @@
+/* --- ALSEN (runda 1811 D4, 19.11): a stage in the colour of its line, above „Współpraca” ------ */
+.pk-al {
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    'main stage'
+    'points points';
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(28px, 3.4vw, 56px) clamp(28px, 4vw, 72px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ln) 34%, transparent);
+  border-radius: 36px;
+  padding: clamp(24px, 3.6vw, 60px);
+  background:
+    radial-gradient(
+      60% 70% at 100% 0%,
+      color-mix(in srgb, var(--ln) 30%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 60% at 0% 100%,
+      color-mix(in srgb, var(--ln) 14%, transparent),
+      transparent 72%
+    ),
+    var(--ln-dark);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ln-text) 30%, transparent),
+    0 50px 100px -70px color-mix(in srgb, var(--ln) 90%, transparent);
+}
+/* A thin light along the top edge — the one ornament of the card. */
+.pk-al::before {
+  position: absolute;
+  inset: 0 12% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ln-text), transparent);
+  content: '';
+  opacity: 0.8;
+}
+.pk-al .pk-eb {
+  color: var(--ln-text);
+}
+.pk-al__main {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  grid-area: main;
+}
+.pk-al__title {
+  max-width: 12ch;
+  font-size: clamp(40px, 4.8vw, 76px);
+  text-wrap: balance;
+}
+.pk-al__lead {
+  max-width: 54ch;
+  font-size: clamp(16px, 1.15vw, 18px);
+}
+.pk-al__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 8px;
+}
+.pk-al__site {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding-inline: 6px;
+  color: var(--ln-text);
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--ln-text) 40%, transparent);
+  text-underline-offset: 5px;
+}
+.pk-al__site:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Stage: the partner's plate over the network field. */
+.pk-al__stage {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+  grid-area: stage;
+}
+.pk-al__plate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border-radius: 26px;
+  padding: clamp(26px, 3vw, 40px) 24px 22px;
+  background: var(--c-white);
+  box-shadow: 0 30px 60px -36px color-mix(in srgb, var(--ln) 85%, transparent);
+}
+.pk-al__plate img {
+  width: min(300px, 80%);
+  height: auto;
+}
+.pk-al__name {
+  color: var(--c-grafit);
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 800;
+}
+.pk-al__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 16px 8px 10px;
+  background: color-mix(in srgb, var(--k-b) 10%, var(--c-white));
+  color: var(--c-grafit);
+  font-size: 14px;
+  font-weight: 800;
+}
+.pk-al__status svg {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--k-b);
+  color: var(--c-white);
+}
+.pk-al__map {
+  position: relative;
+  display: grid;
+  flex: 1;
+  align-content: end;
+  gap: 14px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ln-text) 18%, transparent);
+  border-radius: 26px;
+  /* The top band is the field's: the lit point never sits under the text. */
+  padding: 104px 24px 22px;
+  background: color-mix(in srgb, var(--ln) 8%, transparent);
+}
+.pk-al__map--short {
+  padding-top: 88px;
+}
+.pk-al__field {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ln-text) 55%, transparent) 1.1px,
+    transparent 1.7px
+  );
+  background-position: center;
+  background-size: 13px 13px;
+  mask-image: radial-gradient(ellipse 70% 60% at 70% 22%, currentColor 20%, transparent 80%);
+}
+/* Our salon: the one lit point of the field. */
+.pk-al__here {
+  position: absolute;
+  top: 50px;
+  left: 74%;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--ln-text);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--ln-text) 22%, transparent),
+    0 0 24px 6px color-mix(in srgb, var(--ln) 70%, transparent);
+  translate: -50% -50%;
+}
+.pk-al__here::after {
+  position: absolute;
+  inset: -6px;
+  border: 1.5px solid var(--ln-text);
+  border-radius: inherit;
+  animation: pk-al-ping 2.8s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  content: '';
+}
+@keyframes pk-al-ping {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+.pk-al__stat {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 2px 16px;
+}
+.pk-al__stat strong {
+  grid-row: span 2;
+  color: var(--k-white);
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 88px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.82;
+}
+.pk-al__stat span {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.pk-al__stat small {
+  color: var(--k-ink3);
+  font-size: 13px;
+}
+.pk-al__point {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--ln-text) 18%, transparent);
+  padding-top: 14px;
+}
+.pk-al__point > svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--ln-text);
+}
+.pk-al__point > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+}
+.pk-al__point strong {
+  font-size: 15px;
+}
+.pk-al__point > span > span {
+  color: var(--k-ink3);
+}
+
+/* What the customer gets: one row under a hairline, no boxes. */
+.pk-al__points {
+  display: grid;
+  grid-area: points;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid color-mix(in srgb, var(--ln-text) 20%, transparent);
+}
+.pk-al__points li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 26px 24px 4px;
+}
+.pk-al__points li:first-child {
+  padding-left: 0;
+}
+.pk-al__points li + li {
+  border-left: 1px solid color-mix(in srgb, var(--ln-text) 14%, transparent);
+}
+.pk-al__icon {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ln) 22%, transparent);
+  color: var(--ln-text);
+}
+.pk-al__icon svg {
+  width: 20px;
+  height: 20px;
+}
+.pk-al__ptitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.pk-al__ptext {
+  color: var(--k-ink3);
+  font-size: 14px;
+  line-height: 1.5;
+}
+@media (max-width: 1100px) {
+  .pk-al {
+    grid-template-areas:
+      'main'
+      'stage'
+      'points';
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pk-al__title {
+    max-width: 22ch;
+  }
+  .pk-al__stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .pk-al__points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pk-al__points li:nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .pk-al__points li:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--ln-text) 14%, transparent);
+  }
+}
+@media (max-width: 640px) {
+  .pk-al {
+    border-radius: 28px;
+  }
+  .pk-al__title {
+    font-size: clamp(32px, 9.4vw, 40px);
+  }
+  .pk-al__stat {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .pk-al__stat strong {
+    grid-row: auto;
+  }
+  .pk-al__stage,
+  .pk-al__points {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pk-al__points li,
+  .pk-al__points li:nth-child(3) {
+    border-left: 0;
+    padding: 20px 0 4px;
+  }
+  .pk-al__points li + li {
+    border-top: 1px solid color-mix(in srgb, var(--ln-text) 14%, transparent);
+  }
+  .pk-al__cta .pk-hbtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-al__here::after {
+    animation: none;
+    opacity: 0;
+  }
+}

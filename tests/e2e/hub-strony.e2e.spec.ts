@@ -60,16 +60,22 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     await expect(page.getByText(/ul\. Stanisława Staszica 8, 34-500 Zakopane/)).toBeVisible()
   })
 
-  test('ALSEN: a card in the brands of the home page and its section on /o-firmie (runda 1811 D4)', async ({
-    page,
-  }) => {
+  test('ALSEN: its section on the home page and on /o-firmie (runda 1811 D4)', async ({ page }) => {
     await page.goto(site(HUB, '/'))
-    const card = page.locator('#marki .pk-net')
-    await expect(card).toContainText('Autoryzowany partner')
-    await expect(card.getByRole('link', { name: /Strona sieci ALSEN/ })).toHaveAttribute(
+    // The premium section above „Współpraca” (19.11) — the brands card is not repeated.
+    const home = page.locator('section#alsen')
+    await expect(
+      home.getByRole('heading', { level: 2, name: 'Autoryzowany partner ALSEN' }),
+    ).toBeVisible()
+    await expect(home).toContainText('Autoryzowany partner')
+    await expect(home.getByRole('img', { name: 'ALSEN' })).toBeVisible()
+    await expect(home.getByRole('link', { name: /Strona sieci ALSEN/ })).toHaveAttribute(
       'href',
       'https://www.alsen.pl/',
     )
+    await expect(home).toContainText('ul. Orkana 16B')
+    await expect(page.locator('section#alsen + section#wspolpraca')).toHaveCount(1)
+    await expect(page.locator('#marki .pk-net')).toHaveCount(0)
     await page.goto(site(HUB, '/o-firmie#alsen'))
     const section = page.locator('section#alsen')
     await expect(

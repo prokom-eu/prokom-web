@@ -666,6 +666,46 @@ function home() {
         },
       ],
     },
+    // Runda 1811 D4 (Krystian, 19.11): ALSEN as a premium section above „Współpraca”. Logo, status
+    // and the network's site come from `brands.network`; the salon address from the company data.
+    // Promises only from the agreed texts: offer without hunting through shops, choice for the
+    // job, set-up on request, help by phone after buying. No prices, no stock of ALSEN.
+    network: {
+      eyebrow: 'Sieć partnerska',
+      title: 'Autoryzowany partner ALSEN',
+      lead: 'Oferta ogólnopolskiej sieci, opieka na miejscu. Sprzęt i akcesoria z sieci ALSEN zamówisz u nas, bez szukania po wielu sklepach. Dobierzemy je do zadania, na życzenie skonfigurujemy i zostaniemy pod telefonem po zakupie.',
+      stat: {
+        value: '350+',
+        label: 'sklepów ALSEN w całej Polsce',
+        note: 'Sieć związana z dystrybutorem AB.',
+        facts: ['ALSEN', 'ALSEN 350+'],
+      },
+      point: { text: 'Nasz salon to punkt partnerski ALSEN', facts: ['ALSEN', 'ALSEN Rabka'] },
+      points: [
+        {
+          icon: 'store',
+          title: 'Szeroka oferta w jednym miejscu',
+          text: 'Komputery, laptopy, monitory i akcesoria z oferty sieci ALSEN — zamówione u nas.',
+        },
+        {
+          icon: 'target',
+          title: 'Dobór do zadania',
+          text: 'Doradzimy, który sprzęt pasuje do Twojej pracy, nauki albo firmy.',
+        },
+        {
+          icon: 'wrench',
+          title: 'Konfiguracja na życzenie',
+          text: 'Przygotujemy sprzęt do pracy: system i programy — jeśli tego potrzebujesz.',
+        },
+        {
+          icon: 'phone',
+          title: 'Opieka po zakupie',
+          text: 'Zostajemy pod telefonem — tak jak przy wszystkim, co robimy.',
+        },
+      ],
+      cta: { label: 'Zapytaj o sprzęt', href: '/kontakt#formularz' },
+      more: { label: 'Więcej o partnerstwie', href: '/o-firmie#alsen' },
+    },
     // Runda 1811 D14 (the boss, 18.11): public procurement and larger deliveries — a premium
     // section after „Współpraca”, leading to /inwestycje-i-dostawy. Facts from the hub's data
     // (SWZ, documents for grants, optional set-up); no figures and no names of buyers.

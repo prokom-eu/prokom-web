@@ -21,6 +21,8 @@ type Props = {
   lines: readonly HomeLine[]
   /** `/partnerzy`, or `null` while the page is off (v1.1 flag). */
   allHref: string | null
+  /** `false` while the network has its own section higher on the page — never shown twice. */
+  showNetwork?: boolean
 }
 
 /**
@@ -28,9 +30,9 @@ type Props = {
  * while its company fact is visible — and the brand groups of the lines on the page, without any
  * status (spec §3). Server-rendered.
  */
-export function Brands({ brands, facts, lines, allHref }: Props) {
+export function Brands({ brands, facts, lines, allHref, showNetwork = true }: Props) {
   const authorizations = visibleAuthorizations(brands, facts)
-  const network = visibleNetwork(brands, facts)
+  const network = showNetwork ? visibleNetwork(brands, facts) : null
   const lineOf = (key: string) => lines.find((line) => line.key === key)
   const groups = brands.groups.flatMap((group) => {
     const line = lineOf(group.line)

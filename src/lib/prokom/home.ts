@@ -199,6 +199,29 @@ export const homeSchema = z
      * stored before it stay valid; the steps come from `HubSettings.deliveries`. Names of buyers
      * (`examples`) only behind facts approved by the boss — none in the package.
      */
+    /**
+     * ALSEN as a premium section above „Współpraca” (runda 1811 D4, Krystian 19.11). Logo,
+     * status and the network's site come from `brands.network`, the salon address from the
+     * company data; the figure and the salon line only while their facts are visible.
+     */
+    network: z
+      .object({
+        ...head,
+        stat: z.object({
+          value: text(8),
+          label: text(60),
+          note: text(120),
+          facts: factKeys.min(1),
+        }),
+        point: z.object({ text: text(80), facts: factKeys.min(1) }),
+        points: z
+          .array(titled.extend({ icon: z.enum(ICON_NAMES) }))
+          .min(3)
+          .max(4),
+        cta: z.object({ label: text(40), href: hubHref }),
+        more: z.object({ label: text(40), href: hubHref }),
+      })
+      .nullish(),
     procurement: z
       .object({
         ...head,
