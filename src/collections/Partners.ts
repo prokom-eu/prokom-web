@@ -2,7 +2,8 @@ import path from 'path'
 import type { CollectionConfig } from 'payload'
 
 import { restrictedRichTextEditor } from '../blocks/RichText/config'
-import { adminOnly } from '../lib/auth/access'
+import { adminOnly, adminOnlyField } from '../lib/auth/access'
+import { partnerUpdateAccess } from '../lib/auth/partnerAccess'
 import { catalogRevalidationHooks } from '../lib/catalog/revalidate'
 import { validateHttpsUrls } from '../lib/catalog/sources'
 import { getEnv } from '../lib/env'
@@ -23,8 +24,10 @@ export const Partners: CollectionConfig = {
   defaultSort: 'order',
   access: {
     read: createPublicReadAccess(publicPartnerWhere),
-    create: ({ req: { user } }) => Boolean(user),
-    update: ({ req: { user } }) => Boolean(user),
+    // Audit AB4 (W-02): `partners` is outside the multi-tenant plugin (one brand on several
+    // sites), so editors are limited here: only partners shown on their own sites.
+    create: adminOnly,
+    update: partnerUpdateAccess,
     delete: adminOnly,
   },
   // Brands of the catalog: their name, address and status are in the index of their sites.
@@ -93,6 +96,7 @@ export const Partners: CollectionConfig = {
       type: 'relationship',
       relationTo: 'tenants',
       hasMany: true,
+      access: { create: adminOnlyField, update: adminOnlyField },
     },
     {
       name: 'order',
