@@ -135,6 +135,12 @@ export default buildConfig({
     tasks: [inquiryRetentionTask, videoAvailabilityTask],
   },
   secret: env.PAYLOAD_SECRET,
+  // Audit AB4 (W-07): the same 20 MB cap as nginx (`client_max_body_size`), also in the app.
+  upload: { limits: { fileSize: 20 * 1024 * 1024 } },
+  // Audit AB4 (W-01): the session cookie is accepted only from the panel's origin (CSRF). Not
+  // `serverURL` (it would make media URLs absolute for next/image) and not locally (the panel runs
+  // on panel.localhost:<port> over http).
+  ...(env.SITE_ENV !== 'local' && { csrf: [`https://${env.PANEL_HOST}`] }),
   // Production: Payload's own lines (migrations, jobs, errors) in the same JSON shape as
   // `lib/log` (`level` as text, ISO `time`, `msg`); locally the readable default stays.
   ...(env.NODE_ENV === 'production' && {

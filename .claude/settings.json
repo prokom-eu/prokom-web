@@ -88,8 +88,6 @@
       "Bash(git push origin HEAD:main*)",
       "Bash(git push origin HEAD:develop*)",
       "Bash(git push --force-with-lease*)",
-      "Bash(gh pr merge*)",
-      "Bash(gh pr close*)",
       "Bash(gh repo delete*)",
       "Bash(pnpm payload migrate:down*)",
       "Bash(pnpm payload migrate:fresh*)",
