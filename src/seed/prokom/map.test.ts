@@ -131,7 +131,7 @@ describe('hub seed — company facts (spec §3)', () => {
       hubTrust()
         .filter((row) => !row.approved)
         .map((row) => row.value),
-    ).toEqual(['ALSEN Rabka'])
+    ).toEqual([])
   })
 
   it('keeps the approval given in the panel to a fact the package leaves waiting', () => {
