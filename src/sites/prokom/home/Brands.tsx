@@ -1,7 +1,12 @@
 import Image from 'next/image'
 
 import { Icon } from '@/components/ui/Icon'
-import { type HubBrands, visibleAuthorizations } from '@/lib/prokom/brands'
+import {
+  type HubBrands,
+  visibleAuthorizations,
+  visibleNetwork,
+  type VisibleNetwork,
+} from '@/lib/prokom/brands'
 
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
@@ -25,6 +30,7 @@ type Props = {
  */
 export function Brands({ brands, facts, lines, allHref }: Props) {
   const authorizations = visibleAuthorizations(brands, facts)
+  const network = visibleNetwork(brands, facts)
   const lineOf = (key: string) => lines.find((line) => line.key === key)
   const groups = brands.groups.flatMap((group) => {
     const line = lineOf(group.line)
@@ -77,6 +83,7 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
             })}
           </ul>
         )}
+        {network && <NetworkCard network={network} />}
         {groups.length > 0 && (
           <ul className="pk-bgroups" role="list">
             {groups.map((group, index) => (
@@ -121,6 +128,44 @@ export function Brands({ brands, facts, lines, allHref }: Props) {
         {authorizations.length > 0 && <p className="pk-note">{brands.note}</p>}
       </div>
     </section>
+  )
+}
+
+/**
+ * A partner network (ALSEN, runda 1811 D4) — a wide card under the four authorizations: a network
+ * of shops is a different kind of partnership than a producer's, so it is not one of them.
+ */
+export function NetworkCard({ network }: { network: VisibleNetwork }) {
+  const logo = BRAND_LOGOS[network.name]
+  return (
+    <div className="pk-net" style={lineStyle(network.line)}>
+      <span className="pk-auth__plate pk-net__plate">
+        {logo ? (
+          <Image
+            src={logo.src}
+            width={logo.width}
+            height={logo.height}
+            alt={network.name}
+            sizes="200px"
+          />
+        ) : (
+          <span className="pk-auth__name">{network.name}</span>
+        )}
+      </span>
+      <span className="pk-net__body">
+        <span className="pk-auth__status">
+          <span className="pk-auth__icon" aria-hidden="true">
+            <Icon name="shield" />
+          </span>
+          {network.status} · {network.label}
+        </span>
+        <span className="pk-auth__text">{network.text}</span>
+      </span>
+      <a href={network.website} target="_blank" rel="noopener" className="pk-net__link">
+        {network.linkLabel} <span aria-hidden="true">↗</span>
+        <span className="sr-only"> (otwiera się w nowej karcie)</span>
+      </a>
+    </div>
   )
 }
 

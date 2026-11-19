@@ -6,7 +6,7 @@ import {
   normalizeRedirectPath,
 } from '@/lib/redirects/rules'
 
-import { PROKOM_HUB_PAGES, PROKOM_REDIRECTS } from './redirects'
+import { PREVIOUS_TARGETS, PROKOM_HUB_PAGES, PROKOM_REDIRECTS } from './redirects'
 
 /** Every address of the old pro-kom.eu sitemap (https://pro-kom.eu/sitemap.xml, 15.11.2026). */
 const OLD_SITEMAP_PATHS = [
@@ -175,5 +175,14 @@ describe('PROKOM_REDIRECTS', () => {
       expect(isValidRedirectTarget(to), to).toBe(true)
       if (to.startsWith('/')) expect(sources.has(to), to).toBe(false)
     }
+  })
+})
+
+describe('ALSEN (runda 1811 D4)', () => {
+  it('sends the old partnership page to the ALSEN section of „O firmie”, the old target upgraded', () => {
+    const map = buildRedirectMap(PROKOM_REDIRECTS)
+    expect(map.get('/produkt/partnerstwo/alsen')).toBe('/o-firmie#alsen')
+    expect(map.get('/index.php/produkt/partnerstwo/alsen')).toBe('/o-firmie#alsen')
+    for (const from of Object.keys(PREVIOUS_TARGETS)) expect(map.has(from), from).toBe(true)
   })
 })
