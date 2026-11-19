@@ -49,3 +49,48 @@ export function featuredProducts(
   const rest = index.products.filter((product) => !chosen.includes(product))
   return [...chosen, ...rest].slice(0, FEATURED_SIZE)
 }
+
+/**
+ * Logos of the salon brands in `public/instalacje/marki` (the home brand strip's files, RUNDA-V5
+ * §2; Ajax from the manufacturer's site): the shared `partners` of Instalacje carry no logo yet,
+ * so a salon tile falls back to these. Sizes = the files (2×).
+ */
+export const SALON_LOGOS: Record<string, { src: string; width: number; height: number }> = {
+  dahua: { src: '/instalacje/marki/dahua.webp', width: 402, height: 120 },
+  hikvision: { src: '/instalacje/marki/hikvision.webp', width: 520, height: 66 },
+  satel: { src: '/instalacje/marki/satel.webp', width: 446, height: 120 },
+  ajax: { src: '/instalacje/marki/ajax.webp', width: 480, height: 100 },
+  bcs: { src: '/instalacje/marki/bcs.webp', width: 370, height: 120 },
+}
+
+export type HomeSalon = {
+  slug: string
+  name: string
+  count: number
+  logo: { src: string; width: number; height: number } | null
+}
+
+/**
+ * Salon tiles of „Sprzęt i marki” (INST-K3): one per salon in the index order, named by its
+ * brands, with the count of their listed cards and a logo (the brand's own, else `SALON_LOGOS`).
+ */
+export function homeSalons(index: Pick<CatalogIndex, 'brands' | 'products'>): HomeSalon[] {
+  const salons = new Map<string, HomeSalon>()
+  for (const brand of index.brands) {
+    if (!brand.salon) continue
+    const salon = salons.get(brand.salon) ?? {
+      slug: brand.salon,
+      name: '',
+      count: 0,
+      logo: null,
+    }
+    salon.name = salon.name ? `${salon.name} · ${brand.name}` : brand.name
+    salon.count += index.products.filter((product) => product.brand === brand.slug).length
+    salon.logo ??= brand.logo
+      ? { src: brand.logo.url, width: brand.logo.width, height: brand.logo.height }
+      : (SALON_LOGOS[brand.salon] ?? null)
+    salons.set(brand.salon, salon)
+  }
+  // A salon whose brands have no listed card would say „0 pozycji”: left out.
+  return [...salons.values()].filter((salon) => salon.count > 0)
+}

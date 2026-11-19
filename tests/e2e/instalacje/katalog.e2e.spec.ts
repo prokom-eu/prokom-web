@@ -110,9 +110,16 @@ test.describe('Instalacje catalog (INST-K1)', () => {
     const section = page.locator('#sprzet')
     await expect(section.getByRole('heading', { level: 2 })).toContainText('Sprzęt')
     await expect(section.locator('.isp-dep')).toHaveCount(4)
-    await expect(section.getByRole('link', { name: 'Dahua', exact: true })).toHaveAttribute(
+    // INST-K3: salons as logo tiles, the first ready bundles and the way to all of them.
+    await expect(section.getByRole('link', { name: /Salon Dahua/ })).toHaveAttribute(
       'href',
       '/marki/dahua',
+    )
+    await expect(section.locator('.isp-salon-logo img').first()).toBeVisible()
+    await expect(section.locator('.isp-bundles > li')).toHaveCount(3)
+    await expect(section.getByRole('link', { name: /Wszystkie zestawy/ })).toHaveAttribute(
+      'href',
+      '/zestawy',
     )
     await expect(section.locator('.isp-feat-list > li')).toHaveCount(8)
     await expect(section.getByRole('link', { name: 'Cały sprzęt' })).toHaveAttribute(

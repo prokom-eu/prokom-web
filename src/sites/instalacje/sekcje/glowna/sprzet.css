@@ -1,8 +1,9 @@
 /*
- * „Sprzęt i marki” on the home page (INST-K2, D17, `CatalogSection.tsx`): department cards with a
- * showcase, the brand strip and „Najczęściej wybierane”. Colours only through the line's tokens
- * (turquoise of Instalacje in both themes); a phone gets snapping rows like an app (MOBILE-
- * APLIKACJA), hover only with a pointer, motion only without reduced motion.
+ * „Sprzęt i marki” on the home page (INST-K2, D17; premium INST-K3, `CatalogSection.tsx`):
+ * department showcases, salon logo tiles, ready bundles and „Najczęściej wybierane”. Colours only
+ * through the line's tokens (turquoise of Instalacje in both themes; logos on the white brand tile
+ * like the home brand strip); a phone gets snapping rows like an app (MOBILE-APLIKACJA), hover
+ * only with a pointer, motion only without reduced motion.
  */
 [data-line='instalacje'] {
   /* The phone rows scroll inside the section, never the page sideways. */
@@ -10,11 +11,71 @@
     overflow-x: clip;
   }
 
+  /* --- head: copy + the catalog in numbers --- */
   & .isp-head {
-    max-width: 760px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 24px 48px;
     margin-bottom: 36px;
   }
 
+  & .isp-head-copy {
+    max-width: 760px;
+  }
+
+  & .isp-stats {
+    position: relative;
+    padding: 18px 24px;
+    border-radius: 22px;
+    background:
+      radial-gradient(120% 140% at 100% 0%, var(--accent-soft), transparent 60%), var(--card);
+    box-shadow:
+      inset 0 0 0 1px var(--border),
+      0 18px 40px -28px var(--inst-brand-tile-shadow);
+
+    & dd {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    & b {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-text);
+    }
+
+    & dd span {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-2);
+    }
+  }
+
+  & .isp-stats-list {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 4px 28px;
+    margin: 0;
+  }
+
+  & .isp-stats-note {
+    margin: 10px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* --- departments: a lit stage with three cards, then the copy --- */
   & .isp-deps {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -24,35 +85,62 @@
   }
 
   & .isp-dep {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 18px;
-    border-radius: 22px;
+    overflow: hidden;
+    border-radius: 24px;
     background: var(--card);
     box-shadow: inset 0 0 0 1px var(--border);
   }
 
-  & .isp-dep-pics {
+  & .isp-dep-stage {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1.25fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 8px;
-    margin-bottom: 6px;
+    aspect-ratio: 16 / 11;
+    padding: 14px;
+    background:
+      radial-gradient(90% 80% at 30% 20%, var(--accent-soft), transparent 70%), var(--surface-2);
   }
 
   & .isp-dep-pic {
     display: block;
-    aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 14px;
-    background: var(--plate);
-    box-shadow: inset 0 0 0 1px var(--border);
+    border-radius: 16px;
+    background: var(--inst-brand-tile);
+    box-shadow:
+      inset 0 0 0 1px var(--inst-brand-tile-line),
+      0 10px 22px -16px var(--inst-brand-tile-shadow);
+
+    &:first-child {
+      grid-row: 1 / 3;
+    }
 
     & img {
       width: 100%;
       height: 100%;
+      padding: 8%;
       object-fit: contain;
     }
+  }
+
+  & .isp-dep-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 18px 6px;
+  }
+
+  & .isp-dep-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 10px;
   }
 
   & .isp-dep-name {
@@ -64,19 +152,22 @@
   }
 
   & .isp-dep-count {
-    margin: 0;
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--ink-2);
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--accent-text);
   }
 
   & .isp-dep-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    margin: 4px 0 8px;
+    gap: 6px;
+    margin: 2px 0 6px;
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.35;
 
     & a {
       color: var(--ink-2);
@@ -85,79 +176,134 @@
   }
 
   & .isp-dep-link,
-  & .isp-brands-all {
+  & .isp-more {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     min-height: 44px;
-    margin-top: auto;
     font-weight: 800;
     color: var(--accent-text);
     text-decoration: none;
   }
 
-  & .isp-brands {
+  & .isp-dep-link {
+    margin-top: auto;
+  }
+
+  /* --- blocks: salons and bundles --- */
+  & .isp-block {
+    margin-top: 48px;
+  }
+
+  & .isp-block-head {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 16px;
-    margin-top: 28px;
-    padding: 16px 20px;
-    border-radius: 22px;
-    background: var(--surface-2);
-
-    & ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-    }
-
-    & ul a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 16px;
-      border-radius: 999px;
-      background: var(--card);
-      box-shadow: inset 0 0 0 1px var(--border);
-      font-weight: 800;
-      color: var(--ink);
-      text-decoration: none;
-    }
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px 24px;
+    margin-bottom: 18px;
   }
 
-  & .isp-brand-logo {
-    width: auto;
-    max-width: 72px;
-    height: 18px;
-    margin-right: 8px;
-    object-fit: contain;
-  }
-
-  & .isp-brands-label {
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-2);
-  }
-
-  & .isp-brands-all {
-    margin: 0 0 0 auto;
-  }
-
-  & .isp-feat {
-    margin-top: 40px;
-  }
-
-  & .isp-feat-h {
-    margin: 0 0 16px;
+  & .isp-block-h {
+    margin: 0;
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 800;
     color: var(--ink);
+  }
+
+  & .isp-block-lead {
+    max-width: 62ch;
+    margin: 6px 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  & .isp-salons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .isp-salon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: inset 0 0 0 1px var(--border);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  & .isp-salon-logo {
+    display: grid;
+    place-items: center;
+    height: 112px;
+    margin: 8px 8px 0;
+    border-radius: 16px;
+    background: var(--inst-brand-tile);
+    box-shadow: inset 0 0 0 1px var(--inst-brand-tile-line);
+
+    & img {
+      width: auto;
+      max-width: 62%;
+      height: 34px;
+      object-fit: contain;
+    }
+  }
+
+  & .isp-salon-word {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--inst-brand-tile-ink);
+  }
+
+  & .isp-salon-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 44px 16px 18px;
+  }
+
+  & .isp-salon-name {
+    font-weight: 800;
+  }
+
+  & .isp-salon-count {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-2);
+  }
+
+  & .isp-salon-go {
+    position: absolute;
+    right: 16px;
+    bottom: 20px;
+    color: var(--accent-text);
+  }
+
+  & .isp-bundles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- „Najczęściej wybierane” and the actions --- */
+  & .isp-feat {
+    margin-top: 48px;
+
+    & .isp-block-h {
+      margin-bottom: 16px;
+    }
   }
 
   & .isp-feat-list {
@@ -172,7 +318,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 36px;
   }
 
   & .isp-btn {
@@ -195,7 +341,8 @@
   }
 
   & .isp-dep-link:focus-visible,
-  & .isp-brands a:focus-visible,
+  & .isp-more:focus-visible,
+  & .isp-salon:focus-visible,
   & .isp-btn:focus-visible,
   & .isp-dep-list a:focus-visible {
     outline: 3px solid var(--accent-text);
@@ -203,72 +350,122 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    & .isp-dep-list a:hover {
+    & .isp-dep-list a:hover,
+    & .isp-more:hover {
       color: var(--accent-text);
+      text-decoration: underline;
     }
-
-    & .isp-brands ul a:hover {
-      box-shadow: inset 0 0 0 1.5px var(--accent-text);
-    }
-
     & .isp-btn:hover {
-      box-shadow: inset 0 0 0 1.5px var(--accent-text);
+      box-shadow: inset 0 0 0 1.5px var(--ink-3);
     }
-
     & .isp-btn-main:hover {
-      background: var(--ink);
-      color: var(--surface);
+      box-shadow: 0 10px 24px -12px var(--accent-text);
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    & .isp-dep {
-      transition: box-shadow var(--dur-state, 0.2s) var(--ease-out, ease);
+    & .isp-dep,
+    & .isp-salon {
+      transition:
+        translate var(--dur-hover) var(--ease-out),
+        box-shadow var(--dur-hover) var(--ease-out);
     }
-
+    & .isp-dep-pic img,
+    & .isp-salon-logo img,
+    & .isp-salon-go {
+      transition:
+        scale var(--dur-hover) var(--ease-out),
+        translate var(--dur-hover) var(--ease-out);
+    }
     @media (hover: hover) and (pointer: fine) {
-      & .isp-dep:hover {
-        box-shadow: inset 0 0 0 1.5px var(--accent-text);
+      & .isp-dep:hover,
+      & .isp-salon:hover {
+        translate: 0 -4px;
+        box-shadow:
+          inset 0 0 0 1px var(--accent-line),
+          0 22px 44px -26px var(--inst-brand-tile-shadow);
+      }
+      & .isp-dep:hover .isp-dep-pic img,
+      & .isp-salon:hover .isp-salon-logo img {
+        scale: 1.06;
+      }
+      & .isp-salon:hover .isp-salon-go {
+        translate: 3px 0;
       }
     }
   }
 
   @media (max-width: 1080px) {
+    & .isp-head {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    & .isp-stats {
+      justify-self: start;
+    }
     & .isp-deps,
     & .isp-feat-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    & .isp-bundles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    /* Two columns: the third bundle would stand alone — „Wszystkie zestawy” leads on. */
+    & .isp-bundles > li:nth-child(3) {
+      display: none;
+    }
   }
 
-  /* Phone: snapping rows like an app — departments and the eight cards scroll sideways. */
+  /* Phone (MOBILE-APLIKACJA): rows that snap like an app; a tile peeks at the edge. */
   @media (max-width: 760px) {
+    & .isp-stats {
+      width: 100%;
+      padding: 14px 16px;
+    }
+    & .isp-stats-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    & .isp-stats {
+      & b {
+        font-size: 1.6rem;
+      }
+    }
     & .isp-deps,
-    & .isp-feat-list {
-      display: flex;
-      min-width: 0;
+    & .isp-feat-list,
+    & .isp-salons,
+    & .isp-bundles {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: none;
       gap: 12px;
       margin: 0 -16px;
-      padding: 0 16px 6px;
+      padding: 2px 16px 8px;
       overflow-x: auto;
+      overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
       scroll-padding-inline: 16px;
       scrollbar-width: none;
     }
-
-    & .isp-dep {
-      flex: 0 0 78%;
-      scroll-snap-align: start;
+    & .isp-deps {
+      grid-auto-columns: 78%;
     }
-
+    & .isp-salons {
+      grid-auto-columns: 58%;
+    }
+    & .isp-bundles {
+      grid-auto-columns: 84%;
+    }
+    & .isp-feat-list {
+      grid-auto-columns: 62%;
+    }
+    & .isp-deps > li,
+    & .isp-salons > li,
+    & .isp-bundles > li,
     & .isp-feat-list > li {
-      flex: 0 0 62%;
       scroll-snap-align: start;
     }
-
-    & .isp-brands-all {
-      margin-left: 0;
+    & .isp-bundles > li:nth-child(3) {
+      display: block;
     }
-
     & .isp-cta .isp-btn {
       flex: 1 1 100%;
       justify-content: center;
