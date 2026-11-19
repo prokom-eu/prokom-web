@@ -113,7 +113,7 @@ describe('slugOf', () => {
 })
 
 describe('hub seed — company facts (spec §3)', () => {
-  it('has the facts and statuses of the spec, all approved (ALSEN figures — Krystian 19.11)', () => {
+  it('has the facts and statuses of the spec, approved but the ALSEN Rabka point', () => {
     expect(hubTrust().map((row) => `${row.value}: ${row.label}`)).toEqual([
       'Od 2004: firma z Rabki-Zdroju',
       '100+: klientów firmowych',
