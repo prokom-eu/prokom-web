@@ -241,7 +241,7 @@ export function hubTrust(): TrustRow[] {
       value: 'ALSEN Rabka',
       label: 'salon = punkt partnerski ALSEN',
       source: rounds,
-      approved: false,
+      approved: true,
     },
   ]
 }
