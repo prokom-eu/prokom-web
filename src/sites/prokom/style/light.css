@@ -115,6 +115,7 @@
     .pk-hb-main,
     .pk-plan,
     .pk-coop,
+    .pk-proc,
     .pk-reach__map,
     .pk-fq,
     .pk-bstate,
@@ -140,7 +141,8 @@
   background-color: var(--k-card);
   box-shadow: var(--lt-elev-1);
 }
-[data-line='prokom'][data-theme='light'] :is(.pk-hb-main, .pk-plan, .pk-contact, .pk-coop) {
+[data-line='prokom'][data-theme='light']
+  :is(.pk-hb-main, .pk-plan, .pk-contact, .pk-coop, .pk-proc) {
   box-shadow:
     var(--lt-elev-2),
     0 40px 80px -56px color-mix(in srgb, var(--k-g) 45%, transparent);
@@ -157,7 +159,8 @@
     .pk-ocp,
     .pk-bfacts li,
     .pk-area__list li,
-    .pk-grants li
+    .pk-grants li,
+    .pk-proc__point
   ) {
   border-color: var(--lt-hair);
   background-color: var(--k-card);

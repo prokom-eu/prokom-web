@@ -4,7 +4,7 @@ vi.mock('@payload-config', () => ({ default: {} }))
 
 import type { HubHelp, HubPlan, HubService, HubTool } from '@/payload-types'
 
-import { hubWhere, toHubData, toHubSettings } from './data'
+import { extraEmailsToShow, hubWhere, toHubData, toHubSettings } from './data'
 
 describe('hubWhere — every hub query is tenant-scoped (isolation)', () => {
   it('filters by tenant and the published version', () => {
@@ -174,5 +174,36 @@ describe('toHubSettings', () => {
     expect(toHubSettings(doc, 'production').trust).toEqual([
       { value: 'Od 2004', label: 'firma z Rabki-Zdroju' },
     ])
+  })
+})
+
+describe('toHubSettings — extra e-mails (runda 1811 D15)', () => {
+  it('gives only the addresses switched on in the panel', () => {
+    const view = toHubSettings(
+      {
+        extraEmails: [
+          { label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu', published: true, id: 'a' },
+          { label: 'Zamówienia', email: 'sklep@pro-kom.pl', published: false, id: 'b' },
+        ],
+      },
+      'production',
+    )
+    expect(view.extraEmails).toEqual([{ label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu' }])
+  })
+})
+
+describe('extraEmailsToShow (runda 1811 D15)', () => {
+  const rows = [
+    { label: 'Biuro (ogólny)', email: 'Biuro@Pro-Kom.eu' },
+    { label: 'Zamówienia', email: 'sklep@pro-kom.pl' },
+  ]
+
+  it('leaves out the main address, whatever its case', () => {
+    expect(extraEmailsToShow(rows, 'biuro@pro-kom.eu')).toEqual([rows[1]])
+  })
+
+  it('keeps every address when the main one is another or missing', () => {
+    expect(extraEmailsToShow(rows, 'kontakt@pro-kom.eu')).toEqual(rows)
+    expect(extraEmailsToShow(rows, null)).toEqual(rows)
   })
 })
