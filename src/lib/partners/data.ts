@@ -5,6 +5,12 @@ import { cache } from 'react'
 import { imageSources } from '../media/sizes'
 import type { PublicImage } from '../media/public'
 import { orderHomeBrands, type HomeBrand } from './homeBrands'
+import {
+  isPartnerNetwork,
+  partnerNetworks,
+  PARTNER_NETWORKS,
+  type PartnerNetwork,
+} from './networks'
 
 export type PublicPartner = {
   id: number
@@ -67,6 +73,26 @@ export const getPartnerStatuses = cache(async (tenantId: number) => {
 })
 
 /**
+ * Partner networks of one tenant (runda 1811, D4: ALSEN) with the confirmed status and a logo —
+ * shown next to the authorisations, never counted in them. Tenant filter mandatory, as above.
+ */
+export const getPartnerNetworks = cache(async (tenantId: number): Promise<PartnerNetwork[]> => {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'partners',
+    where: {
+      and: [{ tenants: { in: [tenantId] } }, { slug: { in: [...PARTNER_NETWORKS] } }],
+    },
+    sort: 'order',
+    limit: 10,
+    depth: 0,
+    // Server-side read; only the fields of `PartnerNetwork` leave here.
+    overrideAccess: true,
+  })
+  return partnerNetworks(docs)
+})
+
+/**
  * Brands of the home page strips (ZAOPATRZENIE §9): every partner of the tenant (logo or not) in
  * the panel's order with its status and short description, and the ids of
  * `BiznesSettings.brands.home` (the brands that lead). Tenant filter on both reads.
@@ -108,10 +134,12 @@ export const getBrandStripData = cache(
     const homeIds = (settings[0]?.brands?.home ?? []).flatMap((value) =>
       typeof value === 'number' ? [value] : value ? [value.id] : [],
     )
+    // A partner network (ALSEN) is not a brand of products: it has no offer to link to.
+    const brands = docs.filter((doc) => !isPartnerNetwork(doc.slug))
     return {
       brands: orderHomeBrands(
-        docs.map((doc) => doc.id),
-        docs,
+        brands.map((doc) => doc.id),
+        brands,
       ),
       homeIds,
     }
