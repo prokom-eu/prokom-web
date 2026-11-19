@@ -247,7 +247,8 @@ export function hubTrust(): TrustRow[] {
 
 /**
  * Facts after a seed run: a fact of the package replaces the stored one with the same value (its
- * row id kept; an approval from the panel is never taken back), facts added in the panel stay after them — the boss's additions never disappear.
+ * row id kept; an approval given in the panel to a fact the package leaves waiting stays — but a
+ * package fact approved here cannot be switched off in the panel: change `hubTrust()` for that), facts added in the panel stay after them — the boss's additions never disappear.
  */
 export function mergeTrust(
   stored: readonly TrustRow[] | null | undefined,

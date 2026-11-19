@@ -123,6 +123,7 @@ export function AboutNetwork({ network }: { network: VisibleNetwork | null }) {
   return (
     <section
       id={network.slug}
+      data-rail-section={network.name}
       aria-labelledby="pk-net-h"
       className={`${PAGE_CONTAINER} pk-abnet`}
       style={lineStyle(network.line)}
