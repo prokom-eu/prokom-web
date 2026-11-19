@@ -9,6 +9,7 @@ import brands from '../../../seed/prokominstalacje/katalog/marki-inst.json'
 import showrooms from '../../../seed/prokominstalacje/katalog/salony-inst.json'
 import dictionaries from '../../../seed/prokominstalacje/katalog/slowniki-inst.json'
 import bundles from '../../../seed/prokominstalacje/katalog/zestawy-inst.json'
+import { COPY_WORDS } from '../../lib/instalacje/copyWords'
 
 // INST-K0 (ADR-029, docs/tresci/instalacje-katalog-eltrox.md §1, §5): the Instalacje catalog in
 // the K4 card format, with the thresholds of the Biznes catalog (`catalogThresholds.test.ts`).
@@ -137,6 +138,17 @@ describe('Instalacje catalog seed (INST-K0)', () => {
   it('ready cards cite the producer (zrodla)', () => {
     const missing = ready.filter((card) => !card.zrodla?.length).map((card) => card.slug_seed)
     expect(missing).toEqual([])
+  })
+
+  it('has no generated-copy phrasings of the Instalacje pages (runda v6 §2.2, COPY_WORDS)', () => {
+    const files = { cards, brands, showrooms, dictionaries, bundles }
+    const hits = Object.entries(files).flatMap(([name, value]) =>
+      strings(value)
+        .flatMap((text) => text.split(SENTENCE_END))
+        .filter((sentence) => COPY_WORDS.test(sentence))
+        .map((sentence) => `${name}: ${sentence}`),
+    )
+    expect(hits).toEqual([])
   })
 
   it('keeps Hikvision and Dahua out of public-institution industries (KSC)', () => {
