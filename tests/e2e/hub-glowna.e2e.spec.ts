@@ -58,7 +58,11 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     await page.setViewportSize({ width: 1440, height: 900 })
     await page.goto(site(HUB, '/#kontakt'))
     const row = page.locator('#kontakt .pk-clr--points')
-    for (const name of [/Rabka-Zdrój: 18 541 20 55/, /Zakopane: 18 541 20 15/, /Infolinia: 883/]) {
+    for (const name of [
+      /Rabka-Zdrój\W+18 541 20 55/,
+      /Zakopane\W+18 541 20 15/,
+      /Infolinia\W+883/,
+    ]) {
       await expect(row.getByRole('link', { name })).toHaveAttribute('href', /^tel:\+48\d{9}$/)
     }
     const tabs = page.locator('#linie').getByRole('tab')
