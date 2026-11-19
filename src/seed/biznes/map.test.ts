@@ -502,6 +502,15 @@ describe('search settings', () => {
     expect(of('rzutnik')).toContain('projektor')
   })
 
+  it('finds the acoustic furniture by the phrases of runda 1811 (D2)', () => {
+    const { synonyms } = searchData(search)
+    const of = (phrase: string) => synonyms.find((row) => row.phrase === phrase)?.expansions
+    // „budka do rozmów”, „phone booth”, „ścianka akustyczna” — every word must hit.
+    for (const word of ['budka', 'phone', 'booth']) expect(of(word)).toContain('sonocubo')
+    expect(of('scianka')).toContain('sonovelo')
+    expect(of('akustyczna')).toContain('akustyczn')
+  })
+
   it('adds only the phrases the panel lacks — an edited phrase stays (runda 1811)', () => {
     const stored = [
       { phrase: 'tablica', expansions: ['moja'] },
