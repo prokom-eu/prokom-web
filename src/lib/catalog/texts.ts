@@ -90,6 +90,17 @@ export function catalogTextLine(line: string): CatalogTextLine {
   throw new Error(`No catalog texts for line ${line}`)
 }
 
+/** Texts of the inquiry drawer of a catalog line, passed from the server frame (`CartDrawer`). */
+export function drawerTexts(line: CatalogTextLine) {
+  const { sentPhoned, helpHref, helpLabel } = CATALOG_UI[line]
+  return {
+    sentPhoned,
+    helpHref,
+    helpLabel,
+    helpButton: line === 'instalacje' ? helpLabel : 'Konfigurator',
+  }
+}
+
 export const CATALOG_TEXT_DEFAULTS: Record<CatalogTextLine, CatalogTexts> = {
   biznes: {
     offerTitle: 'Cała oferta dla firm',
