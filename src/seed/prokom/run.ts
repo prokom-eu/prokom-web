@@ -5,7 +5,7 @@ import { seedProkomLegal } from './legal'
 import { seedProkomRedirects } from './redirects'
 import { hasSameValues } from '../compare'
 import { SEED_CONTEXT } from '../config'
-import { PROKOM_BRANCH, PROKOM_SITE } from '../shared/prokom'
+import { PROKOM_BRANCH, PROKOM_EXTRA_EMAILS, PROKOM_SITE } from '../shared/prokom'
 import { seedSharedData } from '../shared/run'
 import {
   extraPhonesAfterSeed,
@@ -117,6 +117,10 @@ export async function seedProkom(payload: Payload): Promise<void> {
     // Contact data: the package only fills empty fields — later edits in the panel stay.
     extraPhones: extraPhonesAfterSeed(hubSettings?.extraPhones),
     branch: hubSettings?.branch?.street ? hubSettings.branch : { ...PROKOM_BRANCH },
+    // Runda 1811 D15: filled while empty; switching an address on stays a decision in the panel.
+    extraEmails: hubSettings?.extraEmails?.length
+      ? hubSettings.extraEmails.map(({ label, email, published }) => ({ label, email, published }))
+      : PROKOM_EXTRA_EMAILS.map((row) => ({ ...row })),
   }
   if (!hubSettings) {
     await payload.create({

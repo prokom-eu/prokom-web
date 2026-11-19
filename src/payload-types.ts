@@ -6206,6 +6206,17 @@ export interface HubSetting {
       }[]
     | null;
   /**
+   * Stare adresy używane latami (runda 18.11, D15) — pokazywane na /kontakt obok głównego adresu huba. Włącz „Pokazuj” dopiero, gdy skrzynka działa i ktoś ją odbiera. Główny adres jest w Ustawieniach strony — adres taki sam jak główny nie jest powtarzany.
+   */
+  extraEmails?:
+    | {
+        label: string;
+        email: string;
+        published?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Punkt bez pełnego salonu firmy — pokazywany skromnie na /kontakt i /o-firmie. W Zakopanem działa tylko serwis PRO-KOM Tech (decyzja 15.11), dlatego nie jest salonem w Danych firmy.
    */
   branch?: {
@@ -10112,6 +10123,14 @@ export interface HubSettingsSelect<T extends boolean = true> {
         label?: T;
         number?: T;
         techPoint?: T;
+        id?: T;
+      };
+  extraEmails?:
+    | T
+    | {
+        label?: T;
+        email?: T;
+        published?: T;
         id?: T;
       };
   branch?:
