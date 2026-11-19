@@ -209,7 +209,7 @@ export type HubSettingsView = {
   forBusiness: HubForBusiness | null
   forHome: HubForHome | null
   /** Landline numbers shown modestly on `/kontakt` (decision 15.11: the same as Google). */
-  extraPhones: { label: string; number: string }[]
+  extraPhones: { label: string; number: string; techPoint: string | null }[]
   /** Zakopane: only the Tech service there — not a company salon (decision 15.11). */
   branch: HubBranch | null
 }
@@ -264,7 +264,11 @@ export function toHubSettings(
     offer: pageTexts(offerSchema, doc?.offer, 'offer', tenantId),
     forBusiness: pageTexts(forBusinessSchema, doc?.forBusiness, 'forBusiness', tenantId),
     forHome: pageTexts(forHomeSchema, doc?.forHome, 'forHome', tenantId),
-    extraPhones: (doc?.extraPhones ?? []).map(({ label, number }) => ({ label, number })),
+    extraPhones: (doc?.extraPhones ?? []).map(({ label, number, techPoint }) => ({
+      label,
+      number,
+      techPoint: techPoint?.trim() || null,
+    })),
     branch: toBranch(doc?.branch),
   }
 }
