@@ -12,6 +12,7 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
 import { Brands } from './Brands'
+import { Procurement } from './Procurement'
 import { Contact } from './Contact'
 import { Cooperation } from './Cooperation'
 import { Coverage } from './Coverage'
@@ -119,6 +120,14 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             allHref={live('/pomoc')}
           />
           <Cooperation texts={home.cooperation} pages={pages} />
+          {home.procurement && (
+            <Procurement
+              texts={home.procurement}
+              steps={settings.deliveries?.steps.map((step) => step.title) ?? []}
+              facts={settings.trust}
+              pages={pages}
+            />
+          )}
           {settings.brands && (
             <Brands
               brands={settings.brands}
