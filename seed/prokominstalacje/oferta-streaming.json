@@ -3,14 +3,14 @@
   "usluga": "snd",
   "rozwiazania": [
     {
-      "nazwa": "Transmisja mszy na żywo",
+      "nazwa": "Transmisja mszy z kościoła",
       "opis": "Kamera obrotowa, mikser i nadawanie na YouTube albo stronę parafii, z dźwiękiem prosto z nagłośnienia kościoła.",
       "obiekty": ["inst"],
       "kolejnosc": 9
     },
     {
       "nazwa": "Transmisje sesji rady gminy",
-      "opis": "Obraz z sali obrad i dźwięk z mikrofonów radnych, nadawane na żywo i zapisywane na potrzeby archiwum.",
+      "opis": "Obraz z sali obrad i dźwięk z mikrofonów radnych, nadawane w internecie i zapisywane na potrzeby archiwum.",
       "obiekty": ["inst"],
       "kolejnosc": 10
     },
