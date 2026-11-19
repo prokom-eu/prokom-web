@@ -61,7 +61,8 @@ const BASE: readonly Rule[] = [
   },
   { from: '/produkt/partnerstwo/brother', to: 'https://prokombiznes.pl/marki/brother' },
   { from: '/produkt/partnerstwo/zebra', to: 'https://prokombiznes.pl/marki/zebra' },
-  { from: '/produkt/partnerstwo/alsen', to: '/o-firmie' },
+  // Runda 1811, D4: straight to the ALSEN section of „O firmie”.
+  { from: '/produkt/partnerstwo/alsen', to: '/o-firmie#alsen' },
   { from: '/produkt/partnerstwo/komputronik', to: '/o-firmie' },
   { from: '/uslugi/opieka-techniczna', to: 'https://prokombiznes.pl/opieka-it' },
   { from: '/uslugi/opieka-techniczna/audyty', to: 'https://prokombiznes.pl/opieka-it' },
@@ -132,16 +133,33 @@ export const PROKOM_REDIRECTS: readonly Rule[] = [...BASE, ...JOOMLA_INDEX]
 type Count = (name: string, result: 'created' | 'updated' | 'skipped') => void
 
 /** A rule by its source; one changed in the panel stays (the panel wins after the first import). */
+/**
+ * Earlier targets of the seed's own rules: a stored rule still pointing there moves to the new
+ * target (a target changed in the panel stays). Runda 1811 D4: ALSEN → its section of „O firmie”.
+ */
+export const PREVIOUS_TARGETS: Readonly<Record<string, string>> = {
+  '/produkt/partnerstwo/alsen': '/o-firmie',
+  '/index.php/produkt/partnerstwo/alsen': '/o-firmie',
+}
+
 export async function seedProkomRedirects(payload: Payload, tenantId: number, count: Count) {
   const local = { overrideAccess: true, context: SEED_CONTEXT, depth: 0 } as const
   for (const { from, to } of PROKOM_REDIRECTS) {
-    const { totalDocs } = await payload.count({
+    const {
+      docs: [stored],
+    } = await payload.find({
       collection: 'redirects',
       where: { and: [{ tenant: { equals: tenantId } }, { from: { equals: from } }] },
-      overrideAccess: true,
+      limit: 1,
+      ...local,
     })
-    if (totalDocs > 0) {
-      count('redirects', 'skipped')
+    if (stored) {
+      if (stored.to !== to && PREVIOUS_TARGETS[from] === stored.to) {
+        await payload.update({ collection: 'redirects', id: stored.id, data: { to }, ...local })
+        count('redirects', 'updated')
+      } else {
+        count('redirects', 'skipped')
+      }
       continue
     }
     await payload.create({

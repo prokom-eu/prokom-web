@@ -96,7 +96,7 @@ async function main() {
 
   const login = await fetch(`${base}/api/users/login`, {
     method: 'POST',
-    headers: panelHeaders(undefined, sitePassword),
+    headers: panelHeaders(undefined, sitePassword, base),
     body: JSON.stringify({ email, password }),
   })
   if (!login.ok) throw new Error(`Logowanie: ${login.status}`)
@@ -105,7 +105,7 @@ async function main() {
   async function api<T>(path: string, init?: RequestInit): Promise<T> {
     const res = await fetch(`${base}${path}`, {
       ...init,
-      headers: panelHeaders(token, sitePassword),
+      headers: panelHeaders(token, sitePassword, base),
     })
     if (!res.ok) {
       const body = (await res.text()).slice(0, 300)
