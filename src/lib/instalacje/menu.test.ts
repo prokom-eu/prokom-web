@@ -78,10 +78,13 @@ describe('activeSection', () => {
   })
 
   it('puts the other pages under „Więcej” and marks their header link', () => {
-    expect(activeSection('/realizacje', menu, navigation)).toEqual({
+    expect(activeSection('/o-firmie', menu, navigation)).toEqual({
       tab: 'more',
-      header: '/realizacje',
+      header: '/o-firmie',
     })
+    // „Realizacje” and „Serwis” left the header (19.11): „Więcej” only.
+    expect(activeSection('/realizacje', menu, navigation)).toEqual({ tab: 'more', header: null })
+    expect(activeSection('/serwis', menu, navigation)).toEqual({ tab: 'more', header: null })
     // The guide left the header for the search field (16.11): „Więcej” only.
     expect(activeSection('/poradnik/monitoring-a-rodo', menu, navigation)).toEqual({
       tab: 'more',

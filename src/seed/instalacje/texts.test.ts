@@ -240,6 +240,17 @@ describe('panel request headers (staging behind a site password)', () => {
     })
   })
 
+  it('site password and panel address: the Origin Payload csrf needs (audit AB4)', () => {
+    expect(
+      panelHeaders('t0k', 'szef:haslo', 'https://panel.staging.prokombiznes.pl/admin'),
+    ).toEqual({
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from('szef:haslo').toString('base64')}`,
+      Origin: 'https://panel.staging.prokombiznes.pl',
+      Cookie: 'payload-token=t0k',
+    })
+  })
+
   it('login (no token yet) carries only the site password', () => {
     expect(panelHeaders(undefined, 'szef:haslo')).toEqual({
       'Content-Type': 'application/json',

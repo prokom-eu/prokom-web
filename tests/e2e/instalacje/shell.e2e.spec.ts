@@ -102,9 +102,12 @@ test.describe('Instalacje capsule (desktop)', () => {
   })
 
   test('marks the page and the section of the page', async ({ page }) => {
-    await open(page, '/realizacje')
+    await open(page, '/o-firmie')
     const menu = page.getByRole('navigation', { name: 'Menu główne' })
-    await expect(menu.getByRole('link', { name: 'Realizacje', exact: true })).toHaveAttribute(
+    // „Realizacje” and „Serwis” left the capsule menu (19.11); they live in „Więcej” and the footer.
+    await expect(menu.getByRole('link', { name: 'Realizacje', exact: true })).toHaveCount(0)
+    await expect(menu.getByRole('link', { name: 'Serwis', exact: true })).toHaveCount(0)
+    await expect(menu.getByRole('link', { name: 'O firmie', exact: true })).toHaveAttribute(
       'aria-current',
       'page',
     )
