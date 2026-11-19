@@ -6,6 +6,7 @@ import { getCatalogIndex } from '@/lib/catalog/data'
 import { brandCount } from '@/lib/catalog/filters'
 import { getEnv } from '@/lib/env'
 import { K4_ORDER, partnerStatusLabel } from '@/lib/partners/badges'
+import { getPartnerNetworks } from '@/lib/partners/data'
 import { siteOrigin } from '@/lib/seo/origin'
 import { getSharedData } from '@/lib/shared/getSharedData'
 
@@ -36,10 +37,11 @@ const AUTH_TEXT: Record<string, string> = {
  */
 export async function BzAboutPageBlock({ tenantId }: Props) {
   const env = getEnv()
-  const [shared, index, host] = await Promise.all([
+  const [shared, index, host, networks] = await Promise.all([
     getSharedData(tenantId),
     getCatalogIndex(tenantId),
     headers().then((h) => h.get('host')),
+    getPartnerNetworks(tenantId),
   ])
   if (!shared) return null
   // The four authorisations, in the order of K4-FINAL §1.
@@ -75,6 +77,7 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
       siteEnv={env.SITE_ENV}
       auth={auth}
       others={wall}
+      networks={networks}
       brandTotal={brandCount(index)}
     />
   )
