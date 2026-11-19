@@ -236,11 +236,11 @@ describe('K4 package (katalog-k4.json)', () => {
   // + 5 PolCard terminals, 5 ESET packages, 4 Microsoft 365 plans and 6 EuroCert products of
   // PRODUKCJA-BIZNES-1211 (sesja 2: a card per model, not one card for a salon). + K3.1 split
   // cards checked against producer sources on 14.11 (K4 content wins over the split content).
-  // Runda 1811 (D1): + 3 projector families and Avtek FrameWings.
-  it('has 460 cards: 190 new, 139 changed, 131 typography', () => {
+  // Runda 1811: + 3 projector families and Avtek FrameWings (D1), 5 acoustic furniture (D2).
+  it('has 465 cards: 195 new, 139 changed, 131 typography', () => {
     const count = (kind: string) => cards.filter((card) => card.zmiana_k4 === kind).length
-    expect(cards).toHaveLength(460)
-    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([190, 139, 131])
+    expect(cards).toHaveLength(465)
+    expect([count('nowa'), count('zmieniona'), count('drobne')]).toEqual([195, 139, 131])
   })
 
   it('points polecane and podobne only at cards of the package or of the K3.1 split', () => {
@@ -294,9 +294,9 @@ describe('k4NewCards (K4-FINAL §4.3, 162 new cards)', () => {
 
   it('builds the cards the repo does not have, in the K3 shape', () => {
     const fresh = k4NewCards(cards, repo)
-    // 186 + 4 of runda 1811 (D1).
-    expect(fresh).toHaveLength(190)
-    expect(new Set(fresh.map((card) => card.slug_seed)).size).toBe(190)
+    // 186 + 4 (D1) + 5 (D2) of runda 1811.
+    expect(fresh).toHaveLength(195)
+    expect(new Set(fresh.map((card) => card.slug_seed)).size).toBe(195)
     const macbook = fresh.find((card) => card.slug_seed === 'apple-macbook-air-m5')
     expect(macbook).toMatchObject({
       marka: 'Apple',

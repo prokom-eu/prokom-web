@@ -1,7 +1,7 @@
 {
  "wersja": "K4 (wizualizacja v150)",
  "sprawdzono": "2026-10-29",
- "liczba": 460,
+ "liczba": 465,
  "zmiany": {
   "zmieniona": 139,
   "drobne": 131,
@@ -100294,6 +100294,1200 @@
      "plik": "media/produkty/avtek-framewings-premium-04.webp",
      "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_descriptions_files/1mv155-1mv156-framewings-sala-szkolna-otwarte-i-zamkniete-02.jpg",
      "ujecie": "aranżacja: sala szkolna"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-sonocubo-s",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "meble",
+   "podkategoria": "budki-akustyczne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "sprawdzono": "2026-11-18",
+   "nowosc": true,
+   "nazwa": "Budka akustyczna Avtek SonoCubo S dla jednej osoby",
+   "krotka": "Budka akustyczna Avtek SonoCubo S — 1 osoba",
+   "podtytul": "Budka do rozmów i skupionej pracy: wentylacja do 320 m³/h, LED, ładowanie USB-C 65 W",
+   "korzysc": "Ciche miejsce na rozmowę telefoniczną albo wideorozmowę w otwartym biurze.",
+   "opis": [
+    "SonoCubo S to jednoosobowa budka, którą stawia się w otwartym biurze, w urzędzie albo w strefie coworkingowej hotelu. Pracownik wchodzi do niej na rozmowę z klientem, spotkanie w Teams albo godzinę pracy wymagającej skupienia, a reszta zespołu nie słucha jego rozmowy. Wewnątrz jest stolik i stołek, a kabina ma niecałe 1,1 m szerokości, więc mieści się nawet w niewielkim pomieszczeniu.",
+    "Ściany ze stelażem z aluminium i okładziną z filcu PET oraz podwójna szyba z folią tłumią głos — producent podaje redukcję poziomu mowy 29,4 dB według normy ISO 23351-1. Wentylator wymienia powietrze z wydajnością do 320 m³/h i włącza się sam, gdy czujnik wykryje osobę. Światło LED ma regulowaną barwę od ciepłej do chłodnej, a w ścianie są gniazda USB-A i USB-C (do 65 W), więc laptop naładujesz bez szukania kontaktu.",
+    "Budka przyjeżdża w częściach i waży ok. 350 kg, dlatego przed zamówieniem trzeba sprawdzić drogę wniesienia, nośność podłogi i dostęp do gniazdka. Dostępne są cztery wykończenia: grafitowe, marmurowe, szafirowe i bursztynowe. Producent daje 3 lata gwarancji.",
+    "W PRO-KOM pomagamy wybrać miejsce i rozmiar budki oraz zaplanować dostawę i montaż, a w środku konfigurujemy sprzęt do wideorozmów — kamerę, słuchawki albo laptop z dostępem do Wi-Fi."
+   ],
+   "cechy": [
+    "1 osoba",
+    "29,4 dB",
+    "USB-C 65 W"
+   ],
+   "parametry": [
+    {
+     "k": "Liczba osób",
+     "v": "1"
+    },
+    {
+     "k": "Wymiary zewnętrzne",
+     "v": "1050 × 1006 × 2366 mm"
+    },
+    {
+     "k": "Wymiary wewnętrzne",
+     "v": "921 × 886 × 2182 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "352,5 kg netto (391 kg z opakowaniem)"
+    },
+    {
+     "k": "Redukcja poziomu mowy",
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
+    },
+    {
+     "k": "Konstrukcja",
+     "v": "rama z aluminium 6063-T5, ściany boczne 45 mm, okładzina akustyczna PET 12 mm"
+    },
+    {
+     "k": "Szyba",
+     "v": "szkło hartowane laminowane 5 + 5 mm z folią PVB 0,76 mm"
+    },
+    {
+     "k": "Oświetlenie",
+     "v": "LED z regulacją barwy 3000–6000 K, CRI 90"
+    },
+    {
+     "k": "Sterowanie",
+     "v": "panel dotykowy, czujnik obecności"
+    },
+    {
+     "k": "Wentylacja",
+     "v": "regulowana, do 320 m³/h, włączana czujnikiem obecności"
+    },
+    {
+     "k": "Zasilanie urządzeń",
+     "v": "1 × USB-A (do 18 W), 1 × USB-C Power Delivery (do 65 W)"
+    },
+    {
+     "k": "Wyposażenie",
+     "v": "stolik i stołek"
+    },
+    {
+     "k": "Kolory",
+     "v": "grafitowy, marmurowy, szafirowy, bursztynowy"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "SonoCubo S grafitowy (1BV020)",
+     "roznica": "Wykończenie grafitowe."
+    },
+    {
+     "model": "SonoCubo S marmurowy (1BV021)",
+     "roznica": "Wykończenie w jasnym kolorze marmuru."
+    },
+    {
+     "model": "SonoCubo S szafirowy (1BV019)",
+     "roznica": "Wykończenie szafirowe."
+    },
+    {
+     "model": "SonoCubo S bursztynowy (1BV018)",
+     "roznica": "Wykończenie bursztynowe."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Ile miejsca potrzebuje budka akustyczna SonoCubo S?",
+     "a": "Sama kabina ma 1050 × 1006 mm podstawy i 2366 mm wysokości. Warto zostawić miejsce na otwarcie drzwi i sprawdzić, czy w pomieszczeniu jest gniazdko do podłączenia wentylacji i światła."
+    },
+    {
+     "q": "Jak dobrze SonoCubo S wycisza rozmowę?",
+     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według normy ISO 23351-1. Rozmowę w środku wyraźnie słabiej słychać na zewnątrz, w otwartym biurze."
+    },
+    {
+     "q": "Czy w budce SonoCubo S nie robi się duszno?",
+     "a": "Nie powinno. Wentylator wymienia powietrze z wydajnością do 320 m³/h i włącza się sam, gdy czujnik wykryje, że ktoś jest w środku."
+    },
+    {
+     "q": "Czy w SonoCubo S naładuję laptopa?",
+     "a": "Tak. W ścianie są gniazda USB-A (do 18 W) i USB-C z Power Delivery do 65 W — tyle wystarcza większości laptopów biurowych."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz wykończenie. Wentylacja, oświetlenie LED, czujnik obecności i ładowanie USB są w każdej wersji.",
+    "opcje": [
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "grafitowy",
+       "marmurowy",
+       "szafirowy",
+       "bursztynowy"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Liczba osób",
+      "v": "1"
+     },
+     {
+      "k": "Redukcja mowy",
+      "v": "29,4 dB"
+     },
+     {
+      "k": "Wyposażenie",
+      "v": "stolik i stołek"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Open space, rozmowy z klientami",
+      "konfiguracja": "SonoCubo S grafitowy (1BV020)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-c925e",
+     "etykieta": "Kamera do rozmów"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości"
+    },
+    {
+     "slug": "lenovo-thinkbook-14-g8-g9",
+     "etykieta": "Laptop ThinkBook 14"
+    }
+   ],
+   "podobne": [
+    "avtek-sonocubo-m",
+    "avtek-sonovelo"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-s-grafitowy,1bv020",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-s-grafitowy,1bv020",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "wyrozniki": [
+    "1 osoba",
+    "29,4 dB",
+    "USB-C 65 W"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Osoby",
+     "v": "1"
+    },
+    {
+     "k": "Wymiary",
+     "v": "105 × 101 × 237 cm"
+    },
+    {
+     "k": "Redukcja mowy",
+     "v": "29,4 dB"
+    },
+    {
+     "k": "Wentylacja",
+     "v": "do 320 m³/h"
+    },
+    {
+     "k": "Waga",
+     "v": "352,5 kg"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-sonocubo-s-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV020/1bv020-sonocubo-s-grafitowy-kat-45.png",
+     "ujecie": "pod kątem, grafitowa"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-s-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV020/1bv020-sonocubo-s-grafitowy-front.png",
+     "ujecie": "przód, drzwi"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-s-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV020/1bv020-sonocubo-s-grafitowy-tyl.png",
+     "ujecie": "tył"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-sonocubo-m",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "meble",
+   "podkategoria": "budki-akustyczne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "sprawdzono": "2026-11-18",
+   "nowosc": true,
+   "nazwa": "Budka akustyczna Avtek SonoCubo M dla dwóch osób",
+   "krotka": "Budka akustyczna Avtek SonoCubo M — 2 osoby",
+   "podtytul": "Kabina na rozmowę we dwoje: dwie sofy, stolik, wejście na kartę lub kod, wentylacja do 320 m³/h",
+   "korzysc": "Miejsce na rozmowę 1:1, konsultację albo wideospotkanie we dwoje bez rezerwowania sali.",
+   "opis": [
+    "SonoCubo M to dwuosobowa budka do krótkich spotkań, na które szkoda zajmować salę konferencyjną: rozmowa przełożonego z pracownikiem, konsultacja z klientem w biurze rachunkowym, rozmowa rekrutacyjna albo wideospotkanie dwóch osób. W środku są dwie sofy naprzeciw siebie i stolik, a wejście można zabezpieczyć kartą albo kodem.",
+    "Kabina ma ok. 1,6 × 1,3 m podstawy. Ściany na aluminiowym stelażu z okładziną z filcu PET i szyba z dwóch tafli z folią tłumią głos — producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1. Wentylacja wymienia do 320 m³/h powietrza, światło LED ma regulowaną barwę, a czujnik obecności sam włącza i wyłącza urządzenia. Telefon i laptop naładujesz z gniazd USB-A i USB-C (do 65 W).",
+    "Budka waży ok. 546 kg i jest dostarczana w częściach — przed zamówieniem sprawdzamy drogę wniesienia i podłogę. Dostępne wykończenia to grafitowe, marmurowe i bursztynowe. Gwarancja producenta wynosi 3 lata.",
+    "Pomagamy zaplanować, gdzie postawić budkę w biurze, oraz dostawę i montaż, a w środku przygotowujemy sprzęt do spotkań online, np. kamerę i głośnik do laptopa, oraz dostęp do sieci Wi-Fi."
+   ],
+   "cechy": [
+    "2 osoby",
+    "karta lub kod",
+    "29,4 dB"
+   ],
+   "parametry": [
+    {
+     "k": "Liczba osób",
+     "v": "2"
+    },
+    {
+     "k": "Wymiary zewnętrzne",
+     "v": "1600 × 1310 × 2366 mm"
+    },
+    {
+     "k": "Wymiary wewnętrzne",
+     "v": "1476 × 1270 × 2182 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "546 kg netto (598 kg z opakowaniem)"
+    },
+    {
+     "k": "Redukcja poziomu mowy",
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
+    },
+    {
+     "k": "Konstrukcja",
+     "v": "rama z aluminium 6063-T5, ściany boczne 45 mm, okładzina akustyczna PET 12 mm"
+    },
+    {
+     "k": "Szyba",
+     "v": "szkło hartowane laminowane 5 + 5 mm z folią PVB 0,76 mm"
+    },
+    {
+     "k": "Oświetlenie",
+     "v": "LED z regulacją barwy 3000–6000 K, CRI 90"
+    },
+    {
+     "k": "Sterowanie",
+     "v": "panel dotykowy, czujnik obecności"
+    },
+    {
+     "k": "Wentylacja",
+     "v": "regulowana, do 320 m³/h, włączana czujnikiem obecności"
+    },
+    {
+     "k": "Zasilanie urządzeń",
+     "v": "1 × USB-A (do 18 W), 1 × USB-C Power Delivery (do 65 W)"
+    },
+    {
+     "k": "Dostęp",
+     "v": "karta lub kod"
+    },
+    {
+     "k": "Wyposażenie",
+     "v": "stolik i dwie sofy"
+    },
+    {
+     "k": "Kolory",
+     "v": "grafitowy, marmurowy, bursztynowy"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "SonoCubo M grafitowy (1BV022)",
+     "roznica": "Wykończenie grafitowe."
+    },
+    {
+     "model": "SonoCubo M marmurowy (1BV023)",
+     "roznica": "Wykończenie w jasnym kolorze marmuru."
+    },
+    {
+     "model": "SonoCubo M bursztynowy (1BV024)",
+     "roznica": "Wykończenie bursztynowe."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Do czego w biurze przydaje się dwuosobowa budka SonoCubo M?",
+     "a": "Do rozmów 1:1, konsultacji z klientem, rozmów rekrutacyjnych i wideospotkań dwóch osób — bez rezerwowania sali konferencyjnej i bez przeszkadzania reszcie zespołu."
+    },
+    {
+     "q": "Czy budkę SonoCubo M można zamknąć przed osobami z zewnątrz?",
+     "a": "Tak. Wejście można zabezpieczyć kartą albo kodem, więc z budki korzystają tylko uprawnione osoby."
+    },
+    {
+     "q": "Ile waży SonoCubo M i jak się ją wnosi?",
+     "a": "Około 546 kg. Budka przyjeżdża w częściach i jest składana na miejscu, ale przed zamówieniem trzeba sprawdzić drogę wniesienia i nośność podłogi."
+    },
+    {
+     "q": "Jak głośno jest w budce SonoCubo M obok open space?",
+     "a": "Producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1, więc rozmowę w środku wyraźnie słabiej słychać na zewnątrz, a hałas z biura słabiej dociera do rozmówców."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz wykończenie. Dostęp na kartę lub kod, wentylacja, LED i ładowanie USB są w każdej wersji.",
+    "opcje": [
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "grafitowy",
+       "marmurowy",
+       "bursztynowy"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Liczba osób",
+      "v": "2"
+     },
+     {
+      "k": "Dostęp",
+      "v": "karta lub kod"
+     },
+     {
+      "k": "Wyposażenie",
+      "v": "stolik i dwie sofy"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Rozmowy 1:1 i konsultacje",
+      "konfiguracja": "SonoCubo M grafitowy (1BV022)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-c925e",
+     "etykieta": "Kamera do rozmów"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości"
+    },
+    {
+     "slug": "lenovo-thinkbook-14-g8-g9",
+     "etykieta": "Laptop ThinkBook 14"
+    }
+   ],
+   "podobne": [
+    "avtek-sonocubo-s",
+    "avtek-sonocubo-l"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-m-grafitowy,1bv022",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-m-grafitowy,1bv022",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "wyrozniki": [
+    "2 osoby",
+    "karta lub kod",
+    "29,4 dB"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Osoby",
+     "v": "2"
+    },
+    {
+     "k": "Wymiary",
+     "v": "160 × 131 × 237 cm"
+    },
+    {
+     "k": "Redukcja mowy",
+     "v": "29,4 dB"
+    },
+    {
+     "k": "Dostęp",
+     "v": "karta lub kod"
+    },
+    {
+     "k": "Waga",
+     "v": "546 kg"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-sonocubo-m-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV022/1bv022-sonocubo-m-grafitowy-kat-45.png",
+     "ujecie": "pod kątem, grafitowa"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-m-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV022/1bv022-sonocubo-m-grafitowy-front.png",
+     "ujecie": "przód, drzwi"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-m-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV022/1bv022-sonocubo-m-grafitowy-tyl.png",
+     "ujecie": "tył"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-sonocubo-l",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "meble",
+   "podkategoria": "budki-akustyczne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "sprawdzono": "2026-11-18",
+   "nowosc": true,
+   "nazwa": "Budka akustyczna Avtek SonoCubo L na spotkania do czterech osób",
+   "krotka": "Budka akustyczna Avtek SonoCubo L — 4 osoby",
+   "podtytul": "Mała sala spotkań w open space: stół, dwie sofy, ściana pod monitor, wentylacja do 640 m³/h",
+   "korzysc": "Ciche miejsce na spotkanie zespołu albo spotkanie hybrydowe — bez budowania sali.",
+   "opis": [
+    "SonoCubo L to największa budka z serii — w praktyce mała sala spotkań, którą stawia się w otwartym biurze zamiast budować ściany. Mieszczą się w niej cztery osoby przy stole na dwóch sofach, a tylna ściana jest przygotowana do zawieszenia monitora, więc łatwo zorganizować w niej spotkanie hybrydowe z osobami pracującymi zdalnie.",
+    "Kabina ma ok. 2,3 × 1,7 m podstawy. Głos tłumią ściany na aluminiowym stelażu z okładziną z filcu PET i podwójna szyba z folią — producent podaje redukcję poziomu mowy 29,4 dB według ISO 23351-1. Przy czterech osobach ważna jest wentylacja: tu ma wydajność do 640 m³/h, dwa razy więcej niż w mniejszych budkach. Wskaźnik zajętości pokazuje z zewnątrz, że trwa spotkanie, wejście zabezpiecza karta lub kod, a gniazda USB-A i USB-C są w ścianie i w stole.",
+    "Budka waży ok. 850 kg i przyjeżdża w kilku paczkach, więc przed zamówieniem trzeba sprawdzić drogę wniesienia i nośność stropu. Wykończenia: grafitowe i bursztynowe. Monitor dokupuje się osobno. Gwarancja producenta wynosi 3 lata.",
+    "Przy SonoCubo L dobieramy monitor, kamerę i mikrofon do spotkań hybrydowych, montujemy monitor na przygotowanej ścianie, podłączamy wszystko do sieci i konfigurujemy spotkania w Teams."
+   ],
+   "cechy": [
+    "4 osoby",
+    "ściana pod monitor",
+    "640 m³/h"
+   ],
+   "parametry": [
+    {
+     "k": "Liczba osób",
+     "v": "4"
+    },
+    {
+     "k": "Wymiary zewnętrzne",
+     "v": "2305 × 1700 × 2366 mm"
+    },
+    {
+     "k": "Wymiary wewnętrzne",
+     "v": "2181 × 1660 × 2182 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "850 kg netto (950 kg z opakowaniem)"
+    },
+    {
+     "k": "Redukcja poziomu mowy",
+     "v": "29,4 dB (D S,A) wg ISO 23351-1"
+    },
+    {
+     "k": "Konstrukcja",
+     "v": "rama z aluminium 6063-T5, ściany boczne 45 mm, okładzina akustyczna PET 12 mm"
+    },
+    {
+     "k": "Szyba",
+     "v": "szkło hartowane laminowane 5 + 5 mm z folią PVB 0,76 mm"
+    },
+    {
+     "k": "Oświetlenie",
+     "v": "LED z regulacją barwy 3000–6000 K, CRI 90"
+    },
+    {
+     "k": "Sterowanie",
+     "v": "panel dotykowy, czujnik obecności"
+    },
+    {
+     "k": "Wentylacja",
+     "v": "regulowana, do 640 m³/h, włączana czujnikiem obecności"
+    },
+    {
+     "k": "Zasilanie urządzeń",
+     "v": "2 × USB-A (do 18 W), 2 × USB-C Power Delivery (do 65 W w ścianie, do 20 W w stole)"
+    },
+    {
+     "k": "Dostęp i zajętość",
+     "v": "karta lub kod, wskaźnik zajętości"
+    },
+    {
+     "k": "Wyposażenie",
+     "v": "stół, dwie sofy, tylna ściana przygotowana pod monitor (monitor osobno)"
+    },
+    {
+     "k": "Kolory",
+     "v": "grafitowy, bursztynowy"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "SonoCubo L grafitowy (1BV030)",
+     "roznica": "Wykończenie grafitowe."
+    },
+    {
+     "model": "SonoCubo L bursztynowy (1BV029)",
+     "roznica": "Wykończenie bursztynowe."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy SonoCubo L zastąpi salę konferencyjną?",
+     "a": "Dla spotkań do czterech osób — tak. Ma stół, dwie sofy, ścianę pod monitor i wentylację do 640 m³/h, a stawia się ją w otwartym biurze bez budowania ścian."
+    },
+    {
+     "q": "Czy w budce SonoCubo L zrobię spotkanie hybrydowe?",
+     "a": "Tak. Tylna ściana jest przygotowana do zawieszenia monitora, a my dobieramy do niego kamerę i mikrofon, więc osoby zdalne widzą i słyszą cały zespół."
+    },
+    {
+     "q": "Skąd wiadomo, że budka SonoCubo L jest zajęta?",
+     "a": "Na zewnątrz jest wskaźnik zajętości, a wejście jest tylko na kartę lub kod."
+    },
+    {
+     "q": "Ile miejsca i jakiej podłogi potrzebuje SonoCubo L?",
+     "a": "Kabina ma 2305 × 1700 mm podstawy i waży ok. 850 kg. Przed zamówieniem sprawdzamy drogę wniesienia, nośność stropu i dostęp do zasilania."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz wykończenie i — opcjonalnie — zestaw do spotkań hybrydowych (monitor, kamera, mikrofon).",
+    "opcje": [
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "grafitowy",
+       "bursztynowy"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Sprzęt do spotkań",
+      "wartosci": [
+       "bez monitora",
+       "monitor z kamerą i mikrofonem (dobieramy)"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Liczba osób",
+      "v": "4"
+     },
+     {
+      "k": "Wentylacja",
+      "v": "do 640 m³/h"
+     },
+     {
+      "k": "Dostęp",
+      "v": "karta lub kod"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Spotkania zespołu i hybrydowe",
+      "konfiguracja": "SonoCubo L grafitowy (1BV030) + monitor z kamerą"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "logitech-rally-bar-mini",
+     "etykieta": "Logitech Rally Bar Mini"
+    },
+    {
+     "slug": "logitech-tap-ip",
+     "etykieta": "Panel Logitech Tap IP"
+    },
+    {
+     "slug": "siec-wifi-montaz",
+     "etykieta": "Montaż i konfiguracja sieci oraz Wi-Fi dla gości"
+    }
+   ],
+   "podobne": [
+    "avtek-sonocubo-m",
+    "avtek-sonovelo"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-l-grafitowy,1bv030",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/budka-akustyczna-avtek-sonocubo-l-grafitowy,1bv030",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "wyrozniki": [
+    "4 osoby",
+    "ściana pod monitor",
+    "640 m³/h"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Osoby",
+     "v": "4"
+    },
+    {
+     "k": "Wymiary",
+     "v": "231 × 170 × 237 cm"
+    },
+    {
+     "k": "Redukcja mowy",
+     "v": "29,4 dB"
+    },
+    {
+     "k": "Wentylacja",
+     "v": "do 640 m³/h"
+    },
+    {
+     "k": "Waga",
+     "v": "850 kg"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-sonocubo-l-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV030/1bv030-sonocubo-l-grafitowy-kat-45.png",
+     "ujecie": "pod kątem, grafitowa"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-l-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV030/1bv030-sonocubo-l-grafitowy-front.png",
+     "ujecie": "przód, drzwi"
+    },
+    {
+     "plik": "media/produkty/avtek-sonocubo-l-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV030/1bv030-sonocubo-l-grafitowy-tyl.png",
+     "ujecie": "tył"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-sonovelo",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "meble",
+   "podkategoria": "parawany-akustyczne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "sprawdzono": "2026-11-18",
+   "nowosc": true,
+   "nazwa": "Parawan akustyczny Avtek SonoVelo (120, 140, 160 cm)",
+   "krotka": "Parawan akustyczny Avtek SonoVelo",
+   "podtytul": "Wolnostojący parawan z paneli PET, 145 cm wysokości, szerokość 120–160 cm, łączenie na zamki",
+   "korzysc": "Szybki sposób, żeby wydzielić cichszy kąt w open space, klasie albo recepcji.",
+   "opis": [
+    "SonoVelo to wolnostojący parawan, którym w kilka minut wydzielisz miejsce do pracy w otwartym biurze, kącik do nauki w klasie, strefę oczekiwania w recepcji albo stanowisko w sali szkoleniowej. Nie trzeba go przykręcać do podłogi ani ściany — stoi sam, a kilka parawanów łączy się w dłuższą ściankę.",
+    "Panel ma 21 mm grubości i składa się z dwóch warstw filcu PET po 9 mm, w 60% z poliestru z recyklingu, obszytych tkaniną. Materiał pochłania odbicia dźwięku — w badaniu tego filcu (ISO 354) współczynnik NRC wyniósł 0,85 — a w klasyfikacji ogniowej osiąga B-s1,d0. To wyniki badań materiału, nie całego parawanu, ale dobrze pokazują, czego się spodziewać: mniej pogłosu i mniej słyszanych rozmów zza ścianki.",
+    "Parawan ma 145 cm wysokości i 60 cm głębokości podstawy, a szerokość 120, 140 albo 160 cm. Panele łączy się zamkami błyskawicznymi, więc szerszą wersję złożysz z węższej, dokładając panel poszerzający. Na panelu są dwie siatkowe kieszenie na drobiazgi. Kolory: jasno- lub ciemnoszary z akcentem wiśniowym albo limonkowym. Gwarancja producenta wynosi 3 lata.",
+    "Pomagamy zaplanować ustawienie parawanów — ile sztuk i jakich szerokości potrzeba, żeby wydzielić konkretne stanowiska — a przy okazji urządzamy te stanowiska: monitory, stacje dokujące i dostęp do sieci."
+   ],
+   "cechy": [
+    "NRC 0,85 (materiał)",
+    "120–160 cm",
+    "wolnostojący"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "wolnostojący, modułowy parawan akustyczny"
+    },
+    {
+     "k": "Wymiary",
+     "v": "1200 / 1400 / 1600 × 600 × 1450 mm (szer. × gł. × wys.)"
+    },
+    {
+     "k": "Waga",
+     "v": "17,75 kg (120), 19,37 kg (140), 20,99 kg (160) netto"
+    },
+    {
+     "k": "Grubość panelu",
+     "v": "21 mm"
+    },
+    {
+     "k": "Panel akustyczny",
+     "v": "2 × 9 mm filc PET (60% poliester z recyklingu, 40% poliester)"
+    },
+    {
+     "k": "Akustyka materiału",
+     "v": "NRC 0,85 dla panelu PET 9 mm (ISO 354:2003, 200 mm od ściany)"
+    },
+    {
+     "k": "Reakcja na ogień",
+     "v": "B-s1,d0 wg EN 13501-1 (panel PET); tkanina TB117-2013"
+    },
+    {
+     "k": "Obicie",
+     "v": "tkanina poliestrowa 257 g/m²"
+    },
+    {
+     "k": "Łączenie paneli",
+     "v": "zamki błyskawiczne"
+    },
+    {
+     "k": "Kieszenie",
+     "v": "2 kieszenie siatkowe"
+    },
+    {
+     "k": "Kolory",
+     "v": "jasnoszary lub ciemnoszary z akcentem wiśniowym albo limonkowym"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "SonoVelo 120 (1BV001–1BV004)",
+     "roznica": "Szerokość 120 cm, 17,75 kg — pojedyncze stanowisko."
+    },
+    {
+     "model": "SonoVelo 140 (1BV009–1BV012)",
+     "roznica": "Szerokość 140 cm, 19,37 kg — w zestawie jeden panel poszerzający."
+    },
+    {
+     "model": "SonoVelo 160 (1BV013–1BV016)",
+     "roznica": "Szerokość 160 cm, 20,99 kg — w zestawie dwa panele poszerzające."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy parawan SonoVelo trzeba przykręcać do podłogi?",
+     "a": "Nie. SonoVelo stoi sam na podstawie o głębokości 60 cm, więc możesz go przestawić w każdej chwili. Do ustawienia tuż przy ścianie albo łączenia dwóch parawanów jest dodatkowa stopa L-Foot."
+    },
+    {
+     "q": "Na ile parawan SonoVelo wycisza otwarte biuro?",
+     "a": "Parawan nie zamyka dźwięku jak budka, ale pochłania odbicia i ogranicza przenoszenie rozmów. Filc PET, z którego jest zrobiony, ma w badaniu NRC 0,85 — w biurze odczujesz mniej pogłosu i mniej rozmów zza ścianki."
+    },
+    {
+     "q": "Którą szerokość parawanu SonoVelo wybrać?",
+     "a": "120 cm wystarcza, żeby oddzielić jedno biurko. 140 i 160 cm dają szerszą osłonę, np. przy dwóch stanowiskach albo w recepcji. Węższą wersję można później poszerzyć panelem Extension."
+    },
+    {
+     "q": "Czy SonoVelo jest bezpieczny pod względem przeciwpożarowym?",
+     "a": "Panel PET osiąga klasę reakcji na ogień B-s1,d0 według EN 13501-1, a tkanina spełnia test TB117-2013. To wyniki badań materiałów parawanu."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz szerokość i kolor. Panele PET, zamki i kieszenie są w każdej wersji.",
+    "opcje": [
+     {
+      "nazwa": "Szerokość",
+      "wartosci": [
+       "120 cm",
+       "140 cm",
+       "160 cm"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Kolor",
+      "wartosci": [
+       "jasnoszaro-limonkowy",
+       "jasnoszaro-wiśniowy",
+       "ciemnoszaro-limonkowy",
+       "ciemnoszaro-wiśniowy"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Wysokość",
+      "v": "145 cm"
+     },
+     {
+      "k": "Panel",
+      "v": "2 × 9 mm PET"
+     },
+     {
+      "k": "Montaż",
+      "v": "wolnostojący"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "Oddzielenie dwóch biurek",
+      "konfiguracja": "SonoVelo 140 jasnoszaro-limonkowy (1BV009)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "lenovo-thinkvision-t",
+     "etykieta": "Monitor ThinkVision"
+    },
+    {
+     "slug": "avtek-sonovelo-akcesoria",
+     "etykieta": "Panel poszerzający i stopa L-Foot"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "avtek-sonovelo-akcesoria",
+    "avtek-sonocubo-s"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-120-jasnoszaro-limonkowy,1bv001",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-140-jasnoszaro-limonkowy,1bv009",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-160-jasnoszaro-limonkowy,1bv013",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-120-jasnoszaro-limonkowy,1bv001",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-140-jasnoszaro-limonkowy,1bv009",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/parawan-akustyczny-avtek-sonovelo-160-jasnoszaro-limonkowy,1bv013",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "wyrozniki": [
+    "NRC 0,85 (materiał)",
+    "120–160 cm",
+    "wolnostojący"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Wysokość",
+     "v": "145 cm"
+    },
+    {
+     "k": "Szerokość",
+     "v": "120–160 cm"
+    },
+    {
+     "k": "Panel",
+     "v": "21 mm PET"
+    },
+    {
+     "k": "Akustyka",
+     "v": "NRC 0,85 (materiał)"
+    },
+    {
+     "k": "Waga",
+     "v": "17,8–21 kg"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-sonovelo-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV001/1bv001-sonovelo-120-jasnoszaro-limonkowy-kat-30.png",
+     "ujecie": "SonoVelo 120 pod kątem"
+    },
+    {
+     "plik": "media/produkty/avtek-sonovelo-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV001/1bv001-sonovelo-120-jasnoszaro-limonkowy-kat-0.png",
+     "ujecie": "przód"
+    },
+    {
+     "plik": "media/produkty/avtek-sonovelo-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV013/1bv013-sonovelo-160-jasnoszaro-limonkowy-kat-30.png",
+     "ujecie": "SonoVelo 160 pod kątem"
+    },
+    {
+     "plik": "media/produkty/avtek-sonovelo-premium-04.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV001/1bv001-sonovelo-120-jasnoszaro-limonkowy-kat-90.png",
+     "ujecie": "z boku"
+    }
+   ]
+  },
+  {
+   "slug_seed": "avtek-sonovelo-akcesoria",
+   "zmiana_k4": "nowa",
+   "status": "gotowe",
+   "dzial": "biuro",
+   "kategoria": "meble",
+   "podkategoria": "parawany-akustyczne",
+   "marka": "Avtek",
+   "rodzaj": "Urządzenia",
+   "branze": [
+    "Biura i usługi",
+    "Szkoły i instytucje",
+    "Noclegi"
+   ],
+   "sprawdzono": "2026-11-18",
+   "nowosc": true,
+   "nazwa": "Akcesoria do parawanu Avtek SonoVelo: panel poszerzający Extension i stopa L-Foot",
+   "krotka": "Akcesoria Avtek SonoVelo — Extension i L-Foot",
+   "podtytul": "Panel poszerzający parawan o 20 cm i stopa do łączenia parawanów oraz ustawienia przy ścianie",
+   "korzysc": "Rozbudowa parawanu SonoVelo, gdy zmienia się układ biura.",
+   "opis": [
+    "Do parawanu SonoVelo są dwa dodatki, które przydają się, gdy biuro albo sala zmienia układ. Panel poszerzający Extension zwiększa szerokość parawanu o kolejne 20 cm — z wersji 120 cm zrobisz 140 cm, a z dwóch paneli 160 cm. Stopa podporowa L-Foot pozwala ustawić dwa parawany tuż obok siebie, bez szczeliny, albo dosunąć parawan blisko ściany.",
+    "Panel Extension jest wykonany tak samo jak sam parawan: 21 mm grubości, dwie warstwy filcu PET po 9 mm (w 60% z poliestru z recyklingu) w obiciu z tkaniny 257 g/m², a z parawanem łączy się go zamkiem błyskawicznym. Dostępny jest w tych samych czterech kolorach co SonoVelo, więc po rozbudowie ścianka wygląda jednolicie. Stopa L-Foot ma 45 × 150 × 350 mm i waży ok. 0,4 kg z opakowaniem; montuje się ją po jednej stronie parawanu.",
+    "Dodatki zamawia się do parawanów, które już stoją w biurze, albo od razu przy planowaniu większej ścianki. Producent daje na nie, tak jak na parawan, 3 lata gwarancji.",
+    "Przy planowaniu stref pracy liczymy, ile parawanów, paneli i stóp potrzeba, żeby wydzielić konkretne stanowiska, i dobieramy kolory do tych, które już są w biurze."
+   ],
+   "cechy": [
+    "+20 cm szerokości",
+    "łączenie parawanów",
+    "te same kolory"
+   ],
+   "parametry": [
+    {
+     "k": "Typ",
+     "v": "akcesoria do parawanu SonoVelo: panel poszerzający i stopa podporowa"
+    },
+    {
+     "k": "Panel Extension — grubość",
+     "v": "21 mm"
+    },
+    {
+     "k": "Panel Extension — budowa",
+     "v": "2 × 9 mm filc PET (60% poliester z recyklingu, 40% poliester)"
+    },
+    {
+     "k": "Panel Extension — obicie",
+     "v": "tkanina poliestrowa 257 g/m²"
+    },
+    {
+     "k": "Panel Extension — łączenie",
+     "v": "zamek błyskawiczny"
+    },
+    {
+     "k": "Akustyka materiału",
+     "v": "NRC 0,85 dla panelu PET 9 mm (ISO 354:2003)"
+    },
+    {
+     "k": "Panel Extension — kolory",
+     "v": "jasnoszary lub ciemnoszary z akcentem wiśniowym albo limonkowym"
+    },
+    {
+     "k": "Stopa L-Foot — wymiary",
+     "v": "45 × 150 × 350 mm"
+    },
+    {
+     "k": "Waga",
+     "v": "stopa L-Foot ok. 0,42 kg z opakowaniem"
+    },
+    {
+     "k": "Zastosowanie stopy",
+     "v": "dwa parawany obok siebie albo parawan przy ścianie"
+    },
+    {
+     "k": "Gwarancja producenta",
+     "v": "3 lata"
+    }
+   ],
+   "warianty_opis": [
+    {
+     "model": "SonoVelo Extension (1BV005–1BV008)",
+     "roznica": "Panel poszerzający w jednym z czterech kolorów parawanu."
+    },
+    {
+     "model": "SonoVelo L-Foot (1BV017)",
+     "roznica": "Jednostronna stopa podporowa."
+    }
+   ],
+   "faq": [
+    {
+     "q": "Czy do parawanu SonoVelo 120 da się dokupić panel poszerzający?",
+     "a": "Tak. Panel Extension łączy się z parawanem zamkiem błyskawicznym — jeden panel daje szerokość 140 cm, dwa panele 160 cm."
+    },
+    {
+     "q": "Do czego służy stopa L-Foot w parawanie SonoVelo?",
+     "a": "Pozwala postawić dwa parawany tuż obok siebie, bez szczeliny między nimi, albo dosunąć parawan blisko ściany, gdzie zwykła podstawa by przeszkadzała."
+    },
+    {
+     "q": "Czy panel Extension ma te same kolory co parawan SonoVelo?",
+     "a": "Tak, jest dostępny w tych samych czterech wersjach: jasno- lub ciemnoszarej z akcentem wiśniowym albo limonkowym."
+    },
+    {
+     "q": "Czy panel Extension SonoVelo też pochłania dźwięk?",
+     "a": "Tak, ma taką samą budowę jak parawan: dwie warstwy filcu PET po 9 mm. W badaniu tego filcu współczynnik NRC wyniósł 0,85."
+    }
+   ],
+   "konfigurator": {
+    "opis": "Wybierasz dodatek i — przy panelu — kolor zgodny z parawanem.",
+    "opcje": [
+     {
+      "nazwa": "Dodatek",
+      "wartosci": [
+       "panel poszerzający Extension",
+       "stopa L-Foot"
+      ],
+      "dl": false,
+      "pom": ""
+     },
+     {
+      "nazwa": "Kolor panelu",
+      "wartosci": [
+       "jasnoszaro-limonkowy",
+       "jasnoszaro-wiśniowy",
+       "ciemnoszaro-limonkowy",
+       "ciemnoszaro-wiśniowy"
+      ],
+      "dl": false,
+      "pom": ""
+     }
+    ],
+    "std": [
+     {
+      "k": "Łączenie",
+      "v": "zamek błyskawiczny"
+     },
+     {
+      "k": "Panel",
+      "v": "21 mm PET"
+     }
+    ],
+    "popularne": [
+     {
+      "nazwa": "SonoVelo 120 → 140 cm",
+      "konfiguracja": "Extension w kolorze parawanu (1BV005–1BV008)"
+     }
+    ]
+   },
+   "polecane": [
+    {
+     "slug": "avtek-sonovelo",
+     "etykieta": "Parawan Avtek SonoVelo"
+    },
+    {
+     "slug": "lenovo-thinkvision-t",
+     "etykieta": "Monitor ThinkVision"
+    },
+    {
+     "slug": "przygotowanie-komputera",
+     "etykieta": "Przygotowanie komputera do pracy"
+    }
+   ],
+   "podobne": [
+    "avtek-sonovelo"
+   ],
+   "zrodla": [
+    {
+     "url": "https://avtek.pl/produkty/meble-akustyczne/stopa-podporowa-avtek-sonovelo-l-foot,1bv017",
+     "etykieta": "Strona producenta — Avtek",
+     "host": "avtek.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/avtek-sonovelo-extension-light-greylime,1bv005",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    },
+    {
+     "url": "https://www.vidis.pl/produkty/meble-akustyczne/stopa-podporowa-avtek-sonovelo-l-foot,1bv017",
+     "etykieta": "Karta produktu — Vidis (dystrybutor Avtek)",
+     "host": "vidis.pl"
+    }
+   ],
+   "wyrozniki": [
+    "+20 cm szerokości",
+    "łączenie parawanów",
+    "te same kolory"
+   ],
+   "w_skrocie_wzorzec": [
+    {
+     "k": "Extension",
+     "v": "+20 cm, 21 mm PET"
+    },
+    {
+     "k": "L-Foot",
+     "v": "45 × 150 × 350 mm"
+    },
+    {
+     "k": "Łączenie",
+     "v": "zamek"
+    },
+    {
+     "k": "Kolory",
+     "v": "4"
+    },
+    {
+     "k": "Gwarancja",
+     "v": "3 lata"
+    }
+   ],
+   "zdjecia_premium": [
+    {
+     "plik": "media/produkty/avtek-sonovelo-akcesoria-premium-01.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV005/1bv005-sonovelo-extension-jasnoszaro-limonkowy-kat-30.png",
+     "ujecie": "panel Extension ze stopą L-Foot (zestawienie zdjęć Vidis 1BV005 i 1BV017)"
+    },
+    {
+     "plik": "media/produkty/avtek-sonovelo-akcesoria-premium-02.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV005/1bv005-sonovelo-extension-jasnoszaro-limonkowy-kat-0.png",
+     "ujecie": "panel Extension z przodu"
+    },
+    {
+     "plik": "media/produkty/avtek-sonovelo-akcesoria-premium-03.webp",
+     "zrodlo": "https://backend.vidis.pl/api/media/c/public/fp/product_photos/1BV017/1bv017-sonovelo-l-foot.png",
+     "ujecie": "stopa L-Foot"
     }
    ]
   }

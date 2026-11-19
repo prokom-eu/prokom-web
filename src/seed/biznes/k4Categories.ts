@@ -104,6 +104,8 @@ export function k4CategoryIcons(k3: Record<string, string>): Record<string, stri
     // Runda 1811 (D1): the parts of „Ekrany i projektory” keep its monitor icon.
     projektory: 'monitor',
     ekrany: 'monitor',
+    // Runda 1811 (D2).
+    meble: 'speaker',
   }
 }
 
