@@ -1089,3 +1089,222 @@ a.pk-ccard:hover {
     transform: none;
   }
 }
+
+/* --- Zamówienia publiczne (runda 1811 D14): a dark card in the light of the five lines -------- */
+.pk-proc {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
+  overflow: hidden;
+  border: 1px solid var(--w09);
+  border-radius: 36px;
+  padding: clamp(24px, 3.4vw, 56px);
+  background:
+    radial-gradient(
+      40% 34% at 6% 104%,
+      color-mix(in srgb, var(--k-b) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 30% at 32% 108%,
+      color-mix(in srgb, var(--k-i) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 30% at 58% 108%,
+      color-mix(in srgb, var(--k-s) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 30% at 82% 108%,
+      color-mix(in srgb, var(--k-t) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 34% at 104% 100%,
+      color-mix(in srgb, var(--k-y) 10%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 40% at 88% 0%,
+      color-mix(in srgb, var(--k-g) 10%, transparent),
+      transparent 72%
+    ),
+    var(--k-card);
+  box-shadow: inset 0 1px 0 var(--w09);
+}
+.pk-proc__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+}
+.pk-proc__intro {
+  display: flex;
+  min-width: 0;
+  max-width: 940px;
+  flex: 1 1 560px;
+  flex-direction: column;
+  gap: 16px;
+}
+.pk-proc__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pk-proc__points {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.pk-proc__point {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--w09);
+  border-radius: 22px;
+  padding: 20px;
+  background: var(--w03);
+  transition:
+    border-color 0.3s var(--ease),
+    transform 0.35s var(--ease);
+}
+.pk-proc__point:hover {
+  border-color: color-mix(in srgb, var(--k-g) 45%, transparent);
+  transform: translateY(-3px);
+}
+.pk-proc__icon {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--k-g) 16%, transparent);
+  color: var(--k-gt);
+}
+.pk-proc__icon svg {
+  width: 20px;
+  height: 20px;
+}
+.pk-proc__title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.pk-proc__text {
+  color: var(--k-ink3);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.pk-proc__steps,
+.pk-proc__for {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.pk-proc__label {
+  color: var(--k-ink3);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.pk-proc__axis {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pk-proc__axis li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 7px 14px 7px 8px;
+  background: var(--w05);
+  font-size: 14px;
+  font-weight: 700;
+}
+.pk-proc__axis li + li::before {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 8px;
+  height: 1.5px;
+  background: color-mix(in srgb, var(--k-g) 55%, transparent);
+  content: '';
+}
+.pk-proc__no {
+  display: flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--k-g) 18%, transparent);
+  color: var(--k-gt);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+}
+.pk-proc__who {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pk-proc__who li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--w09);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.pk-proc__who svg {
+  width: 16px;
+  height: 16px;
+  color: var(--k-gt);
+}
+@media (max-width: 1100px) {
+  .pk-proc__points {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .pk-proc {
+    border-radius: 28px;
+  }
+  .pk-proc__points {
+    grid-template-columns: 1fr;
+  }
+  .pk-proc__cta,
+  .pk-proc__cta .pk-hbtn {
+    width: 100%;
+  }
+  .pk-proc__cta .pk-hbtn {
+    justify-content: center;
+  }
+  .pk-proc__axis li + li::before {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pk-proc__point {
+    transition: none;
+  }
+  .pk-proc__point:hover {
+    transform: none;
+  }
+}

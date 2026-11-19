@@ -160,6 +160,25 @@ export const HubSettings: CollectionConfig = {
       ],
     },
     {
+      name: 'extraEmails',
+      label: 'Dodatkowe adresy e-mail (Kontakt)',
+      type: 'array',
+      admin: {
+        description:
+          'Stare adresy używane latami (runda 18.11, D15) — pokazywane na /kontakt obok głównego adresu huba. Włącz „Pokazuj” dopiero, gdy skrzynka działa i ktoś ją odbiera. Główny adres jest w Ustawieniach strony.',
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            { name: 'label', label: 'Opis', type: 'text', required: true, maxLength: 40 },
+            { name: 'email', label: 'Adres', type: 'email', required: true },
+            { name: 'published', label: 'Pokazuj', type: 'checkbox', defaultValue: false },
+          ],
+        },
+      ],
+    },
+    {
       name: 'branch',
       label: 'Oddział (Zakopane)',
       type: 'group',

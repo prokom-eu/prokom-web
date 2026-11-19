@@ -212,6 +212,8 @@ export type HubSettingsView = {
   extraPhones: { label: string; number: string; techPoint: string | null }[]
   /** Zakopane: only the Tech service there — not a company salon (decision 15.11). */
   branch: HubBranch | null
+  /** Old addresses shown on `/kontakt` (runda 1811 D15) — only those switched on in the panel. */
+  extraEmails: { label: string; email: string }[]
 }
 
 export type HubBranch = {
@@ -241,6 +243,7 @@ export function toHubSettings(
         | 'forHome'
         | 'extraPhones'
         | 'branch'
+        | 'extraEmails'
       >
     | null
     | undefined,
@@ -270,6 +273,9 @@ export function toHubSettings(
       techPoint: techPoint?.trim() || null,
     })),
     branch: toBranch(doc?.branch),
+    extraEmails: (doc?.extraEmails ?? [])
+      .filter((row) => row.published === true)
+      .map(({ label, email }) => ({ label, email })),
   }
 }
 

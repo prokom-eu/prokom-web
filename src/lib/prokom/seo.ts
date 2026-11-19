@@ -17,7 +17,7 @@ export const HUB_DESCRIPTIONS = {
   '/dla-domu':
     'Smart home, alarm i kamery, naprawa telefonu lub laptopa i komputer do gier. PRO-KOM z Rabki-Zdroju załatwi sprawy Twojego domu w jednej firmie.',
   '/inwestycje-i-dostawy':
-    'Większe dostawy sprzętu IT, RTV i AGD dla firm, instytucji, hoteli i deweloperów. Złóż listę zapytania, a PRO-KOM przygotuje ofertę z zakresem dostawy.',
+    'Zamówienia publiczne, przetargi i większe dostawy sprzętu dla szkół, gmin, firm i hoteli. PRO-KOM przygotuje ofertę według SWZ albo Twojej listy.',
   '/wspolpraca':
     'Współpraca z PRO-KOM dla architektów, deweloperów, wykonawców, instytucji i dostawców: etapy, zakres prac i większe dostawy. Zróbmy to razem.',
   '/o-firmie':

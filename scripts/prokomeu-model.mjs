@@ -666,6 +666,51 @@ function home() {
         },
       ],
     },
+    // Runda 1811 D14 (the boss, 18.11): public procurement and larger deliveries — a premium
+    // section after „Współpraca”, leading to /inwestycje-i-dostawy. Facts from the hub's data
+    // (SWZ, documents for grants, optional set-up); no figures and no names of buyers.
+    procurement: {
+      eyebrow: 'Zamówienia publiczne i większe dostawy',
+      title: 'Szkoły, gminy, szpitale i firmy — jedna oferta na całe zamówienie.',
+      lead: 'Odpowiadamy na zapytania ofertowe i przetargi. Sprzęt IT, AV i wyposażenie z linii Biznes, Instalacje i Tech zbieramy w jedną ofertę — z dokumentami do odbioru i rozliczenia.',
+      points: [
+        {
+          icon: 'doc',
+          title: 'Przetargi i zapytania ofertowe',
+          text: 'Ofertę przygotowujemy według SWZ albo opisu przedmiotu zamówienia.',
+        },
+        {
+          icon: 'box',
+          title: 'Większe dostawy sprzętu',
+          text: 'Pracownie, stanowiska, sprzęt AV i wyposażenie pod adres. Konfiguracja, montaż i szkolenie — jeśli są w ofercie.',
+        },
+        {
+          icon: 'users',
+          title: 'Jedna faktura i jeden opiekun',
+          text: 'Całe zamówienie prowadzi jedna osoba — bez szukania kilku dostawców.',
+        },
+        {
+          icon: 'receipt',
+          title: 'Dokumenty do dofinansowań',
+          text: 'Do zamówień z dofinansowaniem przygotowujemy kosztorys i dokumenty potrzebne do rozliczenia.',
+        },
+      ],
+      stepsLabel: 'Jak to przebiega',
+      forLabel: 'Dla kogo',
+      audiences: [
+        { icon: 'grad', label: 'Szkoły' },
+        { icon: 'building', label: 'Gminy i urzędy' },
+        { icon: 'heart', label: 'Szpitale i uzdrowiska' },
+        { icon: 'bed', label: 'Hotele' },
+        { icon: 'brief', label: 'Firmy' },
+      ],
+      examplesLabel: 'Realizowaliśmy dla',
+      // TODO(krystian): 3–4 completed orders for institutions with the boss's consent to show the
+      // name — each with its own fact in `HubSettings.trust` (approved in the panel).
+      examples: [],
+      cta: { label: 'Wyślij zapytanie ofertowe', href: '/inwestycje-i-dostawy#formularz' },
+      more: { label: 'Zobacz zamówienia i dostawy', href: '/inwestycje-i-dostawy#przetargi' },
+    },
     coverage: {
       // :830–854
       eyebrow: 'Gdzie działamy',

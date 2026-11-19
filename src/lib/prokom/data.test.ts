@@ -176,3 +176,18 @@ describe('toHubSettings', () => {
     ])
   })
 })
+
+describe('toHubSettings — extra e-mails (runda 1811 D15)', () => {
+  it('gives only the addresses switched on in the panel', () => {
+    const view = toHubSettings(
+      {
+        extraEmails: [
+          { label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu', published: true, id: 'a' },
+          { label: 'Zamówienia', email: 'sklep@pro-kom.pl', published: false, id: 'b' },
+        ],
+      },
+      'production',
+    )
+    expect(view.extraEmails).toEqual([{ label: 'Biuro (ogólny)', email: 'biuro@pro-kom.eu' }])
+  })
+})
