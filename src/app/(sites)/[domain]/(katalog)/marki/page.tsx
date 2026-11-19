@@ -9,6 +9,7 @@ import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
+import { getPartnerNetworks } from '@/lib/partners/data'
 import { getSiteSettings } from '@/lib/site/data'
 import { BrandsDirectory } from '@/sites/biznes/components/brand/BrandsDirectory'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
@@ -48,10 +49,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  */
 export default async function BrandsPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
-  const [index, input, origin] = await Promise.all([
+  const [index, input, origin, networks] = await Promise.all([
     getCatalogIndex(tenant.id),
     getBrandsPageInput(tenant.id),
     requestOrigin(),
+    getPartnerNetworks(tenant.id),
   ])
   // Instalacje has no brand groups in its settings: one group of all its brands (the page shows
   // the tiles, not the groups); brands without a salon or listed cards drop out in the builder.
@@ -92,6 +94,7 @@ export default async function BrandsPage({ params }: Props) {
           authorized={page.authorized}
           others={page.others}
           ui={CATALOG_UI[catalogTextLine(tenant.line)]}
+          networks={networks}
         />
       </Container>
     </>

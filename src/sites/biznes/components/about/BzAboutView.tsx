@@ -21,6 +21,8 @@ import { plural } from '@/lib/plural'
 import { BZ_H1, BZ_H2 } from '@/sites/biznes/typography'
 
 import type { AboutBrand } from '@/lib/biznes/aboutBrands'
+import type { PartnerNetwork } from '@/lib/partners/networks'
+import { PartnerNetworks } from '@/sites/biznes/components/brand/PartnerNetworks'
 
 export type AboutAuth = AuthLogo & { slug: string; text: string; href: string | null }
 
@@ -33,6 +35,8 @@ type Props = {
   auth: readonly AboutAuth[]
   /** The wall of the other brands, in order (Optivendi and COMEX first, without a badge — 15.11). */
   others: readonly AboutBrand[]
+  /** Partner networks (runda 1811, D4: ALSEN): next to the authorisations, not counted in them. */
+  networks?: readonly PartnerNetwork[]
   /** All brands of the catalog (the „+ N marek” tile). */
   brandTotal: number
 }
@@ -79,7 +83,16 @@ function phonesOf(line: SharedData['line']) {
  * panel or the catalog (`shared`, `Partners`); the shared template stays as it is for the other
  * lines.
  */
-export function BzAboutView({ shared, origin, now, siteEnv, auth, others, brandTotal }: Props) {
+export function BzAboutView({
+  shared,
+  origin,
+  now,
+  siteEnv,
+  auth,
+  others,
+  networks = [],
+  brandTotal,
+}: Props) {
   const { company, lines } = shared
   const about = shared.line.about ?? {}
   const phones = phonesOf(shared.line)
@@ -262,6 +275,27 @@ export function BzAboutView({ shared, origin, now, siteEnv, auth, others, brandT
                       <span className="flex items-center gap-1 text-[12px] font-extrabold whitespace-nowrap text-ok-text">
                         <Icon name="check" strokeWidth={2.8} className="size-3" />
                         {item.status}
+                      </span>
+                    </li>
+                  ))}
+                  {/* Runda 1811 (D4): the partner network on its own row, under the producers. */}
+                  {networks.map((network) => (
+                    <li
+                      key={network.slug}
+                      className="col-span-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-border bg-white px-3 py-2.5 max-[419px]:col-span-1"
+                      data-network-logo
+                    >
+                      <Image
+                        src={network.logo.url}
+                        alt={network.name}
+                        width={network.logo.width}
+                        height={network.logo.height}
+                        unoptimized
+                        className="h-[18px] w-auto object-contain"
+                      />
+                      <span className="flex items-center gap-1 text-[12px] font-extrabold whitespace-nowrap text-ok-text">
+                        <Icon name="check" strokeWidth={2.8} className="size-3" />
+                        {network.status} — sieć partnerska
                       </span>
                     </li>
                   ))}
@@ -469,6 +503,7 @@ export function BzAboutView({ shared, origin, now, siteEnv, auth, others, brandT
               </li>
             ))}
           </ul>
+          <PartnerNetworks networks={networks} variant="row" className="mt-6" />
           {wall.length > 0 && (
             <div className="mt-6 grid gap-5 rounded-[26px] bg-surface-2 p-6 min-[1080px]:grid-cols-[150px_minmax(0,1fr)] min-[1080px]:items-center">
               <p className="text-[12px] font-extrabold tracking-[0.16em] text-ink-2 uppercase">
