@@ -10,6 +10,7 @@ import { getEnv } from '@/lib/env'
 import { ogImages } from '@/lib/pages/metadata'
 import { breadcrumbJsonLd, itemListJsonLd, serializeJsonLd } from '@/lib/seo/jsonLd'
 import { robotsMeta } from '@/lib/seo/robots'
+import { getPartnerNetworks } from '@/lib/partners/data'
 import { getSiteSettings } from '@/lib/site/data'
 import { BrandsDirectory } from '@/sites/biznes/components/brand/BrandsDirectory'
 import { Breadcrumbs, type Crumb } from '@/sites/biznes/components/Breadcrumbs'
@@ -52,10 +53,11 @@ export default async function BrandsPage({ params }: Props) {
   const tenant = await requireCatalogTenant(params)
   // The Instalacje brands page comes with its salons (INST-K2); until then no Biznes copy here.
   if (tenant.line !== 'biznes') notFound()
-  const [index, input, origin] = await Promise.all([
+  const [index, input, origin, networks] = await Promise.all([
     getCatalogIndex(tenant.id),
     getBrandsPageInput(tenant.id),
     requestOrigin(),
+    getPartnerNetworks(tenant.id),
   ])
   const page = buildBrandsPage({ ...input, index })
   const crumbs: Crumb[] = [
@@ -79,7 +81,12 @@ export default async function BrandsPage({ params }: Props) {
       />
       <Container wide className="pt-6 pb-14 sm:pt-8 sm:pb-20">
         <Breadcrumbs items={crumbs} />
-        <BrandsDirectory total={page.total} authorized={page.authorized} others={page.others} />
+        <BrandsDirectory
+          total={page.total}
+          authorized={page.authorized}
+          others={page.others}
+          networks={networks}
+        />
       </Container>
     </>
   )

@@ -12,6 +12,7 @@ vi.mock('@/lib/site/data', () => ({
 vi.mock('@/lib/catalog/data', () => ({ getWheelPhotos: async () => ({}) }))
 vi.mock('@/lib/partners/data', () => ({
   getBrandStripData: async () => ({ brands: [], homeIds: [] }),
+  getPartnerNetworks: async () => [],
 }))
 
 const { BzFactsBlock } = await import('./Component')
