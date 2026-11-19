@@ -14,7 +14,7 @@
   background:
     radial-gradient(
       60% 70% at 100% 0%,
-      color-mix(in srgb, var(--ln) 30%, transparent),
+      color-mix(in srgb, var(--ln) 18%, transparent),
       transparent 70%
     ),
     radial-gradient(
@@ -212,7 +212,7 @@
   line-height: 1.2;
 }
 .pk-al__stat small {
-  color: var(--k-ink3);
+  color: var(--k-ink2);
   font-size: 13px;
 }
 .pk-al__point {
@@ -239,7 +239,7 @@
   font-size: 15px;
 }
 .pk-al__point > span > span {
-  color: var(--k-ink3);
+  color: var(--k-ink2);
 }
 
 /* What the customer gets: one row under a hairline, no boxes. */
@@ -285,7 +285,7 @@
   line-height: 1.15;
 }
 .pk-al__ptext {
-  color: var(--k-ink3);
+  color: var(--k-ink2);
   font-size: 14px;
   line-height: 1.5;
 }

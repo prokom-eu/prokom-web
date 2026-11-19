@@ -195,11 +195,6 @@ export const homeSchema = z
     }),
     final: z.object({ title: text(120), write: text(40), choose: text(40) }),
     /**
-     * „Zamówienia publiczne, przetargi i większe dostawy” (runda 1811 D14) — optional, so texts
-     * stored before it stay valid; the steps come from `HubSettings.deliveries`. Names of buyers
-     * (`examples`) only behind facts approved by the boss — none in the package.
-     */
-    /**
      * ALSEN as a premium section above „Współpraca” (runda 1811 D4, Krystian 19.11). Logo,
      * status and the network's site come from `brands.network`, the salon address from the
      * company data; the figure and the salon line only while their facts are visible.
@@ -222,6 +217,11 @@ export const homeSchema = z
         more: z.object({ label: text(40), href: hubHref }),
       })
       .nullish(),
+    /**
+     * „Zamówienia publiczne, przetargi i większe dostawy” (runda 1811 D14) — optional, so texts
+     * stored before it stay valid; the steps come from `HubSettings.deliveries`. Names of buyers
+     * (`examples`) only behind facts approved by the boss — none in the package.
+     */
     procurement: z
       .object({
         ...head,
