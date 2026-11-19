@@ -1,5 +1,6 @@
+import { CopyEmail } from '@/components/shared/CopyEmail'
 import { TAP_AREA } from '@/components/shared/tapArea'
-import type { HubBranch } from '@/lib/prokom/data'
+import { extraEmailsToShow, type HubBranch } from '@/lib/prokom/data'
 import type { HubLineContact } from '@/lib/prokom/lineContacts'
 import { toTelHref } from '@/lib/site/link'
 
@@ -102,6 +103,34 @@ export function TechPointsCard({ lines }: { lines: readonly HubLineContact[] }) 
           <li key={point.tel} className="flex flex-wrap justify-between gap-x-4">
             <span>{point.label}</span>
             <Phone number={point.phone} label={`${tech.name}, ${point.label}`} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+/**
+ * Old company addresses kept by the boss (runda 1811 D15) — only those switched on in the panel,
+ * the hub's main address (shown above on the page) never twice. Copyable like the other e-mails.
+ */
+export function ExtraEmails({
+  emails,
+  main,
+}: {
+  emails: readonly { label: string; email: string }[]
+  main: string | null
+}) {
+  const own = extraEmailsToShow(emails, main)
+  if (!own.length) return null
+  return (
+    <div className={CARD}>
+      <span className={KICKER}>Inne adresy e-mail</span>
+      <ul className="flex flex-col gap-3">
+        {own.map((row) => (
+          <li key={row.email} className="flex flex-wrap items-center justify-between gap-x-4">
+            <span>{row.label}</span>
+            <CopyEmail email={row.email} className="font-bold text-accent-text" />
           </li>
         ))}
       </ul>
