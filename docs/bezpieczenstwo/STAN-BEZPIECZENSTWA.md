@@ -28,7 +28,7 @@ To jest **przegląd wewnętrzny** (autor systemów z pomocą Claude), nie test p
 
 | 19.11, wieczór (AB5) | Tech | RODO: usunięcie konta z ponownym hasłem i pełną anonimizacją (konto, adresy, notatki, hasła urządzeń, kopie maili, ślady logowania, profile gościa), pełny eksport; sekret webhooka w stałym czasie, formularz bez treści błędów, kod OTP z `secrets`; backend i Celery bez roota (uid 10001) — produkcja | prokom-system [#161](https://github.com/krystian2077/prokom-system/pull/161), wydanie [#162](https://github.com/krystian2077/prokom-system/pull/162) |
 | 19.11, wieczór (AB5) | Gaming | Next 16.4.6 (poprawki bezpieczeństwa) — produkcja | prokom-gaming [#122](https://github.com/prokom-eu/prokom-gaming/pull/122) |
-| 19.11, wieczór (AB5) | prokom-web | `happy-dom` 21.0.4 (SSRF w parserze HTML zależności Payload) — na produkcję z najbliższym wydaniem | prokom-web [#781](https://github.com/prokom-eu/prokom-web/pull/781) |
+| 19.11, wieczór (AB5) | prokom-web | `happy-dom` 21.0.4 (SSRF w parserze HTML zależności Payload) — produkcja 19.11 (8a2eae5) | prokom-web [#781](https://github.com/prokom-eu/prokom-web/pull/781) |
 | 19.11, wieczór (AB5) | serwer | 11 starych kopii plików z sekretami usuniętych (`shred -u`) | S-09 |
 
 **Stan 19.11 wieczorem: wszystkie poprawki z audytu działają na produkcji.** Sprawdzone z zewnątrz: dokumentacja API i lista urządzeń Tech → 403, `nosniff` na `/media/`, panel GraphQL → 404, limit logowania (429 po 6 próbach) w panelu i Gaming, blokady dokumentów Gaming → 403. Statusy pozycji: kolumna „Status” w `ZNALEZISKA-2026-11.md` każdego repo.
