@@ -94,11 +94,15 @@ for host in "${hosts[@]}"; do
   check 200 "$host" /mapa-strony
   # The panel answers only on PANEL_HOST; a site domain must not expose it.
   check 404 "$host" /admin
-  # Biznes routes: 200 on Biznes, 404 elsewhere.
-  if [[ "$host" == *biznes* ]]; then expected=200; else expected=404; fi
-  for path in /oferta /zapytanie; do
-    check "$expected" "$host" "$path"
-  done
+  # Catalog routes: 200 on Biznes, 404 on lines without a catalog. Instalacje has the catalog
+  # since INST-K1 (ADR-029), but only with cards in its database (`requireCatalogTenant`: 404
+  # while empty) — 200 or 404 depends on the data, so it is not checked there.
+  if [[ "$host" != *instalacje* ]]; then
+    if [[ "$host" == *biznes* ]]; then expected=200; else expected=404; fi
+    for path in /oferta /zapytanie; do
+      check "$expected" "$host" "$path"
+    done
+  fi
   # Software routes built in code (SW12): 200 on Software, 404 elsewhere. Not /dobierz, /kontakt,
   # /cennik — they need the wizard rules or pages entered in the panel.
   if [[ "$host" == *software* ]]; then expected=200; else expected=404; fi
