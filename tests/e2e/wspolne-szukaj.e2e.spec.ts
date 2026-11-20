@@ -157,6 +157,11 @@ test.describe('/_wspolne — search window (1440 px)', () => {
       await page.goto(site('instalacje.localhost', '/_wspolne'))
       await pressUntilVisible(page, 'Control+k', dialog(page))
       await field(page).fill('zaplanuj')
+      // The results fade in (`sdlg-item`): axe mid-fade measures a paler button (4.43 instead of
+      // the token's contrast) — wait for the window's animations to end.
+      await dialog(page).evaluate((el) =>
+        Promise.all(el.getAnimations({ subtree: true }).map((a) => a.finished)),
+      )
       const results = await new AxeBuilder({ page }).include('[data-search-dialog]').analyze()
       expect(results.violations).toEqual([])
     })

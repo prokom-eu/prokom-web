@@ -216,7 +216,8 @@ test.describe('Software — budgets of smoothness (SWA14 §3)', () => {
  * production build of SWA14 (a, b, c), plus 5 %; plus 2 000 B for the shared theme of all lines
  * (ADR-028, WSP-M 18.11: the theme button, `ThemeCarry`, the rail entry and the brand bar pill —
  * ~1.9 kB gz together); plus 2 000 B for the catalog texts of Instalacje (ADR-029, INST-K1: the
- * list drawer's chunk is shared with Software — CI 288 298 B). The same number in docs/jakosc.md
- * („Budżety płynności Software”).
+ * list drawer's chunk is shared with Software — CI 288 298 B); plus 1 000 B for the ready bundles
+ * shared by Biznes and Instalacje (INST-K3, #790: the bundle components in the same chunk — CI
+ * 289 461 B; Krystian 20.11.2026). The same number in docs/jakosc.md („Budżety płynności Software”).
  */
-const JS_BUDGET_BYTES = 289_200
+const JS_BUDGET_BYTES = 290_200
