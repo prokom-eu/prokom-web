@@ -41,11 +41,18 @@ test.describe('theme button (spec §1)', () => {
     // Fonts in place first: the capsule fits itself to them (`CapsuleShell` `data-fit`).
     await page.evaluate(() => document.fonts.ready)
     await expect(page.locator('[data-site-header][data-fit-ready]')).toBeAttached()
+    // Transitions of the capsule (its fit steps) settled before each measurement.
+    const settled = () =>
+      page.evaluate(() =>
+        Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))),
+      )
+    await settled()
     const before = (await button.boundingBox())?.width
     await expect(async () => {
       if ((await html(page).getAttribute('data-theme')) !== 'dark') await button.click()
       await expect(html(page)).toHaveAttribute('data-theme', 'dark', { timeout: 1000 })
     }).toPass()
+    await settled()
     // The same width, give or take sub-pixel rounding.
     expect((await button.boundingBox())?.width).toBeCloseTo(before ?? 0, 0)
   })
