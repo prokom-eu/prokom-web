@@ -99,7 +99,9 @@ export function HeroTiles({ children, lines, techStages }: Props) {
                   }
                 >
                   <span className="pk-ht__go-text">{big ? line.domain : 'Wejdź'}</span>
-                  <span aria-hidden="true"> ↗</span>
+                  <span aria-hidden="true" className="pk-ht__go-arrow">
+                    ↗
+                  </span>
                 </a>
               )}
             </div>

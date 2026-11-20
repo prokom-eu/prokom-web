@@ -437,14 +437,19 @@
     padding: 0 14px;
   }
 }
-.pk-ht__go {
-  position: relative;
-}
-/* 44 px touch targets (spec §5.4) without changing the drawn size. */
+/* The whole line tile goes to the line's site (Krystian 20.11): the address link stretches over
+   the tile; the slide buttons sit above it and keep their own clicks. */
 .pk-ht__go::after {
   position: absolute;
-  inset: -5px;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
   content: '';
+}
+.pk-ht__slides,
+.pk-ht__segs {
+  position: relative;
+  z-index: 2;
 }
 .pk-hb-main__cta {
   display: flex;
@@ -559,22 +564,35 @@
   justify-content: space-between;
   gap: 8px;
 }
+/* The address as plain text of the line, no pill: the tile itself is the button. */
 .pk-ht__go {
   display: flex;
   min-height: 34px;
   flex: none;
   align-items: center;
-  border-radius: 999px;
-  padding: 0 13px;
-  background: var(--ln-fill, var(--ln));
-  color: var(--ln-ink);
-  font-size: 12.5px;
+  gap: 2px;
+  color: var(--ln-text);
+  font-size: 13.5px;
   font-weight: 800;
   white-space: nowrap;
+}
+.pk-ht__go-arrow {
+  display: inline-block;
   transition: transform 0.3s var(--ease);
 }
-.pk-ht:hover .pk-ht__go {
-  transform: translateX(3px);
+.pk-ht:hover .pk-ht__go-arrow {
+  transform: translate(2px, -2px);
+}
+.pk-ht:hover .pk-ht__go-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pk-ht__go:focus-visible {
+  outline: none;
+}
+.pk-ht__go:focus-visible::after {
+  outline: 2px solid var(--ln);
+  outline-offset: -2px;
 }
 .pk-ht i {
   display: block;
@@ -1150,7 +1168,6 @@ a.pk-mqi:hover {
   .pk-ht__go {
     width: 34px;
     justify-content: center;
-    padding: 0;
   }
   .pk-ht__go-text {
     position: absolute;
