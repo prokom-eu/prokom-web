@@ -23,6 +23,7 @@ import { CartDrawer, CartToast } from './powloka/CatalogDrawerLazy'
 import { navigation } from './dane/nawigacja'
 import { CtaBand } from './powloka/CtaBand'
 import { FooterRidge } from './powloka/FooterRidge'
+import { EquipmentPanel, SalonStrip } from './powloka/EquipmentMega'
 import { InstHeader } from './powloka/InstHeader'
 import { InstRail } from './powloka/InstRail'
 import { InstSheetList } from './powloka/InstSheetList'
@@ -113,7 +114,16 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
           navigation={navigation}
           menu={menu}
           equipment={equipment}
-          equipmentMore={equipmentMore}
+          equipmentPanel={
+            equipmentMore && equipmentMore.bundles.length > 0 ? (
+              <EquipmentPanel more={equipmentMore} promo={navigation.megaEquipment} />
+            ) : undefined
+          }
+          equipmentSalons={
+            equipmentMore && equipmentMore.salons.length > 0 ? (
+              <SalonStrip more={equipmentMore} />
+            ) : undefined
+          }
           withShared={shared !== null}
         />
         <PageTransition>{children}</PageTransition>
