@@ -13,6 +13,7 @@ import {
   homeLines,
   linesCount,
   quickTools,
+  rowPhones,
   teamExamples,
 } from './model'
 
@@ -22,6 +23,7 @@ const contact = (key: HubLineContact['key'], promise: string | null): HubLineCon
   domain: `${key}.test`,
   url: `https://${key}.test`,
   phone: '111 222 333',
+  phone2: null,
   email: null,
   hours: null,
   promise,
@@ -255,5 +257,32 @@ describe('quickTools (hero „Załatw od razu”)', () => {
     const { hubTools } = await import('../../../seed/prokom/map')
     const keys = new Set(hubTools().map((t) => t.key))
     expect(hubHome().hero.quick?.tools.filter((k) => !keys.has(k))).toEqual([])
+  })
+})
+
+describe('rowPhones (Kontakt: the second number at chosen lines, Krystian 22.11)', () => {
+  it('gives a chosen line its own number first, then its second one', () => {
+    const line = { key: 'instalacje', phone: '889 003 889', phone2: '501 046 249' } as const
+    expect(rowPhones(line, ['biznes', 'instalacje'])).toEqual([
+      { phone: '889 003 889', tel: 'tel:+48889003889' },
+      { phone: '501 046 249', tel: 'tel:+48501046249' },
+    ])
+  })
+
+  it('keeps one number for the lines not chosen, even with a second one', () => {
+    const line = { key: 'software', phone: '883 200 151', phone2: '788 986 074' } as const
+    expect(rowPhones(line, ['biznes'])).toEqual([{ phone: '883 200 151', tel: 'tel:+48883200151' }])
+  })
+
+  it('never shows one number twice, whatever its spacing', () => {
+    const line = { key: 'biznes', phone: '889 003 889', phone2: '+48 889003889' } as const
+    expect(rowPhones(line, ['biznes'])).toEqual([{ phone: '889 003 889', tel: 'tel:+48889003889' }])
+  })
+
+  it('skips empty numbers', () => {
+    const line = { key: 'instalacje', phone: null, phone2: '501 046 249' } as const
+    expect(rowPhones(line, ['instalacje'])).toEqual([
+      { phone: '501 046 249', tel: 'tel:+48501046249' },
+    ])
   })
 })

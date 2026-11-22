@@ -50,11 +50,28 @@ describe('toHubLineContacts', () => {
 
   it('takes a line site from its own SiteSettings, CompanyData filling the gaps', () => {
     const [biznes, software] = toHubLineContacts(lines, {
-      biznes: { phone: 'B-PHONE', email: 'B-MAIL', hours: null, responsePromise: 'B-PROMISE' },
+      biznes: {
+        phone: 'B-PHONE',
+        phone2: '883200151',
+        email: 'B-MAIL',
+        hours: null,
+        responsePromise: 'B-PROMISE',
+      },
       software: null,
     })
-    expect(biznes).toMatchObject({ phone: 'B-PHONE', email: 'B-MAIL', promise: 'B-PROMISE' })
-    expect(software).toMatchObject({ phone: null, promise: null, domain: 'software.test' })
+    // The second number only from the line's own panel (Krystian 22.11), in the hub's format.
+    expect(biznes).toMatchObject({
+      phone: 'B-PHONE',
+      phone2: '883 200 151',
+      email: 'B-MAIL',
+      promise: 'B-PROMISE',
+    })
+    expect(software).toMatchObject({
+      phone: null,
+      phone2: null,
+      promise: null,
+      domain: 'software.test',
+    })
   })
 
   it('reads Tech and Gaming from CompanyData.lines only', () => {

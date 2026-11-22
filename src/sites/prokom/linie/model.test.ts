@@ -14,6 +14,7 @@ const contact = (key: HubLineContact['key']): HubLineContact => ({
   domain: `${key}.test`,
   url: `https://${key}.test`,
   phone: '111 222 333',
+  phone2: null,
   email: null,
   hours: null,
   promise: 'Szybko',

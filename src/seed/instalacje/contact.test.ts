@@ -10,15 +10,20 @@ import {
 } from './contact'
 
 describe('siteContactUpdate', () => {
-  it('replaces the sample phone and e-mail of `pnpm seed`', () => {
+  it('replaces the sample phone and e-mail of `pnpm seed` and fills the second number', () => {
     expect(
       siteContactUpdate({ phone: '+48 000 000 102', email: 'instalacje@example.test' }),
-    ).toEqual({ phone: INSTALACJE_CONTACT.phone, email: INSTALACJE_CONTACT.email })
+    ).toEqual({
+      phone: INSTALACJE_CONTACT.phone,
+      phone2: INSTALACJE_CONTACT.phone2,
+      email: INSTALACJE_CONTACT.email,
+    })
   })
 
   it('keeps what an editor typed in the panel', () => {
-    expect(siteContactUpdate({ phone: '18 123 45 67', email: 'biuro@firma.pl' })).toBeNull()
-    expect(siteContactUpdate({ phone: '18 123 45 67', email: null })).toEqual({
+    const typed = { phone: '18 123 45 67', phone2: '600 100 200', email: 'biuro@firma.pl' }
+    expect(siteContactUpdate(typed)).toBeNull()
+    expect(siteContactUpdate({ ...typed, email: null })).toEqual({
       email: INSTALACJE_CONTACT.email,
     })
   })

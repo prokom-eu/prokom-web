@@ -1190,7 +1190,11 @@
     "general": "Nie wiem / ogólne",
     "directions": "Kontakt i dojazd",
     "salon": "Salon i biuro",
-    "cta": "Napisz wiadomość"
+    "cta": "Napisz wiadomość",
+    "bothPhones": [
+      "biznes",
+      "instalacje"
+    ]
   },
   "final": {
     "title": "Powiedz, czego potrzebujesz. Resztą zajmie się właściwy zespół.",

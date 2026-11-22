@@ -31,6 +31,8 @@ export type HomeLine = {
   url: string | null
   phone: string | null
   tel: string | null
+  /** The line's second number (its own panel), shown where `home.contact.bothPhones` asks. */
+  phone2: string | null
   /** Phones of the line's points (Tech, runda 1811 D5); empty = the line's one phone above. */
   points: TechPoint[]
   /** The line's hours as written in its panel (Tech is also open on Saturdays). */
@@ -60,6 +62,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
+    phone2: contact.phone2 ?? null,
     points: contact.points ?? [],
     hours: contact.hours,
     promise: contact.promise,
@@ -252,4 +255,26 @@ export function quickTools(
       ? [{ key, title: tool.title, url, line: tool.line, lineName: line.name }]
       : []
   })
+}
+
+/** A number of a „Kontakt” row with its link. */
+export type RowPhone = { phone: string; tel: string }
+
+/**
+ * Numbers of a line's „Kontakt” row (Krystian 22.11): the line's own, and for the lines chosen in
+ * `home.contact.bothPhones` also its second number (Biznes 883…, Instalacje 501…, both from the
+ * line's own panel) — each once (compared by its link), never one without a working link.
+ */
+export function rowPhones(
+  line: Pick<HomeLine, 'key' | 'phone' | 'phone2'>,
+  both: readonly HubLine[],
+): RowPhone[] {
+  const numbers = both.includes(line.key) ? [line.phone, line.phone2] : [line.phone]
+  const rows: RowPhone[] = []
+  for (const phone of numbers) {
+    const tel = phone ? toTelHref(phone) : null
+    if (!phone || !tel || rows.some((row) => row.tel === tel)) continue
+    rows.push({ phone, tel })
+  }
+  return rows
 }
