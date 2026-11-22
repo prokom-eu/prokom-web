@@ -106,6 +106,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
             now={now}
             slot={shared.line.brandBarSlot}
             phone={shared.line.phone}
+            phone2={shared.line.phone2}
             phoneLabel={shared.line.phoneLabel}
           />
         )}
@@ -188,6 +189,7 @@ export async function InstalacjeFrame({ tenant, settings, promo, children }: Pro
               lines={shared.lines}
               current="instalacje"
               phone={shared.line.phone}
+              phone2={shared.line.phone2}
               hours={shared.company.hours}
               holidays={shared.company.holidays}
               now={now}

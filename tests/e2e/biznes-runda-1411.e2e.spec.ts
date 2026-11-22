@@ -72,12 +72,14 @@ test.describe('Biznes runda 1411 — numbers, CEIDG, Kontakt (R1)', () => {
     )
   })
 
-  test('Instalacje keep their CEIDG link and the one-number hero', async ({ page }) => {
+  test('Instalacje keep their CEIDG link; two number tiles since 22.11 (like Biznes)', async ({
+    page,
+  }) => {
     await page.goto(site('instalacje.localhost', '/kontakt'))
     await expect(
       page.locator('[data-contact-page]').getByRole('link', { name: /CEIDG/ }),
     ).toHaveCount(1)
-    await expect(page.locator('[data-call-tile]')).toHaveCount(0)
+    await expect(page.locator('[data-call-tile]')).toHaveCount(2)
   })
 })
 

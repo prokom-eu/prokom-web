@@ -9,7 +9,7 @@ import { type SharedGroup, VERIFY_CEIDG, VERIFY_GOOGLE } from './types'
 export const INSTALACJE_SHARED: SharedGroup = {
   phoneLabel: 'Instalacje:',
   responsePromise: 'Odpowiedź do 24 h w dni robocze',
-  brandBarSlot: { label: 'Zgłoś awarię', href: '/serwis#zglos' },
+  // No link next to the status (Krystian 22.11.2026: „Zgłoś awarię” removed from the bar).
   headerCta: { label: 'Zaplanuj instalację', href: '/zaplanuj', counter: 'none' },
   tabBar: {
     second: { label: 'Usługi', href: '/uslugi' },
@@ -85,7 +85,6 @@ export const INSTALACJE_SHARED: SharedGroup = {
     facts: [
       { kind: 'email', label: 'E-mail', icon: 'mail' },
       { kind: 'text', label: 'Zaplanuj', value: '4 kroki online', icon: 'pen' },
-      { kind: 'text', label: 'Odpowiedź', value: 'Do 24 h w dni robocze', icon: 'clock' },
     ],
     routes: [
       {

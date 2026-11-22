@@ -42,6 +42,11 @@ test.describe('Instalacje contact page (shared template)', () => {
     await expect(main.locator('h1')).toHaveCount(1)
     await expect(main.locator('h1')).toHaveText(/Kontakt z PRO-KOM Instalacje/)
     await expect(main.locator('[data-contact-page] a[href^="tel:"]').first()).toBeVisible()
+    // Krystian 22.11: two number tiles without „+48” (like Biznes), the e-mail with „Kopiuj”.
+    const calls = main.locator('[data-contact-calls]')
+    await expect(calls.locator('[data-call-tile]')).toHaveCount(2)
+    await expect(calls).not.toContainText('+48')
+    await expect(calls.locator('a[href="tel:+48501046249"]')).toBeVisible()
     const routes = page.locator('#z-czym-dzwonisz')
     await expect(routes.locator('a[href="/zaplanuj"]')).toHaveText(/Zaplanuj instalację/)
     await expect(routes.locator('a[href="/serwis#zglos"]')).toHaveText(/Zgłoś awarię/)

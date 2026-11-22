@@ -8,7 +8,9 @@ import { navigation } from '../../sites/instalacje/dane/nawigacja'
  * the panel.
  */
 export const INSTALACJE_CONTACT = {
-  phone: '+48 889 003 889',
+  // Without „+48” like Biznes (Krystian 22.11.2026); `tel:` links add the country code.
+  phone: '889 003 889',
+  phone2: '501 046 249',
   email: 'kontakt@prokominstalacje.pl',
 } as const
 
@@ -27,12 +29,12 @@ export function isSample(value: string | null | undefined): boolean {
   return text === '' || text.startsWith('+48 000') || text.endsWith('@example.test')
 }
 
-type SiteContact = { phone?: string | null; email?: string | null }
+type SiteContact = { phone?: string | null; phone2?: string | null; email?: string | null }
 
-/** `SiteSettings` fields to write (phone, e-mail); `null` = nothing to change. */
+/** `SiteSettings` fields to write (phones, e-mail); `null` = nothing to change. */
 export function siteContactUpdate(current: SiteContact): SiteContact | null {
   const update: SiteContact = {}
-  for (const key of ['phone', 'email'] as const) {
+  for (const key of ['phone', 'phone2', 'email'] as const) {
     if (isSample(current[key])) update[key] = INSTALACJE_CONTACT[key]
   }
   return Object.keys(update).length > 0 ? update : null
