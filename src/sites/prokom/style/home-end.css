@@ -934,7 +934,7 @@
   margin-left: auto;
 }
 .pk-clr--dual .pk-clr__phone {
-  min-height: 40px;
+  min-height: 44px;
   justify-content: flex-end;
   transition: background-color 0.2s var(--ease);
 }

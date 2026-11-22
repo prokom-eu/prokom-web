@@ -79,7 +79,6 @@ export async function hubSlugPage(
         origin={await origin()}
         now={new Date().toISOString()}
         formToken={issueFormToken(env.PAYLOAD_SECRET)}
-        hoursLayout="week"
         heroLayout="calls"
         slots={{
           // Notes split between the hero columns so both are about as tall (16.11).

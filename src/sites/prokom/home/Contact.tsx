@@ -78,8 +78,12 @@ export function Contact({ texts, lines, company, email, extraEmails, now, contac
                 </span>
                 {mails.length > 0 && (
                   <span className="pk-csl__mails">
-                    {mails.map((row) => (
-                      <a key={row.email} href={`mailto:${row.email}`} className="pk-csl__mail">
+                    {mails.map((row, index) => (
+                      <a
+                        key={`${index}-${row.email}`}
+                        href={`mailto:${row.email}`}
+                        className="pk-csl__mail"
+                      >
                         <Icon name="mail" />
                         {row.label && <small>{row.label}</small>}
                         {row.email}

@@ -151,6 +151,9 @@
   border-color: color-mix(in srgb, var(--k-white) 22%, transparent);
   color: var(--k-white);
 }
+.pk-mails__copy :focus-visible {
+  outline-color: var(--k-gt);
+}
 .pk-mails__copy button:hover {
   background: var(--k-white);
   color: var(--k-bg);

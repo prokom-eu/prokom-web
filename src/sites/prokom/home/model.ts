@@ -62,7 +62,7 @@ export function homeLines(
     url: contact.url,
     phone: contact.phone,
     tel: contact.phone ? toTelHref(contact.phone) : null,
-    phone2: contact.phone2 ?? null,
+    phone2: contact.phone2,
     points: contact.points ?? [],
     hours: contact.hours,
     promise: contact.promise,

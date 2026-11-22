@@ -87,7 +87,7 @@ export function Network({ texts, network, facts, address, pages }: Props) {
           </div>
 
           {(stat || point) && (
-            <div className="pk-al__map">
+            <div className={stat ? 'pk-al__map' : 'pk-al__map pk-al__map--nostat'}>
               {stat && (
                 <p className="pk-al__stat">
                   <strong>{stat.value}</strong>
@@ -161,6 +161,6 @@ function PolandField({ lit, town }: { lit: boolean; town: string | null }) {
 }
 
 /** „Rabka-Zdrój” from „ul. Orkana 16B, 34-700 Rabka-Zdrój” (the company data, never typed here). */
-export function townOf(address: string | null): string | null {
+function townOf(address: string | null): string | null {
   return address?.match(/\d{2}-\d{3}\s+(.+)$/)?.[1]?.trim() || null
 }
