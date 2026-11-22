@@ -1,13 +1,11 @@
 /**
  * Contact of pro-kom.eu (Krystian 22.11.2026), frozen for the data migration `hub_kontakt`: the
- * second number at Biznes and Instalacje on the home page (Instalacje's own second number goes into
- * its panel), and on `/kontakt` the H1 without „one number” plus the hub's e-mail in the hero bar
- * (the two company numbers are tiles of their own).
+ * second number at Biznes and Instalacje on the home page (Instalacje's own second number comes
+ * from its panel — migration `inst_kontakt_telefony`), and on `/kontakt` the H1 without „one
+ * number” plus the hub's e-mail in the hero bar (the two company numbers are tiles of their own).
  */
 
 export const BOTH_PHONES_2211 = ['biznes', 'instalacje'] as const
-/** Instalacje's second number (Krystian 22.11). */
-export const INSTALACJE_PHONE2 = '+48 501 046 249'
 export const CONTACT_H1_OLD = 'Jeden numer. Pokierujemy, gdzie trzeba.'
 export const CONTACT_H1_2211 = 'Zadzwoń albo napisz. Pokierujemy, gdzie trzeba.'
 export const EMAIL_FACT = { kind: 'email', label: 'E-mail', icon: 'mail' } as const
@@ -38,9 +36,4 @@ export function contactWith2211<T extends { h1?: string | null; facts?: unknown[
     ...(h1 && { h1: CONTACT_H1_2211 }),
     ...(facts && { facts: [{ ...EMAIL_FACT }] }),
   }
-}
-
-/** Instalacje's second number while its panel has none; `null` = no change (an edit wins). */
-export function instalacjePhone2(current: string | null | undefined): string | null {
-  return current?.trim() ? null : INSTALACJE_PHONE2
 }

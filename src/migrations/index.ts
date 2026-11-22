@@ -132,6 +132,7 @@ import * as migration_20261119_220000_hub_sklep_alsen from './20261119_220000_hu
 import * as migration_20261119_224000_hub_r1_poprawki from './20261119_224000_hub_r1_poprawki'
 import * as migration_20261119_230000_hub_alsen_sekcja from './20261119_230000_hub_alsen_sekcja'
 import * as migration_20261119_230643_inst_zestawy_obszary from './20261119_230643_inst_zestawy_obszary'
+import * as migration_20261122_215236_inst_kontakt_telefony from './20261122_215236_inst_kontakt_telefony'
 import * as migration_20261122_220000_hub_kontakt from './20261122_220000_hub_kontakt'
 
 export const migrations = [
@@ -804,6 +805,11 @@ export const migrations = [
     up: migration_20261119_230643_inst_zestawy_obszary.up,
     down: migration_20261119_230643_inst_zestawy_obszary.down,
     name: '20261119_230643_inst_zestawy_obszary',
+  },
+  {
+    up: migration_20261122_215236_inst_kontakt_telefony.up,
+    down: migration_20261122_215236_inst_kontakt_telefony.down,
+    name: '20261122_215236_inst_kontakt_telefony',
   },
   {
     up: migration_20261122_220000_hub_kontakt.up,

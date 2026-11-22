@@ -8,9 +8,9 @@ import { navigation } from '../../sites/instalacje/dane/nawigacja'
  * the panel.
  */
 export const INSTALACJE_CONTACT = {
-  phone: '+48 889 003 889',
-  // The line's second number (Krystian 22.11.2026) — on pro-kom.eu next to the first one too.
-  phone2: '+48 501 046 249',
+  // Without „+48” like Biznes (Krystian 22.11.2026); `tel:` links add the country code.
+  phone: '889 003 889',
+  phone2: '501 046 249',
   email: 'kontakt@prokominstalacje.pl',
 } as const
 

@@ -124,11 +124,13 @@ test.describe('Instalacje capsule (desktop)', () => {
     await open(page)
     const lines = page.getByRole('navigation', { name: 'Linie PRO-KOM' })
     await expect(lines.getByText('Instalacje', { exact: true })).toBeVisible()
-    await expect(page.getByRole('link', { name: /Zgłoś awarię/ }).first()).toHaveAttribute(
-      'href',
-      '/serwis#zglos',
-    )
-    await expect(page.locator('a[href^="tel:"]').first()).toBeVisible()
+    // Krystian 22.11: no „Zgłoś awarię” next to the status; the number without „+48”.
+    const bar = page.locator('[data-brand-bar]')
+    await expect(bar.getByRole('link', { name: /Zgłoś awarię/ })).toHaveCount(0)
+    const tel = bar.locator('a[href^="tel:"]').first()
+    await expect(tel).toBeVisible()
+    await expect(tel).not.toContainText('+48')
+    await expect(bar.locator('a[href="tel:+48501046249"]')).toBeAttached()
   })
 
   test('the capsule gets smaller after scrolling and the theme switch remembers', async ({

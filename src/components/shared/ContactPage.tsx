@@ -677,6 +677,9 @@ function FactValue({ kind, value }: { kind: string; value: string }) {
 type CallNumber = { label: string; number: string; href: string; main: boolean }
 type Fact = NonNullable<NonNullable<SharedData['line']['contact']>['facts']>[number]
 
+/** Characters of an e-mail that still fit the first of three cells in one row. */
+const LONG_EMAIL = 24
+
 /**
  * The calls part of the Kontakt hero (runda 1411, KontaktHero): two equal call tiles (the main
  * one in the line's colour), the facts bar — e-mail with „Kopiuj”, the salon's hours, the line's
@@ -698,6 +701,8 @@ function CallsHero({
 }) {
   const email = facts.find((fact) => fact.kind === 'email' && fact.value)
   const texts = facts.filter((fact) => fact.kind === 'text' && fact.value)
+  // A long address (kontakt@prokominstalacje.pl) gets the whole first row instead of being cut.
+  const longEmail = (email?.value?.length ?? 0) > LONG_EMAIL
   const cells: { key: string; label: string; icon: string; node: ReactNode; wide?: boolean }[] = [
     ...(email?.value
       ? [
@@ -783,7 +788,8 @@ function CallsHero({
           <ul
             className={cx(
               'grid grid-cols-1 gap-px overflow-hidden rounded-[20px] border border-line-dark-rule bg-line-dark-rule',
-              cells.length === 3 && '@[640px]:grid-cols-[1.5fr_1fr_0.8fr]',
+              cells.length === 3 && !longEmail && '@[640px]:grid-cols-[1.5fr_1fr_0.8fr]',
+              cells.length === 3 && longEmail && '@[520px]:grid-cols-2',
               cells.length === 2 && '@[520px]:grid-cols-2',
             )}
             data-contact-bar
@@ -791,7 +797,10 @@ function CallsHero({
             {cells.map((cell) => (
               <li
                 key={cell.key}
-                className="flex min-w-0 items-center gap-3 bg-line-dark-card px-4 py-3.5"
+                className={cx(
+                  'flex min-w-0 items-center gap-3 bg-line-dark-card px-4 py-3.5',
+                  cell.wide && longEmail && cells.length === 3 && '@[520px]:col-span-2',
+                )}
               >
                 <span
                   aria-hidden="true"

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import { INSTALACJE_CONTACT } from '../../seed/instalacje/contact'
 import { PROKOM_SHARED } from '../../seed/shared/prokom'
 import {
   CONTACT_H1_2211,
@@ -8,8 +7,6 @@ import {
   contactWith2211,
   EMAIL_FACT,
   homeWithBothPhones,
-  INSTALACJE_PHONE2,
-  instalacjePhone2,
 } from './hub_kontakt'
 
 describe('hub_kontakt (Krystian 22.11)', () => {
@@ -41,12 +38,5 @@ describe('hub_kontakt (Krystian 22.11)', () => {
 
   it('leaves the seed as it is (the seed already has the new texts)', () => {
     expect(contactWith2211(PROKOM_SHARED.contact)).toBeNull()
-  })
-
-  it("fills Instalacje's second number only while its panel has none", () => {
-    expect(instalacjePhone2(null)).toBe(INSTALACJE_PHONE2)
-    expect(instalacjePhone2('  ')).toBe(INSTALACJE_PHONE2)
-    expect(instalacjePhone2('600 100 200')).toBeNull()
-    expect(INSTALACJE_PHONE2).toBe(INSTALACJE_CONTACT.phone2)
   })
 })
