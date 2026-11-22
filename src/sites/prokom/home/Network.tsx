@@ -9,6 +9,7 @@ import { isHubLinkLive, type HubPageFlags } from '@/lib/prokom/pages'
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { BRAND_LOGOS } from './brandArt'
+import { POLAND_PATH, POLAND_VIEWBOX, RABKA_POINT } from './polandMap'
 
 type Props = {
   texts: NonNullable<HubHome['network']>
@@ -24,7 +25,7 @@ type Props = {
 /**
  * ALSEN as a premium section above „Współpraca” (runda 1811 D4, Krystian 19.11). A stage in the
  * colour of its line: the partner's logo on a white plate with the agreed status, the network as
- * a field of points with one lit — our salon in Rabka — and the four things a customer gets.
+ * Poland drawn in points with one lit — our salon in Rabka — and the four things a customer gets.
  * The figure and the salon line show only while their facts are visible. Server-rendered.
  */
 export function Network({ texts, network, facts, address, pages }: Props) {
@@ -86,11 +87,7 @@ export function Network({ texts, network, facts, address, pages }: Props) {
           </div>
 
           {(stat || point) && (
-            <div className={stat ? 'pk-al__map' : 'pk-al__map pk-al__map--short'}>
-              {/* The network as points, ours lit in the south — an image of the idea, not a map. */}
-              <span className="pk-al__field" aria-hidden="true">
-                {point && <i className="pk-al__here" />}
-              </span>
+            <div className="pk-al__map">
               {stat && (
                 <p className="pk-al__stat">
                   <strong>{stat.value}</strong>
@@ -98,6 +95,7 @@ export function Network({ texts, network, facts, address, pages }: Props) {
                   <small>{stat.note}</small>
                 </p>
               )}
+              <PolandField lit={Boolean(point)} town={townOf(address)} />
               {point && (
                 <p className="pk-al__point">
                   <Icon name="pin" />
@@ -125,4 +123,44 @@ export function Network({ texts, network, facts, address, pages }: Props) {
       </div>
     </section>
   )
+}
+
+/**
+ * Poland as a field of points (22.11), Rabka-Zdrój lit with a slow ping while the salon's fact is
+ * visible. Decorative: the figure and the salon are in the text next to it.
+ */
+function PolandField({ lit, town }: { lit: boolean; town: string | null }) {
+  const [x, y] = RABKA_POINT
+  return (
+    <svg className="pk-al__pl" viewBox={POLAND_VIEWBOX} aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="pk-al-dots" width="9" height="9" patternUnits="userSpaceOnUse">
+          <circle cx="4.5" cy="4.5" r="1.7" className="pk-al__dot" />
+        </pattern>
+        <clipPath id="pk-al-clip">
+          <path d={POLAND_PATH} />
+        </clipPath>
+      </defs>
+      <path d={POLAND_PATH} className="pk-al__land" />
+      <rect width="100%" height="100%" fill="url(#pk-al-dots)" clipPath="url(#pk-al-clip)" />
+      <path d={POLAND_PATH} className="pk-al__edge" />
+      {lit && (
+        <g transform={`translate(${x} ${y})`}>
+          <circle r="22" className="pk-al__glow" />
+          <circle r="7" className="pk-al__ring" />
+          <circle r="5.5" className="pk-al__here" />
+          {town && (
+            <text x="-14" y="5" textAnchor="end" className="pk-al__town">
+              {town}
+            </text>
+          )}
+        </g>
+      )}
+    </svg>
+  )
+}
+
+/** „Rabka-Zdrój” from „ul. Orkana 16B, 34-700 Rabka-Zdrój” (the company data, never typed here). */
+export function townOf(address: string | null): string | null {
+  return address?.match(/\d{2}-\d{3}\s+(.+)$/)?.[1]?.trim() || null
 }

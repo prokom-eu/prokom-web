@@ -93,14 +93,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 14px;
   border-radius: 26px;
-  padding: clamp(26px, 3vw, 40px) 24px 22px;
-  background: var(--c-white);
-  box-shadow: 0 30px 60px -36px color-mix(in srgb, var(--ln) 85%, transparent);
+  padding: clamp(22px, 2.4vw, 32px) 24px 20px;
+  background:
+    radial-gradient(80% 120% at 50% 0%, var(--c-white) 55%, transparent),
+    color-mix(in srgb, var(--ln) 6%, var(--c-white));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--ln) 14%, transparent),
+    0 30px 60px -36px color-mix(in srgb, var(--ln) 85%, transparent);
 }
 .pk-al__plate img {
-  width: min(300px, 80%);
+  width: min(260px, 74%);
   height: auto;
 }
 .pk-al__name {
@@ -128,86 +132,105 @@
   background: var(--k-b);
   color: var(--c-white);
 }
+/* The network: the figure beside Poland drawn in points, our salon lit (22.11). */
 .pk-al__map {
   position: relative;
   display: grid;
   flex: 1;
-  align-content: end;
-  gap: 14px;
+  grid-template-areas:
+    'stat pl'
+    'point point';
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 8px 20px;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--ln-text) 18%, transparent);
   border-radius: 26px;
-  /* The top band is the field's: the lit point never sits under the text. */
-  padding: 104px 24px 22px;
-  background: color-mix(in srgb, var(--ln) 8%, transparent);
+  padding: 22px 24px;
+  background:
+    radial-gradient(
+      70% 80% at 78% 70%,
+      color-mix(in srgb, var(--ln) 22%, transparent),
+      transparent 70%
+    ),
+    color-mix(in srgb, var(--ln) 7%, transparent);
 }
-.pk-al__map--short {
-  padding-top: 88px;
+.pk-al__pl {
+  width: 100%;
+  max-height: 230px;
+  grid-area: pl;
+  overflow: visible;
 }
-.pk-al__field {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--ln-text) 55%, transparent) 1.1px,
-    transparent 1.7px
-  );
-  background-position: center;
-  background-size: 13px 13px;
-  mask-image: radial-gradient(ellipse 70% 60% at 70% 22%, currentColor 20%, transparent 80%);
+.pk-al__land {
+  fill: color-mix(in srgb, var(--ln) 10%, transparent);
 }
-/* Our salon: the one lit point of the field. */
+.pk-al__dot {
+  fill: color-mix(in srgb, var(--ln-text) 48%, transparent);
+}
+.pk-al__edge {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ln-text) 34%, transparent);
+  stroke-linejoin: round;
+  stroke-width: 1.2;
+}
+.pk-al__glow {
+  fill: color-mix(in srgb, var(--ln) 45%, transparent);
+  filter: blur(8px);
+}
 .pk-al__here {
-  position: absolute;
-  top: 50px;
-  left: 74%;
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: var(--ln-text);
-  box-shadow:
-    0 0 0 5px color-mix(in srgb, var(--ln-text) 22%, transparent),
-    0 0 24px 6px color-mix(in srgb, var(--ln) 70%, transparent);
-  translate: -50% -50%;
+  fill: var(--ln-text);
+  stroke: var(--ln-dark);
+  stroke-width: 2;
 }
-.pk-al__here::after {
-  position: absolute;
-  inset: -6px;
-  border: 1.5px solid var(--ln-text);
-  border-radius: inherit;
+/* Our salon: a slow ping around the one lit point. */
+.pk-al__ring {
+  fill: none;
+  stroke: var(--ln-text);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
   animation: pk-al-ping 2.8s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
-  content: '';
 }
 @keyframes pk-al-ping {
   0% {
     opacity: 0.9;
-    transform: scale(0.6);
+    transform: scale(0.8);
   }
   80%,
   100% {
     opacity: 0;
-    transform: scale(3.2);
+    transform: scale(3.4);
   }
+}
+.pk-al__town {
+  fill: var(--k-white);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: var(--ln-dark);
+  stroke-linejoin: round;
+  stroke-width: 5px;
 }
 .pk-al__stat {
   position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: end;
-  gap: 2px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  grid-area: stat;
 }
 .pk-al__stat strong {
-  grid-row: span 2;
   color: var(--k-white);
   font-family: var(--font-display);
-  font-size: clamp(56px, 6vw, 88px);
+  font-size: clamp(56px, 5.6vw, 92px);
   font-stretch: 118%;
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 0.82;
+  line-height: 0.85;
 }
 .pk-al__stat span {
-  font-size: 16px;
+  max-width: 16ch;
+  font-size: 17px;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -218,6 +241,7 @@
 .pk-al__point {
   position: relative;
   display: flex;
+  grid-area: point;
   align-items: flex-start;
   gap: 10px;
   border-top: 1px solid color-mix(in srgb, var(--ln-text) 18%, transparent);
@@ -322,12 +346,15 @@
   .pk-al__title {
     font-size: clamp(32px, 9.4vw, 40px);
   }
-  .pk-al__stat {
+  .pk-al__map {
+    grid-template-areas:
+      'stat'
+      'pl'
+      'point';
     grid-template-columns: minmax(0, 1fr);
-    gap: 6px;
   }
-  .pk-al__stat strong {
-    grid-row: auto;
+  .pk-al__pl {
+    max-height: 200px;
   }
   .pk-al__stage,
   .pk-al__points {
@@ -347,7 +374,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pk-al__here::after {
+  .pk-al__ring {
     animation: none;
     opacity: 0;
   }
