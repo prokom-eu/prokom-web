@@ -15,6 +15,7 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { AboutNetwork, AboutStory, AboutValues } from './AboutStory'
+import { EmailDirectory } from './EmailDirectory'
 import {
   BranchNote,
   ExtraEmails,
@@ -79,20 +80,35 @@ export async function hubSlugPage(
         now={new Date().toISOString()}
         formToken={issueFormToken(env.PAYLOAD_SECRET)}
         hoursLayout="week"
+        heroLayout="calls"
         slots={{
           // Notes split between the hero columns so both are about as tall (16.11).
+          // 22.11: the notes as a two-column grid under the call tiles — Tech's points on the
+          // left, Saturday, the landline and the orders mailbox beside them.
           heroBelow: (
             <>
-              <SaturdayNote lines={lineContacts} />
-              <TechPointsCard lines={lineContacts} />
-              <ExtraPhones phones={settings.extraPhones} />
-              <ExtraEmails emails={settings.extraEmails} main={shared.line.email} />
+              <div className="grid grid-cols-1 gap-3 min-[640px]:grid-cols-2">
+                <TechPointsCard lines={lineContacts} />
+                <div className="flex flex-col gap-3">
+                  <SaturdayNote lines={lineContacts} />
+                  <ExtraPhones phones={settings.extraPhones} />
+                  <ExtraEmails emails={settings.extraEmails} main={shared.line.email} />
+                </div>
+              </div>
               {network && (
                 <PartnerPointNote text={network.salonNote} href={`/o-firmie#${network.slug}`} />
               )}
             </>
           ),
           heroAside: <BranchNote branch={settings.branch} />,
+          afterRoutes: (
+            <EmailDirectory
+              main={shared.line.email}
+              extras={settings.extraEmails}
+              lines={lineContacts}
+              company={shared.lines}
+            />
+          ),
         }}
       />
     )

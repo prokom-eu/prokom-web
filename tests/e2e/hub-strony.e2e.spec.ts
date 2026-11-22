@@ -93,6 +93,27 @@ test.describe('pro-kom.eu — information pages (spec §6.8–§6.13)', () => {
     await expect(page.getByText('sklep@pro-kom.pl')).toHaveCount(0)
   })
 
+  test('/kontakt: both company numbers as tiles and every mailbox in one place (Krystian 22.11)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/kontakt'))
+    const calls = page.locator('[data-contact-calls]')
+    await expect(calls.locator('a[href="tel:+48883200151"]')).toBeVisible()
+    await expect(calls.locator('a[href="tel:+48889003889"]')).toBeVisible()
+    const mails = page.locator('section#adresy-e-mail')
+    for (const email of [
+      'biuro@pro-kom.eu',
+      'sklep@pro-kom.eu',
+      'kontakt@prokombiznes.pl',
+      'kontakt@prokominstalacje.pl',
+      'kontakt@prokomsoftware.pl',
+      'kontakt@prokomserwis.pl',
+      'kontakt@prokomgaming.pl',
+    ]) {
+      await expect(mails.locator(`a[href="mailto:${email}"]`)).toBeVisible()
+    }
+  })
+
   test('the line sites keep their own /kontakt', async ({ page }) => {
     await page.goto(site('biznes.localhost', '/kontakt'))
     await expect(page).toHaveTitle(/PRO-KOM Biznes/)
