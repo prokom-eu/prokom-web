@@ -71,6 +71,24 @@ test.describe('pro-kom.eu — home page sections (spec §6.1)', () => {
     await expect(page.locator('#linie .pk-pn__points')).toContainText('Zakopane')
   })
 
+  test('Biznes and Instalacje show their second number, the salon both e-mails (Krystian 22.11)', async ({
+    page,
+  }) => {
+    await page.goto(site(HUB, '/#kontakt'))
+    const section = page.locator('#kontakt')
+    for (const name of [
+      'Biznes: 889 003 889',
+      'Biznes: 883 200 151',
+      'Instalacje: 889 003 889',
+      'Instalacje: 501 046 249',
+    ]) {
+      await expect(section.getByRole('link', { name })).toHaveAttribute('href', /^tel:\+48\d{9}$/)
+    }
+    for (const email of ['biuro@pro-kom.eu', 'sklep@pro-kom.eu']) {
+      await expect(section.locator(`a[href="mailto:${email}"]`)).toBeVisible()
+    }
+  })
+
   test('„Zamówienia publiczne” leads to the form and the tenders of /inwestycje-i-dostawy (D14)', async ({
     page,
   }) => {

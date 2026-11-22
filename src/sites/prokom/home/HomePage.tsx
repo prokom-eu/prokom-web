@@ -174,6 +174,7 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
             lines={lines}
             company={shared.company}
             email={shared.line.email}
+            extraEmails={settings.extraEmails}
             now={now}
             contactHref={CONTACT}
           />

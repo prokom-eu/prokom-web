@@ -796,6 +796,8 @@ function home() {
       directions: 'Kontakt i dojazd',
       salon: 'Salon i biuro',
       cta: 'Napisz wiadomość',
+      // Krystian 22.11: both company numbers at Biznes and Instalacje.
+      bothPhones: ['biznes', 'instalacje'],
     },
     final: {
       // :941–946

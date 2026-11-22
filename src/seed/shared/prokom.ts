@@ -87,10 +87,13 @@ export const PROKOM_SHARED: SharedGroup = {
   // `home.contact.general` and the line names of `CompanyData.lines`: a renamed line must be renamed
   // here too (e2e `hub-glowna` checks it). Form texts. Contact data from the panel, never here.
   contact: {
-    h1: 'Jeden numer. Pokierujemy, gdzie trzeba.',
+    // Krystian 22.11: two company numbers as tiles of their own (`heroLayout="calls"`), so the
+    // H1 no longer says „one number”; the bar is the hub's e-mail (with „Kopiuj”) · hours.
+    h1: 'Zadzwoń albo napisz. Pokierujemy, gdzie trzeba.',
     lead: 'Dzwonisz albo piszesz raz — sprawę przekazujemy do linii, która się nią zajmuje.',
     writeCta: 'Napisz do nas',
     placeKind: 'salon',
+    facts: [{ kind: 'email', label: 'E-mail', icon: 'mail' }],
     topics: [
       'Nie wiem / ogólne',
       'Biznes',

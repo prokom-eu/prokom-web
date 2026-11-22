@@ -22,6 +22,9 @@ export type HubLineContact = {
   domain: string | null
   url: string | null
   phone: string | null
+  /** The line's second number from its own panel (Biznes, Instalacje — Krystian 22.11); Tech and
+   * Gaming have none. */
+  phone2: string | null
   email: string | null
   hours: string | null
   /** The line's promise of spec §3, as written in the panel (never in the hub's code). */
@@ -35,7 +38,7 @@ const isTenantLine = (value: unknown): value is TenantLine =>
 
 export { hubPhone } from './phone'
 
-type LineFields = Pick<SharedLineData, 'phone' | 'email' | 'hours' | 'responsePromise'>
+type LineFields = Pick<SharedLineData, 'phone' | 'phone2' | 'email' | 'hours' | 'responsePromise'>
 
 /**
  * Contact of the five hub lines (spec §6.1 pkt 11, ADR-H001): for Biznes, Instalacje and Software
@@ -58,6 +61,7 @@ export function toHubLineContacts(
         domain: line.domain,
         url: line.url,
         phone: hubPhone(site?.phone || line.phone),
+        phone2: hubPhone(site?.phone2 ?? null),
         email: site?.email || line.email,
         hours: site?.hours || line.hours,
         promise: site?.responsePromise || line.promise,
@@ -88,6 +92,7 @@ export const getHubLineContacts = cache(async (hubTenantId: number): Promise<Hub
       own[tenant.line] = line
         ? {
             phone: line.phone,
+            phone2: line.phone2,
             email: line.email,
             hours: line.hours,
             responsePromise: line.responsePromise,

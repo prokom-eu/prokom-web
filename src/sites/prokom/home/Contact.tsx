@@ -1,12 +1,13 @@
 import { OpeningStatus } from '@/components/shared/OpeningStatus'
 import { Icon } from '@/components/ui/Icon'
+import { extraEmailsToShow } from '@/lib/prokom/data'
 import type { HubHome } from '@/lib/prokom/home'
 import type { SharedCompany } from '@/lib/shared/project'
 
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 import { Mark } from './Mark'
-import { addressLine, type HomeLine } from './model'
+import { addressLine, type HomeLine, rowPhones } from './model'
 
 /** Key of the chip for a question that fits no line (its label is `contact.general`). */
 export const GENERAL_TOPIC = 'ogolne'
@@ -17,6 +18,8 @@ type Props = {
   company: SharedCompany
   /** The hub's e-mail (`SiteSettings` of `prokom`, like the footer) — not `CompanyData.email`. */
   email: string | null
+  /** The orders mailbox and the like (`HubSettings.extraEmails`, switched on), next to it. */
+  extraEmails: readonly { label: string; email: string }[]
   now: string
   /** `/kontakt` — the form lives there (H6); the chips open it with the topic chosen. */
   contactHref: string
@@ -27,9 +30,14 @@ type Props = {
  * promise (from the line panels), the salon strip, and the topics as links to `/kontakt?temat=<label>` (the topics of the hub's contact form) — the
  * message form itself is on the contact page (one form, one place for the anti-spam of ADR-003).
  */
-export function Contact({ texts, lines, company, email, now, contactHref }: Props) {
+export function Contact({ texts, lines, company, email, extraEmails, now, contactHref }: Props) {
   const address = addressLine(company)
   const callable = lines.filter((line) => line.phone && line.tel)
+  const both = texts.bothPhones ?? []
+  const mails = [
+    ...(email ? [{ label: null, email }] : []),
+    ...extraEmailsToShow(extraEmails, email),
+  ]
   const topics = [
     { key: GENERAL_TOPIC, name: texts.general, line: 'prokom' as const },
     ...lines.map((line) => ({ key: line.key, name: line.name, line: line.key })),
@@ -52,17 +60,7 @@ export function Contact({ texts, lines, company, email, now, contactHref }: Prop
             <ul className="pk-clines" role="list">
               {callable.map((line) => (
                 <li key={line.key} style={lineStyle(line.key)}>
-                  {line.points.length > 0 ? (
-                    <PointsRow line={line} />
-                  ) : (
-                    <a href={line.tel ?? undefined} className="pk-clr">
-                      <LineLabel line={line} />
-                      <span className="pk-clr__phone">
-                        <Icon name="phone" />
-                        {line.phone}
-                      </span>
-                    </a>
-                  )}
+                  <LineRow line={line} phones={rowPhones(line, both)} />
                 </li>
               ))}
             </ul>
@@ -77,12 +75,22 @@ export function Contact({ texts, lines, company, email, now, contactHref }: Prop
                 <span className="pk-csl__address">{address}</span>
                 <span className="pk-csl__meta">
                   <OpeningStatus hours={company.hours} holidays={company.holidays} now={now} />
-                  {email && (
-                    <a href={`mailto:${email}`} className="pk-csl__mail">
-                      {email}
-                    </a>
-                  )}
                 </span>
+                {mails.length > 0 && (
+                  <span className="pk-csl__mails">
+                    {mails.map((row, index) => (
+                      <a
+                        key={`${index}-${row.email}`}
+                        href={`mailto:${row.email}`}
+                        className="pk-csl__mail"
+                      >
+                        <Icon name="mail" />
+                        {row.label && <small>{row.label}</small>}
+                        {row.email}
+                      </a>
+                    ))}
+                  </span>
+                )}
               </span>
               <a href={contactHref} className="pk-hbtn pk-hbtn--small">
                 {texts.directions} <span aria-hidden="true">→</span>
@@ -116,6 +124,41 @@ export function Contact({ texts, lines, company, email, now, contactHref }: Prop
         </div>
       </div>
     </section>
+  )
+}
+
+/**
+ * One line's row: Tech with its points, a line with two numbers (Krystian 22.11) — each number
+ * its own link — or the whole row as the link of its one number.
+ */
+function LineRow({ line, phones }: { line: HomeLine; phones: { phone: string; tel: string }[] }) {
+  if (line.points.length > 0) return <PointsRow line={line} />
+  if (phones.length > 1) {
+    return (
+      <div className="pk-clr pk-clr--dual">
+        <LineLabel line={line} />
+        <ul className="pk-clr__phones" role="list">
+          {phones.map((item) => (
+            <li key={item.tel}>
+              <a href={item.tel} className="pk-clr__phone">
+                <Icon name="phone" />
+                <span className="sr-only">{line.name}: </span>
+                {item.phone}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  return (
+    <a href={line.tel ?? undefined} className="pk-clr">
+      <LineLabel line={line} />
+      <span className="pk-clr__phone">
+        <Icon name="phone" />
+        {line.phone}
+      </span>
+    </a>
   )
 }
 

@@ -192,6 +192,11 @@ export const homeSchema = z
       directions: text(40),
       salon: text(40),
       cta: text(40),
+      /**
+       * Lines whose row shows their second number (from the line's own panel) next to the first —
+       * Biznes and Instalacje (Krystian 22.11). Empty or missing: one number a line.
+       */
+      bothPhones: z.array(z.enum(HUB_LINES)).max(HUB_LINES.length).nullish(),
     }),
     final: z.object({ title: text(120), write: text(40), choose: text(40) }),
     /**
