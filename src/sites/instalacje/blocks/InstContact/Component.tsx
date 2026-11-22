@@ -38,6 +38,8 @@ export async function InstContactBlock({ tenantId }: Props) {
       origin={siteOrigin(host, env.SITE_ENV) ?? ''}
       now={new Date().toISOString()}
       formToken={issueFormToken(env.PAYLOAD_SECRET)}
+      // Two numbers as tiles, the e-mail with „Kopiuj” (like Biznes; Krystian 22.11).
+      heroLayout="calls"
       slots={{
         heroAside: <OtherSalons salons={extra} company={shared.company.name} />,
       }}
