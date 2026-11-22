@@ -413,7 +413,9 @@ export const SiteSettings: CollectionConfig = {
           name: 'phone2',
           label: 'Drugi telefon linii',
           type: 'text',
-          admin: { description: 'Opcjonalny, pokazywany obok głównego (Software).' },
+          admin: {
+            description: 'Opcjonalny, pokazywany obok głównego (pasek marki, menu, Kontakt).',
+          },
         },
         { name: 'email', label: 'E-mail linii', type: 'email' },
       ],

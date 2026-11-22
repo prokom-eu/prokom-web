@@ -268,7 +268,7 @@ export interface SiteSetting {
   line?: ('prokom' | 'biznes' | 'instalacje' | 'software') | null;
   phone?: string | null;
   /**
-   * Opcjonalny, pokazywany obok głównego (Software).
+   * Opcjonalny, pokazywany obok głównego (pasek marki, menu, Kontakt).
    */
   phone2?: string | null;
   email?: string | null;

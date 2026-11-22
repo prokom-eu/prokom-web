@@ -130,6 +130,7 @@ test.describe('Instalacje capsule (desktop)', () => {
     const tel = bar.locator('a[href^="tel:"]').first()
     await expect(tel).toBeVisible()
     await expect(tel).not.toContainText('+48')
+    await expect(bar.locator('a[href="tel:+48501046249"]')).toBeAttached()
   })
 
   test('the capsule gets smaller after scrolling and the theme switch remembers', async ({

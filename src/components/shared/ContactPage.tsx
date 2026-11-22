@@ -677,15 +677,15 @@ function FactValue({ kind, value }: { kind: string; value: string }) {
 type CallNumber = { label: string; number: string; href: string; main: boolean }
 type Fact = NonNullable<NonNullable<SharedData['line']['contact']>['facts']>[number]
 
+/** Characters of an e-mail that still fit the first of three cells in one row. */
+const LONG_EMAIL = 24
+
 /**
  * The calls part of the Kontakt hero (runda 1411, KontaktHero): two equal call tiles (the main
  * one in the line's colour), the facts bar — e-mail with „Kopiuj”, the salon's hours, the line's
  * text facts — with labels over values that never wrap, and the line's promise with a link to
  * the form. Phone: tiles and bar rows one under another.
  */
-/** Characters of an e-mail that still fit the first of three cells in one row. */
-const LONG_EMAIL = 24
-
 function CallsHero({
   numbers,
   facts,
