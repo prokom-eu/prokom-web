@@ -368,6 +368,17 @@ describe('decideRoute — site domains', () => {
     })
   })
 
+  it('serves the manufacturer certificates of the hub and Biznes (23.11) — only that folder', () => {
+    expect(route('prokom.localhost', '/certyfikaty/dell-2022.webp')).toEqual({ type: 'next' })
+    expect(route('biznes.localhost', '/certyfikaty/dell-2022-min.webp')).toEqual({ type: 'next' })
+    expect(route(null, '/certyfikaty/dell-2022.webp')).toEqual({ type: 'next' })
+    // `/certyfikaty` itself stays a page path of the tenant.
+    expect(route('biznes.localhost', '/certyfikaty')).toEqual({
+      type: 'rewrite',
+      pathname: '/biznes.localhost/certyfikaty',
+    })
+  })
+
   it('serves the charger photos (I9) and brand logos (round v5) of Instalacje — only those', () => {
     expect(route('instalacje.localhost', '/instalacje/ev/home.webp')).toEqual({ type: 'next' })
     expect(route('instalacje.localhost', '/instalacje/marki/dahua.webp')).toEqual({ type: 'next' })

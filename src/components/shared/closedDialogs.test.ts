@@ -2,7 +2,10 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
+import { CERTIFICATES } from '@/lib/partners/certificates'
+
 import { BottomSheet } from '../BottomSheet'
+import { CertZoom } from './CertZoom'
 import { MenuSheet } from './MenuSheet'
 import { SearchDialog } from './SearchDialog'
 
@@ -57,5 +60,18 @@ describe('closed windows have no headings', () => {
       )
     expect(sheet(false)).not.toMatch(HEADING)
     expect(sheet(true)).toContain('role="heading" aria-level="2"')
+  })
+
+  it('the enlarged certificate: the thumbnails only, no document until opened', () => {
+    const markup = renderToStaticMarkup(
+      // eslint-disable-next-line react/no-children-prop -- a `.ts` test: no JSX, `children` is required
+      createElement(CertZoom, {
+        items: CERTIFICATES,
+        children: createElement('button', { type: 'button', 'data-cert': 'dell-2022' }, 'Dell'),
+      }),
+    )
+    expect(markup).toContain('<dialog class="cdlg" aria-label="Certyfikat">')
+    expect(markup).not.toContain('/certyfikaty/dell-2022.webp')
+    expect(markup).not.toMatch(HEADING)
   })
 })
