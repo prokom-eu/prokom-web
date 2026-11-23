@@ -3,6 +3,7 @@ import { toTelHref } from '../site/link'
 import type { PublicCompanyData } from '../site/public'
 import type { Line } from '../tenant/lines'
 import { AREA_SERVED as INSTALACJE_AREA_SERVED } from '../instalacje/seo'
+import { LINE_DOMAINS } from '../shared/lines'
 
 const DAYS: Record<string, string> = {
   mon: 'Monday',
@@ -88,6 +89,16 @@ const MAIN_OFFICE = {
   image: '/brand/prokom-software_og.png',
 } as const
 
+/**
+ * The other PRO-KOM sites as `sameAs` (SEO czaty AI 23.11): one legal entity (PRO-KOM Tadeusz
+ * Wójciak) behind every line, so search engines and AI assistants tie the hub and the lines
+ * together. Its own domain is left out, also on `www.` and `staging.` hosts.
+ */
+function otherSites(origin: string): string[] {
+  const host = new URL(origin).hostname.replace(/^(?:www|staging)\./, '')
+  return LINE_DOMAINS.filter((domain) => domain !== host).map((domain) => `https://${domain}/`)
+}
+
 /** `tel:+48…` from the panel's number as schema.org wants it (E.164): `+48883200151`. */
 const e164 = (phone: string | undefined) => (phone ? toTelHref(phone)?.slice(4) : undefined)
 
@@ -132,6 +143,7 @@ export function organizationJsonLd({
     ...(contactPoint && { contactPoint }),
     email,
     taxID: company.nip,
+    sameAs: otherSites(origin),
   }
   // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
   // office (the first location), never the other salons of the company.
