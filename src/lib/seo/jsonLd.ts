@@ -4,6 +4,7 @@ import type { PublicCompanyData } from '../site/public'
 import type { Line } from '../tenant/lines'
 import { AREA_SERVED as INSTALACJE_AREA_SERVED } from '../instalacje/seo'
 import { LINE_DOMAINS } from '../shared/lines'
+import { COMPANY_PROFILES } from './social'
 
 const DAYS: Record<string, string> = {
   mon: 'Monday',
@@ -143,7 +144,7 @@ export function organizationJsonLd({
     ...(contactPoint && { contactPoint }),
     email,
     taxID: company.nip,
-    sameAs: otherSites(origin),
+    sameAs: [...COMPANY_PROFILES, ...otherSites(origin)],
   }
   // Software works only in Rabka (prokomsoftware ZMIANY-v23 §1): its pages name only the main
   // office (the first location), never the other salons of the company.
