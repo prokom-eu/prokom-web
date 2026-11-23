@@ -24,6 +24,7 @@ export async function instalacjeLlmsTxt(
     origin,
     name: tenant.name,
     phone: site?.phone ?? null,
+    phone2: site?.phone2 ?? null,
     email: site?.email ?? null,
     address: office ? `${office.street}, ${office.postalCode} ${office.city}` : null,
     services: offer.map((s) => ({ name: s.name, href: s.href, description: s.description })),

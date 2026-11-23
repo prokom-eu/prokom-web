@@ -5,6 +5,8 @@ type Input = {
   origin: string
   name: string
   phone: string | null
+  /** The line's second number (Krystian 22.11.2026), if the panel has one. */
+  phone2?: string | null
   email: string | null
   address: string | null
   services: readonly { name: string; href: string | null; description: string }[]
@@ -43,6 +45,7 @@ export function llmsTxt(input: Input): string {
     `- Obszar: ${AREA_SERVED.join(', ')} i okolice, aż po Kraków; dalej w Małopolsce dojazd ustalamy indywidualnie.`,
     ...(input.address ? [`- Salon: ${input.address}.`] : []),
     ...(input.phone ? [`- Telefon: ${input.phone}`] : []),
+    ...(input.phone2 ? [`- Drugi telefon: ${input.phone2}`] : []),
     ...(input.email ? [`- E-mail: ${input.email}`] : []),
     '',
     '## Usługi',
