@@ -171,7 +171,7 @@ Po przełączeniu (cel):
 | MX | @ | `10 pro-kom.nazwa.pl` (albo nazwa zalecona przez nazwa.pl; wtedy bez `A mail`) | 3600 | poczta firmy bez zmiany serwera | przy telefonie do nazwa.pl, **przed** `A @` |
 | TXT | @ | `v=spf1 mx ip4:85.128.169.153 ~all` (albo zalecony przez nazwa.pl) | 3600 | SPF bez `a` | przy telefonie do nazwa.pl, przed `A @` |
 | TXT | `_acme-challenge`, `_acme-challenge.www` | wartości z `certbot --manual` (zmieniają się przy każdym wystawieniu) | najniższy | certyfikat `prokom-hub-prod` przez DNS-01 **przed** zmianą `A @` (`docs/wdrozenia.md` → „pro-kom.eu — dzień startu”, krok A4) | dodać przed telefonem; usunąć po wystawieniu certyfikatu |
-| TXT | @ | `google-site-verification=…` | 3600 | Search Console, właściwość domeny (krok A8) | opcjonalnie przed telefonem — **nie usuwać** |
+| TXT | @ | `google-site-verification=QwwdCdHgqaCxGprNTMTlwM7jH5DxW4H82tXZe_6b4h0` | 3600 | weryfikacja Search Console (usługa typu Domena, krok A8) — **nie usuwać**, Google sprawdza okresowo; obok `MS=…` i SPF | do dodania 23.11 (Panel Klienta → „Dodatkowy rekord DNS”, TXT, host `@`) |
 
 **Start bez przerwy (H19, 16.11):** certyfikat i Nginx dla pro-kom.eu są gotowe na serwerze przed rozmową z nazwa.pl (sprawdzone `curl --resolve`), więc telefon zmienia tylko MX/SPF i `A @`/`A www`. Rekordy TXT dodajemy sami w Panelu Klienta („Dodatkowy rekord DNS”), bez zmiany trybu strefy. Plan z tabeli „Decyzja 15.11” obowiązuje dalej: poczta przed stroną. Jeśli nazwa.pl zaleci odstęp między zmianą MX a `A @`, czekamy.
 
@@ -253,4 +253,5 @@ Klucze DKIM (`x._domainkey`, wartość 1:1 z panelu hostingu):
 | 2.11.2026 | prokomgaming.pl | delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl`; nowa strefa: A `@`/`www` → 194.28.50.70, rekordy poczty jak wyżej | Krystian | S10d |
 | 14.11.2026 | prokomsoftware.pl | TXT `google-site-verification=…` (Search Console, usługa typu Domena) | Krystian | SEO Software |
 | 16.11.2026 | prokombiznes.pl | TXT `google-site-verification=…` (Search Console, usługa typu Domena) | Krystian | SEO Biznes |
+| 23.11.2026 | pro-kom.eu | TXT `google-site-verification=…` (Search Console, usługa typu Domena; nazwa.pl → „Dodatkowy rekord DNS”) | Krystian | SEO hub i Tech |
 | 31.10.2026 | prokombiznes.pl, prokominstalacje.pl, prokomsoftware.pl | strefy w Seohost (`@`, `www`, `staging`; prokombiznes.pl także `panel.staging`) → 194.28.50.70; delegacja `ns1/ns2.seohost.pl` → `dns1/dns2.microhost.pl` | Krystian | #185 |
