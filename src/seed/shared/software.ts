@@ -152,9 +152,9 @@ export const SOFTWARE_SHARED: SharedGroup = {
     lead: 'PRO-KOM Software to linia firmy PRO-KOM Tadeusz Wójciak. Piszemy strony, systemy i automatyzacje od podstaw — z umową, fakturą VAT i adresem, pod który możesz przyjść.',
     authTitle: 'Na czym budujemy',
     auth: ['Next.js', 'Django', 'Serwer w Polsce'],
-    // „100+” confirmed by Krystian 05.11 (ZMIANY-v24 §9.2) — no flag.
+    // The client count: „10 000+” (boss via Krystian, 23.11.2026; was „100+ firm”) — no flag.
     stats: [
-      { value: '100+', label: 'firm z Podhala i Małopolski, które z nami pracują' },
+      { value: '10 000+', label: 'klientów z Podhala i Małopolski, którzy z nami pracują' },
       { value: '0', label: 'gotowych szablonów — każdy projekt piszemy pod firmę' },
     ],
     rules: [

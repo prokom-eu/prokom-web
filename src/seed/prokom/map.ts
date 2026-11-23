@@ -217,7 +217,7 @@ export function hubPlans(): PlanSeed[] {
 type TrustRow = NonNullable<HubSetting['trust']>[number]
 
 /**
- * Company facts allowed by spec §3 (since 2004, 100+ business clients, authorizations and statuses
+ * Company facts allowed by spec §3 (since 2004, 10 000+ clients, authorizations and statuses
  * as in K4-FINAL §1) — approved, because the spec lists them.
  */
 export function hubTrust(): TrustRow[] {
@@ -226,7 +226,8 @@ export function hubTrust(): TrustRow[] {
   const rounds = 'runda-1811 D4'
   return [
     { value: 'Od 2004', label: 'firma z Rabki-Zdroju', source: spec, approved: true },
-    { value: '100+', label: 'klientów firmowych', source: spec, approved: true },
+    // The client count (boss via Krystian, 23.11.2026): „10 000+ klientów”, as on Biznes.
+    { value: '10 000+', label: 'klientów', source: 'Krystian 23.11', approved: true },
     { value: 'Posnet', label: 'Autoryzowany serwis', source: k4, approved: true },
     { value: 'Elzab', label: 'Autoryzowany serwis', source: k4, approved: true },
     { value: 'GoPOS', label: 'Autoryzowany partner', source: k4, approved: true },

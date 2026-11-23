@@ -27,7 +27,7 @@ Realizacje (brak materiałów i zgód — wrócą osobnym zadaniem), Strefa Klie
 - **Bez cen**, bez „gratis”, „w cenie”, leasingu, rat, odroczonego terminu, WhatsAppa, zdjęć ludzi.
 - **Obietnice tylko te ustalone:** Biznes — oddzwonimy w 60 minut w godzinach pracy; Instalacje — odpowiedź w 24 h w dni robocze (nie przyjazd technika), 24 miesiące gwarancji na wykonany montaż; Software — odpowiedź w 1 dzień roboczy; Tech — bezpłatna diagnoza i wycena, naprawy też kurierem.
 - **Konfiguracja, montaż i szkolenie przy dostawach nie są standardem** — zawsze „na życzenie / jeśli tak ustalimy / zakres w ofercie”. RTV i AGD tylko dla firm i instytucji, dostawa pod adres, **bez montażu**.
-- Liczby firmy: od 2004, 100+ klientów firmowych, autoryzowany serwis Posnet i Elzab, autoryzowany partner InsERT i GoPOS (COMEX — współpraca, Optivendi — partner). Nic ponad to bez zatwierdzenia (`HubSettings.trust[].approved`).
+- Liczby firmy: od 2004, 10 000+ klientów (decyzja szefa 23.11.2026, wcześniej „100+ klientów firmowych”), autoryzowany serwis Posnet i Elzab, autoryzowany partner InsERT i GoPOS (COMEX — współpraca, Optivendi — partner). Nic ponad to bez zatwierdzenia (`HubSettings.trust[].approved`).
 - Telefony, e-maile, godziny, adresy tylko z `CompanyData`. Test `src/sites/prokom/literaly.test.ts`: w `src/sites/prokom/**` i `src/lib/prokom/**` nie ma numerów telefonów, adresów e-mail, „zł”, „WhatsApp”, „leasing”, „rat”, „gratis”, „w cenie” poza plikami seed i testów.
 - Język: zwykły, konkretny, bez żargonu; zdania krótkie. Tytuły bez kropki na końcu tylko tam, gdzie tak jest na planszy.
 
@@ -138,7 +138,7 @@ Hero → lista 20 narzędzi w 2 kolumnach z filtrami „co chcesz zrobić” (Zg
 Lista sytuacji pogrupowana (26), wybrana sytuacja: kroki, „co przygotować”, telefon linii, powiązane narzędzie; „Najczęstsze w tym tygodniu” (ręcznie wybrane w panelu — nie udajemy statystyk); słownik w 30 s; FAQ; „Napisz, co się dzieje” (formularz `hub-pomoc`); Co dalej. `/pomoc/[slug]` = ta sama treść jako osobna strona z H1 pod frazę i `BreadcrumbList`.
 
 ### 6.9 `/o-firmie` (plansza 07, `OFirmie.dc.html`, seed `OFirmie.json`)
-Hero → fakty (od 2004, 100+ klientów firmowych, autoryzacje — tylko zatwierdzone) → historia (kamienie milowe — tylko potwierdzone daty, bez `[ROK]`) → 5 linii („Jeden znak. Kolor mówi, która to linia.”) → 6 zasad → 6 kroków współpracy → autoryzacje z linkami do weryfikacji u producentów → salon (Rabka-Zdrój; Zakopane gdy opublikowane) → dane rejestrowe (bez REGON i numeru konta) + FAQ → finał → Co dalej. Szablon `AboutPage` z D2-4.
+Hero → fakty (od 2004, 10 000+ klientów, autoryzacje — tylko zatwierdzone) → historia (kamienie milowe — tylko potwierdzone daty, bez `[ROK]`) → 5 linii („Jeden znak. Kolor mówi, która to linia.”) → 6 zasad → 6 kroków współpracy → autoryzacje z linkami do weryfikacji u producentów → salon (Rabka-Zdrój; Zakopane gdy opublikowane) → dane rejestrowe (bez REGON i numeru konta) + FAQ → finał → Co dalej. Szablon `AboutPage` z D2-4.
 
 ### 6.10 `/partnerzy` (plansza 08) — v1.1
 Autoryzacje (co z nich masz) → zasada „dobieramy pod obiekt, nie pod markę” → ściana marek z opisem „do czego” → serwis i gwarancja → „sprawdź nas u producentów” → FAQ → finał.

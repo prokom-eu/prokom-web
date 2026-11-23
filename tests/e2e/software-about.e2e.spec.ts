@@ -38,10 +38,10 @@ test.describe('Software /o-firmie (shared template)', () => {
       CEIDG,
     )
 
-    // „2004”, the line's two numbers, the lines count. „100+” is confirmed — no flag badge.
+    // „2004”, the line's two numbers, the lines count. „10 000+” (23.11) is confirmed — no flag badge.
     const stats = about(page).locator('[data-stats-strip] li')
     await expect(stats.first()).toContainText('2004')
-    await expect(stats.nth(1)).toContainText('100+')
+    await expect(stats.nth(1)).toContainText(/10\s000\+/)
     await expect(stats.nth(2)).toContainText('gotowych szablonów')
     await expect(about(page).locator('[data-stat-flag]')).toHaveCount(0)
   })

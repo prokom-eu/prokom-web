@@ -1527,6 +1527,29 @@ function rtvAgdToBiznes(value) {
   return named && entry.line === 'prokom' ? { ...entry, line: 'biznes' } : entry
 }
 
+/**
+ * The client count (boss via Krystian, 23.11.2026): „10 000+ klientów” everywhere — the boards
+ * still say „100+ klientów firmowych”. Whole strings only (values, labels, fact keys), the same
+ * wording as Biznes (`src/seed/biznes/textFixes.ts`). Frozen copy for production:
+ * `src/migrations/data/klienci_10000.ts`.
+ */
+const CLIENT_COUNT = new Map([
+  ['100+', '10 000+'],
+  ['klientów firmowych', 'klientów'],
+  [
+    'Ponad 100 klientów firmowych z Podhala i Małopolski',
+    'Ponad 10 000 klientów z Podhala i Małopolski',
+  ],
+])
+const withClientCount = (value) =>
+  typeof value === 'string'
+    ? (CLIENT_COUNT.get(value) ?? value)
+    : Array.isArray(value)
+      ? value.map(withClientCount)
+      : value && typeof value === 'object'
+        ? Object.fromEntries(Object.entries(value).map(([k, v]) => [k, withClientCount(v)]))
+        : value
+
 mkdirSync(OUT, { recursive: true })
 for (const [name, data] of [
   ['Dostawy', rtvAgdToBiznes(deliveries())],
@@ -1537,6 +1560,6 @@ for (const [name, data] of [
   ['DlaFirm', forBusiness()],
   ['DlaDomu', forHome()],
 ]) {
-  writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(data, null, 2)}\n`)
+  writeFileSync(join(OUT, `${name}.json`), `${JSON.stringify(withClientCount(data), null, 2)}\n`)
   console.log(`${OUT}/${name}.json`)
 }

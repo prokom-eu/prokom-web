@@ -5,6 +5,9 @@ import { brandsSchema, visibleAuthorizations, visibleNetwork } from './brands'
 import { fillPromise, fillTokens, homeSchema, PROMISE, withVisibleFacts } from './home'
 import { HUB_LINES } from './lines'
 
+/** The client count of the hub (23.11.2026): „10 000+” with a hard space. */
+const CLIENTS = '10 000+'
+
 describe('home page texts (HubSettings.home, board 01)', () => {
   const home = hubHome()
 
@@ -55,13 +58,13 @@ describe('home page texts (HubSettings.home, board 01)', () => {
     const counters = home.hero.counters
     expect(withVisibleFacts(counters, []).map((c) => c.value)).toEqual(['5'])
     // „4 autoryzacje” needs all four: one approved brand is not enough.
-    const some = [{ value: 'Od 2004' }, { value: '100+' }, { value: 'Posnet' }]
-    expect(withVisibleFacts(counters, some).map((c) => c.value)).toEqual(['2004', '5', '100+'])
+    const some = [{ value: 'Od 2004' }, { value: CLIENTS }, { value: 'Posnet' }]
+    expect(withVisibleFacts(counters, some).map((c) => c.value)).toEqual(['2004', '5', CLIENTS])
     const all = [...some, { value: 'Elzab' }, { value: 'GoPOS' }, { value: 'InsERT' }]
     expect(withVisibleFacts(counters, all)).toEqual(counters)
-    // A scene fact that repeats „100+” is gated the same way.
+    // A scene fact that repeats the client count is gated the same way.
     const biznes = home.lines.scene.biznes.facts
-    expect(withVisibleFacts(biznes, []).some((f) => f.text.includes('100'))).toBe(false)
+    expect(withVisibleFacts(biznes, []).some((f) => f.text.includes('000'))).toBe(false)
   })
 
   it('take each line promise from its panel ({obietnica}), never from the texts', () => {

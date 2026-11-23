@@ -134,6 +134,7 @@ import * as migration_20261119_230000_hub_alsen_sekcja from './20261119_230000_h
 import * as migration_20261119_230643_inst_zestawy_obszary from './20261119_230643_inst_zestawy_obszary'
 import * as migration_20261122_215236_inst_kontakt_telefony from './20261122_215236_inst_kontakt_telefony'
 import * as migration_20261122_220000_hub_kontakt from './20261122_220000_hub_kontakt'
+import * as migration_20261123_090000_klienci_10000 from './20261123_090000_klienci_10000'
 
 export const migrations = [
   {
@@ -815,5 +816,10 @@ export const migrations = [
     up: migration_20261122_220000_hub_kontakt.up,
     down: migration_20261122_220000_hub_kontakt.down,
     name: '20261122_220000_hub_kontakt',
+  },
+  {
+    up: migration_20261123_090000_klienci_10000.up,
+    down: migration_20261123_090000_klienci_10000.down,
+    name: '20261123_090000_klienci_10000',
   },
 ]
