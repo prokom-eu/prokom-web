@@ -1172,10 +1172,40 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
   gap: 2px;
   min-height: 0;
 }
+/* A list taller than the room the rail has (pro-kom.eu: 14 sections on a laptop) scrolls inside
+   the rail instead of sliding under „Dobierz” and the theme switch — the rail's height is capped
+   by the window (22.11). While there is more below, its bottom fades: the cue that the list goes
+   on. The fade is driven by the list's own scroll (`--srail-fade` 0 without a scroll timeline, or
+   when nothing scrolls), so a list that fits never fades. */
+@property --srail-fade {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+.srail__list {
+  /* Room for the progress dot (3 px left of the line) inside the scroll box, the list in place. */
+  margin-left: -4px;
+  padding-left: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  mask-image: linear-gradient(to bottom, currentColor calc(100% - var(--srail-fade)), transparent);
+  animation: srail-fade linear both;
+  animation-timeline: scroll(self);
+}
 .srail__list[data-long] {
   max-height: calc(10 * 46px);
-  overflow-y: auto;
+  min-height: 120px;
 }
+@keyframes srail-fade {
+  0%,
+  92% {
+    --srail-fade: 28px;
+  }
+  100% {
+    --srail-fade: 0px;
+  }
+}
+
 .srail__marker {
   position: absolute;
   top: 0;
