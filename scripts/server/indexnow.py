@@ -8,10 +8,12 @@ How it works, per domain:
   3. compared with the last state sent (<state>/<domain>.json): new, changed (lastmod) and removed
      addresses go to https://api.indexnow.org/indexnow (the shared endpoint passes them on);
   4. the state is saved only after a 200/202, so a failed send is retried on the next run.
-The first run of a domain sends all its addresses once.
+The first run of a domain sends all its addresses once. A sitemap that shrank below half of the
+last state (an error page, a half-loaded database) is treated as a failure, not as mass removal.
 
 Run from cron on the server (runbook §1.8), times in UTC:
-  17 * * * * cd /srv/prokom/prokom-web && python3 scripts/server/indexnow.py >> ../indexnow/indexnow.log 2>&1
+  17 * * * * cd /srv/prokom/prokom-web && mkdir -p ../indexnow && python3 scripts/server/indexnow.py >> ../indexnow/indexnow.log 2>&1
+(`mkdir` first: the shell opens the log before Python starts.)
 By hand: `python3 scripts/server/indexnow.py --dry-run` (counts only, nothing sent or saved),
 `python3 scripts/server/indexnow.py prokomserwis.pl` (one domain).
 Standard library only — no packages on the server.
@@ -20,6 +22,7 @@ Standard library only — no packages on the server.
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import os
 import sys
@@ -43,6 +46,8 @@ DOMAINS = [
     "prokomgaming.pl",
 ]
 BATCH = 10_000  # protocol limit per request
+# Network and HTTP errors of urllib (resets, incomplete reads, timeouts are OSError / HTTPException).
+NET_ERRORS = (OSError, http.client.HTTPException)
 UA = "prokom-indexnow/1.0 (+https://pro-kom.eu/)"
 NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 ROOT = Path(__file__).resolve().parents[2]
@@ -60,18 +65,25 @@ def fetch(url: str) -> bytes:
         return response.read()
 
 
-def key_file_ok(domain: str) -> bool:
+def key_file(domain: str) -> str:
+    """`ok`, `missing` (404 or another body — the domain does not serve the key) or `error`."""
     try:
-        return fetch(f"https://{domain}/{KEY}.txt").decode().strip() == KEY
-    except (urllib.error.URLError, TimeoutError, UnicodeDecodeError):
-        return False
+        body = fetch(f"https://{domain}/{KEY}.txt").decode("utf-8", "replace").strip()
+    except urllib.error.HTTPError as error:
+        return "missing" if error.code in (404, 410) else "error"
+    except NET_ERRORS:
+        return "error"
+    return "ok" if body == KEY else "missing"
 
 
 def sitemap_entries(url: str, depth: int = 0) -> dict[str, str]:
     """{address: lastmod or ''} of a sitemap; a sitemap index is followed one level down."""
     root = ET.fromstring(fetch(url))
     entries: dict[str, str] = {}
-    if root.tag == f"{NS}sitemapindex" and depth == 0:
+    if root.tag == f"{NS}sitemapindex":
+        if depth > 0:
+            log(urlsplit(url).hostname or url, f"nested sitemap index ignored: {url}")
+            return entries
         for node in root.findall(f"{NS}sitemap/{NS}loc"):
             if node.text:
                 entries.update(sitemap_entries(node.text.strip(), depth + 1))
@@ -113,24 +125,31 @@ def submit(domain: str, urls: list[str]) -> tuple[bool, str]:
         except urllib.error.HTTPError as error:
             # 400 bad request, 403 key not valid, 422 urls of another host, 429 too many requests.
             return False, f"HTTP {error.code}"
-        except (urllib.error.URLError, TimeoutError) as error:
-            return False, f"network: {error}"
+        except NET_ERRORS as error:
+            return False, f"network: {type(error).__name__}: {error}"
     return True, "ok"
 
 
 def run(domain: str, dry_run: bool) -> bool:
-    if not key_file_ok(domain):
+    status = key_file(domain)
+    if status == "missing":
         log(domain, f"skipped - no key file https://{domain}/{KEY}.txt")
         return True
+    if status == "error":
+        log(domain, "FAILED - key file unreachable (network or 5xx)")
+        return False
     try:
         current = sitemap_entries(f"https://{domain}/sitemap.xml")
-    except (urllib.error.URLError, TimeoutError, ET.ParseError) as error:
-        log(domain, f"FAILED - sitemap: {error}")
+    except (*NET_ERRORS, ET.ParseError) as error:
+        log(domain, f"FAILED - sitemap: {type(error).__name__}: {error}")
         return False
     # IndexNow takes only addresses of the key's host.
     current = {url: mod for url, mod in current.items() if urlsplit(url).hostname == domain}
     state_file = STATE_DIR / f"{domain}.json"
     previous = json.loads(state_file.read_text()) if state_file.exists() else {}
+    if previous and len(current) < len(previous) // 2:
+        log(domain, f"FAILED - sitemap shrank from {len(previous)} to {len(current)}; nothing sent")
+        return False
     urls = changed(previous, current)
     if not urls:
         log(domain, f"no changes ({len(current)} addresses)")
@@ -155,7 +174,13 @@ def main() -> int:
     parser.add_argument("domains", nargs="*", default=DOMAINS)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    results = [run(domain, args.dry_run) for domain in args.domains]
+    results = []
+    for domain in args.domains:
+        try:
+            results.append(run(domain, args.dry_run))
+        except Exception as error:  # one broken domain must not stop the others
+            log(domain, f"FAILED - {type(error).__name__}: {error}")
+            results.append(False)
     return 0 if all(results) else 1
 
 

@@ -19,6 +19,7 @@ import {
 } from './jsonLd'
 import { pageRobots, robotsMeta, robotsTxt } from './robots'
 import { siteOrigin } from './origin'
+import { COMPANY_PROFILES } from './social'
 import { sitemapXml } from './sitemap'
 
 describe('siteOrigin', () => {
@@ -173,7 +174,7 @@ describe('organizationJsonLd', () => {
     const [org] = hub['@graph']
     const sameAs = org && 'sameAs' in org ? org.sameAs : []
     expect(sameAs).not.toContain('https://pro-kom.eu/')
-    expect(sameAs).toHaveLength(6)
+    expect(sameAs).toHaveLength(COMPANY_PROFILES.length + 5)
   })
 
   it('adds each branch as a LocalBusiness with opening hours', () => {
