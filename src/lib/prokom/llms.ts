@@ -5,6 +5,8 @@ export type HubLlmsInput = {
   /** Legal name from `CompanyData`. */
   company: string
   phone: string | null
+  /** The hub's second number (panel, #799); none or the same as `phone` = left out. */
+  phone2?: string | null
   email: string | null
   address: string | null
   hours: string | null
@@ -14,10 +16,15 @@ export type HubLlmsInput = {
     url: string | null
     description: string | null
     phone: string | null
+    phone2?: string | null
   }[]
   /** Built pages of the hub (`hubMapPages`), paths from `/`. */
   pages: readonly { href: string; label: string }[]
 }
+
+/** Both numbers joined with a comma, the second only when it differs. */
+const phones = (first: string | null, second?: string | null) =>
+  [first, second && second !== first ? second : null].filter(Boolean).join(', ')
 
 /** A line ends with one full stop. */
 const sentence = (text: string) => (/[.!?]$/.test(text) ? text : `${text}.`)
@@ -41,7 +48,7 @@ export function hubLlmsTxt(input: HubLlmsInput): string {
     '',
     `- Firma: ${input.company}, Rabka-Zdrój (Podhale, Małopolska).`,
     ...(input.address ? [`- Salon: ${input.address}.`] : []),
-    ...(input.phone ? [`- Telefon: ${input.phone}`] : []),
+    ...(input.phone ? [`- Telefon: ${phones(input.phone, input.phone2)}`] : []),
     ...(input.email ? [`- E-mail: ${input.email}`] : []),
     ...(input.hours ? [`- Godziny: ${input.hours}`] : []),
     '',
@@ -50,7 +57,7 @@ export function hubLlmsTxt(input: HubLlmsInput): string {
     ...lines.map((line) => {
       const details = [
         line.description ? sentence(line.description) : null,
-        line.phone ? `Telefon: ${line.phone}.` : null,
+        line.phone ? `Telefon: ${phones(line.phone, line.phone2)}.` : null,
       ].filter(Boolean)
       const link = `[${line.name}](${withSlash(line.url ?? '')})`
       return details.length ? `- ${link}: ${details.join(' ')}` : `- ${link}`

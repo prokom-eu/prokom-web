@@ -15,6 +15,7 @@ const input: HubLlmsInput = {
       url: 'https://prokombiznes.pl',
       description: 'Kasy, komputery, opieka IT',
       phone: '889 003 889',
+      phone2: '883 200 151',
     },
     { name: 'PRO-KOM Tech', url: 'https://prokomserwis.pl/', description: null, phone: null },
     { name: 'Bez strony', url: null, description: 'nic', phone: null },
@@ -43,10 +44,17 @@ describe('hubLlmsTxt (llms.txt of pro-kom.eu)', () => {
 
   it('links each line with a site, without the lines that have none', () => {
     expect(text).toContain(
-      '- [PRO-KOM Biznes](https://prokombiznes.pl/): Kasy, komputery, opieka IT. Telefon: 889 003 889.',
+      '- [PRO-KOM Biznes](https://prokombiznes.pl/): Kasy, komputery, opieka IT. Telefon: 889 003 889, 883 200 151.',
     )
     expect(text).toContain('- [PRO-KOM Tech](https://prokomserwis.pl/)\n')
     expect(text).not.toContain('Bez strony')
+  })
+
+  it('adds the second number of the hub, never twice the same', () => {
+    const both = hubLlmsTxt({ ...input, phone2: '889 003 889' })
+    expect(both.split('\n')).toContain('- Telefon: 883 200 151, 889 003 889')
+    const same = hubLlmsTxt({ ...input, phone2: '883 200 151' })
+    expect(same.split('\n')).toContain('- Telefon: 883 200 151')
   })
 
   it('lists the hub pages with absolute addresses', () => {

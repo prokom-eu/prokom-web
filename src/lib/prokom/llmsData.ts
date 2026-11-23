@@ -21,6 +21,7 @@ export async function hubLlmsData(tenant: { id: number }, origin: string): Promi
     origin,
     company: company?.name ?? 'PRO-KOM',
     phone: hubPhone(shared?.line.phone ?? null),
+    phone2: hubPhone(shared?.line.phone2 ?? null),
     // The hub line's e-mail, as the footer (`getSharedData` falls back to the company one).
     email: shared?.line.email ?? null,
     address: address ? `${address.street}, ${address.postalCode} ${address.city}` : null,
@@ -30,6 +31,7 @@ export async function hubLlmsData(tenant: { id: number }, origin: string): Promi
       url: contact.url,
       description: shared?.lines.find((line) => line.key === contact.key)?.description ?? null,
       phone: contact.phone,
+      phone2: contact.phone2,
     })),
     pages: hubMapPages(settings.pages),
   })
