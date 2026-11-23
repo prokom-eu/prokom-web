@@ -150,6 +150,31 @@ describe('organizationJsonLd', () => {
     expect(data['@graph'][0]).not.toHaveProperty('contactPoint')
   })
 
+  it('links the other PRO-KOM sites with sameAs, never its own (SEO czaty AI 23.11)', () => {
+    expect(data['@graph'][0]).toMatchObject({
+      sameAs: [
+        'https://pro-kom.eu/',
+        'https://prokominstalacje.pl/',
+        'https://prokomsoftware.pl/',
+        'https://prokomserwis.pl/',
+        'https://prokomgaming.pl/',
+      ],
+    })
+  })
+
+  it('leaves out its own domain on www and staging hosts too', () => {
+    const hub = organizationJsonLd({
+      company,
+      tenant: { name: 'PRO-KOM', line: 'prokom' },
+      contact: { phone: null, email: null },
+      origin: 'https://staging.pro-kom.eu',
+    })
+    const [org] = hub['@graph']
+    const sameAs = org && 'sameAs' in org ? org.sameAs : []
+    expect(sameAs).not.toContain('https://pro-kom.eu/')
+    expect(sameAs).toHaveLength(5)
+  })
+
   it('adds each branch as a LocalBusiness with opening hours', () => {
     const [, branch] = data['@graph']
     expect(branch).toMatchObject({

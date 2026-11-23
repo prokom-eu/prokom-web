@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { biznesLlmsBody } from '@/lib/biznes/llmsRoute'
 import { getEnv } from '@/lib/env'
 import { instalacjeLlmsTxt } from '@/lib/instalacje/llmsData'
+import { hubLlmsData } from '@/lib/prokom/llmsData'
 import { siteOrigin } from '@/lib/seo/origin'
 import { softwareLlmsData } from '@/lib/software/llmsData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
@@ -18,6 +19,7 @@ const BUILDERS: Partial<
   instalacje: instalacjeLlmsTxt,
   biznes: biznesLlmsBody,
   software: softwareLlmsData,
+  prokom: hubLlmsData,
 }
 
 /**
