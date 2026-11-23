@@ -64,7 +64,7 @@ describe('home page texts (HubSettings.home, board 01)', () => {
     expect(withVisibleFacts(counters, all)).toEqual(counters)
     // A scene fact that repeats the client count is gated the same way.
     const biznes = home.lines.scene.biznes.facts
-    expect(withVisibleFacts(biznes, []).some((f) => f.text.includes('000'))).toBe(false)
+    expect(withVisibleFacts(biznes, []).some((f) => f.facts.includes(CLIENTS))).toBe(false)
   })
 
   it('take each line promise from its panel ({obietnica}), never from the texts', () => {

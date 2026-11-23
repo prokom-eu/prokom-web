@@ -4,6 +4,8 @@ Ostatnia aktualizacja: 19.11.2026 (katalog Instalacji INST-K0…K2 na produkcji 
 Worktree: `D:\PRO-KOM\repos\prokom-instal` · gałęzie `inst/*` · `PORT=3002`, baza `prokom_web_instalacje` we wspólnym kontenerze PostgreSQL prokom-web (54320), Mailpit wspólny (8025)
 
 ## W toku
+
+- **23.11 (z gałęzi huba `hub/klienci-10000`, polecenie szefa):** `/dla-architektow` — „10 000+ / klientów całej PRO-KOM” zamiast „100+ klientów firmowych” (`src/sites/instalacje/dane/architekci.ts`). Nie cofać przy pracy nad stroną.
 - **Kontakt Instalacji (22.11, #798, produkcja 3f99bd0):** `/kontakt` w układzie „calls” jak Biznes — kafle 889 003 889 i 501 046 249 (bez „+48”, `tel:` z +48), e-mail z „Kopiuj” na cały wiersz (wspólny `ContactPage`: adres dłuższy niż 24 znaki), oba numery w pasku marki i menu telefonu, bez „Zgłoś awarię” w pasku, bez faktu „Odpowiedź: Do 24 h” (powtarzał zdanie pod paskiem). Dane produkcji zmieniła migracja `inst_kontakt_telefony` (tylko pola ze starą wartością; log: `Instalacje kontakt: phone, phone2, shared`). 23.11: drugi numer także w `llms.txt`.
   - **Zostało (Krystian):** PERFECTA 16 (archiwalna u Satela — dopisek o następcy albo PERFECTA 16 LTE; od tego zależą zestawy sklep i gmina); w panelu produkcji usunąć odpięte media z ludźmi (`dahua-asi6213s-pw-01/03`, `hikvision-ds-kis604-s-d-01`, `hikvision-ds-kis702y-01`); `/dla-architektow` LCP ok. 4,5 s w Lighthouse (sprzed INST-K3).
 - **INST-K3 — jakość katalogu, zestawy, premium sekcja i menu (19/20.11, stos 4 PR-ów):**

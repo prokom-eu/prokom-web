@@ -13,7 +13,7 @@ Kod powstaje niezależnie od tych odpowiedzi. Do czasu decyzji: treść oznaczon
 3. **Współpraca:** opiekun dla architektów (kto, telefon, e-mail) i warunki dla pracowni; pokaz w salonie — co i kto prowadzi. Do decyzji na stronie: „Jeden kontakt” zamiast „opiekuna”. **Obietnica „24 godziny na odpowiedź w dni robocze”** (fakty i zasada nr 3 na stronie Współpracy, z planszy) — spec §3 daje 24 h tylko Instalacjom (Biznes 60 min, Software 1 dzień roboczy); zostaje dla całej Współpracy? (dodane 14.11, H1-1c)
 4. **Gaming:** godziny odpowiedzi „codziennie 8–22” — potwierdzić albo zmienić.
 5. **Zakopane:** adres i godziny salonu — czy pokazujemy na hubie (Biznes i Software pokazują tylko Rabkę).
-6. **Liczby i autoryzacje:** „100+ klientów firmowych” (potwierdzone wcześniej — przypomnieć przy akceptacji), kamienie milowe historii z datami (salon w Zakopanem, autoryzacja kas).
+6. **Liczby i autoryzacje:** ~~„100+ klientów firmowych”~~ → „10 000+ klientów” (polecenie szefa 23.11.2026), kamienie milowe historii z datami (salon w Zakopanem, autoryzacja kas).
 7. **Oferta w „Całej ofercie”:** Comarch ERP, Stormshield/Barracuda („rzadko, ale warto wspomnieć”), automaty, podpis kwalifikowany (zakres), RTV i AGD dla firm — ostatnie spojrzenie na opisy.
 8. **„Pisane pod Twoją firmę, nie z szablonu”** (Software w hero) — zostaje?
 9. **Aktualności „Nowe wpisy na e-mail”** — czy w ogóle chcemy newsletter (domyślnie wyłączone).
