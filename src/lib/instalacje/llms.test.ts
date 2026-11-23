@@ -6,7 +6,8 @@ describe('llmsTxt', () => {
   const text = llmsTxt({
     origin: 'https://prokominstalacje.pl',
     name: 'PRO-KOM Instalacje',
-    phone: '+48 889 003 889',
+    phone: '889 003 889',
+    phone2: '501 046 249',
     email: 'kontakt@prokominstalacje.pl',
     address: 'ul. Orkana 16B, 34-700 Rabka-Zdrój',
     services: [
@@ -24,7 +25,8 @@ describe('llmsTxt', () => {
     expect(text).toContain('- Bez strony: Opis.')
     expect(text).toContain('- [Pensjonat](https://prokominstalacje.pl/dla-kogo/pensjonaty)')
     expect(text).toContain('- [Wszystkie usługi](https://prokominstalacje.pl/uslugi)')
-    expect(text).toContain('- Telefon: +48 889 003 889')
+    expect(text).toContain('- Telefon: 889 003 889')
+    expect(text).toContain('- Drugi telefon: 501 046 249')
   })
 
   it('keeps the promises of the spec: no prices, one salon, no boss markers', () => {
