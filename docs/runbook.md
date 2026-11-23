@@ -106,6 +106,7 @@ Serwer: VPS webh.pl, Ubuntu 24.04 (ADR-019). Strefa czasu serwera zostaje **UTC*
      45 2 * * * cd /srv/prokom/prokom-web && scripts/backup.sh staging >> ../backups/backup.log 2>&1
      10 4 * * * /usr/sbin/logrotate -s /srv/prokom/backups/.logrotate.state /srv/prokom/backups/logrotate.conf
      ```
+     **IndexNow (ADR-030)** — w tym samym cronie, co godzinę: `17 * * * * cd /srv/prokom/prokom-web && python3 scripts/server/indexnow.py >> ../indexnow/indexnow.log 2>&1` (katalog `../indexnow` ze stanem i logiem tworzy się sam przy pierwszym wysłaniu; ręcznie: `python3 scripts/server/indexnow.py --dry-run`);
      rotacja logu bez `sudo`: `../backups/logrotate.conf` z `/srv/prokom/backups/backup.log { monthly rotate 6 compress missingok notifempty }`;
    - kopia `monthly` powstaje tylko z przebiegu nocnego 1. dnia miesiąca (UTC) — jeśli ten się nie uda, w danym miesiącu jej nie ma; dlatego alarm o braku świeżej kopii (S10c);
    - Object Lock: pliku w B2 nie da się usunąć przez 14 dni od wysłania — także kluczem z serwera (sprawdzone 1.11). `backup.sh` usuwa kopie dopiero po 14/30/93 dniach, więc blokada mu nie przeszkadza; usunięty plik B2 najpierw ukrywa, a Lifecycle kasuje go po wygaśnięciu blokady.
