@@ -50,3 +50,6 @@ tmp/
 
 # Built e-mail template package (pnpm szablony:build)
 tools/szablony-maili/dist/
+
+# Python (scripts/server/indexnow.py)
+__pycache__/
