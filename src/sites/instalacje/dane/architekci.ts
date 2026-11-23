@@ -906,7 +906,8 @@ export const architekci = {
     { value: 'od 2004', label: 'PRO-KOM w Rabce-Zdroju' },
     { value: '24 mies.', label: 'gwarancji na montaż' },
     { value: '10', label: 'rodzajów instalacji u jednego wykonawcy' },
-    { value: '100+', label: 'klientów firmowych całej PRO-KOM' },
+    // Boss via Krystian, 23.11.2026: „10 000+ klientów” everywhere (was „100+ klientów firmowych”).
+    { value: '10 000+', label: 'klientów całej PRO-KOM' },
   ],
   // Runda v6 §1.2: no realizations on this page (only `/realizacje` and the home page).
   // TODO(krystian): szef — autoryzacja Satel.

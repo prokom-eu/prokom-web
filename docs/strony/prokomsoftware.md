@@ -121,7 +121,7 @@ Kolejność sekcji jest **ustalona** (v21, decyzja Krystiana 30.10 — ścieżka
 | 13 | FAQ (`faq`) | „Pytania, które słyszymy najczęściej” | 6 pytań, akordeon, JSON-LD `FAQPage`. **„Ile to trwa?” z terminami „od”** (wizytówka i landing od 1 tygodnia, strona firmowa od 2 tygodni, system od 2 tygodni — pierwszy moduł, rozbudowana i sklep od 5 tygodni) — tekst z planszy `Main` (`faq.json` w seedzie jeszcze stary, poprawia SWR5). | jedna kolumna | `faq.json` → `homeFaq` | |
 | 14 | Kontakt (`kontakt`) | „Powiedz, co Cię boli. Resztą zajmiemy się my.” | Jak v20 (blok `swContact`); temat bez domyślnego zaznaczenia (ZMIANY-v21 §9). | jak v20 | `CompanyData`, blok `swContact` | `stany/77` |
 
-Pasek „100+ klientów biznesowych” i rok 2004 są w danych firmy (`CompanyData`), nie w kodzie. Pas CTA stopki na `/` jest ukryty (sekcja kontaktu tuż nad stopką, §3.4).
+Pasek „10 000+ klientów” (polecenie szefa 23.11.2026, wcześniej „100+ klientów biznesowych”) i rok 2004 są w danych firmy (`CompanyData`), nie w kodzie. Pas CTA stopki na `/` jest ukryty (sekcja kontaktu tuż nad stopką, §3.4).
 
 **Typografia (v21):** twarde spacje po jednoliterowych słowach (w, i, z, o, a, u) w nagłówkach i leadach oraz w „od 2 tygodni”, „od 2 490 zł”, „w 5–7 dni” — w seedzie (nbsp) albo funkcją formatującą przy renderze nagłówków z panelu; etykiety ≥ 12 px na telefonie.
 
@@ -219,7 +219,7 @@ H1 „Sprawdzimy Twoją stronę. Za darmo.” → formularz z etykietami: adres 
 - Zdanie o dostępności: „Od 28.06.2025 część usług cyfrowych musi to spełniać” — sprawdzić brzmienie z ustawą o zapewnianiu spełniania wymagań dostępności (§13).
 
 ### 6.6 O firmie `/o-firmie` (plansza `ONas`)
-H1 „Firma z Rabki. Od 2004 roku.” — hero z **kolażem zdjęć** (salony, zespół) zamiast liczb → „Konkretnie, bez dmuchania.” (liczby tylko tu: 2004, 100+, 2 salony, 5 linii) → „Pracujesz z firmą. Nie z jedną osobą.” (ciągłość, na miejscu, na piśmie) → **„Freelancer, agencja czy PRO-KOM?”** (porównanie: tabela 3 kolumn, na telefonie przełącznik kolumny, bez nazw firm; `compare`; `stany/70-porownanie-agencja.jpg`; sekcja `swHomeSection`) — **v21: „Jak robimy” i „Z czego budujemy” wróciły na stronę główną (§4, sekcje 8 i 10; SWR5)**, na `/o-firmie` ich nie ma
+H1 „Firma z Rabki. Od 2004 roku.” — hero z **kolażem zdjęć** (salony, zespół) zamiast liczb → „Konkretnie, bez dmuchania.” (liczby tylko tu: 2004, 10 000+ — od 23.11, 2 salony, 5 linii) → „Pracujesz z firmą. Nie z jedną osobą.” (ciągłość, na miejscu, na piśmie) → **„Freelancer, agencja czy PRO-KOM?”** (porównanie: tabela 3 kolumn, na telefonie przełącznik kolumny, bez nazw firm; `compare`; `stany/70-porownanie-agencja.jpg`; sekcja `swHomeSection`) — **v21: „Jak robimy” i „Z czego budujemy” wróciły na stronę główną (§4, sekcje 8 i 10; SWR5)**, na `/o-firmie` ich nie ma
 → historia „Najpierw sprzęt i serwis. Potem własne systemy.” — **oś czasu z `[ROK]`** przy wydarzeniach bez potwierdzonej daty (salon w Zakopanem, autoryzowany serwis kas; uzupełnia szef — §13 pkt 32), linie z „Tech” (nie „Serwis”); „Ciągłość” bez obietnicy zastępstwa („kod, dostępy i dokumentacja uporządkowane i zapisane w umowie — projekt przejmie każdy programista”), „Pracujesz z firmą, która działa od 2004 r.”; bez obietnicy zespołu developerów → „Kto z Tobą pracuje.” (Krystian Potaczek, Tadeusz Wójciak, [IMIĘ I NAZWISKO] — zdjęcia tylko za zgodą) → „Dwa salony. Ludzie na miejscu.” (Rabka, Zakopane [ADRES SALONU W ZAKOPANEM], ze zdjęciami) → CTA.
 - Miejsca na zdjęcia (komponent zdjęcia z opisem, co ma na nim być) — do sesji zdjęciowej przed produkcją (§13 pkt 25). Bez zdjęcia: opis-zaślepka nie trafia na produkcję.
 - Telefon: porównanie jako karuzela / przełącznik kolumny (`stany/70`).
@@ -391,7 +391,7 @@ Numery punktów są stałe (odsyłają do nich inne dokumenty); stan po v20 i v2
 14. Dostępność: data 28.06.2025 i zakres podmiotów (ustawa z 26.04.2024 o zapewnianiu spełniania wymagań dostępności niektórych produktów i usług) — brzmienie zdania na `/audyt`, w katalogu i w ofercie.
 15. Liczby we wpisie WordPress i w sekcji „Dlaczego nie WordPress” (W3Techs, Patchstack: 7 966 luk w 2024 r.) — ponownie w dniu publikacji.
 16. Nazwy linii PRO-KOM („Serwis” vs „Tech”) na `/o-firmie` i `/jedna-firma` — zgodnie z `docs/marka.md`.
-17. „100+ klientów biznesowych” i „od 2004 r.” — potwierdzone przez szefa (są w danych firmy).
+17. „10 000+ klientów” (23.11.2026, wcześniej „100+ klientów biznesowych”) i „od 2004 r.” — potwierdzone przez szefa (są w danych firmy).
 
 **Klucze faktów:** wszystkie placeholdery z tekstów są w `seed/prokomsoftware/fakty.json` (od v20 wypełnione wg §13 pkt 1–5; `null` = element ukryty na produkcji); jeden klucz = jedna wartość w całej stronie (ADR-014 rozstrz. 4: `[CZAS PIERWSZEGO ETAPU]`, `[OPIEKA OD]`; `{termin}` w tekstach rozwiązania = jego `leadTime`). Telefon i e-mail linii nie są faktami — `SiteSettings.phone` / `email`. Uzupełnienie = wpis w panelu (`SiteSettings.software.facts`). Nowe klucze v20: `[TELEFON ZAKOPANE]`, `[OKRES PRZECHOWYWANIA]`, `[DATA AKTUALIZACJI]`. Ceny w zdaniach: `{cena:<slug>}` = cena „od” rozwiązania z `Solutions` (ADR-014 v20), nie fakt.
 
