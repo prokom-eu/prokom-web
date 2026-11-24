@@ -5,7 +5,11 @@
 #   before a production deploy: scripts/backup.sh prod predeploy
 # Result: one file prokom-<stack>-<UTC time>.tar.age (inside: db.dump from pg_dump -Fc,
 # media.tar, manifest.txt), in BACKUP_DIR/<stack>/<kind>/ and RCLONE_REMOTE/<stack>/<kind>/.
-# Kinds and retention: daily 14 days, monthly (the backup of the 1st) ~3 months, predeploy 30 days.
+# Kinds and retention: daily 14 days, monthly (the backup of the 1st) ~3 months, predeploy 30 days
+# on the server. Off the server (decision 24.11.2026, free 10 GB of B2): predeploy 14 days (the
+# shortest Object Lock allows) and at most one per 24 hours — every deploy still gets its copy on
+# the server for a rollback; a lost server is covered by the nightly copy. Old off-server copies go
+# before the new one is sent, so a full bucket frees itself instead of failing every night.
 # Off the server only the production (ADR-019, decision 16.11.2026: the B2 bucket stays in its free
 # 10 GB; staging is rebuilt from the code and its copies stay on the server). Staging copies sent
 # before are removed from B2 by each staging backup once Object Lock (14 days) lets them go.
@@ -108,6 +112,16 @@ retention_days() {
   case "$1" in daily) echo 14 ;; monthly) echo 93 ;; predeploy) echo 30 ;; esac
 }
 
+# Days off the server: predeploy only as long as Object Lock (14 days) holds it.
+offsite_days() {
+  case "$1" in predeploy) echo 14 ;; *) retention_days "$1" ;; esac
+}
+
+# An off-server predeploy copy from the last 24 hours already there?
+recent_offsite() {
+  [ -n "$(rclone lsf --files-only --max-age 24h "$1" 2>/dev/null)" ]
+}
+
 offsite=0
 if [ -n "${RCLONE_REMOTE:-}" ] && { [ "$stack" = prod ] || [ "${BACKUP_OFFSITE_STAGING:-}" = 1 ]; }; then
   offsite=1
@@ -116,9 +130,16 @@ fi
 for k in "${kinds[@]}"; do
   days="$(retention_days "$k")"
   if [ "$offsite" = 1 ]; then
-    log "off-server copy to $RCLONE_REMOTE/$stack/$k/"
-    rclone copy "$backup_dir/$stack/$k/$name" "$RCLONE_REMOTE/$stack/$k/"
-    rclone delete --min-age "${days}d" "$RCLONE_REMOTE/$stack/$k/"
+    remote="$RCLONE_REMOTE/$stack/$k/"
+    # Old copies first: a full bucket gets its room back before the new copy (403 storage cap).
+    rclone delete --min-age "$(offsite_days "$k")d" "$remote" ||
+      log "old off-server copies in $k: not removed yet (Object Lock or none)"
+    if [ "$k" = predeploy ] && recent_offsite "$remote"; then
+      log "off-server predeploy copy from the last 24 h already there; this one stays on the server"
+    else
+      log "off-server copy to $remote"
+      rclone copy "$backup_dir/$stack/$k/$name" "$remote"
+    fi
   fi
   find "$backup_dir/$stack/$k" -name '*.tar.age' -mtime +"$days" -delete
 done
