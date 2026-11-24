@@ -273,6 +273,8 @@ async function Salon({
           <section
             id="oferta-cala"
             aria-labelledby="oferta-cala-h"
+            data-rail-section="Cała oferta"
+            data-rail-icon="grid"
             className="flex scroll-mt-28 flex-col gap-8 max-md:gap-4"
           >
             <SectionHead

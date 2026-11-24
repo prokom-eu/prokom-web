@@ -53,6 +53,8 @@ export async function SamsungBusiness({ tenantId }: { tenantId: number }) {
     <section
       id="samsung-dla-firm"
       aria-labelledby="samsung-dla-firm-h"
+      data-rail-section="Samsung dla firm"
+      data-rail-icon="mobile"
       className="zh bzsg scroll-mt-28"
     >
       <div className="bzsg-stage">
