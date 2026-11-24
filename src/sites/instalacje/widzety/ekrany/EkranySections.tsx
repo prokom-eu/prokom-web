@@ -5,12 +5,13 @@ import { InstIcon } from '../../InstIcon'
 import { InstSection } from '../../sekcje/InstSectionLazy'
 import { SectionHead } from '../../sekcje/SectionHead'
 import { BrightnessPicker, PixelPitch, TwoSalons } from './EkranyWidgetsLazy'
+import { Szkolenia } from './Szkolenia'
 
 const SECTION = { padding: '0 0 104px' }
 
 /**
  * The Ekrany sections between the hero and the shared ones (`zrodlo/pages/Multimedia.body.html`):
- * where we mount screens, the two-salon demo, brightness, TV or professional screen, content,
+ * where we mount screens, the Samsung trainings (23.11), the two-salon demo, brightness, TV or professional screen, content,
  * LED and interactive, outdoor. Folded on a phone as in `zrodlo/fold.json` (`tv-czy-ekran`,
  * `sciany-led`, `zewnatrz`; `cena` and `faq` by the shared sections).
  */
@@ -47,6 +48,8 @@ export function EkranySections() {
           </div>
         </div>
       </InstSection>
+
+      <Szkolenia />
 
       <InstSection id="dwa-ekrany" style={SECTION}>
         <div className="wrap">
