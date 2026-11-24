@@ -26,6 +26,9 @@ export function CertZoom({
 }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState<Certificate | null>(null)
+  // The button that opened the window: Safari does not focus a clicked button, so the browser's
+  // own focus return would land on <body> — the focus goes back to it by hand.
+  const trigger = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const element = dialog.current
@@ -38,7 +41,9 @@ export function CertZoom({
       onClick={(event) => {
         const button = (event.target as HTMLElement).closest<HTMLElement>(`[${CERT_ATTR}]`)
         const item = button && items.find((cert) => cert.id === button.getAttribute(CERT_ATTR))
-        if (item) setOpen(item)
+        if (!item) return
+        trigger.current = button
+        setOpen(item)
       }}
     >
       {children}
@@ -49,7 +54,10 @@ export function CertZoom({
         onClick={(event) => {
           if (event.target === dialog.current) dialog.current?.close()
         }}
-        onClose={() => setOpen(null)}
+        onClose={() => {
+          setOpen(null)
+          trigger.current?.focus()
+        }}
       >
         {open && (
           <figure className="cdlg__fig">
@@ -60,6 +68,8 @@ export function CertZoom({
                 width={open.image.width}
                 height={open.image.height}
                 sizes="(min-width: 1100px) 1000px, 94vw"
+                // The paper keeps its shape while the full scan loads.
+                style={{ aspectRatio: `${open.image.width} / ${open.image.height}` }}
               />
             </span>
             <figcaption className="cdlg__cap">

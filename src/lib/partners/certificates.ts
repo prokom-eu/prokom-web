@@ -99,9 +99,14 @@ export const CERTIFICATES: readonly Certificate[] = [
   },
 ]
 
-/** „Status partnerski · 2022–2023” or „Szkolenie · 2018” — the years always next to the name. */
+/**
+ * „Status partnerski · 2022–2023 (zakończony)” or „Szkolenie · 2018” — the years always next to
+ * the name, and an ended status says so even on a thumbnail.
+ */
 export function certificateLabel(item: Certificate): string {
-  return `${item.kind === 'status' ? 'Status partnerski' : 'Szkolenie'} · ${item.period}`
+  return item.kind === 'status'
+    ? `Status partnerski · ${item.period} (zakończony)`
+    : `Szkolenie · ${item.period}`
 }
 
 const years = CERTIFICATES.flatMap((item) => item.period.split('–').map(Number))

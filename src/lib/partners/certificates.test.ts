@@ -38,7 +38,7 @@ describe('certificates (boss consent 23.11.2026)', () => {
   })
 
   it('labels a status as history with its years, a training with its year', () => {
-    expect(certificateLabel(CERTIFICATES[0]!)).toBe('Status partnerski · 2023–2024')
+    expect(certificateLabel(CERTIFICATES[0]!)).toBe('Status partnerski · 2023–2024 (zakończony)')
     expect(certificateLabel(CERTIFICATES[3]!)).toBe('Szkolenie · 2018')
   })
 
