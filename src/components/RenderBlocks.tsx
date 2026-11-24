@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContactBlock } from '@/blocks/Contact/Component'
 import { FaqBlock } from '@/blocks/Faq/Component'
@@ -43,6 +45,7 @@ import { Breadcrumbs } from '@/sites/biznes/components/Breadcrumbs'
 import { SwCallToAction } from '@/sites/software/components/SwCallToAction'
 import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
+import { AppleCertificates } from '@/sites/biznes/components/home/AppleCertificates'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstArchitectsBlock } from '@/sites/instalacje/blocks/InstArchitects/Component'
@@ -193,10 +196,15 @@ export function RenderBlocks({ page, tenant }: Props) {
           case 'contact':
             return <ContactBlock key={key} block={block} tenantId={tenant.id} />
           case 'partners':
-            return biznes ? (
-              <BrandsHome key={key} block={block} tenantId={tenant.id} />
+            if (!biznes) return <PartnersBlock key={key} block={block} tenantId={tenant.id} />
+            // Biznes home: „Apple dla firm” and the certificates right after the brands (23.11).
+            return page.slug === HOME_SLUG ? (
+              <Fragment key={key}>
+                <BrandsHome block={block} tenantId={tenant.id} />
+                <AppleCertificates />
+              </Fragment>
             ) : (
-              <PartnersBlock key={key} block={block} tenantId={tenant.id} />
+              <BrandsHome key={key} block={block} tenantId={tenant.id} />
             )
           case 'inquiryForm':
             return (

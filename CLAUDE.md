@@ -133,7 +133,7 @@ Krystian pracuje na jednym komputerze. **GitHub to kopia kodu i jedyna droga na 
 - **Od 30.10.2026 etap K4 (wersja finalna v150):** `docs/design/prokombiznes/K4-FINAL.md` + `PRZEKAZANIE-K4.md`, decyzje — ADR-017, plan sesji — `docs/zadania/prokombiznes.md` §7.
 - Wzorzec: `docs/design/prokombiznes/INDEKS.md` (kolejność ważności dokumentów); decyzje repo (adresy `/oferta/…`, model per tenant) — ADR-017 i ADR-012 „Rozstrzygnięcia”, plan sesji — `docs/zadania/prokombiznes.md` §7 (historia: §6).
 - Telefon = osobny układ jak aplikacja (`MOBILE-APLIKACJA.md`), jego §4 to Definition of Done każdej sesji z UI.
-- Zero cen, tylko Rabka, kontakt@prokombiznes.pl, tel. 889 003 889 i 883 200 151, pn–pt 9–17 (decyzja 01.11.2026); statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, ALSEN „Autoryzowany partner” (sieć partnerska, osobny rząd — decyzja 18.11.2026), Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1).
+- Zero cen, tylko Rabka, kontakt@prokombiznes.pl, tel. 889 003 889 i 883 200 151, pn–pt 9–17 (decyzja 01.11.2026); statusy tylko: Posnet/Elzab „Autoryzowany serwis”, GoPOS/InsERT „Autoryzowany partner”, ALSEN „Autoryzowany partner” (sieć partnerska, osobny rząd — decyzja 18.11.2026), Optivendi „Partner”, COMEX „We współpracy”; HP tylko oryginalne wkłady (K4-FINAL §1). Apple: program iLeader dystrybutora AB (DEP, CTO, AppleCare+ — sprzedaż i wdrożenia), napisem, bez logo, nigdy „autoryzowany serwis”; certyfikaty Samsung i Dell tylko jako historia z latami (zgoda szefa 23.11.2026, `src/lib/partners/certificates.ts`).
 
 <!-- BEGIN:nextjs-agent-rules -->
 

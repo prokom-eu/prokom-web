@@ -16,6 +16,11 @@ Aktualizuj po każdej sesji (`/koniec-sesji`). Najnowsze na górze.
 Dwie strony powstają równolegle, każda we własnym folderze (git worktree) — `docs/sposob-pracy.md` → „Dwie strony równolegle”. Każda sesja edytuje tylko podsekcję swojej strony.
 Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęzie inst/*)
 
+### Programy partnerskie i certyfikaty (24.11, zgoda szefa 23.11) — folder `prokom-web-cert`
+- PR-y piętrowe: `feat/wsp-certyfikaty-dane` (dane `src/lib/partners/certificates.ts`, obrazy `public/certyfikaty/`, folder w `routing.ts`, okno `CertZoom` + `.cdlg` w `wspolne.css`) → `feat/hub-certyfikaty` (sekcja po „Marki i autoryzacje” na pro-kom.eu, spec §3) → `feat/biznes-apple-certyfikaty` (pas „Apple dla firm i instytucji” + „Certyfikaty” po markach na głównej prokombiznes.pl, `#apple-dla-firm`, `#certyfikaty`).
+- Teksty w kodzie (stała historia z dokumentów), bez migracji i pól w panelu. Wzór: prokomserwis.pl (`prokom-system`, `/o-firmie#certyfikaty`, `/apple#dla-firm`).
+- Następny krok: Krystian czyta diff i scala po kolei; wdrożenie na produkcję tylko za jego zgodą.
+
 ### Runda 18.11 — pomysły szefa (plan z czatu, `docs/zadania/runda-1811.md`)
 - Dokumenty (PR `docs/runda-1811`): plan i prompty `docs/zadania/runda-1811.md`, wspólny kontrakt `docs/design/wspolne/MOTYW-PASEK-LINII.md`, ADR-028 (motyw: przycisk z napisem, Auto „w nocy ciemny”, wybór niesiony między domenami `?motyw=`), ADR-029 (katalog i salony marek Instalacji na silniku Biznesu, dane z Eltrox), plan treści `docs/tresci/instalacje-katalog-eltrox.md`, logo `seed/partnerzy/alsen.png`.
 - Sesje: **WSP-M** (folder fundamentu) ‖ **BZ-R1** (`prokom-web-biznes`) → **HUB-R1** (`prokom-web-hub`) → **INST-K0 → INST-K1 → INST-K2** (`prokom-instal`). Tech (T-R1) i Gaming (GM-R1) w swoich repo.
@@ -896,6 +901,7 @@ a gałęzi) — w tej sesji.
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
+- (24.11, certyfikaty) Nowe sekcje „Programy i certyfikaty” (hub) oraz „Apple dla firm” (Biznes) nie mają pozycji w szynie sekcji (`SiteSettings.shared.rail`) — dopisać w seedzie, jeśli mają być w szynie. Ewentualnie teksty do panelu (migracja).
 - **(Biznes, BZ-R1 PR 2, przegląd)** `requiredSpecs` liczy wymagane parametry per kategoria — akcesoria tablic (FrameWings) trafiają na listę braków „Rozdzielczość/Złącza”, których nigdy nie będą miały. Sloty per podkategoria (np. `av/suchoscieralne-akcesoria`) w `requiredSpecs.ts` i `scripts/parametry-braki.ts`.
 - **(Biznes, seed, BZ-R1)** krok „products K4 polecane/podobne” aktualizuje przy każdym przebiegu 2 karty (`lenovo-thinkstation-p3-tower-gen-2`, `dell-ultrasharp-32-qd-oled-u3226q`) — etykiety/kolejność polecanych nadpisuje inny krok; seed nie jest tu idempotentny (było przed BZ-R1).
 - **(Biznes, BZ-R1 PR 3, przegląd)** `getPartnerNetworks` bez `cacheQuery` (jak `getPartnerStatuses`) — zapytanie przy każdym renderze hero/BzFacts/O firmie; przy wzroście ruchu dodać cache z tagiem partnerów.

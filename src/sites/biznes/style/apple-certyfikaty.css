@@ -1,0 +1,358 @@
+/*
+ * Home page: „Apple dla firm i instytucji” and „Certyfikaty” (`AppleCertificates`, boss consent
+ * 23.11.2026), after the brands. Built on the `.zh` variables of `zaopatrzenie-home.css` (the navy
+ * of the procurement cards, its glows and dot grid): the band is navy in both themes, the
+ * certificate cards follow the theme, and the document scans sit on white paper in both.
+ * Colours only from tokens; motion only transform/opacity, off with reduced motion.
+ */
+
+/* --- The navy band ---------------------------------------------------------------------------- */
+.bzac-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(26px, 3.4vw, 48px);
+  border: 1px solid var(--zh-on-08);
+  border-radius: 30px;
+  background: var(--zh-navy);
+  color: var(--zh-white);
+}
+.bzac-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      48% 60% at 84% 18%,
+      color-mix(in srgb, var(--on-dark) 46%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 46% at 4% 100%,
+      color-mix(in srgb, var(--on-dark-text) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(circle at 1px 1px, var(--zh-on-06) 1px, transparent 1.5px) 0 0 / 18px 18px;
+}
+.bzac-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+}
+.bzac-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.bzac-stage .zh-badge i {
+  background: var(--tone-green-2);
+}
+.bzac-h {
+  max-width: 19ch;
+  font-size: clamp(30px, 3.3vw, 48px);
+}
+.bzac-h em {
+  color: var(--on-dark-text);
+  font-style: normal;
+}
+.bzac-lead {
+  max-width: 40em;
+  color: var(--zh-on-76);
+}
+.bzac-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: 4px;
+}
+.bzac-partner {
+  color: var(--zh-on-60);
+  font: 800 13px var(--font-sans);
+  letter-spacing: 0.02em;
+}
+
+/* DEP flow: a glass panel with three numbered steps joined by a line. */
+.bzac-flow {
+  position: relative;
+  margin: 0;
+  padding: 22px 22px 18px;
+  border: 1px solid var(--zh-on-12);
+  border-radius: 22px;
+  background: var(--zh-on-06);
+  box-shadow: inset 0 1px 0 var(--zh-on-08);
+  backdrop-filter: blur(6px);
+}
+.bzac-flow-cap {
+  margin-bottom: 14px;
+  color: var(--zh-on-60);
+  font: 800 11.5px var(--font-sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bzac-steps {
+  position: relative;
+  display: grid;
+  gap: 14px;
+}
+.bzac-steps::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 17px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(var(--on-dark-text), var(--tone-green-2));
+  opacity: 0.55;
+}
+.bzac-steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+}
+.bzac-dot {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--zh-on-18);
+  border-radius: 50%;
+  background: var(--zh-navy);
+  color: var(--zh-white);
+  font: 800 14px var(--font-display);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--zh-navy) 70%, transparent);
+}
+.bzac-steps li:last-child .bzac-dot {
+  border-color: transparent;
+  background: var(--tone-green-2);
+  color: var(--on-dark-ink);
+}
+.bzac-step {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 6px;
+}
+.bzac-step b {
+  font: 800 15.5px var(--font-sans);
+}
+.bzac-step span {
+  color: var(--zh-on-76);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.bzac-done {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--zh-on-12);
+  color: var(--zh-on-88);
+  font: 700 13.5px var(--font-sans);
+}
+.bzac-done svg {
+  color: var(--tone-green-2);
+}
+
+/* Three programme cards. */
+.bzac-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: clamp(26px, 3vw, 40px);
+}
+.bzac-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 22px 20px;
+  border: 1px solid var(--zh-on-12);
+  border-radius: 22px;
+  background: var(--zh-on-06);
+}
+.bzac-ico {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--on-dark-text) 16%, transparent);
+  color: var(--on-dark-text);
+}
+.bzac-ico svg {
+  width: 24px;
+  height: 24px;
+}
+.bzac-num {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: var(--zh-on-18);
+  font: 800 30px var(--font-display);
+  letter-spacing: -0.03em;
+}
+.bzac-title {
+  font: 800 19px var(--font-display);
+  letter-spacing: -0.01em;
+}
+.bzac-sub {
+  color: var(--on-dark-text);
+  font: 800 13.5px var(--font-sans);
+}
+.bzac-text {
+  margin-top: 4px;
+  color: var(--zh-on-76);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.bzac-note {
+  margin-top: 18px;
+  color: var(--zh-on-60);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* --- Certificates ----------------------------------------------------------------------------- */
+.bzac-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+.bzac-cert {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+}
+.bzac-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 176px;
+  margin-bottom: 8px;
+  padding: 12px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--accent-text) 7%, var(--surface-2));
+  cursor: zoom-in;
+}
+.bzac-thumb img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 12px 22px -14px color-mix(in srgb, var(--zh-black) 60%, transparent);
+}
+.bzac-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--zh-navy);
+  color: var(--zh-white);
+}
+.bzac-thumb:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 2px;
+}
+.bzac-chip,
+.bzac-cert-title,
+.bzac-scope {
+  padding-inline: 6px;
+}
+.bzac-chip {
+  color: var(--ink-2);
+  font: 800 12px var(--font-sans);
+}
+.bzac-cert-title {
+  font: 800 15px var(--font-sans);
+  line-height: 1.3;
+}
+.bzac-scope {
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bzac-card,
+  .bzac-thumb,
+  .bzac-thumb img {
+    transition:
+      translate 0.4s var(--zh-ease),
+      scale 0.5s var(--zh-ease),
+      border-color 0.3s,
+      background-color 0.3s;
+  }
+  @media (hover: hover) {
+    .bzac-card:hover {
+      border-color: var(--zh-on-18);
+      background: var(--zh-on-08);
+      translate: 0 -4px;
+    }
+    .bzac-thumb:hover img {
+      scale: 1.04;
+      translate: 0 -3px;
+    }
+  }
+}
+
+/* --- Tablet and phone ------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .bzac-top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bzac-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 767px) {
+  .bzac-stage {
+    padding: 24px 18px 20px;
+    border-radius: 24px;
+  }
+  .bzac-h {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+  .bzac-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .bzac-actions .zh-btn {
+    justify-content: center;
+  }
+  .bzac-flow {
+    padding: 18px 16px 14px;
+  }
+  .bzac-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bzac-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .bzac-thumb {
+    height: 128px;
+    padding: 8px;
+  }
+}
