@@ -1881,3 +1881,103 @@ html[data-line] ::-webkit-scrollbar-thumb:hover {
     transition: none;
   }
 }
+
+/*
+ * The enlarged certificate of the hub and Biznes (`CertZoom`, boss consent 23.11.2026): a modal
+ * `<dialog>` with the document on a white plate in both themes (scans are white paper), the
+ * caption with the years under it and a round close button. Colours from the line tokens.
+ */
+.cdlg {
+  width: min(1040px, calc(100% - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 40px 100px -30px var(--cap-shadow);
+}
+.cdlg::backdrop {
+  background: var(--sdlg-backdrop);
+  backdrop-filter: blur(6px);
+}
+.cdlg__fig {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: clamp(12px, 2vw, 20px);
+}
+.cdlg__plate {
+  display: grid;
+  place-items: center;
+  padding: clamp(8px, 1.4vw, 14px);
+  border-radius: 14px;
+  background: var(--c-white);
+}
+.cdlg__plate img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 170px);
+}
+.cdlg__cap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 44px 2px 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.cdlg__cap b {
+  color: var(--ink);
+  font-size: 15px;
+}
+.cdlg__close {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--ink);
+  cursor: pointer;
+}
+.cdlg__close:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cdlg,
+  .cdlg::backdrop {
+    transition:
+      opacity 220ms var(--ease-out),
+      scale 220ms var(--ease-out),
+      display 220ms allow-discrete,
+      overlay 220ms allow-discrete;
+  }
+  .cdlg:not([open]),
+  .cdlg:not([open])::backdrop {
+    opacity: 0;
+  }
+  .cdlg:not([open]) {
+    scale: 0.97;
+  }
+  @starting-style {
+    .cdlg[open],
+    .cdlg[open]::backdrop {
+      opacity: 0;
+    }
+    .cdlg[open] {
+      scale: 0.97;
+    }
+  }
+}

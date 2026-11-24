@@ -28,13 +28,15 @@ const PANEL_ONLY_PREFIXES = ['/admin', '/api']
 // `/software/rozwiazania`: thumbnails of the Software solutions (SWR3, spec. §5.2).
 // `/instalacje/ev`: photos of the Elzab EcoPower chargers (Instalacje I9, spec §2.5);
 // `/instalacje/marki`: brand logos of the home page (RUNDA-V5 §2); `/prokom/marki`: logos and
-// products of the pro-kom.eu brands section (H9).
+// products of the pro-kom.eu brands section (H9); `/certyfikaty`: manufacturer certificates of the
+// hub and Biznes (boss consent 23.11.2026).
 const PUBLIC_PREFIXES = [
   '/brand',
   '/software/rozwiazania',
   '/instalacje/ev',
   '/instalacje/marki',
   '/prokom/marki',
+  '/certyfikaty',
 ]
 // The one part of the Payload API a site domain needs: files of the upload collections, which
 // Payload serves only after its `read` access (tenant of the `Host`, see `lib/media/access`).
