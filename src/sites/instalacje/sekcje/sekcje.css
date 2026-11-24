@@ -383,7 +383,10 @@
   /* The hero's headline and lead are the largest paint (LCP). An element at opacity 0 does not
      count, so a fade made LCP wait for the animation and the scripts before it (INST-3: 2.8 s on
      staging). They are visible at the first paint and only rise. */
-  & :is(.h1, .disp, .lead).in {
+  /* Also a wrapper that holds them (`/dla-architektow`: `.in` on the h1 and lead columns) — its
+     fade kept the lead out of LCP until the animation ended (staging 24.11: LCP 4.6 s). */
+  & :is(.h1, .disp, .lead).in,
+  & .in:has(.h1, .disp, .lead) {
     opacity: 1;
     animation-name: inst-rise;
   }
