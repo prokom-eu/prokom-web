@@ -11,6 +11,7 @@ import { siteOrigin } from '@/lib/seo/origin'
 import { getSharedData } from '@/lib/shared/getSharedData'
 
 import { type AboutAuth, BzAboutView } from '../../components/about/BzAboutView'
+import { CertificatesGallery } from '../../components/about/CertificatesGallery'
 
 type Props = { tenantId: number }
 
@@ -78,6 +79,7 @@ export async function BzAboutPageBlock({ tenantId }: Props) {
       auth={auth}
       others={wall}
       networks={networks}
+      certificates={<CertificatesGallery />}
       brandTotal={brandCount(index)}
     />
   )

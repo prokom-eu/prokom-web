@@ -20,6 +20,7 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 - PR-y piętrowe: `feat/wsp-certyfikaty-dane` (dane `src/lib/partners/certificates.ts`, obrazy `public/certyfikaty/`, folder w `routing.ts`, okno `CertZoom` + `.cdlg` w `wspolne.css`) → `feat/hub-certyfikaty` (sekcja po „Marki i autoryzacje” na pro-kom.eu, spec §3) → `feat/biznes-apple-certyfikaty` (pas „Apple dla firm i instytucji” + „Certyfikaty” po markach na głównej prokombiznes.pl, `#apple-dla-firm`, `#certyfikaty`).
 - Teksty w kodzie (stała historia z dokumentów), bez migracji i pól w panelu. Wzór: prokomserwis.pl (`prokom-system`, `/o-firmie#certyfikaty`, `/apple#dla-firm`).
 - Scalone: #811 (dane, `CertZoom`), #812 (hub), #813 (Biznes: Apple + certyfikaty), #814 (Instalacje: dwa szkolenia Samsung 2018 na `/ekrany`). #815: „Samsung dla firm” (pas `#samsung-dla-firm` na Biznesie, karta w hubie; statusy Samsung tylko w czasie przeszłym, bez KME).
+- **Przeniesione z głównych (24.11, prośba Krystiana, `feat/certyfikaty-podstrony`):** hub — sekcja z głównej na `/o-firmie` (po sieci partnerskiej); Biznes — „Apple dla firm” do salonu `/marki/apple`, „Samsung dla firm” do `/marki/samsung` (oba po „O marce”, przed pytaniami), galeria dokumentów na `/o-firmie#certyfikaty` (po markach, w szynie jako „Certyfikaty”). Główne obu stron bez tych sekcji; linki huba prowadzą do salonów.
 - Wdrożenie: zgoda Krystiana z 24.11 na samodzielne scalanie i produkcję po zielonym CI, stagingu i Lighthouse.
 
 ### Runda 18.11 — pomysły szefa (plan z czatu, `docs/zadania/runda-1811.md`)
@@ -902,7 +903,7 @@ a gałęzi) — w tej sesji.
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
-- (24.11, certyfikaty) Nowe sekcje „Programy i certyfikaty” (hub) oraz „Apple dla firm” (Biznes) nie mają pozycji w szynie sekcji (`SiteSettings.shared.rail`) — dopisać w seedzie, jeśli mają być w szynie. Ewentualnie teksty do panelu (migracja).
+- (24.11, certyfikaty) Pasy „Apple dla firm” i „Samsung dla firm” w salonach nie mają pozycji w szynie sekcji salonu — dopisać, jeśli mają być w szynie. Ewentualnie teksty do panelu (migracja).
 - **(Biznes, BZ-R1 PR 2, przegląd)** `requiredSpecs` liczy wymagane parametry per kategoria — akcesoria tablic (FrameWings) trafiają na listę braków „Rozdzielczość/Złącza”, których nigdy nie będą miały. Sloty per podkategoria (np. `av/suchoscieralne-akcesoria`) w `requiredSpecs.ts` i `scripts/parametry-braki.ts`.
 - **(Biznes, seed, BZ-R1)** krok „products K4 polecane/podobne” aktualizuje przy każdym przebiegu 2 karty (`lenovo-thinkstation-p3-tower-gen-2`, `dell-ultrasharp-32-qd-oled-u3226q`) — etykiety/kolejność polecanych nadpisuje inny krok; seed nie jest tu idempotentny (było przed BZ-R1).
 - **(Biznes, BZ-R1 PR 3, przegląd)** `getPartnerNetworks` bez `cacheQuery` (jak `getPartnerStatuses`) — zapytanie przy każdym renderze hero/BzFacts/O firmie; przy wzroście ruchu dodać cache z tagiem partnerów.

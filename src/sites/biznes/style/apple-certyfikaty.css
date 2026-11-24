@@ -1,6 +1,6 @@
 /*
- * Home page: „Apple dla firm i instytucji” and „Certyfikaty” (`AppleCertificates`, boss consent
- * 23.11.2026), after the brands. Built on the `.zh` variables of `zaopatrzenie-home.css` (the navy
+ * „Apple dla firm i instytucji” in the Apple salon (`AppleBusiness`) and „Certyfikaty” on
+ * `/o-firmie` (`CertificatesGallery`; boss consent 23.11.2026, off the home page since 24.11). Built on the `.zh` variables of `zaopatrzenie-home.css` (the navy
  * of the procurement cards, its glows and dot grid): the band is navy in both themes, the
  * certificate cards follow the theme, and the document scans sit on white paper in both.
  * Colours only from tokens; motion only transform/opacity, off with reduced motion.

@@ -15,6 +15,7 @@ import { getSharedData } from '@/lib/shared/getSharedData'
 import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { AboutNetwork, AboutStory, AboutValues } from './AboutStory'
+import { Certificates } from './Certificates'
 import { EmailDirectory } from './EmailDirectory'
 import {
   BranchNote,
@@ -126,6 +127,7 @@ export async function hubSlugPage(
           <>
             <AboutValues about={HUB_ABOUT} brands={settings.brands} network={network} />
             <AboutNetwork network={network} />
+            <Certificates biznesUrl={shared.lines.find((l) => l.key === 'biznes')?.url ?? null} />
           </>
         ),
         ...(settings.branch && {

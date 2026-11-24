@@ -1,11 +1,15 @@
 /*
- * Home page of pro-kom.eu: „Programy partnerskie i certyfikaty” (`Certificates`, boss consent
- * 23.11.2026), right after „Marki”. Left the current Apple programme as a dark stage in the
+ * `/o-firmie` of pro-kom.eu: „Programy partnerskie i certyfikaty” (`Certificates`, boss consent
+ * 23.11.2026; on the home page until 24.11), after the partner network. Left the current Apple programme as a dark stage in the
  * Biznes colour (dark in the light theme too — like the camera screens, `light.css`), right the
  * manufacturer statuses and trainings as a list with their years and document thumbnails on
  * white paper. Same rules as `home.css`: colours only from tokens, motion only `transform`.
  */
 
+.pk-cert-sect {
+  scroll-margin-top: 96px;
+  padding-block: clamp(48px, 7vw, 96px);
+}
 .pk-cert {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);

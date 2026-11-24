@@ -13,7 +13,6 @@ import type { SiteTenant } from '@/lib/tenant/byHost'
 
 import { HUB_CONTAINER } from '../container'
 import { Brands } from './Brands'
-import { Certificates } from './Certificates'
 import { Network } from './Network'
 import { Procurement } from './Procurement'
 import { Contact } from './Contact'
@@ -80,7 +79,6 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
   const pages = settings.pages
   const network = visibleNetwork(settings.brands, settings.trust)
   const live = (href: string) => (isHubLinkLive(href, pages) ? href : null)
-  const biznesUrl = shared?.lines.find((line) => line.key === 'biznes')?.url ?? null
 
   return (
     <div className="pk-home">
@@ -159,7 +157,6 @@ export async function HomePage({ tenant }: { tenant: SiteTenant }) {
               showNetwork={!(home.network && network)}
             />
           )}
-          <Certificates biznesUrl={biznesUrl} />
           <Coverage
             texts={home.coverage}
             company={shared.company}
