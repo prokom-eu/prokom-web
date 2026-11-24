@@ -13,7 +13,10 @@ import {
 import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 
-/** Anchor of the Apple band on the Biznes home page (`BzAppleCertificates`). */
+/**
+ * Anchor of the Apple band on the Biznes home page (`AppleCertificates`, rendered right after
+ * the `partners` block of the Biznes home — without that block the link lands on the page top).
+ */
 const BIZNES_APPLE = '/#apple-dla-firm'
 
 /**
@@ -35,7 +38,7 @@ export function Certificates({ biznesUrl }: { biznesUrl: string | null }) {
         <div className="pk-sect__intro">
           <span className="pk-eb">Programy partnerskie i certyfikaty</span>
           <h2 id="certyfikaty-h" className="pk-h2">
-            Producenci sprawdzili nas nie raz
+            Producenci sprawdzili nas nieraz
           </h2>
         </div>
         <p className="pk-lead pk-sect__aside">
