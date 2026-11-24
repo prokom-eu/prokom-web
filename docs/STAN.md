@@ -19,7 +19,8 @@ Instalacje: stan w docs/stan/STAN-instalacje.md (worktree prokom-instal, gałęz
 ### Programy partnerskie i certyfikaty (24.11, zgoda szefa 23.11) — folder `prokom-web-cert`
 - PR-y piętrowe: `feat/wsp-certyfikaty-dane` (dane `src/lib/partners/certificates.ts`, obrazy `public/certyfikaty/`, folder w `routing.ts`, okno `CertZoom` + `.cdlg` w `wspolne.css`) → `feat/hub-certyfikaty` (sekcja po „Marki i autoryzacje” na pro-kom.eu, spec §3) → `feat/biznes-apple-certyfikaty` (pas „Apple dla firm i instytucji” + „Certyfikaty” po markach na głównej prokombiznes.pl, `#apple-dla-firm`, `#certyfikaty`).
 - Teksty w kodzie (stała historia z dokumentów), bez migracji i pól w panelu. Wzór: prokomserwis.pl (`prokom-system`, `/o-firmie#certyfikaty`, `/apple#dla-firm`).
-- Następny krok: Krystian czyta diff i scala po kolei; wdrożenie na produkcję tylko za jego zgodą.
+- Scalone: #811 (dane, `CertZoom`), #812 (hub), #813 (Biznes: Apple + certyfikaty), #814 (Instalacje: dwa szkolenia Samsung 2018 na `/ekrany`). #815: „Samsung dla firm” (pas `#samsung-dla-firm` na Biznesie, karta w hubie; statusy Samsung tylko w czasie przeszłym, bez KME).
+- Wdrożenie: zgoda Krystiana z 24.11 na samodzielne scalanie i produkcję po zielonym CI, stagingu i Lighthouse.
 
 ### Runda 18.11 — pomysły szefa (plan z czatu, `docs/zadania/runda-1811.md`)
 - Dokumenty (PR `docs/runda-1811`): plan i prompty `docs/zadania/runda-1811.md`, wspólny kontrakt `docs/design/wspolne/MOTYW-PASEK-LINII.md`, ADR-028 (motyw: przycisk z napisem, Auto „w nocy ciemny”, wybór niesiony między domenami `?motyw=`), ADR-029 (katalog i salony marek Instalacji na silniku Biznesu, dane z Eltrox), plan treści `docs/tresci/instalacje-katalog-eltrox.md`, logo `seed/partnerzy/alsen.png`.
