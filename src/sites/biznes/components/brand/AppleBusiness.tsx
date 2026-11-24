@@ -48,6 +48,8 @@ export function AppleBusiness() {
     <section
       id="apple-dla-firm"
       aria-labelledby="apple-dla-firm-h"
+      data-rail-section="Apple dla firm"
+      data-rail-icon="brief"
       className="zh bzac scroll-mt-28"
     >
       <div className="bzac-stage" data-surface="dark">

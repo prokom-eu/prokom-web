@@ -267,6 +267,8 @@ export function SalonChooser({
     <section
       id="dobor"
       aria-labelledby="dobor-h"
+      data-rail-section="Dobór"
+      data-rail-icon="compass"
       // Phone: no panel, the question and the answers straight on the page (board App-Salon-*).
       className="grid scroll-mt-28 gap-6 rounded-[32px] bg-surface-2 p-5 max-md:gap-3 max-md:rounded-none max-md:bg-transparent max-md:p-0 min-[768px]:p-8 min-[960px]:grid-cols-2 min-[960px]:gap-8"
     >

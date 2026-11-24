@@ -903,7 +903,7 @@ a gałęzi) — w tej sesji.
 7. ~~**B11:** `/aktualnosci` budować od razu jako trasę wspólną dla linii, poza `(biznes)`.~~ — zrobione (B11a, #98: `NEWS_LINES` w `lib/posts/list.ts`; SW11b dopisuje `software` i swój wygląd w obu trasach).
 
 ## Pomysły na później (poza zakresem bieżących sesji)
-- (24.11, certyfikaty) Pasy „Apple dla firm” i „Samsung dla firm” w salonach nie mają pozycji w szynie sekcji salonu — dopisać, jeśli mają być w szynie. Ewentualnie teksty do panelu (migracja).
+- (24.11, certyfikaty) ZROBIONE: sekcje salonów (z pasami Apple i Samsung dla firm) są w szynie „Na tej stronie”. Ewentualnie teksty do panelu (migracja).
 - **(Biznes, BZ-R1 PR 2, przegląd)** `requiredSpecs` liczy wymagane parametry per kategoria — akcesoria tablic (FrameWings) trafiają na listę braków „Rozdzielczość/Złącza”, których nigdy nie będą miały. Sloty per podkategoria (np. `av/suchoscieralne-akcesoria`) w `requiredSpecs.ts` i `scripts/parametry-braki.ts`.
 - **(Biznes, seed, BZ-R1)** krok „products K4 polecane/podobne” aktualizuje przy każdym przebiegu 2 karty (`lenovo-thinkstation-p3-tower-gen-2`, `dell-ultrasharp-32-qd-oled-u3226q`) — etykiety/kolejność polecanych nadpisuje inny krok; seed nie jest tu idempotentny (było przed BZ-R1).
 - **(Biznes, BZ-R1 PR 3, przegląd)** `getPartnerNetworks` bez `cacheQuery` (jak `getPartnerStatuses`) — zapytanie przy każdym renderze hero/BzFacts/O firmie; przy wzroście ruchu dodać cache z tagiem partnerów.

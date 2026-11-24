@@ -423,6 +423,8 @@ export function SalonPlans({
     <section
       id={id}
       aria-labelledby={`${id}-h`}
+      data-rail-section={section.title ?? 'Polecane modele'}
+      data-rail-icon="box"
       className="flex scroll-mt-28 flex-col gap-8 max-md:gap-4"
     >
       <SectionHead
@@ -469,6 +471,8 @@ export function SalonPlans({
 /** Dark panel of the service (green tint) or of the rollout (orange tint). */
 function DarkPanel({
   id,
+  railLabel,
+  railIcon,
   tone,
   eyebrow,
   title,
@@ -477,6 +481,9 @@ function DarkPanel({
   children,
 }: {
   id: string
+  /** Label and icon of the section in the side rail („Na tej stronie”). */
+  railLabel: string
+  railIcon: string
   tone: 'ok' | 'warn'
   eyebrow: string
   title: string
@@ -486,9 +493,12 @@ function DarkPanel({
 }) {
   return (
     <section
+      id={id}
       aria-labelledby={`${id}-h`}
+      data-rail-section={railLabel}
+      data-rail-icon={railIcon}
       data-surface="dark"
-      className="relative overflow-hidden rounded-[32px] bg-surface-dark px-5 py-9 text-white ring-1 ring-white/10 ring-inset max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 min-[768px]:px-12 min-[768px]:py-12"
+      className="relative scroll-mt-28 overflow-hidden rounded-[32px] bg-surface-dark px-5 py-9 text-white ring-1 ring-white/10 ring-inset max-md:rounded-[24px] max-md:px-[18px] max-md:py-6 min-[768px]:px-12 min-[768px]:py-12"
     >
       <span
         aria-hidden="true"
@@ -560,6 +570,8 @@ export function SalonService({
   return (
     <DarkPanel
       id="serwis"
+      railLabel="Serwis"
+      railIcon="wrench"
       tone="ok"
       eyebrow="Serwis"
       title={service.title ?? 'Serwis'}
@@ -590,6 +602,8 @@ export function SalonRollout({ rollout }: { rollout: NonNullable<SalonView['roll
   return (
     <DarkPanel
       id="wdrozenie"
+      railLabel="Wdrożenie"
+      railIcon="rocket"
       tone="warn"
       eyebrow="Wdrożenia"
       title={rollout.title ?? 'Wdrożenie'}
@@ -635,7 +649,13 @@ export function SalonAbout({
 }) {
   const [first, ...rest] = about.paragraphs
   return (
-    <section aria-labelledby="o-marce-h" className="flex flex-col gap-6 max-md:gap-4">
+    <section
+      id="o-marce"
+      aria-labelledby="o-marce-h"
+      data-rail-section="O marce"
+      data-rail-icon="info"
+      className="flex scroll-mt-28 flex-col gap-6 max-md:gap-4"
+    >
       <div className="flex flex-col gap-3">
         <div className="max-md:hidden">
           <Eyebrow>O marce</Eyebrow>
@@ -726,8 +746,11 @@ export function SalonFaq({
 }) {
   return (
     <section
+      id="pytania"
       aria-labelledby="pytania-h"
-      className="grid gap-8 min-[1080px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] min-[1080px]:items-start"
+      data-rail-section="Pytania"
+      data-rail-icon="q"
+      className="grid scroll-mt-28 gap-8 min-[1080px]:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] min-[1080px]:items-start"
     >
       <div className="flex flex-col gap-5 max-md:gap-3">
         <div className="flex flex-col gap-3">
