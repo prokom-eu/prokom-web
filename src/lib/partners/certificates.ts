@@ -147,3 +147,41 @@ export const APPLE_PROGRAMS: readonly AppleProgram[] = [
 /** Says what the Apple programmes are — next to them wherever they are shown. */
 export const APPLE_PROGRAM_NOTE =
   'Partner programu iLeader dystrybutora AB. DEP, CTO i AppleCare+ dotyczą sprzedaży i wdrożeń sprzętu Apple.'
+
+export type SamsungOffer = {
+  key: 'galaxy' | 'knox' | 'naprawy'
+  title: string
+  lead: string
+  text: string
+}
+
+/**
+ * „Samsung dla firm” (Krystian 24.11.2026): what we do with Samsung for companies today — Galaxy
+ * for a team, Samsung Knox with an MDM system, repairs at PRO-KOM Tech. We are not a Samsung
+ * partner today: the statuses are history (`SAMSUNG_HISTORY`), never in the present tense, and no
+ * Samsung programme that nobody confirmed (e.g. Knox Mobile Enrollment) is promised.
+ */
+export const SAMSUNG_OFFERS: readonly SamsungOffer[] = [
+  {
+    key: 'galaxy',
+    title: 'Galaxy dla zespołu',
+    lead: 'Telefony i tablety dobrane do pracy',
+    text: 'Dobierzemy smartfony i tablety Galaxy do pracy w biurze, w terenie i na sali sprzedaży. Przygotujemy je do pracy i przekażemy zespołowi gotowe do użycia.',
+  },
+  {
+    key: 'knox',
+    title: 'Samsung Knox',
+    lead: 'Bezpieczeństwo i zarządzanie urządzeniami',
+    text: 'Skonfigurujemy zabezpieczenia Knox i zarządzanie służbowymi urządzeniami przez system MDM: blokada zgubionego telefonu, aktualizacje, aplikacje i dane firmy oddzielone od prywatnych.',
+  },
+  {
+    key: 'naprawy',
+    title: 'Naprawy Samsung',
+    lead: 'W salonie PRO-KOM Tech',
+    text: 'Uszkodzony telefon albo tablet Galaxy naprawimy w salonie PRO-KOM Tech w Rabce-Zdroju. Bezpłatna diagnoza i wycena, naprawy też kurierem.',
+  },
+]
+
+/** The Samsung partner statuses, always in the past tense with their years. */
+export const SAMSUNG_HISTORY =
+  'W latach 2022–2024 byliśmy certyfikowanym partnerem Samsung w obszarze KNOX i urządzeń mobilnych (GOLD Mobility 2022, Mobile Experience SILVER 2023–2024).'

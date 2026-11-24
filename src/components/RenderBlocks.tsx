@@ -47,6 +47,7 @@ import { SwPageHero } from '@/sites/software/components/SwPageHero'
 import { SwRichText } from '@/sites/software/components/SwRichText'
 import { AppleCertificates } from '@/sites/biznes/components/home/AppleCertificates'
 import { BrandsHome } from '@/sites/biznes/components/home/BrandsHome'
+import { SamsungBusiness } from '@/sites/biznes/components/home/SamsungBusiness'
 import { FaqBiznes } from '@/sites/biznes/components/home/FaqBiznes'
 import { InstArchitectsBlock } from '@/sites/instalacje/blocks/InstArchitects/Component'
 import { InstContactBlock } from '@/sites/instalacje/blocks/InstContact/Component'
@@ -201,7 +202,7 @@ export function RenderBlocks({ page, tenant }: Props) {
             return page.slug === HOME_SLUG ? (
               <Fragment key={key}>
                 <BrandsHome block={block} tenantId={tenant.id} />
-                <AppleCertificates />
+                <AppleCertificates samsung={<SamsungBusiness tenantId={tenant.id} />} />
               </Fragment>
             ) : (
               <BrandsHome key={key} block={block} tenantId={tenant.id} />

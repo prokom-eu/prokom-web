@@ -140,6 +140,92 @@
   outline-offset: 3px;
 }
 
+/* --- Samsung for companies: a lighter card under the Apple stage ---------------------------- */
+.pk-cert__col {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+.pk-cert__col .pk-cert__now {
+  flex: 1;
+}
+.pk-cert__sam {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--ln) 26%, var(--w09));
+  border-radius: 24px;
+  padding: 22px 24px 20px;
+  background:
+    radial-gradient(
+      70% 90% at 100% 0%,
+      color-mix(in srgb, var(--ln) 16%, transparent),
+      transparent 70%
+    ),
+    var(--k-card);
+}
+.pk-cert__sam-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pk-cert__sam-kick {
+  order: 2;
+  color: var(--ln-text);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pk-cert__sam-brand {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3vw, 40px);
+  font-stretch: 118%;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.pk-cert__sam-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.pk-cert__sam-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border: 1px solid var(--w09);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: var(--w03);
+}
+.pk-cert__sam-list b {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.pk-cert__sam-list span {
+  color: var(--k-ink3);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.pk-cert__sam .pk-cert__note {
+  margin-top: 0;
+  color: var(--k-ink3);
+}
+.pk-cert__sam .pk-cert__link:hover {
+  background: color-mix(in srgb, var(--ln) 12%, transparent);
+}
+[data-line='prokom'][data-theme='light'] .pk-cert__sam {
+  border-color: var(--lt-hair);
+  box-shadow: var(--lt-elev-1);
+}
+
 /* --- History: statuses and trainings --------------------------------------------------------- */
 .pk-cert__past {
   display: flex;
@@ -281,6 +367,12 @@
   }
 }
 @media (max-width: 559px) {
+  .pk-cert__sam {
+    padding: 18px 16px 16px;
+  }
+  .pk-cert__sam-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .pk-cert__now {
     padding: 22px 18px 18px;
   }
@@ -308,4 +400,12 @@
   .pk-cert__thumb:hover {
     transform: none;
   }
+}
+
+/* The list fills the column next to the Apple and Samsung cards, rows evenly apart. */
+.pk-cert__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
 }

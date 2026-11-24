@@ -8,6 +8,8 @@ import {
   CERTIFICATES,
   CERTIFICATES_SPAN,
   certificateLabel,
+  SAMSUNG_HISTORY,
+  SAMSUNG_OFFERS,
 } from '@/lib/partners/certificates'
 
 import { HUB_CONTAINER } from '../container'
@@ -18,6 +20,8 @@ import { lineStyle } from '../lineColors'
  * the `partners` block of the Biznes home — without that block the link lands on the page top).
  */
 const BIZNES_APPLE = '/#apple-dla-firm'
+/** Anchor of the Samsung band on the Biznes home page (`SamsungBusiness`). */
+const BIZNES_SAMSUNG = '/#samsung-dla-firm'
 
 /**
  * „Programy partnerskie i certyfikaty” (boss consent 23.11.2026), right after „Marki i
@@ -47,28 +51,51 @@ export function Certificates({ biznesUrl }: { biznesUrl: string | null }) {
         </p>
       </div>
       <div className="pk-cert">
-        <div className="pk-cert__now" style={lineStyle('biznes')}>
-          <span className="pk-cert__live">
-            <i aria-hidden="true" />
-            Aktualnie
-          </span>
-          <p className="pk-cert__brand">
-            Apple <span>program iLeader · AB</span>
-          </p>
-          <ul className="pk-cert__programs" role="list">
-            {APPLE_PROGRAMS.map((program) => (
-              <li key={program.key}>
-                <b>{program.title}</b>
-                <span>{program.lead}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="pk-cert__note">{APPLE_PROGRAM_NOTE}</p>
-          {biznesUrl && (
-            <a href={`${biznesUrl}${BIZNES_APPLE}`} className="pk-cert__link">
-              Apple dla firm na prokombiznes.pl <span aria-hidden="true">↗</span>
-            </a>
-          )}
+        <div className="pk-cert__col">
+          <div className="pk-cert__now" style={lineStyle('biznes')}>
+            <span className="pk-cert__live">
+              <i aria-hidden="true" />
+              Aktualnie
+            </span>
+            <p className="pk-cert__brand">
+              Apple <span>program iLeader · AB</span>
+            </p>
+            <ul className="pk-cert__programs" role="list">
+              {APPLE_PROGRAMS.map((program) => (
+                <li key={program.key}>
+                  <b>{program.title}</b>
+                  <span>{program.lead}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="pk-cert__note">{APPLE_PROGRAM_NOTE}</p>
+            {biznesUrl && (
+              <a href={`${biznesUrl}${BIZNES_APPLE}`} className="pk-cert__link">
+                Apple dla firm na prokombiznes.pl <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+          {/* Samsung for companies (24.11): what we do today, never a current partner status. */}
+          <div className="pk-cert__sam" style={lineStyle('biznes')}>
+            <div className="pk-cert__sam-top">
+              <span className="pk-cert__sam-kick">Dla firm</span>
+              <p className="pk-cert__sam-brand">Samsung</p>
+            </div>
+            <ul className="pk-cert__sam-list" role="list">
+              {SAMSUNG_OFFERS.map((offer) => (
+                <li key={offer.key}>
+                  <b>{offer.title}</b>
+                  <span>{offer.lead}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="pk-cert__note">{SAMSUNG_HISTORY}</p>
+            {biznesUrl && (
+              <a href={`${biznesUrl}${BIZNES_SAMSUNG}`} className="pk-cert__link">
+                Samsung dla firm na prokombiznes.pl <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
         </div>
         <CertZoom items={CERTIFICATES} className="pk-cert__past">
           <p className="pk-cert__past-head">
