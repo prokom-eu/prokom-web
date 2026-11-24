@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -39,6 +40,8 @@ type Props = {
   networks?: readonly PartnerNetwork[]
   /** All brands of the catalog (the „+ N marek” tile). */
   brandTotal: number
+  /** „Certyfikaty” after the brands (`CertificatesGallery`, 24.11). */
+  certificates?: ReactNode
 }
 
 const FOCUS_DARK =
@@ -92,6 +95,7 @@ export function BzAboutView({
   others,
   networks = [],
   brandTotal,
+  certificates,
 }: Props) {
   const { company, lines } = shared
   const about = shared.line.about ?? {}
@@ -559,6 +563,8 @@ export function BzAboutView({
           <p className="mt-3 text-[12px] text-ink-2">Logotypy należą do ich właścicieli.</p>
         </section>
       )}
+
+      {certificates}
 
       {/* 5. Steps */}
       {steps.length > 0 && (

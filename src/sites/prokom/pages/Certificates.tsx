@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { CertZoom } from '@/components/shared/CertZoom'
+import { PAGE_CONTAINER } from '@/components/shared/pageContainer'
 import { Icon } from '@/components/ui/Icon'
 import {
   APPLE_PROGRAM_NOTE,
@@ -12,20 +13,15 @@ import {
   SAMSUNG_OFFERS,
 } from '@/lib/partners/certificates'
 
-import { HUB_CONTAINER } from '../container'
 import { lineStyle } from '../lineColors'
 
-/**
- * Anchor of the Apple band on the Biznes home page (`AppleCertificates`, rendered right after
- * the `partners` block of the Biznes home — without that block the link lands on the page top).
- */
-const BIZNES_APPLE = '/#apple-dla-firm'
-/** Anchor of the Samsung band on the Biznes home page (`SamsungBusiness`). */
-const BIZNES_SAMSUNG = '/#samsung-dla-firm'
+/** The bands for companies in the Biznes salons (`AppleBusiness`, `SamsungBusiness`). */
+const BIZNES_APPLE = '/marki/apple#apple-dla-firm'
+const BIZNES_SAMSUNG = '/marki/samsung#samsung-dla-firm'
 
 /**
- * „Programy partnerskie i certyfikaty” (boss consent 23.11.2026), right after „Marki i
- * autoryzacje”: the current Apple iLeader programme (AB distributor) in the Biznes colour — it is
+ * „Programy partnerskie i certyfikaty” on the hub `/o-firmie` (boss consent 23.11.2026; moved off
+ * the home page — Krystian 24.11.2026), after the partner network: the current Apple iLeader programme (AB distributor) in the Biznes colour — it is
  * about selling and deploying Apple hardware for companies, so it leads to prokombiznes.pl — and
  * the manufacturer statuses and trainings as history with their years; a thumbnail opens the
  * document. Apple is a word, never its logo; nothing here says „autoryzowany serwis Apple”.
@@ -36,7 +32,7 @@ export function Certificates({ biznesUrl }: { biznesUrl: string | null }) {
       id="certyfikaty"
       data-rail-section
       aria-labelledby="certyfikaty-h"
-      className={`pk-sect ${HUB_CONTAINER}`}
+      className={`pk-sect pk-cert-sect ${PAGE_CONTAINER}`}
     >
       <div className="pk-sect__head">
         <div className="pk-sect__intro">

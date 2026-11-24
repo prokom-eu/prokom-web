@@ -23,6 +23,7 @@ import { getSiteSettings } from '@/lib/site/data'
 import { toTelHref } from '@/lib/site/link'
 import { isValidSlug } from '@/lib/tenant/uniqueSlug'
 import type { Crumb } from '@/sites/biznes/components/Breadcrumbs'
+import { AppleBusiness } from '@/sites/biznes/components/brand/AppleBusiness'
 import { BrandAbout, BrandCta, BrandHero } from '@/sites/biznes/components/brand/BrandSections'
 import { SalonChooser, SalonFamily } from '@/sites/biznes/components/brand/salon/SalonClient'
 import {
@@ -35,11 +36,16 @@ import {
   SalonService,
   SectionHead,
 } from '@/sites/biznes/components/brand/salon/SalonSections'
+import { SamsungBusiness } from '@/sites/biznes/components/brand/SamsungBusiness'
 import { CategoryGrid } from '@/sites/biznes/components/category/CategoryGrid'
 
 import { requestOrigin, requireCatalogTenant } from '../../../tenant'
 
 type Props = { params: Promise<{ domain: string; slug: string }> }
+
+/** Salons with a band for companies (`AppleBusiness`, `SamsungBusiness`). */
+const APPLE_SALON = 'apple'
+const SAMSUNG_SALON = 'samsung'
 
 /** Logo width in JSON-LD: the original file when it is no larger. */
 const JSON_LD_LOGO_WIDTH = 600
@@ -183,7 +189,8 @@ function islandIndex(index: CatalogIndex, products: CatalogIndex['products']): C
 
 /**
  * Salon 2.0 (K4-FINAL §6, board „SALON MARKI 2.0”): hero → recommended models with the table →
- * more models → full offer → „Pomóż mi wybrać” → service → rollout → about the brand → FAQ.
+ * more models → full offer → „Pomóż mi wybrać” → service → rollout → about the brand → the band
+ * for companies (Apple, Samsung) → FAQ.
  * A block without data has no section.
  */
 async function Salon({
@@ -282,6 +289,9 @@ async function Salon({
         {view.service && <SalonService service={view.service} phone={phone} />}
         {view.rollout && <SalonRollout rollout={view.rollout} />}
         {view.about && <SalonAbout about={view.about} headings={view.headings} />}
+        {/* „Apple dla firm” / „Samsung dla firm” for companies (24.11), before the questions. */}
+        {view.slug === APPLE_SALON && <AppleBusiness />}
+        {view.slug === SAMSUNG_SALON && <SamsungBusiness tenantId={tenantId} />}
         <SalonFaq
           faq={view.faq}
           headings={view.headings}
