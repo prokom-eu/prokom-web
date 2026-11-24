@@ -13,12 +13,10 @@ import {
   CERTIFICATES_SPAN,
   certificateLabel,
 } from '@/lib/partners/certificates'
+import { CONTACT_PATH } from '@/lib/biznes/mobileNav'
 import { BZ_H2, BZ_LEAD } from '@/sites/biznes/typography'
 
 import { SplitHead } from './SplitHead'
-
-/** Contact page of Biznes (seed `CONTACT_SLUG`) — one form for every question (ADR-003). */
-const CONTACT = '/kontakt'
 
 /** Line icons of the programmes, drawn like `Icon` (24 × 24, stroke). */
 const PROGRAM_ICON: Record<AppleProgram['key'], string> = {
@@ -61,76 +59,84 @@ function ProgramIcon({ name }: { name: AppleProgram['key'] }) {
  */
 export function AppleCertificates() {
   return (
-    <section
-      id="apple-dla-firm"
-      aria-labelledby="apple-dla-firm-h"
-      className="zh bzac scroll-mt-24 py-6 md:py-20"
-    >
-      <Container wide>
-        <div className="bzac-stage" data-surface="dark">
-          <div className="bzac-top">
-            <div className="bzac-head">
-              <span className="zh-badge">
-                <i aria-hidden="true" />
-                Apple dla firm i instytucji
-              </span>
-              <h2 id="apple-dla-firm-h" className={`${BZ_H2} bzac-h`}>
-                Maki, iPhone’y i iPady <em>gotowe do pracy od pierwszego dnia.</em>
-              </h2>
-              <p className={`${BZ_LEAD} bzac-lead`}>
-                Dla biur, szkół i urzędów: dobierzemy sprzęt Apple, zamówimy go w potrzebnej
-                konfiguracji, przygotujemy do wdrożenia z MDM i dodamy ochronę Apple.
-              </p>
-              <div className="bzac-actions">
-                <Link href={CONTACT} className="zh-btn">
-                  Zapytaj o Apple dla firmy
-                  <Icon name="arrow" strokeWidth={2.4} className="size-4" />
-                </Link>
-                <span className="bzac-partner">Partner programu iLeader · AB</span>
+    <>
+      <section
+        id="apple-dla-firm"
+        aria-labelledby="apple-dla-firm-h"
+        className="zh bzac scroll-mt-24 pt-6 pb-10 md:pt-20 md:pb-16"
+      >
+        <Container wide>
+          <div className="bzac-stage" data-surface="dark">
+            <div className="bzac-top">
+              <div className="bzac-head">
+                <span className="zh-badge">
+                  <i aria-hidden="true" />
+                  Apple dla firm i instytucji
+                </span>
+                <h2 id="apple-dla-firm-h" className={`${BZ_H2} bzac-h`}>
+                  Maki, iPhone’y i iPady <em>gotowe do pracy od pierwszego dnia.</em>
+                </h2>
+                <p className={`${BZ_LEAD} bzac-lead`}>
+                  Dla biur, szkół i urzędów: dobierzemy sprzęt Apple, zamówimy go w potrzebnej
+                  konfiguracji, przygotujemy do wdrożenia z MDM i dodamy ochronę Apple.
+                </p>
+                <div className="bzac-actions">
+                  <Link href={CONTACT_PATH} className="zh-btn">
+                    Zapytaj o Apple dla firmy
+                    <Icon name="arrow" strokeWidth={2.4} className="size-4" />
+                  </Link>
+                  <span className="bzac-partner">Partner programu iLeader · AB</span>
+                </div>
               </div>
+              <figure className="bzac-flow" aria-labelledby="bzac-flow-cap">
+                <figcaption id="bzac-flow-cap" className="bzac-flow-cap">
+                  Wdrożenie z DEP, krok po kroku
+                </figcaption>
+                <ol className="bzac-steps">
+                  {DEP_FLOW.map((step, i) => (
+                    <li key={step.title} style={{ '--i': i } as CSSProperties}>
+                      <span className="bzac-dot" aria-hidden="true">
+                        {i + 1}
+                      </span>
+                      <span className="bzac-step">
+                        <b>{step.title}</b>
+                        <span>{step.text}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+                <p className="bzac-done">
+                  <Icon name="check" strokeWidth={2.6} className="size-4" />
+                  Bez ręcznej konfiguracji każdego urządzenia
+                </p>
+              </figure>
             </div>
-            <figure className="bzac-flow" aria-labelledby="bzac-flow-cap">
-              <figcaption id="bzac-flow-cap" className="bzac-flow-cap">
-                Wdrożenie z DEP, krok po kroku
-              </figcaption>
-              <ol className="bzac-steps">
-                {DEP_FLOW.map((step, i) => (
-                  <li key={step.title} style={{ '--i': i } as CSSProperties}>
-                    <span className="bzac-dot" aria-hidden="true">
-                      {i + 1}
-                    </span>
-                    <span className="bzac-step">
-                      <b>{step.title}</b>
-                      <span>{step.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <p className="bzac-done">
-                <Icon name="check" strokeWidth={2.6} className="size-4" />
-                Bez ręcznej konfiguracji każdego urządzenia
-              </p>
-            </figure>
+            <ul className="bzac-cards" data-reveal-cards="">
+              {APPLE_PROGRAMS.map((program, i) => (
+                <li key={program.key} className="bzac-card">
+                  <span className="bzac-ico">
+                    <ProgramIcon name={program.key} />
+                  </span>
+                  <span className="bzac-num" aria-hidden="true">
+                    0{i + 1}
+                  </span>
+                  <h3 className="bzac-title">{program.title}</h3>
+                  <p className="bzac-sub">{program.lead}</p>
+                  <p className="bzac-text">{program.text}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="bzac-note">{APPLE_PROGRAM_NOTE}</p>
           </div>
-          <ul className="bzac-cards" data-reveal-cards="">
-            {APPLE_PROGRAMS.map((program, i) => (
-              <li key={program.key} className="bzac-card">
-                <span className="bzac-ico">
-                  <ProgramIcon name={program.key} />
-                </span>
-                <span className="bzac-num" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <h3 className="bzac-title">{program.title}</h3>
-                <p className="bzac-sub">{program.lead}</p>
-                <p className="bzac-text">{program.text}</p>
-              </li>
-            ))}
-          </ul>
-          <p className="bzac-note">{APPLE_PROGRAM_NOTE}</p>
-        </div>
-
-        <div id="certyfikaty" className="bzac-certs scroll-mt-24">
+        </Container>
+      </section>
+      {/* A section of its own: Samsung and Dell are not part of the Apple band (reviewer). */}
+      <section
+        id="certyfikaty"
+        aria-labelledby="certyfikaty-h"
+        className="zh bzac-certs scroll-mt-24 pb-6 md:pb-20"
+      >
+        <Container wide>
           <SplitHead
             id="certyfikaty-h"
             eyebrow="Certyfikaty"
@@ -138,7 +144,7 @@ export function AppleCertificates() {
             lead={`Statusy partnerskie i szkolenia Samsunga i Della z lat ${CERTIFICATES_SPAN}, z datami z dokumentów. Kliknij miniaturę, żeby obejrzeć dokument.`}
           />
           <CertZoom items={CERTIFICATES}>
-            <ul className="bzac-grid" aria-labelledby="certyfikaty-h" data-reveal-cards="">
+            <ul className="bzac-grid" data-reveal-cards="">
               {CERTIFICATES.map((item) => (
                 <li key={item.id} className="bzac-cert">
                   <button
@@ -167,8 +173,8 @@ export function AppleCertificates() {
               ))}
             </ul>
           </CertZoom>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   )
 }

@@ -222,9 +222,6 @@
 }
 
 /* --- Certificates ----------------------------------------------------------------------------- */
-.bzac-certs {
-  margin-top: clamp(40px, 5vw, 72px);
-}
 .bzac-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
