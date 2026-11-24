@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -57,13 +57,13 @@ function ProgramIcon({ name }: { name: AppleProgram['key'] }) {
  * history with their years, a thumbnail opens the document (`CertZoom`). Server-rendered; the
  * only script is the document window.
  */
-export function AppleCertificates() {
+export function AppleCertificates({ samsung }: { samsung?: ReactNode }) {
   return (
     <>
       <section
         id="apple-dla-firm"
         aria-labelledby="apple-dla-firm-h"
-        className="zh bzac scroll-mt-24 pt-6 pb-10 md:pt-20 md:pb-16"
+        className="zh bzac scroll-mt-24 pt-6 pb-6 md:pt-20 md:pb-8"
       >
         <Container wide>
           <div className="bzac-stage" data-surface="dark">
@@ -130,6 +130,7 @@ export function AppleCertificates() {
           </div>
         </Container>
       </section>
+      {samsung}
       {/* A section of its own: Samsung and Dell are not part of the Apple band (reviewer). */}
       <section
         id="certyfikaty"

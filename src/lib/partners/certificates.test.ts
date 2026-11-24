@@ -9,6 +9,8 @@ import {
   CERTIFICATES,
   CERTIFICATES_SPAN,
   certificateLabel,
+  SAMSUNG_HISTORY,
+  SAMSUNG_OFFERS,
 } from './certificates'
 
 describe('certificates (boss consent 23.11.2026)', () => {
@@ -61,5 +63,26 @@ describe('Apple programmes (iLeader, AB — sales and deployments only)', () => 
     expect(texts).not.toMatch(/autoryz|serwis/i)
     expect(APPLE_PROGRAM_NOTE).toContain('iLeader')
     expect(APPLE_PROGRAM_NOTE).toContain('AB')
+  })
+})
+
+describe('Samsung for companies (24.11 — not a Samsung partner today)', () => {
+  const offers = SAMSUNG_OFFERS.flatMap((item) => [item.title, item.lead, item.text]).join(' ')
+
+  it('are Galaxy, Knox and repairs', () => {
+    expect(SAMSUNG_OFFERS.map((item) => item.key)).toEqual(['galaxy', 'knox', 'naprawy'])
+  })
+
+  it('never claim a current Samsung partnership, authorisation or unconfirmed programme', () => {
+    for (const text of [offers, SAMSUNG_HISTORY]) {
+      expect(text).not.toMatch(
+        /autoryz|jesteśmy\s+(certyfikowanym\s+)?partner|mobile enrollment|KME/i,
+      )
+    }
+    expect(offers).not.toMatch(/partner/i)
+  })
+
+  it('states the statuses in the past tense with their years', () => {
+    expect(SAMSUNG_HISTORY).toMatch(/^W latach 2022–2024 byliśmy /)
   })
 })
